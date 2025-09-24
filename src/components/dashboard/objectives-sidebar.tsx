@@ -31,11 +31,13 @@ export default function ObjectivesSidebar({ tasks: initialTasks }: ObjectivesSid
   };
 
   useEffect(() => {
-    // This is just a mock effect to show a task as completed.
-    // In a real app, this would be triggered by user action.
     const firstPending = initialTasks.find(t => t.status === 'pending');
     if (firstPending) {
-      const timer = setTimeout(() => handleCompleteTask(firstPending.id), 1000);
+      const timer = setTimeout(() => {
+        if (document.visibilityState === 'visible') {
+            handleCompleteTask(firstPending.id)
+        }
+      }, 1000);
       return () => clearTimeout(timer);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -48,7 +50,7 @@ export default function ObjectivesSidebar({ tasks: initialTasks }: ObjectivesSid
   return (
     <Card className="h-full bg-transparent border-0 shadow-none">
       <CardHeader className="px-2">
-        <CardTitle className="font-bold text-xl text-foreground">What's your goal?</CardTitle>
+        <CardTitle className="font-bold text-xl text-foreground">Lista de Misiones</CardTitle>
       </CardHeader>
       <CardContent className="px-2">
         <div className="space-y-3">
