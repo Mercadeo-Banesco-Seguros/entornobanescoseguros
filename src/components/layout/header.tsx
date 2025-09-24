@@ -12,7 +12,7 @@ export default function Header() {
   return (
     <header className="bg-primary text-primary-foreground">
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-24">
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center space-x-3 text-white hover:text-white/90 transition-colors">
               <Image 
