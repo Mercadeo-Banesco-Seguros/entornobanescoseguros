@@ -53,10 +53,8 @@ export default function RankingPage() {
   const sortedUsers = [...users].sort((a, b) => b.xp - a.xp);
   const myRank = sortedUsers.findIndex(u => u.id === me.id) + 1;
 
-  const getAvatarIcon = (userName: string) => {
-    const user = users.find(u => u.name === userName);
-    if (!user) return null;
-    const avatarData = avatars.find(av => av.name === user.avatar);
+  const getAvatarIcon = (level: number) => {
+    const avatarData = avatars.find(av => av.level === level);
     return avatarData ? <avatarData.Icon className="h-6 w-6 text-primary" /> : null;
   };
 
@@ -74,7 +72,7 @@ export default function RankingPage() {
               <span className="text-2xl font-bold text-primary">#{myRank}</span>
               <div className="flex items-center gap-3">
                  <div className="p-2 bg-secondary rounded-full">
-                    {getAvatarIcon(me.name)}
+                    {getAvatarIcon(me.level)}
                  </div>
                 <div>
                   <p className="font-bold text-lg text-foreground">{me.name} (Tú)</p>
@@ -105,7 +103,7 @@ export default function RankingPage() {
                   <TableCell>
                     <div className="flex items-center gap-4">
                         <div className="p-2 bg-secondary rounded-full">
-                            {getAvatarIcon(user.name)}
+                            {getAvatarIcon(user.level)}
                         </div>
                       <div>
                         <p className="font-semibold text-foreground">{user.name}</p>

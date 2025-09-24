@@ -36,7 +36,7 @@ export default function TasksPage() {
   const pendingTasks = tasks.filter((task) => task.status === "pending");
   const completedTasks = tasks.filter((task) => task.status === "completed");
 
-  const TaskList = ({ tasks }: { tasks: typeof pendingTasks | typeof completedTasks | typeof tasks }) => (
+  const TaskList = ({ tasks }: { tasks: typeof tasks }) => (
     <Accordion type="single" collapsible className="w-full space-y-2">
       {tasks.length > 0 ? (
         tasks.map((task) => (

@@ -1,7 +1,7 @@
 import type { LucideIcon } from 'lucide-react';
 
 export type User = {
-  id: number;
+  id: number; // Suponiendo que el script lo genera
   name: string;
   email: string;
   level: number;
@@ -9,14 +9,8 @@ export type User = {
   avatar: string;
 };
 
-export type Level = {
-  id: number;
-  name: string;
-  xpThreshold: number;
-  worldName: string;
-  avatarName: string;
-  worldImageId: string;
-};
+// Ya no necesitamos una entidad Level separada, la información está en User
+// y en la propia Task.
 
 export type TaskStatus = 'completed' | 'pending';
 
@@ -26,7 +20,8 @@ export type Task = {
   description: string;
   level: number;
   xp: number;
-  status: TaskStatus;
+  // El status será determinado dinámicamente
+  status?: TaskStatus;
 };
 
 export type Avatar = {
@@ -42,9 +37,8 @@ export type NavLink = {
   icon: LucideIcon;
 };
 
-export type AppData = {
-  users: User[];
-  tasks: Task[];
-  levels: Level[];
-  avatars: { id: number; name: string; level: number; }[];
-}
+// AppData se simplifica, ya no traerá Levels y Avatars como listas separadas
+export type AppDataFromSheet = {
+  users: Omit<User, 'id'>[]; // El script no necesita devolver 'id'
+  tasks: Omit<Task, 'status'>[];
+};

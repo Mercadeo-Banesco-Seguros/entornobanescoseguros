@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 
 export default function DashboardPage() {
-  const { currentUser, levels, tasks, avatars, loading, users } = useAuth();
+  const { currentUser, levels, tasks, avatars, loading } = useAuth();
 
   if (loading) {
     return (
@@ -52,6 +52,8 @@ export default function DashboardPage() {
   if (!userLevel) {
     return <div>Error: Nivel de usuario no encontrado.</div>;
   }
+  
+  // Mostrar solo las misiones del nivel actual del usuario
   const levelTasks = tasks.filter(t => t.level === currentUser.level);
 
   return (
