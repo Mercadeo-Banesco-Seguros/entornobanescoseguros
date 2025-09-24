@@ -29,7 +29,7 @@ export default function AvatarEvolution({ currentUser, avatars }: AvatarEvolutio
             </div>
         )}
         
-        <div className="flex items-end justify-center space-x-4 w-full">
+        <div className="flex items-start justify-center space-x-4 w-full">
           {allAvatars.map(avatar => {
             const isUnlocked = avatar.level <= currentUser.level;
             return (
@@ -42,7 +42,7 @@ export default function AvatarEvolution({ currentUser, avatars }: AvatarEvolutio
                   {isUnlocked ? (
                     <CircleCheck className="h-5 w-5 text-green-500" />
                   ) : (
-                    <Lock className="h-3 w-3 text-muted" />
+                    <Lock className="h-5 w-5 text-muted" />
                   )}
               </div>
             )
