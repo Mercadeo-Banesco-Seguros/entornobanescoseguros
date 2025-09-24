@@ -16,7 +16,7 @@ export default function Header() {
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center space-x-3 text-white hover:text-white/90 transition-colors">
               <Logo />
-              <span className="font-bold text-2xl hidden sm:inline tracking-widest">CONECTAD2S</span>
+              <span className="font-bold text-2xl hidden sm:inline tracking-tighter">CONECTAD2S</span>
             </Link>
           </div>
           <div className="hidden md:block">
