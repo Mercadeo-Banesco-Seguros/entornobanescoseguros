@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { useAuth } from '@/context/auth-context';
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { Skeleton } from '../ui/skeleton';
+import { User } from 'lucide-react';
 
 export default function Header() {
   const pathname = usePathname();
@@ -60,7 +61,9 @@ export default function Header() {
                 </div>
                 <Avatar>
                   <AvatarImage src={`https://api.dicebear.com/8.x/initials/svg?seed=${currentUser.name}`} />
-                  <AvatarFallback>{currentUser.name.charAt(0)}</AvatarFallback>
+                  <AvatarFallback>
+                    <User className="h-5 w-5" />
+                  </AvatarFallback>
                 </Avatar>
               </>
             ) : (
