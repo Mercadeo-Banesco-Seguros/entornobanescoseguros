@@ -21,7 +21,7 @@ export default function Header() {
                 width={30}
                 height={30}
               />
-              <span className="font-bold text-2xl hidden sm:inline tracking-tighter">CONECTAD2S</span>
+              <span className="font-bold text-xl hidden sm:inline tracking-tighter">CONECTAD2S</span>
             </Link>
           </div>
           <div className="hidden md:block">
