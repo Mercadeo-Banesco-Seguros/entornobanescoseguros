@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Check, X } from 'lucide-react';
@@ -16,18 +16,23 @@ export default function ObjectivesSidebar({ tasks: initialTasks }: ObjectivesSid
   const { toast } = useToast();
 
   const handleCompleteTask = (taskId: number) => {
+    const completedTask = tasks.find(t => t.id === taskId && t.status === 'pending');
+
     setTasks(currentTasks => 
         currentTasks.map(task => {
-            if (task.id === taskId && task.status === 'pending') {
-                toast({
-                    title: "¡Objetivo completado!",
-                    description: `Has ganado ${task.xp} XP por: "${task.title}"`,
-                });
+            if (task.id === taskId) {
                 return { ...task, status: 'completed' };
             }
             return task;
         })
     );
+
+    if (completedTask) {
+        toast({
+            title: "¡Objetivo completado!",
+            description: `Has ganado ${completedTask.xp} XP por: "${completedTask.title}"`,
+        });
+    }
   };
 
   const pendingTasks = tasks.filter(t => t.status === 'pending');
