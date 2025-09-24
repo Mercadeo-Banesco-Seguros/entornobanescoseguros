@@ -6,7 +6,7 @@ import { navLinks } from '@/lib/data';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import { useAuth } from '@/context/auth-context';
-import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+import { Avatar, AvatarFallback } from '../ui/avatar';
 import { Skeleton } from '../ui/skeleton';
 import { User } from 'lucide-react';
 
@@ -60,7 +60,6 @@ export default function Header() {
                   <p className="text-xs text-white/80">{currentUser.xp.toLocaleString()} XP</p>
                 </div>
                 <Avatar>
-                  <AvatarImage src={`https://api.dicebear.com/8.x/initials/svg?seed=${currentUser.name}`} />
                   <AvatarFallback>
                     <User className="h-5 w-5" />
                   </AvatarFallback>
