@@ -31,8 +31,10 @@ export default function Header() {
                   key={link.label}
                   href={link.href}
                   className={cn(
-                    'px-3 py-2 rounded-md text-xs font-bold transition-colors',
-                     'hover:text-white/80'
+                    'px-3 py-2 rounded-md text-xs transition-colors',
+                    pathname === link.href
+                      ? 'font-bold text-white'
+                      : 'font-normal text-white/70 hover:text-white',
                   )}
                 >
                   {link.label}
