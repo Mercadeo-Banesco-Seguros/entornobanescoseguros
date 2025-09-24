@@ -11,9 +11,8 @@ type AvatarEvolutionProps = {
 };
 
 export default function AvatarEvolution({ currentUser, avatars }: AvatarEvolutionProps) {
-  const currentAvatarIndex = avatars.findIndex(a => a.level <= currentUser.level);
+  const currentAvatarIndex = avatars.findIndex(a => a.name === currentUser.avatar);
   const currentAvatar = avatars[currentAvatarIndex]
-  const nextAvatar = avatars[currentAvatarIndex + 1];
 
   const allAvatars = [...avatars].sort((a, b) => a.level - b.level);
 
@@ -24,7 +23,7 @@ export default function AvatarEvolution({ currentUser, avatars }: AvatarEvolutio
             <div className="flex flex-col items-center">
               <div className="relative inline-block mb-4">
                   <div className="w-48 h-48 bg-secondary rounded-lg flex items-center justify-center">
-                     <currentAvatar.Icon className="h-24 w-24 text-primary" />
+                     <Image src={currentAvatar.imageUrl} alt={currentAvatar.name} width={150} height={150} className="object-contain" />
                   </div>
               </div>
             </div>
@@ -36,8 +35,8 @@ export default function AvatarEvolution({ currentUser, avatars }: AvatarEvolutio
             return (
               <div key={avatar.id} className="flex flex-col items-center text-center">
                   <div className="relative mb-2">
-                     <div className={`w-24 h-24 bg-secondary rounded-lg flex items-center justify-center ${!isUnlocked ? 'opacity-50' : ''}`}>
-                       <avatar.Icon className={`h-12 w-12 ${isUnlocked ? 'text-primary' : 'text-muted'}`} />
+                     <div className={`w-24 h-24 bg-secondary rounded-lg flex items-center justify-center p-2 ${!isUnlocked ? 'opacity-50' : ''}`}>
+                       <Image src={avatar.imageUrl} alt={avatar.name} width={80} height={80} className="object-contain" />
                      </div>
                   </div>
                   {isUnlocked ? (

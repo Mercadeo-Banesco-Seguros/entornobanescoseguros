@@ -1,17 +1,13 @@
-import { Home, Trophy, User as UserIcon, Compass, Backpack, Star, Mountain } from 'lucide-react';
+import { Home, Trophy, User as UserIcon, Backpack } from 'lucide-react';
 import type { User, Task, Avatar, NavLink, Level } from './types';
 
-// Los avatares ahora son estáticos en el frontend, ya que no cambian a menudo.
-// La lógica los asignará según el nivel del usuario.
 export const avatars: Avatar[] = [
-  { id: 1, name: 'Brújula', level: 1, Icon: Compass },
-  { id: 2, name: 'Mochila de Explorador', level: 2, Icon: Backpack },
-  { id: 3, name: 'Mapa Estelar', level: 3, Icon: Star },
-  { id: 4, name: 'Pico y Bandera', level: 4, Icon: Mountain },
+  { id: 1, name: 'Explorador', level: 1, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(1).png?raw=true' },
+  { id: 2, name: 'Aventurero', level: 2, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_d8yt3ld8yt3ld8yt-Photoroom.png?raw=true' },
+  { id: 3, name: 'Maestro', level: 3, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_wmczxswmczxswmcz-Photoroom.png?raw=true' },
+  { id: 4, name: 'Leyenda', level: 4, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_8xqjlv8xqjlv8xqj-Photoroom.png?raw=true' },
 ];
 
-// Los niveles también pueden ser estáticos o definidos por los umbrales de XP.
-// Esto simplifica la hoja de cálculo.
 export const levels: Level[] = [
     { id: 1, name: 'Nivel 1', xpThreshold: 1000, worldName: 'Mundo Desierto', worldImageId: 'world-level-1' },
     { id: 2, name: 'Nivel 2', xpThreshold: 2500, worldName: 'El Bosque del Explorador', worldImageId: 'world-level-2' },
@@ -19,7 +15,7 @@ export const levels: Level[] = [
     { id: 4, name: 'Nivel 4', xpThreshold: 10000, worldName: 'La Metrópolis del Conquistador', worldImageId: 'world-level-4' },
 ];
 
-// Los datos de users y tasks ahora vendrán de la API, por lo que estos son solo para referencia.
+// Los datos de users y tasks ahora vendrán de la API.
 export const users: User[] = [];
 export const tasks: Task[] = [];
 export const currentUser: User | null = null;

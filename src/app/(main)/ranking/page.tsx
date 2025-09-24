@@ -4,6 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useAuth } from '@/context/auth-context';
 import { Skeleton } from '@/components/ui/skeleton';
+import Image from 'next/image';
 
 export default function RankingPage() {
   const { users, avatars, currentUser: me, loading } = useAuth();
@@ -53,9 +54,8 @@ export default function RankingPage() {
   const sortedUsers = [...users].sort((a, b) => b.xp - a.xp);
   const myRank = sortedUsers.findIndex(u => u.id === me.id) + 1;
 
-  const getAvatarIcon = (level: number) => {
-    const avatarData = avatars.find(av => av.level === level);
-    return avatarData ? <avatarData.Icon className="h-6 w-6 text-primary" /> : null;
+  const getAvatar = (avatarName: string) => {
+    return avatars.find(av => av.name === avatarName);
   };
 
   return (
@@ -71,8 +71,10 @@ export default function RankingPage() {
             <div className="flex items-center gap-4">
               <span className="text-2xl font-bold text-primary">#{myRank}</span>
               <div className="flex items-center gap-3">
-                 <div className="p-2 bg-secondary rounded-full">
-                    {getAvatarIcon(me.level)}
+                 <div className="p-1 bg-secondary rounded-full w-12 h-12 flex items-center justify-center">
+                    {getAvatar(me.avatar) && (
+                      <Image src={getAvatar(me.avatar)!.imageUrl} alt={me.avatar} width={40} height={40} className="object-contain" />
+                    )}
                  </div>
                 <div>
                   <p className="font-bold text-lg text-foreground">{me.name} (Tú)</p>
@@ -102,8 +104,10 @@ export default function RankingPage() {
                   <TableCell className="font-bold text-lg text-muted">#{index + 1}</TableCell>
                   <TableCell>
                     <div className="flex items-center gap-4">
-                        <div className="p-2 bg-secondary rounded-full">
-                            {getAvatarIcon(user.level)}
+                        <div className="p-1 bg-secondary rounded-full w-12 h-12 flex items-center justify-center">
+                           {getAvatar(user.avatar) && (
+                            <Image src={getAvatar(user.avatar)!.imageUrl} alt={user.avatar} width={32} height={32} className="object-contain" />
+                           )}
                         </div>
                       <div>
                         <p className="font-semibold text-foreground">{user.name}</p>
