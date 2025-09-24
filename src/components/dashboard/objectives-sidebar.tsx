@@ -31,12 +31,15 @@ export default function ObjectivesSidebar({ tasks: initialTasks }: ObjectivesSid
   };
 
   useEffect(() => {
-    const completedTask = tasks.find(t => t.id === 1 && t.status === 'pending');
-    if (completedTask) {
-        handleCompleteTask(1);
+    // This is just a mock effect to show a task as completed.
+    // In a real app, this would be triggered by user action.
+    const firstPending = initialTasks.find(t => t.status === 'pending');
+    if (firstPending) {
+      const timer = setTimeout(() => handleCompleteTask(firstPending.id), 1000);
+      return () => clearTimeout(timer);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [initialTasks]);
 
   const sortedTasks = [...tasks].sort((a, b) => a.id - b.id);
   const firstCompleted = sortedTasks.find(t => t.status === 'completed');
@@ -50,13 +53,13 @@ export default function ObjectivesSidebar({ tasks: initialTasks }: ObjectivesSid
       <CardContent className="px-2">
         <div className="space-y-3">
             {firstCompleted && (
-                 <Card key={firstCompleted.id} className="p-4 shadow-sm bg-foreground text-background">
+                 <Card key={firstCompleted.id} className="p-4 shadow-sm bg-primary text-primary-foreground">
                     <div className="flex items-center justify-between">
                         <div>
                             <p className="text-md font-semibold">{firstCompleted.title}</p>
-                            <p className="text-sm text-muted-foreground">{firstCompleted.description}</p>
+                            <p className="text-sm text-primary-foreground/80">{firstCompleted.description}</p>
                         </div>
-                        <CheckCircle2 className="h-8 w-8 text-green-500 flex-shrink-0 ml-4" />
+                        <CheckCircle2 className="h-8 w-8 text-green-400 flex-shrink-0 ml-4" />
                     </div>
                 </Card>
             )}
