@@ -10,26 +10,24 @@ export default function Header() {
   const pathname = usePathname();
 
   return (
-    <header className="bg-primary text-primary-foreground shadow-md sticky top-0 z-50">
+    <header className="bg-primary text-primary-foreground">
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20">
           <div className="flex-shrink-0">
-            <Link href="/" className="flex items-center space-x-2 text-white hover:text-white/90 transition-colors">
+            <Link href="/" className="flex items-center space-x-3 text-white hover:text-white/90 transition-colors">
               <Logo />
-              <span className="font-bold text-lg hidden sm:inline">Banesco Seguros</span>
+              <span className="font-bold text-2xl hidden sm:inline tracking-wider">CONECTAD2S</span>
             </Link>
           </div>
           <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-4">
+            <div className="ml-10 flex items-baseline space-x-6">
               {navLinks.map((link) => (
                 <Link
                   key={link.label}
                   href={link.href}
                   className={cn(
-                    'px-3 py-2 rounded-md text-sm font-bold transition-colors',
-                    pathname === link.href
-                      ? 'bg-primary-foreground text-primary'
-                      : 'hover:bg-white/20'
+                    'px-3 py-2 rounded-md text-base font-bold transition-colors',
+                     'hover:text-white/80'
                   )}
                 >
                   {link.label}

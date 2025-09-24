@@ -3,25 +3,14 @@ export default function Logo() {
         <svg
             width="40"
             height="40"
-            viewBox="0 0 24 24"
+            viewBox="0 0 40 40"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
             className="text-primary-foreground"
         >
-            <path
-                d="M12 2L2 7V17L12 22L22 17V7L12 2Z"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-            />
-            <path
-                d="M2 7L12 12M22 7L12 12M12 22V12"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-            />
+            <circle cx="20" cy="14" r="5" fill="currentColor" />
+            <circle cx="12" cy="26" r="5" fill="currentColor" />
+            <circle cx="28" cy="26" r="5" fill="currentColor" />
         </svg>
     );
 }

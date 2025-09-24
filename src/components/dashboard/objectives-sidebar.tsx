@@ -2,8 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Check, X } from 'lucide-react';
+import { CheckCircle2, XCircle } from 'lucide-react';
 import type { Task as TaskType } from '@/lib/types';
 import { useToast } from "@/hooks/use-toast";
 
@@ -16,67 +15,62 @@ export default function ObjectivesSidebar({ tasks: initialTasks }: ObjectivesSid
   const { toast } = useToast();
 
   const handleCompleteTask = (taskId: number) => {
-    const completedTask = tasks.find(t => t.id === taskId && t.status === 'pending');
-
-    setTasks(currentTasks => 
-        currentTasks.map(task => {
-            if (task.id === taskId) {
-                return { ...task, status: 'completed' };
-            }
-            return task;
-        })
-    );
-
+    const completedTask = tasks.find(t => t.id === taskId);
     if (completedTask) {
         toast({
             title: "¡Objetivo completado!",
             description: `Has ganado ${completedTask.xp} XP por: "${completedTask.title}"`,
         });
     }
+
+    setTasks(currentTasks => 
+        currentTasks.map(task => 
+            task.id === taskId ? { ...task, status: 'completed' } : task
+        )
+    );
   };
 
-  const pendingTasks = tasks.filter(t => t.status === 'pending');
-  const completedTasks = tasks.filter(t => t.status === 'completed');
+  useEffect(() => {
+    const completedTask = tasks.find(t => t.id === 1 && t.status === 'pending');
+    if (completedTask) {
+        handleCompleteTask(1);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const sortedTasks = [...tasks].sort((a, b) => a.id - b.id);
+  const firstCompleted = sortedTasks.find(t => t.status === 'completed');
+  const otherTasks = sortedTasks.filter(t => t.id !== firstCompleted?.id);
 
   return (
-    <Card className="h-full bg-secondary/30 border-dashed">
-      <CardHeader>
-        <CardTitle className="font-bold text-xl text-foreground">Objetivos del Nivel</CardTitle>
+    <Card className="h-full bg-transparent border-0 shadow-none">
+      <CardHeader className="px-2">
+        <CardTitle className="font-bold text-xl text-foreground">What's your goal?</CardTitle>
       </CardHeader>
-      <CardContent>
-        <div className="space-y-4">
-            {pendingTasks.length > 0 && (
-                <div className="space-y-3">
-                    <h4 className="font-semibold text-muted-foreground text-sm">Pendientes</h4>
-                    {pendingTasks.map(task => (
-                        <Card key={task.id} className="p-3 shadow-sm hover:shadow-md transition-shadow">
-                            <div className="flex items-center justify-between">
-                                <span className="text-sm font-semibold text-foreground pr-4">{task.title}</span>
-                                <Button size="icon" variant="outline" className="h-8 w-8 flex-shrink-0" onClick={() => handleCompleteTask(task.id)}>
-                                    <span className="sr-only">Marcar como completado</span>
-                                    <X className="h-4 w-4 text-muted" />
-                                </Button>
-                            </div>
-                        </Card>
-                    ))}
-                </div>
+      <CardContent className="px-2">
+        <div className="space-y-3">
+            {firstCompleted && (
+                 <Card key={firstCompleted.id} className="p-4 shadow-sm bg-foreground text-background">
+                    <div className="flex items-center justify-between">
+                        <div>
+                            <p className="text-md font-semibold">{firstCompleted.title}</p>
+                            <p className="text-sm text-muted-foreground">{firstCompleted.description}</p>
+                        </div>
+                        <CheckCircle2 className="h-8 w-8 text-green-500 flex-shrink-0 ml-4" />
+                    </div>
+                </Card>
             )}
-
-            {completedTasks.length > 0 && (
-                <div className="space-y-3 pt-4">
-                    <h4 className="font-semibold text-muted-foreground text-sm">Completados</h4>
-                    {completedTasks.map(task => (
-                        <Card key={task.id} className="p-3 bg-white/50 opacity-60">
-                            <div className="flex items-center justify-between">
-                                <span className="text-sm text-foreground line-through">{task.title}</span>
-                                <div className="h-8 w-8 flex-shrink-0 flex items-center justify-center rounded-md border bg-green-100 text-green-600">
-                                    <Check className="h-4 w-4" />
-                                </div>
-                            </div>
-                        </Card>
-                    ))}
-                </div>
-            )}
+            {otherTasks.map(task => (
+                <Card key={task.id} className="p-4 shadow-sm bg-card">
+                    <div className="flex items-center justify-between">
+                         <div>
+                            <p className="text-md font-semibold">{task.title}</p>
+                            <p className="text-sm text-muted-foreground">{task.description}</p>
+                        </div>
+                        <XCircle className="h-8 w-8 text-red-500 flex-shrink-0 ml-4" />
+                    </div>
+                </Card>
+            ))}
         </div>
       </CardContent>
     </Card>
