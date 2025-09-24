@@ -58,8 +58,8 @@ export default function ObjectivesSidebar({ tasks: initialTasks }: ObjectivesSid
                  <Card key={firstCompleted.id} className="p-4 shadow-sm bg-primary text-primary-foreground">
                     <div className="flex items-center justify-between">
                         <div>
-                            <p className="text-md font-semibold">{firstCompleted.title}</p>
-                            <p className="text-sm text-primary-foreground/80">{firstCompleted.description}</p>
+                            <p className="text-sm font-semibold">{firstCompleted.title}</p>
+                            <p className="text-xs text-primary-foreground/80">{firstCompleted.description}</p>
                         </div>
                         <CheckCircle2 className="h-8 w-8 text-green-400 flex-shrink-0 ml-4" />
                     </div>
@@ -69,8 +69,8 @@ export default function ObjectivesSidebar({ tasks: initialTasks }: ObjectivesSid
                 <Card key={task.id} className="p-4 shadow-sm bg-card">
                     <div className="flex items-center justify-between">
                          <div>
-                            <p className="text-md font-semibold">{task.title}</p>
-                            <p className="text-sm text-muted-foreground">{task.description}</p>
+                            <p className="text-sm font-semibold">{task.title}</p>
+                            <p className="text-xs text-muted-foreground">{task.description}</p>
                         </div>
                         <XCircle className="h-8 w-8 text-red-500 flex-shrink-0 ml-4" />
                     </div>
