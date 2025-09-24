@@ -4,7 +4,6 @@ import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
 import { AuthProvider } from '@/context/auth-context';
 import Header from '@/components/layout/header';
-import type { ReactNode } from 'react';
 
 export const metadata: Metadata = {
   title: 'Banesco Seguros: Expedition',
