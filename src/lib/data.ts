@@ -15,10 +15,25 @@ export const levels: Level[] = [
     { id: 4, name: 'Nivel 4', xpThreshold: 10000, worldName: 'La Metrópolis del Conquistador', worldImageId: 'world-level-4' },
 ];
 
-// Los datos de users y tasks ahora vendrán de la API.
-export const users: User[] = [];
-export const tasks: Task[] = [];
-export const currentUser: User | null = null;
+// Datos de ejemplo para desarrollo local
+export const users: User[] = [
+  { id: 1, name: 'Carlos Rodríguez', email: 'carlos.rodriguez@example.com', level: 1, xp: 850, avatar: 'Explorador' },
+  { id: 2, name: 'Ana Martínez', email: 'ana.martinez@example.com', level: 3, xp: 4800, avatar: 'Maestro' },
+  { id: 3, name: 'Luis García', email: 'luis.garcia@example.com', level: 2, xp: 1900, avatar: 'Aventurero' },
+  { id: 4, name: 'Sofía López', email: 'sofia.lopez@example.com', level: 4, xp: 12500, avatar: 'Leyenda' },
+];
+
+export const tasks: Omit<Task, 'status'>[] = [
+    { id: 1, title: 'Completar Perfil', description: 'Asegúrate de que toda tu información esté actualizada.', level: 1, xp: 50 },
+    { id: 2, title: 'Curso de Bienvenida', description: 'Finaliza el curso introductorio de la empresa.', level: 1, xp: 150 },
+    { id: 3, title: 'Primera Venta', description: 'Registra tu primera venta en el sistema.', level: 1, xp: 200 },
+    { id: 4, title: 'Venta Cruzada', description: 'Logra una venta de un segundo producto a un cliente.', level: 2, xp: 300 },
+    { id: 5, title: 'Mentoría', description: 'Participa como mentor para un nuevo integrante.', level: 3, xp: 500 },
+    { id: 6, title: 'Proyecto Innovador', description: 'Lidera un proyecto que mejore un proceso interno.', level: 4, xp: 1000 },
+];
+
+// Usuario que simulará estar logueado
+export const currentUserEmail = 'carlos.rodriguez@example.com';
 
 
 export const navLinks: NavLink[] = [

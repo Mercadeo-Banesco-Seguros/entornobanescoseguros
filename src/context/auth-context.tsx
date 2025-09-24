@@ -2,8 +2,8 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import type { User, Task, Avatar } from '@/lib/types';
-import { avatars as staticAvatars, levels as staticLevels } from '@/lib/data';
+import type { User, Task, Avatar, Level } from '@/lib/types';
+import { avatars as staticAvatars, levels as staticLevels, users as staticUsers, tasks as staticTasks, currentUserEmail } from '@/lib/data';
 
 type AuthContextType = {
   currentUser: User | null;
@@ -25,68 +25,36 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchUserData = (email: string) => {
-      fetch(`/api/data?email=${encodeURIComponent(email)}`)
-        .then(res => {
-          if (!res.ok) {
-            throw new Error('Failed to fetch data');
-          }
-          return res.json();
-        })
-        .then(data => {
-          // Asignar IDs a los usuarios y tareas
-          const allUsers: User[] = data.users.map((u: Omit<User, 'id'>, index: number) => ({ ...u, id: index + 1 }));
-          const allTasks: Task[] = data.tasks.map((t: Omit<Task, 'status'>, index: number) => ({ ...t, id: index + 1 }));
+    // --- LÓGICA DE DESARROLLO CON DATOS LOCALES ---
+    const loadMockData = () => {
+      setLoading(true);
+      
+      const loggedInUser = staticUsers.find(u => u.email.toLowerCase() === currentUserEmail.toLowerCase());
 
-          const loggedInUser = allUsers.find(u => u.email.toLowerCase() === email.toLowerCase());
-
-          if (loggedInUser) {
-            // Determinar el estado de las tareas para el usuario actual
-            // Una tarea está 'completed' si su nivel es INFERIOR al nivel del usuario.
-            // Las tareas del nivel actual del usuario están 'pending'.
-            const userTasks = allTasks.map(task => ({
-              ...task,
-              status: task.level < loggedInUser.level ? 'completed' : 'pending'
-            }));
-
-            setCurrentUser(loggedInUser);
-            setTasks(userTasks);
-          } else {
-            setError('Usuario no autorizado.');
-          }
-
-          setUsers(allUsers);
-        })
-        .catch(err => {
-          console.error(err);
-          setError('Error al cargar los datos de la aplicación.');
-        })
-        .finally(() => {
-          setLoading(false);
-        });
-    };
-
-    const getAuthenticatedUserEmail = () => {
-      return new Promise<string>((resolve) => {
+      if (loggedInUser) {
+        // Determinar el estado de las tareas para el usuario actual
+        // Una tarea está 'completed' si su nivel es INFERIOR al nivel del usuario.
+        // Las tareas del nivel actual del usuario están 'pending'.
+        const userTasks = staticTasks.map(task => ({
+          ...task,
+          status: task.level < loggedInUser.level ? 'completed' : 'pending'
+        }));
+        
+        // Simular un tiempo de carga
         setTimeout(() => {
-          resolve('carlos.rodriguez@example.com');
-        }, 1500);
-      });
-    };
-    
-    getAuthenticatedUserEmail()
-      .then(email => {
-        if (email) {
-          fetchUserData(email);
-        } else {
-          setError('No se pudo obtener el email del usuario.');
+          setCurrentUser(loggedInUser);
+          setUsers(staticUsers);
+          setTasks(userTasks);
           setLoading(false);
-        }
-      })
-      .catch(() => {
-        setError('Error en la autenticación.');
+        }, 1500);
+
+      } else {
+        setError('Usuario de ejemplo no encontrado.');
         setLoading(false);
-      });
+      }
+    };
+
+    loadMockData();
 
   }, []);
 
