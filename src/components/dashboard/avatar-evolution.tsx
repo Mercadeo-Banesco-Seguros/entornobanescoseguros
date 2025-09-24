@@ -1,3 +1,4 @@
+
 import { Card, CardContent } from '@/components/ui/card';
 import { Avatar as AvatarType, User } from '@/lib/types';
 import { CircleCheck, Lock } from 'lucide-react';
@@ -31,9 +32,9 @@ export default function AvatarEvolution({ currentUser, avatars }: AvatarEvolutio
                      <div className={`w-24 h-24 bg-gray-200 rounded-lg ${!isUnlocked ? 'opacity-50' : ''}`}></div>
                   </div>
                   {isUnlocked ? (
-                    <CircleCheck className="h-8 w-8 text-green-500" />
+                    <CircleCheck className="h-6 w-6 text-green-500" />
                   ) : (
-                    <Lock className="h-8 w-8 text-muted" />
+                    <Lock className="h-6 w-6 text-muted" />
                   )}
               </div>
             )
