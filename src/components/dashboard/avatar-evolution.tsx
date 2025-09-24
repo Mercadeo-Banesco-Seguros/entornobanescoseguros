@@ -32,9 +32,9 @@ export default function AvatarEvolution({ currentUser, avatars }: AvatarEvolutio
                      <div className={`w-24 h-24 bg-gray-200 rounded-lg ${!isUnlocked ? 'opacity-50' : ''}`}></div>
                   </div>
                   {isUnlocked ? (
-                    <CircleCheck className="h-6 w-6 text-green-500" />
+                    <CircleCheck className="h-5 w-5 text-green-500" />
                   ) : (
-                    <Lock className="h-6 w-6 text-muted" />
+                    <Lock className="h-5 w-5 text-muted" />
                   )}
               </div>
             )

@@ -28,8 +28,8 @@ export default function ProfilePage() {
                       <div className={cn("relative inline-block p-6 rounded-full mb-4", isUnlocked ? 'bg-secondary' : 'bg-gray-200 dark:bg-gray-700')}>
                         <avatar.Icon className={cn("h-16 w-16", isUnlocked ? 'text-primary' : 'text-gray-400')} />
                         {!isUnlocked && (
-                            <div className="absolute top-0 right-0 bg-muted text-muted-foreground rounded-full p-1.5 flex items-center justify-center">
-                                <Lock className="h-4 w-4" />
+                            <div className="absolute top-0 right-0 bg-muted text-muted-foreground rounded-full p-1 flex items-center justify-center">
+                                <Lock className="h-3 w-3" />
                             </div>
                         )}
                       </div>
