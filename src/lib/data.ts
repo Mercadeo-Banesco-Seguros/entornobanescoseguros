@@ -1,11 +1,14 @@
-import { Home, Trophy, User as UserIcon } from 'lucide-react';
+import { Home, Trophy, User as UserIcon, Compass, Backpack, Star, Mountain } from 'lucide-react';
 import type { User, Level, Task, Avatar, NavLink } from './types';
 
+// This file now contains placeholder/default data.
+// The actual data will be fetched from the API.
+
 export const avatars: Avatar[] = [
-  { id: 1, name: 'Brújula', level: 1, Icon: UserIcon },
-  { id: 2, name: 'Mochila de Explorador', level: 2, Icon: UserIcon },
-  { id: 3, name: 'Mapa Estelar', level: 3, Icon: UserIcon },
-  { id: 4, name: 'Pico y Bandera', level: 4, Icon: UserIcon },
+  { id: 1, name: 'Brújula', level: 1, Icon: Compass },
+  { id: 2, name: 'Mochila de Explorador', level: 2, Icon: Backpack },
+  { id: 3, name: 'Mapa Estelar', level: 3, Icon: Star },
+  { id: 4, name: 'Pico y Bandera', level: 4, Icon: Mountain },
 ];
 
 export const levels: Level[] = [
@@ -16,17 +19,18 @@ export const levels: Level[] = [
 ];
 
 export const users: User[] = [
-  { id: 1, name: 'Carlos Rodríguez', level: 1, xp: 850, avatar: 'Brújula' },
-  { id: 2, name: 'Ana Martínez', level: 3, xp: 4800, avatar: 'Mapa Estelar' },
-  { id: 3, name: 'Luisa Fernández', level: 2, xp: 1800, avatar: 'Mochila de Explorador' },
-  { id: 4, name: 'Jorge Pérez', level: 4, xp: 11000, avatar: 'Pico y Bandera' },
-  { id: 5, name: 'Sofía Gómez', level: 1, xp: 400, avatar: 'Brújula' },
-  { id: 6, name: 'Miguel Torres', level: 2, xp: 2100, avatar: 'Mochila de Explorador' },
-  { id: 7, name: 'Elena Ramírez', level: 3, xp: 3200, avatar: 'Mapa Estelar' },
-  { id: 8, name: 'David Sánchez', level: 1, xp: 950, avatar: 'Brújula' },
+  { id: 1, name: 'Carlos Rodríguez', email: 'carlos.rodriguez@example.com', level: 1, xp: 850, avatar: 'Brújula' },
+  { id: 2, name: 'Ana Martínez', email: 'ana.martinez@example.com', level: 3, xp: 4800, avatar: 'Mapa Estelar' },
+  { id: 3, name: 'Luisa Fernández', email: 'luisa.fernandez@example.com', level: 2, xp: 1800, avatar: 'Mochila de Explorador' },
+  { id: 4, name: 'Jorge Pérez', email: 'jorge.perez@example.com', level: 4, xp: 11000, avatar: 'Pico y Bandera' },
+  { id: 5, name: 'Sofía Gómez', email: 'sofia.gomez@example.com', level: 1, xp: 400, avatar: 'Brújula' },
+  { id: 6, name: 'Miguel Torres', email: 'miguel.torres@example.com', level: 2, xp: 2100, avatar: 'Mochila de Explorador' },
+  { id: 7, name: 'Elena Ramírez', email: 'elena.ramirez@example.com', level: 3, xp: 3200, avatar: 'Mapa Estelar' },
+  { id: 8, name: 'David Sánchez', email: 'david.sanchez@example.com', level: 1, xp: 950, avatar: 'Brújula' },
 ];
 
-// Current user is Carlos Rodríguez
+// The concept of a single 'currentUser' is deprecated.
+// The logged-in user will be determined via AuthContext.
 export const currentUser = users[0];
 
 export const tasks: Task[] = [

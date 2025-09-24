@@ -1,9 +1,54 @@
+'use client';
+
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { avatars, currentUser, tasks } from '@/lib/data';
 import { Lock } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useAuth } from '@/context/auth-context';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default function ProfilePage() {
+  const { currentUser, tasks, avatars, loading } = useAuth();
+  
+  if (loading) {
+    return (
+      <div className="space-y-8">
+        <header>
+          <h1 className="text-4xl font-bold text-foreground">Mi Evolución</h1>
+          <p className="text-muted text-lg mt-1">Tu progreso y avatares desbloqueados en la expedición.</p>
+        </header>
+        <Card>
+          <CardHeader>
+            <CardTitle>Avatares</CardTitle>
+            <CardDescription>Tu colección de avatares ganados.</CardDescription>
+          </CardHeader>
+          <CardContent className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {[...Array(4)].map((_, i) => (
+              <Card key={i} className="text-center p-6">
+                <Skeleton className="w-24 h-24 rounded-full mx-auto mb-4" />
+                <Skeleton className="h-6 w-32 mx-auto" />
+                <Skeleton className="h-4 w-24 mx-auto mt-2" />
+              </Card>
+            ))}
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>Estadísticas</CardTitle>
+            <CardDescription>Tu resumen de progreso total.</CardDescription>
+          </CardHeader>
+          <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Skeleton className="h-24 w-full" />
+            <Skeleton className="h-24 w-full" />
+          </CardContent>
+        </Card>
+      </div>
+    )
+  }
+
+  if (!currentUser) {
+    return <div>Usuario no encontrado.</div>;
+  }
+
   const completedTasksCount = tasks.filter(t => t.status === 'completed').length;
   const totalXp = currentUser.xp;
 

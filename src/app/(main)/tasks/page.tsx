@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Accordion,
   AccordionContent,
@@ -7,10 +9,30 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { tasks } from "@/lib/data";
+import { useAuth } from '@/context/auth-context';
 import { CheckCircle2, CircleDot } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function TasksPage() {
+  const { tasks, loading } = useAuth();
+  
+  if (loading) {
+    return (
+       <div className="space-y-8">
+        <header>
+          <h1 className="text-4xl font-bold text-foreground">Historial de Tareas</h1>
+          <p className="text-muted text-lg mt-1">Revisa todas tus tareas, pendientes y completadas.</p>
+        </header>
+        <div className="space-y-4">
+          <Skeleton className="h-10 w-96" />
+          <Skeleton className="h-24 w-full" />
+          <Skeleton className="h-24 w-full" />
+          <Skeleton className="h-24 w-full" />
+        </div>
+      </div>
+    )
+  }
+
   const pendingTasks = tasks.filter((task) => task.status === "pending");
   const completedTasks = tasks.filter((task) => task.status === "completed");
 

@@ -3,6 +3,7 @@ import type { LucideIcon } from 'lucide-react';
 export type User = {
   id: number;
   name: string;
+  email: string;
   level: number;
   xp: number;
   avatar: string;
@@ -32,7 +33,7 @@ export type Avatar = {
   id: number;
   name: string;
   level: number;
-  Icon: LucideIcon;
+  Icon: ((props: React.SVGProps<SVGSVGElement>) => JSX.Element) | LucideIcon;
 };
 
 export type NavLink = {
@@ -40,3 +41,10 @@ export type NavLink = {
   label: string;
   icon: LucideIcon;
 };
+
+export type AppData = {
+  users: User[];
+  tasks: Task[];
+  levels: Level[];
+  avatars: { id: number; name: string; level: number; }[];
+}

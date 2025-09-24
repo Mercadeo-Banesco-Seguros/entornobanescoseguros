@@ -5,9 +5,13 @@ import { usePathname } from 'next/navigation';
 import { navLinks } from '@/lib/data';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
+import { useAuth } from '@/context/auth-context';
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+import { Skeleton } from '../ui/skeleton';
 
 export default function Header() {
   const pathname = usePathname();
+  const { currentUser, loading } = useAuth();
 
   return (
     <header className="bg-primary text-primary-foreground">
@@ -42,8 +46,26 @@ export default function Header() {
               ))}
             </div>
           </div>
-          <div className="md:hidden flex items-center">
-            {/* Mobile menu could be a dropdown here */}
+          <div className="flex items-center gap-4">
+            {loading ? (
+              <>
+                <Skeleton className="h-8 w-24" />
+                <Skeleton className="h-10 w-10 rounded-full" />
+              </>
+            ) : currentUser ? (
+              <>
+                <div className="text-right hidden sm:block">
+                  <p className="text-sm font-bold text-white">{currentUser.name}</p>
+                  <p className="text-xs text-white/80">{currentUser.xp.toLocaleString()} XP</p>
+                </div>
+                <Avatar>
+                  <AvatarImage src={`https://api.dicebear.com/8.x/initials/svg?seed=${currentUser.name}`} />
+                  <AvatarFallback>{currentUser.name.charAt(0)}</AvatarFallback>
+                </Avatar>
+              </>
+            ) : (
+               <p className="text-sm text-white/80">No autenticado</p>
+            )}
           </div>
         </div>
       </nav>
