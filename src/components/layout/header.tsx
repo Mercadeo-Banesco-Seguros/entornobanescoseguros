@@ -18,8 +18,8 @@ export default function Header() {
               <Image 
                 src="https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/BANESCO%20LOGO%20BLANCO.png"
                 alt="Banesco Seguros Logo"
-                width={40}
-                height={40}
+                width={30}
+                height={30}
               />
               <span className="font-bold text-2xl hidden sm:inline tracking-tighter">CONECTAD2S</span>
             </Link>
