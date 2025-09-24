@@ -1,3 +1,28 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "world-level-1",
+      "description": "A stylized 3D island representing the beginner level.",
+      "imageUrl": "https://images.unsplash.com/photo-1751097006268-ae4601fcb117?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxmYW50YXN5JTIwaXNsYW5kfGVufDB8fHx8MTc1ODczMDg2Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "fantasy island"
+    },
+    {
+      "id": "world-level-2",
+      "description": "A stylized 3D forest representing the explorer level.",
+      "imageUrl": "https://images.unsplash.com/photo-1619982870053-1545857b7eb4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxlbmNoYW50ZWQlMjBmb3Jlc3R8ZW58MHx8fHwxNzU4NzEyMDQ3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "enchanted forest"
+    },
+    {
+      "id": "world-level-3",
+      "description": "A stylized 3D mountain range representing the navigator level.",
+      "imageUrl": "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxtb3VudGFpbiUyMHBlYWtzfGVufDB8fHx8MTc1ODY5NDA1Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "mountain peaks"
+    },
+    {
+      "id": "world-level-4",
+      "description": "A stylized 3D metropolis representing the conqueror level.",
+      "imageUrl": "https://images.unsplash.com/photo-1535391879778-3bae11d29a24?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxmdXR1cmlzdGljJTIwY2l0eXxlbnwwfHx8fDE3NTg3MDYwODZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "futuristic city"
+    }
+  ]
 }
