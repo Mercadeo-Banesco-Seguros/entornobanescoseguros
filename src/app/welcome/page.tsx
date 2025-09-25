@@ -1,13 +1,17 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
-type WelcomePageProps = {
-  onAdvance: () => void;
-};
+export default function WelcomePage() {
+  const router = useRouter();
 
-export default function WelcomePage({ onAdvance }: WelcomePageProps) {
+  const handleAdvance = () => {
+    localStorage.setItem('hasVisited', 'true');
+    router.push('/');
+  };
+
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-background text-foreground p-4">
       <div className="text-center max-w-2xl">
@@ -22,7 +26,7 @@ export default function WelcomePage({ onAdvance }: WelcomePageProps) {
         <p className="text-lg text-muted-foreground mb-8">
           Tu expedición hacia el conocimiento y el éxito comienza ahora. Prepárate para desbloquear nuevos logros, competir con tus compañeros y convertirte en una leyenda.
         </p>
-        <Button onClick={onAdvance} size="lg" className="font-bold text-lg">
+        <Button onClick={handleAdvance} size="lg" className="font-bold text-lg">
           Comenzar Expedición
         </Button>
       </div>
