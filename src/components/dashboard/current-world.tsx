@@ -39,7 +39,7 @@ export default function CurrentWorld({ currentUser, levels }: CurrentWorldProps)
                         fill
                         quality={100}
                         className={cn(
-                            "object-contain",
+                            "object-cover",
                             !isSelectedLevelUnlocked && "grayscale"
                         )}
                         data-ai-hint={worldImage.imageHint}
