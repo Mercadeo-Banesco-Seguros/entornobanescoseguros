@@ -120,7 +120,11 @@ export default function RankingPage() {
                       {user.level}
                     </span>
                   </TableCell>
-                  <TableCell className="text-right font-bold text-primary">{user.xp.toLocaleString()}</TableCell>
+                  <TableCell className="text-right">
+                    <span className="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full">
+                      {user.xp.toLocaleString()}
+                    </span>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
