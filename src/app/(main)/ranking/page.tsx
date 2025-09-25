@@ -1,7 +1,7 @@
 'use client';
 
 import { Card, CardContent } from '@/components/ui/card';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Table, TableBody, TableCell, TableHeader, TableRow, TableHead } from '@/components/ui/table';
 import { useAuth } from '@/context/auth-context';
 import { Skeleton } from '@/components/ui/skeleton';
 import Image from 'next/image';
@@ -23,14 +23,6 @@ export default function RankingPage() {
         </Card>
         <Card>
           <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-[80px]">Posición</TableHead>
-                <TableHead>Empleado</TableHead>
-                <TableHead className="text-center">Nivel</TableHead>
-                <TableHead className="text-right">CONECTCOINS</TableHead>
-              </TableRow>
-            </TableHeader>
             <TableBody>
               {[...Array(5)].map((_, i) => (
                 <TableRow key={i}>
@@ -78,7 +70,7 @@ export default function RankingPage() {
                  </div>
                 <div>
                   <p className="font-semibold text-base">{me.name} (Tú)</p>
-                  <p className="text-xs text-primary-foreground/80">{me.avatar} &bull; {me.xp.toLocaleString()} CONECTCOINS</p>
+                  <p className="text-xs text-primary-foreground/80">{me.avatar} • {me.xp.toLocaleString()} CONECTCOINS</p>
                 </div>
               </div>
             </div>
@@ -90,18 +82,10 @@ export default function RankingPage() {
       <Card>
         <CardContent className="p-0">
           <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-[80px]">Posición</TableHead>
-                <TableHead>Empleado</TableHead>
-                <TableHead className="text-center">Nivel</TableHead>
-                <TableHead className="text-right">CONECTCOINS</TableHead>
-              </TableRow>
-            </TableHeader>
             <TableBody>
               {sortedUsers.slice(0, 10).map((user, index) => (
                 <TableRow key={user.id} className={user.id === me.id ? 'bg-secondary/50' : ''}>
-                  <TableCell className="font-bold text-lg text-muted">#{index + 1}</TableCell>
+                  <TableCell className="font-bold text-lg text-muted w-[80px]">#{index + 1}</TableCell>
                   <TableCell>
                     <div className="flex items-center gap-4">
                         <div className="p-1 bg-secondary rounded-full w-12 h-12 flex items-center justify-center">
