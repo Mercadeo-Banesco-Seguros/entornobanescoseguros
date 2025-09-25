@@ -67,24 +67,24 @@ export default function RankingPage() {
         <p className="text-muted text-lg mt-1">Mira tu progreso y el de tus compañeros.</p>
       </header>
 
-      <Card className="sticky top-20 z-10 bg-primary/5 border-primary/20 shadow-lg">
+      <Card className="sticky top-20 z-10 bg-primary text-primary-foreground shadow-lg">
         <CardContent className="p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <span className="text-2xl font-bold text-primary">#{myRank}</span>
+              <span className="text-2xl font-bold">#{myRank}</span>
               <div className="flex items-center gap-3">
-                 <div className="p-1 bg-secondary rounded-full w-12 h-12 flex items-center justify-center">
+                 <div className="p-1 bg-white/20 rounded-full w-12 h-12 flex items-center justify-center">
                     {getAvatar(me.avatar) && (
                       <Image src={getAvatar(me.avatar)!.imageUrl} alt={me.avatar} width={40} height={40} className="object-contain" />
                     )}
                  </div>
                 <div>
-                  <p className="font-bold text-lg text-foreground">{me.name} (Tú)</p>
-                  <p className="text-sm text-muted">{me.avatar} &bull; {me.xp.toLocaleString()} CONECTCOINS</p>
+                  <p className="font-bold text-lg">{me.name} (Tú)</p>
+                  <p className="text-sm text-primary-foreground/80">{me.avatar} &bull; {me.xp.toLocaleString()} CONECTCOINS</p>
                 </div>
               </div>
             </div>
-            <span className="text-lg font-bold text-primary">{me.xp.toLocaleString()} CONECTCOINS</span>
+            <span className="text-lg font-bold">{me.xp.toLocaleString()} CONECTCOINS</span>
           </div>
         </CardContent>
       </Card>
