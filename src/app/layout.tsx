@@ -3,6 +3,7 @@ import './globals.css';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
 import { AuthProvider } from '@/context/auth-context';
+import MainLayout from './(main)/layout';
 
 export const metadata: Metadata = {
   title: 'Banesco Seguros: Expedition',
@@ -27,7 +28,9 @@ export default function RootLayout({
       </head>
       <body className={cn('font-body antialiased bg-background')}>
         <AuthProvider>
-            {children}
+            <MainLayout>
+              {children}
+            </MainLayout>
         </AuthProvider>
         <Toaster />
       </body>
