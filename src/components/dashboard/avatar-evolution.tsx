@@ -28,7 +28,7 @@ export default function AvatarEvolution({ currentUser, avatars }: AvatarEvolutio
   return (
     <Card className="h-full border-0 shadow-none">
       <CardContent className="flex flex-col items-center text-center gap-8 pt-6 h-full">
-        <div className="flex-grow flex items-center justify-center">
+        <div className="flex-grow flex items-center justify-center h-96">
             {selectedAvatar && (
                 <div className="flex flex-col items-center">
                   <div className="relative inline-block">
@@ -61,15 +61,15 @@ export default function AvatarEvolution({ currentUser, avatars }: AvatarEvolutio
               >
                   <div className="relative mb-2">
                      <div className={cn(
-                       "w-24 h-24 bg-secondary rounded-lg flex items-center justify-center p-2 transition-all",
+                       "w-28 h-28 bg-secondary rounded-lg flex items-center justify-center p-2 transition-all",
                        selectedAvatar.id === avatar.id && 'ring-2 ring-primary ring-offset-2',
                        !isUnlocked && 'opacity-60'
                       )}>
                        <Image 
                          src={avatar.imageUrl} 
                          alt={avatar.name} 
-                         width={80} 
-                         height={80} 
+                         width={96} 
+                         height={96} 
                          className={cn("object-contain", !isUnlocked && "grayscale")}
                        />
                      </div>

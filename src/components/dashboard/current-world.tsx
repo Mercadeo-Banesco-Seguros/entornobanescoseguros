@@ -30,8 +30,8 @@ export default function CurrentWorld({ currentUser, levels }: CurrentWorldProps)
   return (
     <Card className="h-full border-0 shadow-none">
       <CardContent className="flex flex-col items-center text-center gap-8 pt-6 h-full">
-        <div className="flex-grow flex items-center justify-center w-full">
-            <div className="relative w-full h-96 rounded-lg flex items-center justify-center">
+        <div className="flex-grow flex items-center justify-center w-full h-96">
+            <div className="relative w-full h-full rounded-lg flex items-center justify-center">
                 {worldImage ? (
                     <Image
                         src={worldImage.imageUrl}
@@ -63,7 +63,7 @@ export default function CurrentWorld({ currentUser, levels }: CurrentWorldProps)
                     >
                          <div className="relative mb-2">
                              <div className={cn(
-                               "w-24 h-24 bg-secondary rounded-lg flex items-center justify-center p-2 transition-all",
+                               "w-28 h-28 bg-secondary rounded-lg flex items-center justify-center p-2 transition-all",
                                 selectedLevel.id === level.id && 'ring-2 ring-primary ring-offset-2',
                                !isUnlocked && 'opacity-60'
                               )}>
@@ -71,8 +71,8 @@ export default function CurrentWorld({ currentUser, levels }: CurrentWorldProps)
                                 <Image
                                     src={levelWorldImage.imageUrl}
                                     alt={level.worldName}
-                                    width={80}
-                                    height={80}
+                                    width={96}
+                                    height={96}
                                     className={cn("object-contain", !isUnlocked && "grayscale")}
                                 />
                                )}
