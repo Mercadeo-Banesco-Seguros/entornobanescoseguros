@@ -18,11 +18,12 @@ export default function AvatarEvolution({ currentUser, avatars }: AvatarEvolutio
   const [selectedAvatar, setSelectedAvatar] = useState(currentAvatarFromUser || avatars[0]);
 
   const handleAvatarSelect = (avatar: AvatarType) => {
-    // Permite la selección para previsualizar, sin importar si está bloqueado.
     setSelectedAvatar(avatar);
   };
 
   const allAvatars = [...avatars].sort((a, b) => a.level - b.level);
+  
+  const isSelectedAvatarUnlocked = selectedAvatar.level <= currentUser.level;
 
   return (
     <Card className="h-full border-0 shadow-none">
@@ -36,7 +37,10 @@ export default function AvatarEvolution({ currentUser, avatars }: AvatarEvolutio
                         alt={selectedAvatar.name} 
                         fill 
                         quality={100}
-                        className="object-contain" 
+                        className={cn(
+                          "object-contain",
+                          !isSelectedAvatarUnlocked && "grayscale"
+                        )}
                       />
                   </div>
               </div>
