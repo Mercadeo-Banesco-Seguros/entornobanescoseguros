@@ -47,7 +47,7 @@ export default function RankingPage() {
     )
   }
   
-  if (!me || !users) {
+  if (!me || !users || !levels) {
     return <div>Cargando ranking...</div>
   }
 
@@ -69,7 +69,7 @@ export default function RankingPage() {
         <CardContent className="p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <span className="text-xl font-bold">#{myRank}</span>
+              <span className="text-lg font-bold">#{myRank}</span>
               <div className="flex items-center gap-3">
                  <div className="p-1 bg-white/20 rounded-full w-12 h-12 flex items-center justify-center">
                     {getAvatar(me.avatar) && (
@@ -77,12 +77,12 @@ export default function RankingPage() {
                     )}
                  </div>
                 <div>
-                  <p className="font-bold text-base">{me.name} (Tú)</p>
+                  <p className="font-semibold text-base">{me.name} (Tú)</p>
                   <p className="text-xs text-primary-foreground/80">{me.avatar} &bull; {me.xp.toLocaleString()} CONECTCOINS</p>
                 </div>
               </div>
             </div>
-            <span className="text-base font-bold">{me.xp.toLocaleString()} CONECTCOINS</span>
+            <span className="text-sm font-bold">{me.xp.toLocaleString()} CONECTCOINS</span>
           </div>
         </CardContent>
       </Card>
@@ -115,7 +115,11 @@ export default function RankingPage() {
                       </div>
                     </div>
                   </TableCell>
-                  <TableCell className="text-center font-semibold">{user.level}</TableCell>
+                  <TableCell className="text-center">
+                    <span className="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full">
+                      {user.level}
+                    </span>
+                  </TableCell>
                   <TableCell className="text-right font-bold text-primary">{user.xp.toLocaleString()}</TableCell>
                 </TableRow>
               ))}
