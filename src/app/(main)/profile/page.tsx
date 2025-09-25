@@ -18,7 +18,7 @@ export default function ProfilePage() {
         </header>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <Card className="md:col-span-1 flex flex-col items-center justify-center p-6 border-0 shadow-none">
-            <Skeleton className="w-48 h-48 rounded-full mx-auto mb-4" />
+            <Skeleton className="w-64 h-64 rounded-full mx-auto mb-4" />
             <Skeleton className="h-8 w-32 mx-auto" />
             <Skeleton className="h-6 w-40 mx-auto mt-2" />
           </Card>
@@ -58,15 +58,18 @@ export default function ProfilePage() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
         <Card className="md:col-span-1 text-center p-6 flex flex-col items-center justify-start h-full border-0 shadow-none">
           {currentAvatar && (
-             <div className="relative w-64 h-64 mx-auto mb-4 rounded-full">
+             <div className="relative w-64 h-64 mx-auto mb-4">
                <Image src={currentAvatar.imageUrl} alt={currentAvatar.name} layout="fill" className="object-contain" />
              </div>
           )}
-          <h2 className="text-2xl font-bold text-foreground">{currentUser.name}</h2>
           {currentLevel && (
-            <div className="mt-2 text-center">
-                <p className="text-lg text-muted-foreground font-semibold">{currentLevel.worldName}</p>
-                <Badge variant="secondary" className="mt-1">{currentUser.avatar} (Nivel {currentUser.level})</Badge>
+            <div className="mt-2 text-center flex flex-col items-center gap-2">
+                <span className="bg-primary text-primary-foreground font-bold text-sm px-4 py-1 rounded-full">
+                    {currentLevel.worldName}
+                </span>
+                <span className="bg-primary text-primary-foreground font-bold text-sm px-4 py-1 rounded-full">
+                    {currentUser.avatar}
+                </span>
             </div>
           )}
         </Card>
