@@ -57,14 +57,16 @@ export default function DashboardPage() {
   const levelTasks = tasks.filter(t => t.level === currentUser.level);
 
   return (
-    <div className="flex flex-col lg:flex-row gap-8 items-start">
-      <div className="w-full lg:w-1/3">
-        <AvatarEvolution currentUser={currentUser} avatars={avatars} />
+    <div className="flex flex-col gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+        <div className="w-full">
+          <AvatarEvolution currentUser={currentUser} avatars={avatars} />
+        </div>
+        <div className="w-full">
+          <CurrentWorld currentUser={currentUser} level={userLevel} />
+        </div>
       </div>
-      <div className="w-full lg:w-1/3">
-        <CurrentWorld currentUser={currentUser} level={userLevel} />
-      </div>
-      <div className="w-full lg:w-1/3">
+      <div className="w-full">
         <ObjectivesSidebar tasks={levelTasks} />
       </div>
     </div>
