@@ -15,7 +15,7 @@ export default function DashboardPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <Card className="h-full border-0 shadow-none">
           <CardContent className="flex flex-col items-center text-center gap-8 pt-6">
-            <Skeleton className="w-48 h-48 rounded-lg" />
+            <Skeleton className="w-96 h-96 rounded-lg" />
             <div className="flex items-end justify-center space-x-4 w-full">
               <Skeleton className="w-24 h-24 rounded-lg" />
               <Skeleton className="w-24 h-24 rounded-lg opacity-50" />
@@ -25,9 +25,14 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
         <Card className="h-full border-0 shadow-none">
-          <CardContent className="flex flex-col items-center text-center">
-            <Skeleton className="aspect-square w-full max-w-sm rounded-lg mb-4" />
-            <Skeleton className="h-12 w-48" />
+          <CardContent className="flex flex-col items-center text-center gap-8 pt-6">
+            <Skeleton className="w-96 h-96 rounded-lg mb-4" />
+            <div className="flex items-end justify-center space-x-4 w-full">
+               <Skeleton className="w-24 h-24 rounded-lg" />
+               <Skeleton className="w-24 h-24 rounded-lg opacity-50" />
+               <Skeleton className="w-24 h-24 rounded-lg opacity-50" />
+               <Skeleton className="w-24 h-24 rounded-lg opacity-50" />
+            </div>
           </CardContent>
         </Card>
         <Card className="h-full bg-transparent border-0 shadow-none">
@@ -63,7 +68,7 @@ export default function DashboardPage() {
           <AvatarEvolution currentUser={currentUser} avatars={avatars} />
         </div>
         <div className="w-full">
-          <CurrentWorld currentUser={currentUser} level={userLevel} />
+          <CurrentWorld currentUser={currentUser} levels={levels} />
         </div>
       </div>
       <div className="w-full">

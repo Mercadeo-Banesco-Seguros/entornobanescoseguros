@@ -1,34 +1,89 @@
+'use client';
+
+import { useState } from 'react';
 import Image from 'next/image';
-import { Card, CardContent, CardFooter } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import type { User, Level } from '@/lib/types';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { Button } from '../ui/button';
+import { cn } from '@/lib/utils';
+import { CircleCheck, Lock } from 'lucide-react';
 
 type CurrentWorldProps = {
   currentUser: User;
-  level: Level;
+  levels: Level[];
 };
 
-export default function CurrentWorld({ currentUser, level }: CurrentWorldProps) {
-  const worldImage = PlaceHolderImages.find(p => p.id === level.worldImageId);
+export default function CurrentWorld({ currentUser, levels }: CurrentWorldProps) {
+  const currentLevelFromUser = levels.find(l => l.id === currentUser.level);
+  const [selectedLevel, setSelectedLevel] = useState(currentLevelFromUser || levels[0]);
+
+  const handleLevelSelect = (level: Level) => {
+    setSelectedLevel(level);
+  };
+  
+  const worldImage = PlaceHolderImages.find(p => p.id === selectedLevel.worldImageId);
+  const isSelectedLevelUnlocked = selectedLevel.id <= currentUser.level;
+  
+  const allLevels = [...levels].sort((a, b) => a.id - b.id);
 
   return (
     <Card className="h-full border-0 shadow-none">
-      <CardContent className="flex flex-col items-center text-center">
-        <div className="aspect-square w-full relative rounded-lg mb-4">
+      <CardContent className="flex flex-col items-center text-center gap-8 pt-6">
+        <div className="relative w-96 h-96 rounded-lg flex items-center justify-center">
             {worldImage ? (
                 <Image
                     src={worldImage.imageUrl}
-                    alt={level.worldName}
+                    alt={selectedLevel.worldName}
                     fill
-                    className="object-contain"
+                    quality={100}
+                    className={cn(
+                        "object-contain",
+                        !isSelectedLevelUnlocked && "grayscale"
+                    )}
                     data-ai-hint={worldImage.imageHint}
                 />
             ) : (
               <div className="w-full h-full bg-gray-200 rounded-lg" />
             )}
         </div>
-        <Button size="lg" className="font-bold text-lg">{level.worldName}</Button>
+        <div className="flex items-end justify-center space-x-4 w-full">
+            {allLevels.map(level => {
+                const isUnlocked = level.id <= currentUser.level;
+                const levelWorldImage = PlaceHolderImages.find(p => p.id === level.worldImageId);
+
+                return (
+                    <button
+                        key={level.id}
+                        className="flex flex-col items-center text-center"
+                        onClick={() => handleLevelSelect(level)}
+                        aria-label={`Seleccionar ${level.worldName}`}
+                    >
+                         <div className="relative mb-2">
+                             <div className={cn(
+                               "w-24 h-24 bg-secondary rounded-lg flex items-center justify-center p-2 transition-all",
+                                selectedLevel.id === level.id && 'ring-2 ring-primary ring-offset-2',
+                               !isUnlocked && 'opacity-60'
+                              )}>
+                               {levelWorldImage && (
+                                <Image
+                                    src={levelWorldImage.imageUrl}
+                                    alt={level.worldName}
+                                    width={80}
+                                    height={80}
+                                    className={cn("object-contain", !isUnlocked && "grayscale")}
+                                />
+                               )}
+                             </div>
+                          </div>
+                          {isUnlocked ? (
+                            <CircleCheck className="h-5 w-5 text-green-500" />
+                          ) : (
+                            <Lock className="h-5 w-5 text-muted" />
+                          )}
+                    </button>
+                )
+            })}
+        </div>
       </CardContent>
     </Card>
   );
