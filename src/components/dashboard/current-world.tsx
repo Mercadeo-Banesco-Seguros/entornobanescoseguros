@@ -40,7 +40,6 @@ export default function CurrentWorld({ currentUser, levels }: CurrentWorldProps)
                         quality={100}
                         className={cn(
                             'object-contain',
-                            selectedLevel.id === 2 && 'p-8',
                             !isSelectedLevelUnlocked && "grayscale"
                         )}
                         data-ai-hint={worldImage.imageHint}
