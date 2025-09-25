@@ -99,7 +99,7 @@ export default function RankingPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {sortedUsers.map((user, index) => (
+              {sortedUsers.slice(0, 10).map((user, index) => (
                 <TableRow key={user.id} className={user.id === me.id ? 'bg-secondary/50' : ''}>
                   <TableCell className="font-bold text-lg text-muted">#{index + 1}</TableCell>
                   <TableCell>
