@@ -91,7 +91,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', async function() {
-            const currentUserEmail = 'carlos.rodriguez@example.com';
+            // Ya no se necesita el email quemado, el script lo obtiene de la sesión.
             const appsScriptUrl = "URL_DE_TU_APPS_SCRIPT_AQUI";
 
             const appElement = document.getElementById('app');
@@ -107,31 +107,19 @@
                     return null;
                 }
                 try {
-                    const response = await fetch(appsScriptUrl, {
-                        method: 'POST',
-                        mode: 'no-cors', // Use no-cors and redirect for simple deployments
-                        headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify({ email: currentUserEmail }),
-                        redirect: 'follow'
-                    });
+                    // Ahora hacemos una petición GET. El Apps Script identificará al usuario.
+                    const response = await fetch(appsScriptUrl);
 
-                    // For 'no-cors', we can't read the response, but we can use a redirect pattern
-                    // Your Apps Script should redirect to a URL with data in params,
-                    // or a simpler approach is to use a proper CORS-enabled API Gateway if possible.
-                    // For now, let's assume a simpler direct JSON fetch will work if CORS is configured.
-                    
-                    // The following part assumes CORS is properly set up on your Apps Script deployment
-                     const corsResponse = await fetch(appsScriptUrl, {
-                        method: 'POST',
-                        headers: {'Content-Type':- 'application/json'},
-                        body: JSON.stringify({ email: currentUserEmail }),
-                    });
-
-                    if (!corsResponse.ok) {
-                      throw new Error(`Error from Apps Script: ${corsResponse.statusText}`);
+                    if (!response.ok) {
+                      throw new Error(`Error from Apps Script: ${response.statusText}`);
                     }
                     
-                    const data = await corsResponse.json();
+                    const data = await response.json();
+
+                    if (data.error) {
+                        throw new Error(data.message);
+                    }
+                    
                     return data;
 
                 } catch (error) {
@@ -433,19 +421,13 @@
                         link.classList.remove('font-bold', 'text-white');
                     }
                 });
+                window.location.hash = pageId;
             }
 
             // --- INITIALIZATION ---
-            const data = await fetchData();
-            if (data) {
-                // Process and assign IDs
-                appData = {
-                    ...data,
-                    users: data.users.map((u, i) => ({ ...u, id: i + 1, level: Number(u.level), xp: Number(u.xp) })),
-                    tasks: data.tasks.map((t, i) => ({ ...t, id: i + 1, level: Number(t.level), xp: Number(t.xp), status: t.status || 'completed' })),
-                };
-                appData.currentUser = appData.users.find(u => u.email.toLowerCase() === currentUserEmail.toLowerCase());
-
+            appData = await fetchData();
+            
+            if (appData) {
                 // Hide loading and show app
                 loadingScreen.classList.add('hidden');
                 appElement.classList.remove('hidden');
@@ -457,18 +439,22 @@
                     link.addEventListener('click', function(event) {
                         event.preventDefault();
                         const pageId = this.dataset.page;
-                        window.location.hash = pageId;
                         showPage(pageId);
                     });
                 });
 
                 const initialPage = window.location.hash.substring(1) || 'dashboard';
                 showPage(initialPage);
+
+                window.addEventListener('hashchange', () => {
+                    const pageId = window.location.hash.substring(1) || 'dashboard';
+                    showPage(pageId);
+                });
+            } else {
+                 loadingScreen.innerHTML = '<p class="text-red-500">Error al cargar los datos. Por favor, contacta al administrador.</p>';
             }
         });
     </script>
 
 </body>
 </html>
-
-    
