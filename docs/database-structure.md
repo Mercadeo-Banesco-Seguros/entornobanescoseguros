@@ -2,7 +2,7 @@
 
 Para que el Google Apps Script funcione correctamente, tu hoja de cálculo debe contener exactamente las siguientes hojas (pestañas) y columnas. Los nombres deben ser idénticos.
 
-### Hoja: `Users`
+### Hoja: `Usuarios`
 
 Contiene la información de cada usuario participante.
 
@@ -14,7 +14,7 @@ Contiene la información de cada usuario participante.
 | `xp`      | Puntos de experiencia acumulados.         | `850`                        |
 | `avatar`  | Nombre del avatar actual.                 | `Explorador`                 |
 
-### Hoja: `Tasks`
+### Hoja: `Misiones`
 
 Contiene la lista de todas las misiones disponibles en el juego.
 
@@ -26,7 +26,7 @@ Contiene la lista de todas las misiones disponibles en el juego.
 | `xp`          | Puntos de experiencia que otorga la misión.  | `10`                                                     |
 | `status`      | Estado de la misión para el usuario.         | `completed` o `pending`                                  |
 
-### Hoja: `Levels`
+### Hoja: `Niveles`
 
 Define los diferentes niveles o mundos del juego.
 
@@ -39,7 +39,7 @@ Define los diferentes niveles o mundos del juego.
 | `worldImageId` | ID que conecta con una imagen de `PlaceholderImages`. | `world-level-1`                           |
 | `story`        | Narrativa o historia del nivel.                | `Bienvenido a las Selvas Exteriores...`     |
 
-### Hoja: `Avatars`
+### Hoja: `Avatares`
 
 Define las evoluciones o avatares que el usuario puede desbloquear.
 
