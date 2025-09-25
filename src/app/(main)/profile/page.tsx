@@ -78,11 +78,11 @@ export default function ProfilePage() {
                     <CardDescription>Tu resumen de progreso total.</CardDescription>
                 </CardHeader>
                 <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <Card className="p-4 bg-secondary/50">
+                  <Card className="p-4 bg-secondary/50 border-0 shadow-none">
                     <p className="text-sm font-semibold text-muted-foreground">Tareas Completadas</p>
                     <p className="text-3xl font-bold text-primary">{completedTasksCount}</p>
                   </Card>
-                  <Card className="p-4 bg-secondary/50">
+                  <Card className="p-4 bg-secondary/50 border-0 shadow-none">
                     <p className="text-sm font-semibold text-muted-foreground">CONECTCOINS Totales</p>
                     <p className="text-3xl font-bold text-primary">{totalXp.toLocaleString()}</p>
                   </Card>
