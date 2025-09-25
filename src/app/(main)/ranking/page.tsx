@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Card, CardContent } from '@/components/ui/card';
@@ -45,6 +46,7 @@ export default function RankingPage() {
 
   const sortedUsers = [...users].sort((a, b) => b.xp - a.xp);
   const myRank = sortedUsers.findIndex(u => u.id === me.id) + 1;
+  const myLevel = levels.find(l => l.id === me.level);
 
   const getAvatar = (avatarName: string) => {
     return avatars.find(av => av.name === avatarName);
@@ -74,7 +76,14 @@ export default function RankingPage() {
                 </div>
               </div>
             </div>
-            <span className="text-sm font-bold">{me.xp.toLocaleString()} CONECTCOINS</span>
+            <div className="flex items-center gap-4">
+              {myLevel && (
+                <span className="bg-white/20 text-primary-foreground font-bold text-xs px-3 py-1 rounded-full">
+                  {myLevel.worldName}
+                </span>
+              )}
+              <span className="text-sm font-bold">{me.xp.toLocaleString()} CONECTCOINS</span>
+            </div>
           </div>
         </CardContent>
       </Card>
@@ -121,3 +130,4 @@ export default function RankingPage() {
     </div>
   );
 }
+
