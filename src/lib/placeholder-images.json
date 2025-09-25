@@ -3,19 +3,19 @@
     {
       "id": "world-level-1",
       "description": "Las Selvas Exteriores",
-      "imageUrl": "https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_7x8ph37x8ph37x8p-Photoroom.png?raw=true",
+      "imageUrl": "https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/primer%20nivel.png?raw=true",
       "imageHint": "jungle ruins"
     },
     {
       "id": "world-level-2",
       "description": "La Ciudad Perdida",
-      "imageUrl": "https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_hu574hu574hu574h-Photoroom.png?raw=true",
+      "imageUrl": "https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/segundo%20nivel.png?raw=true",
       "imageHint": "lost city"
     },
     {
       "id": "world-level-3",
       "description": "El Templo Oculto",
-      "imageUrl": "https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_9xnk149xnk149xnk-Photoroom.png?raw=true",
+      "imageUrl": "https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/tercer%20nivel.png?raw=true",
       "imageHint": "hidden temple"
     },
     {
