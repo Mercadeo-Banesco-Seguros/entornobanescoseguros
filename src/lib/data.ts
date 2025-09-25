@@ -9,10 +9,10 @@ export const avatars: Avatar[] = [
 ];
 
 export const levels: Level[] = [
-    { id: 1, name: 'Nivel 1', xpThreshold: 1000, worldName: 'Las Selvas Exteriores', worldImageId: 'world-level-1' },
-    { id: 2, name: 'Nivel 2', xpThreshold: 2500, worldName: 'La Ciudad Perdida', worldImageId: 'world-level-2' },
-    { id: 3, name: 'Nivel 3', xpThreshold: 5000, worldName: 'El Templo Oculto', worldImageId: 'world-level-3' },
-    { id: 4, name: 'Nivel 4', xpThreshold: 10000, worldName: 'El Núcleo del Legado', worldImageId: 'world-level-4' },
+    { id: 1, name: 'Nivel 1', xpThreshold: 1000, worldName: 'Las Selvas Exteriores', worldImageId: 'world-level-1', story: 'Un mundo donde la naturaleza reclama ruinas antiguas. Aquí, los nuevos exploradores aprenden a navegar por terrenos difíciles y a descubrir los secretos que la maleza esconde.' },
+    { id: 2, name: 'Nivel 2', xpThreshold: 2500, worldName: 'La Ciudad Perdida', worldImageId: 'world-level-2', story: 'Entre cañones rocosos yace una ciudad olvidada por el tiempo. Sus mercados silenciosos y palacios vacíos guardan conocimientos para aquellos lo suficientemente valientes como para buscarlos.' },
+    { id: 3, name: 'Nivel 3', xpThreshold: 5000, worldName: 'El Templo Oculto', worldImageId: 'world-level-3', story: 'En la cima de la montaña más alta, un templo espera. Solo los que han demostrado su valía pueden entrar y enfrentarse a las pruebas de sabiduría y habilidad que aguardan en su interior.' },
+    { id: 4, name: 'Nivel 4', xpThreshold: 10000, worldName: 'El Núcleo del Legado', worldImageId: 'world-level-4', story: 'El corazón de la expedición, un lugar de poder y conocimiento puro. Llegar aquí significa convertirse en una leyenda, un maestro cuyo nombre será recordado para siempre.' },
 ];
 
 // Datos de ejemplo para desarrollo local

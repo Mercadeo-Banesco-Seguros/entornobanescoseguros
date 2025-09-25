@@ -26,6 +26,7 @@ export type Level = {
   xpThreshold: number;
   worldName: string;
   worldImageId: string;
+  story: string;
 };
 
 export type Avatar = {

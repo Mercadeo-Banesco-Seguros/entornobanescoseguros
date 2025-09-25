@@ -78,7 +78,7 @@ export default function WorldMap({ currentUser, levels }: WorldMapProps) {
                 )}
                 <div className="flex-grow">
                   <CardTitle className="text-lg">{level.worldName}</CardTitle>
-                  <CardDescription>{level.name}</CardDescription>
+                  <CardDescription className="text-xs">{level.story}</CardDescription>
                    <div className="mt-2 flex items-center gap-2 text-sm">
                     {isUnlocked ? (
                         <span className="flex items-center gap-1 text-green-600 font-semibold">
