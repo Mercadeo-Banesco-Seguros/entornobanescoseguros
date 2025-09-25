@@ -27,25 +27,27 @@ export default function AvatarEvolution({ currentUser, avatars }: AvatarEvolutio
 
   return (
     <Card className="h-full border-0 shadow-none">
-      <CardContent className="flex flex-col items-center text-center gap-8 pt-6">
-        {selectedAvatar && (
-            <div className="flex flex-col items-center">
-              <div className="relative inline-block mb-4">
-                  <div className="relative w-96 h-96 rounded-lg flex items-center justify-center">
-                     <Image 
-                        src={selectedAvatar.imageUrl} 
-                        alt={selectedAvatar.name} 
-                        fill 
-                        quality={100}
-                        className={cn(
-                          "object-contain",
-                          !isSelectedAvatarUnlocked && "grayscale"
-                        )}
-                      />
+      <CardContent className="flex flex-col items-center text-center gap-8 pt-6 h-full">
+        <div className="flex-grow flex items-center justify-center">
+            {selectedAvatar && (
+                <div className="flex flex-col items-center">
+                  <div className="relative inline-block">
+                      <div className="relative w-96 h-96 rounded-lg flex items-center justify-center">
+                         <Image 
+                            src={selectedAvatar.imageUrl} 
+                            alt={selectedAvatar.name} 
+                            fill 
+                            quality={100}
+                            className={cn(
+                              "object-contain",
+                              !isSelectedAvatarUnlocked && "grayscale"
+                            )}
+                          />
+                      </div>
                   </div>
-              </div>
-            </div>
-        )}
+                </div>
+            )}
+        </div>
         
         <div className="flex items-end justify-center space-x-4 w-full">
           {allAvatars.map(avatar => {

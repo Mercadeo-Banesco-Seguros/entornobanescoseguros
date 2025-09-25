@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -28,23 +29,25 @@ export default function CurrentWorld({ currentUser, levels }: CurrentWorldProps)
 
   return (
     <Card className="h-full border-0 shadow-none">
-      <CardContent className="flex flex-col items-center text-center gap-8 pt-6">
-        <div className="relative w-96 h-96 rounded-lg flex items-center justify-center">
-            {worldImage ? (
-                <Image
-                    src={worldImage.imageUrl}
-                    alt={selectedLevel.worldName}
-                    fill
-                    quality={100}
-                    className={cn(
-                        "object-contain",
-                        !isSelectedLevelUnlocked && "grayscale"
-                    )}
-                    data-ai-hint={worldImage.imageHint}
-                />
-            ) : (
-              <div className="w-full h-full bg-gray-200 rounded-lg" />
-            )}
+      <CardContent className="flex flex-col items-center text-center gap-8 pt-6 h-full">
+        <div className="flex-grow flex items-center justify-center">
+            <div className="relative w-96 h-96 rounded-lg flex items-center justify-center">
+                {worldImage ? (
+                    <Image
+                        src={worldImage.imageUrl}
+                        alt={selectedLevel.worldName}
+                        fill
+                        quality={100}
+                        className={cn(
+                            "object-contain",
+                            !isSelectedLevelUnlocked && "grayscale"
+                        )}
+                        data-ai-hint={worldImage.imageHint}
+                    />
+                ) : (
+                  <div className="w-full h-full bg-gray-200 rounded-lg" />
+                )}
+            </div>
         </div>
         <div className="flex items-end justify-center space-x-4 w-full">
             {allLevels.map(level => {
