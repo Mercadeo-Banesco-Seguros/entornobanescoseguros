@@ -61,15 +61,15 @@ export default function AvatarEvolution({ currentUser, avatars }: AvatarEvolutio
               >
                   <div className="relative mb-2">
                      <div className={cn(
-                       "w-20 h-20 bg-secondary rounded-lg flex items-center justify-center p-2 transition-all",
+                       "w-16 h-16 bg-secondary rounded-lg flex items-center justify-center p-2 transition-all",
                        selectedAvatar.id === avatar.id && 'ring-2 ring-primary ring-offset-2',
                        !isUnlocked && 'opacity-60'
                       )}>
                        <Image 
                          src={avatar.imageUrl} 
                          alt={avatar.name} 
-                         width={64} 
-                         height={64} 
+                         width={48} 
+                         height={48} 
                          className={cn("object-contain", !isUnlocked && "grayscale")}
                        />
                      </div>
