@@ -101,7 +101,7 @@ export default function ProfilePage() {
               <p className="text-3xl font-bold text-primary">{completedTasksCount}</p>
             </Card>
             <Card className="p-4 bg-secondary/50">
-              <p className="text-sm font-semibold text-muted-foreground">XP Totales Ganados</p>
+              <p className="text-sm font-semibold text-muted-foreground">CONECTCOINS Totales</p>
               <p className="text-3xl font-bold text-primary">{totalXp.toLocaleString()}</p>
             </Card>
           </CardContent>
