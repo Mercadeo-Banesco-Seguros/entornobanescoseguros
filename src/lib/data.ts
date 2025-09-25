@@ -9,10 +9,10 @@ export const avatars: Avatar[] = [
 ];
 
 export const levels: Level[] = [
-    { id: 1, name: 'Nivel 1', xpThreshold: 1000, worldName: 'Mundo Desierto', worldImageId: 'world-level-1' },
-    { id: 2, name: 'Nivel 2', xpThreshold: 2500, worldName: 'El Bosque del Explorador', worldImageId: 'world-level-2' },
-    { id: 3, name: 'Nivel 3', xpThreshold: 5000, worldName: 'Las Cumbres del Navegante', worldImageId: 'world-level-3' },
-    { id: 4, name: 'Nivel 4', xpThreshold: 10000, worldName: 'La Metrópolis del Conquistador', worldImageId: 'world-level-4' },
+    { id: 1, name: 'Nivel 1', xpThreshold: 1000, worldName: 'Las Selvas Exteriores', worldImageId: 'world-level-1' },
+    { id: 2, name: 'Nivel 2', xpThreshold: 2500, worldName: 'La Ciudad Perdida', worldImageId: 'world-level-2' },
+    { id: 3, name: 'Nivel 3', xpThreshold: 5000, worldName: 'El Templo Oculto', worldImageId: 'world-level-3' },
+    { id: 4, name: 'Nivel 4', xpThreshold: 10000, worldName: 'El Núcleo del Legado', worldImageId: 'world-level-4' },
 ];
 
 // Datos de ejemplo para desarrollo local

@@ -2,27 +2,27 @@
   "placeholderImages": [
     {
       "id": "world-level-1",
-      "description": "A stylized 3D desert world.",
-      "imageUrl": "https://storage.googleapis.com/project-spark-b6b0c.appspot.com/static/templates/e-learning/desert-world.png",
-      "imageHint": "isometric desert"
+      "description": "Las Selvas Exteriores",
+      "imageUrl": "https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_1pq9x31pq9x31pq9-Photoroom.png?raw=true",
+      "imageHint": "jungle ruins"
     },
     {
       "id": "world-level-2",
-      "description": "A stylized 3D forest representing the explorer level.",
-      "imageUrl": "https://images.unsplash.com/photo-1619982870053-1545857b7eb4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxlbmNoYW50ZWQlMjBmb3Jlc3R8ZW58MHx8fHwxNzU4NzEyMDQ3fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "enchanted forest"
+      "description": "La Ciudad Perdida",
+      "imageUrl": "https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_9as5r89as5r89as5-Photoroom.png?raw=true",
+      "imageHint": "lost city"
     },
     {
       "id": "world-level-3",
-      "description": "A stylized 3D mountain range representing the navigator level.",
-      "imageUrl": "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxtb3VudGFpbiUyMHBlYWtzfGVufDB8fHx8MTc1ODY5NDA1Nnww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "mountain peaks"
+      "description": "El Templo Oculto",
+      "imageUrl": "https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_ny1zncny1zncny1z-Photoroom.png?raw=true",
+      "imageHint": "hidden temple"
     },
     {
       "id": "world-level-4",
-      "description": "A stylized 3D metropolis representing the conqueror level.",
-      "imageUrl": "https://images.unsplash.com/photo-1535391879778-3bae11d29a24?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxmdXR1cmlzdGljJTIwY2l0eXxlbnwwfHx8fDE3NTg3MDYwODZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "futuristic city"
+      "description": "El Núcleo del Legado",
+      "imageUrl": "https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(2).png?raw=true",
+      "imageHint": "legacy core"
     }
   ]
 }
