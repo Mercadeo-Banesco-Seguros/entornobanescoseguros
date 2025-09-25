@@ -23,8 +23,14 @@ export default function AvatarEvolution({ currentUser, avatars }: AvatarEvolutio
         {currentAvatar && (
             <div className="flex flex-col items-center">
               <div className="relative inline-block mb-4">
-                  <div className="w-96 h-96 rounded-lg flex items-center justify-center">
-                     <Image src={currentAvatar.imageUrl} alt={currentAvatar.name} width={360} height={360} className="object-contain" />
+                  <div className="relative w-96 h-96 rounded-lg flex items-center justify-center">
+                     <Image 
+                        src={currentAvatar.imageUrl} 
+                        alt={currentAvatar.name} 
+                        fill 
+                        quality={100}
+                        className="object-contain" 
+                      />
                   </div>
               </div>
             </div>
