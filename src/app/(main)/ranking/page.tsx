@@ -78,7 +78,7 @@ export default function RankingPage() {
             </div>
             <div className="flex items-center gap-4">
               {myLevel && (
-                <span className="bg-white/20 text-primary-foreground font-bold text-xs px-3 py-1 rounded-full">
+                <span className="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full">
                   {myLevel.worldName}
                 </span>
               )}
