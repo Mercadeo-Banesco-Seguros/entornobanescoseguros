@@ -2,17 +2,19 @@
 
 Para que el Google Apps Script funcione correctamente, tu hoja de cálculo debe contener exactamente las siguientes hojas (pestañas) y columnas. Los nombres deben ser idénticos.
 
-### Hoja: `Usuarios`
+### Hoja: `DATA`
 
-Contiene la información de cada usuario participante.
+Contiene la información principal y el progreso de cada usuario participante.
 
-| Columna | Descripción                               | Ejemplo                      |
-| :------ | :---------------------------------------- | :--------------------------- |
-| `name`    | Nombre completo del usuario.              | `Carlos Rodríguez`           |
-| `email`   | Correo electrónico del usuario.           | `carlos.rodriguez@example.com` |
-| `level`   | Nivel actual del usuario (numérico).      | `1`                          |
-| `xp`      | Puntos de experiencia acumulados.         | `850`                        |
-| `avatar`  | Nombre del avatar actual.                 | `Explorador`                 |
+| Columna  | Descripción                               | Ejemplo                      |
+| :------- | :---------------------------------------- | :--------------------------- |
+| `Nombre`   | Nombre completo del usuario.              | `Carlos Rodríguez`           |
+| `Correo`   | Correo electrónico del usuario (único).   | `carlos.rodriguez@example.com` |
+| `Sexo`     | Sexo del usuario (ej. "Masculino", "Femenino"). | `Masculino`                  |
+| `Puntaje`  | Puntos de experiencia (CONECTCOINS) acumulados. | `850`                        |
+| `Nivel`    | Nivel numérico actual del usuario.        | `1`                          |
+| `Avatar`   | Nombre del avatar actual del usuario.     | `Explorador`                 |
+
 
 ### Hoja: `Misiones`
 
