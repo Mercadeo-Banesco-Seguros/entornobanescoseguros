@@ -29,7 +29,7 @@ export default function AvatarEvolution({ currentUser, avatars }: AvatarEvolutio
       <CardContent className="flex flex-col items-center text-center gap-8 pt-6 h-full">
         <div className="flex-grow flex items-center justify-center h-96 w-full">
             {selectedAvatar && (
-                <div className="flex items-center gap-8">
+                <div className="flex items-center gap-2">
                   <div className="relative inline-block w-64 h-96">
                      <Image 
                         src={selectedAvatar.imageUrl} 
