@@ -15,7 +15,7 @@ export default function CurrentWorld({ currentUser, level }: CurrentWorldProps) 
   return (
     <Card className="h-full border-0 shadow-none">
       <CardContent className="flex flex-col items-center text-center">
-        <div className="aspect-square w-full max-w-lg relative rounded-lg mb-4">
+        <div className="aspect-square w-full relative rounded-lg mb-4">
             {worldImage ? (
                 <Image
                     src={worldImage.imageUrl}
