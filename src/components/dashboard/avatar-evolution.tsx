@@ -30,7 +30,7 @@ export default function AvatarEvolution({ currentUser, avatars }: AvatarEvolutio
         <div className="flex-grow flex items-center justify-center h-96 w-full">
             {selectedAvatar && (
                 <div className="flex items-center gap-8">
-                  <div className="relative inline-block w-72 h-96">
+                  <div className="relative inline-block w-64 h-96">
                      <Image 
                         src={selectedAvatar.imageUrl} 
                         alt={selectedAvatar.name} 
