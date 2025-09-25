@@ -49,9 +49,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         const loggedInUser = allUsers.find(u => u.email.toLowerCase() === currentUserEmail.toLowerCase());
 
         if (loggedInUser) {
+           // En producción, asumimos que el status de las tareas vendrá del backend
+           // o se determinará con una lógica más compleja.
+           // Por ahora, las mostraremos todas como pendientes.
           const userTasks = allTasks.map(task => ({
             ...task,
-            status: task.level < loggedInUser.level ? 'completed' : 'pending'
+            status: task.status || 'pending'
           }));
 
           setCurrentUser(loggedInUser);
@@ -80,9 +83,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const loggedInUser = staticUsers.find(u => u.email.toLowerCase() === currentUserEmail.toLowerCase());
 
       if (loggedInUser) {
+        // En desarrollo, podemos simular el estado de las tareas.
+        // Por ejemplo, aquí las marcamos todas como pendientes.
+        // Puedes cambiar esta lógica si necesitas simular tareas completadas.
         const userTasks = staticTasks.map(task => ({
           ...task,
-          status: task.level < loggedInUser.level ? 'completed' : 'pending'
+          status: 'pending' // Forzamos a 'pending' para el ejemplo
         }));
         
         setTimeout(() => { // Simular carga

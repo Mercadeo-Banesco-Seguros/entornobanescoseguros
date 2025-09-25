@@ -24,12 +24,9 @@ export const users: User[] = [
 ];
 
 export const tasks: Omit<Task, 'status'>[] = [
-    { id: 1, title: 'Completar Perfil', description: 'Asegúrate de que toda tu información esté actualizada.', level: 1, xp: 50 },
-    { id: 2, title: 'Curso de Bienvenida', description: 'Finaliza el curso introductorio de la empresa.', level: 1, xp: 150 },
-    { id: 3, title: 'Primera Venta', description: 'Registra tu primera venta en el sistema.', level: 1, xp: 200 },
-    { id: 4, title: 'Venta Cruzada', description: 'Logra una venta de un segundo producto a un cliente.', level: 2, xp: 300 },
-    { id: 5, title: 'Mentoría', description: 'Participa como mentor para un nuevo integrante.', level: 3, xp: 500 },
-    { id: 6, title: 'Proyecto Innovador', description: 'Lidera un proyecto que mejore un proceso interno.', level: 4, xp: 1000 },
+    { id: 1, title: 'Participación en capacitaciones o actividades de integración', description: 'Asiste a eventos que fortalecen al equipo.', level: 1, xp: 10 },
+    { id: 2, title: 'Participación en videos de Capital Humano', description: 'Colabora activamente en producciones de CH.', level: 1, xp: 10 },
+    { id: 3, title: 'Participación como extra en videos de Capital Humano', description: 'Aparece como extra y apoya las iniciativas de CH.', level: 1, xp: 5 },
 ];
 
 // Usuario que simulará estar logueado

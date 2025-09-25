@@ -17,7 +17,7 @@ export type Task = {
   description: string;
   level: number;
   xp: number;
-  status?: TaskStatus;
+  status: TaskStatus;
 };
 
 export type Level = {
@@ -43,7 +43,8 @@ export type NavLink = {
   icon: LucideIcon;
 };
 
+// Se ajusta para que el status sea opcional, ya que puede venir o no de la hoja de cálculo.
 export type AppDataFromSheet = {
   users: Omit<User, 'id'>[];
-  tasks: Omit<Task, 'id' | 'status'>[];
+  tasks: Omit<Task, 'id'>[];
 };
