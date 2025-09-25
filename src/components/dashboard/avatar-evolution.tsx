@@ -18,10 +18,8 @@ export default function AvatarEvolution({ currentUser, avatars }: AvatarEvolutio
   const [selectedAvatar, setSelectedAvatar] = useState(currentAvatarFromUser || avatars[0]);
 
   const handleAvatarSelect = (avatar: AvatarType) => {
-    const isUnlocked = avatar.level <= currentUser.level;
-    if (isUnlocked) {
-      setSelectedAvatar(avatar);
-    }
+    // Permite la selección para previsualizar, sin importar si está bloqueado.
+    setSelectedAvatar(avatar);
   };
 
   const allAvatars = [...avatars].sort((a, b) => a.level - b.level);
@@ -51,9 +49,8 @@ export default function AvatarEvolution({ currentUser, avatars }: AvatarEvolutio
             return (
               <button 
                 key={avatar.id} 
-                className="flex flex-col items-center text-center disabled:cursor-not-allowed"
+                className="flex flex-col items-center text-center"
                 onClick={() => handleAvatarSelect(avatar)}
-                disabled={!isUnlocked}
                 aria-label={`Seleccionar ${avatar.name}`}
               >
                   <div className="relative mb-2">
