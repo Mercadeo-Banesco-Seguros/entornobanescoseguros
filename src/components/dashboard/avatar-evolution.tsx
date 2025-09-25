@@ -42,14 +42,10 @@ export default function AvatarEvolution({ currentUser, avatars }: AvatarEvolutio
                         )}
                       />
                   </div>
-                  <Card className={cn("w-64 text-left p-4 bg-secondary/50 border-0 shadow-none", !isSelectedAvatarUnlocked && 'opacity-50')}>
-                      <CardHeader className="p-2">
-                        <CardTitle className="text-lg">{selectedAvatar.name}</CardTitle>
-                      </CardHeader>
-                      <CardContent className="p-2">
-                        <p className="text-sm text-muted-foreground">{selectedAvatar.description}</p>
-                      </CardContent>
-                  </Card>
+                  <div className={cn("w-64 text-left", !isSelectedAvatarUnlocked && 'opacity-50')}>
+                      <h3 className="text-base font-semibold">{selectedAvatar.name}</h3>
+                      <p className="text-xs text-muted-foreground mt-1">{selectedAvatar.description}</p>
+                  </div>
                 </div>
             )}
         </div>
