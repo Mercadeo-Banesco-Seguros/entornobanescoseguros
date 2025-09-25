@@ -2,7 +2,7 @@
 'use client';
 
 import { Card, CardContent } from '@/components/ui/card';
-import { Table, TableBody, TableCell, TableRow, TableHead } from '@/components/ui/table';
+import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 import { useAuth } from '@/context/auth-context';
 import { Skeleton } from '@/components/ui/skeleton';
 import Image from 'next/image';
@@ -63,7 +63,7 @@ export default function RankingPage() {
         <CardContent className="p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <span className="text-lg font-bold">#{myRank}</span>
+              <span className="text-xl font-bold">#{myRank}</span>
               <div className="flex items-center gap-3">
                  <div className="p-1 bg-white/20 rounded-full w-12 h-12 flex items-center justify-center">
                     {getAvatar(me.avatar) && (
@@ -82,7 +82,10 @@ export default function RankingPage() {
                   {myLevel.worldName}
                 </span>
               )}
-              <span className="text-sm font-bold">{me.xp.toLocaleString()} CONECTCOINS</span>
+              <div className="flex items-baseline gap-1.5">
+                <span className="text-2xl font-bold">{me.xp.toLocaleString()}</span>
+                <span className="text-xs font-normal text-primary-foreground/80">CONECTCOINS</span>
+              </div>
             </div>
           </div>
         </CardContent>
@@ -130,4 +133,3 @@ export default function RankingPage() {
     </div>
   );
 }
-
