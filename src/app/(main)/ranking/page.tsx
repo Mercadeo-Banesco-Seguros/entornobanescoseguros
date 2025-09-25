@@ -1,7 +1,7 @@
 'use client';
 
 import { Card, CardContent } from '@/components/ui/card';
-import { Table, TableBody, TableCell, TableHeader, TableRow, TableHead } from '@/components/ui/table';
+import { Table, TableBody, TableCell, TableRow, TableHead } from '@/components/ui/table';
 import { useAuth } from '@/context/auth-context';
 import { Skeleton } from '@/components/ui/skeleton';
 import Image from 'next/image';
@@ -28,7 +28,7 @@ export default function RankingPage() {
                 <TableRow key={i}>
                   <TableCell><Skeleton className="h-6 w-10" /></TableCell>
                   <TableCell><Skeleton className="h-10 w-48" /></TableCell>
-                  <TableCell className="text-center"><Skeleton className="h-6 w-10 mx-auto" /></TableCell>
+                  <TableCell className="text-center"><Skeleton className="h-6 w-24 mx-auto" /></TableCell>
                   <TableCell className="text-right"><Skeleton className="h-6 w-20 ml-auto" /></TableCell>
                 </TableRow>
               ))}
@@ -83,34 +83,37 @@ export default function RankingPage() {
         <CardContent className="p-0">
           <Table>
             <TableBody>
-              {sortedUsers.slice(0, 10).map((user, index) => (
-                <TableRow key={user.id} className={user.id === me.id ? 'bg-secondary/50' : ''}>
-                  <TableCell className="font-bold text-lg text-muted w-[80px]">#{index + 1}</TableCell>
-                  <TableCell>
-                    <div className="flex items-center gap-4">
-                        <div className="p-1 bg-secondary rounded-full w-12 h-12 flex items-center justify-center">
-                           {getAvatar(user.avatar) && (
-                            <Image src={getAvatar(user.avatar)!.imageUrl} alt={user.avatar} width={32} height={32} className="object-contain" />
-                           )}
+              {sortedUsers.slice(0, 10).map((user, index) => {
+                const userLevel = levels.find(l => l.id === user.level);
+                return (
+                  <TableRow key={user.id} className={user.id === me.id ? 'bg-secondary/50' : ''}>
+                    <TableCell className="font-bold text-lg text-muted w-[80px]">#{index + 1}</TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-4">
+                          <div className="p-1 bg-secondary rounded-full w-12 h-12 flex items-center justify-center">
+                            {getAvatar(user.avatar) && (
+                              <Image src={getAvatar(user.avatar)!.imageUrl} alt={user.avatar} width={32} height={32} className="object-contain" />
+                            )}
+                          </div>
+                        <div>
+                          <p className="font-semibold text-foreground">{user.name}</p>
+                          <p className="text-xs text-muted-foreground">{user.avatar}</p>
                         </div>
-                      <div>
-                        <p className="font-semibold text-foreground">{user.name}</p>
-                        <p className="text-xs text-muted-foreground">{user.avatar}</p>
                       </div>
-                    </div>
-                  </TableCell>
-                  <TableCell className="text-center">
-                    <span className="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full">
-                      {user.level}
-                    </span>
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <span className="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full">
-                      {user.xp.toLocaleString()}
-                    </span>
-                  </TableCell>
-                </TableRow>
-              ))}
+                    </TableCell>
+                    <TableCell className="text-center">
+                      <span className="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full">
+                        {userLevel?.worldName || `Nivel ${user.level}`}
+                      </span>
+                    </TableCell>
+                    <TableCell className="text-right">
+                      <span className="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full">
+                        {user.xp.toLocaleString()}
+                      </span>
+                    </TableCell>
+                  </TableRow>
+                )
+              })}
             </TableBody>
           </Table>
         </CardContent>
