@@ -28,27 +28,35 @@ export default function WorldMap({ currentUser, levels }: WorldMapProps) {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
-        <Card className="md:col-span-2 border-0 shadow-none">
-            <CardContent className="p-0">
-                 <div className="relative w-full h-[600px] rounded-lg flex items-center justify-center bg-secondary/30">
-                    {worldImage ? (
-                        <Image
-                            src={worldImage.imageUrl}
-                            alt={selectedLevel.worldName}
-                            fill
-                            quality={100}
-                            className={cn(
-                                'object-contain p-4',
-                                !isSelectedLevelUnlocked && "grayscale"
-                            )}
-                            data-ai-hint={worldImage.imageHint}
-                        />
-                    ) : (
-                      <div className="w-full h-full bg-gray-200 rounded-lg" />
-                    )}
-                </div>
-            </CardContent>
-        </Card>
+        <div className="md:col-span-2 space-y-4">
+            <Card className="border-0 shadow-none">
+                <CardContent className="p-0">
+                    <div className="relative w-full h-[600px] rounded-lg flex items-center justify-center bg-secondary/30">
+                        {worldImage ? (
+                            <Image
+                                src={worldImage.imageUrl}
+                                alt={selectedLevel.worldName}
+                                fill
+                                quality={100}
+                                className={cn(
+                                    'object-contain p-4',
+                                    !isSelectedLevelUnlocked && "grayscale"
+                                )}
+                                data-ai-hint={worldImage.imageHint}
+                            />
+                        ) : (
+                        <div className="w-full h-full bg-gray-200 rounded-lg" />
+                        )}
+                    </div>
+                </CardContent>
+            </Card>
+             <Card>
+                <CardHeader>
+                    <CardTitle>{selectedLevel.worldName}</CardTitle>
+                    <CardDescription>{selectedLevel.story}</CardDescription>
+                </CardHeader>
+            </Card>
+        </div>
       <div className="md:col-span-1 space-y-4">
         {allLevels.map(level => {
           const isUnlocked = level.id <= currentUser.level;
@@ -64,9 +72,9 @@ export default function WorldMap({ currentUser, levels }: WorldMapProps) {
                     !isUnlocked && 'opacity-70 bg-secondary/50'
                 )}
             >
-              <CardHeader className="flex flex-row items-start gap-4 space-y-0 pb-4">
+              <CardHeader className="flex flex-row items-start gap-4 space-y-0 pb-4 p-4">
                 {levelWorldImage && (
-                    <div className="w-24 h-24 bg-secondary rounded-lg flex items-center justify-center p-2">
+                    <div className="w-20 h-20 bg-secondary rounded-lg flex items-center justify-center p-2 flex-shrink-0">
                         <Image
                             src={levelWorldImage.imageUrl}
                             alt={level.worldName}
@@ -78,8 +86,7 @@ export default function WorldMap({ currentUser, levels }: WorldMapProps) {
                 )}
                 <div className="flex-grow">
                   <CardTitle className="text-lg">{level.worldName}</CardTitle>
-                  <CardDescription className="text-xs">{level.story}</CardDescription>
-                   <div className="mt-2 flex items-center gap-2 text-sm">
+                   <div className="mt-2 flex flex-col items-start gap-2 text-sm">
                     {isUnlocked ? (
                         <span className="flex items-center gap-1 text-green-600 font-semibold">
                             <CircleCheck className="h-4 w-4" /> Desbloqueado
