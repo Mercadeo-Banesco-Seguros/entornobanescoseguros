@@ -31,20 +31,35 @@ export default function Header() {
           </div>
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-6">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  className={cn(
-                    'px-3 py-2 rounded-md text-xs transition-colors',
-                    pathname === link.href
-                      ? 'font-bold text-white'
-                      : 'font-normal text-white/70 hover:text-white',
-                  )}
-                >
-                  {link.label}
-                </Link>
-              ))}
+              {navLinks.map((link) => {
+                if (link.href === '/misiones') {
+                  return (
+                    <span
+                      key={link.label}
+                      className={cn(
+                        'px-3 py-2 rounded-md text-xs transition-colors',
+                        'font-normal text-white/40 cursor-not-allowed'
+                      )}
+                    >
+                      {link.label}
+                    </span>
+                  )
+                }
+                return (
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    className={cn(
+                      'px-3 py-2 rounded-md text-xs transition-colors',
+                      pathname === link.href
+                        ? 'font-bold text-white'
+                        : 'font-normal text-white/70 hover:text-white',
+                    )}
+                  >
+                    {link.label}
+                  </Link>
+                )
+              })}
             </div>
           </div>
           <div className="flex items-center gap-4">
