@@ -7,7 +7,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import Image from 'next/image';
 
 export default function RankingPage() {
-  const { users, avatars, currentUser: me, loading } = useAuth();
+  const { users, avatars, currentUser: me, loading, levels } = useAuth();
   
   if (loading) {
     return (
@@ -58,6 +58,8 @@ export default function RankingPage() {
     return avatars.find(av => av.name === avatarName);
   };
 
+  const myLevel = levels.find(l => l.id === me.level);
+
   return (
     <div className="space-y-8">
       <header>
@@ -78,7 +80,7 @@ export default function RankingPage() {
                  </div>
                 <div>
                   <p className="font-bold text-lg text-foreground">{me.name} (Tú)</p>
-                  <p className="text-sm text-muted">Nivel {me.level} &bull; {me.xp} CONECTCOINS</p>
+                  <p className="text-sm text-muted">{myLevel?.name} &bull; {me.xp} CONECTCOINS</p>
                 </div>
               </div>
             </div>
