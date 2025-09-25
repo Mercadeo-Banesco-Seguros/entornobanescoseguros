@@ -17,7 +17,7 @@ export default function ProfilePage() {
           <p className="text-muted text-lg mt-1">Tu progreso y estadísticas en la expedición.</p>
         </header>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <Card className="md:col-span-1 flex flex-col items-center justify-center p-6">
+          <Card className="md:col-span-1 flex flex-col items-center justify-center p-6 border-0 shadow-none">
             <Skeleton className="w-48 h-48 rounded-full mx-auto mb-4" />
             <Skeleton className="h-8 w-32 mx-auto" />
             <Skeleton className="h-6 w-40 mx-auto mt-2" />
@@ -56,7 +56,7 @@ export default function ProfilePage() {
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
-        <Card className="md:col-span-1 text-center p-6 flex flex-col items-center justify-start h-full">
+        <Card className="md:col-span-1 text-center p-6 flex flex-col items-center justify-start h-full border-0 shadow-none">
           {currentAvatar && (
              <div className="relative w-48 h-48 mx-auto mb-4 p-2 rounded-full bg-secondary">
                <Image src={currentAvatar.imageUrl} alt={currentAvatar.name} layout="fill" className="object-contain" />
