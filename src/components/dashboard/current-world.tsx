@@ -30,8 +30,8 @@ export default function CurrentWorld({ currentUser, levels }: CurrentWorldProps)
   return (
     <Card className="h-full border-0 shadow-none">
       <CardContent className="flex flex-col items-center text-center gap-8 pt-6 h-full">
-        <div className="flex-grow flex items-center justify-center">
-            <div className="relative w-96 h-96 rounded-lg flex items-center justify-center">
+        <div className="flex-grow flex items-center justify-center w-full">
+            <div className="relative w-full h-96 rounded-lg flex items-center justify-center">
                 {worldImage ? (
                     <Image
                         src={worldImage.imageUrl}
@@ -39,7 +39,7 @@ export default function CurrentWorld({ currentUser, levels }: CurrentWorldProps)
                         fill
                         quality={100}
                         className={cn(
-                            "object-cover",
+                            selectedLevel.id === 2 ? 'object-cover' : 'object-contain',
                             !isSelectedLevelUnlocked && "grayscale"
                         )}
                         data-ai-hint={worldImage.imageHint}
