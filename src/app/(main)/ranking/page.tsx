@@ -61,31 +61,29 @@ export default function RankingPage() {
 
       <Card className="sticky top-20 z-10 bg-primary text-primary-foreground shadow-lg">
         <CardContent className="p-6">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <span className="text-xl font-bold">#{myRank}</span>
-              <div className="flex items-center gap-3">
-                 <div className="p-1 bg-white/20 rounded-full w-12 h-12 flex items-center justify-center">
-                    {getAvatar(me.avatar) && (
-                      <Image src={getAvatar(me.avatar)!.imageUrl} alt={me.avatar} width={40} height={40} className="object-contain" />
-                    )}
-                 </div>
-                <div>
-                  <p className="font-semibold text-base">{me.name} (Tú)</p>
-                  <p className="text-xs text-primary-foreground/80">{me.avatar} • {me.xp.toLocaleString()} CONECTCOINS</p>
-                </div>
+          <div className="flex items-center">
+            <div className="font-bold text-lg text-white w-[80px]">#{myRank}</div>
+            <div className="flex-grow flex items-center gap-4">
+              <div className="p-1 bg-white/20 rounded-full w-12 h-12 flex items-center justify-center">
+                {getAvatar(me.avatar) && (
+                  <Image src={getAvatar(me.avatar)!.imageUrl} alt={me.avatar} width={40} height={40} className="object-contain" />
+                )}
+              </div>
+              <div>
+                <p className="font-semibold text-base">{me.name} (Tú)</p>
+                <p className="text-xs text-primary-foreground/80">{me.avatar} • {me.xp.toLocaleString()} CONECTCOINS</p>
               </div>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="text-center w-48">
               {myLevel && (
                 <span className="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full">
                   {myLevel.worldName}
                 </span>
               )}
-              <div className="flex items-baseline gap-1.5">
-                <span className="text-2xl font-bold">{me.xp.toLocaleString()}</span>
-                <span className="text-xs font-normal text-primary-foreground/80">CONECTCOINS</span>
-              </div>
+            </div>
+            <div className="text-right w-48 flex items-baseline justify-end gap-1.5">
+              <span className="text-2xl font-bold">{me.xp.toLocaleString()}</span>
+              <span className="text-xs font-normal text-primary-foreground/80">CONECTCOINS</span>
             </div>
           </div>
         </CardContent>
@@ -113,12 +111,12 @@ export default function RankingPage() {
                         </div>
                       </div>
                     </TableCell>
-                    <TableCell className="text-center">
+                    <TableCell className="text-center w-48">
                       <span className="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full">
                         {userLevel?.worldName || `Nivel ${user.level}`}
                       </span>
                     </TableCell>
-                    <TableCell className="text-right">
+                    <TableCell className="text-right w-48">
                       <span className="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full">
                         {user.xp.toLocaleString()}
                       </span>
