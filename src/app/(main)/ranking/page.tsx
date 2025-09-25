@@ -80,7 +80,7 @@ export default function RankingPage() {
                  </div>
                 <div>
                   <p className="font-bold text-lg text-foreground">{me.name} (Tú)</p>
-                  <p className="text-sm text-muted">{myLevel?.name} &bull; {me.xp} CONECTCOINS</p>
+                  <p className="text-sm text-muted">{me.avatar} &bull; {me.xp.toLocaleString()} CONECTCOINS</p>
                 </div>
               </div>
             </div>
