@@ -68,8 +68,8 @@ export default function AvatarEvolution({ currentUser, avatars }: AvatarEvolutio
                        <Image 
                          src={avatar.imageUrl} 
                          alt={avatar.name} 
-                         width={72} 
-                         height={72} 
+                         width={64} 
+                         height={64} 
                          className={cn("object-contain", !isUnlocked && "grayscale")}
                        />
                      </div>
