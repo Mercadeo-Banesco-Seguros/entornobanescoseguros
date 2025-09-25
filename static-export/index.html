@@ -36,11 +36,28 @@
         .border-primary { border-color: var(--primary); }
         .ring-primary { --tw-ring-color: var(--primary); }
         .hidden { display: none; }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body class="antialiased">
 
-    <div id="app" class="min-h-screen flex flex-col">
+    <div id="loading-screen" class="w-full h-screen flex flex-col items-center justify-center bg-background fixed top-0 left-0 z-50">
+        <div class="loader"></div>
+        <p class="mt-4 text-muted-foreground">Cargando expedición...</p>
+    </div>
+
+    <div id="app" class="min-h-screen flex-col hidden">
         <header class="bg-primary text-primary-foreground">
             <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between h-24">
@@ -53,240 +70,361 @@
                     <div class="hidden md:block">
                         <div id="nav-links" class="ml-10 flex items-baseline space-x-6">
                            <a href="#dashboard" data-page="dashboard" class="nav-link px-3 py-2 rounded-md text-xs transition-colors font-bold text-white">Dashboard</a>
-                           <span class="px-3 py-2 rounded-md text-xs transition-colors font-normal text-white/40 cursor-not-allowed">Misiones</span>
+                           <a href="#misiones" data-page="misiones" class="nav-link px-3 py-2 rounded-md text-xs transition-colors font-normal text-white/70 hover:text-white">Misiones</a>
                            <a href="#ranking" data-page="ranking" class="nav-link px-3 py-2 rounded-md text-xs transition-colors font-normal text-white/70 hover:text-white">Ranking</a>
                            <a href="#profile" data-page="profile" class="nav-link px-3 py-2 rounded-md text-xs transition-colors font-normal text-white/70 hover:text-white">Mi Perfil</a>
                         </div>
                     </div>
-                    <div class="flex items-center gap-4">
-                        <div class="text-right hidden sm:block">
-                            <p class="text-sm font-bold text-white">Carlos Rodríguez</p>
-                            <p class="text-xs text-white/80">850 CONECTCOINS</p>
-                        </div>
-                        <div class="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full">
-                           <span class="flex h-full w-full items-center justify-center rounded-full bg-muted">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                           </span>
-                        </div>
+                    <div id="header-user-info" class="flex items-center gap-4">
+                        <!-- User info will be injected here by JS -->
                     </div>
                 </div>
             </nav>
         </header>
         
         <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div id="page-container">
+                <!-- Page content will be injected here by JS -->
+            </div>
+        </main>
+    </div>
 
-            <!-- Dashboard Page -->
-            <div id="dashboard-page" class="page-content">
-                <div class="flex flex-col gap-8">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-                        <div class="w-full">
-                            <div class="h-full border-0 shadow-none rounded-lg">
-                                <div class="flex flex-col items-center text-center gap-8 pt-6 h-full">
-                                    <div class="flex-grow flex items-center justify-center h-96">
-                                        <div class="flex flex-col items-center">
-                                            <div class="relative inline-block">
-                                                <div class="relative w-96 h-96 rounded-lg flex items-center justify-center">
-                                                    <img src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/AVATAR%20HOMBRE1.png?raw=true" alt="Explorador" class="object-contain" style="max-width: 100%; max-height: 100%;">
-                                                </div>
-                                            </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            const currentUserEmail = 'carlos.rodriguez@example.com';
+            const appsScriptUrl = "URL_DE_TU_APPS_SCRIPT_AQUI";
+
+            const appElement = document.getElementById('app');
+            const loadingScreen = document.getElementById('loading-screen');
+            
+            let appData = {};
+
+            // --- DATA FETCHING ---
+            async function fetchData() {
+                if (!appsScriptUrl || appsScriptUrl === "URL_DE_TU_APPS_SCRIPT_AQUI") {
+                    console.error('La URL de Apps Script no está configurada.');
+                    alert('Error de configuración: La URL de Apps Script no está definida.');
+                    return null;
+                }
+                try {
+                    const response = await fetch(appsScriptUrl, {
+                        method: 'POST',
+                        mode: 'no-cors', // Use no-cors and redirect for simple deployments
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({ email: currentUserEmail }),
+                        redirect: 'follow'
+                    });
+
+                    // For 'no-cors', we can't read the response, but we can use a redirect pattern
+                    // Your Apps Script should redirect to a URL with data in params,
+                    // or a simpler approach is to use a proper CORS-enabled API Gateway if possible.
+                    // For now, let's assume a simpler direct JSON fetch will work if CORS is configured.
+                    
+                    // The following part assumes CORS is properly set up on your Apps Script deployment
+                     const corsResponse = await fetch(appsScriptUrl, {
+                        method: 'POST',
+                        headers: {'Content-Type':- 'application/json'},
+                        body: JSON.stringify({ email: currentUserEmail }),
+                    });
+
+                    if (!corsResponse.ok) {
+                      throw new Error(`Error from Apps Script: ${corsResponse.statusText}`);
+                    }
+                    
+                    const data = await corsResponse.json();
+                    return data;
+
+                } catch (error) {
+                    console.error('Error fetching data from Apps Script:', error);
+                    alert('No se pudieron cargar los datos de la expedición. Revisa la consola para más detalles.');
+                    return null;
+                }
+            }
+
+            // --- TEMPLATING / RENDERING ---
+            
+            function renderHeader(user) {
+                const container = document.getElementById('header-user-info');
+                if (!user) {
+                    container.innerHTML = '<p class="text-sm text-white/80">No autenticado</p>';
+                    return;
+                }
+                container.innerHTML = `
+                    <div class="text-right hidden sm:block">
+                        <p class="text-sm font-bold text-white">${user.name}</p>
+                        <p class="text-xs text-white/80">${user.xp.toLocaleString()} CONECTCOINS</p>
+                    </div>
+                    <div class="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full">
+                       <span class="flex h-full w-full items-center justify-center rounded-full bg-muted">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                       </span>
+                    </div>`;
+            }
+
+            function renderDashboard() {
+                 const { currentUser, levels, avatars, tasks, placeholderImages } = appData;
+                 if (!currentUser) return '<p>Usuario no encontrado.</p>';
+                 const userLevel = levels.find(l => l.id === currentUser.level);
+                 const levelTasks = tasks.filter(t => t.level === currentUser.level);
+                 const currentAvatar = avatars.find(a => a.name === currentUser.avatar);
+
+                 // Avatar Evolution Component
+                 const avatarEvolutionHTML = `
+                    <div class="w-full">
+                        <div class="h-full border-0 shadow-none rounded-lg">
+                            <div class="flex flex-col items-center text-center gap-8 pt-6 h-full">
+                                <div class="flex-grow flex items-center justify-center h-96 w-full">
+                                    <div class="flex items-center gap-2">
+                                        <div class="relative inline-block w-64 h-96">
+                                            <img src="${currentAvatar.imageUrl}" alt="${currentAvatar.name}" class="object-contain" style="max-width: 100%; max-height: 100%;">
                                         </div>
-                                    </div>
-                                    <div class="flex items-end justify-center space-x-4 w-full">
-                                        <!-- Avatars -->
-                                        <button class="flex flex-col items-center text-center">
-                                            <div class="relative mb-2">
-                                                <div class="w-28 h-28 bg-secondary rounded-lg flex items-center justify-center p-2 transition-all ring-2 ring-primary ring-offset-2">
-                                                    <img src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/AVATAR%20HOMBRE1.png?raw=true" alt="Explorador" width="56" height="56" class="object-contain">
-                                                </div>
-                                            </div>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-green-500"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                                        </button>
-                                        <button class="flex flex-col items-center text-center">
-                                            <div class="relative mb-2"><div class="w-28 h-28 bg-secondary rounded-lg flex items-center justify-center p-2 transition-all opacity-60"><img src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/AVATAR%20HOMBRE2.png?raw=true" alt="Aventurero" width="56" height="56" class="object-contain grayscale"></div></div>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-muted"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                                        </button>
-                                        <!-- Add other avatars similarly -->
+                                        <div class="w-64 text-left">
+                                            <h3 class="text-base font-semibold">${currentAvatar.name}</h3>
+                                            <p class="text-xs text-muted-foreground mt-1">${currentAvatar.description}</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="w-full">
-                            <!-- Current World Component -->
-                             <div class="h-full border-0 shadow-none rounded-lg">
-                                <div class="flex flex-col items-center text-center gap-8 pt-6 h-full">
-                                    <div class="flex-grow flex items-center justify-center w-full h-96">
-                                        <div class="relative w-full h-full rounded-lg flex items-center justify-center">
-                                            <img src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/primer%20nivel.png?raw=true" alt="Las Selvas Exteriores" class="object-contain" style="max-width: 100%; max-height: 100%;">
-                                        </div>
-                                    </div>
-                                    <div class="flex items-end justify-center space-x-4 w-full">
-                                        <!-- Levels -->
+                                <div class="flex items-end justify-center space-x-4 w-full">
+                                    ${avatars.map(avatar => `
                                         <button class="flex flex-col items-center text-center">
-                                            <div class="relative mb-2"><div class="w-28 h-28 bg-secondary rounded-lg flex items-center justify-center p-2 transition-all ring-2 ring-primary ring-offset-2"><img src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/primer%20nivel.png?raw=true" alt="Las Selvas Exteriores" width="96" height="96" class="object-contain"></div></div>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-green-500"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                                            <div class="relative mb-2">
+                                                <div class="w-28 h-28 bg-secondary rounded-lg flex items-center justify-center p-2 transition-all ${currentUser.avatar === avatar.name ? 'ring-2 ring-primary ring-offset-2' : ''} ${avatar.level > currentUser.level ? 'opacity-60' : ''}">
+                                                    <img src="${avatar.imageUrl}" alt="${avatar.name}" width="56" height="56" class="object-contain ${avatar.level > currentUser.level ? 'grayscale' : ''}">
+                                                </div>
+                                            </div>
+                                            ${avatar.level <= currentUser.level ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-green-500"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>' : '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-muted"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>'}
                                         </button>
-                                        <button class="flex flex-col items-center text-center">
-                                            <div class="relative mb-2"><div class="w-28 h-28 bg-secondary rounded-lg flex items-center justify-center p-2 transition-all opacity-60"><img src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/segundo%20nivel.png?raw=true" alt="La Ciudad Perdida" width="96" height="96" class="object-contain grayscale"></div></div>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-muted"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                                        </button>
-                                         <!-- Add other levels similarly -->
-                                    </div>
+                                    `).join('')}
                                 </div>
                             </div>
                         </div>
                     </div>
+                 `;
+
+                 // Current World Component
+                 const worldImage = placeholderImages.find(p => p.id === userLevel.worldImageId);
+                 const currentWorldHTML = `
                     <div class="w-full">
-                        <!-- Objectives -->
-                         <div class="h-full bg-transparent border-0 shadow-none">
+                         <div class="h-full border-0 shadow-none rounded-lg">
+                            <div class="flex flex-col items-center text-center gap-8 pt-6 h-full">
+                                <div class="flex-grow flex items-center justify-center w-full h-96">
+                                    <div class="flex items-center gap-8">
+                                        <div class="relative w-96 h-96 rounded-lg flex items-center justify-center">
+                                            <img src="${worldImage.imageUrl}" alt="${userLevel.worldName}" class="object-contain" style="max-width: 100%; max-height: 100%;">
+                                        </div>
+                                        <div class="w-64 text-left">
+                                            <h3 class="text-base font-semibold">${userLevel.worldName}</h3>
+                                            <p class="text-xs text-muted-foreground mt-1">${userLevel.story}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex items-end justify-center space-x-4 w-full">
+                                    ${levels.map(level => {
+                                        const img = placeholderImages.find(p => p.id === level.worldImageId);
+                                        return `
+                                        <button class="flex flex-col items-center text-center">
+                                            <div class="relative mb-2"><div class="w-28 h-28 bg-secondary rounded-lg flex items-center justify-center p-2 transition-all ${level.id === currentUser.level ? 'ring-2 ring-primary ring-offset-2' : ''} ${level.id > currentUser.level ? 'opacity-60' : ''}"><img src="${img.imageUrl}" alt="${level.worldName}" width="96" height="96" class="object-contain ${level.id > currentUser.level ? 'grayscale' : ''}"></div></div>
+                                            ${level.id <= currentUser.level ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-green-500"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>' : '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-muted"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>'}
+                                        </button>
+                                        `
+                                    }).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 `;
+
+                const objectivesHTML = `
+                     <div class="w-full">
+                        <div class="h-full bg-transparent border-0 shadow-none">
                             <div class="px-2">
                                 <div class="text-xl font-bold text-foreground">Lista de Misiones</div>
                             </div>
                             <div class="px-2 pt-6">
                                 <div class="space-y-3">
+                                ${levelTasks.map(task => `
                                     <div class="p-4 shadow-sm cursor-pointer transition-colors bg-card rounded-lg">
                                         <div class="flex items-center justify-between">
                                             <div>
-                                                <p class="text-sm font-semibold">Completar Perfil</p>
-                                                <p class="text-xs text-muted-foreground">Asegúrate de que toda tu información esté actualizada.</p>
+                                                <p class="text-sm font-semibold">${task.title}</p>
+                                                <p class="text-xs text-muted-foreground">${task.description}</p>
                                             </div>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-amber-500 flex-shrink-0 ml-4"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle></svg>
+                                            ${task.status === 'completed' ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-green-400 flex-shrink-0 ml-4"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>' : '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-amber-500 flex-shrink-0 ml-4"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle></svg>'}
                                         </div>
                                     </div>
-                                     <div class="p-4 shadow-sm cursor-pointer transition-colors bg-card rounded-lg">
-                                        <div class="flex items-center justify-between">
-                                            <div>
-                                                <p class="text-sm font-semibold">Curso de Bienvenida</p>
-                                                <p class="text-xs text-muted-foreground">Finaliza el curso introductorio de la empresa.</p>
-                                            </div>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-amber-500 flex-shrink-0 ml-4"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle></svg>
-                                        </div>
-                                    </div>
-                                    <!-- Add other tasks similarly -->
+                                `).join('')}
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                `;
 
-            <!-- Ranking Page -->
-            <div id="ranking-page" class="page-content hidden">
-                <div class="space-y-8">
-                    <header>
-                        <h1 class="text-4xl font-bold text-foreground">Ranking de la Expedición</h1>
-                        <p class="text-muted text-lg mt-1">Mira tu progreso y el de tus compañeros.</p>
-                    </header>
+                 return `
+                    <div class="flex flex-col gap-8">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                            ${avatarEvolutionHTML}
+                            ${currentWorldHTML}
+                        </div>
+                        ${objectivesHTML}
+                    </div>
+                `;
+            }
 
-                    <div class="sticky top-20 z-10 bg-primary text-primary-foreground shadow-lg rounded-lg">
-                        <div class="p-6">
-                            <div class="flex items-center">
-                                <div class="font-bold text-lg text-white w-[80px]">#1</div>
-                                <div class="flex-grow flex items-center gap-4">
-                                    <div class="p-1 bg-white/20 rounded-full w-12 h-12 flex items-center justify-center">
-                                        <img src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/AVATAR%20HOMBRE1.png?raw=true" alt="Explorador" width="40" height="40" class="object-contain">
-                                    </div>
+            function renderMisiones() {
+                const { tasks } = appData;
+                return `
+                    <div class="space-y-8">
+                        <header>
+                            <h1 class="text-4xl font-bold text-foreground">Lista de Misiones</h1>
+                            <p class="text-muted text-lg mt-1">Aquí puedes ver todas tus misiones, completadas y pendientes.</p>
+                        </header>
+                        <div class="space-y-3">
+                        ${tasks.map(task => `
+                            <div class="p-4 shadow-sm bg-card rounded-lg">
+                                <div class="flex items-center justify-between">
                                     <div>
-                                        <p class="font-semibold text-base">Carlos Rodríguez (Tú)</p>
-                                        <p class="text-xs text-primary-foreground/80">Explorador • 850 CONECTCOINS</p>
+                                        <p class="text-sm font-semibold">${task.title}</p>
+                                        <p class="text-xs text-muted-foreground">${task.description}</p>
+                                    </div>
+                                    <div class="flex items-center gap-4">
+                                        <span class="text-sm font-bold text-primary">${task.xp} pts</span>
+                                        ${task.status === 'completed' ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-green-400 flex-shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>' : '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-amber-500 flex-shrink-0"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle></svg>'}
                                     </div>
                                 </div>
-                                <div class="text-center w-48">
-                                    <span class="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full">Las Selvas Exteriores</span>
-                                </div>
-                                <div class="text-right w-48 flex items-baseline justify-end gap-1.5">
-                                    <span class="text-2xl font-bold">850</span>
-                                    <span class="text-xs font-normal text-primary-foreground/80">CONECTCOINS</span>
+                            </div>
+                        `).join('')}
+                        </div>
+                    </div>`;
+            }
+
+            function renderRanking() {
+                 const { users, avatars, currentUser, levels } = appData;
+                 const sortedUsers = [...users].sort((a, b) => b.xp - a.xp);
+                 const myRank = sortedUsers.findIndex(u => u.email === currentUser.email) + 1;
+                 const myLevel = levels.find(l => l.id === currentUser.level);
+                 const myAvatar = avatars.find(a => a.name === currentUser.avatar);
+
+                 return `
+                    <div class="space-y-8">
+                        <header>
+                            <h1 class="text-4xl font-bold text-foreground">Ranking de la Expedición</h1>
+                            <p class="text-muted text-lg mt-1">Mira tu progreso y el de tus compañeros.</p>
+                        </header>
+
+                        <div class="sticky top-20 z-10 bg-primary text-primary-foreground shadow-lg rounded-lg">
+                            <div class="p-6">
+                                <div class="flex items-center">
+                                    <div class="font-bold text-lg text-white w-[80px]">#${myRank}</div>
+                                    <div class="flex-grow flex items-center gap-4">
+                                        <div class="p-1 bg-white/20 rounded-full w-12 h-12 flex items-center justify-center">
+                                            <img src="${myAvatar.imageUrl}" alt="${myAvatar.name}" width="40" height="40" class="object-contain">
+                                        </div>
+                                        <div>
+                                            <p class="font-semibold text-base">${currentUser.name} (Tú)</p>
+                                            <p class="text-xs text-primary-foreground/80">${myAvatar.name} • ${currentUser.xp.toLocaleString()} CONECTCOINS</p>
+                                        </div>
+                                    </div>
+                                    <div class="text-center w-48">
+                                        <span class="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full">${myLevel.worldName}</span>
+                                    </div>
+                                    <div class="text-right w-48 flex items-baseline justify-end gap-1.5">
+                                        <span class="text-2xl font-bold">${currentUser.xp.toLocaleString()}</span>
+                                        <span class="text-xs font-normal text-primary-foreground/80">CONECTCOINS</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="rounded-lg border bg-card text-card-foreground shadow-sm">
-                        <div class="p-0">
-                            <div class="relative w-full overflow-auto">
-                                <table class="w-full caption-bottom text-sm">
-                                    <tbody class="[&_tr:last-child]:border-0">
-                                        <!-- User 1 -->
-                                        <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted bg-secondary/50">
-                                            <td class="p-4 align-middle font-bold text-lg text-muted w-[80px]">#1</td>
-                                            <td class="p-4 align-middle">
-                                                <div class="flex items-center gap-4">
-                                                    <div class="p-1 bg-secondary rounded-full w-12 h-12 flex items-center justify-center"><img src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/AVATAR%20HOMBRE4.png?raw=true" alt="Leyenda" width="32" height="32" class="object-contain"></div>
-                                                    <div>
-                                                        <p class="font-semibold text-foreground">Sofía López</p>
-                                                        <p class="text-xs text-muted-foreground">Leyenda</p>
+                        
+                        <div class="rounded-lg border bg-card text-card-foreground shadow-sm">
+                            <div class="p-0">
+                                <div class="relative w-full overflow-auto">
+                                    <table class="w-full caption-bottom text-sm">
+                                        <tbody class="[&_tr:last-child]:border-0">
+                                        ${sortedUsers.slice(0, 10).map((user, index) => {
+                                            const userLevel = levels.find(l => l.id === user.level);
+                                            const userAvatar = avatars.find(a => a.name === user.avatar);
+                                            return `
+                                            <tr class="border-b transition-colors hover:bg-muted/50 ${user.email === currentUser.email ? 'bg-secondary/50' : ''}">
+                                                <td class="p-4 align-middle font-bold text-lg text-muted w-[80px]">#${index + 1}</td>
+                                                <td class="p-4 align-middle">
+                                                    <div class="flex items-center gap-4">
+                                                        <div class="p-1 bg-secondary rounded-full w-12 h-12 flex items-center justify-center"><img src="${userAvatar.imageUrl}" alt="${userAvatar.name}" width="32" height="32" class="object-contain"></div>
+                                                        <div>
+                                                            <p class="font-semibold text-foreground">${user.name}</p>
+                                                            <p class="text-xs text-muted-foreground">${userAvatar.name}</p>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </td>
-                                            <td class="p-4 align-middle text-center w-48"><span class="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full">El Núcleo del Legado</span></td>
-                                            <td class="p-4 align-middle text-right w-48"><span class="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full">12,500</span></td>
-                                        </tr>
-                                        <!-- Add more users similarly -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Profile Page -->
-            <div id="profile-page" class="page-content hidden">
-                 <div class="space-y-8">
-                    <header>
-                        <h1 class="text-4xl font-bold text-foreground">Mi Evolución</h1>
-                        <p class="text-muted text-lg mt-1">Tu progreso y estadísticas en la expedición.</p>
-                    </header>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
-                        <div class="md:col-span-1 text-center p-6 flex flex-col items-center justify-start h-full border-0 shadow-none">
-                            <div class="relative w-64 h-64 mx-auto mb-4">
-                                <img src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/AVATAR%20HOMBRE1.png?raw=true" alt="Explorador" class="object-contain" style="position: absolute; height: 100%; width: 100%; inset: 0px;">
-                            </div>
-                            <div class="mt-2 text-center flex flex-col items-center gap-2">
-                                <span class="bg-primary text-primary-foreground font-bold text-sm px-4 py-1 rounded-full">Las Selvas Exteriores</span>
-                                <span class="bg-primary text-primary-foreground font-bold text-sm px-4 py-1 rounded-full">Explorador</span>
-                            </div>
-                        </div>
-                        <div class="md:col-span-2">
-                            <div class="border-0 shadow-none rounded-lg">
-                                <div class="flex flex-col space-y-1.5 p-6">
-                                    <div class="text-2xl font-semibold leading-none tracking-tight">Estadísticas</div>
-                                    <div class="text-sm text-muted-foreground">Tu resumen de progreso total.</div>
-                                </div>
-                                <div class="p-6 pt-0 grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div class="p-4 bg-secondary/50 border-0 shadow-none rounded-lg">
-                                        <p class="text-sm font-semibold text-muted-foreground">Tareas Completadas</p>
-                                        <p class="text-3xl font-bold text-primary">0</p>
-                                    </div>
-                                    <div class="p-4 bg-secondary/50 border-0 shadow-none rounded-lg">
-                                        <p class="text-sm font-semibold text-muted-foreground">CONECTCOINS</p>
-                                        <p class="text-3xl font-bold text-primary">850</p>
-                                    </div>
+                                                </td>
+                                                <td class="p-4 align-middle text-center w-48"><span class="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full">${userLevel.worldName}</span></td>
+                                                <td class="p-4 align-middle text-right w-48"><span class="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full">${user.xp.toLocaleString()}</span></td>
+                                            </tr>`
+                                        }).join('')}
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                `;
+            }
 
-        </main>
-    </div>
+            function renderProfile() {
+                const { currentUser, tasks, avatars, levels } = appData;
+                const completedTasksCount = tasks.filter(t => t.status === 'completed').length;
+                const currentAvatar = avatars.find(a => a.name === currentUser.avatar);
+                const currentLevel = levels.find(l => l.id === currentUser.level);
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const navLinks = document.querySelectorAll('.nav-link');
-            const pageContents = document.querySelectorAll('.page-content');
+                return `
+                    <div class="space-y-8">
+                        <header>
+                            <h1 class="text-4xl font-bold text-foreground">Mi Evolución</h1>
+                            <p class="text-muted text-lg mt-1">Tu progreso y estadísticas en la expedición.</p>
+                        </header>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+                            <div class="md:col-span-1 text-center p-6 flex flex-col items-center justify-start h-full border-0 shadow-none">
+                                <div class="relative w-64 h-64 mx-auto mb-4">
+                                    <img src="${currentAvatar.imageUrl}" alt="${currentAvatar.name}" class="object-contain" style="position: absolute; height: 100%; width: 100%; inset: 0px;">
+                                </div>
+                                <div class="mt-2 text-center flex flex-col items-center gap-2">
+                                    <span class="bg-primary text-primary-foreground font-bold text-sm px-4 py-1 rounded-full">${currentLevel.worldName}</span>
+                                    <span class="bg-primary text-primary-foreground font-bold text-sm px-4 py-1 rounded-full">${currentUser.avatar}</span>
+                                </div>
+                            </div>
+                            <div class="md:col-span-2">
+                                <div class="border-0 shadow-none rounded-lg">
+                                    <div class="flex flex-col space-y-1.5 p-6">
+                                        <div class="text-2xl font-semibold leading-none tracking-tight">Estadísticas</div>
+                                        <div class="text-sm text-muted-foreground">Tu resumen de progreso total.</div>
+                                    </div>
+                                    <div class="p-6 pt-0 grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div class="p-4 bg-secondary/50 border-0 shadow-none rounded-lg">
+                                            <p class="text-sm font-semibold text-muted-foreground">Tareas Completadas</p>
+                                            <p class="text-3xl font-bold text-primary">${completedTasksCount}</p>
+                                        </div>
+                                        <div class="p-4 bg-secondary/50 border-0 shadow-none rounded-lg">
+                                            <p class="text-sm font-semibold text-muted-foreground">CONECTCOINS</p>
+                                            <p class="text-3xl font-bold text-primary">${currentUser.xp.toLocaleString()}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+            }
+
+            // --- NAVIGATION ---
+            const pageRenderers = {
+                dashboard: renderDashboard,
+                misiones: renderMisiones,
+                ranking: renderRanking,
+                profile: renderProfile,
+            };
 
             function showPage(pageId) {
-                pageContents.forEach(content => {
-                    if (content.id === pageId + '-page') {
-                        content.classList.remove('hidden');
-                    } else {
-                        content.classList.add('hidden');
-                    }
-                });
+                const container = document.getElementById('page-container');
+                container.innerHTML = pageRenderers[pageId] ? pageRenderers[pageId]() : '<p>Página no encontrada.</p>';
 
-                navLinks.forEach(link => {
+                document.querySelectorAll('.nav-link').forEach(link => {
                     if (link.dataset.page === pageId) {
                         link.classList.add('font-bold', 'text-white');
                         link.classList.remove('font-normal', 'text-white/70');
@@ -297,18 +435,36 @@
                 });
             }
 
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    const pageId = this.dataset.page;
-                    window.location.hash = pageId;
-                    showPage(pageId);
-                });
-            });
+            // --- INITIALIZATION ---
+            const data = await fetchData();
+            if (data) {
+                // Process and assign IDs
+                appData = {
+                    ...data,
+                    users: data.users.map((u, i) => ({ ...u, id: i + 1, level: Number(u.level), xp: Number(u.xp) })),
+                    tasks: data.tasks.map((t, i) => ({ ...t, id: i + 1, level: Number(t.level), xp: Number(t.xp), status: t.status || 'completed' })),
+                };
+                appData.currentUser = appData.users.find(u => u.email.toLowerCase() === currentUserEmail.toLowerCase());
 
-            // Show initial page based on hash or default to dashboard
-            const initialPage = window.location.hash.substring(1) || 'dashboard';
-            showPage(initialPage);
+                // Hide loading and show app
+                loadingScreen.classList.add('hidden');
+                appElement.classList.remove('hidden');
+                appElement.classList.add('flex');
+
+                renderHeader(appData.currentUser);
+
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', function(event) {
+                        event.preventDefault();
+                        const pageId = this.dataset.page;
+                        window.location.hash = pageId;
+                        showPage(pageId);
+                    });
+                });
+
+                const initialPage = window.location.hash.substring(1) || 'dashboard';
+                showPage(initialPage);
+            }
         });
     </script>
 
