@@ -2,8 +2,6 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
-import { AuthProvider } from '@/context/auth-context';
-import MainLayout from './(main)/layout';
 
 export const metadata: Metadata = {
   title: 'Banesco Seguros: Expedition',
@@ -27,11 +25,7 @@ export default function RootLayout({
         <script src="https://apis.google.com/js/api.js"></script>
       </head>
       <body className={cn('font-body antialiased bg-background')}>
-        <AuthProvider>
-            <MainLayout>
-              {children}
-            </MainLayout>
-        </AuthProvider>
+        {children}
         <Toaster />
       </body>
     </html>
