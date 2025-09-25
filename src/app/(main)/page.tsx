@@ -2,6 +2,6 @@
 
 import DashboardContent from '@/components/dashboard/dashboard-content';
 
-export default function HomePage() {
+export default function DashboardPage() {
   return <DashboardContent />;
 }

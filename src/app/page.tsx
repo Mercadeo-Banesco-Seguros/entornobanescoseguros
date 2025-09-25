@@ -10,6 +10,7 @@ export default function HomePageController() {
   const router = useRouter();
 
   useEffect(() => {
+    // This effect should only run on the client side.
     const visited = localStorage.getItem('hasVisited');
     if (visited) {
       setIsFirstTime(false);
@@ -21,16 +22,21 @@ export default function HomePageController() {
   const handleAdvance = () => {
     localStorage.setItem('hasVisited', 'true');
     setIsFirstTime(false);
-    router.push('/'); // Vuelve al dashboard
+    // After setting, we can just let the component re-render to show the dashboard.
+    // No need to push to router if we are already at the root.
   };
 
   if (isFirstTime === null) {
-    // Muestra un loader o un estado vacío mientras se verifica el localStorage
-    return <div className="w-full h-screen flex items-center justify-center">Cargando...</div>;
+    // Render a loading state or nothing while we check localStorage.
+    return <div className="w-full h-screen flex items-center justify-center bg-background">Cargando...</div>;
   }
 
   if (isFirstTime) {
-    return <WelcomePage onAdvance={handleAdvance} />;
+    return (
+      <div className="bg-background">
+        <WelcomePage onAdvance={handleAdvance} />
+      </div>
+    );
   }
 
   return <DashboardPage />;
