@@ -1,33 +1,29 @@
 'use client';
 
-import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import DashboardPage from "./(main)/page";
 import WelcomePage from './welcome/page';
+import { useEffect, useState } from 'react';
 
-export default function HomePageController() {
-  const [isFirstTime, setIsFirstTime] = useState<boolean | null>(null);
+export default function AppRoot() {
   const router = useRouter();
+  const [isFirstTime, setIsFirstTime] = useState<boolean | null>(null);
 
   useEffect(() => {
-    // This effect should only run on the client side.
     const visited = localStorage.getItem('hasVisited');
     if (visited) {
       setIsFirstTime(false);
+      router.push('/dashboard');
     } else {
       setIsFirstTime(true);
     }
-  }, []);
+  }, [router]);
 
   const handleAdvance = () => {
     localStorage.setItem('hasVisited', 'true');
-    setIsFirstTime(false);
-    // After setting, we can just let the component re-render to show the dashboard.
-    // No need to push to router if we are already at the root.
+    router.push('/dashboard');
   };
 
   if (isFirstTime === null) {
-    // Render a loading state or nothing while we check localStorage.
     return <div className="w-full h-screen flex items-center justify-center bg-background">Cargando...</div>;
   }
 
@@ -39,5 +35,6 @@ export default function HomePageController() {
     );
   }
 
-  return <DashboardPage />;
+  // This part will likely just show a loading or redirecting state
+  return <div className="w-full h-screen flex items-center justify-center bg-background">Redirigiendo...</div>;
 }

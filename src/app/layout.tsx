@@ -25,8 +25,8 @@ export default function RootLayout({
         <script src="https://apis.google.com/js/api.js"></script>
       </head>
       <body className={cn('font-body antialiased bg-background')}>
-        {children}
-        <Toaster />
+          {children}
+          <Toaster />
       </body>
     </html>
   );
