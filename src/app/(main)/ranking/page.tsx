@@ -66,7 +66,7 @@ export default function RankingPage() {
       </header>
 
       <Card className="sticky top-20 z-10 bg-primary/5 border-primary/20 shadow-lg">
-        <CardContent className="p-4">
+        <CardContent className="p-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <span className="text-2xl font-bold text-primary">#{myRank}</span>
