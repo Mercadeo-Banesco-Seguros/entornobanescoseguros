@@ -1,4 +1,4 @@
-import { Trophy, User as UserIcon, LucideIcon, Rocket, ClipboardList } from 'lucide-react';
+import { Trophy, User as UserIcon, LucideIcon, Rocket, ClipboardList, Map } from 'lucide-react';
 import type { User, Task, Avatar, NavLink, Level } from './types';
 
 export const avatars: Avatar[] = [
@@ -37,6 +37,7 @@ export const currentUserEmail = 'carlos.rodriguez@example.com';
 
 
 export const navLinks: NavLink[] = [
+    { href: '/mapa', label: 'Mapa', icon: Map },
     { href: '/dashboard', label: 'Dashboard', icon: Rocket },
     { href: '/misiones', label: 'Misiones', icon: ClipboardList },
     { href: '/ranking', label: 'Ranking', icon: Trophy },
