@@ -2,8 +2,8 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import type { User, Task, Avatar, Level } from '@/lib/types';
-import { avatars as staticAvatars, levels as staticLevels, users as staticUsers, tasks as staticTasks, currentUserEmail } from '@/lib/data';
+import type { User, Task, Avatar, Level, AppDataFromSheet } from '@/lib/types';
+import { avatars as staticAvatars, levels as staticLevels, currentUserEmail } from '@/lib/data';
 
 type AuthContextType = {
   currentUser: User | null;
@@ -17,6 +17,10 @@ type AuthContextType = {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+// Define un flag para alternar entre desarrollo y producción.
+// Cámbialo a 'production' cuando quieras usar Apps Script.
+const ENVIRONMENT = 'development'; 
+
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [users, setUsers] = useState<User[]>([]);
@@ -25,37 +29,80 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // --- LÓGICA DE DESARROLLO CON DATOS LOCALES ---
-    const loadMockData = () => {
+    // --- LÓGICA DE PRODUCCIÓN CON APPS SCRIPT ---
+    const loadProductionData = async () => {
       setLoading(true);
+      setError(null);
+      try {
+        const response = await fetch(`/api/data?email=${encodeURIComponent(currentUserEmail)}`);
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'Error al obtener los datos de producción.');
+        }
+        
+        const data: AppDataFromSheet = await response.json();
+        
+        // Asignar IDs a los datos que vienen del sheet
+        const allUsers = data.users.map((u, index) => ({ ...u, id: index + 1, level: Number(u.level), xp: Number(u.xp) }));
+        const allTasks = data.tasks.map((t, index) => ({ ...t, id: index + 1, level: Number(t.level), xp: Number(t.xp) }));
+
+        const loggedInUser = allUsers.find(u => u.email.toLowerCase() === currentUserEmail.toLowerCase());
+
+        if (loggedInUser) {
+          const userTasks = allTasks.map(task => ({
+            ...task,
+            status: task.level < loggedInUser.level ? 'completed' : 'pending'
+          }));
+
+          setCurrentUser(loggedInUser);
+          setUsers(allUsers);
+          setTasks(userTasks);
+        } else {
+          throw new Error('Usuario no encontrado en los datos de producción.');
+        }
+
+      } catch (e: any) {
+        console.error("Error en producción, cargando datos locales.", e);
+        setError(`Error al cargar datos de producción: ${e.message}. Se usarán datos locales.`);
+        loadDevelopmentData(); // Carga los datos locales si falla la producción
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    // --- LÓGICA DE DESARROLLO CON DATOS LOCALES ---
+    const loadDevelopmentData = async () => {
+      setLoading(true);
+      setError(null);
+      // Importamos los datos locales solo cuando se necesitan
+      const { users: staticUsers, tasks: staticTasks } = await import('@/lib/data');
       
       const loggedInUser = staticUsers.find(u => u.email.toLowerCase() === currentUserEmail.toLowerCase());
 
       if (loggedInUser) {
-        // Determinar el estado de las tareas para el usuario actual
-        // Una tarea está 'completed' si su nivel es INFERIOR al nivel del usuario.
-        // Las tareas del nivel actual del usuario están 'pending'.
         const userTasks = staticTasks.map(task => ({
           ...task,
           status: task.level < loggedInUser.level ? 'completed' : 'pending'
         }));
         
-        // Simular un tiempo de carga
-        setTimeout(() => {
+        setTimeout(() => { // Simular carga
           setCurrentUser(loggedInUser);
           setUsers(staticUsers);
           setTasks(userTasks);
           setLoading(false);
-        }, 1500);
+        }, 1000);
 
       } else {
-        setError('Usuario de ejemplo no encontrado.');
+        setError('Usuario de desarrollo no encontrado.');
         setLoading(false);
       }
     };
 
-    loadMockData();
-
+    if (ENVIRONMENT === 'production') {
+      loadProductionData();
+    } else {
+      loadDevelopmentData();
+    }
   }, []);
 
   return (

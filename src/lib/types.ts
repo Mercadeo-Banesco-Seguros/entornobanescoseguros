@@ -44,5 +44,5 @@ export type NavLink = {
 
 export type AppDataFromSheet = {
   users: Omit<User, 'id'>[];
-  tasks: Omit<Task, 'status' | 'id'>[];
+  tasks: Omit<Task, 'id' | 'status'>[];
 };
