@@ -1,4 +1,4 @@
-import { Home, Trophy, User as UserIcon, Backpack } from 'lucide-react';
+import { Home, Trophy, User as UserIcon } from 'lucide-react';
 import type { User, Task, Avatar, NavLink, Level } from './types';
 
 export const avatars: Avatar[] = [
@@ -40,5 +40,4 @@ export const navLinks: NavLink[] = [
     { href: '/', label: 'Home', icon: Home },
     { href: '/ranking', label: 'Ranking', icon: Trophy },
     { href: '/profile', label: 'Usuario', icon: UserIcon },
-    { href: '/tasks', label: 'Tareas', icon: Backpack },
 ];
