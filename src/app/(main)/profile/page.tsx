@@ -58,7 +58,7 @@ export default function ProfilePage() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
         <Card className="md:col-span-1 text-center p-6 flex flex-col items-center justify-start h-full border-0 shadow-none">
           {currentAvatar && (
-             <div className="relative w-48 h-48 mx-auto mb-4 p-2 rounded-full bg-secondary">
+             <div className="relative w-48 h-48 mx-auto mb-4 rounded-full">
                <Image src={currentAvatar.imageUrl} alt={currentAvatar.name} layout="fill" className="object-contain" />
              </div>
           )}
