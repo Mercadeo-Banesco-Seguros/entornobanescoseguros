@@ -1,8 +1,7 @@
-
 'use client';
 
 import { useState } from 'react';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar as AvatarType, User } from '@/lib/types';
 import { CircleCheck, Lock } from 'lucide-react';
 import Image from 'next/image';
@@ -28,23 +27,29 @@ export default function AvatarEvolution({ currentUser, avatars }: AvatarEvolutio
   return (
     <Card className="h-full border-0 shadow-none">
       <CardContent className="flex flex-col items-center text-center gap-8 pt-6 h-full">
-        <div className="flex-grow flex items-center justify-center h-96">
+        <div className="flex-grow flex items-center justify-center h-96 w-full">
             {selectedAvatar && (
-                <div className="flex flex-col items-center">
-                  <div className="relative inline-block">
-                      <div className="relative w-96 h-96 rounded-lg flex items-center justify-center">
-                         <Image 
-                            src={selectedAvatar.imageUrl} 
-                            alt={selectedAvatar.name} 
-                            fill 
-                            quality={100}
-                            className={cn(
-                              "object-contain",
-                              !isSelectedAvatarUnlocked && "grayscale"
-                            )}
-                          />
-                      </div>
+                <div className="flex items-center gap-8">
+                  <div className="relative inline-block w-96 h-96">
+                     <Image 
+                        src={selectedAvatar.imageUrl} 
+                        alt={selectedAvatar.name} 
+                        fill 
+                        quality={100}
+                        className={cn(
+                          "object-contain",
+                          !isSelectedAvatarUnlocked && "grayscale"
+                        )}
+                      />
                   </div>
+                  <Card className={cn("w-64 text-left p-4 bg-secondary/50 border-0 shadow-none", !isSelectedAvatarUnlocked && 'opacity-50')}>
+                      <CardHeader className="p-2">
+                        <CardTitle className="text-lg">{selectedAvatar.name}</CardTitle>
+                      </CardHeader>
+                      <CardContent className="p-2">
+                        <p className="text-sm text-muted-foreground">{selectedAvatar.description}</p>
+                      </CardContent>
+                  </Card>
                 </div>
             )}
         </div>

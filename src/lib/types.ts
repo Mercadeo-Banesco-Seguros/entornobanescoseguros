@@ -34,6 +34,7 @@ export type Avatar = {
   name: string;
   level: number;
   imageUrl: string;
+  description: string;
 };
 
 export type NavLink = {
