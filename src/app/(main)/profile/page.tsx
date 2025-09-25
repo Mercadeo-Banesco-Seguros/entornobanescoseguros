@@ -23,7 +23,7 @@ export default function ProfilePage() {
             <Skeleton className="h-6 w-40 mx-auto mt-2" />
           </Card>
           <div className="md:col-span-2 space-y-4">
-            <Card>
+            <Card className="border-0 shadow-none">
               <CardHeader>
                 <CardTitle>Estadísticas</CardTitle>
                 <CardDescription>Tu resumen de progreso total.</CardDescription>
@@ -72,7 +72,7 @@ export default function ProfilePage() {
         </Card>
 
         <div className="md:col-span-2">
-            <Card>
+            <Card className="border-0 shadow-none">
                 <CardHeader>
                     <CardTitle>Estadísticas</CardTitle>
                     <CardDescription>Tu resumen de progreso total.</CardDescription>
