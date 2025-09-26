@@ -11,7 +11,7 @@ export default function InicioPage() {
     <div className="container mx-auto px-4 py-8">
       <Card className="border-0 shadow-none bg-transparent">
         <CardHeader className="text-center pb-4">
-          <CardTitle className="text-3xl font-bold text-primary tracking-tight">
+          <CardTitle className="text-4xl font-bold text-foreground tracking-tight uppercase">
             La Búsqueda por Nuestro ADN
           </CardTitle>
           <CardDescription className="text-lg font-semibold text-muted-foreground mt-2">
