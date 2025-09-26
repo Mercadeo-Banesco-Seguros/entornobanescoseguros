@@ -1,10 +1,18 @@
 
 'use client';
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode, useMemo } from 'react';
 import type { User, Task, Avatar, Level } from '@/lib/types';
 import { Skeleton } from '@/components/ui/skeleton';
-import { avatars as defaultAvatars, levels as defaultLevels, tasks as defaultTasks } from '@/lib/data';
+import { avatars as defaultAvatars, levels as defaultLevels, tasks as defaultTasksData } from '@/lib/data';
+
+// Prepara las tareas por defecto con un ID y estado válidos.
+const defaultTasks: Task[] = defaultTasksData.map((task, index) => ({
+  ...task,
+  id: task.id ?? index,
+  status: 'completed', // Forzamos 'completed' como se pidió anteriormente
+}));
+
 
 type AuthContextType = {
   currentUser: User | null;
@@ -19,9 +27,9 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
-  const [tasks, setTasks] = useState<Task[]>([]);
-  const [levels, setLevels] = useState<Level[]>([]);
-  const [avatars, setAvatars] = useState<Avatar[]>([]);
+  const [tasks, setTasks] = useState<Task[]>(defaultTasks);
+  const [levels, setLevels] = useState<Level[]>(defaultLevels);
+  const [avatars, setAvatars] = useState<Avatar[]>(defaultAvatars);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -43,27 +51,25 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           throw new Error(data.message);
         }
 
-        // Si el script devuelve un currentUser, lo establecemos.
         if (data.currentUser) {
           setCurrentUser(data.currentUser);
         } else {
-          // Si no, simplemente lo dejamos como null y mostramos un mensaje en la consola.
-          console.warn('Usuario no autenticado o no encontrado en la hoja de cálculo.');
+          // Si no hay usuario, la app sigue funcionando con datos de ejemplo y currentUser a null.
+          console.warn('Usuario no autenticado. La aplicación se mostrará con datos de ejemplo.');
           setCurrentUser(null);
         }
 
-        // Cargamos los datos estáticos que vienen del script o los de fallback.
-        // Esto asegura que la app no se rompa si el script solo devuelve el usuario.
-        setTasks(data.tasks || defaultTasks.map((task, index) => ({...task, id: index, status: 'completed'})));
+        // Cargar datos estáticos desde el script si están disponibles, si no, usar los de fallback.
+        setTasks(data.tasks || defaultTasks);
         setLevels(data.levels || defaultLevels);
         setAvatars(data.avatars || defaultAvatars);
 
       } catch (err: any) {
         console.error("Authentication or data loading failed:", err);
         setError(err.message || 'Ocurrió un error inesperado.');
-        setCurrentUser(null); // Asegurarse de que el usuario es nulo en caso de error
+        setCurrentUser(null);
         // Cargar datos de fallback para que la app no quede en blanco
-        setTasks(defaultTasks.map((task, index) => ({...task, id: index, status: 'completed'})));
+        setTasks(defaultTasks);
         setLevels(defaultLevels);
         setAvatars(defaultAvatars);
       } finally {
@@ -74,15 +80,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     authenticateAndLoadData();
   }, []);
 
-  const value = {
+  const value = useMemo(() => ({
     currentUser,
     tasks,
     levels,
     avatars,
     loading,
     error,
-  };
-  
+  }), [currentUser, tasks, levels, avatars, loading, error]);
+
   if (loading) {
     return (
       <div className="w-full h-screen flex items-center justify-center">
@@ -94,11 +100,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     );
   }
 
-  // Mostramos un error en la consola si ocurrió, pero no bloqueamos la app.
-  if (error) {
-    console.error("Error en AuthProvider:", error);
-    // Podrías mostrar un Toast o un pequeño banner aquí si lo deseas
+  // Si no hay usuario logueado, muestra un mensaje pero no bloquea la app
+  if (!currentUser) {
+     console.log("No hay un usuario autenticado. Mostrando contenido público/de ejemplo.");
+     // Aquí se podría mostrar un banner o un toast si fuera necesario.
   }
+
 
   return (
     <AuthContext.Provider value={value}>
