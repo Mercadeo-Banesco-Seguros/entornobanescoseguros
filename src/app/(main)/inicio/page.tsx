@@ -41,27 +41,20 @@ export default function InicioPage() {
         </div>
       </div>
 
-      <div className="space-y-8">
-        <header className="text-center">
-          <h2 className="text-3xl font-bold text-foreground">RUTA DEL EXPLORADOR</h2>
-          <p className="text-muted text-md mt-2 max-w-3xl mx-auto">
+      <div className="grid md:grid-cols-2 gap-12 items-center">
+         <div className="w-full">
+            {loading || !currentUser || !levels ? (
+              <Skeleton className="w-full h-[600px] rounded-lg" />
+            ) : (
+              <WorldMap currentUser={currentUser} levels={levels} />
+            )}
+        </div>
+        <div className="space-y-4">
+           <h2 className="text-3xl font-bold text-foreground">RUTA DEL EXPLORADOR</h2>
+           <p className="text-muted text-md max-w-3xl">
             Descubre los territorios y sigue el rastro del ADN Banesco Seguros. Este es tu punto actual en la expedición. A medida que vayas completando las misiones y acumules ConnectCoins, la ruta hacia nuevos territorios se desbloqueará para ti.
           </p>
-        </header>
-
-        {loading || !currentUser || !levels ? (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="md:col-span-2">
-                <Skeleton className="w-full h-[600px] rounded-lg" />
-            </div>
-            <div className="space-y-4">
-                <Skeleton className="h-48 w-full" />
-                <Skeleton className="h-48 w-full" />
-            </div>
-          </div>
-        ) : (
-          <WorldMap currentUser={currentUser} levels={levels} />
-        )}
+        </div>
       </div>
 
     </div>
