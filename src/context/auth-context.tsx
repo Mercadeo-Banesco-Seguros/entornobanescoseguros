@@ -29,11 +29,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setError(null);
       try {
         const authResponse = await fetch('/api/auth');
-        if (!authResponse.ok) {
-          const errorData = await authResponse.json();
-          throw new Error(errorData.message || 'Error de autenticación');
-        }
         const authData = await authResponse.json();
+
+        if (!authResponse.ok) {
+          throw new Error(authData.message || 'Error de autenticación');
+        }
 
         if (authData.authorized && authData.user) {
           setCurrentUser(authData.user);
@@ -84,10 +84,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   if (error || !currentUser) {
      return (
-       <div className="w-full h-screen flex items-center justify-center text-center text-destructive p-4">
+       <div className="w-full h-screen flex items-center justify-center text-center p-4">
          <div>
-            <p className="font-bold text-lg">Acceso Denegado</p>
-            <p className="text-sm">{error || 'No se pudo cargar la información del usuario.'}</p>
+            <p className="font-bold text-lg text-destructive">Acceso Denegado</p>
+            <p className="text-sm text-destructive-foreground bg-destructive p-2 rounded-md">{error || 'No se pudo cargar la información del usuario.'}</p>
             <p className="text-xs mt-2 text-muted-foreground">Por favor, contacta al administrador si crees que es un error.</p>
          </div>
        </div>

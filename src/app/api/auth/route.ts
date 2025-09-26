@@ -4,7 +4,7 @@ export async function GET(request: Request) {
   // Reemplaza esta URL con la que obtuviste de tu NUEVO script de autenticación
   const authScriptUrl = "https://script.google.com/macros/s/AKfycbxruwhs38PIex2YoJPftF-BvTCxe-uIpj9S580l2EiVgganM3FBSnqUnzVLulJN1fpgUQ/exec";
 
-  if (!authScriptUrl || authScriptUrl.startsWith("https://script.google.com/macros/s/AKfycbxruwhs38PIex2YoJPftF-BvTCxe-uIpj9S580l2EiVgganM3FBSnqUnzVLulJN1fpgUQ/exec")) {
+  if (!authScriptUrl) {
     console.error('La URL del script de autenticación no está configurada.');
     return NextResponse.json(
       { authorized: false, message: 'Error de configuración del servidor: La URL del script de autenticación no está definida.' },
