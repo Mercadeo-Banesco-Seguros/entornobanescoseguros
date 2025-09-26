@@ -1,4 +1,4 @@
-import { Trophy, User as UserIcon, LucideIcon, Rocket, ClipboardList } from 'lucide-react';
+import { Trophy, User as UserIcon, LucideIcon, Rocket, ClipboardList, Home } from 'lucide-react';
 import type { User, Task, Avatar, NavLink, Level } from './types';
 
 export const avatars: Avatar[] = [
@@ -22,6 +22,7 @@ export const tasks: Omit<Task, 'status'>[] = [
 ];
 
 export const navLinks: NavLink[] = [
+    { href: '/inicio', label: 'Inicio', icon: Home },
     { href: '/dashboard', label: 'Tablero', icon: Rocket },
     { href: '/misiones', label: 'Misiones', icon: ClipboardList },
     { href: '/ranking', label: 'Ranking', icon: Trophy },
