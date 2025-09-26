@@ -52,15 +52,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           setCurrentUser(null);
         }
 
-        // Cargamos siempre los datos estáticos/de ejemplo para que la app funcione.
-        // Si el script los proveyera, se podrían usar desde `data`.
-        const processedTasks = defaultTasks.map((task, index) => ({
-          ...task,
-          id: index,
-          status: 'completed',
-        }));
-
-        setTasks(processedTasks);
+        // Cargamos los datos estáticos que vienen del script o los de fallback.
+        // Esto asegura que la app no se rompa si el script solo devuelve el usuario.
+        setTasks(data.tasks || defaultTasks.map((task, index) => ({...task, id: index, status: 'completed'})));
         setLevels(data.levels || defaultLevels);
         setAvatars(data.avatars || defaultAvatars);
 
@@ -88,8 +82,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     loading,
     error,
   };
-
-  // El spinner de carga se muestra, pero ya no bloqueamos la app con un error de pantalla completa.
+  
   if (loading) {
     return (
       <div className="w-full h-screen flex items-center justify-center">
@@ -100,10 +93,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       </div>
     );
   }
-  
-  // Si hay un error, lo mostramos en la consola, pero la app sigue funcionando.
+
+  // Mostramos un error en la consola si ocurrió, pero no bloqueamos la app.
   if (error) {
     console.error("Error en AuthProvider:", error);
+    // Podrías mostrar un Toast o un pequeño banner aquí si lo deseas
   }
 
   return (
