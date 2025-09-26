@@ -57,7 +57,7 @@ export default function InicioPage() {
         </div>
         <div className="space-y-4">
            <h2 className="text-3xl font-bold text-foreground">RUTA DEL EXPLORADOR</h2>
-           <p className="text-muted text-md max-w-3xl">
+           <p className="text-sm text-muted-foreground max-w-3xl">
             Descubre los territorios y sigue el rastro del ADN Banesco Seguros. Este es tu punto actual en la expedición. A medida que vayas completando las misiones y acumules ConnectCoins, la ruta hacia nuevos territorios se desbloqueará para ti.
           </p>
         </div>
