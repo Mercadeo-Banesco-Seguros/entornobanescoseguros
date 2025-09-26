@@ -15,13 +15,28 @@ const SHEET_NAMES = {
 const spreadsheet = SpreadsheetApp.openByUrl(SPREADSHEET_URL);
 
 /**
+ * Función para manejar las peticiones OPTIONS (preflight de CORS).
+ * Esto es CRUCIAL para que las peticiones desde Google Sites funcionen.
+ */
+function doOptions(e) {
+  return ContentService.createTextOutput()
+    .setMimeType(ContentService.MimeType.JSON)
+    .withHeaders({
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type',
+    });
+}
+
+/**
  * Crea una respuesta JSON estándar con las cabeceras CORS correctas.
  * Esto es crucial para que Google Sites permita la petición.
  */
 function createJsonResponse(data) {
   return ContentService
     .createTextOutput(JSON.stringify(data))
-    .setMimeType(ContentService.MimeType.JSON);
+    .setMimeType(ContentService.MimeType.JSON)
+    .withHeaders({ 'Access-Control-Allow-Origin': '*' });
 }
 
 /**
@@ -30,12 +45,9 @@ function createJsonResponse(data) {
 function doPost(e) {
   let requestData;
   try {
-    // Apps Script puede recibir el contenido de diferentes maneras.
-    // Esta es la forma más robusta de obtenerlo.
     if (e.postData && e.postData.contents) {
         requestData = JSON.parse(e.postData.contents);
     } else {
-        // Fallback por si la data no viene como se espera.
         requestData = e.parameter;
     }
   } catch (error) {
@@ -65,11 +77,9 @@ function doPost(e) {
  * La función doGet se mantiene para pruebas, pero la lógica principal se centraliza en doPost.
  */
 function doGet(e) {
-    // Si se llama con ?action=getData, funciona para pruebas rápidas.
     if (e.parameter && e.parameter.action === 'getData') {
         return handleGetData(e.parameter);
     }
-    // Respuesta por defecto para saber que el script está vivo.
     return createJsonResponse({ info: "El script está activo. Usa peticiones POST con una acción válida." });
 }
 
@@ -183,17 +193,15 @@ function handleGetData(params) {
 function getSheetData(sheet) {
   if (!sheet) return [];
   const range = sheet.getDataRange();
-  // Si no hay filas o solo una (la cabecera), retorna un array vacío.
   if (range.getNumRows() < 2) return [];
 
   const values = range.getValues();
-  // Extrae los headers y los limpia.
   const headers = values.shift().map(header => header.toString().trim().toLowerCase());
   
   return values.map(row => {
     const rowData = {};
     headers.forEach((header, index) => {
-      if(header){ // Solo añade la propiedad si el header no está vacío.
+      if(header){
         rowData[header] = row[index];
       }
     });
