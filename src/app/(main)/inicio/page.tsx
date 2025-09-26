@@ -52,6 +52,7 @@ export default function InicioPage() {
                 height={400}
                 className="rounded-lg object-cover w-full h-full"
                 data-ai-hint="expedition map"
+                quality={100}
               />
             )}
         </div>
