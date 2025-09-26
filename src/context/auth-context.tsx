@@ -3,7 +3,7 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import type { User, Task, Avatar, Level } from '@/lib/types';
-import { avatars as staticAvatars, levels as staticLevels, tasks as staticTasks } from '@/lib/data';
+import { avatars as staticAvatars, levels as staticLevels, tasks as staticTasks, users as staticUsers, currentUserEmail } from '@/lib/data';
 import { Skeleton } from '@/components/ui/skeleton';
 
 type AuthContextType = {
@@ -24,19 +24,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const authenticateAndLoadData = async () => {
+    const loadLocalData = () => {
       setLoading(true);
       setError(null);
       try {
-        const authResponse = await fetch('/api/auth');
-        const authData = await authResponse.json();
+        // Simular la carga de datos locales para el usuario actual
+        const user = staticUsers.find(u => u.email.toLowerCase() === currentUserEmail.toLowerCase());
 
-        if (!authResponse.ok) {
-          throw new Error(authData.message || 'Error de autenticación desconocido');
-        }
-
-        if (authData.authorized && authData.user) {
-          setCurrentUser(authData.user);
+        if (user) {
+          setCurrentUser(user);
           
           // El estado de las tareas se simula localmente
           const userTasks = staticTasks.map(task => ({
@@ -47,19 +43,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
         } else {
           setCurrentUser(null);
-          setError(authData.message || 'No tienes permiso para acceder a esta aplicación.');
+          setError('El usuario de ejemplo no fue encontrado en los datos locales.');
         }
 
       } catch (err: any) {
-        console.error("Authentication or data loading failed:", err);
-        setError(err.message || 'Ocurrió un error al intentar iniciar sesión.');
+        console.error("Local data loading failed:", err);
+        setError(err.message || 'Ocurrió un error al cargar los datos de ejemplo.');
         setCurrentUser(null);
       } finally {
         setLoading(false);
       }
     };
     
-    authenticateAndLoadData();
+    loadLocalData();
   }, []);
 
   const value = {
@@ -76,7 +72,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
        <div className="w-full h-screen flex items-center justify-center">
          <div className="flex flex-col items-center gap-2">
             <Skeleton className="h-12 w-12 rounded-full" />
-            <p className="text-muted-foreground mt-4">Verificando acceso...</p>
+            <p className="text-muted-foreground mt-4">Cargando datos de la expedición...</p>
          </div>
        </div>
     );
@@ -86,9 +82,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
      return (
        <div className="w-full h-screen flex items-center justify-center text-center p-4">
          <div>
-            <p className="font-bold text-lg text-destructive">Acceso Denegado</p>
+            <p className="font-bold text-lg text-destructive">Error de Carga</p>
             <p className="text-sm text-destructive-foreground bg-destructive p-2 rounded-md">{error || 'No se pudo cargar la información del usuario.'}</p>
-            <p className="text-xs mt-2 text-muted-foreground">Por favor, contacta al administrador si crees que es un error.</p>
+            <p className="text-xs mt-2 text-muted-foreground">Por favor, revisa los datos de ejemplo y recarga la página.</p>
          </div>
        </div>
     );
