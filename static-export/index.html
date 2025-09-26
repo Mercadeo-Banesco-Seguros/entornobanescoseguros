@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Banesco Seguros: Expedition</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
@@ -37,7 +36,22 @@
             background-color: hsl(var(--background));
             color: hsl(var(--foreground));
         }
+        .grayscale {
+            filter: grayscale(100%);
+        }
+        .ring-primary {
+            --tw-ring-color: hsl(var(--primary));
+        }
+        .ring-2 {
+             --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+            --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+            box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+        }
+        .ring-offset-2 {
+            --tw-ring-offset-width: 2px;
+        }
     </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="antialiased bg-background">
 
@@ -84,51 +98,16 @@
                             <div class="h-full border-0 shadow-none rounded-lg">
                                 <div class="flex flex-col items-center text-center gap-8 pt-6 h-full">
                                     <div class="flex-grow flex flex-col md:flex-row items-center justify-center h-96 w-full md:gap-4">
-                                        <div class="relative w-48 h-64 md:w-64 md:h-96">
+                                        <div id="selected-avatar-image-container" class="relative w-48 h-64 md:w-64 md:h-96">
                                             <img src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/AVATAR%20HOMBRE1.png?raw=true" alt="Explorador" class="object-contain w-full h-full">
                                         </div>
-                                        <div class="w-64 text-center md:text-left">
+                                        <div id="selected-avatar-info" class="w-64 text-center md:text-left">
                                             <h3 class="text-base font-semibold">Explorador</h3>
                                             <p class="text-xs mt-1" style="color: hsl(var(--muted-foreground));">Inicia su viaje, lleno de curiosidad y ganas de aprender, superando los primeros desafíos.</p>
                                         </div>
                                     </div>
-                                    <div class="flex items-end justify-center space-x-4 w-full">
-                                        <!-- Avatar 1 -->
-                                        <button class="flex flex-col items-center text-center">
-                                            <div class="relative mb-2">
-                                                <div class="w-28 h-28 rounded-lg flex items-center justify-center p-2 transition-all ring-2 ring-primary ring-offset-2" style="background-color: hsl(var(--secondary));">
-                                                    <img src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/AVATAR%20HOMBRE1.png?raw=true" alt="Explorador" width="56" height="56" class="object-contain">
-                                                </div>
-                                            </div>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-green-500"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                                        </button>
-                                        <!-- Avatar 2 -->
-                                        <button class="flex flex-col items-center text-center">
-                                            <div class="relative mb-2">
-                                                <div class="w-28 h-28 rounded-lg flex items-center justify-center p-2 transition-all opacity-60" style="background-color: hsl(var(--secondary));">
-                                                    <img src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/AVATAR%20HOMBRE2.png?raw=true" alt="Aventurero" width="56" height="56" class="object-contain grayscale">
-                                                </div>
-                                            </div>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" style="color: hsl(var(--muted));"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                                        </button>
-                                        <!-- Avatar 3 -->
-                                        <button class="flex flex-col items-center text-center">
-                                            <div class="relative mb-2">
-                                                <div class="w-28 h-28 rounded-lg flex items-center justify-center p-2 transition-all opacity-60" style="background-color: hsl(var(--secondary));">
-                                                    <img src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/AVATAR%20HOMBRE3.png?raw=true" alt="Maestro" width="56" height="56" class="object-contain grayscale">
-                                                </div>
-                                            </div>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" style="color: hsl(var(--muted));"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                                        </button>
-                                        <!-- Avatar 4 -->
-                                        <button class="flex flex-col items-center text-center">
-                                            <div class="relative mb-2">
-                                                <div class="w-28 h-28 rounded-lg flex items-center justify-center p-2 transition-all opacity-60" style="background-color: hsl(var(--secondary));">
-                                                    <img src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/AVATAR%20HOMBRE4.png?raw=true" alt="Leyenda" width="56" height="56" class="object-contain grayscale">
-                                                </div>
-                                            </div>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" style="color: hsl(var(--muted));"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                                        </button>
+                                    <div id="avatar-selector" class="flex items-end justify-center space-x-4 w-full">
+                                        <!-- Avatar thumbnails will be inserted here by JS -->
                                     </div>
                                 </div>
                             </div>
@@ -139,51 +118,16 @@
                             <div class="h-full border-0 shadow-none rounded-lg">
                                 <div class="flex flex-col items-center text-center gap-8 pt-6 h-full">
                                     <div class="flex-grow flex flex-col md:flex-row items-center justify-center h-96 w-full md:gap-4">
-                                        <div class="relative w-80 h-80">
+                                        <div id="selected-level-image-container" class="relative w-80 h-80">
                                             <img src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/primer%20nivel.png?raw=true" alt="Las Selvas Exteriores" class="object-contain w-full h-full">
                                         </div>
-                                        <div class="w-64 text-center md:text-left">
+                                        <div id="selected-level-info" class="w-64 text-center md:text-left">
                                             <h3 class="text-base font-semibold">Las Selvas Exteriores</h3>
                                             <p class="text-xs mt-1" style="color: hsl(var(--muted-foreground));">Bienvenido a las Selvas Exteriores, la primera frontera de nuestra gran expedición. Aquí inicias tu viaje como Explorador(a), aprendiendo los primeros pasos y descubriendo los fragmentos iniciales del ADN Banesco Seguros. Este territorio está lleno de misterios, senderos desconocidos y secretos de nuestro ADN. Solo los exploradores más curiosos y valientes lograrán avanzar, dejando su huella en la historia de nuestra organización.</p>
                                         </div>
                                     </div>
-                                    <div class="flex items-end justify-center space-x-4 w-full">
-                                        <!-- Level 1 -->
-                                        <button class="flex flex-col items-center text-center">
-                                            <div class="relative mb-2">
-                                                <div class="w-28 h-28 rounded-lg flex items-center justify-center p-2 transition-all ring-2 ring-primary ring-offset-2" style="background-color: hsl(var(--secondary));">
-                                                    <img src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/primer%20nivel.png?raw=true" alt="Las Selvas Exteriores" width="96" height="96" class="object-contain">
-                                                </div>
-                                            </div>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24- 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-green-500"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                                        </button>
-                                        <!-- Level 2 -->
-                                        <button class="flex flex-col items-center text-center">
-                                            <div class="relative mb-2">
-                                                <div class="w-28 h-28 rounded-lg flex items-center justify-center p-2 transition-all opacity-60" style="background-color: hsl(var(--secondary));">
-                                                    <img src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/segundo%20nivel.png?raw=true" alt="La Ciudad Perdida" width="96" height="96" class="object-contain grayscale">
-                                                </div>
-                                            </div>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" style="color: hsl(var(--muted));"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                                        </button>
-                                        <!-- Level 3 -->
-                                        <button class="flex flex-col items-center text-center">
-                                            <div class="relative mb-2">
-                                                <div class="w-28 h-28 rounded-lg flex items-center justify-center p-2 transition-all opacity-60" style="background-color: hsl(var(--secondary));">
-                                                    <img src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/tercer%20nivel.png?raw=true" alt="El Templo Oculto" width="96" height="96" class="object-contain grayscale">
-                                                </div>
-                                            </div>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" style="color: hsl(var(--muted));"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                                        </button>
-                                        <!-- Level 4 -->
-                                        <button class="flex flex-col items-center text-center">
-                                            <div class="relative mb-2">
-                                                <div class="w-28 h-28 rounded-lg flex items-center justify-center p-2 transition-all opacity-60" style="background-color: hsl(var(--secondary));">
-                                                    <img src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/CUARTO%20NIVELL.png?raw=true" alt="El Núcleo del Legado" width="96" height="96" class="object-contain grayscale">
-                                                </div>
-                                            </div>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" style="color: hsl(var(--muted));"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                                        </button>
+                                    <div id="level-selector" class="flex items-end justify-center space-x-4 w-full">
+                                        <!-- Level thumbnails will be inserted here by JS -->
                                     </div>
                                 </div>
                             </div>
@@ -197,7 +141,6 @@
                             </div>
                             <div class="p-6 pt-6 px-2">
                                 <div class="space-y-3">
-                                    <!-- Mission 1 -->
                                     <div class="p-4 shadow-sm cursor-pointer transition-colors rounded-lg bg-primary text-primary-foreground" style="background-color: hsl(var(--primary)); color: hsl(var(--primary-foreground)); border: 1px solid hsl(var(--border));">
                                         <div class="flex items-center justify-between">
                                             <div>
@@ -207,7 +150,6 @@
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-green-400 flex-shrink-0 ml-4"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
                                         </div>
                                     </div>
-                                    <!-- Mission 2 -->
                                     <div class="p-4 shadow-sm cursor-pointer transition-colors rounded-lg" style="background-color: hsl(var(--card)); border: 1px solid hsl(var(--border));">
                                         <div class="flex items-center justify-between">
                                             <div>
@@ -217,7 +159,6 @@
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-green-400 flex-shrink-0 ml-4"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
                                         </div>
                                     </div>
-                                    <!-- Mission 3 -->
                                     <div class="p-4 shadow-sm cursor-pointer transition-colors rounded-lg" style="background-color: hsl(var(--card)); border: 1px solid hsl(var(--border));">
                                         <div class="flex items-center justify-between">
                                             <div>
@@ -235,7 +176,139 @@
             </div>
         </main>
     </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const currentUser = { id: 1, name: 'Carlos Rodríguez', email: 'carlos.rodriguez@example.com', level: 1, xp: 850, avatar: 'Explorador' };
+        
+        const avatars = [
+          { id: 1, name: 'Explorador', level: 1, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/AVATAR%20HOMBRE1.png?raw=true', description: 'Inicia su viaje, lleno de curiosidad y ganas de aprender, superando los primeros desafíos.' },
+          { id: 2, name: 'Aventurero', level: 2, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/AVATAR%20HOMBRE2.png?raw=true', description: 'Conoce el terreno y se atreve a explorar rutas más complejas, colaborando con otros.' },
+          { id: 3, name: 'Maestro', level: 3, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/AVATAR%20HOMBRE3.png?raw=true', description: 'Un guía para los demás, domina las artes de la expedición y comparte su conocimiento.' },
+          { id: 4, name: 'Leyenda', level: 4, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/AVATAR%20HOMBRE4.png?raw=true', description: 'Su nombre es sinónimo de éxito. Ha alcanzado la cima y su historia inspira a nuevas generaciones.' },
+        ];
+
+        const levels = [
+            { id: 1, name: 'Nivel 1', xpThreshold: 1000, worldName: 'Las Selvas Exteriores', worldImageId: 'world-level-1', story: 'Bienvenido a las Selvas Exteriores, la primera frontera de nuestra gran expedición. Aquí inicias tu viaje como Explorador(a), aprendiendo los primeros pasos y descubriendo los fragmentos iniciales del ADN Banesco Seguros. Este territorio está lleno de misterios, senderos desconocidos y secretos de nuestro ADN. Solo los exploradores más curiosos y valientes lograrán avanzar, dejando su huella en la historia de nuestra organización.' },
+            { id: 2, name: 'Nivel 2', xpThreshold: 2500, worldName: 'La Ciudad Perdida', worldImageId: 'world-level-2', story: 'Bienvenido a la Ciudad Perdida, el corazón de antiguas ruinas que guarda secretos de nuestra expedición. Aquí continúas tu viaje como Aventurero(a), enfrentando enigmas más desafiantes y descubriendo fragmentos clave de nuestra cultura organizacional. Este lugar está lleno de misterios por descifrar que solo los exploradores audaces podrán revelar.' },
+            { id: 3, name: 'Nivel 3', xpThreshold: 5000, worldName: 'El Templo Oculto', worldImageId: 'world-level-3', story: 'Bienvenido al Templo Oculto, un lugar sagrado protegido por antiguas pruebas que desafían incluso a los exploradores más hábiles. Aquí continúas tu viaje como Guía Maestro(a), demostrando tu experiencia y liderando tu propio camino en la expedición. Este templo guarda pruebas cruciales que solo pueden ser superadas por aquellos que combinan conocimiento, estrategia y colaboración.' },
+            { id: 4, name: 'Nivel 4', xpThreshold: 10000, worldName: 'El Núcleo del Legado', worldImageId: 'world-level-4', story: 'Bienvenido al Núcleo del Legado, el corazón de toda nuestra expedición, donde se concentran los logros más grandes y la prueba más valiosa. Aquí culmina tu viaje como Leyenda, el explorador que ha dominado cada desafío y ha demostrado maestría, liderazgo y compromiso con nuestra cultura.' },
+        ];
+        
+        const placeholderImages = [
+            { id: "world-level-1", imageUrl: "https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/primer%20nivel.png?raw=true" },
+            { id: "world-level-2", imageUrl: "https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/segundo%20nivel.png?raw=true" },
+            { id: "world-level-3", imageUrl: "https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/tercer%20nivel.png?raw=true" },
+            { id: "world-level-4", imageUrl: "https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/CUARTO%20NIVELL.png?raw=true" }
+        ];
+
+        // --- AVATAR LOGIC ---
+        const avatarSelector = document.getElementById('avatar-selector');
+        const selectedAvatarImageContainer = document.getElementById('selected-avatar-image-container');
+        const selectedAvatarInfo = document.getElementById('selected-avatar-info');
+        let selectedAvatarId = currentUser.level > 0 ? avatars.find(a => a.name === currentUser.avatar)?.id : 1;
+
+        function renderAvatars() {
+            avatarSelector.innerHTML = '';
+            avatars.forEach(avatar => {
+                const isUnlocked = avatar.level <= currentUser.level;
+                const isSelected = avatar.id === selectedAvatarId;
+
+                const button = document.createElement('button');
+                button.className = 'flex flex-col items-center text-center';
+                button.onclick = () => {
+                    selectedAvatarId = avatar.id;
+                    updateSelectedAvatar();
+                    renderAvatars();
+                };
+
+                const icon = isUnlocked
+                    ? `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-green-500"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>`
+                    : `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" style="color: hsl(var(--muted));"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>`;
+
+                button.innerHTML = `
+                    <div class="relative mb-2">
+                        <div class="w-28 h-28 rounded-lg flex items-center justify-center p-2 transition-all ${isSelected ? 'ring-2 ring-primary ring-offset-2' : ''} ${!isUnlocked ? 'opacity-60' : ''}" style="background-color: hsl(var(--secondary));">
+                            <img src="${avatar.imageUrl}" alt="${avatar.name}" width="56" height="56" class="object-contain ${!isUnlocked ? 'grayscale' : ''}">
+                        </div>
+                    </div>
+                    ${icon}
+                `;
+                avatarSelector.appendChild(button);
+            });
+        }
+
+        function updateSelectedAvatar() {
+            const avatar = avatars.find(a => a.id === selectedAvatarId);
+            const isUnlocked = avatar.level <= currentUser.level;
+            if (avatar) {
+                selectedAvatarImageContainer.innerHTML = `<img src="${avatar.imageUrl}" alt="${avatar.name}" class="object-contain w-full h-full ${!isUnlocked ? 'grayscale' : ''}">`;
+                selectedAvatarInfo.innerHTML = `
+                    <h3 class="text-base font-semibold">${avatar.name}</h3>
+                    <p class="text-xs mt-1" style="color: hsl(var(--muted-foreground));">${avatar.description}</p>
+                `;
+                 selectedAvatarInfo.classList.toggle('opacity-50', !isUnlocked);
+            }
+        }
+
+
+        // --- LEVEL LOGIC ---
+        const levelSelector = document.getElementById('level-selector');
+        const selectedLevelImageContainer = document.getElementById('selected-level-image-container');
+        const selectedLevelInfo = document.getElementById('selected-level-info');
+        let selectedLevelId = currentUser.level > 0 ? currentUser.level : 1;
+        
+        function renderLevels() {
+            levelSelector.innerHTML = '';
+            levels.forEach(level => {
+                const isUnlocked = level.id <= currentUser.level;
+                const isSelected = level.id === selectedLevelId;
+                const worldImage = placeholderImages.find(p => p.id === level.worldImageId);
+
+                const button = document.createElement('button');
+                button.className = 'flex flex-col items-center text-center';
+                button.onclick = () => {
+                    selectedLevelId = level.id;
+                    updateSelectedLevel();
+                    renderLevels();
+                };
+
+                const icon = isUnlocked
+                    ? `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-green-500"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>`
+                    : `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" style="color: hsl(var(--muted));"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>`;
+                
+                button.innerHTML = `
+                    <div class="relative mb-2">
+                        <div class="w-28 h-28 rounded-lg flex items-center justify-center p-2 transition-all ${isSelected ? 'ring-2 ring-primary ring-offset-2' : ''} ${!isUnlocked ? 'opacity-60' : ''}" style="background-color: hsl(var(--secondary));">
+                            <img src="${worldImage.imageUrl}" alt="${level.worldName}" width="96" height="96" class="object-contain ${!isUnlocked ? 'grayscale' : ''}">
+                        </div>
+                    </div>
+                    ${icon}
+                `;
+                levelSelector.appendChild(button);
+            });
+        }
+
+        function updateSelectedLevel() {
+            const level = levels.find(l => l.id === selectedLevelId);
+            const isUnlocked = level.id <= currentUser.level;
+            if (level) {
+                const worldImage = placeholderImages.find(p => p.id === level.worldImageId);
+                selectedLevelImageContainer.innerHTML = `<img src="${worldImage.imageUrl}" alt="${level.worldName}" class="object-contain w-full h-full ${!isUnlocked ? 'grayscale' : ''}">`;
+                selectedLevelInfo.innerHTML = `
+                    <h3 class="text-base font-semibold">${level.worldName}</h3>
+                    <p class="text-xs mt-1" style="color: hsl(var(--muted-foreground));">${level.story}</p>
+                `;
+                 selectedLevelInfo.classList.toggle('opacity-50', !isUnlocked);
+            }
+        }
+
+        // Initial render
+        renderAvatars();
+        renderLevels();
+    });
+</script>
+
+
 </body>
 </html>
-
-    
