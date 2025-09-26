@@ -25,6 +25,7 @@ export async function GET(request: Request) {
     if (!response.ok) {
       const errorText = await response.text();
       console.error(`Error desde Auth Apps Script: ${response.status}`, errorText);
+      // Devuelve el texto del error del script para un mejor diagnóstico en el frontend.
       return NextResponse.json(
         { authorized: false, message: `Error al contactar el servicio de autenticación. Status: ${response.status}. Detalle: ${errorText}` },
         { status: response.status }
