@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         const authData = await authResponse.json();
 
         if (!authResponse.ok) {
-          throw new Error(authData.message || 'Error de autenticación');
+          throw new Error(authData.message || 'Error de autenticación desconocido');
         }
 
         if (authData.authorized && authData.user) {

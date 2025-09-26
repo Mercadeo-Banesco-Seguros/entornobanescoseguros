@@ -26,7 +26,7 @@ export async function GET(request: Request) {
       const errorText = await response.text();
       console.error(`Error desde Auth Apps Script: ${response.status}`, errorText);
       return NextResponse.json(
-        { authorized: false, message: `Error al contactar el servicio de autenticación. Status: ${response.status}` },
+        { authorized: false, message: `Error al contactar el servicio de autenticación. Status: ${response.status}. Detalle: ${errorText}` },
         { status: response.status }
       );
     }
