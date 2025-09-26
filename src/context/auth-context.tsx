@@ -35,8 +35,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         // Simular el estado de las tareas para el usuario de ejemplo
         const userTasks = staticTasks.map((task, index) => ({
             ...task,
-            // Simular algunas tareas completadas y otras pendientes
-            status: index % 2 === 0 ? 'completed' : 'pending'
+            // Marcar todas las tareas como completadas
+            status: 'completed'
         } as Task));
         setTasks(userTasks);
 
