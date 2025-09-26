@@ -16,7 +16,7 @@ export default function InicioPage() {
           <h1 className="text-4xl md:text-5xl font-bold text-foreground tracking-tight uppercase">
             La Búsqueda por Nuestro ADN
           </h1>
-          <p className="text-base text-muted-foreground">
+          <p className="text-sm text-muted-foreground">
             ¡Explorador, la aventura ha comenzado! Este diario es el centro de nuestra expedición. Aquí encontrarás el mapa, tus misiones y cómo avanzamos juntos para reconstruir el ADN de Banesco Seguros.
           </p>
           <Link href="/dashboard">
