@@ -34,6 +34,7 @@ export default function InicioPage() {
             height={450}
             className="object-contain"
             data-ai-hint="expedition journal"
+            quality={100}
           />
         </div>
       </div>
