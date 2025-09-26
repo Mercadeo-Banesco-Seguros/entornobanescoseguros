@@ -8,8 +8,8 @@ export default function MisionesPage() {
       <Image
         src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_lwc97dlwc97dlwc9-Photoroom.png?raw=true"
         alt="Sección en construcción"
-        width={400}
-        height={400}
+        width={500}
+        height={500}
         className="object-contain"
         quality={100}
       />
