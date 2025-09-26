@@ -5,12 +5,14 @@ import { useAuth } from '@/context/auth-context';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
+import WorldMap from '@/components/map/world-map';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default function InicioPage() {
-  const { currentUser } = useAuth();
+  const { currentUser, levels, loading } = useAuth();
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 space-y-16">
       <div className="grid md:grid-cols-2 gap-12 items-center">
         <div className="space-y-6 text-center md:text-left">
           <h1 className="text-4xl md:text-5xl font-black text-foreground tracking-tight uppercase">
@@ -38,6 +40,30 @@ export default function InicioPage() {
           />
         </div>
       </div>
+
+      <div className="space-y-8">
+        <header className="text-center">
+          <h2 className="text-3xl font-bold text-foreground">RUTA DEL EXPLORADOR</h2>
+          <p className="text-muted text-md mt-2 max-w-3xl mx-auto">
+            Descubre los territorios y sigue el rastro del ADN Banesco Seguros. Este es tu punto actual en la expedición. A medida que vayas completando las misiones y acumules ConnectCoins, la ruta hacia nuevos territorios se desbloqueará para ti.
+          </p>
+        </header>
+
+        {loading || !currentUser || !levels ? (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="md:col-span-2">
+                <Skeleton className="w-full h-[600px] rounded-lg" />
+            </div>
+            <div className="space-y-4">
+                <Skeleton className="h-48 w-full" />
+                <Skeleton className="h-48 w-full" />
+            </div>
+          </div>
+        ) : (
+          <WorldMap currentUser={currentUser} levels={levels} />
+        )}
+      </div>
+
     </div>
   );
 }
