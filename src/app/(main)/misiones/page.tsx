@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 export default function MisionesPage() {
   return (
-    <div className="flex flex-col items-center text-center -mt-24">
+    <div className="flex flex-col items-center text-center">
       <Image
         src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_lwc97dlwc97dlwc9-Photoroom.png?raw=true"
         alt="Sección en construcción"
