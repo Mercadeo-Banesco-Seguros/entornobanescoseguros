@@ -6,47 +6,16 @@ import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 import { useAuth } from '@/context/auth-context';
 import { Skeleton } from '@/components/ui/skeleton';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import type { User, Level, Avatar as AvatarType } from '@/lib/types';
+import { useEffect } from 'react';
 
 export default function RankingPage() {
-  const { currentUser: me, levels, avatars, loading: authLoading } = useAuth();
-  const [rankingUsers, setRankingUsers] = useState<User[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchRanking = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const response = await fetch('/api/data');
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.message || 'No se pudo obtener el ranking');
-        }
-        const data = await response.json();
-
-        if (data.error) {
-          throw new Error(data.message);
-        }
-        
-        const allUsers = (data.users || []).map((u: any, index: number) => ({ ...u, id: u.email, level: Number(u.level), xp: Number(u.xp) }));
-        
-        setRankingUsers(allUsers);
-
-      } catch (err: any) {
-        console.error("Error fetching ranking:", err);
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchRanking();
-  }, []);
+  const { currentUser: me, users: rankingUsers, levels, avatars, loading, error, fetchUsers } = useAuth();
   
-  if (authLoading || loading || !me) {
+  useEffect(() => {
+    fetchUsers();
+  }, [fetchUsers]);
+
+  if (loading || !me) {
     return (
       <div className="space-y-8">
         <header>

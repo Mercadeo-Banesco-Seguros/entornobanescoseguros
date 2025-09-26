@@ -42,8 +42,3 @@ export type NavLink = {
   label: string;
   icon: LucideIcon;
 };
-
-export type AppDataFromSheet = {
-  users: Omit<User, 'id'>[];
-  tasks: Omit<Task, 'id'>[];
-};

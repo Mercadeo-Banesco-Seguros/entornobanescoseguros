@@ -5,11 +5,7 @@ const SPREADSHEET_URL = "URL_DE_TU_HOJA_DE_CALCULO";
 // 2. Define los nombres de las hojas que usarás. Deben coincidir EXACTAMENTE.
 const SHEET_NAMES = {
   USERS: "USUARIOS",
-  DATA: "DATA",
-  MISSIONS: "Misiones",
-  LEVELS: "Niveles",
-  AVATARS: "Avatares",
-  PLACEHOLDERS: "PlaceholderImages"
+  DATA: "DATA"
 };
 // -----------------------------------------------------
 
@@ -25,7 +21,8 @@ const spreadsheet = SpreadsheetApp.openByUrl(SPREADSHEET_URL);
 function doPost(e) {
   try {
     const requestData = JSON.parse(e.postData.contents);
-    const action = requestData.action || 'getData'; // 'getData' es la acción por defecto
+    // 'getData' es la acción por defecto para compatibilidad con GET
+    const action = requestData.action || 'getData'; 
 
     switch (action) {
       case 'register':
@@ -43,7 +40,7 @@ function doPost(e) {
 }
 
 function doGet(e) {
-    // Para simplificar, hacemos que GET se comporte como un POST con action=getData
+    // El método GET solo se usará para obtener el ranking (hoja DATA)
     return handleGetData(e.parameter);
 }
 
@@ -80,6 +77,7 @@ function handleRegister(data) {
   // Añadir también a la hoja DATA para el ranking
   const dataSheet = spreadsheet.getSheetByName(SHEET_NAMES.DATA);
   if (dataSheet) {
+      // Asumiendo que 'Sexo' puede quedar en blanco inicialmente.
       dataSheet.appendRow([name, email, 'No especificado', newScore, newLevel, newAvatar]);
   }
 
@@ -111,6 +109,7 @@ function handleLogin(data) {
     return createJsonResponse({ error: true, message: "Credenciales inválidas." });
   }
   
+  // Usar los nombres de columna EXACTOS de la hoja USUARIOS.
   const userData = {
       id: userRow['Correo'], // Usamos el correo como ID único
       name: userRow['Nombre'],
@@ -124,16 +123,17 @@ function handleLogin(data) {
 }
 
 /**
- * Obtiene todos los datos necesarios para la aplicación.
+ * Obtiene los datos para el ranking desde la hoja DATA.
  */
 function handleGetData(params) {
   try {
+    const dataSheet = spreadsheet.getSheetByName(SHEET_NAMES.DATA);
+    if (!dataSheet) {
+        return createJsonResponse({ error: true, message: `La hoja "${SHEET_NAMES.DATA}" no fue encontrada.` });
+    }
     const data = {
-      users: getSheetData(spreadsheet.getSheetByName(SHEET_NAMES.DATA)),
-      tasks: getSheetData(spreadsheet.getSheetByName(SHEET_NAMES.MISSIONS)),
-      levels: getSheetData(spreadsheet.getSheetByName(SHEET_NAMES.LEVELS)),
-      avatars: getSheetData(spreadsheet.getSheetByName(SHEET_NAMES.AVATARS)),
-      placeholderImages: getSheetData(spreadsheet.getSheetByName(SHEET_NAMES.PLACEHOLDERS)),
+      // El nombre de la propiedad 'users' es importante para el frontend.
+      users: getSheetData(dataSheet),
       error: false
     };
 
@@ -158,7 +158,9 @@ function getSheetData(sheet) {
   return rows.map(row => {
     const rowData = {};
     headers.forEach((header, index) => {
-      rowData[header] = row[index];
+      // Usa el nombre del encabezado como clave.
+      // El frontend espera 'puntaje', no 'Puntaje'. Se ajustará en el frontend.
+      rowData[header.toLowerCase()] = row[index];
     });
     return rowData;
   });
