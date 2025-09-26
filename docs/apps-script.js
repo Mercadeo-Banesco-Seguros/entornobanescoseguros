@@ -15,12 +15,20 @@ const SHEET_NAMES = {
 const spreadsheet = SpreadsheetApp.openByUrl(SPREADSHEET_URL);
 
 /**
- * Función principal que maneja las peticiones POST para compatibilidad con el proxy y el sitio estático.
+ * Crea una respuesta JSON estándar con las cabeceras CORS correctas.
+ */
+function createJsonResponse(data) {
+  return ContentService
+    .createTextOutput(JSON.stringify(data))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+/**
+ * Función principal que maneja las peticiones POST.
  */
 function doPost(e) {
   let requestData;
   try {
-    // Parsea el cuerpo de la petición que viene como un string JSON.
     requestData = JSON.parse(e.postData.contents);
   } catch (error) {
     return createJsonResponse({ error: true, message: "Petición inválida. Se esperaba un JSON." });
@@ -35,7 +43,6 @@ function doPost(e) {
       case 'login':
         return handleLogin(requestData);
       case 'getData':
-         // Se maneja getData vía POST para consistencia del proxy.
         return handleGetData(requestData);
       default:
         return createJsonResponse({ error: true, message: "Acción no reconocida." });
@@ -47,14 +54,13 @@ function doPost(e) {
 }
 
 /**
- * La función doGet se mantiene para pruebas directas de la URL.
- * El frontend no la usará directamente.
+ * La función doGet se mantiene para pruebas, pero la lógica principal se centraliza en doPost.
  */
 function doGet(e) {
     if (e.parameter && e.parameter.action === 'getData') {
         return handleGetData(e.parameter);
     }
-    return createJsonResponse({ info: true, message: "El script está activo. Usa peticiones POST para interactuar." });
+    return createJsonResponse({ info: "El script está activo. Usa peticiones POST." });
 }
 
 
@@ -79,15 +85,12 @@ function handleRegister(data) {
     return createJsonResponse({ error: true, message: "El correo electrónico ya está registrado." });
   }
   
-  // Añade el nuevo usuario a la hoja USUARIOS
   usersSheet.appendRow([name, email, password, 'Explorador', 1, 0]);
 
-  // También añade el usuario a la hoja DATA para el ranking
   const dataSheet = spreadsheet.getSheetByName(SHEET_NAMES.DATA);
   if (dataSheet) {
       dataSheet.appendRow([name, email, 'No especificado', 0, 1, 'Explorador']);
   }
-
 
   return createJsonResponse({ success: true, message: "Usuario registrado exitosamente." });
 }
@@ -117,9 +120,8 @@ function handleLogin(data) {
     return createJsonResponse({ error: true, message: "Credenciales inválidas." });
   }
   
-  // Se obtiene la información pública del usuario desde la hoja DATA para asegurar consistencia.
   const dataSheet = spreadsheet.getSheetByName(SHEET_NAMES.DATA);
-  let publicData = { avatar: 'Explorador', xp: 0, level: 1 }; // Default values
+  let publicData = { avatar: 'Explorador', xp: 0, level: 1 }; // Valores por defecto
 
   if(dataSheet) {
     const dataUsers = getSheetData(dataSheet);
@@ -130,7 +132,6 @@ function handleLogin(data) {
       publicData.level = parseInt(publicUserRow['nivel'], 10) || 1;
     }
   }
-
 
   const userData = {
       id: userRow['correo'],
@@ -167,12 +168,10 @@ function handleGetData(params) {
 
 /**
  * Función de utilidad para convertir una hoja en un array de objetos.
- * Los encabezados se convierten a minúsculas para consistencia.
  */
 function getSheetData(sheet) {
   if (!sheet) return [];
   const range = sheet.getDataRange();
-  // Comienza desde la fila 2 si hay encabezados
   if (range.getNumRows() < 2) return [];
 
   const rows = range.getValues();
@@ -181,22 +180,10 @@ function getSheetData(sheet) {
   return rows.map(row => {
     const rowData = {};
     headers.forEach((header, index) => {
-      // Asegurarse de que la propiedad del objeto exista antes de asignarla
       if(header){
         rowData[header] = row[index];
       }
     });
     return rowData;
   });
-}
-
-
-/**
- * Función de utilidad para crear una respuesta JSON estándar.
- * Esto asegura que todas las respuestas del script tengan el formato y header correctos.
- */
-function createJsonResponse(data) {
-  return ContentService
-    .createTextOutput(JSON.stringify(data))
-    .setMimeType(ContentService.MimeType.JSON);
 }
