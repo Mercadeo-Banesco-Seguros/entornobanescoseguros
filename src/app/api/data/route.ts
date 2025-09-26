@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 // Pega la URL de implementación de tu Google Apps Script aquí.
 // Asegúrate de que la URL esté entre comillas simples o dobles.
 // Ejemplo: const appsScriptUrl = 'https://script.google.com/macros/s/ABC.../exec';
-const appsScriptUrl = 'https://script.google.com/macros/s/AKfycbyizQtJch2A7oWllK4m-J8diA3kK9O-tSyNAgoEg4WuPIAp9BhqVz7zAmA4kyvl76RAiA/exec';
+const appsScriptUrl = 'https://script.google.com/macros/s/AKfycbxrsfvR6R1vrg6ScCvTqprI617_7jW7zN3RouhDONAUItLRsDHFJbsQ0jhfgIj2Vzo9/exec';
 
 
 async function handleRequest(request: Request) {

@@ -57,6 +57,7 @@ function doGet(e) {
 
 /**
  * Maneja el registro de un nuevo usuario.
+ * Solo añade el nombre, email y contraseña a la hoja USUARIOS.
  */
 function handleRegister(data) {
   const { name, email, password } = data;
@@ -76,20 +77,9 @@ function handleRegister(data) {
     return createJsonResponse({ error: true, message: "El correo electrónico ya está registrado." });
   }
 
-  // Valores por defecto para un nuevo usuario
-  const newAvatar = 'Explorador';
-  const newLevel = 1;
-  const newScore = 0;
-
-  // Añadir a la hoja USUARIOS
-  usersSheet.appendRow([name, email, password, newAvatar, newLevel, newScore]);
-  
-  // Añadir también a la hoja DATA para el ranking
-  const dataSheet = spreadsheet.getSheetByName(SHEET_NAMES.DATA);
-  if (dataSheet) {
-      // Asumiendo que 'Sexo' puede quedar en blanco inicialmente.
-      dataSheet.appendRow([name, email, 'No especificado', newScore, newLevel, newAvatar]);
-  }
+  // Añadir únicamente los datos de registro a la hoja USUARIOS.
+  // Se asume que las columnas Avatar, Nivel y Puntaje se llenarán automáticamente (ej. con VLOOKUP).
+  usersSheet.appendRow([name, email, password]);
 
   return createJsonResponse({ success: true, message: "Usuario registrado exitosamente." });
 }
@@ -120,13 +110,15 @@ function handleLogin(data) {
   }
   
   // Usar los nombres de columna en minúsculas como los devuelve getSheetData.
+  // El script ahora simplemente lee los valores de nivel, puntaje y avatar,
+  // asumiendo que ya están poblados en la hoja.
   const userData = {
       id: userRow['correo'], // Usamos el correo como ID único
       name: userRow['nombre'],
       email: userRow['correo'],
-      level: parseInt(userRow['nivel'], 10),
-      xp: parseInt(userRow['puntaje'], 10),
-      avatar: userRow['avatar']
+      level: parseInt(userRow['nivel'], 10) || 1, // Valor por defecto si está vacío
+      xp: parseInt(userRow['puntaje'], 10) || 0, // Valor por defecto si está vacío
+      avatar: userRow['avatar'] || 'Explorador' // Valor por defecto si está vacío
   };
 
   return createJsonResponse({ success: true, user: userData });
