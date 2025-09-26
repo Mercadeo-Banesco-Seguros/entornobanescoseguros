@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
+import { AuthProvider } from '@/context/auth-context';
+import Header from '@/components/layout/header';
 
 export const metadata: Metadata = {
   title: 'Banesco Seguros: Expedition',
@@ -25,8 +27,15 @@ export default function RootLayout({
         <script src="https://apis.google.com/js/api.js"></script>
       </head>
       <body className={cn('font-body antialiased bg-background')}>
-          {children}
-          <Toaster />
+        <AuthProvider>
+          <div className="min-h-screen flex flex-col bg-background">
+            <Header />
+            <main className="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+              {children}
+            </main>
+          </div>
+        </AuthProvider>
+        <Toaster />
       </body>
     </html>
   );
