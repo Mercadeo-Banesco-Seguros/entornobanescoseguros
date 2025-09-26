@@ -13,7 +13,6 @@ type AuthContextType = {
   avatars: Avatar[];
   loading: boolean;
   error: string | null;
-  setCurrentUser: (user: User | null) => void;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -25,37 +24,42 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const authenticateUser = async () => {
+    const authenticateAndLoadData = async () => {
       setLoading(true);
       setError(null);
       try {
-        const response = await fetch('/api/auth');
-        const authData = await response.json();
+        const authResponse = await fetch('/api/auth');
+        if (!authResponse.ok) {
+          const errorData = await authResponse.json();
+          throw new Error(errorData.message || 'Error de autenticación');
+        }
+        const authData = await authResponse.json();
 
         if (authData.authorized && authData.user) {
           setCurrentUser(authData.user);
-
-          // Simular el estado de las tareas para el usuario autenticado
+          
+          // El estado de las tareas se simula localmente
           const userTasks = staticTasks.map(task => ({
               ...task,
-              // Por ahora, marcamos todas como completadas para cualquier usuario logueado
               status: 'completed'
           } as Task));
           setTasks(userTasks);
 
         } else {
-          setError(authData.message || 'No estás autorizado para acceder a esta aplicación.');
           setCurrentUser(null);
+          setError(authData.message || 'No tienes permiso para acceder a esta aplicación.');
         }
-      } catch (err) {
-        console.error("Authentication failed:", err);
-        setError('Ocurrió un error al intentar iniciar sesión. Revisa la consola.');
+
+      } catch (err: any) {
+        console.error("Authentication or data loading failed:", err);
+        setError(err.message || 'Ocurrió un error al intentar iniciar sesión.');
+        setCurrentUser(null);
       } finally {
         setLoading(false);
       }
     };
     
-    authenticateUser();
+    authenticateAndLoadData();
   }, []);
 
   const value = {
@@ -65,7 +69,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     avatars: staticAvatars,
     loading,
     error,
-    setCurrentUser,
   };
 
   if (loading) {

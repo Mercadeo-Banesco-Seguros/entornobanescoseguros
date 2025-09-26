@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 import type { User, Level, Avatar as AvatarType } from '@/lib/types';
 
 export default function RankingPage() {
-  const { currentUser: me, levels: staticLevels, avatars: staticAvatars } = useAuth(); // Usamos los datos estáticos para el usuario actual y los assets
+  const { currentUser: me, levels: staticLevels, avatars: staticAvatars } = useAuth();
   const [rankingUsers, setRankingUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -20,6 +20,7 @@ export default function RankingPage() {
       setLoading(true);
       setError(null);
       try {
+        // Esta API solo trae los datos de la hoja (todos los usuarios, etc)
         const response = await fetch('/api/data');
         if (!response.ok) {
           const errorData = await response.json();
@@ -47,7 +48,7 @@ export default function RankingPage() {
     fetchRanking();
   }, []);
   
-  if (loading) {
+  if (loading || !me) { // También esperamos a que 'me' esté disponible desde el contexto
     return (
       <div className="space-y-8">
         <header>
@@ -79,10 +80,6 @@ export default function RankingPage() {
 
   if (error) {
     return <div className="text-destructive text-center">Error al cargar el ranking: {error}</div>
-  }
-  
-  if (!me) {
-    return <div>Cargando tus datos...</div>
   }
   
   const sortedUsers = [...rankingUsers].sort((a, b) => b.xp - a.xp);
