@@ -6,7 +6,7 @@ export default function MisionesPage() {
   return (
     <div className="flex flex-col items-center text-center">
       <Image
-        src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_xo3kzaxo3kzaxo3k-Photoroom.png?raw=true"
+        src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_5wzjq95wzjq95wzj-Photoroom.png?raw=true"
         alt="Sección en construcción"
         width={500}
         height={500}
