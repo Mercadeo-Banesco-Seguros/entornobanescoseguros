@@ -46,11 +46,11 @@ export default function InicioPage() {
               <Skeleton className="w-full h-[400px] rounded-lg" />
             ) : (
               <Image 
-                src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/MAPA%20MUNDI%20SIN%20FONDO.png?raw=true" 
+                src="https://images.unsplash.com/photo-1580715911453-d6d9cffd5771?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxOHx8TUFQfGVufDB8fHx8MTc1ODkxMzIyNHww&ixlib=rb-4.1.0&q=80&w=1080"
                 alt="Mapa de la expedición"
                 width={600}
                 height={400}
-                className="rounded-lg object-contain"
+                className="rounded-lg object-cover w-full h-full"
                 data-ai-hint="expedition map"
               />
             )}
