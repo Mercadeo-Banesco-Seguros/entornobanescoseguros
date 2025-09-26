@@ -1,37 +1,41 @@
 import { NextResponse } from 'next/server';
-import { headers } from 'next/headers';
 
-// No necesitas 'users', 'tasks', etc. de /lib/data porque vendrán del script.
+const appsScriptUrl = process.env.APPS_SCRIPT_URL;
 
-export async function GET(request: Request) {
-  
-  // Reemplaza esta URL con la que obtuviste de Google Apps Script
-  const appsScriptUrl = "https://script.google.com/macros/s/AKfycbxRHVaNZ9AiiVfzG6JQ_0ueYiEmktL9RZlcGOfFgQo6yTIsAY-TKBtbV7lxvsL5rmQ_Mg/exec";
-
-  if (!appsScriptUrl || appsScriptUrl === "PEGA_TU_URL_AQUI") {
-    console.error('La URL de Apps Script no está configurada.');
+async function handleRequest(request: Request) {
+  if (!appsScriptUrl) {
     return NextResponse.json(
-      { message: 'La URL de Apps Script no está configurada. Pega tu URL en `src/app/api/data/route.ts`' },
+      { message: 'La URL de Apps Script no está configurada en las variables de entorno.' },
       { status: 500 }
     );
   }
 
+  let action = 'getData';
+  let body = {};
+  
+  if (request.method === 'POST') {
+    try {
+      body = await request.json();
+      if ('action' in body) {
+        action = (body as { action: string }).action;
+      }
+    } catch (e) {
+      return NextResponse.json({ message: 'Cuerpo de la petición inválido.' }, { status: 400 });
+    }
+  }
+
   try {
-    // --- LÓGICA DE PRODUCCIÓN ---
-    // Hacemos una petición GET. El script de Google se encargará de identificar al usuario.
     const response = await fetch(appsScriptUrl, {
-      method: 'GET',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      // Cachear la respuesta para no llamar al script en cada carga.
-      // Puedes ajustar el tiempo de revalidación.
-      cache: 'no-store' // Desactivar caché para depuración
+      body: JSON.stringify({ ...body, action }),
+      cache: 'no-store',
     });
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error(`Error desde Apps Script: ${response.status} - ${response.statusText}`, errorText);
       return NextResponse.json(
         { message: 'Error al contactar el servicio de datos.', details: errorText },
         { status: response.status }
@@ -39,16 +43,6 @@ export async function GET(request: Request) {
     }
 
     const data = await response.json();
-
-    if (data.error) {
-      console.error('Error reportado por Apps Script:', data.message);
-      return NextResponse.json(
-        { message: data.message || 'Ocurrió un error al procesar los datos en el script.' },
-        { status: 400 }
-      );
-    }
-    
-    // El script debería devolver un objeto con la estructura que espera la app.
     return NextResponse.json(data);
 
   } catch (error: any) {
@@ -58,4 +52,13 @@ export async function GET(request: Request) {
       { status: 500 }
     );
   }
+}
+
+export async function GET(request: Request) {
+  // Redirigir GET a POST para un manejo unificado
+  return handleRequest(request);
+}
+
+export async function POST(request: Request) {
+  return handleRequest(request);
 }

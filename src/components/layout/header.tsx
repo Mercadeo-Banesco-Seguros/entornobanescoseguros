@@ -8,11 +8,19 @@ import Image from 'next/image';
 import { useAuth } from '@/context/auth-context';
 import { Avatar, AvatarFallback } from '../ui/avatar';
 import { Skeleton } from '../ui/skeleton';
-import { User } from 'lucide-react';
+import { LogOut, User } from 'lucide-react';
+import { Button } from '../ui/button';
+import { useRouter } from 'next/navigation';
 
 export default function Header() {
   const pathname = usePathname();
-  const { currentUser, loading } = useAuth();
+  const { currentUser, loading, logout } = useAuth();
+  const router = useRouter();
+
+  const handleLogout = () => {
+    logout();
+    router.push('/login');
+  };
 
   return (
     <header className="bg-primary text-primary-foreground">
@@ -31,21 +39,7 @@ export default function Header() {
           </div>
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-6">
-              {navLinks.map((link) => {
-                if (link.href === '/misiones') {
-                  return (
-                    <span
-                      key={link.label}
-                      className={cn(
-                        'px-3 py-2 rounded-md text-xs transition-colors',
-                        'font-normal text-white/40 cursor-not-allowed'
-                      )}
-                    >
-                      {link.label}
-                    </span>
-                  )
-                }
-                return (
+              {navLinks.map((link) => (
                   <Link
                     key={link.label}
                     href={link.href}
@@ -59,7 +53,7 @@ export default function Header() {
                     {link.label}
                   </Link>
                 )
-              })}
+              )}
             </div>
           </div>
           <div className="flex items-center gap-4">
@@ -79,6 +73,9 @@ export default function Header() {
                     <User className="h-5 w-5" />
                   </AvatarFallback>
                 </Avatar>
+                <Button onClick={handleLogout} variant="ghost" size="icon" className="text-white hover:bg-white/10">
+                  <LogOut className="h-5 w-5" />
+                </Button>
               </>
             ) : (
                <p className="text-sm text-white/80">No autenticado</p>

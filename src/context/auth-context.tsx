@@ -1,17 +1,8 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect, ReactNode, useMemo } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode, useMemo, useCallback } from 'react';
 import type { User, Task, Avatar, Level } from '@/lib/types';
 import { Skeleton } from '@/components/ui/skeleton';
-import { avatars as defaultAvatars, levels as defaultLevels, tasks as defaultTasksData, users, currentUserEmail } from '@/lib/data';
-
-// Prepara las tareas por defecto con un ID y estado válidos.
-const defaultTasks: Task[] = defaultTasksData.map((task, index) => ({
-  ...task,
-  id: task.id ?? index,
-  status: 'completed',
-}));
-
 
 type AuthContextType = {
   currentUser: User | null;
@@ -20,6 +11,9 @@ type AuthContextType = {
   avatars: Avatar[];
   loading: boolean;
   error: string | null;
+  login: (email: string, password: string) => Promise<void>;
+  register: (name: string, email: string, password: string) => Promise<void>;
+  logout: () => void;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -32,36 +26,78 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const loadData = () => {
-      setLoading(true);
-      try {
-        // Carga el usuario de ejemplo directamente desde los datos locales
-        const userToLoad = users.find(u => u.email.toLowerCase() === currentUserEmail.toLowerCase());
-        
-        if (userToLoad) {
-          setCurrentUser(userToLoad);
-        } else {
-          // Si no se encuentra, carga el primer usuario como fallback
-          setCurrentUser(users[0] || null);
-        }
-
-        // Carga los datos estáticos (misiones, niveles, avatares)
-        setTasks(defaultTasks);
-        setLevels(defaultLevels);
-        setAvatars(defaultAvatars);
-        setError(null);
-      } catch (err: any) {
-        setError("Error cargando los datos de ejemplo.");
-        console.error(err);
-      } finally {
-        // Simula un pequeño retraso para la carga, para que la UI no parpadee
-        setTimeout(() => setLoading(false), 500);
-      }
-    };
-    
-    loadData();
+  const loadInitialData = useCallback(async (user: User) => {
+    try {
+      const response = await fetch('/api/data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'getData', email: user.email }),
+      });
+      const data = await response.json();
+      if (data.error) throw new Error(data.message);
+      
+      setTasks(data.tasks || []);
+      setLevels(data.levels || []);
+      setAvatars(data.avatars || []);
+    } catch (err: any) {
+      setError("Error cargando los datos de la aplicación.");
+      console.error(err);
+    }
   }, []);
+
+  useEffect(() => {
+    const checkUserSession = async () => {
+      setLoading(true);
+      const userJson = localStorage.getItem('currentUser');
+      if (userJson) {
+        const user = JSON.parse(userJson);
+        setCurrentUser(user);
+        await loadInitialData(user);
+      }
+      setLoading(false);
+    };
+    checkUserSession();
+  }, [loadInitialData]);
+  
+  const login = async (email: string, password: string) => {
+    const response = await fetch('/api/data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'login', email, password }),
+    });
+
+    const data = await response.json();
+    if (data.error || !data.user) {
+        throw new Error(data.message || 'Credenciales inválidas');
+    }
+    
+    const user = data.user;
+    setCurrentUser(user);
+    localStorage.setItem('currentUser', JSON.stringify(user));
+    await loadInitialData(user);
+  };
+
+  const register = async (name: string, email: string, password: string) => {
+    const response = await fetch('/api/data', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'register', name, email, password }),
+    });
+
+    const data = await response.json();
+    if (data.error) {
+      throw new Error(data.message);
+    }
+  };
+
+  const logout = () => {
+    setCurrentUser(null);
+    localStorage.removeItem('currentUser');
+    // Clear other data as well
+    setTasks([]);
+    setLevels([]);
+    setAvatars([]);
+  };
 
   const value = useMemo(() => ({
     currentUser,
@@ -70,29 +106,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     avatars,
     loading,
     error,
-  }), [currentUser, tasks, levels, avatars, loading, error]);
-
-  if (loading) {
-    return (
-      <div className="w-full h-screen flex items-center justify-center">
-        <div className="flex flex-col items-center gap-2">
-          <Skeleton className="h-12 w-12 rounded-full" />
-          <p className="text-muted-foreground mt-4">Cargando datos de la expedición...</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="w-full h-screen flex items-center justify-center">
-        <div className="flex flex-col items-center gap-2 text-center">
-           <p className="text-destructive font-semibold">Error al cargar la aplicación</p>
-           <p className="text-muted-foreground">{error}</p>
-        </div>
-      </div>
-    );
-  }
+    login,
+    register,
+    logout,
+  }), [currentUser, tasks, levels, avatars, loading, error, register]);
 
   return (
     <AuthContext.Provider value={value}>

@@ -15,26 +15,14 @@ export const levels: Level[] = [
     { id: 4, name: 'Nivel 4', xpThreshold: 10000, worldName: 'El Núcleo del Legado', worldImageId: 'world-level-4', story: 'Bienvenido al Núcleo del Legado, el corazón de toda nuestra expedición, donde se concentran los logros más grandes y la prueba más valiosa. Aquí culmina tu viaje como Leyenda, el explorador que ha dominado cada desafío y ha demostrado maestría, liderazgo y compromiso con nuestra cultura.' },
 ];
 
-// Datos de ejemplo para desarrollo local
-export const users: User[] = [
-  { id: 1, name: 'Carlos Rodríguez', email: 'carlos.rodriguez@example.com', level: 1, xp: 850, avatar: 'Explorador' },
-  { id: 2, name: 'Ana Martínez', email: 'ana.martinez@example.com', level: 3, xp: 4800, avatar: 'Maestro' },
-  { id: 3, name: 'Luis García', email: 'luis.garcia@example.com', level: 2, xp: 1900, avatar: 'Aventurero' },
-  { id: 4, name: 'Sofía López', email: 'sofia.lopez@example.com', level: 4, xp: 12500, avatar: 'Leyenda' },
-];
-
 export const tasks: Omit<Task, 'status'>[] = [
     { id: 1, title: 'Participación en capacitaciones o actividades de integración', description: 'Asiste a eventos que fortalecen al equipo.', level: 1, xp: 10 },
     { id: 2, title: 'Participación en videos de Capital Humano', description: 'Colabora activamente en producciones de CH.', level: 1, xp: 10 },
     { id: 3, title: 'Participación como extra en videos de Capital Humano', description: 'Aparece como extra y apoya las iniciativas de CH.', level: 1, xp: 5 },
 ];
 
-// Usuario que simulará estar logueado
-export const currentUserEmail = 'carlos.rodriguez@example.com';
-
-
 export const navLinks: NavLink[] = [
-    { href: '/dashboard', label: 'Inicio', icon: Rocket },
+    { href: '/dashboard', label: 'Dashboard', icon: Rocket },
     { href: '/misiones', label: 'Misiones', icon: ClipboardList },
     { href: '/ranking', label: 'Ranking', icon: Trophy },
     { href: '/profile', label: 'Mi Perfil', icon: UserIcon },

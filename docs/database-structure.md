@@ -1,10 +1,25 @@
 # Estructura de la Base de Datos en Google Sheets
 
-Para que el Google Apps Script funcione correctamente, tu hoja de cálculo debe contener exactamente las siguientes hojas (pestañas) y columnas. Los nombres deben ser idénticos.
+Para que el Google Apps Script funcione correctamente, tu hoja de cálculo debe contener exactamente las siguientes hojas (pestañas) y columnas. Los nombres deben ser idénticos y sin espacios adicionales.
+
+### Hoja: `USUARIOS` (NUEVA)
+
+Contiene la información de autenticación de cada usuario.
+
+| Columna | Descripción | Ejemplo |
+| :--- | :--- | :--- |
+| `Nombre` | Nombre completo del usuario. | `Carlos Rodríguez` |
+| `Correo` | Correo electrónico del usuario (único). | `carlos.rodriguez@example.com` |
+| `Contraseña` | Contraseña elegida por el usuario. | `secreto123` |
+| `Avatar` | Nombre del avatar inicial del usuario. | `Explorador` |
+| `Nivel` | Nivel inicial del usuario. | `1` |
+| `Puntaje` | Puntaje inicial del usuario (CONECTCOINS). | `0` |
+
+---
 
 ### Hoja: `DATA`
 
-Contiene la información principal y el progreso de cada usuario participante.
+Contiene la información pública y el progreso de cada usuario para el ranking.
 
 | Columna  | Descripción                               | Ejemplo                      |
 | :------- | :---------------------------------------- | :--------------------------- |

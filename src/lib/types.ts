@@ -1,7 +1,7 @@
 import type { LucideIcon } from 'lucide-react';
 
 export type User = {
-  id: number;
+  id: number | string;
   name: string;
   email: string;
   level: number;
@@ -43,7 +43,6 @@ export type NavLink = {
   icon: LucideIcon;
 };
 
-// Se ajusta para que el status sea opcional, ya que puede venir o no de la hoja de cálculo.
 export type AppDataFromSheet = {
   users: Omit<User, 'id'>[];
   tasks: Omit<Task, 'id'>[];
