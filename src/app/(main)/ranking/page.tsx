@@ -10,17 +10,19 @@ import { useEffect, useState } from 'react';
 import type { User, Level, Avatar as AvatarType } from '@/lib/types';
 
 export default function RankingPage() {
-  const { currentUser: me, levels: staticLevels, avatars: staticAvatars } = useAuth();
+  // Ahora el contexto ya tiene los datos del usuario y los datos estáticos/del script.
+  const { currentUser: me, levels, avatars, loading: authLoading } = useAuth();
   const [rankingUsers, setRankingUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    // La autenticación ya se manejó en el contexto. Ahora solo obtenemos la lista para el ranking.
     const fetchRanking = async () => {
       setLoading(true);
       setError(null);
       try {
-        // Esta API solo trae los datos de la hoja (todos los usuarios, etc)
+        // Esta API trae los datos de TODOS los usuarios para la tabla.
         const response = await fetch('/api/data');
         if (!response.ok) {
           const errorData = await response.json();
@@ -32,7 +34,7 @@ export default function RankingPage() {
           throw new Error(data.message);
         }
         
-        // Asumimos que data.users contiene la lista de todos los usuarios del script
+        // Asumimos que data.users contiene la lista de todos los usuarios del script.
         const allUsers = data.users.map((u: any, index: number) => ({ ...u, id: index + 1, level: Number(u.level), xp: Number(u.xp) }));
         
         setRankingUsers(allUsers);
@@ -48,7 +50,8 @@ export default function RankingPage() {
     fetchRanking();
   }, []);
   
-  if (loading || !me) { // También esperamos a que 'me' esté disponible desde el contexto
+  // Muestra el esqueleto si la autenticación inicial o la carga del ranking están en progreso.
+  if (authLoading || loading || !me) {
     return (
       <div className="space-y-8">
         <header>
@@ -86,12 +89,11 @@ export default function RankingPage() {
 
   // La tarjeta superior sigue usando 'me' (el usuario del contexto)
   const myRank = sortedUsers.findIndex(u => u.email.toLowerCase() === me.email.toLowerCase()) + 1;
-  const myLevel = staticLevels.find(l => l.id === me.level);
-  const myAvatar = staticAvatars.find(av => av.name === me.avatar);
-
+  const myLevel = levels.find(l => l.id === me.level);
+  const myAvatar = avatars.find(av => av.name === me.avatar);
 
   const getAvatar = (avatarName: string) => {
-    return staticAvatars.find(av => av.name === avatarName);
+    return avatars.find(av => av.name === avatarName);
   };
 
   return (
@@ -101,7 +103,7 @@ export default function RankingPage() {
         <p className="text-muted text-lg mt-1">Mira tu progreso y el de tus compañeros.</p>
       </header>
 
-      {/* Esta tarjeta usa 'me' del contexto, como antes */}
+      {/* Esta tarjeta usa 'me' del contexto, que ahora viene del script */}
       <Card className="sticky top-20 z-10 bg-primary text-primary-foreground shadow-lg">
         <CardContent className="p-6">
           <div className="flex items-center">
@@ -138,7 +140,7 @@ export default function RankingPage() {
           <Table>
             <TableBody>
               {sortedUsers.slice(0, 10).map((user, index) => {
-                const userLevel = staticLevels.find(l => l.id === user.level);
+                const userLevel = levels.find(l => l.id === user.level);
                 const userAvatar = getAvatar(user.avatar);
                 return (
                   <TableRow key={user.id} className={user.email.toLowerCase() === me.email.toLowerCase() ? 'bg-secondary/50' : ''}>
@@ -157,9 +159,11 @@ export default function RankingPage() {
                       </div>
                     </TableCell>
                     <TableCell className="text-center w-48">
-                      <span className="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full">
-                        {userLevel?.worldName || `Nivel ${user.level}`}
-                      </span>
+                      {userLevel && (
+                        <span className="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full">
+                          {userLevel.worldName}
+                        </span>
+                      )}
                     </TableCell>
                     <TableCell className="text-right w-48">
                       <span className="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full">
