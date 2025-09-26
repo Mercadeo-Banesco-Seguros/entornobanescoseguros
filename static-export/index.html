@@ -56,6 +56,12 @@
         <div class="loader"></div>
         <p class="mt-4 text-muted-foreground">Cargando expedición...</p>
     </div>
+    
+    <div id="auth-error-screen" class="w-full h-screen flex-col items-center justify-center bg-background fixed top-0 left-0 z-50 hidden">
+        <h1 class="text-2xl font-bold text-destructive">Acceso Denegado</h1>
+        <p id="auth-error-message" class="mt-2 text-muted-foreground text-center max-w-md"></p>
+    </div>
+
 
     <div id="app" class="min-h-screen flex-col hidden">
         <header class="bg-primary text-primary-foreground">
@@ -91,46 +97,40 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', async function() {
-            // Ya no se necesita el email quemado, el script lo obtiene de la sesión.
-            const appsScriptUrl = "URL_DE_TU_APPS_SCRIPT_AQUI";
+            // URL del script de Google que obtiene TODOS los datos
+            const appsScriptUrl = "https://script.google.com/macros/s/AKfycbxRHVaNZ9AiiVfzG6JQ_0ueYiEmktL9RZlcGOfFgQo6yTIsAY-TKBtbV7lxvsL5rmQ_Mg/exec";
 
             const appElement = document.getElementById('app');
             const loadingScreen = document.getElementById('loading-screen');
+            const authErrorScreen = document.getElementById('auth-error-screen');
+            const authErrorMessage = document.getElementById('auth-error-message');
             
             let appData = {};
 
             // --- DATA FETCHING ---
             async function fetchData() {
-                if (!appsScriptUrl || appsScriptUrl === "URL_DE_TU_APPS_SCRIPT_AQUI") {
+                if (!appsScriptUrl || appsScriptUrl.includes("PEGA_TU_URL")) {
                     console.error('La URL de Apps Script no está configurada.');
-                    alert('Error de configuración: La URL de Apps Script no está definida.');
-                    return null;
+                    return { error: 'La URL de Apps Script no está configurada.' };
                 }
                 try {
-                    // Ahora hacemos una petición GET. El Apps Script identificará al usuario.
                     const response = await fetch(appsScriptUrl);
-
                     if (!response.ok) {
-                      throw new Error(`Error from Apps Script: ${response.statusText}`);
+                      const errorText = await response.text();
+                      return { error: `Error desde el servidor: ${response.status} ${response.statusText}`, details: errorText };
                     }
-                    
                     const data = await response.json();
-
                     if (data.error) {
-                        throw new Error(data.message);
+                        return { error: data.message };
                     }
-                    
                     return data;
-
                 } catch (error) {
                     console.error('Error fetching data from Apps Script:', error);
-                    alert('No se pudieron cargar los datos de la expedición. Revisa la consola para más detalles.');
-                    return null;
+                    return { error: 'No se pudo conectar con el servicio de datos. Revisa la consola para más detalles.' };
                 }
             }
 
             // --- TEMPLATING / RENDERING ---
-            
             function renderHeader(user) {
                 const container = document.getElementById('header-user-info');
                 if (!user) {
@@ -151,7 +151,7 @@
 
             function renderDashboard() {
                  const { currentUser, levels, avatars, tasks, placeholderImages } = appData;
-                 if (!currentUser) return '<p>Usuario no encontrado.</p>';
+                 if (!currentUser) return '<p>Cargando datos del dashboard...</p>';
                  const userLevel = levels.find(l => l.id === currentUser.level);
                  const levelTasks = tasks.filter(t => t.level === currentUser.level);
                  const currentAvatar = avatars.find(a => a.name === currentUser.avatar);
@@ -161,15 +161,13 @@
                     <div class="w-full">
                         <div class="h-full border-0 shadow-none rounded-lg">
                             <div class="flex flex-col items-center text-center gap-8 pt-6 h-full">
-                                <div class="flex-grow flex items-center justify-center h-96 w-full">
-                                    <div class="flex items-center gap-2">
-                                        <div class="relative inline-block w-64 h-96">
-                                            <img src="${currentAvatar.imageUrl}" alt="${currentAvatar.name}" class="object-contain" style="max-width: 100%; max-height: 100%;">
-                                        </div>
-                                        <div class="w-64 text-left">
-                                            <h3 class="text-base font-semibold">${currentAvatar.name}</h3>
-                                            <p class="text-xs text-muted-foreground mt-1">${currentAvatar.description}</p>
-                                        </div>
+                                <div class="flex-grow flex flex-col md:flex-row items-center justify-center h-96 w-full md:gap-4">
+                                    <div class="relative w-48 h-64 md:w-64 md:h-96">
+                                        <img src="${currentAvatar.imageUrl}" alt="${currentAvatar.name}" class="object-contain w-full h-full">
+                                    </div>
+                                    <div class="w-64 text-center md:text-left">
+                                        <h3 class="text-base font-semibold">${currentAvatar.name}</h3>
+                                        <p class="text-xs text-muted-foreground mt-1">${currentAvatar.description}</p>
                                     </div>
                                 </div>
                                 <div class="flex items-end justify-center space-x-4 w-full">
@@ -189,22 +187,19 @@
                     </div>
                  `;
 
-                 // Current World Component
                  const worldImage = placeholderImages.find(p => p.id === userLevel.worldImageId);
                  const currentWorldHTML = `
                     <div class="w-full">
                          <div class="h-full border-0 shadow-none rounded-lg">
                             <div class="flex flex-col items-center text-center gap-8 pt-6 h-full">
-                                <div class="flex-grow flex items-center justify-center w-full h-96">
-                                    <div class="flex items-center gap-8">
-                                        <div class="relative w-96 h-96 rounded-lg flex items-center justify-center">
-                                            <img src="${worldImage.imageUrl}" alt="${userLevel.worldName}" class="object-contain" style="max-width: 100%; max-height: 100%;">
-                                        </div>
-                                        <div class="w-64 text-left">
-                                            <h3 class="text-base font-semibold">${userLevel.worldName}</h3>
-                                            <p class="text-xs text-muted-foreground mt-1">${userLevel.story}</p>
-                                        </div>
-                                    </div>
+                                <div class="flex-grow flex flex-col md:flex-row items-center justify-center h-96 w-full md:gap-4">
+                                     <div class="relative w-80 h-80">
+                                         <img src="${worldImage.imageUrl}" alt="${userLevel.worldName}" class="object-contain w-full h-full">
+                                     </div>
+                                      <div class="w-64 text-center md:text-left">
+                                         <h3 class="text-base font-semibold">${userLevel.worldName}</h3>
+                                         <p class="text-xs text-muted-foreground mt-1">${userLevel.story}</p>
+                                     </div>
                                 </div>
                                 <div class="flex items-end justify-center space-x-4 w-full">
                                     ${levels.map(level => {
@@ -237,7 +232,7 @@
                                                 <p class="text-sm font-semibold">${task.title}</p>
                                                 <p class="text-xs text-muted-foreground">${task.description}</p>
                                             </div>
-                                            ${task.status === 'completed' ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-green-400 flex-shrink-0 ml-4"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>' : '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-amber-500 flex-shrink-0 ml-4"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle></svg>'}
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-green-400 flex-shrink-0 ml-4"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
                                         </div>
                                     </div>
                                 `).join('')}
@@ -276,7 +271,7 @@
                                     </div>
                                     <div class="flex items-center gap-4">
                                         <span class="text-sm font-bold text-primary">${task.xp} pts</span>
-                                        ${task.status === 'completed' ? '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-green-400 flex-shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>' : '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-amber-500 flex-shrink-0"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4"></circle></svg>'}
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-green-400 flex-shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
                                     </div>
                                 </div>
                             </div>
@@ -302,7 +297,7 @@
                         <div class="sticky top-20 z-10 bg-primary text-primary-foreground shadow-lg rounded-lg">
                             <div class="p-6">
                                 <div class="flex items-center">
-                                    <div class="font-bold text-lg text-white w-[80px]">#${myRank}</div>
+                                    <div class="font-bold text-lg text-white w-[80px]">#${myRank > 0 ? myRank : '-'}</div>
                                     <div class="flex-grow flex items-center gap-4">
                                         <div class="p-1 bg-white/20 rounded-full w-12 h-12 flex items-center justify-center">
                                             <img src="${myAvatar.imageUrl}" alt="${myAvatar.name}" width="40" height="40" class="object-contain">
@@ -343,7 +338,7 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td class="p-4 align-middle text-center w-48"><span class="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full">${userLevel.worldName}</span></td>
+                                                <td class="p-4 align-middle text-center w-48"><span class="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full">${userLevel ? userLevel.worldName : ''}</span></td>
                                                 <td class="p-4 align-middle text-right w-48"><span class="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full">${user.xp.toLocaleString()}</span></td>
                                             </tr>`
                                         }).join('')}
@@ -410,6 +405,11 @@
 
             function showPage(pageId) {
                 const container = document.getElementById('page-container');
+                if (!appData.currentUser && pageId !== 'ranking') {
+                    // Si no hay usuario y no estamos en la página de ranking, no hacer nada.
+                    // Esto evita errores si intentamos renderizar páginas que dependen del currentUser.
+                    return;
+                }
                 container.innerHTML = pageRenderers[pageId] ? pageRenderers[pageId]() : '<p>Página no encontrada.</p>';
 
                 document.querySelectorAll('.nav-link').forEach(link => {
@@ -425,34 +425,49 @@
             }
 
             // --- INITIALIZATION ---
-            appData = await fetchData();
+            const data = await fetchData();
             
-            if (appData) {
-                // Hide loading and show app
+            if (data.error) {
                 loadingScreen.classList.add('hidden');
-                appElement.classList.remove('hidden');
-                appElement.classList.add('flex');
+                authErrorScreen.classList.remove('hidden');
+                authErrorMessage.textContent = `Error: ${data.error}. Detalles: ${data.details || 'Revisa la consola del navegador y la configuración del script de Google.'}`;
+                return;
+            }
+            
+            if (!data.currentUser) {
+                 loadingScreen.classList.add('hidden');
+                 authErrorScreen.classList.remove('hidden');
+                 authErrorMessage.textContent = 'Usuario no autorizado. Tu correo no se encuentra registrado en la hoja de cálculo de la expedición. Contacta al administrador.';
+                 return;
+            }
 
-                renderHeader(appData.currentUser);
+            appData = data;
+            // Asegurar que las misiones siempre tengan status completed
+            appData.tasks = (appData.tasks || []).map(t => ({...t, status: 'completed'}));
 
-                document.querySelectorAll('.nav-link').forEach(link => {
-                    link.addEventListener('click', function(event) {
-                        event.preventDefault();
-                        const pageId = this.dataset.page;
-                        showPage(pageId);
-                    });
-                });
 
-                const initialPage = window.location.hash.substring(1) || 'dashboard';
-                showPage(initialPage);
+            loadingScreen.classList.add('hidden');
+            appElement.classList.remove('hidden');
+            appElement.classList.add('flex');
 
-                window.addEventListener('hashchange', () => {
-                    const pageId = window.location.hash.substring(1) || 'dashboard';
+            renderHeader(appData.currentUser);
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const pageId = this.dataset.page;
                     showPage(pageId);
                 });
-            } else {
-                 loadingScreen.innerHTML = '<p class="text-red-500">Error al cargar los datos. Por favor, contacta al administrador.</p>';
-            }
+            });
+
+            const initialPage = window.location.hash.substring(1) || 'dashboard';
+            showPage(initialPage);
+
+            window.addEventListener('hashchange', () => {
+                const pageId = window.location.hash.substring(1) || 'dashboard';
+                showPage(pageId);
+            });
+            
         });
     </script>
 
