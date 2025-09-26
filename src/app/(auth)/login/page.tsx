@@ -111,7 +111,7 @@ export default function LoginPage() {
       </div>
        <div className="hidden lg:block relative">
         <Image
-          src="https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/iniciar-sesion.png"
+          src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_vd8htnvd8htnvd8h.png?raw=true"
           alt="Imagen de expedición en la jungla"
           layout="fill"
           className="object-cover"
