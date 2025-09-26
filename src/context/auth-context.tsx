@@ -3,7 +3,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode, useMemo, useCallback } from 'react';
 import type { User, Task, Avatar, Level } from '@/lib/types';
 import { tasks as staticTasks, levels as staticLevels, avatars as staticAvatars } from '@/lib/data';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 type AuthContextType = {
   currentUser: User | null;
@@ -33,7 +32,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const fetchUsers = useCallback(async () => {
     try {
       const response = await fetch('/api/data', {
-        method: 'POST',
+        method: 'POST', // Siempre usamos POST para el proxy
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'getData' }),
         cache: 'no-store',
@@ -41,35 +40,40 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const data = await response.json();
       if (data.error) throw new Error(data.message);
       
-      const allUsers = (data.users || []).map((u: any) => ({ ...u, id: u.email, level: Number(u.level), xp: Number(u.puntaje) }));
+      const allUsers = (data.users || []).map((u: any) => ({
+        id: u.correo, // El ID único es el email
+        name: u.nombre,
+        email: u.correo,
+        level: Number(u.nivel),
+        xp: Number(u.puntaje),
+        avatar: u.avatar
+      }));
       setUsers(allUsers);
     } catch (err: any) {
-      setError("Error cargando los datos del ranking.");
+      setError("Error cargando los datos del ranking: " + err.message);
       console.error(err);
     }
   }, []);
 
-  const loadInitialData = useCallback(async (user: User) => {
+  const loadInitialData = useCallback(async () => {
     // Cargar datos estáticos directamente
     const userTasks = staticTasks.map(t => ({...t, status: 'pending'}) as Task);
     setTasks(userTasks);
     setLevels(staticLevels);
     setAvatars(staticAvatars);
-    
-    // Cargar datos dinámicos (ranking)
-    await fetchUsers();
-  }, [fetchUsers]);
+  }, []);
 
   useEffect(() => {
     const checkUserSession = async () => {
       setLoading(true);
       setError(null);
+      await loadInitialData(); // Carga los datos estáticos primero
       const userJson = localStorage.getItem('currentUser');
       if (userJson) {
         try {
             const user = JSON.parse(userJson);
             setCurrentUser(user);
-            await loadInitialData(user);
+            await fetchUsers(); // Carga el ranking después de verificar sesión
         } catch (e) {
             console.error("Failed to parse user from localStorage", e);
             localStorage.removeItem('currentUser');
@@ -78,7 +82,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setLoading(false);
     };
     checkUserSession();
-  }, [loadInitialData]);
+  }, [loadInitialData, fetchUsers]);
   
   const login = async (email: string, password: string) => {
     setLoading(true);
@@ -106,7 +110,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
         setCurrentUser(user);
         localStorage.setItem('currentUser', JSON.stringify(user));
-        await loadInitialData(user);
+        await fetchUsers();
     } catch (err: any) {
         setError(err.message);
         throw err;
@@ -141,9 +145,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setCurrentUser(null);
     localStorage.removeItem('currentUser');
     setUsers([]);
-    setTasks([]);
-    setLevels([]);
-    setAvatars([]);
     setError(null);
   };
 

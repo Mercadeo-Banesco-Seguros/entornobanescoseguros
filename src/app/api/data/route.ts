@@ -1,11 +1,15 @@
 import { NextResponse } from 'next/server';
 
-const appsScriptUrl = process.env.APPS_SCRIPT_URL;
+// Pega la URL de implementación de tu Google Apps Script aquí.
+// Asegúrate de que la URL esté entre comillas simples o dobles.
+// Ejemplo: const appsScriptUrl = 'https://script.google.com/macros/s/ABC.../exec';
+const appsScriptUrl = 'URL_DE_TU_APPS_SCRIPT_AQUI';
+
 
 async function handleRequest(request: Request) {
-  if (!appsScriptUrl) {
+  if (!appsScriptUrl || appsScriptUrl === 'URL_DE_TU_APPS_SCRIPT_AQUI') {
     return NextResponse.json(
-      { message: 'La URL de Apps Script no está configurada en las variables de entorno.' },
+      { message: 'La URL de Apps Script no está configurada. Por favor, edita src/app/api/data/route.ts' },
       { status: 500 }
     );
   }
@@ -30,7 +34,18 @@ async function handleRequest(request: Request) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ ...body, action }),
+      // Redirige la petición a Apps Script como una petición POST
+      // con un cuerpo que se pueda parsear como JSON.
+      body: JSON.stringify({
+        // Incluye los parámetros originales de la petición
+        ...body,
+        // Establece la acción que debe ejecutar el script
+        action,
+        // Añadimos esto para que el script sepa que es una petición POST
+        postData: { 
+          contents: JSON.stringify(body)
+        }
+      }),
       cache: 'no-store',
     });
 
@@ -55,7 +70,8 @@ async function handleRequest(request: Request) {
 }
 
 export async function GET(request: Request) {
-  // Redirigir GET a POST para un manejo unificado
+  // Las peticiones GET solo se usarán para obtener datos (ranking).
+  // Se manejarán dentro de handleRequest como una acción 'getData'.
   return handleRequest(request);
 }
 
