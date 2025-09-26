@@ -22,7 +22,7 @@ export const tasks: Omit<Task, 'status'>[] = [
 ];
 
 export const navLinks: NavLink[] = [
-    { href: '/dashboard', label: 'Dashboard', icon: Rocket },
+    { href: '/dashboard', label: 'Tablero', icon: Rocket },
     { href: '/misiones', label: 'Misiones', icon: ClipboardList },
     { href: '/ranking', label: 'Ranking', icon: Trophy },
     { href: '/profile', label: 'Mi Perfil', icon: UserIcon },
