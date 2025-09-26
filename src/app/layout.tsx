@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
-import { AuthProvider } from '@/context/auth-context';
+import { Providers } from '@/context/providers';
 import { Inter as FontSans } from 'next/font/google';
 
 const fontSans = FontSans({
@@ -31,9 +31,9 @@ export default function RootLayout({
         />
       </head>
       <body className={cn("min-h-screen bg-background font-body antialiased", fontSans.variable)}>
-        <AuthProvider>
+        <Providers>
             {children}
-        </AuthProvider>
+        </Providers>
         <Toaster />
       </body>
     </html>
