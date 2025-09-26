@@ -2,7 +2,7 @@ import { Trophy, User as UserIcon, LucideIcon, Rocket, ClipboardList } from 'luc
 import type { User, Task, Avatar, NavLink, Level } from './types';
 
 export const avatars: Avatar[] = [
-  { id: 1, name: 'Explorador', level: 1, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/AVATAR%20HOMBRE1.png?raw=true', description: 'Inicia su viaje, lleno de curiosidad y ganas de aprender, superando los primeros desafíos.' },
+  { id: 1, name: 'Explorador', level: 1, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/AVATAR%20HOMBRE1.png?raw=true', description: 'Eres el héroe que inicia la aventura. Llevas tu mochila con provisiones, ropa resistente y un espíritu aventurero. Tu misión es aprender, observar y demostrar tu compromiso con los valores de Banesco Seguros. Cada acción que realices te permitirá ganar ConnectCoins, puntos que te acercarán a recompensas de nivel bronce, plata, oro o diamante. ¡Tú decides! 👀.' },
   { id: 2, name: 'Aventurero', level: 2, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/AVATAR%20HOMBRE2.png?raw=true', description: 'Conoce el terreno y se atreve a explorar rutas más complejas, colaborando con otros.' },
   { id: 3, name: 'Maestro', level: 3, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/AVATAR%20HOMBRE3.png?raw=true', description: 'Un guía para los demás, domina las artes de la expedición y comparte su conocimiento.' },
   { id: 4, name: 'Leyenda', level: 4, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/AVATAR%20HOMBRE4.png?raw=true', description: 'Su nombre es sinónimo de éxito. Ha alcanzado la cima y su historia inspira a nuevas generaciones.' },
