@@ -376,7 +376,8 @@ document.addEventListener('DOMContentLoaded', function() {
         errorContainer.classList.add('hidden');
 
         try {
-             const response = await fetch(appsScriptUrl, {
+            // Note: Apps Script doPost expects the body to be a stringified object under 'postData.contents'
+            const response = await fetch(appsScriptUrl, {
                 method: 'POST',
                 body: JSON.stringify({ 
                     action: 'login', 
@@ -384,9 +385,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     password: form.password.value 
                 }),
                 headers: {
+                    // This header is important for some environments to avoid CORS preflight issues with Apps Script
                     'Content-Type': 'application/json'
-                }
+                },
+                redirect: 'follow'
             });
+
+            if (!response.ok) {
+                // response.text() might give more details from Apps Script error page
+                const errorText = await response.text();
+                throw new Error(`El servidor respondió con un error. ${response.statusText}. Details: ${errorText}`);
+            }
 
             const data = await response.json();
 
@@ -394,13 +403,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 throw new Error(data.message || 'Credenciales inválidas.');
             }
             
-            const user = { ...data.user, level: Number(data.user.level), xp: Number(data.user.xp) };
+            const user = { 
+                id: data.user.id,
+                name: data.user.name,
+                email: data.user.email,
+                level: Number(data.user.level), 
+                xp: Number(data.user.xp),
+                avatar: data.user.avatar
+            };
+
             localStorage.setItem('currentUser', JSON.stringify(user));
             state.currentUser = user;
             window.location.hash = 'inicio';
             renderMainLayout('inicio');
 
         } catch (err) {
+            console.error('Login error:', err);
             renderError(errorContainer, "Error al iniciar sesión: " + err.message);
         } finally {
             button.disabled = false;
@@ -431,8 +449,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 }),
                 headers: {
                     'Content-Type': 'application/json'
-                }
+                },
+                redirect: 'follow'
             });
+
+            if (!response.ok) {
+                throw new Error(`Error del servidor: ${response.statusText}`);
+            }
 
             const data = await response.json();
             if (data.error) { throw new Error(data.message); }
@@ -442,6 +465,7 @@ document.addEventListener('DOMContentLoaded', function() {
             form.reset();
 
         } catch (err) {
+            console.error('Registration error:', err);
             renderError(errorContainer, "Error en el registro: " + err.message);
         } finally {
             button.disabled = false;
@@ -474,15 +498,20 @@ document.addEventListener('DOMContentLoaded', function() {
                  fetch(appsScriptUrl, {
                     method: 'POST',
                     body: JSON.stringify({ action: 'getData' }),
-                    headers: { 'Content-Type': 'application/json' }
+                    headers: { 'Content-Type': 'application/json' },
+                    redirect: 'follow'
                 })
-                    .then(res => res.json())
+                    .then(res => {
+                        if (!res.ok) throw new Error('Network response was not ok');
+                        return res.json();
+                    })
                     .then(data => {
                         if (data.error) throw new Error(data.message);
-                        const allUsers = (data.users || []).map(u => ({ ...u, name: u.nombre, email: u.correo, level: Number(u.nivel), xp: Number(u.puntaje), avatar: u.avatar }));
+                        const allUsers = (data.users || []).map(u => ({ id: u.correo, name: u.nombre, email: u.correo, level: Number(u.nivel), xp: Number(u.puntaje), avatar: u.avatar }));
                         renderRanking(allUsers);
                     })
                     .catch(err => {
+                         console.error('Ranking fetch error:', err);
                          document.getElementById('page-container').innerHTML = `<p class="text-red-500">Error al cargar el ranking: ${err.message}</p>`;
                     });
                 break;
@@ -585,4 +614,5 @@ document.addEventListener('DOMContentLoaded', function() {
 </body>
 </html>
 
+    
     
