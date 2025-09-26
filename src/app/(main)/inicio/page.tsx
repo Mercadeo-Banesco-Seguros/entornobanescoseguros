@@ -5,7 +5,6 @@ import { useAuth } from '@/context/auth-context';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import WorldMap from '@/components/map/world-map';
 import { Skeleton } from '@/components/ui/skeleton';
 
 export default function InicioPage() {
@@ -43,10 +42,17 @@ export default function InicioPage() {
 
       <div className="grid md:grid-cols-2 gap-12 items-center">
          <div className="w-full">
-            {loading || !currentUser || !levels ? (
-              <Skeleton className="w-full h-[600px] rounded-lg" />
+            {loading ? (
+              <Skeleton className="w-full h-[400px] rounded-lg" />
             ) : (
-              <WorldMap currentUser={currentUser} levels={levels} />
+              <Image 
+                src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/MAPA%20MUNDI%20SIN%20FONDO.png?raw=true" 
+                alt="Mapa de la expedición"
+                width={600}
+                height={400}
+                className="rounded-lg object-contain"
+                data-ai-hint="expedition map"
+              />
             )}
         </div>
         <div className="space-y-4">
