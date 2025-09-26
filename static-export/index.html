@@ -7,7 +7,7 @@
     <title>Banesco Seguros: Expedition</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --background: 0 0% 100%; /* #FFFFFF */
@@ -36,6 +36,8 @@
             background-color: hsl(var(--background));
             color: hsl(var(--foreground));
             margin: 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         .grayscale { filter: grayscale(100%); }
         .ring-primary { --tw-ring-color: hsl(var(--primary)); }
@@ -49,8 +51,51 @@
         @keyframes pulse { 50% { opacity: .5; } }
     </style>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        border: 'hsl(var(--border))',
+                        input: 'hsl(var(--input))',
+                        ring: 'hsl(var(--ring))',
+                        background: 'hsl(var(--background))',
+                        foreground: 'hsl(var(--foreground))',
+                        primary: {
+                            DEFAULT: 'hsl(var(--primary))',
+                            foreground: 'hsl(var(--primary-foreground))',
+                        },
+                        secondary: {
+                            DEFAULT: 'hsl(var(--secondary))',
+                            foreground: 'hsl(var(--secondary-foreground))',
+                        },
+                        destructive: {
+                            DEFAULT: 'hsl(var(--destructive))',
+                            foreground: 'hsl(var(--destructive-foreground))',
+                        },
+                        muted: {
+                            DEFAULT: 'hsl(var(--muted))',
+                            foreground: 'hsl(var(--muted-foreground))',
+                        },
+                        accent: {
+                            DEFAULT: 'hsl(var(--accent))',
+                            foreground: 'hsl(var(--accent-foreground))',
+                        },
+                        popover: {
+                            DEFAULT: 'hsl(var(--popover))',
+                            foreground: 'hsl(var(--popover-foreground))',
+                        },
+                        card: {
+                            DEFAULT: 'hsl(var(--card))',
+                            foreground: 'hsl(var(--card-foreground))',
+                        },
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body class="antialiased bg-background">
+<body class="antialiased">
 
     <div id="app-container">
         <!-- App content is rendered here -->
@@ -59,7 +104,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // --- CONFIGURATION ---
-    const appsScriptUrl = 'https://script.google.com/macros/s/AKfycbwx5G8rWZxSZYvD5OZ_GvVzMthZfJlBMlvVBSV-LJ_F-iTDLXN9QOcCy4N_vkQq1ialhA/exec';
+    const SPREADSHEET_URL = 'https://script.google.com/macros/s/AKfycbwv0Qcbi75K5xiJ6sgzLI5eajiQJf1AeoY5IWcQ9o4lCIQMTYSTAZED7LIyjlX3YBKR-A/exec';
     
     // --- STATIC DATA ---
     const avatars = [
@@ -82,8 +127,8 @@ document.addEventListener('DOMContentLoaded', function() {
     ];
     const tasks = [
         { id: 1, title: 'Participación en capacitaciones o actividades de integración', description: 'Asiste a eventos que fortalecen al equipo.', level: 1, xp: 10, status: 'completed' },
-        { id: 2, title: 'Participación en videos de Capital Humano', description: 'Colabora activamente en producciones de CH.', level: 1, xp: 10, status: 'completed' },
-        { id: 3, title: 'Participación como extra en videos de Capital Humano', description: 'Aparece como extra y apoya las iniciativas de CH.', level: 1, xp: 5, status: 'completed' },
+        { id: 2, title: 'Participación en videos de Capital Humano', description: 'Colabora activamente en producciones de CH.', level: 1, xp: 10, status: 'pending' },
+        { id: 3, title: 'Participación como extra en videos de Capital Humano', description: 'Aparece como extra y apoya las iniciativas de CH.', level: 1, xp: 5, status: 'pending' },
     ];
     const navLinksData = [
         { href: '#inicio', label: 'Inicio' },
@@ -130,24 +175,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function renderLoginPage() {
         appContainer.innerHTML = `
-            <div class="w-full lg:grid lg:min-h-screen lg:grid-cols-2 xl:min-h-screen">
-                <div class="flex items-center justify-center py-12">
+            <div class="w-full lg:grid lg:min-h-screen lg:grid-cols-2">
+                <div class="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
                     <div class="mx-auto w-full max-w-sm">
-                        <div class="mb-6 text-center">
-                            <h1 class="text-3xl font-bold">Iniciar Sesión</h1>
-                            <p class="text-gray-500">Introduce tus credenciales para acceder a tu expedición.</p>
+                        <div class="mb-6 text-left">
+                            <h2 class="text-2xl font-bold">Iniciar Sesión</h2>
+                            <p class="text-muted-foreground">Introduce tus credenciales para acceder a tu expedición.</p>
                         </div>
                         <form id="login-form" class="space-y-4">
                             <div>
                                 <label for="email" class="block text-sm font-medium text-gray-700">Correo Electrónico</label>
-                                <input id="email" name="email" type="email" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+                                <input id="email" name="email" type="email" required class="mt-1 block w-full rounded-md border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
                             </div>
                             <div>
                                 <label for="password" class="block text-sm font-medium text-gray-700">Contraseña</label>
-                                <input id="password" name="password" type="password" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+                                <input id="password" name="password" type="password" required class="mt-1 block w-full rounded-md border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
                             </div>
                             <div id="login-error" class="text-red-500 text-sm hidden"></div>
-                            <button type="submit" id="login-button" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white" style="background-color: hsl(var(--primary));">
+                            <button type="submit" id="login-button" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90">
                                 Iniciar Sesión
                             </button>
                         </form>
@@ -167,32 +212,32 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function renderRegisterPage() {
         appContainer.innerHTML = `
-            <div class="w-full lg:grid lg:min-h-screen lg:grid-cols-2 xl:min-h-screen">
+            <div class="w-full lg:grid lg:min-h-screen lg:grid-cols-2">
                  <div class="hidden lg:block relative">
                     <img src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_vd8htnvd8htnvd8h.png?raw=true" alt="Imagen de expedición" class="absolute inset-0 h-full w-full object-cover">
                 </div>
-                <div class="flex items-center justify-center py-12">
+                <div class="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
                     <div class="mx-auto w-full max-w-sm">
-                        <div class="mb-6 text-center">
-                            <h1 class="text-3xl font-bold">Crear Cuenta</h1>
-                            <p class="text-gray-500">Únete a la expedición creando una nueva cuenta.</p>
+                        <div class="mb-6 text-left">
+                            <h2 class="text-2xl font-bold">Crear Cuenta</h2>
+                            <p class="text-muted-foreground">Únete a la expedición creando una nueva cuenta.</p>
                         </div>
                         <form id="register-form" class="space-y-4">
                             <div>
                                 <label for="name" class="block text-sm font-medium text-gray-700">Nombre Completo</label>
-                                <input id="name" name="name" type="text" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+                                <input id="name" name="name" type="text" required class="mt-1 block w-full rounded-md border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
                             </div>
                             <div>
                                 <label for="email" class="block text-sm font-medium text-gray-700">Correo Electrónico</label>
-                                <input id="email" name="email" type="email" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+                                <input id="email" name="email" type="email" required class="mt-1 block w-full rounded-md border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
                             </div>
                             <div>
                                 <label for="password" class="block text-sm font-medium text-gray-700">Contraseña</label>
-                                <input id="password" name="password" type="password" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+                                <input id="password" name="password" type="password" required class="mt-1 block w-full rounded-md border-input bg-background px-3 py-2 text-base ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
                             </div>
                             <div id="register-error" class="text-red-500 text-sm hidden"></div>
                             <div id="register-success" class="text-green-500 text-sm hidden"></div>
-                            <button type="submit" id="register-button" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white" style="background-color: hsl(var(--primary));">
+                            <button type="submit" id="register-button" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90">
                                 Crear Cuenta
                             </button>
                         </form>
@@ -209,11 +254,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function renderMainLayout(page) {
         const headerHTML = `
-            <header class="bg-primary text-primary-foreground" style="background-color: hsl(var(--primary)); color: hsl(var(--primary-foreground));">
+            <header class="bg-primary text-primary-foreground sticky top-0 z-50">
                 <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex items-center justify-between h-24">
                         <a href="#inicio" id="home-link" class="flex items-center space-x-3 text-white hover:text-white/90 transition-colors">
-                            <img src="https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/BANESCO%20LOGO%20BLANCO.png" alt="Banesco Seguros Logo" class="w-5 h-5"/>
+                            <img src="https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/BANESCO%20LOGO%20BLANCO.png" alt="Banesco Seguros Logo" class="h-5"/>
                             <img src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Texto%20del%20p%C3%A1rrafo-Photoroom.png?raw=true" alt="CONECTAD2S Logo" class="h-5 hidden sm:inline" />
                         </a>
                         <div class="hidden md:block">
@@ -228,12 +273,12 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <p class="text-sm font-bold text-white">${state.currentUser.name}</p>
                                 <p class="text-xs text-white/80">${state.currentUser.xp.toLocaleString()} CONECTCOINS</p>
                             </div>
-                            <div class="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full">
-                                <span class="flex h-full w-full items-center justify-center rounded-full" style="background-color: hsl(var(--muted));">
+                            <div class="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full bg-muted">
+                                <span class="flex h-full w-full items-center justify-center rounded-full">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                                 </span>
                             </div>
-                            <button id="logout-button" title="Cerrar Sesión" class="p-2 rounded-full hover:bg-white/10">
+                            <button id="logout-button" title="Cerrar Sesión" class="p-2 rounded-full hover:bg-white/10 text-white">
                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
                             </button>
                         </div>
@@ -242,7 +287,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </header>
         `;
         appContainer.innerHTML = `
-            <div id="app" class="min-h-screen flex flex-col">
+            <div id="app" class="min-h-screen flex flex-col bg-background">
                 ${headerHTML}
                 <main id="page-container" class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
                     <!-- Page content will be rendered here -->
@@ -260,31 +305,51 @@ document.addEventListener('DOMContentLoaded', function() {
     function renderInicioPage() {
         const pageContainer = document.getElementById('page-container');
         pageContainer.innerHTML = `
-        <div class="container mx-auto px-4 py-8">
-            <div class="rounded-lg shadow-lg p-8" style="background-color: hsl(var(--secondary) / 0.3);">
-                <div class="text-center pb-4">
-                    <h1 class="text-3xl font-bold tracking-tight" style="color: hsl(var(--primary));">La Búsqueda por Nuestro ADN</h1>
-                    <p class="text-lg font-semibold mt-2" style="color: hsl(var(--muted-foreground));">¡Explorador, la aventura ha comenzado!</p>
+        <div class="container mx-auto px-4 py-8 space-y-16">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6 text-center md:text-left">
+                    <h1 class="text-4xl md:text-5xl font-black text-foreground tracking-tight uppercase" style="font-family: 'Poppins', sans-serif; font-weight: 900;">
+                        La Búsqueda por Nuestro ADN
+                    </h1>
+                    <p class="text-sm text-muted-foreground">
+                        ¡Explorador, la aventura ha comenzado! Este diario es el centro de nuestra expedición. Aquí encontrarás el mapa, tus misiones y cómo avanzamos juntos para reconstruir el ADN de Banesco Seguros.
+                    </p>
+                    <button id="go-to-dashboard" class="mt-4 h-11 rounded-md px-8 text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90">
+                        Comenzar mi Expedición
+                    </button>
                 </div>
-                <div class="flex flex-col md:flex-row items-center justify-center gap-8 px-8 pb-8">
-                    <div class="w-full md:w-3/5 text-center md:text-left">
-                        <p class="text-base leading-relaxed" style="color: hsl(var(--foreground));">
-                        Este diario es el centro de nuestra expedición; aquí encontrarás: el mapa de los territorios a conquistar, ver tu progreso como explorador, las misiones activas y descubrir cómo avanzamos juntos hacia la reconstrucción del ADN Banesco Seguros.
-                        </p>
-                    </div>
-                    <div class="w-full md:w-2/5 flex justify-center">
-                        <img
-                        src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_89wnk889wnk889wn.png?raw=true"
+
+                <div class="flex justify-center">
+                    <img
+                        src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_5wzjq95wzjq95wzj-Photoroom.png?raw=true"
                         alt="Diario de la expedición"
-                        width="300"
-                        height="300"
+                        width="450"
+                        height="450"
                         class="object-contain"
-                        />
-                    </div>
+                    />
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                 <div class="w-full">
+                    <img 
+                        src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_xo3kzaxo3kzaxo3k-Photoroom.png?raw=true"
+                        alt="Mapa de la expedición"
+                        width="600"
+                        height="400"
+                        class="rounded-lg object-cover w-full h-full"
+                    />
+                </div>
+                <div class="space-y-4">
+                   <h2 class="text-3xl font-bold text-foreground">RUTA DEL EXPLORADOR</h2>
+                   <p class="text-sm text-muted-foreground max-w-3xl">
+                    Descubre los territorios y sigue el rastro del ADN Banesco Seguros. Este es tu punto actual en la expedición. A medida que vayas completando las misiones y acumules ConnectCoins, la ruta hacia nuevos territorios se desbloqueará para ti.
+                  </p>
                 </div>
             </div>
         </div>
         `;
+        document.getElementById('go-to-dashboard').addEventListener('click', () => navigate('dashboard'));
     }
     
     function renderDashboard() {
@@ -294,12 +359,53 @@ document.addEventListener('DOMContentLoaded', function() {
         pageContainer.innerHTML = `
             <div class="flex flex-col gap-8">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-                    <div class="w-full"><div class="h-full border-0 shadow-none rounded-lg"><div class="flex flex-col items-center text-center gap-8 pt-6 h-full"><div class="flex-grow flex flex-col md:flex-row items-center justify-center h-96 w-full md:gap-4"><div id="selected-avatar-image-container" class="relative w-48 h-64 md:w-64 md:h-96"></div><div id="selected-avatar-info" class="w-64 text-center md:text-left"></div></div><div id="avatar-selector" class="flex items-end justify-center space-x-4 w-full"></div></div></div></div>
-                    <div class="w-full"><div class="h-full border-0 shadow-none rounded-lg"><div class="flex flex-col items-center text-center gap-8 pt-6 h-full"><div class="flex-grow flex flex-col md:flex-row items-center justify-center h-96 w-full md:gap-4"><div id="selected-level-image-container" class="relative w-80 h-80"></div><div id="selected-level-info" class="w-64 text-center md:text-left"></div></div><div id="level-selector" class="flex items-end justify-center space-x-4 w-full"></div></div></div></div>
+                    <div class="w-full">
+                        <div class="h-full rounded-lg border-0 shadow-none bg-card text-card-foreground">
+                            <div class="flex flex-col items-center text-center gap-8 pt-6 h-full">
+                                <div class="flex-grow flex flex-col md:flex-row items-center justify-center h-96 w-full md:gap-4">
+                                    <div id="selected-avatar-image-container" class="relative w-48 h-64 md:w-64 md:h-96"></div>
+                                    <div id="selected-avatar-info" class="w-64 text-center md:text-left"></div>
+                                </div>
+                                <div id="avatar-selector" class="flex items-end justify-center space-x-4 w-full"></div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="w-full">
+                        <div class="h-full rounded-lg border-0 shadow-none bg-card text-card-foreground">
+                            <div class="flex flex-col items-center text-center gap-8 pt-6 h-full">
+                                <div class="flex-grow flex flex-col md:flex-row items-center justify-center h-96 w-full md:gap-4">
+                                    <div id="selected-level-image-container" class="relative w-80 h-80"></div>
+                                    <div id="selected-level-info" class="w-64 text-center md:text-left"></div>
+                                </div>
+                                <div id="level-selector" class="flex items-end justify-center space-x-4 w-full"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="w-full"><div class="h-full bg-transparent border-0 shadow-none"><div class="px-2"><h2 class="text-xl font-bold" style="color: hsl(var(--foreground));">Lista de Misiones</h2></div><div class="p-6 pt-6 px-2"><div id="missions-list" class="space-y-3">
-                    ${levelTasks.map(task => `<div class="p-4 shadow-sm rounded-lg" style="background-color: hsl(var(--card)); border: 1px solid hsl(var(--border));"><div class="flex items-center justify-between"><div><p class="text-sm font-semibold">${task.title}</p><p class="text-xs" style="color: hsl(var(--muted-foreground));">${task.description}</p></div> ${task.status === 'completed' ? `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-green-400 flex-shrink-0 ml-4"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>` : `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-amber-500 flex-shrink-0 ml-4"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>` }</div></div>`).join('')}
-                </div></div></div></div>
+                <div class="w-full">
+                    <div class="h-full bg-transparent border-0 shadow-none">
+                        <div class="px-2">
+                            <h2 class="text-xl font-bold text-foreground">Lista de Misiones</h2>
+                        </div>
+                        <div class="px-2 pt-6">
+                            <div id="missions-list" class="space-y-3">
+                                ${levelTasks.map(task => `
+                                    <div class="p-4 shadow-sm cursor-pointer transition-colors rounded-lg bg-card border">
+                                        <div class="flex items-center justify-between">
+                                            <div>
+                                                <p class="text-sm font-semibold">${task.title}</p>
+                                                <p class="text-xs text-muted-foreground">${task.description}</p>
+                                            </div>
+                                            ${task.status === 'completed' 
+                                                ? `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-green-400 flex-shrink-0 ml-4"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>` 
+                                                : `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-amber-500 flex-shrink-0 ml-4"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="4" fill="currentColor"></circle></svg>` 
+                                            }
+                                        </div>
+                                    </div>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>`;
         setupDashboardFilters();
     }
@@ -314,48 +420,91 @@ document.addEventListener('DOMContentLoaded', function() {
 
         pageContainer.innerHTML = `
             <div class="space-y-8">
-                <header><h1 class="text-4xl font-bold" style="color: hsl(var(--foreground));">Ranking de la Expedición</h1><p class="text-lg mt-1" style="color: hsl(var(--muted));">Mira tu progreso y el de tus compañeros.</p></header>
-                <div class="sticky top-20 z-10 rounded-lg shadow-lg" style="background-color: hsl(var(--primary)); color: hsl(var(--primary-foreground));">
-                    <div class="p-6"><div class="flex items-center">
-                        <div class="font-bold text-lg text-white w-[80px]">#${myRank > 0 ? myRank : '-'}</div>
-                        <div class="flex-grow flex items-center gap-4">
-                            <div class="p-1 bg-white/20 rounded-full w-12 h-12 flex items-center justify-center">${myAvatar ? `<img src="${myAvatar.imageUrl}" alt="${currentUser.avatar}" width="40" height="40" class="object-contain">` : ''}</div>
-                            <div><p class="font-semibold text-base">${currentUser.name} (Tú)</p><p class="text-xs text-primary-foreground/80">${currentUser.avatar} • ${currentUser.xp.toLocaleString()} CONECTCOINS</p></div>
+                <header>
+                    <h1 class="text-4xl font-bold text-foreground">Ranking de la Expedición</h1>
+                    <p class="text-lg mt-1 text-muted">Mira tu progreso y el de tus compañeros.</p>
+                </header>
+                <div class="sticky top-24 z-10 rounded-lg shadow-lg bg-primary text-primary-foreground">
+                    <div class="p-6">
+                        <div class="flex items-center">
+                            <div class="font-bold text-lg text-white w-[80px]">#${myRank > 0 ? myRank : '-'}</div>
+                            <div class="flex-grow flex items-center gap-4">
+                                <div class="p-1 bg-white/20 rounded-full w-12 h-12 flex items-center justify-center">
+                                    ${myAvatar ? `<img src="${myAvatar.imageUrl}" alt="${currentUser.avatar}" width="40" height="40" class="object-contain">` : ''}
+                                </div>
+                                <div>
+                                    <p class="font-semibold text-base">${currentUser.name} (Tú)</p>
+                                    <p class="text-xs text-primary-foreground/80">${currentUser.avatar}</p>
+                                </div>
+                            </div>
+                            <div class="text-center w-48">${myLevel ? `<span class="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full">${myLevel.worldName}</span>` : ''}</div>
+                            <div class="text-right w-48 flex items-baseline justify-end gap-1.5">
+                                <span class="text-2xl font-bold">${currentUser.xp.toLocaleString()}</span>
+                                <span class="text-xs font-normal text-primary-foreground/80">CONECTCOINS</span>
+                            </div>
                         </div>
-                        <div class="text-center w-48">${myLevel ? `<span class="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full">${myLevel.worldName}</span>` : ''}</div>
-                        <div class="text-right w-48 flex items-baseline justify-end gap-1.5"><span class="text-2xl font-bold">${currentUser.xp.toLocaleString()}</span><span class="text-xs font-normal text-primary-foreground/80">CONECTCOINS</span></div>
-                    </div></div>
+                    </div>
                 </div>
-                <div class="rounded-lg border" style="background-color: hsl(var(--card));"><div class="relative w-full overflow-auto"><table class="w-full caption-bottom text-sm"><tbody id="ranking-table-body">
-                    ${sortedUsers.slice(0, 10).map((user, index) => {
-                        const userLevel = levels.find(l => l.id === user.level);
-                        const userAvatar = avatars.find(av => av.name === user.avatar);
-                        return `<tr class="border-b transition-colors hover:bg-muted/50">
-                                    <td class="p-4 align-middle font-bold text-lg w-[80px]" style="color: hsl(var(--muted));">#${index + 1}</td>
-                                    <td class="p-4 align-middle"><div class="flex items-center gap-4">
-                                        <div class="p-1 rounded-full w-12 h-12 flex items-center justify-center" style="background-color: hsl(var(--secondary));">${userAvatar ? `<img src="${userAvatar.imageUrl}" alt="${user.avatar}" width="32" height="32" class="object-contain">` : ''}</div>
-                                        <div><p class="font-semibold" style="color: hsl(var(--foreground));">${user.name}</p><p class="text-xs" style="color: hsl(var(--muted-foreground));">${user.avatar}</p></div>
-                                    </div></td>
-                                    <td class="p-4 align-middle text-center w-48">${userLevel ? `<span class="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full">${userLevel.worldName}</span>` : ''}</td>
-                                    <td class="p-4 align-middle text-right w-48"><span class="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full">${user.xp.toLocaleString()}</span></td>
-                                </tr>`
-                    }).join('')}
-                </tbody></table></div></div>
+                <div class="rounded-lg border bg-card">
+                    <div class="relative w-full overflow-auto">
+                        <table class="w-full caption-bottom text-sm">
+                            <tbody>
+                                ${sortedUsers.slice(0, 10).map((user, index) => {
+                                    const userLevel = levels.find(l => l.id === user.level);
+                                    const userAvatar = avatars.find(av => av.name === user.avatar);
+                                    return `<tr class="border-b transition-colors hover:bg-muted/50">
+                                                <td class="p-4 align-middle font-bold text-lg w-[80px] text-muted">#${index + 1}</td>
+                                                <td class="p-4 align-middle">
+                                                    <div class="flex items-center gap-4">
+                                                        <div class="p-1 rounded-full w-12 h-12 flex items-center justify-center bg-secondary">
+                                                            ${userAvatar ? `<img src="${userAvatar.imageUrl}" alt="${user.avatar}" width="32" height="32" class="object-contain">` : ''}
+                                                        </div>
+                                                        <div>
+                                                            <p class="font-semibold text-foreground">${user.name}</p>
+                                                            <p class="text-xs text-muted-foreground">${user.avatar}</p>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="p-4 align-middle text-center w-48">${userLevel ? `<span class="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full">${userLevel.worldName}</span>` : ''}</td>
+                                                <td class="p-4 align-middle text-right w-48">
+                                                    <span class="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full">${user.xp.toLocaleString()}</span>
+                                                </td>
+                                            </tr>`
+                                }).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>`;
     }
 
     function renderRankingLoading() {
         const pageContainer = document.getElementById('page-container');
         pageContainer.innerHTML = `<div class="space-y-8 animate-pulse">
-                <header><div class="h-10 w-3/4 rounded-md" style="background-color: hsl(var(--muted));"></div><div class="h-6 w-1/2 rounded-md mt-2" style="background-color: hsl(var(--muted));"></div></header>
-                <div class="rounded-lg shadow-lg" style="background-color: hsl(var(--muted));"><div class="p-6 h-24"></div></div>
-                <div class="rounded-lg border" style="background-color: hsl(var(--card));"><div class="p-4 space-y-4">
-                    ${[...Array(5)].map(() => `<div class="flex items-center space-x-4"><div class="h-12 w-12 rounded-full" style="background-color: hsl(var(--muted));"></div><div class="flex-1 space-y-2"><div class="h-4 w-3/4 rounded" style="background-color: hsl(var(--muted));"></div><div class="h-4 w-1/2 rounded" style="background-color: hsl(var(--muted));"></div></div></div>`).join('')}
+                <header><div class="h-10 w-3/4 rounded-md bg-muted"></div><div class="h-6 w-1/2 rounded-md mt-2 bg-muted"></div></header>
+                <div class="rounded-lg shadow-lg bg-muted"><div class="p-6 h-24"></div></div>
+                <div class="rounded-lg border bg-card"><div class="p-4 space-y-4">
+                    ${[...Array(5)].map(() => `<div class="flex items-center space-x-4"><div class="h-12 w-12 rounded-full bg-muted"></div><div class="flex-1 space-y-2"><div class="h-4 w-3/4 rounded bg-muted"></div><div class="h-4 w-1/2 rounded bg-muted"></div></div></div>`).join('')}
                 </div></div></div>`;
     }
     
-    function renderPlaceholderPage(title) {
-        document.getElementById('page-container').innerHTML = `<header><h1 class="text-4xl font-bold" style="color: hsl(var(--foreground));">${title}</h1><p class="text-lg mt-1" style="color: hsl(var(--muted));">Contenido próximamente.</p></header>`;
+    function renderMisionesPage() {
+        document.getElementById('page-container').innerHTML = `
+            <div class="flex flex-col items-center text-center">
+              <img
+                src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_lwc97dlwc97dlwc9-Photoroom.png?raw=true"
+                alt="Sección en construcción"
+                width="500"
+                height="500"
+                class="object-contain"
+              />
+              <h1 class="text-3xl font-bold text-foreground mt-8">
+                ¡Esta sección se está forjando!
+              </h1>
+              <p class="text-sm text-muted-foreground mt-2 max-w-md">
+                Nuestros mejores exploradores están preparando misiones emocionantes para ti. ¡Vuelve pronto para descubrir los próximos desafíos!
+              </p>
+            </div>`;
     }
 
     function renderError(container, message) {
@@ -364,6 +513,33 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // --- EVENT HANDLERS & LOGIC ---
+
+    async function handleApiCall(payload) {
+        try {
+            const response = await fetch(SPREADSHEET_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify(payload),
+                redirect: 'follow',
+                mode: 'cors'
+            });
+
+            if (!response.ok) {
+                 const errorText = await response.text();
+                 throw new Error(`Error en la respuesta del servidor: ${errorText}`);
+            }
+            
+            const data = await response.json();
+
+            if (data.error) {
+                throw new Error(data.message || 'Error desconocido del script.');
+            }
+            return data;
+        } catch (error) {
+            console.error('Error en handleApiCall:', error);
+            throw error;
+        }
+    }
 
     async function handleLogin(event) {
         event.preventDefault();
@@ -376,27 +552,11 @@ document.addEventListener('DOMContentLoaded', function() {
         errorContainer.classList.add('hidden');
 
         try {
-            const payload = {
+            const data = await handleApiCall({
                 action: 'login',
                 email: form.email.value,
                 password: form.password.value
-            };
-            const response = await fetch(appsScriptUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload),
             });
-
-            if (!response.ok) {
-                const errorText = await response.text();
-                throw new Error(`Error del servidor: ${response.status}. ${errorText}`);
-            }
-            
-            const data = await response.json();
-
-            if (data.error || !data.user) {
-                throw new Error(data.message || 'Credenciales inválidas.');
-            }
             
             const user = { 
                 id: data.user.id,
@@ -413,7 +573,6 @@ document.addEventListener('DOMContentLoaded', function() {
             renderMainLayout('inicio');
 
         } catch (err) {
-            console.error('Login error:', err);
             renderError(errorContainer, "Error al iniciar sesión: " + err.message);
         } finally {
             button.disabled = false;
@@ -434,33 +593,22 @@ document.addEventListener('DOMContentLoaded', function() {
         successContainer.classList.add('hidden');
 
         try {
-            const payload = {
+            await handleApiCall({
                 action: 'register',
                 name: form.name.value,
                 email: form.email.value,
                 password: form.password.value
-            };
-
-            const response = await fetch(appsScriptUrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload),
             });
-            
-            if (!response.ok) {
-                 const errorText = await response.text();
-                throw new Error(`Error del servidor: ${response.status}. ${errorText}`);
-            }
-
-            const data = await response.json();
-            if (data.error) { throw new Error(data.message); }
             
             successContainer.textContent = "¡Registro exitoso! Ahora puedes iniciar sesión.";
             successContainer.classList.remove('hidden');
             form.reset();
+            setTimeout(() => {
+                window.location.hash = 'login';
+                renderLoginPage();
+            }, 2000);
 
         } catch (err) {
-            console.error('Registration error:', err);
             renderError(errorContainer, "Error en el registro: " + err.message);
         } finally {
             button.disabled = false;
@@ -478,36 +626,35 @@ document.addEventListener('DOMContentLoaded', function() {
     function navigate(page) {
         window.location.hash = page;
         document.querySelectorAll('.nav-link').forEach(link => {
-            link.classList.toggle('font-bold', link.dataset.page === page);
-            link.classList.toggle('text-white', link.dataset.page === page);
-            link.classList.toggle('font-normal', link.dataset.page !== page);
-            link.classList.toggle('text-white/70', link.dataset.page !== page);
+            const isCurrentPage = link.dataset.page === page;
+            link.classList.toggle('font-bold', isCurrentPage);
+            link.classList.toggle('text-white', isCurrentPage);
+            link.classList.toggle('font-normal', !isCurrentPage);
+            link.classList.toggle('text-white/70', !isCurrentPage);
+            link.classList.toggle('hover:text-white', !isCurrentPage);
         });
         
         switch(page) {
             case 'inicio': renderInicioPage(); break;
             case 'dashboard': renderDashboard(); break;
-            case 'misiones': renderPlaceholderPage('Misiones'); break;
+            case 'misiones': renderMisionesPage(); break;
             case 'ranking': 
                 renderRankingLoading();
-                 fetch(appsScriptUrl, {
-                    method: 'POST',
-                    body: JSON.stringify({ action: 'getData' }),
-                    headers: { 'Content-Type': 'application/json' },
-                    cache: 'no-store'
-                })
-                    .then(res => {
-                        if (!res.ok) throw new Error('Network response was not ok');
-                        return res.json();
-                    })
+                handleApiCall({ action: 'getData' })
                     .then(data => {
-                        if (data.error) throw new Error(data.message);
-                        const allUsers = (data.users || []).map(u => ({ id: u.correo, name: u.nombre, email: u.correo, level: Number(u.nivel) || 1, xp: Number(u.puntaje) || 0, avatar: u.avatar || 'Explorador' }));
+                        const allUsers = (data.users || []).map(u => ({ 
+                            id: u.correo, 
+                            name: u.nombre, 
+                            email: u.correo, 
+                            level: Number(u.nivel) || 1, 
+                            xp: Number(u.puntaje) || 0, 
+                            avatar: u.avatar || 'Explorador' 
+                        }));
                         renderRanking(allUsers);
                     })
                     .catch(err => {
                          console.error('Ranking fetch error:', err);
-                         document.getElementById('page-container').innerHTML = `<p class="text-red-500">Error al cargar el ranking: ${err.message}</p>`;
+                         document.getElementById('page-container').innerHTML = `<p class="text-destructive">Error al cargar el ranking: ${err.message}</p>`;
                     });
                 break;
             default: renderInicioPage(); break;
@@ -539,9 +686,18 @@ document.addEventListener('DOMContentLoaded', function() {
             const avatar = avatars.find(a => a.id === selectedAvatarId);
             if (!avatar) return;
             const isUnlocked = avatar.level <= currentUser.level;
-            selectedAvatarImageContainer.innerHTML = `<img src="${avatar.imageUrl}" alt="${avatar.name}" class="object-contain w-full h-full ${!isUnlocked ? 'grayscale' : ''}">`;
-            selectedAvatarInfo.innerHTML = `<h3 class="text-base font-semibold">${avatar.name}</h3><p class="text-xs mt-1" style="color: hsl(var(--muted-foreground));">${avatar.description}</p>`;
+            selectedAvatarImageContainer.innerHTML = `<img src="${avatar.imageUrl}" alt="${avatar.name}" class="object-contain absolute inset-0 w-full h-full ${!isUnlocked ? 'grayscale' : ''}">`;
+            selectedAvatarInfo.innerHTML = `<h3 class="text-base font-semibold">${avatar.name}</h3><p class="text-xs mt-1 text-muted-foreground">${avatar.description}</p>`;
             selectedAvatarInfo.classList.toggle('opacity-50', !isUnlocked);
+            
+            // Update selector styles
+            document.querySelectorAll('#avatar-selector button').forEach(btn => {
+                const isSelected = parseInt(btn.dataset.avatarId) === selectedAvatarId;
+                const ringDiv = btn.querySelector('.ring-host');
+                if (ringDiv) ringDiv.classList.toggle('ring-2', isSelected);
+                if (ringDiv) ringDiv.classList.toggle('ring-primary', isSelected);
+                if (ringDiv) ringDiv.classList.toggle('ring-offset-2', isSelected);
+            });
         };
 
         const renderAvatars = () => {
@@ -549,13 +705,13 @@ document.addEventListener('DOMContentLoaded', function() {
             avatars.forEach(avatar => {
                 const button = document.createElement('button');
                 button.className = 'flex flex-col items-center text-center';
-                button.onclick = () => { selectedAvatarId = avatar.id; renderAvatars(); updateSelectedAvatar(); };
+                button.dataset.avatarId = avatar.id;
+                button.onclick = () => { selectedAvatarId = avatar.id; updateSelectedAvatar(); };
                 const isUnlocked = avatar.level <= currentUser.level;
-                const isSelected = avatar.id === selectedAvatarId;
                 const icon = isUnlocked
                     ? `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-green-500"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>`
-                    : `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" style="color: hsl(var(--muted));"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>`;
-                button.innerHTML = `<div class="relative mb-2"><div class="w-28 h-28 rounded-lg flex items-center justify-center p-2 transition-all ${isSelected ? 'ring-2 ring-primary ring-offset-2' : ''} ${!isUnlocked ? 'opacity-60' : ''}" style="background-color: hsl(var(--secondary));"><img src="${avatar.imageUrl}" alt="${avatar.name}" width="56" height="56" class="object-contain ${!isUnlocked ? 'grayscale' : ''}"></div></div>${icon}`;
+                    : `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-muted"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>`;
+                button.innerHTML = `<div class="relative mb-2"><div class="ring-host w-28 h-28 bg-secondary rounded-lg flex items-center justify-center p-2 transition-all ${!isUnlocked ? 'opacity-60' : ''}"><img src="${avatar.imageUrl}" alt="${avatar.name}" width="56" height="56" class="object-contain ${!isUnlocked ? 'grayscale' : ''}"></div></div>${icon}`;
                 avatarSelector.appendChild(button);
             });
         };
@@ -565,9 +721,18 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!level) return;
             const worldImage = placeholderImages.find(p => p.id === level.worldImageId);
             const isUnlocked = level.id <= currentUser.level;
-            selectedLevelImageContainer.innerHTML = `<img src="${worldImage.imageUrl}" alt="${level.worldName}" class="object-contain w-full h-full ${!isUnlocked ? 'grayscale' : ''}">`;
-            selectedLevelInfo.innerHTML = `<h3 class="text-base font-semibold">${level.worldName}</h3><p class="text-xs mt-1" style="color: hsl(var(--muted-foreground));">${level.story}</p>`;
+            selectedLevelImageContainer.innerHTML = `<img src="${worldImage.imageUrl}" alt="${level.worldName}" class="object-contain absolute inset-0 w-full h-full ${!isUnlocked ? 'grayscale' : ''}">`;
+            selectedLevelInfo.innerHTML = `<h3 class="text-base font-semibold">${level.worldName}</h3><p class="text-xs mt-1 text-muted-foreground">${level.story}</p>`;
             selectedLevelInfo.classList.toggle('opacity-50', !isUnlocked);
+
+             // Update selector styles
+            document.querySelectorAll('#level-selector button').forEach(btn => {
+                const isSelected = parseInt(btn.dataset.levelId) === selectedLevelId;
+                 const ringDiv = btn.querySelector('.ring-host');
+                if (ringDiv) ringDiv.classList.toggle('ring-2', isSelected);
+                if (ringDiv) ringDiv.classList.toggle('ring-primary', isSelected);
+                if (ringDiv) ringDiv.classList.toggle('ring-offset-2', isSelected);
+            });
         };
         
         const renderLevels = () => {
@@ -575,22 +740,22 @@ document.addEventListener('DOMContentLoaded', function() {
             levels.forEach(level => {
                  const button = document.createElement('button');
                  button.className = 'flex flex-col items-center text-center';
-                 button.onclick = () => { selectedLevelId = level.id; renderLevels(); updateSelectedLevel(); };
+                 button.dataset.levelId = level.id;
+                 button.onclick = () => { selectedLevelId = level.id; updateSelectedLevel(); };
                  const isUnlocked = level.id <= currentUser.level;
-                 const isSelected = level.id === selectedLevelId;
                  const worldImage = placeholderImages.find(p => p.id === level.worldImageId);
                  const icon = isUnlocked
                     ? `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-green-500"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>`
-                    : `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" style="color: hsl(var(--muted));"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>`;
-                 button.innerHTML = `<div class="relative mb-2"><div class="w-28 h-28 rounded-lg flex items-center justify-center p-2 transition-all ${isSelected ? 'ring-2 ring-primary ring-offset-2' : ''} ${!isUnlocked ? 'opacity-60' : ''}" style="background-color: hsl(var(--secondary));"><img src="${worldImage.imageUrl}" alt="${level.worldName}" width="96" height="96" class="object-contain ${!isUnlocked ? 'grayscale' : ''}"></div></div>${icon}`;
+                    : `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-muted"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>`;
+                 button.innerHTML = `<div class="relative mb-2"><div class="ring-host w-28 h-28 bg-secondary rounded-lg flex items-center justify-center p-2 transition-all ${!isUnlocked ? 'opacity-60' : ''}"><img src="${worldImage.imageUrl}" alt="${level.worldName}" width="96" height="96" class="object-contain ${!isUnlocked ? 'grayscale' : ''}"></div></div>${icon}`;
                  levelSelector.appendChild(button);
             });
         };
 
-        updateSelectedAvatar();
         renderAvatars();
-        updateSelectedLevel();
+        updateSelectedAvatar();
         renderLevels();
+        updateSelectedLevel();
     }
 
     // --- INITIALIZATION ---
@@ -598,9 +763,13 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('hashchange', () => {
         const hash = window.location.hash.substring(1);
         if (state.currentUser) {
-            navigate(hash || 'inicio');
+            if (navLinksData.some(l => l.href === `#${hash}`)) {
+                 navigate(hash);
+            } else {
+                 navigate('inicio');
+            }
         } else {
-            renderApp(); // Reruns auth check
+            renderApp(); // Reruns auth check for login/register
         }
     });
 });
