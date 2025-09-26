@@ -59,7 +59,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // --- CONFIGURATION ---
-    const appsScriptUrl = 'https://script.google.com/macros/s/AKfycbyoQwtPHe5wTyhPz3_jCefOtzAGcdF8FZsiK2t1jVW3z7iZbgG5XygjAG5NJEphK-gO1A/exec';
+    const appsScriptUrl = 'https://script.google.com/macros/s/AKfycbwx5G8rWZxSZYvD5OZ_GvVzMthZfJlBMlvVBSV-LJ_F-iTDLXN9QOcCy4N_vkQq1ialhA/exec';
     
     // --- STATIC DATA ---
     const avatars = [
@@ -381,12 +381,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 email: form.email.value,
                 password: form.password.value
             };
-            // Usamos 'text/plain' para evitar problemas de CORS preflight en Google Sites.
             const response = await fetch(appsScriptUrl, {
                 method: 'POST',
-                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload),
-                redirect: 'follow', // Necesario para que Apps Script funcione.
             });
 
             if (!response.ok) {
@@ -404,9 +402,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 id: data.user.id,
                 name: data.user.name,
                 email: data.user.email,
-                level: Number(data.user.level), 
-                xp: Number(data.user.xp),
-                avatar: data.user.avatar
+                level: Number(data.user.level) || 1, 
+                xp: Number(data.user.xp) || 0,
+                avatar: data.user.avatar || 'Explorador'
             };
 
             localStorage.setItem('currentUser', JSON.stringify(user));
@@ -445,9 +443,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const response = await fetch(appsScriptUrl, {
                 method: 'POST',
-                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload),
-                redirect: 'follow',
             });
             
             if (!response.ok) {
@@ -496,8 +493,7 @@ document.addEventListener('DOMContentLoaded', function() {
                  fetch(appsScriptUrl, {
                     method: 'POST',
                     body: JSON.stringify({ action: 'getData' }),
-                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-                    redirect: 'follow',
+                    headers: { 'Content-Type': 'application/json' },
                     cache: 'no-store'
                 })
                     .then(res => {
@@ -506,7 +502,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     })
                     .then(data => {
                         if (data.error) throw new Error(data.message);
-                        const allUsers = (data.users || []).map(u => ({ id: u.correo, name: u.nombre, email: u.correo, level: Number(u.nivel), xp: Number(u.puntaje), avatar: u.avatar }));
+                        const allUsers = (data.users || []).map(u => ({ id: u.correo, name: u.nombre, email: u.correo, level: Number(u.nivel) || 1, xp: Number(u.puntaje) || 0, avatar: u.avatar || 'Explorador' }));
                         renderRanking(allUsers);
                     })
                     .catch(err => {
