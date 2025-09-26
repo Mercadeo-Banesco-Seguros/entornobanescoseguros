@@ -10,19 +10,16 @@ import { useEffect, useState } from 'react';
 import type { User, Level, Avatar as AvatarType } from '@/lib/types';
 
 export default function RankingPage() {
-  // Ahora el contexto ya tiene los datos del usuario y los datos estáticos/del script.
   const { currentUser: me, levels, avatars, loading: authLoading } = useAuth();
   const [rankingUsers, setRankingUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // La autenticación ya se manejó en el contexto. Ahora solo obtenemos la lista para el ranking.
     const fetchRanking = async () => {
       setLoading(true);
       setError(null);
       try {
-        // Esta API trae los datos de TODOS los usuarios para la tabla.
         const response = await fetch('/api/data');
         if (!response.ok) {
           const errorData = await response.json();
@@ -34,8 +31,7 @@ export default function RankingPage() {
           throw new Error(data.message);
         }
         
-        // Asumimos que data.users contiene la lista de todos los usuarios del script.
-        const allUsers = data.users.map((u: any, index: number) => ({ ...u, id: index + 1, level: Number(u.level), xp: Number(u.xp) }));
+        const allUsers = (data.users || []).map((u: any, index: number) => ({ ...u, id: u.email, level: Number(u.level), xp: Number(u.xp) }));
         
         setRankingUsers(allUsers);
 
@@ -50,7 +46,6 @@ export default function RankingPage() {
     fetchRanking();
   }, []);
   
-  // Muestra el esqueleto si la autenticación inicial o la carga del ranking están en progreso.
   if (authLoading || loading || !me) {
     return (
       <div className="space-y-8">
@@ -87,7 +82,6 @@ export default function RankingPage() {
   
   const sortedUsers = [...rankingUsers].sort((a, b) => b.xp - a.xp);
 
-  // La tarjeta superior sigue usando 'me' (el usuario del contexto)
   const myRank = sortedUsers.findIndex(u => u.email.toLowerCase() === me.email.toLowerCase()) + 1;
   const myLevel = levels.find(l => l.id === me.level);
   const myAvatar = avatars.find(av => av.name === me.avatar);
@@ -103,7 +97,6 @@ export default function RankingPage() {
         <p className="text-muted text-lg mt-1">Mira tu progreso y el de tus compañeros.</p>
       </header>
 
-      {/* Esta tarjeta usa 'me' del contexto, que ahora viene del script */}
       <Card className="sticky top-20 z-10 bg-primary text-primary-foreground shadow-lg">
         <CardContent className="p-6">
           <div className="flex items-center">
@@ -134,7 +127,6 @@ export default function RankingPage() {
         </CardContent>
       </Card>
       
-      {/* Esta tabla usa 'sortedUsers' que viene del fetch al script */}
       <Card>
         <CardContent className="p-0">
           <Table>
