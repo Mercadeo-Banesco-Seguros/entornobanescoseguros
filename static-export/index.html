@@ -74,10 +74,9 @@
                     </div>
                     <div class="hidden md:block">
                         <div id="nav-links" class="ml-10 flex items-baseline space-x-6">
-                           <a href="#dashboard" data-page="dashboard" class="nav-link px-3 py-2 rounded-md text-xs transition-colors font-bold text-white">Dashboard</a>
+                           <a href="#dashboard" data-page="dashboard" class="nav-link px-3 py-2 rounded-md text-xs transition-colors font-bold text-white">Tablero</a>
                            <a href="#misiones" data-page="misiones" class="nav-link px-3 py-2 rounded-md text-xs transition-colors font-normal text-white/70 hover:text-white">Misiones</a>
                            <a href="#ranking" data-page="ranking" class="nav-link px-3 py-2 rounded-md text-xs transition-colors font-normal text-white/70 hover:text-white">Ranking</a>
-                           <a href="#profile" data-page="profile" class="nav-link px-3 py-2 rounded-md text-xs transition-colors font-normal text-white/70 hover:text-white">Mi Perfil</a>
                         </div>
                     </div>
                     <div id="header-user-info" class="flex items-center gap-4">
@@ -98,10 +97,10 @@
         const currentUser = { id: 1, name: 'Carlos Rodríguez', email: 'carlos.rodriguez@example.com', level: 1, xp: 850, avatar: 'Explorador' };
         
         const avatars = [
-          { id: 1, name: 'Explorador', level: 1, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/AVATAR%20HOMBRE1.png?raw=true', description: 'Inicia su viaje, lleno de curiosidad y ganas de aprender, superando los primeros desafíos.' },
-          { id: 2, name: 'Aventurero', level: 2, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/AVATAR%20HOMBRE2.png?raw=true', description: 'Conoce el terreno y se atreve a explorar rutas más complejas, colaborando con otros.' },
-          { id: 3, name: 'Maestro', level: 3, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/AVATAR%20HOMBRE3.png?raw=true', description: 'Un guía para los demás, domina las artes de la expedición y comparte su conocimiento.' },
-          { id: 4, name: 'Leyenda', level: 4, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/AVATAR%20HOMBRE4.png?raw=true', description: 'Su nombre es sinónimo de éxito. Ha alcanzado la cima y su historia inspira a nuevas generaciones.' },
+          { id: 1, name: 'Explorador', level: 1, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/AVATAR%20HOMBRE1.png?raw=true', description: 'Eres el héroe que inicia la aventura. Llevas tu mochila con provisiones, ropa resistente y un espíritu aventurero. Tu misión es aprender, observar y demostrar tu compromiso con los valores de Banesco Seguros. Cada acción que realices te permitirá ganar ConnectCoins, puntos que te acercarán a recompensas de nivel bronce, plata, oro o diamante. ¡Tú decides! 👀.' },
+          { id: 2, name: 'Aventurero', level: 2, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/AVATAR%20HOMBRE2.png?raw=true', description: 'Eres un explorador experimentado. Tus habilidades han evolucionado al igual que tu equipo, ya que llevas una brújula precisa, un mapa en la mano y herramientas para superar obstáculos. Tu misión es aplicar tus conocimientos, colaborar con otros y demostrar tus habilidades mientras avanzas en la expedición. Cada acción te permitirá ganar ConnectCoins, puntos que te acercarán a recompensas de nivel bronce, plata, oro o diamante. ¡Tú decides tu estrategia! 🏆' },
+          { id: 3, name: 'Maestro', level: 3, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/AVATAR%20HOMBRE3.png?raw=true', description: 'Liderar y superar obstáculos complejos. Tus habilidades han mejorado al igual que tu equipamiento, llevas equipo especializado, como binoculares y herramientas avanzadas, además cuentas con una visión clara del territorio. Tu misión es demostrar tu habilidad, aplicar todo lo aprendido y orientar tu progreso mientras avanzas hacia los descubrimientos más importantes. Recuerda que cada acción que realices te permitirá ganar ConnectCoins, acercándote a recompensas de nivel bronce, plata oro o diamante. ¡Tú elige tu táctica! 💡' },
+          { id: 4, name: 'Leyenda', level: 4, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/AVATAR%20HOMBRE4.png?raw=true', description: 'Inspirar y guiar. Llevas un equipo icónico y distintivo que refleja tu experiencia y tus logros. Tu misión es consolidar todo lo aprendido, completar el desafío final y dejar tu huella como guardián de la historia de la organización. Cada acción final refuerza tu estatus y te acerca a las recompensas más prestigiosas. ¡Rendirse no es una opción! 🌟' },
         ];
 
         const levels = [
@@ -124,7 +123,7 @@
             { id: 3, title: 'Participación como extra en videos de Capital Humano', description: 'Aparece como extra y apoya las iniciativas de CH.', level: 1, xp: 5, status: 'completed' },
         ];
 
-        const appsScriptUrl = "https://script.google.com/macros/s/AKfycbxRHVaNZ9AiiVfzG6JQ_0ueYiEmktL9RZlcGOfFgQo6yTIsAY-TKBtbV7lxvsL5rmQ_Mg/exec";
+        const appsScriptUrl = 'https://script.google.com/macros/s/AKfycbxzpSny8bmBvKTPjgpr7fGuHn_GVSTdqCqmc6ZizKL5DsEzRcTE8BIJGsFKD2-5DGlPTw/exec';
         
         // --- DOM Elements ---
         const pageContainer = document.getElementById('page-container');
@@ -368,7 +367,7 @@
                     const isUnlocked = avatar.level <= currentUser.level;
                     const isSelected = avatar.id === selectedAvatarId;
                     const icon = isUnlocked
-                        ? `<svg xmlns="http://wwwwww.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-green-500"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>`
+                        ? `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-green-500"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>`
                         : `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" style="color: hsl(var(--muted));"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>`;
 
                     button.innerHTML = `
@@ -443,26 +442,30 @@
                     break;
                 case 'ranking':
                     renderRankingLoading();
-                    fetch(appsScriptUrl)
-                        .then(response => {
-                            if (!response.ok) { throw new Error('Network response was not ok ' + response.statusText); }
-                            return response.json();
-                        })
-                        .then(data => {
-                            if (data.error) { throw new Error(data.message); }
-                             const allUsers = (data.users || []).map(u => ({ ...u, level: Number(u.level), xp: Number(u.xp) }));
-                            renderRanking(allUsers);
-                        })
-                        .catch(error => {
-                            console.error("Error fetching ranking:", error);
-                            renderError('No se pudo cargar el ranking. ' + error.message);
-                        });
+                     fetch(appsScriptUrl + '?action=getData', {
+                        method: 'GET',
+                        redirect: 'follow'
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            return response.text().then(text => { throw new Error('Error en la red: ' + response.status + ' ' + text) });
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.error) {
+                            throw new Error(data.message);
+                        }
+                         const allUsers = (data.users || []).map(u => ({ ...u, name: u.nombre, email: u.correo, level: Number(u.nivel), xp: Number(u.puntaje), avatar: u.avatar }));
+                        renderRanking(allUsers);
+                    })
+                    .catch(error => {
+                        console.error("Error fetching ranking:", error);
+                        renderError('No se pudo cargar el ranking. ' + error.message);
+                    });
                     break;
                 case 'misiones':
                     renderPlaceholderPage('Misiones');
-                    break;
-                case 'profile':
-                    renderPlaceholderPage('Mi Perfil');
                     break;
                 default:
                     renderDashboard();
@@ -497,5 +500,3 @@
 
 </body>
 </html>
-
-    
