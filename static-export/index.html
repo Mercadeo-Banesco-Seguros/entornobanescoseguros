@@ -35,6 +35,7 @@
             font-family: 'Poppins', sans-serif;
             background-color: hsl(var(--background));
             color: hsl(var(--foreground));
+            margin: 0;
         }
         .grayscale {
             filter: grayscale(100%);
@@ -50,6 +51,12 @@
         .ring-offset-2 {
             --tw-ring-offset-width: 2px;
         }
+        .animate-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            50% { opacity: .5; }
+        }
     </style>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
@@ -60,125 +67,34 @@
             <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between h-24">
                     <div class="flex-shrink-0">
-                        <a href="#" class="flex items-center space-x-3 text-white hover:text-white/90 transition-colors">
+                        <a href="#" id="home-link" class="flex items-center space-x-3 text-white hover:text-white/90 transition-colors">
                             <img src="https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/BANESCO%20LOGO%20BLANCO.png" alt="Banesco Seguros Logo" class="w-5 h-5"/>
                             <span class="font-bold text-xl hidden sm:inline tracking-tighter">CONECTAD2S</span>
                         </a>
                     </div>
                     <div class="hidden md:block">
                         <div id="nav-links" class="ml-10 flex items-baseline space-x-6">
-                           <a href="#dashboard" class="nav-link px-3 py-2 rounded-md text-xs transition-colors font-bold text-white">Dashboard</a>
-                           <a href="#misiones" class="nav-link px-3 py-2 rounded-md text-xs transition-colors font-normal text-white/70 hover:text-white">Misiones</a>
-                           <a href="#ranking" class="nav-link px-3 py-2 rounded-md text-xs transition-colors font-normal text-white/70 hover:text-white">Ranking</a>
-                           <a href="#profile" class="nav-link px-3 py-2 rounded-md text-xs transition-colors font-normal text-white/70 hover:text-white">Mi Perfil</a>
+                           <a href="#dashboard" data-page="dashboard" class="nav-link px-3 py-2 rounded-md text-xs transition-colors font-bold text-white">Dashboard</a>
+                           <a href="#misiones" data-page="misiones" class="nav-link px-3 py-2 rounded-md text-xs transition-colors font-normal text-white/70 hover:text-white">Misiones</a>
+                           <a href="#ranking" data-page="ranking" class="nav-link px-3 py-2 rounded-md text-xs transition-colors font-normal text-white/70 hover:text-white">Ranking</a>
+                           <a href="#profile" data-page="profile" class="nav-link px-3 py-2 rounded-md text-xs transition-colors font-normal text-white/70 hover:text-white">Mi Perfil</a>
                         </div>
                     </div>
                     <div id="header-user-info" class="flex items-center gap-4">
-                         <div class="text-right hidden sm:block">
-                            <p class="text-sm font-bold text-white">Carlos Rodríguez</p>
-                            <p class="text-xs text-white/80">850 CONECTCOINS</p>
-                        </div>
-                        <div class="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full">
-                           <span class="flex h-full w-full items-center justify-center rounded-full" style="background-color: hsl(var(--muted));">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                           </span>
-                        </div>
+                         <!-- User info will be loaded here -->
                     </div>
                 </div>
             </nav>
         </header>
         
-        <main class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div id="page-container">
-                <!-- DASHBOARD CONTENT -->
-                <div class="flex flex-col gap-8">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
-                        <!-- AVATAR EVOLUTION -->
-                        <div class="w-full">
-                            <div class="h-full border-0 shadow-none rounded-lg">
-                                <div class="flex flex-col items-center text-center gap-8 pt-6 h-full">
-                                    <div class="flex-grow flex flex-col md:flex-row items-center justify-center h-96 w-full md:gap-4">
-                                        <div id="selected-avatar-image-container" class="relative w-48 h-64 md:w-64 md:h-96">
-                                            <img src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/AVATAR%20HOMBRE1.png?raw=true" alt="Explorador" class="object-contain w-full h-full">
-                                        </div>
-                                        <div id="selected-avatar-info" class="w-64 text-center md:text-left">
-                                            <h3 class="text-base font-semibold">Explorador</h3>
-                                            <p class="text-xs mt-1" style="color: hsl(var(--muted-foreground));">Inicia su viaje, lleno de curiosidad y ganas de aprender, superando los primeros desafíos.</p>
-                                        </div>
-                                    </div>
-                                    <div id="avatar-selector" class="flex items-end justify-center space-x-4 w-full">
-                                        <!-- Avatar thumbnails will be inserted here by JS -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- CURRENT WORLD -->
-                        <div class="w-full">
-                            <div class="h-full border-0 shadow-none rounded-lg">
-                                <div class="flex flex-col items-center text-center gap-8 pt-6 h-full">
-                                    <div class="flex-grow flex flex-col md:flex-row items-center justify-center h-96 w-full md:gap-4">
-                                        <div id="selected-level-image-container" class="relative w-80 h-80">
-                                            <img src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/primer%20nivel.png?raw=true" alt="Las Selvas Exteriores" class="object-contain w-full h-full">
-                                        </div>
-                                        <div id="selected-level-info" class="w-64 text-center md:text-left">
-                                            <h3 class="text-base font-semibold">Las Selvas Exteriores</h3>
-                                            <p class="text-xs mt-1" style="color: hsl(var(--muted-foreground));">Bienvenido a las Selvas Exteriores, la primera frontera de nuestra gran expedición. Aquí inicias tu viaje como Explorador(a), aprendiendo los primeros pasos y descubriendo los fragmentos iniciales del ADN Banesco Seguros. Este territorio está lleno de misterios, senderos desconocidos y secretos de nuestro ADN. Solo los exploradores más curiosos y valientes lograrán avanzar, dejando su huella en la historia de nuestra organización.</p>
-                                        </div>
-                                    </div>
-                                    <div id="level-selector" class="flex items-end justify-center space-x-4 w-full">
-                                        <!-- Level thumbnails will be inserted here by JS -->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- OBJECTIVES SIDEBAR -->
-                    <div class="w-full">
-                        <div class="h-full bg-transparent border-0 shadow-none">
-                            <div class="px-2">
-                                <div class="text-2xl font-semibold leading-none tracking-tight" style="color: hsl(var(--foreground));">Lista de Misiones</div>
-                            </div>
-                            <div class="p-6 pt-6 px-2">
-                                <div class="space-y-3">
-                                    <div class="p-4 shadow-sm cursor-pointer transition-colors rounded-lg bg-primary text-primary-foreground" style="background-color: hsl(var(--primary)); color: hsl(var(--primary-foreground)); border: 1px solid hsl(var(--border));">
-                                        <div class="flex items-center justify-between">
-                                            <div>
-                                                <p class="text-sm font-semibold">Participación en capacitaciones o actividades de integración</p>
-                                                <p class="text-xs text-primary-foreground/80">Asiste a eventos que fortalecen al equipo.</p>
-                                            </div>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-green-400 flex-shrink-0 ml-4"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                                        </div>
-                                    </div>
-                                    <div class="p-4 shadow-sm cursor-pointer transition-colors rounded-lg" style="background-color: hsl(var(--card)); border: 1px solid hsl(var(--border));">
-                                        <div class="flex items-center justify-between">
-                                            <div>
-                                                <p class="text-sm font-semibold">Participación en videos de Capital Humano</p>
-                                                <p class="text-xs" style="color: hsl(var(--muted-foreground));">Colabora activamente en producciones de CH.</p>
-                                            </div>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-green-400 flex-shrink-0 ml-4"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                                        </div>
-                                    </div>
-                                    <div class="p-4 shadow-sm cursor-pointer transition-colors rounded-lg" style="background-color: hsl(var(--card)); border: 1px solid hsl(var(--border));">
-                                        <div class="flex items-center justify-between">
-                                            <div>
-                                                <p class="text-sm font-semibold">Participación como extra en videos de Capital Humano</p>
-                                                <p class="text-xs" style="color: hsl(var(--muted-foreground));">Aparece como extra y apoya las iniciativas de CH.</p>
-                                            </div>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-green-400 flex-shrink-0 ml-4"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <main id="page-container" class="flex-grow container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Page content will be rendered here by JavaScript -->
         </main>
     </div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // --- DATA ---
         const currentUser = { id: 1, name: 'Carlos Rodríguez', email: 'carlos.rodriguez@example.com', level: 1, xp: 850, avatar: 'Explorador' };
         
         const avatars = [
@@ -202,113 +118,384 @@
             { id: "world-level-4", imageUrl: "https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/CUARTO%20NIVELL.png?raw=true" }
         ];
 
-        // --- AVATAR LOGIC ---
-        const avatarSelector = document.getElementById('avatar-selector');
-        const selectedAvatarImageContainer = document.getElementById('selected-avatar-image-container');
-        const selectedAvatarInfo = document.getElementById('selected-avatar-info');
-        let selectedAvatarId = currentUser.level > 0 ? avatars.find(a => a.name === currentUser.avatar)?.id : 1;
+        const tasks = [
+            { id: 1, title: 'Participación en capacitaciones o actividades de integración', description: 'Asiste a eventos que fortalecen al equipo.', level: 1, xp: 10, status: 'completed' },
+            { id: 2, title: 'Participación en videos de Capital Humano', description: 'Colabora activamente en producciones de CH.', level: 1, xp: 10, status: 'completed' },
+            { id: 3, title: 'Participación como extra en videos de Capital Humano', description: 'Aparece como extra y apoya las iniciativas de CH.', level: 1, xp: 5, status: 'completed' },
+        ];
 
-        function renderAvatars() {
-            avatarSelector.innerHTML = '';
-            avatars.forEach(avatar => {
-                const isUnlocked = avatar.level <= currentUser.level;
-                const isSelected = avatar.id === selectedAvatarId;
-
-                const button = document.createElement('button');
-                button.className = 'flex flex-col items-center text-center';
-                button.onclick = () => {
-                    selectedAvatarId = avatar.id;
-                    updateSelectedAvatar();
-                    renderAvatars();
-                };
-
-                const icon = isUnlocked
-                    ? `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-green-500"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>`
-                    : `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" style="color: hsl(var(--muted));"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>`;
-
-                button.innerHTML = `
-                    <div class="relative mb-2">
-                        <div class="w-28 h-28 rounded-lg flex items-center justify-center p-2 transition-all ${isSelected ? 'ring-2 ring-primary ring-offset-2' : ''} ${!isUnlocked ? 'opacity-60' : ''}" style="background-color: hsl(var(--secondary));">
-                            <img src="${avatar.imageUrl}" alt="${avatar.name}" width="56" height="56" class="object-contain ${!isUnlocked ? 'grayscale' : ''}">
-                        </div>
-                    </div>
-                    ${icon}
-                `;
-                avatarSelector.appendChild(button);
-            });
-        }
-
-        function updateSelectedAvatar() {
-            const avatar = avatars.find(a => a.id === selectedAvatarId);
-            const isUnlocked = avatar.level <= currentUser.level;
-            if (avatar) {
-                selectedAvatarImageContainer.innerHTML = `<img src="${avatar.imageUrl}" alt="${avatar.name}" class="object-contain w-full h-full ${!isUnlocked ? 'grayscale' : ''}">`;
-                selectedAvatarInfo.innerHTML = `
-                    <h3 class="text-base font-semibold">${avatar.name}</h3>
-                    <p class="text-xs mt-1" style="color: hsl(var(--muted-foreground));">${avatar.description}</p>
-                `;
-                 selectedAvatarInfo.classList.toggle('opacity-50', !isUnlocked);
-            }
-        }
-
-
-        // --- LEVEL LOGIC ---
-        const levelSelector = document.getElementById('level-selector');
-        const selectedLevelImageContainer = document.getElementById('selected-level-image-container');
-        const selectedLevelInfo = document.getElementById('selected-level-info');
-        let selectedLevelId = currentUser.level > 0 ? currentUser.level : 1;
+        const appsScriptUrl = "https://script.google.com/macros/s/AKfycbxRHVaNZ9AiiVfzG6JQ_0ueYiEmktL9RZlcGOfFgQo6yTIsAY-TKBtbV7lxvsL5rmQ_Mg/exec";
         
-        function renderLevels() {
-            levelSelector.innerHTML = '';
-            levels.forEach(level => {
-                const isUnlocked = level.id <= currentUser.level;
-                const isSelected = level.id === selectedLevelId;
-                const worldImage = placeholderImages.find(p => p.id === level.worldImageId);
+        // --- DOM Elements ---
+        const pageContainer = document.getElementById('page-container');
+        const navLinksContainer = document.getElementById('nav-links');
+        const headerUserInfo = document.getElementById('header-user-info');
+        
+        // --- APP STATE ---
+        let appData = {
+            users: [],
+            tasks: [],
+            levels: [],
+            avatars: [],
+            currentUser: currentUser,
+        };
 
-                const button = document.createElement('button');
-                button.className = 'flex flex-col items-center text-center';
-                button.onclick = () => {
-                    selectedLevelId = level.id;
-                    updateSelectedLevel();
-                    renderLevels();
-                };
+        // --- RENDER FUNCTIONS ---
 
-                const icon = isUnlocked
-                    ? `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-green-500"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>`
-                    : `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" style="color: hsl(var(--muted));"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>`;
-                
-                button.innerHTML = `
-                    <div class="relative mb-2">
-                        <div class="w-28 h-28 rounded-lg flex items-center justify-center p-2 transition-all ${isSelected ? 'ring-2 ring-primary ring-offset-2' : ''} ${!isUnlocked ? 'opacity-60' : ''}" style="background-color: hsl(var(--secondary));">
-                            <img src="${worldImage.imageUrl}" alt="${level.worldName}" width="96" height="96" class="object-contain ${!isUnlocked ? 'grayscale' : ''}">
+        function renderHeaderUser() {
+             headerUserInfo.innerHTML = `
+                <div class="text-right hidden sm:block">
+                    <p class="text-sm font-bold text-white">${currentUser.name}</p>
+                    <p class="text-xs text-white/80">${currentUser.xp.toLocaleString()} CONECTCOINS</p>
+                </div>
+                <div class="relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full">
+                    <span class="flex h-full w-full items-center justify-center rounded-full" style="background-color: hsl(var(--muted));">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    </span>
+                </div>
+            `;
+        }
+
+        function renderDashboard() {
+            const levelTasks = tasks.filter(t => t.level === currentUser.level);
+            pageContainer.innerHTML = `
+                <div class="flex flex-col gap-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                        <!-- AVATAR EVOLUTION -->
+                        <div class="w-full">
+                            <div class="h-full border-0 shadow-none rounded-lg">
+                                <div class="flex flex-col items-center text-center gap-8 pt-6 h-full">
+                                    <div class="flex-grow flex flex-col md:flex-row items-center justify-center h-96 w-full md:gap-4">
+                                        <div id="selected-avatar-image-container" class="relative w-48 h-64 md:w-64 md:h-96"></div>
+                                        <div id="selected-avatar-info" class="w-64 text-center md:text-left"></div>
+                                    </div>
+                                    <div id="avatar-selector" class="flex items-end justify-center space-x-4 w-full"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- CURRENT WORLD -->
+                        <div class="w-full">
+                            <div class="h-full border-0 shadow-none rounded-lg">
+                                <div class="flex flex-col items-center text-center gap-8 pt-6 h-full">
+                                    <div class="flex-grow flex flex-col md:flex-row items-center justify-center h-96 w-full md:gap-4">
+                                        <div id="selected-level-image-container" class="relative w-80 h-80"></div>
+                                        <div id="selected-level-info" class="w-64 text-center md:text-left"></div>
+                                    </div>
+                                    <div id="level-selector" class="flex items-end justify-center space-x-4 w-full"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    ${icon}
-                `;
-                levelSelector.appendChild(button);
-            });
+                    <!-- OBJECTIVES SIDEBAR -->
+                    <div class="w-full">
+                        <div class="h-full bg-transparent border-0 shadow-none">
+                            <div class="px-2">
+                                <h2 class="text-2xl font-semibold leading-none tracking-tight" style="color: hsl(var(--foreground));">Lista de Misiones</h2>
+                            </div>
+                            <div class="p-6 pt-6 px-2">
+                                <div id="missions-list" class="space-y-3">
+                                    ${levelTasks.map(task => `
+                                        <div class="p-4 shadow-sm rounded-lg" style="background-color: hsl(var(--card)); border: 1px solid hsl(var(--border));">
+                                            <div class="flex items-center justify-between">
+                                                <div>
+                                                    <p class="text-sm font-semibold">${task.title}</p>
+                                                    <p class="text-xs" style="color: hsl(var(--muted-foreground));">${task.description}</p>
+                                                </div>
+                                                ${task.status === 'completed'
+                                                    ? `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-green-400 flex-shrink-0 ml-4"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>`
+                                                    : `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-amber-500 flex-shrink-0 ml-4"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>`
+                                                }
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+            setupDashboardFilters();
         }
 
-        function updateSelectedLevel() {
-            const level = levels.find(l => l.id === selectedLevelId);
-            const isUnlocked = level.id <= currentUser.level;
-            if (level) {
-                const worldImage = placeholderImages.find(p => p.id === level.worldImageId);
-                selectedLevelImageContainer.innerHTML = `<img src="${worldImage.imageUrl}" alt="${level.worldName}" class="object-contain w-full h-full ${!isUnlocked ? 'grayscale' : ''}">`;
-                selectedLevelInfo.innerHTML = `
-                    <h3 class="text-base font-semibold">${level.worldName}</h3>
-                    <p class="text-xs mt-1" style="color: hsl(var(--muted-foreground));">${level.story}</p>
-                `;
-                 selectedLevelInfo.classList.toggle('opacity-50', !isUnlocked);
+        function renderRanking(rankingUsers) {
+            const sortedUsers = [...rankingUsers].sort((a, b) => b.xp - a.xp);
+            const myRank = sortedUsers.findIndex(u => u.email.toLowerCase() === currentUser.email.toLowerCase()) + 1;
+            const myLevel = levels.find(l => l.id === currentUser.level);
+            const myAvatar = avatars.find(av => av.name === currentUser.avatar);
+
+            pageContainer.innerHTML = `
+                <div class="space-y-8">
+                    <header>
+                        <h1 class="text-4xl font-bold" style="color: hsl(var(--foreground));">Ranking de la Expedición</h1>
+                        <p class="text-lg mt-1" style="color: hsl(var(--muted));">Mira tu progreso y el de tus compañeros.</p>
+                    </header>
+
+                    <div class="sticky top-20 z-10 rounded-lg shadow-lg" style="background-color: hsl(var(--primary)); color: hsl(var(--primary-foreground));">
+                        <div class="p-6">
+                            <div class="flex items-center">
+                                <div class="font-bold text-lg text-white w-[80px]">#${myRank > 0 ? myRank : '-'}</div>
+                                <div class="flex-grow flex items-center gap-4">
+                                    <div class="p-1 bg-white/20 rounded-full w-12 h-12 flex items-center justify-center">
+                                        ${myAvatar ? `<img src="${myAvatar.imageUrl}" alt="${currentUser.avatar}" width="40" height="40" class="object-contain">` : ''}
+                                    </div>
+                                    <div>
+                                        <p class="font-semibold text-base">${currentUser.name} (Tú)</p>
+                                        <p class="text-xs text-primary-foreground/80">${currentUser.avatar} • ${currentUser.xp.toLocaleString()} CONECTCOINS</p>
+                                    </div>
+                                </div>
+                                <div class="text-center w-48">
+                                    ${myLevel ? `<span class="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full">${myLevel.worldName}</span>` : ''}
+                                </div>
+                                <div class="text-right w-48 flex items-baseline justify-end gap-1.5">
+                                    <span class="text-2xl font-bold">${currentUser.xp.toLocaleString()}</span>
+                                    <span class="text-xs font-normal text-primary-foreground/80">CONECTCOINS</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="rounded-lg border" style="background-color: hsl(var(--card));">
+                        <div class="relative w-full overflow-auto">
+                            <table class="w-full caption-bottom text-sm">
+                                <tbody id="ranking-table-body">
+                                    ${sortedUsers.slice(0, 10).map((user, index) => {
+                                        const userLevel = levels.find(l => l.id === user.level);
+                                        const userAvatar = avatars.find(av => av.name === user.avatar);
+                                        return `
+                                            <tr class="border-b transition-colors hover:bg-muted/50">
+                                                <td class="p-4 align-middle font-bold text-lg w-[80px]" style="color: hsl(var(--muted));">#${index + 1}</td>
+                                                <td class="p-4 align-middle">
+                                                    <div class="flex items-center gap-4">
+                                                        <div class="p-1 rounded-full w-12 h-12 flex items-center justify-center" style="background-color: hsl(var(--secondary));">
+                                                            ${userAvatar ? `<img src="${userAvatar.imageUrl}" alt="${user.avatar}" width="32" height="32" class="object-contain">` : ''}
+                                                        </div>
+                                                        <div>
+                                                            <p class="font-semibold" style="color: hsl(var(--foreground));">${user.name}</p>
+                                                            <p class="text-xs" style="color: hsl(var(--muted-foreground));">${user.avatar}</p>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="p-4 align-middle text-center w-48">
+                                                    ${userLevel ? `<span class="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full">${userLevel.worldName}</span>` : ''}
+                                                </td>
+                                                <td class="p-4 align-middle text-right w-48">
+                                                    <span class="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full">${user.xp.toLocaleString()}</span>
+                                                </td>
+                                            </tr>
+                                        `
+                                    }).join('')}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderRankingLoading() {
+            pageContainer.innerHTML = `
+                 <div class="space-y-8">
+                    <header>
+                        <div class="h-10 w-3/4 rounded-md animate-pulse" style="background-color: hsl(var(--muted));"></div>
+                        <div class="h-6 w-1/2 rounded-md animate-pulse mt-2" style="background-color: hsl(var(--muted));"></div>
+                    </header>
+                    <div class="rounded-lg shadow-lg animate-pulse" style="background-color: hsl(var(--muted));">
+                        <div class="p-6 h-24"></div>
+                    </div>
+                    <div class="rounded-lg border" style="background-color: hsl(var(--card));">
+                         <div class="p-4 space-y-4">
+                            ${[...Array(5)].map(() => `
+                                <div class="flex items-center space-x-4">
+                                    <div class="h-12 w-12 rounded-full animate-pulse" style="background-color: hsl(var(--muted));"></div>
+                                    <div class="flex-1 space-y-2">
+                                        <div class="h-4 w-3/4 rounded animate-pulse" style="background-color: hsl(var(--muted));"></div>
+                                        <div class="h-4 w-1/2 rounded animate-pulse" style="background-color: hsl(var(--muted));"></div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>`;
+        }
+
+        function renderError(message) {
+            pageContainer.innerHTML = `<div class="text-center py-10">
+                <h2 class="text-xl font-semibold" style="color: hsl(var(--destructive));">Ocurrió un error</h2>
+                <p style="color: hsl(var(--muted-foreground));">${message}</p>
+            </div>`;
+        }
+        
+        function renderPlaceholderPage(title) {
+             pageContainer.innerHTML = `
+                <header>
+                    <h1 class="text-4xl font-bold" style="color: hsl(var(--foreground));">${title}</h1>
+                    <p class="text-lg mt-1" style="color: hsl(var(--muted));">Contenido próximamente.</p>
+                </header>
+             `;
+        }
+
+        // --- FILTER LOGIC ---
+        function setupDashboardFilters() {
+            const avatarSelector = document.getElementById('avatar-selector');
+            const selectedAvatarImageContainer = document.getElementById('selected-avatar-image-container');
+            const selectedAvatarInfo = document.getElementById('selected-avatar-info');
+            
+            const levelSelector = document.getElementById('level-selector');
+            const selectedLevelImageContainer = document.getElementById('selected-level-image-container');
+            const selectedLevelInfo = document.getElementById('selected-level-info');
+
+            let selectedAvatarId = avatars.find(a => a.name === currentUser.avatar)?.id || 1;
+            let selectedLevelId = currentUser.level || 1;
+
+            const updateSelectedAvatar = () => {
+                const avatar = avatars.find(a => a.id === selectedAvatarId);
+                if (avatar) {
+                    const isUnlocked = avatar.level <= currentUser.level;
+                    selectedAvatarImageContainer.innerHTML = `<img src="${avatar.imageUrl}" alt="${avatar.name}" class="object-contain w-full h-full ${!isUnlocked ? 'grayscale' : ''}">`;
+                    selectedAvatarInfo.innerHTML = `
+                        <h3 class="text-base font-semibold">${avatar.name}</h3>
+                        <p class="text-xs mt-1" style="color: hsl(var(--muted-foreground));">${avatar.description}</p>`;
+                    selectedAvatarInfo.classList.toggle('opacity-50', !isUnlocked);
+                }
+            };
+
+            const renderAvatars = () => {
+                avatarSelector.innerHTML = '';
+                avatars.forEach(avatar => {
+                    const button = document.createElement('button');
+                    button.className = 'flex flex-col items-center text-center';
+                    button.onclick = () => { selectedAvatarId = avatar.id; renderAvatars(); updateSelectedAvatar(); };
+                    
+                    const isUnlocked = avatar.level <= currentUser.level;
+                    const isSelected = avatar.id === selectedAvatarId;
+                    const icon = isUnlocked
+                        ? `<svg xmlns="http://wwwwww.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-green-500"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>`
+                        : `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" style="color: hsl(var(--muted));"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>`;
+
+                    button.innerHTML = `
+                        <div class="relative mb-2">
+                            <div class="w-28 h-28 rounded-lg flex items-center justify-center p-2 transition-all ${isSelected ? 'ring-2 ring-primary ring-offset-2' : ''} ${!isUnlocked ? 'opacity-60' : ''}" style="background-color: hsl(var(--secondary));">
+                                <img src="${avatar.imageUrl}" alt="${avatar.name}" width="56" height="56" class="object-contain ${!isUnlocked ? 'grayscale' : ''}">
+                            </div>
+                        </div>
+                        ${icon}`;
+                    avatarSelector.appendChild(button);
+                });
+            };
+
+            const updateSelectedLevel = () => {
+                const level = levels.find(l => l.id === selectedLevelId);
+                 if (level) {
+                    const worldImage = placeholderImages.find(p => p.id === level.worldImageId);
+                    const isUnlocked = level.id <= currentUser.level;
+                    selectedLevelImageContainer.innerHTML = `<img src="${worldImage.imageUrl}" alt="${level.worldName}" class="object-contain w-full h-full ${!isUnlocked ? 'grayscale' : ''}">`;
+                    selectedLevelInfo.innerHTML = `
+                        <h3 class="text-base font-semibold">${level.worldName}</h3>
+                        <p class="text-xs mt-1" style="color: hsl(var(--muted-foreground));">${level.story}</p>`;
+                    selectedLevelInfo.classList.toggle('opacity-50', !isUnlocked);
+                }
+            };
+            
+            const renderLevels = () => {
+                levelSelector.innerHTML = '';
+                levels.forEach(level => {
+                     const button = document.createElement('button');
+                     button.className = 'flex flex-col items-center text-center';
+                     button.onclick = () => { selectedLevelId = level.id; renderLevels(); updateSelectedLevel(); };
+                     
+                     const isUnlocked = level.id <= currentUser.level;
+                     const isSelected = level.id === selectedLevelId;
+                     const worldImage = placeholderImages.find(p => p.id === level.worldImageId);
+                     const icon = isUnlocked
+                        ? `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-green-500"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>`
+                        : `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5" style="color: hsl(var(--muted));"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>`;
+
+                     button.innerHTML = `
+                        <div class="relative mb-2">
+                             <div class="w-28 h-28 rounded-lg flex items-center justify-center p-2 transition-all ${isSelected ? 'ring-2 ring-primary ring-offset-2' : ''} ${!isUnlocked ? 'opacity-60' : ''}" style="background-color: hsl(var(--secondary));">
+                                <img src="${worldImage.imageUrl}" alt="${level.worldName}" width="96" height="96" class="object-contain ${!isUnlocked ? 'grayscale' : ''}">
+                             </div>
+                        </div>
+                        ${icon}`;
+                     levelSelector.appendChild(button);
+                });
+            };
+
+            updateSelectedAvatar();
+            renderAvatars();
+            updateSelectedLevel();
+            renderLevels();
+        }
+
+        // --- NAVIGATION ---
+        function navigate(page) {
+            // Update active link style
+            navLinksContainer.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.toggle('font-bold', link.dataset.page === page);
+                link.classList.toggle('text-white', link.dataset.page === page);
+                link.classList.toggle('font-normal', link.dataset.page !== page);
+                link.classList.toggle('text-white/70', link.dataset.page !== page);
+            });
+            
+            // Render page content
+            switch(page) {
+                case 'dashboard':
+                    renderDashboard();
+                    break;
+                case 'ranking':
+                    renderRankingLoading();
+                    fetch(appsScriptUrl)
+                        .then(response => {
+                            if (!response.ok) { throw new Error('Network response was not ok ' + response.statusText); }
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data.error) { throw new Error(data.message); }
+                             const allUsers = (data.users || []).map(u => ({ ...u, level: Number(u.level), xp: Number(u.xp) }));
+                            renderRanking(allUsers);
+                        })
+                        .catch(error => {
+                            console.error("Error fetching ranking:", error);
+                            renderError('No se pudo cargar el ranking. ' + error.message);
+                        });
+                    break;
+                case 'misiones':
+                    renderPlaceholderPage('Misiones');
+                    break;
+                case 'profile':
+                    renderPlaceholderPage('Mi Perfil');
+                    break;
+                default:
+                    renderDashboard();
             }
         }
+        
+        navLinksContainer.addEventListener('click', (event) => {
+            if (event.target.tagName === 'A' && event.target.dataset.page) {
+                event.preventDefault();
+                const page = event.target.dataset.page;
+                window.location.hash = page;
+                navigate(page);
+            }
+        });
 
-        // Initial render
-        renderAvatars();
-        renderLevels();
+        document.getElementById('home-link').addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.hash = 'dashboard';
+            navigate('dashboard');
+        });
+
+        // --- INITIALIZATION ---
+        function init() {
+            renderHeaderUser();
+            const initialPage = window.location.hash.substring(1) || 'dashboard';
+            navigate(initialPage);
+        }
+
+        init();
     });
 </script>
 
-
 </body>
 </html>
+
+    
