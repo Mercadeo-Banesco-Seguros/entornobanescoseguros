@@ -66,7 +66,7 @@ export default function RegisterPage() {
     <div className="w-full lg:grid lg:min-h-screen lg:grid-cols-2 xl:min-h-screen">
        <div className="hidden lg:block relative">
         <Image
-          src="https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/registrate.png"
+          src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_vd8htnvd8htnvd8h.png?raw=true"
           alt="Imagen de una exploradora en la jungla"
           layout="fill"
           className="object-cover"
