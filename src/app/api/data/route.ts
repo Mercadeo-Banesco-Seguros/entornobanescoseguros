@@ -14,43 +14,39 @@ async function handleRequest(request: Request) {
     );
   }
 
-  let action = 'getData';
-  let body = {};
+  let body: any = {};
   
   if (request.method === 'POST') {
     try {
       body = await request.json();
-      if ('action' in body) {
-        action = (body as { action: string }).action;
-      }
     } catch (e) {
       return NextResponse.json({ message: 'Cuerpo de la petición inválido.' }, { status: 400 });
     }
   }
 
   try {
-    const response = await fetch(appsScriptUrl, {
-      method: 'POST',
+    // Para las peticiones GET, añadimos el parámetro de acción directamente.
+    const fetchUrl = request.method === 'GET' ? `${appsScriptUrl}?action=getData` : appsScriptUrl;
+
+    const response = await fetch(fetchUrl, {
+      method: 'POST', // Siempre usamos POST para el script
       headers: {
         'Content-Type': 'application/json',
       },
-      // Redirige la petición a Apps Script como una petición POST
-      // con un cuerpo que se pueda parsear como JSON.
+      // Apps Script espera un objeto 'postData' con una propiedad 'contents' que es un JSON stringificado.
+      // Esta es la estructura correcta.
       body: JSON.stringify({
-        // Incluye los parámetros originales de la petición
-        ...body,
-        // Establece la acción que debe ejecutar el script
-        action,
-        // Añadimos esto para que el script sepa que es una petición POST
-        postData: { 
-          contents: JSON.stringify(body)
-        }
+          ...body,
+          // La acción también va dentro para que el script sepa qué hacer.
+          action: body.action || 'getData'
       }),
       cache: 'no-store',
+      redirect: 'follow', // Sigue las redirecciones de Apps Script
     });
 
     if (!response.ok) {
       const errorText = await response.text();
+      console.error('Error desde Apps Script:', errorText);
       return NextResponse.json(
         { message: 'Error al contactar el servicio de datos.', details: errorText },
         { status: response.status }
@@ -71,7 +67,6 @@ async function handleRequest(request: Request) {
 
 export async function GET(request: Request) {
   // Las peticiones GET solo se usarán para obtener datos (ranking).
-  // Se manejarán dentro de handleRequest como una acción 'getData'.
   return handleRequest(request);
 }
 
