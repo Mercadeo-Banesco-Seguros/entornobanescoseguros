@@ -2,10 +2,10 @@ import { Trophy, User as UserIcon, LucideIcon, Rocket, ClipboardList } from 'luc
 import type { User, Task, Avatar, NavLink, Level } from './types';
 
 export const avatars: Avatar[] = [
-  { id: 1, name: 'Explorador', level: 1, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/AVATAR%20HOMBRE1.png?raw=true', description: 'Inicia su viaje, lleno de curiosidad y ganas de aprender. Domina las herramientas básicas y completa sus primeras misiones con éxito.' },
-  { id: 2, name: 'Aventurero', level: 2, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/AVATAR%20HOMBRE2.png?raw=true', description: 'Conoce el terreno y se atreve a explorar rutas más complejas. Colabora con otros y supera desafíos que requieren más habilidad.' },
-  { id: 3, name: 'Maestro', level: 3, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/AVATAR%20HOMBRE3.png?raw=true', description: 'Un guía para los demás, domina las artes de la expedición y comparte su conocimiento. Resuelve problemas complejos con facilidad.' },
-  { id: 4, name: 'Leyenda', level: 4, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/AVATAR%20HOMBRE4.png?raw=true', description: 'Su nombre es sinónimo de éxito. Ha alcanzado la cima de la expedición, y su historia inspira a las nuevas generaciones de exploradores.' },
+  { id: 1, name: 'Explorador', level: 1, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/AVATAR%20HOMBRE1.png?raw=true', description: 'Inicia su viaje, lleno de curiosidad y ganas de aprender, superando los primeros desafíos.' },
+  { id: 2, name: 'Aventurero', level: 2, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/AVATAR%20HOMBRE2.png?raw=true', description: 'Conoce el terreno y se atreve a explorar rutas más complejas, colaborando con otros.' },
+  { id: 3, name: 'Maestro', level: 3, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/AVATAR%20HOMBRE3.png?raw=true', description: 'Un guía para los demás, domina las artes de la expedición y comparte su conocimiento.' },
+  { id: 4, name: 'Leyenda', level: 4, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/AVATAR%20HOMBRE4.png?raw=true', description: 'Su nombre es sinónimo de éxito. Ha alcanzado la cima y su historia inspira a nuevas generaciones.' },
 ];
 
 export const levels: Level[] = [
