@@ -6,9 +6,10 @@ import { headers } from 'next/headers';
 export async function GET(request: Request) {
   
   // Reemplaza esta URL con la que obtuviste de Google Apps Script
-  const appsScriptUrl = "PEGA_TU_URL_AQUI";
+  const appsScriptUrl = "https://script.google.com/macros/s/AKfycbxRHVaNZ9AiiVfzG6JQ_0ueYiEmktL9RZlcGOfFgQo6yTIsAY-TKBtbV7lxvsL5rmQ_Mg/exec";
 
   if (!appsScriptUrl || appsScriptUrl === "PEGA_TU_URL_AQUI") {
+    console.error('La URL de Apps Script no está configurada.');
     return NextResponse.json(
       { message: 'La URL de Apps Script no está configurada. Pega tu URL en `src/app/api/data/route.ts`' },
       { status: 500 }
@@ -25,33 +26,25 @@ export async function GET(request: Request) {
       },
       // Cachear la respuesta para no llamar al script en cada carga.
       // Puedes ajustar el tiempo de revalidación.
-      next: { revalidate: 300 } // Revalida cada 5 minutos
+      cache: 'no-store' // Desactivar caché para depuración
     });
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error(`Error desde Apps Script: ${response.statusText} - ${errorText}`);
-      // Intenta parsear el error por si Apps Script devolvió un JSON de error
-      try {
-        const errorJson = JSON.parse(errorText);
-        return NextResponse.json(
-          { message: 'Error desde el servicio de datos.', error: errorJson.message || 'Detalles no disponibles.' },
-          { status: response.status }
-        );
-      } catch (e) {
-         return NextResponse.json(
-          { message: 'Error desde el servicio de datos. La respuesta no era un JSON válido.', error: errorText },
-          { status: response.status }
-        );
-      }
+      console.error(`Error desde Apps Script: ${response.status} - ${response.statusText}`, errorText);
+      return NextResponse.json(
+        { message: 'Error al contactar el servicio de datos.', details: errorText },
+        { status: response.status }
+      );
     }
 
     const data = await response.json();
 
     if (data.error) {
+      console.error('Error reportado por Apps Script:', data.message);
       return NextResponse.json(
-        { message: data.message || 'Ocurrió un error al procesar los datos.' },
-        { status: 404 } // O el código de estado apropiado
+        { message: data.message || 'Ocurrió un error al procesar los datos en el script.' },
+        { status: 400 }
       );
     }
     

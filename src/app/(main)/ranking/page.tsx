@@ -7,38 +7,51 @@ import { useAuth } from '@/context/auth-context';
 import { Skeleton } from '@/components/ui/skeleton';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import type { User } from '@/lib/types';
+import type { User, Level, Avatar as AvatarType } from '@/lib/types';
 
 export default function RankingPage() {
-  const { avatars, currentUser: me, levels, loading: authLoading } = useAuth();
-  const [rankingUsers, setRankingUsers] = useState<User[]>([]);
-  const [rankingLoading, setRankingLoading] = useState(true);
+  const { currentUser: me } = useAuth(); // Solo tomamos el usuario actual del contexto
+  const [rankingData, setRankingData] = useState<{users: User[], levels: Level[], avatars: AvatarType[]}>({ users: [], levels: [], avatars: [] });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchRanking = async () => {
-      setRankingLoading(true);
+      setLoading(true);
+      setError(null);
       try {
+        // La llamada a la API ya está configurada en la ruta /api/data
         const response = await fetch('/api/data');
         if (!response.ok) {
-          throw new Error('No se pudo obtener el ranking');
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'No se pudo obtener el ranking');
         }
         const data = await response.json();
-        // Asumimos que la API devuelve un objeto con una propiedad "users"
+
+        if (data.error) {
+            throw new Error(data.message);
+        }
+        
+        // Ahora obtenemos usuarios, niveles y avatares desde la API
         const allUsers = data.users.map((u: any, index: number) => ({ ...u, id: index + 1, level: Number(u.level), xp: Number(u.xp) }));
-        setRankingUsers(allUsers);
-      } catch (error) {
-        console.error("Error fetching ranking:", error);
-        // Opcional: manejar el error en la UI
+        
+        setRankingData({
+            users: allUsers,
+            levels: data.levels,
+            avatars: data.avatars
+        });
+
+      } catch (err: any) {
+        console.error("Error fetching ranking:", err);
+        setError(err.message);
       } finally {
-        setRankingLoading(false);
+        setLoading(false);
       }
     };
 
     fetchRanking();
   }, []);
   
-  const loading = authLoading || rankingLoading;
-
   if (loading) {
     return (
       <div className="space-y-8">
@@ -68,13 +81,20 @@ export default function RankingPage() {
       </div>
     )
   }
-  
-  if (!me || !levels) {
-    return <div>Cargando ranking...</div>
-  }
 
-  const sortedUsers = [...rankingUsers].sort((a, b) => b.xp - a.xp);
-  // La tarjeta del usuario logueado sigue usando datos locales/de contexto
+  if (error) {
+    return <div className="text-destructive text-center">Error al cargar el ranking: {error}</div>
+  }
+  
+  if (!me) {
+    return <div>Cargando tus datos...</div>
+  }
+  
+  const { users: sortedUsers, levels, avatars } = {
+      ...rankingData,
+      users: [...rankingData.users].sort((a, b) => b.xp - a.xp)
+  };
+
   const myRank = sortedUsers.findIndex(u => u.email.toLowerCase() === me.email.toLowerCase()) + 1;
   const myLevel = levels.find(l => l.id === me.level);
 
