@@ -1,0 +1,191 @@
+/*
+  Nombre del Script: Banesco Gamification Backend
+  Descripción: Este script actúa como una API para leer los datos de la aplicación de gamificación
+               desde una hoja de cálculo de Google y devolverlos en formato JSON.
+*/
+
+// Hoja de cálculo activa.
+const a = SpreadsheetApp.getActiveSpreadsheet();
+
+// Función principal que se ejecuta cuando se accede a la URL de la aplicación web.
+function doGet(e) {
+  try {
+    // Si se pasa un parámetro 'email' en la URL, busca a ese usuario.
+    // Si no, intenta obtener el usuario de la sesión activa.
+    const userEmail = e.parameter.email || Session.getActiveUser().getEmail();
+
+    if (!userEmail) {
+      return ContentService
+        .createTextOutput(JSON.stringify({ error: true, message: "No se pudo determinar el usuario. Acceso denegado." }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+
+    // Leemos todas las hojas de datos.
+    const data = {
+      users: getUsers(),
+      tasks: getTasks(),
+      levels: getLevels(),
+      avatars: getAvatars(),
+      placeholderImages: getPlaceholderImages(),
+    };
+
+    // Buscamos al usuario que está haciendo la solicitud.
+    const currentUser = data.users.find(u => u.email.toLowerCase() === userEmail.toLowerCase());
+
+    if (currentUser) {
+      // Si encontramos al usuario, lo añadimos al objeto de respuesta.
+      data.currentUser = currentUser;
+
+      // Marcamos el estado de las misiones para el usuario actual.
+      // Se asume que si el nivel de la misión es menor o igual al del usuario, está completada.
+      // Puedes cambiar esta lógica si tienes una hoja de 'progreso' separada.
+      data.tasks.forEach(task => {
+        task.status = currentUser.level >= task.level ? 'completed' : 'pending';
+      });
+
+    } else {
+        // Si no encontramos al usuario en la hoja, devolvemos un error controlado.
+        return ContentService
+        .createTextOutput(JSON.stringify({ error: true, message: `Usuario con correo ${userEmail} no encontrado en la hoja de cálculo.` }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+
+    return ContentService
+      .createTextOutput(JSON.stringify(data))
+      .setMimeType(ContentService.MimeType.JSON);
+
+  } catch (error) {
+    // Manejo de errores generales.
+    Logger.log(error.toString());
+    return ContentService
+      .createTextOutput(JSON.stringify({ error: true, message: "Ocurrió un error interno en el servidor de Apps Script.", details: error.toString() }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+// Para compatibilidad con el fetch POST que podría estar configurado.
+function doPost(e) {
+  return doGet(e);
+}
+
+// --- FUNCIONES AUXILIARES PARA LEER CADA HOJA ---
+
+/**
+ * Lee la hoja 'DATA' y devuelve un array de objetos de usuario.
+ * Las columnas esperadas son: Nombre, Correo, Sexo, Puntaje, Nivel, Avatar
+ */
+function getUsers() {
+  const sheet = a.getSheetByName("DATA");
+  const data = sheet.getDataRange().getValues();
+  const headers = data.shift(); // Quita la fila de encabezado
+  
+  return data.map((row, index) => {
+    let user = {};
+    headers.forEach((header, i) => {
+      // Normalizamos las claves para que coincidan con el frontend (ej. 'Puntaje' -> 'xp')
+      let key = header.toLowerCase();
+      if (key === 'nombre') key = 'name';
+      if (key === 'correo') key = 'email';
+      if (key === 'puntaje') key = 'xp';
+      
+      let value = row[i];
+      // Aseguramos que 'xp' y 'level' sean números
+      if (key === 'xp' || key === 'level') {
+          value = Number(value) || 0;
+      }
+      user[key] = value;
+    });
+    user.id = index + 1; // Generamos un ID simple basado en la fila
+    return user;
+  });
+}
+
+/**
+ * Lee la hoja 'Misiones' y devuelve un array de objetos de misión.
+ * Columnas: title, description, level, xp
+ */
+function getTasks() {
+  const sheet = a.getSheetByName("Misiones");
+  const data = sheet.getDataRange().getValues();
+  const headers = data.shift();
+  
+  return data.map((row, index) => {
+    let task = {};
+    headers.forEach((header, i) => {
+       let key = header.toLowerCase();
+       let value = row[i];
+       if (key === 'xp' || key === 'level') {
+           value = Number(value) || 0;
+       }
+       task[key] = value;
+    });
+    task.id = index + 1;
+    // El 'status' se determina dinámicamente en la función principal.
+    return task;
+  });
+}
+
+/**
+ * Lee la hoja 'Niveles' y devuelve un array de objetos de nivel.
+ * Columnas: id, name, xpThreshold, worldName, worldImageId, story
+ */
+function getLevels() {
+  const sheet = a.getSheetByName("Niveles");
+  const data = sheet.getDataRange().getValues();
+  const headers = data.shift();
+  
+  return data.map(row => {
+    let level = {};
+    headers.forEach((header, i) => {
+      let key = header;
+      let value = row[i];
+      if (key === 'id' || key === 'xpThreshold') {
+          value = Number(value) || 0;
+      }
+      level[key] = value;
+    });
+    return level;
+  });
+}
+
+/**
+ * Lee la hoja 'Avatares' y devuelve un array de objetos de avatar.
+ * Columnas: id, name, level, imageUrl, description
+ */
+function getAvatars() {
+  const sheet = a.getSheetByName("Avatares");
+  const data = sheet.getDataRange().getValues();
+  const headers = data.shift();
+  
+  return data.map(row => {
+    let avatar = {};
+    headers.forEach((header, i) => {
+      let key = header;
+      let value = row[i];
+      if (key === 'id' || key === 'level') {
+          value = Number(value) || 0;
+      }
+      avatar[key] = value;
+    });
+    return avatar;
+  });
+}
+
+/**
+ * Lee la hoja 'PlaceholderImages' y devuelve un array de objetos de imagen.
+ * Columnas: id, description, imageUrl, imageHint
+ */
+function getPlaceholderImages() {
+  const sheet = a.getSheetByName("PlaceholderImages");
+  const data = sheet.getDataRange().getValues();
+  const headers = data.shift();
+  
+  return data.map(row => {
+    let image = {};
+    headers.forEach((header, i) => {
+      image[header] = row[i];
+    });
+    return image;
+  });
+}
+
