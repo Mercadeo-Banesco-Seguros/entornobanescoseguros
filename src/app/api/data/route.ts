@@ -15,8 +15,9 @@ async function handleRequest(request: Request) {
   }
 
   let body: any = {};
+  const method = request.method;
   
-  if (request.method === 'POST') {
+  if (method === 'POST') {
     try {
       body = await request.json();
     } catch (e) {
@@ -24,24 +25,20 @@ async function handleRequest(request: Request) {
     }
   }
 
-  try {
-    // Para las peticiones GET, añadimos el parámetro de acción directamente.
-    const fetchUrl = request.method === 'GET' ? `${appsScriptUrl}?action=getData` : appsScriptUrl;
+  // Para peticiones GET, el 'action' viene en la URL. Para POST, está en el body.
+  const action = method === 'GET' ? 'getData' : body.action;
 
-    const response = await fetch(fetchUrl, {
-      method: 'POST', // Siempre usamos POST para el script
+  try {
+    const response = await fetch(appsScriptUrl, {
+      method: 'POST', // Apps Script siempre recibe POST
       headers: {
-        'Content-Type': 'application/json',
+        // Usar 'text/plain' es una técnica para evitar preflight requests de CORS
+        'Content-Type': 'text/plain;charset=utf-8', 
       },
-      // Apps Script espera un objeto 'postData' con una propiedad 'contents' que es un JSON stringificado.
-      // Esta es la estructura correcta.
-      body: JSON.stringify({
-          ...body,
-          // La acción también va dentro para que el script sepa qué hacer.
-          action: body.action || 'getData'
-      }),
-      cache: 'no-store',
-      redirect: 'follow', // Sigue las redirecciones de Apps Script
+      // El cuerpo se envía como un string JSON. Apps Script lo parseará.
+      body: JSON.stringify({ action, ...body }),
+      cache: 'no-store', // Deshabilitar caché para obtener siempre datos frescos
+      redirect: 'follow', // Seguir las redirecciones de Apps Script
     });
 
     if (!response.ok) {
