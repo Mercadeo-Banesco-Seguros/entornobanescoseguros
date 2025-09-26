@@ -59,7 +59,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // --- CONFIGURATION ---
-    const appsScriptUrl = 'https://script.google.com/macros/s/AKfycbwIxXMFBdCWJRoaQUP_b1rGJBoh4fk1dc3aFfi-RwB4MX4j5B4G3f_urUgKvdFwrNObwA/exec';
+    const appsScriptUrl = 'https://script.google.com/macros/s/AKfycbyoQwtPHe5wTyhPz3_jCefOtzAGcdF8FZsiK2t1jVW3z7iZbgG5XygjAG5NJEphK-gO1A/exec';
     
     // --- STATIC DATA ---
     const avatars = [
@@ -376,27 +376,23 @@ document.addEventListener('DOMContentLoaded', function() {
         errorContainer.classList.add('hidden');
 
         try {
-            // Note: Apps Script doPost expects the body to be a stringified object under 'postData.contents'
+            const payload = {
+                action: 'login',
+                email: form.email.value,
+                password: form.password.value
+            };
             const response = await fetch(appsScriptUrl, {
                 method: 'POST',
-                body: JSON.stringify({ 
-                    action: 'login', 
-                    email: form.email.value, 
-                    password: form.password.value 
-                }),
-                headers: {
-                    // This header is important for some environments to avoid CORS preflight issues with Apps Script
-                    'Content-Type': 'application/json'
-                },
+                body: JSON.stringify(payload),
+                headers: { 'Content-Type': 'application/json' },
                 redirect: 'follow'
             });
 
             if (!response.ok) {
-                // response.text() might give more details from Apps Script error page
                 const errorText = await response.text();
-                throw new Error(`El servidor respondió con un error. ${response.statusText}. Details: ${errorText}`);
+                throw new Error(`Error del servidor: ${response.status} ${response.statusText}. Detalles: ${errorText}`);
             }
-
+            
             const data = await response.json();
 
             if (data.error || !data.user) {
@@ -439,22 +435,23 @@ document.addEventListener('DOMContentLoaded', function() {
         successContainer.classList.add('hidden');
 
         try {
+            const payload = {
+                action: 'register',
+                name: form.name.value,
+                email: form.email.value,
+                password: form.password.value
+            };
+
             const response = await fetch(appsScriptUrl, {
                 method: 'POST',
-                body: JSON.stringify({ 
-                    action: 'register', 
-                    name: form.name.value,
-                    email: form.email.value, 
-                    password: form.password.value 
-                }),
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                body: JSON.stringify(payload),
+                headers: { 'Content-Type': 'application/json' },
                 redirect: 'follow'
             });
-
+            
             if (!response.ok) {
-                throw new Error(`Error del servidor: ${response.statusText}`);
+                 const errorText = await response.text();
+                throw new Error(`Error del servidor: ${response.status}. Detalles: ${errorText}`);
             }
 
             const data = await response.json();
