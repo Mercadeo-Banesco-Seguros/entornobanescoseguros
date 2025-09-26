@@ -27,10 +27,10 @@ export default function AvatarEvolution({ currentUser, avatars }: AvatarEvolutio
   return (
     <Card className="h-full border-0 shadow-none">
       <CardContent className="flex flex-col items-center text-center gap-8 pt-6 h-full">
-        <div className="flex-grow flex items-center justify-center h-96 w-full">
+        <div className="flex-grow flex flex-col md:flex-row items-center justify-center h-96 w-full md:gap-4">
             {selectedAvatar && (
-                <div className="flex items-center gap-2">
-                  <div className="relative inline-block w-64 h-96">
+                <>
+                  <div className="relative w-48 h-64 md:w-64 md:h-96">
                      <Image 
                         src={selectedAvatar.imageUrl} 
                         alt={selectedAvatar.name} 
@@ -42,11 +42,11 @@ export default function AvatarEvolution({ currentUser, avatars }: AvatarEvolutio
                         )}
                       />
                   </div>
-                  <div className={cn("w-64 text-left", !isSelectedAvatarUnlocked && 'opacity-50')}>
+                  <div className={cn("w-64 text-center md:text-left", !isSelectedAvatarUnlocked && 'opacity-50')}>
                       <h3 className="text-base font-semibold">{selectedAvatar.name}</h3>
                       <p className="text-xs text-muted-foreground mt-1">{selectedAvatar.description}</p>
                   </div>
-                </div>
+                </>
             )}
         </div>
         
