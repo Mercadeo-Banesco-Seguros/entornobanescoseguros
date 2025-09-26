@@ -381,16 +381,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 email: form.email.value,
                 password: form.password.value
             };
+            // Usamos 'text/plain' para evitar problemas de CORS preflight en Google Sites.
             const response = await fetch(appsScriptUrl, {
                 method: 'POST',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                 body: JSON.stringify(payload),
-                headers: { 'Content-Type': 'application/json' },
-                redirect: 'follow'
+                redirect: 'follow', // Necesario para que Apps Script funcione.
             });
 
             if (!response.ok) {
                 const errorText = await response.text();
-                throw new Error(`Error del servidor: ${response.status} ${response.statusText}. Detalles: ${errorText}`);
+                throw new Error(`Error del servidor: ${response.status}. ${errorText}`);
             }
             
             const data = await response.json();
@@ -444,14 +445,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const response = await fetch(appsScriptUrl, {
                 method: 'POST',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                 body: JSON.stringify(payload),
-                headers: { 'Content-Type': 'application/json' },
-                redirect: 'follow'
+                redirect: 'follow',
             });
             
             if (!response.ok) {
                  const errorText = await response.text();
-                throw new Error(`Error del servidor: ${response.status}. Detalles: ${errorText}`);
+                throw new Error(`Error del servidor: ${response.status}. ${errorText}`);
             }
 
             const data = await response.json();
@@ -495,8 +496,9 @@ document.addEventListener('DOMContentLoaded', function() {
                  fetch(appsScriptUrl, {
                     method: 'POST',
                     body: JSON.stringify({ action: 'getData' }),
-                    headers: { 'Content-Type': 'application/json' },
-                    redirect: 'follow'
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    redirect: 'follow',
+                    cache: 'no-store'
                 })
                     .then(res => {
                         if (!res.ok) throw new Error('Network response was not ok');
@@ -610,6 +612,3 @@ document.addEventListener('DOMContentLoaded', function() {
 
 </body>
 </html>
-
-    
-    

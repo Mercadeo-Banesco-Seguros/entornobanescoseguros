@@ -16,6 +16,7 @@ const spreadsheet = SpreadsheetApp.openByUrl(SPREADSHEET_URL);
 
 /**
  * Crea una respuesta JSON estándar con las cabeceras CORS correctas.
+ * Esto es crucial para que Google Sites permita la petición.
  */
 function createJsonResponse(data) {
   return ContentService
@@ -29,9 +30,16 @@ function createJsonResponse(data) {
 function doPost(e) {
   let requestData;
   try {
-    requestData = JSON.parse(e.postData.contents);
+    // Apps Script puede recibir el contenido de diferentes maneras.
+    // Esta es la forma más robusta de obtenerlo.
+    if (e.postData && e.postData.contents) {
+        requestData = JSON.parse(e.postData.contents);
+    } else {
+        // Fallback por si la data no viene como se espera.
+        requestData = e.parameter;
+    }
   } catch (error) {
-    return createJsonResponse({ error: true, message: "Petición inválida. Se esperaba un JSON." });
+    return createJsonResponse({ error: true, message: `Petición inválida. Se esperaba un JSON. Contenido recibido: ${e.postData ? e.postData.contents : 'ninguno'}` });
   }
 
   try {
@@ -57,10 +65,12 @@ function doPost(e) {
  * La función doGet se mantiene para pruebas, pero la lógica principal se centraliza en doPost.
  */
 function doGet(e) {
+    // Si se llama con ?action=getData, funciona para pruebas rápidas.
     if (e.parameter && e.parameter.action === 'getData') {
         return handleGetData(e.parameter);
     }
-    return createJsonResponse({ info: "El script está activo. Usa peticiones POST." });
+    // Respuesta por defecto para saber que el script está vivo.
+    return createJsonResponse({ info: "El script está activo. Usa peticiones POST con una acción válida." });
 }
 
 
@@ -168,19 +178,22 @@ function handleGetData(params) {
 
 /**
  * Función de utilidad para convertir una hoja en un array de objetos.
+ * Es más robusta para manejar hojas vacías o con solo cabeceras.
  */
 function getSheetData(sheet) {
   if (!sheet) return [];
   const range = sheet.getDataRange();
+  // Si no hay filas o solo una (la cabecera), retorna un array vacío.
   if (range.getNumRows() < 2) return [];
 
-  const rows = range.getValues();
-  const headers = rows.shift().map(header => header.toString().trim().toLowerCase());
+  const values = range.getValues();
+  // Extrae los headers y los limpia.
+  const headers = values.shift().map(header => header.toString().trim().toLowerCase());
   
-  return rows.map(row => {
+  return values.map(row => {
     const rowData = {};
     headers.forEach((header, index) => {
-      if(header){
+      if(header){ // Solo añade la propiedad si el header no está vacío.
         rowData[header] = row[index];
       }
     });
