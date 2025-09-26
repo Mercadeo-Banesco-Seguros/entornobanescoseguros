@@ -44,7 +44,7 @@ export default function LoginPage() {
     setLoading(true);
     try {
       await login(values.email, values.password);
-      router.push('/dashboard');
+      router.push('/inicio');
     } catch (error: any) {
       toast({
         variant: "destructive",
