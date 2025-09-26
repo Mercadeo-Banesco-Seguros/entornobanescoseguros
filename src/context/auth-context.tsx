@@ -3,7 +3,7 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import type { User, Task, Avatar, Level } from '@/lib/types';
-import { avatars as staticAvatars, levels as staticLevels } from '@/lib/data';
+import { avatars as staticAvatars, levels as staticLevels, users as staticUsers, tasks as staticTasks, currentUserEmail } from '@/lib/data';
 import { Skeleton } from '@/components/ui/skeleton';
 
 type AuthContextType = {
@@ -25,44 +25,35 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const response = await fetch('/api/data');
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.message || 'Error al cargar los datos iniciales');
-        }
-        const data = await response.json();
+    // Cargar siempre datos de ejemplo para evitar el bloqueo de "usuario no encontrado"
+    setLoading(true);
+    const userFromData = staticUsers.find(u => u.email.toLowerCase() === currentUserEmail.toLowerCase());
+    
+    if (userFromData) {
+        setCurrentUser(userFromData);
 
-        if (data.error) {
-          throw new Error(data.message);
-        }
-        
-        // El currentUser y las tasks vienen del script ahora.
-        setCurrentUser(data.currentUser);
-        setTasks(data.tasks || []);
+        // Simular el estado de las tareas para el usuario de ejemplo
+        const userTasks = staticTasks.map((task, index) => ({
+            ...task,
+            // Simular algunas tareas completadas y otras pendientes
+            status: index % 2 === 0 ? 'completed' : 'pending'
+        } as Task));
+        setTasks(userTasks);
 
-      } catch (err: any) {
-        console.error("Error en AuthProvider:", err);
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
+    } else {
+        setError("El usuario de ejemplo no fue encontrado en los datos locales.");
+    }
+    setLoading(false);
   }, []);
 
   const value = {
     currentUser,
     tasks,
-    levels: staticLevels, // Los niveles y avatares pueden seguir siendo estáticos por ahora
+    levels: staticLevels,
     avatars: staticAvatars,
     loading,
     error,
-    setCurrentUser, // Exponemos para poder actualizar si es necesario
+    setCurrentUser,
   };
 
   if (loading) {
@@ -77,30 +68,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     );
   }
 
-  if (error) {
+  if (error || !currentUser) {
      return (
        <div className="w-full h-screen flex items-center justify-center text-center text-destructive p-4">
          <div>
             <p className="font-bold text-lg">Error al Cargar la Expedición</p>
-            <p className="text-sm">{error}</p>
-            <p className="text-xs mt-4">Asegúrate de que la URL en <code className="bg-destructive/10 p-1 rounded">src/app/api/data/route.ts</code> sea correcta y que la implementación de Apps Script esté activa.</p>
+            <p className="text-sm">{error || 'No se pudo cargar el usuario de ejemplo.'}</p>
          </div>
        </div>
     );
   }
-
-  if (!currentUser) {
-     return (
-       <div className="w-full h-screen flex items-center justify-center text-center text-muted-foreground p-4">
-         <div>
-            <p className="font-bold text-lg">Usuario no encontrado</p>
-            <p className="text-sm">Tu correo no fue encontrado en la hoja de cálculo 'DATA'.</p>
-            <p className="text-xs mt-2">Verifica que estás accediendo con la cuenta de Google correcta.</p>
-         </div>
-       </div>
-     );
-  }
-
 
   return (
     <AuthContext.Provider value={value}>
