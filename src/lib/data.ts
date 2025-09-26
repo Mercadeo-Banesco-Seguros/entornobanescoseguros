@@ -25,5 +25,4 @@ export const navLinks: NavLink[] = [
     { href: '/dashboard', label: 'Tablero', icon: Rocket },
     { href: '/misiones', label: 'Misiones', icon: ClipboardList },
     { href: '/ranking', label: 'Ranking', icon: Trophy },
-    { href: '/profile', label: 'Mi Evolución', icon: UserIcon },
 ];
