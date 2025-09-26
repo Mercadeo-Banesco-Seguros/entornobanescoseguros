@@ -6,10 +6,39 @@ import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 import { useAuth } from '@/context/auth-context';
 import { Skeleton } from '@/components/ui/skeleton';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import type { User } from '@/lib/types';
 
 export default function RankingPage() {
-  const { users, avatars, currentUser: me, loading, levels } = useAuth();
+  const { avatars, currentUser: me, levels, loading: authLoading } = useAuth();
+  const [rankingUsers, setRankingUsers] = useState<User[]>([]);
+  const [rankingLoading, setRankingLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchRanking = async () => {
+      setRankingLoading(true);
+      try {
+        const response = await fetch('/api/data');
+        if (!response.ok) {
+          throw new Error('No se pudo obtener el ranking');
+        }
+        const data = await response.json();
+        // Asumimos que la API devuelve un objeto con una propiedad "users"
+        const allUsers = data.users.map((u: any, index: number) => ({ ...u, id: index + 1, level: Number(u.level), xp: Number(u.xp) }));
+        setRankingUsers(allUsers);
+      } catch (error) {
+        console.error("Error fetching ranking:", error);
+        // Opcional: manejar el error en la UI
+      } finally {
+        setRankingLoading(false);
+      }
+    };
+
+    fetchRanking();
+  }, []);
   
+  const loading = authLoading || rankingLoading;
+
   if (loading) {
     return (
       <div className="space-y-8">
@@ -40,12 +69,13 @@ export default function RankingPage() {
     )
   }
   
-  if (!me || !users || !levels) {
+  if (!me || !levels) {
     return <div>Cargando ranking...</div>
   }
 
-  const sortedUsers = [...users].sort((a, b) => b.xp - a.xp);
-  const myRank = sortedUsers.findIndex(u => u.id === me.id) + 1;
+  const sortedUsers = [...rankingUsers].sort((a, b) => b.xp - a.xp);
+  // La tarjeta del usuario logueado sigue usando datos locales/de contexto
+  const myRank = sortedUsers.findIndex(u => u.email.toLowerCase() === me.email.toLowerCase()) + 1;
   const myLevel = levels.find(l => l.id === me.level);
 
   const getAvatar = (avatarName: string) => {
@@ -62,7 +92,7 @@ export default function RankingPage() {
       <Card className="sticky top-20 z-10 bg-primary text-primary-foreground shadow-lg">
         <CardContent className="p-6">
           <div className="flex items-center">
-            <div className="font-bold text-lg text-white w-[80px]">#{myRank}</div>
+            <div className="font-bold text-lg text-white w-[80px]">#{myRank > 0 ? myRank : '-'}</div>
             <div className="flex-grow flex items-center gap-4">
               <div className="p-1 bg-white/20 rounded-full w-12 h-12 flex items-center justify-center">
                 {getAvatar(me.avatar) && (
@@ -96,7 +126,7 @@ export default function RankingPage() {
               {sortedUsers.slice(0, 10).map((user, index) => {
                 const userLevel = levels.find(l => l.id === user.level);
                 return (
-                  <TableRow key={user.id} className={user.id === me.id ? 'bg-secondary/50' : ''}>
+                  <TableRow key={user.id} className={user.email.toLowerCase() === me.email.toLowerCase() ? 'bg-secondary/50' : ''}>
                     <TableCell className="font-bold text-lg text-muted w-[80px]">#{index + 1}</TableCell>
                     <TableCell>
                       <div className="flex items-center gap-4">
