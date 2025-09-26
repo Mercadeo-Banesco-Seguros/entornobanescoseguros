@@ -9,7 +9,7 @@ export default function InicioPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <Card className="bg-secondary/30 border-0 shadow-lg">
+      <Card className="border-0 shadow-none bg-transparent">
         <CardHeader className="text-center pb-4">
           <CardTitle className="text-3xl font-bold text-primary tracking-tight">
             La Búsqueda por Nuestro ADN
