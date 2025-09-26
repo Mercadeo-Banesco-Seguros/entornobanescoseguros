@@ -13,7 +13,7 @@ export default function InicioPage() {
     <div className="container mx-auto px-4 py-8">
       <div className="grid md:grid-cols-2 gap-12 items-center">
         <div className="space-y-6 text-center md:text-left">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground tracking-tight uppercase">
+          <h1 className="text-4xl md:text-5xl font-black text-foreground tracking-tight uppercase">
             La Búsqueda por Nuestro ADN
           </h1>
           <p className="text-sm text-muted-foreground">
