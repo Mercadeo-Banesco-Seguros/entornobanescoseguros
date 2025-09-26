@@ -1,41 +1,24 @@
-
 'use client';
 
-import ObjectivesSidebar from '@/components/dashboard/objectives-sidebar';
-import { Skeleton } from '@/components/ui/skeleton';
-import { useAuth } from '@/context/auth-context';
+import Image from 'next/image';
 
 export default function MisionesPage() {
-  const { tasks, loading } = useAuth();
-
-  if (loading) {
-    return (
-      <div className="space-y-8">
-        <header>
-          <h1 className="text-4xl font-bold text-foreground">Lista de Misiones</h1>
-          <p className="text-muted text-lg mt-1">
-            Aquí puedes ver todas tus misiones, completadas y pendientes.
-          </p>
-        </header>
-        <div className="space-y-3">
-          <Skeleton className="h-20 w-full" />
-          <Skeleton className="h-20 w-full" />
-          <Skeleton className="h-20 w-full" />
-          <Skeleton className="h-20 w-full" />
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="space-y-8">
-      <header>
-        <h1 className="text-4xl font-bold text-foreground">Lista de Misiones</h1>
-        <p className="text-muted text-lg mt-1">
-          Aquí puedes ver todas tus misiones, completadas y pendientes.
-        </p>
-      </header>
-      <ObjectivesSidebar tasks={tasks} />
+    <div className="flex flex-col items-center justify-center text-center h-full pt-10">
+      <Image
+        src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_lwc97dlwc97dlwc9-Photoroom.png?raw=true"
+        alt="Sección en construcción"
+        width={400}
+        height={400}
+        className="object-contain"
+        quality={100}
+      />
+      <h1 className="text-3xl font-bold text-foreground mt-8">
+        ¡Esta sección se está forjando!
+      </h1>
+      <p className="text-muted-foreground mt-2 max-w-md">
+        Nuestros mejores exploradores están trazando nuevas rutas y preparando misiones emocionantes para ti. ¡Vuelve pronto para descubrir los próximos desafíos!
+      </p>
     </div>
   );
 }
