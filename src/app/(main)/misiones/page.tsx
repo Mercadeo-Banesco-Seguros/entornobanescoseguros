@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 export default function MisionesPage() {
   return (
-    <div className="flex flex-col items-center text-center -mt-16">
+    <div className="flex flex-col items-center text-center -mt-24">
       <Image
         src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_lwc97dlwc97dlwc9-Photoroom.png?raw=true"
         alt="Sección en construcción"
@@ -17,7 +17,7 @@ export default function MisionesPage() {
         ¡Esta sección se está forjando!
       </h1>
       <p className="text-sm text-muted-foreground mt-2 max-w-md">
-        Nuestros mejores exploradores están trazando nuevas rutas y preparando misiones emocionantes para ti. ¡Vuelve pronto para descubrir los próximos desafíos!
+        Nuestros mejores exploradores están preparando misiones emocionantes para ti. ¡Vuelve pronto para descubrir los próximos desafíos!
       </p>
     </div>
   );
