@@ -10,8 +10,8 @@ import { useEffect, useState } from 'react';
 import type { User, Level, Avatar as AvatarType } from '@/lib/types';
 
 export default function RankingPage() {
-  const { currentUser: me } = useAuth(); // Solo tomamos el usuario actual del contexto
-  const [rankingData, setRankingData] = useState<{users: User[], levels: Level[], avatars: AvatarType[]}>({ users: [], levels: [], avatars: [] });
+  const { currentUser: me, levels: staticLevels, avatars: staticAvatars } = useAuth(); // Usamos los datos estáticos para el usuario actual y los assets
+  const [rankingUsers, setRankingUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -20,7 +20,6 @@ export default function RankingPage() {
       setLoading(true);
       setError(null);
       try {
-        // La llamada a la API ya está configurada en la ruta /api/data
         const response = await fetch('/api/data');
         if (!response.ok) {
           const errorData = await response.json();
@@ -29,17 +28,13 @@ export default function RankingPage() {
         const data = await response.json();
 
         if (data.error) {
-            throw new Error(data.message);
+          throw new Error(data.message);
         }
         
-        // Ahora obtenemos usuarios, niveles y avatares desde la API
+        // Asumimos que data.users contiene la lista de todos los usuarios del script
         const allUsers = data.users.map((u: any, index: number) => ({ ...u, id: index + 1, level: Number(u.level), xp: Number(u.xp) }));
         
-        setRankingData({
-            users: allUsers,
-            levels: data.levels,
-            avatars: data.avatars
-        });
+        setRankingUsers(allUsers);
 
       } catch (err: any) {
         console.error("Error fetching ranking:", err);
@@ -90,16 +85,16 @@ export default function RankingPage() {
     return <div>Cargando tus datos...</div>
   }
   
-  const { users: sortedUsers, levels, avatars } = {
-      ...rankingData,
-      users: [...rankingData.users].sort((a, b) => b.xp - a.xp)
-  };
+  const sortedUsers = [...rankingUsers].sort((a, b) => b.xp - a.xp);
 
+  // La tarjeta superior sigue usando 'me' (el usuario del contexto)
   const myRank = sortedUsers.findIndex(u => u.email.toLowerCase() === me.email.toLowerCase()) + 1;
-  const myLevel = levels.find(l => l.id === me.level);
+  const myLevel = staticLevels.find(l => l.id === me.level);
+  const myAvatar = staticAvatars.find(av => av.name === me.avatar);
+
 
   const getAvatar = (avatarName: string) => {
-    return avatars.find(av => av.name === avatarName);
+    return staticAvatars.find(av => av.name === avatarName);
   };
 
   return (
@@ -109,14 +104,15 @@ export default function RankingPage() {
         <p className="text-muted text-lg mt-1">Mira tu progreso y el de tus compañeros.</p>
       </header>
 
+      {/* Esta tarjeta usa 'me' del contexto, como antes */}
       <Card className="sticky top-20 z-10 bg-primary text-primary-foreground shadow-lg">
         <CardContent className="p-6">
           <div className="flex items-center">
             <div className="font-bold text-lg text-white w-[80px]">#{myRank > 0 ? myRank : '-'}</div>
             <div className="flex-grow flex items-center gap-4">
               <div className="p-1 bg-white/20 rounded-full w-12 h-12 flex items-center justify-center">
-                {getAvatar(me.avatar) && (
-                  <Image src={getAvatar(me.avatar)!.imageUrl} alt={me.avatar} width={40} height={40} className="object-contain" />
+                {myAvatar && (
+                  <Image src={myAvatar.imageUrl} alt={me.avatar} width={40} height={40} className="object-contain" />
                 )}
               </div>
               <div>
@@ -139,20 +135,22 @@ export default function RankingPage() {
         </CardContent>
       </Card>
       
+      {/* Esta tabla usa 'sortedUsers' que viene del fetch al script */}
       <Card>
         <CardContent className="p-0">
           <Table>
             <TableBody>
               {sortedUsers.slice(0, 10).map((user, index) => {
-                const userLevel = levels.find(l => l.id === user.level);
+                const userLevel = staticLevels.find(l => l.id === user.level);
+                const userAvatar = getAvatar(user.avatar);
                 return (
                   <TableRow key={user.id} className={user.email.toLowerCase() === me.email.toLowerCase() ? 'bg-secondary/50' : ''}>
                     <TableCell className="font-bold text-lg text-muted w-[80px]">#{index + 1}</TableCell>
                     <TableCell>
                       <div className="flex items-center gap-4">
                           <div className="p-1 bg-secondary rounded-full w-12 h-12 flex items-center justify-center">
-                            {getAvatar(user.avatar) && (
-                              <Image src={getAvatar(user.avatar)!.imageUrl} alt={user.avatar} width={32} height={32} className="object-contain" />
+                            {userAvatar && (
+                              <Image src={userAvatar.imageUrl} alt={user.avatar} width={32} height={32} className="object-contain" />
                             )}
                           </div>
                         <div>
