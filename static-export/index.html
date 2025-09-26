@@ -150,7 +150,7 @@
             }
 
             function renderDashboard() {
-                 const { currentUser, levels, avatars, tasks, placeholderImages } = appData;
+                 const { user: currentUser, levels, avatars, tasks, placeholderImages } = appData;
                  if (!currentUser) return '<p>Cargando datos del dashboard...</p>';
                  const userLevel = levels.find(l => l.id === currentUser.level);
                  const levelTasks = tasks.filter(t => t.level === currentUser.level);
@@ -281,7 +281,7 @@
             }
 
             function renderRanking() {
-                 const { users, avatars, currentUser, levels } = appData;
+                 const { users, avatars, user: currentUser, levels } = appData;
                  const sortedUsers = [...users].sort((a, b) => b.xp - a.xp);
                  const myRank = sortedUsers.findIndex(u => u.email === currentUser.email) + 1;
                  const myLevel = levels.find(l => l.id === currentUser.level);
@@ -352,7 +352,7 @@
             }
 
             function renderProfile() {
-                const { currentUser, tasks, avatars, levels } = appData;
+                const { user: currentUser, tasks, avatars, levels } = appData;
                 const completedTasksCount = tasks.filter(t => t.status === 'completed').length;
                 const currentAvatar = avatars.find(a => a.name === currentUser.avatar);
                 const currentLevel = levels.find(l => l.id === currentUser.level);
@@ -405,9 +405,7 @@
 
             function showPage(pageId) {
                 const container = document.getElementById('page-container');
-                if (!appData.currentUser && pageId !== 'ranking') {
-                    // Si no hay usuario y no estamos en la página de ranking, no hacer nada.
-                    // Esto evita errores si intentamos renderizar páginas que dependen del currentUser.
+                if (!appData.user) {
                     return;
                 }
                 container.innerHTML = pageRenderers[pageId] ? pageRenderers[pageId]() : '<p>Página no encontrada.</p>';
@@ -434,7 +432,7 @@
                 return;
             }
             
-            if (!data.currentUser) {
+            if (!data.user) { // Corrected from data.currentUser to data.user
                  loadingScreen.classList.add('hidden');
                  authErrorScreen.classList.remove('hidden');
                  authErrorMessage.textContent = 'Usuario no autorizado. Tu correo no se encuentra registrado en la hoja de cálculo de la expedición. Contacta al administrador.';
@@ -442,15 +440,19 @@
             }
 
             appData = data;
-            // Asegurar que las misiones siempre tengan status completed
+            // Rename currentUser to user to match the script's output for consistency
+            if (appData.currentUser) {
+                appData.user = appData.currentUser;
+                delete appData.currentUser;
+            }
+            // Ensure tasks always have 'completed' status
             appData.tasks = (appData.tasks || []).map(t => ({...t, status: 'completed'}));
-
 
             loadingScreen.classList.add('hidden');
             appElement.classList.remove('hidden');
             appElement.classList.add('flex');
 
-            renderHeader(appData.currentUser);
+            renderHeader(appData.user);
 
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', function(event) {
