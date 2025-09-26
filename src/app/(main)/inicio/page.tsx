@@ -28,7 +28,7 @@ export default function InicioPage() {
 
         <div className="flex justify-center">
           <Image
-            src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_89wnk889wnk889wn.png?raw=true"
+            src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_5wzjq95wzjq95wzj-Photoroom.png?raw=true"
             alt="Diario de la expedición"
             width={450}
             height={450}
