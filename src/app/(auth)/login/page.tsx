@@ -99,7 +99,7 @@ export default function LoginPage() {
             </form>
           </Form>
           <div className="mt-4 text-center text-sm">
-            ¿No tienes una cuenta?{\' \'}
+            ¿No tienes una cuenta?{' '}
             <Link href="/register" className="underline">
               Regístrate
             </Link>

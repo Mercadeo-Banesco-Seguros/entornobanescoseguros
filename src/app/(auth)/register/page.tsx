@@ -118,7 +118,7 @@ export default function RegisterPage() {
             </form>
           </Form>
           <div className="mt-4 text-center text-sm">
-            ¿Ya tienes una cuenta?{\' \'}
+            ¿Ya tienes una cuenta?{' '}
             <Link href="/login" className="underline">
               Inicia sesión
             </Link>
