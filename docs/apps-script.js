@@ -15,12 +15,18 @@ const SHEET_NAMES = {
 const spreadsheet = SpreadsheetApp.openByUrl(SPREADSHEET_URL);
 
 /**
- * Función principal que maneja las peticiones POST.
+ * Función principal que maneja las peticiones POST para compatibilidad con el proxy y el sitio estático.
  */
 function doPost(e) {
+  let requestData;
   try {
     // Parsea el cuerpo de la petición que viene como un string JSON.
-    const requestData = JSON.parse(e.postData.contents);
+    requestData = JSON.parse(e.postData.contents);
+  } catch (error) {
+    return createJsonResponse({ error: true, message: "Petición inválida. Se esperaba un JSON." });
+  }
+
+  try {
     const action = requestData.action;
 
     switch (action) {
@@ -29,7 +35,7 @@ function doPost(e) {
       case 'login':
         return handleLogin(requestData);
       case 'getData':
-         // Aunque getData usualmente es GET, lo manejamos aquí por consistencia del proxy.
+         // Se maneja getData vía POST para consistencia del proxy.
         return handleGetData(requestData);
       default:
         return createJsonResponse({ error: true, message: "Acción no reconocida." });
@@ -41,8 +47,8 @@ function doPost(e) {
 }
 
 /**
- * La función doGet ahora se usa específicamente para peticiones GET simples.
- * El frontend estático no la usará, pero es bueno mantenerla por si se prueba la URL directamente.
+ * La función doGet se mantiene para pruebas directas de la URL.
+ * El frontend no la usará directamente.
  */
 function doGet(e) {
     if (e.parameter && e.parameter.action === 'getData') {
@@ -73,7 +79,15 @@ function handleRegister(data) {
     return createJsonResponse({ error: true, message: "El correo electrónico ya está registrado." });
   }
   
+  // Añade el nuevo usuario a la hoja USUARIOS
   usersSheet.appendRow([name, email, password, 'Explorador', 1, 0]);
+
+  // También añade el usuario a la hoja DATA para el ranking
+  const dataSheet = spreadsheet.getSheetByName(SHEET_NAMES.DATA);
+  if (dataSheet) {
+      dataSheet.appendRow([name, email, 'No especificado', 0, 1, 'Explorador']);
+  }
+
 
   return createJsonResponse({ success: true, message: "Usuario registrado exitosamente." });
 }
@@ -103,13 +117,28 @@ function handleLogin(data) {
     return createJsonResponse({ error: true, message: "Credenciales inválidas." });
   }
   
+  // Se obtiene la información pública del usuario desde la hoja DATA para asegurar consistencia.
+  const dataSheet = spreadsheet.getSheetByName(SHEET_NAMES.DATA);
+  let publicData = { avatar: 'Explorador', xp: 0, level: 1 }; // Default values
+
+  if(dataSheet) {
+    const dataUsers = getSheetData(dataSheet);
+    const publicUserRow = dataUsers.find(u => u['correo'] && u['correo'].toString().toLowerCase() === email.toLowerCase());
+    if(publicUserRow) {
+      publicData.avatar = publicUserRow['avatar'] || 'Explorador';
+      publicData.xp = parseInt(publicUserRow['puntaje'], 10) || 0;
+      publicData.level = parseInt(publicUserRow['nivel'], 10) || 1;
+    }
+  }
+
+
   const userData = {
       id: userRow['correo'],
       name: userRow['nombre'],
       email: userRow['correo'],
-      level: parseInt(userRow['nivel'], 10) || 1,
-      xp: parseInt(userRow['puntaje'], 10) || 0,
-      avatar: userRow['avatar'] || 'Explorador'
+      level: publicData.level,
+      xp: publicData.xp,
+      avatar: publicData.avatar
   };
 
   return createJsonResponse({ success: true, user: userData });
@@ -138,10 +167,12 @@ function handleGetData(params) {
 
 /**
  * Función de utilidad para convertir una hoja en un array de objetos.
+ * Los encabezados se convierten a minúsculas para consistencia.
  */
 function getSheetData(sheet) {
   if (!sheet) return [];
   const range = sheet.getDataRange();
+  // Comienza desde la fila 2 si hay encabezados
   if (range.getNumRows() < 2) return [];
 
   const rows = range.getValues();
@@ -150,7 +181,10 @@ function getSheetData(sheet) {
   return rows.map(row => {
     const rowData = {};
     headers.forEach((header, index) => {
-      rowData[header] = row[index];
+      // Asegurarse de que la propiedad del objeto exista antes de asignarla
+      if(header){
+        rowData[header] = row[index];
+      }
     });
     return rowData;
   });
@@ -159,6 +193,10 @@ function getSheetData(sheet) {
 
 /**
  * Función de utilidad para crear una respuesta JSON estándar.
+ * Esto asegura que todas las respuestas del script tengan el formato y header correctos.
  */
 function createJsonResponse(data) {
   return ContentService
+    .createTextOutput(JSON.stringify(data))
+    .setMimeType(ContentService.MimeType.JSON);
+}
