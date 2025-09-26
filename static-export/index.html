@@ -108,9 +108,15 @@ document.addEventListener('DOMContentLoaded', function() {
     function renderApp() {
         const userJson = localStorage.getItem('currentUser');
         if (userJson) {
-            state.currentUser = JSON.parse(userJson);
-            const hash = window.location.hash.substring(1) || 'dashboard';
-            renderMainLayout(hash);
+            try {
+                state.currentUser = JSON.parse(userJson);
+                const hash = window.location.hash.substring(1) || 'dashboard';
+                renderMainLayout(hash);
+            } catch (e) {
+                console.error("Failed to parse user JSON", e);
+                localStorage.removeItem('currentUser');
+                renderLoginPage();
+            }
         } else {
             const hash = window.location.hash.substring(1);
             if(hash === 'register') {
@@ -207,7 +213,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="flex items-center justify-between h-24">
                         <a href="#dashboard" id="home-link" class="flex items-center space-x-3 text-white hover:text-white/90 transition-colors">
                             <img src="https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/BANESCO%20LOGO%20BLANCO.png" alt="Banesco Seguros Logo" class="w-5 h-5"/>
-                            <span class="font-bold text-xl hidden sm:inline tracking-tighter">CONECTAD2S</span>
+                            <img src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(4).png?raw=true" alt="CONECTAD2S Logo" class="h-5 hidden sm:inline" />
                         </a>
                         <div class="hidden md:block">
                             <div id="nav-links" class="ml-10 flex items-baseline space-x-6">
@@ -446,9 +452,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function handleNavClick(event) {
-        if (event.target.closest('a')?.dataset.page) {
+        const link = event.target.closest('a');
+        if (link && link.dataset.page) {
             event.preventDefault();
-            const page = event.target.closest('a').dataset.page;
+            const page = link.dataset.page;
             window.location.hash = page;
             navigate(page);
         }
@@ -526,11 +533,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- INITIALIZATION ---
     renderApp();
-    window.addEventListener('hashchange', renderApp);
+    window.addEventListener('hashchange', () => renderApp());
 });
 </script>
 
 </body>
 </html>
-
-    

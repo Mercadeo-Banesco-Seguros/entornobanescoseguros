@@ -34,7 +34,13 @@ export default function Header() {
                 width={20}
                 height={20}
               />
-              <span className="font-bold text-xl hidden sm:inline tracking-tighter">CONECTAD2S</span>
+               <Image 
+                src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(4).png?raw=true"
+                alt="CONECTAD2S Logo"
+                width={120}
+                height={20}
+                className="hidden sm:inline"
+              />
             </Link>
           </div>
           <div className="hidden md:block">
