@@ -22,6 +22,7 @@
             --muted: #888888;
             --muted-foreground: #737373;
             --border: #e2e8f0;
+            --destructive: #dc2626;
         }
         body {
             font-family: 'Poppins', sans-serif;
@@ -30,6 +31,7 @@
         }
         .bg-primary { background-color: var(--primary); }
         .text-primary { color: var(--primary); }
+        .text-destructive { color: var(--destructive); }
         .text-primary-foreground { color: var(--primary-foreground); }
         .bg-secondary { background-color: var(--secondary); }
         .text-muted-foreground { color: var(--muted-foreground); }
@@ -58,7 +60,7 @@
     </div>
     
     <div id="auth-error-screen" class="w-full h-screen flex-col items-center justify-center bg-background fixed top-0 left-0 z-50 hidden">
-        <h1 class="text-2xl font-bold text-destructive">Acceso Denegado</h1>
+        <h1 class="text-2xl font-bold text-destructive">Error al Cargar Datos</h1>
         <p id="auth-error-message" class="mt-2 text-muted-foreground text-center max-w-md"></p>
     </div>
 
@@ -97,7 +99,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', async function() {
-            // URL del script de Google que obtiene TODOS los datos
+            // URL del script de Google que obtiene TODOS los datos (incluyendo el ranking)
             const appsScriptUrl = "https://script.google.com/macros/s/AKfycbxRHVaNZ9AiiVfzG6JQ_0ueYiEmktL9RZlcGOfFgQo6yTIsAY-TKBtbV7lxvsL5rmQ_Mg/exec";
 
             const appElement = document.getElementById('app');
@@ -114,6 +116,7 @@
                     return { error: 'La URL de Apps Script no está configurada.' };
                 }
                 try {
+                    // Esta llamada ahora solo obtiene datos, no autentica.
                     const response = await fetch(appsScriptUrl);
                     if (!response.ok) {
                       const errorText = await response.text();
@@ -123,6 +126,11 @@
                     if (data.error) {
                         return { error: data.message };
                     }
+                    
+                    // Se usa un usuario de ejemplo localmente.
+                    const localUser = data.users.find(u => u.email.toLowerCase() === 'carlos.rodriguez@example.com') || data.users[0];
+                    data.currentUser = localUser; // Adjuntamos el usuario de ejemplo a los datos.
+                    
                     return data;
                 } catch (error) {
                     console.error('Error fetching data from Apps Script:', error);
@@ -150,7 +158,7 @@
             }
 
             function renderDashboard() {
-                 const { user: currentUser, levels, avatars, tasks, placeholderImages } = appData;
+                 const { currentUser, levels, avatars, tasks, placeholderImages } = appData;
                  if (!currentUser) return '<p>Cargando datos del dashboard...</p>';
                  const userLevel = levels.find(l => l.id === currentUser.level);
                  const levelTasks = tasks.filter(t => t.level === currentUser.level);
@@ -281,7 +289,7 @@
             }
 
             function renderRanking() {
-                 const { users, avatars, user: currentUser, levels } = appData;
+                 const { users, avatars, currentUser, levels } = appData;
                  const sortedUsers = [...users].sort((a, b) => b.xp - a.xp);
                  const myRank = sortedUsers.findIndex(u => u.email === currentUser.email) + 1;
                  const myLevel = levels.find(l => l.id === currentUser.level);
@@ -352,7 +360,7 @@
             }
 
             function renderProfile() {
-                const { user: currentUser, tasks, avatars, levels } = appData;
+                const { currentUser, tasks, avatars, levels } = appData;
                 const completedTasksCount = tasks.filter(t => t.status === 'completed').length;
                 const currentAvatar = avatars.find(a => a.name === currentUser.avatar);
                 const currentLevel = levels.find(l => l.id === currentUser.level);
@@ -405,7 +413,8 @@
 
             function showPage(pageId) {
                 const container = document.getElementById('page-container');
-                if (!appData.user) {
+                if (!appData.currentUser) {
+                    container.innerHTML = '<p>Cargando datos...</p>';
                     return;
                 }
                 container.innerHTML = pageRenderers[pageId] ? pageRenderers[pageId]() : '<p>Página no encontrada.</p>';
@@ -432,27 +441,15 @@
                 return;
             }
             
-            if (!data.user) { // Corrected from data.currentUser to data.user
-                 loadingScreen.classList.add('hidden');
-                 authErrorScreen.classList.remove('hidden');
-                 authErrorMessage.textContent = 'Usuario no autorizado. Tu correo no se encuentra registrado en la hoja de cálculo de la expedición. Contacta al administrador.';
-                 return;
-            }
-
             appData = data;
-            // Rename currentUser to user to match the script's output for consistency
-            if (appData.currentUser) {
-                appData.user = appData.currentUser;
-                delete appData.currentUser;
-            }
-            // Ensure tasks always have 'completed' status
+            // Asegurar que las tareas siempre tengan 'completed' status
             appData.tasks = (appData.tasks || []).map(t => ({...t, status: 'completed'}));
 
             loadingScreen.classList.add('hidden');
             appElement.classList.remove('hidden');
             appElement.classList.add('flex');
 
-            renderHeader(appData.user);
+            renderHeader(appData.currentUser);
 
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', function(event) {
@@ -475,3 +472,5 @@
 
 </body>
 </html>
+
+    

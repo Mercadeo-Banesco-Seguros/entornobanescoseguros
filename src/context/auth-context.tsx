@@ -26,36 +26,41 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
-  const [tasks, setTasks] = useState<Task[]>(defaultTasks);
-  const [levels, setLevels] = useState<Level[]>(defaultLevels);
-  const [avatars, setAvatars] = useState<Avatar[]>(defaultAvatars);
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [levels, setLevels] = useState<Level[]>([]);
+  const [avatars, setAvatars] = useState<Avatar[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Simula la carga de datos locales y de un usuario de ejemplo
-    setLoading(true);
-    try {
-      const userToLoad = users.find(u => u.email.toLowerCase() === currentUserEmail.toLowerCase());
-      
-      if (userToLoad) {
-        setCurrentUser(userToLoad);
-      } else {
-        // Si por alguna razón el usuario de ejemplo no se encuentra, carga el primero
-        setCurrentUser(users[0] || null);
-      }
-      
-      setTasks(defaultTasks);
-      setLevels(defaultLevels);
-      setAvatars(defaultAvatars);
+    const loadData = () => {
+      setLoading(true);
+      try {
+        // Carga el usuario de ejemplo directamente desde los datos locales
+        const userToLoad = users.find(u => u.email.toLowerCase() === currentUserEmail.toLowerCase());
+        
+        if (userToLoad) {
+          setCurrentUser(userToLoad);
+        } else {
+          // Si no se encuentra, carga el primer usuario como fallback
+          setCurrentUser(users[0] || null);
+        }
 
-    } catch (err: any) {
-      setError("Error cargando datos de ejemplo.");
-      console.error(err);
-    } finally {
-      // Simula un pequeño retraso para la carga
-      setTimeout(() => setLoading(false), 500);
-    }
+        // Carga los datos estáticos (misiones, niveles, avatares)
+        setTasks(defaultTasks);
+        setLevels(defaultLevels);
+        setAvatars(defaultAvatars);
+        setError(null);
+      } catch (err: any) {
+        setError("Error cargando los datos de ejemplo.");
+        console.error(err);
+      } finally {
+        // Simula un pequeño retraso para la carga, para que la UI no parpadee
+        setTimeout(() => setLoading(false), 500);
+      }
+    };
+    
+    loadData();
   }, []);
 
   const value = useMemo(() => ({
@@ -73,6 +78,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         <div className="flex flex-col items-center gap-2">
           <Skeleton className="h-12 w-12 rounded-full" />
           <p className="text-muted-foreground mt-4">Cargando datos de la expedición...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="w-full h-screen flex items-center justify-center">
+        <div className="flex flex-col items-center gap-2 text-center">
+           <p className="text-destructive font-semibold">Error al cargar la aplicación</p>
+           <p className="text-muted-foreground">{error}</p>
         </div>
       </div>
     );
