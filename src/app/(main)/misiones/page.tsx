@@ -16,7 +16,7 @@ export default function MisionesPage() {
       <h1 className="text-3xl font-bold text-foreground mt-8">
         ¡Esta sección se está forjando!
       </h1>
-      <p className="text-muted-foreground mt-2 max-w-md">
+      <p className="text-sm text-muted-foreground mt-2 max-w-md">
         Nuestros mejores exploradores están trazando nuevas rutas y preparando misiones emocionantes para ti. ¡Vuelve pronto para descubrir los próximos desafíos!
       </p>
     </div>
