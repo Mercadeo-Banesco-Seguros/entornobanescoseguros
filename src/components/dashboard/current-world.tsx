@@ -30,30 +30,32 @@ export default function CurrentWorld({ currentUser, levels }: CurrentWorldProps)
   return (
     <Card className="h-full border-0 shadow-none">
       <CardContent className="flex flex-col items-center text-center gap-8 pt-6 h-full">
-        <div className="flex-grow flex items-center justify-center w-full h-96">
-            <div className="flex items-center gap-8">
-                <div className="relative w-96 h-96 rounded-lg flex items-center justify-center">
-                    {worldImage ? (
-                        <Image
-                            src={worldImage.imageUrl}
-                            alt={selectedLevel.worldName}
-                            fill
-                            quality={100}
-                            className={cn(
-                                'object-contain',
-                                !isSelectedLevelUnlocked && "grayscale"
-                            )}
-                            data-ai-hint={worldImage.imageHint}
-                        />
-                    ) : (
-                    <div className="w-full h-full bg-gray-200 rounded-lg" />
-                    )}
-                </div>
-                 <div className={cn("w-64 text-left", !isSelectedLevelUnlocked && 'opacity-50')}>
-                    <h3 className="text-base font-semibold">{selectedLevel.worldName}</h3>
-                    <p className="text-xs text-muted-foreground mt-1">{selectedLevel.story}</p>
-                </div>
-            </div>
+        <div className="flex-grow flex flex-col md:flex-row items-center justify-center h-96 w-full md:gap-4">
+            {selectedLevel && (
+                <>
+                  <div className="relative w-96 h-96">
+                      {worldImage ? (
+                          <Image
+                              src={worldImage.imageUrl}
+                              alt={selectedLevel.worldName}
+                              fill
+                              quality={100}
+                              className={cn(
+                                  'object-contain',
+                                  !isSelectedLevelUnlocked && "grayscale"
+                              )}
+                              data-ai-hint={worldImage.imageHint}
+                          />
+                      ) : (
+                      <div className="w-full h-full bg-gray-200 rounded-lg" />
+                      )}
+                  </div>
+                   <div className={cn("w-64 text-center md:text-left", !isSelectedLevelUnlocked && 'opacity-50')}>
+                      <h3 className="text-base font-semibold">{selectedLevel.worldName}</h3>
+                      <p className="text-xs text-muted-foreground mt-1">{selectedLevel.story}</p>
+                  </div>
+                </>
+            )}
         </div>
         <div className="flex items-end justify-center space-x-4 w-full">
             {allLevels.map(level => {
