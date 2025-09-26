@@ -78,7 +78,7 @@ export default function RankingPage() {
               </div>
               <div>
                 <p className="font-semibold text-base">{me.name} (Tú)</p>
-                <p className="text-xs text-primary-foreground/80">{me.avatar} • {me.xp.toLocaleString()} CONECTCOINS</p>
+                <p className="text-xs text-primary-foreground/80">{me.avatar}</p>
               </div>
             </div>
             <div className="text-center w-48">
