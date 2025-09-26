@@ -30,7 +30,7 @@ export default function CurrentWorld({ currentUser, levels }: CurrentWorldProps)
   return (
     <Card className="h-full border-0 shadow-none">
       <CardContent className="flex flex-col items-center text-center gap-8 pt-6 h-full">
-        <div className="flex-grow flex flex-col md:flex-row items-center justify-center h-80 w-full md:gap-4">
+        <div className="flex-grow flex flex-col md:flex-row items-center justify-center h-96 w-full md:gap-4">
             {selectedLevel && (
                 <>
                   <div className="relative w-80 h-80">
