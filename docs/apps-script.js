@@ -16,14 +16,11 @@ const spreadsheet = SpreadsheetApp.openByUrl(SPREADSHEET_URL);
 
 /**
  * Función principal que maneja las peticiones POST.
- * Todas las peticiones (GET/POST) desde el proxy de Next.js se convierten en POST.
  */
 function doPost(e) {
   try {
-    // e.postData.contents contiene el cuerpo de la petición como un string JSON.
+    // Parsea el cuerpo de la petición que viene como un string JSON.
     const requestData = JSON.parse(e.postData.contents);
-    
-    // Obtener la acción del cuerpo de la petición.
     const action = requestData.action;
 
     switch (action) {
@@ -32,12 +29,9 @@ function doPost(e) {
       case 'login':
         return handleLogin(requestData);
       case 'getData':
+         // Aunque getData usualmente es GET, lo manejamos aquí por consistencia del proxy.
         return handleGetData(requestData);
       default:
-        // Si la acción no es reconocida, o si es una petición GET simple sin 'action'.
-        if (e.parameter && e.parameter.action === 'getData') {
-          return handleGetData(e.parameter);
-        }
         return createJsonResponse({ error: true, message: "Acción no reconocida." });
     }
   } catch (error) {
@@ -47,17 +41,19 @@ function doPost(e) {
 }
 
 /**
- * La función doGet ahora simplemente redirige a doPost,
- * ya que el proxy maneja todas las solicitudes como POST.
+ * La función doGet ahora se usa específicamente para peticiones GET simples.
+ * El frontend estático no la usará, pero es bueno mantenerla por si se prueba la URL directamente.
  */
 function doGet(e) {
-    return handleGetData(e.parameter);
+    if (e.parameter && e.parameter.action === 'getData') {
+        return handleGetData(e.parameter);
+    }
+    return createJsonResponse({ info: true, message: "El script está activo. Usa peticiones POST para interactuar." });
 }
 
 
 /**
  * Maneja el registro de un nuevo usuario.
- * Solo añade el nombre, email y contraseña a la hoja USUARIOS.
  */
 function handleRegister(data) {
   const { name, email, password } = data;
@@ -76,10 +72,8 @@ function handleRegister(data) {
   if (userExists) {
     return createJsonResponse({ error: true, message: "El correo electrónico ya está registrado." });
   }
-
-  // Añadir únicamente los datos de registro a la hoja USUARIOS.
-  // Se asume que las columnas Avatar, Nivel y Puntaje se llenarán automáticamente (ej. con VLOOKUP).
-  usersSheet.appendRow([name, email, password]);
+  
+  usersSheet.appendRow([name, email, password, 'Explorador', 1, 0]);
 
   return createJsonResponse({ success: true, message: "Usuario registrado exitosamente." });
 }
@@ -109,16 +103,13 @@ function handleLogin(data) {
     return createJsonResponse({ error: true, message: "Credenciales inválidas." });
   }
   
-  // Usar los nombres de columna en minúsculas como los devuelve getSheetData.
-  // El script ahora simplemente lee los valores de nivel, puntaje y avatar,
-  // asumiendo que ya están poblados en la hoja.
   const userData = {
-      id: userRow['correo'], // Usamos el correo como ID único
+      id: userRow['correo'],
       name: userRow['nombre'],
       email: userRow['correo'],
-      level: parseInt(userRow['nivel'], 10) || 1, // Valor por defecto si está vacío
-      xp: parseInt(userRow['puntaje'], 10) || 0, // Valor por defecto si está vacío
-      avatar: userRow['avatar'] || 'Explorador' // Valor por defecto si está vacío
+      level: parseInt(userRow['nivel'], 10) || 1,
+      xp: parseInt(userRow['puntaje'], 10) || 0,
+      avatar: userRow['avatar'] || 'Explorador'
   };
 
   return createJsonResponse({ success: true, user: userData });
@@ -134,7 +125,6 @@ function handleGetData(params) {
         return createJsonResponse({ error: true, message: `La hoja "${SHEET_NAMES.DATA}" no fue encontrada.` });
     }
     const data = {
-      // El nombre de la propiedad 'users' es importante para el frontend.
       users: getSheetData(dataSheet),
       error: false
     };
@@ -148,7 +138,6 @@ function handleGetData(params) {
 
 /**
  * Función de utilidad para convertir una hoja en un array de objetos.
- * Limpia los encabezados de espacios en blanco y los convierte a minúsculas.
  */
 function getSheetData(sheet) {
   if (!sheet) return [];
@@ -172,6 +161,4 @@ function getSheetData(sheet) {
  * Función de utilidad para crear una respuesta JSON estándar.
  */
 function createJsonResponse(data) {
-  return ContentService.createTextOutput(JSON.stringify(data))
-    .setMimeType(ContentService.MimeType.JSON);
-}
+  return ContentService

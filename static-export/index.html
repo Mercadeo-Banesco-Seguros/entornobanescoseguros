@@ -376,17 +376,16 @@ document.addEventListener('DOMContentLoaded', function() {
         errorContainer.classList.add('hidden');
 
         try {
-            const response = await fetch(appsScriptUrl, {
+             const response = await fetch(appsScriptUrl, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'text/plain;charset=utf-8',
-                },
                 body: JSON.stringify({ 
                     action: 'login', 
                     email: form.email.value, 
                     password: form.password.value 
                 }),
-                redirect: 'follow'
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             });
 
             const data = await response.json();
@@ -424,16 +423,15 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             const response = await fetch(appsScriptUrl, {
                 method: 'POST',
-                headers: {
-                   'Content-Type': 'text/plain;charset=utf-8',
-                },
                 body: JSON.stringify({ 
                     action: 'register', 
                     name: form.name.value,
                     email: form.email.value, 
                     password: form.password.value 
                 }),
-                redirect: 'follow'
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             });
 
             const data = await response.json();
@@ -473,7 +471,11 @@ document.addEventListener('DOMContentLoaded', function() {
             case 'misiones': renderPlaceholderPage('Misiones'); break;
             case 'ranking': 
                 renderRankingLoading();
-                fetch(appsScriptUrl + '?action=getData')
+                 fetch(appsScriptUrl, {
+                    method: 'POST',
+                    body: JSON.stringify({ action: 'getData' }),
+                    headers: { 'Content-Type': 'application/json' }
+                })
                     .then(res => res.json())
                     .then(data => {
                         if (data.error) throw new Error(data.message);
@@ -582,5 +584,3 @@ document.addEventListener('DOMContentLoaded', function() {
 
 </body>
 </html>
-
-    
