@@ -35,7 +35,7 @@ export default function Header() {
                 height={20}
               />
                <Image 
-                src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(4).png?raw=true"
+                src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Texto%20del%20p%C3%A1rrafo-Photoroom.png?raw=true"
                 alt="CONECTAD2S Logo"
                 width={120}
                 height={20}
