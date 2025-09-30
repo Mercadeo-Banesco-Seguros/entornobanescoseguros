@@ -1,5 +1,5 @@
-import { Trophy, User as UserIcon, LucideIcon, Rocket, ClipboardList, Home } from 'lucide-react';
-import type { User, Task, Avatar, NavLink, Level } from './types';
+import { Trophy, User as UserIcon, LucideIcon, Rocket, ClipboardList, Home, Store } from 'lucide-react';
+import type { User, Task, Avatar, NavLink, Level, Prize } from './types';
 
 export const avatars: Avatar[] = [
   { id: 1, name: 'Explorador', level: 1, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/AVATAR%20HOMBRE1.png?raw=true', description: 'Eres el héroe que inicia la aventura. Llevas tu mochila con provisiones, ropa resistente y un espíritu aventurero. Tu misión es aprender, observar y demostrar tu compromiso con los valores de Banesco Seguros. Cada acción que realices te permitirá ganar ConnectCoins, puntos que te acercarán a recompensas de nivel bronce, plata, oro o diamante. ¡Tú decides! 👀.' },
@@ -26,4 +26,12 @@ export const navLinks: NavLink[] = [
     { href: '/dashboard', label: 'Tablero', icon: Rocket },
     { href: '/misiones', label: 'Misiones', icon: ClipboardList },
     { href: '/ranking', label: 'Ranking', icon: Trophy },
+    { href: '/cajero', label: 'Cajero', icon: Store },
+];
+
+export const prizes: Prize[] = [
+  { id: 1, name: 'Taza de Explorador', description: 'Una taza de cerámica para tus bebidas calientes.', cost: 100, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/taza.png?raw=true' },
+  { id: 2, name: 'Gorra de Aventurero', description: 'Una gorra resistente para tus expediciones.', cost: 250, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/gorra.png?raw=true' },
+  { id: 3, name: 'Botella de Agua "Maestro"', description: 'Mantente hidratado en tus aventuras más largas.', cost: 500, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/botella.png?raw=true' },
+  { id: 4, name: 'Sudadera "Leyenda"', description: 'Una sudadera cómoda y con estilo para el explorador definitivo.', cost: 1000, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true' },
 ];

@@ -42,3 +42,11 @@ export type NavLink = {
   label: string;
   icon: LucideIcon;
 };
+
+export type Prize = {
+  id: number;
+  name: string;
+  description: string;
+  cost: number;
+  imageUrl: string;
+};

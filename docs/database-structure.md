@@ -2,7 +2,7 @@
 
 Para que el Google Apps Script funcione correctamente, tu hoja de cálculo debe contener exactamente las siguientes hojas (pestañas) y columnas. Los nombres deben ser idénticos y sin espacios adicionales.
 
-### Hoja: `USUARIOS` (NUEVA)
+### Hoja: `USUARIOS`
 
 Contiene la información de autenticación de cada usuario.
 
@@ -11,9 +11,6 @@ Contiene la información de autenticación de cada usuario.
 | `Nombre` | Nombre completo del usuario. | `Carlos Rodríguez` |
 | `Correo` | Correo electrónico del usuario (único). | `carlos.rodriguez@example.com` |
 | `Contraseña` | Contraseña elegida por el usuario. | `secreto123` |
-| `Avatar` | Nombre del avatar inicial del usuario. | `Explorador` |
-| `Nivel` | Nivel inicial del usuario. | `1` |
-| `Puntaje` | Puntaje inicial del usuario (CONECTCOINS). | `0` |
 
 ---
 
@@ -78,3 +75,28 @@ Contiene las URLs de las imágenes para los mundos.
 | `description` | Descripción de la imagen.                 | `Las Selvas Exteriores`                   |
 | `imageUrl`  | URL de la imagen.                         | `https://.../primer%20nivel.png?raw=true` |
 | `imageHint` | Pista para la IA (opcional).              | `jungle ruins`                            |
+
+### Hoja: `Premios` (NUEVA)
+
+Contiene los premios disponibles para canjear en el "Cajero".
+
+| Columna     | Descripción                               | Ejemplo                                   |
+| :---------- | :---------------------------------------- | :---------------------------------------- |
+| `id`        | ID único del premio.                      | `1`                                       |
+| `name`      | Nombre del premio.                        | `Taza de Explorador`                      |
+| `description` | Descripción del premio.                   | `Una taza para tus bebidas calientes.`    |
+| `cost`      | Costo en CONECTCOINS.                     | `100`                                     |
+| `imageUrl`  | URL de la imagen del premio.              | `https://.../taza.png?raw=true`           |
+
+### Hoja: `Canjes` (NUEVA)
+
+Registra cada vez que un usuario canjea un premio.
+
+| Columna     | Descripción                               | Ejemplo                        |
+| :---------- | :---------------------------------------- | :----------------------------- |
+| `idCanje`   | ID único del canje (puede ser un timestamp). | `1678886400000`                |
+| `correoUsuario` | Correo del usuario que hizo el canje.     | `carlos.rodriguez@example.com` |
+| `idPremio`  | ID del premio canjeado.                   | `1`                            |
+| `nombrePremio` | Nombre del premio canjeado.               | `Taza de Explorador`           |
+| `costo`     | Costo del premio en CONECTCOINS.          | `100`                          |
+| `fecha`     | Fecha y hora del canje.                   | `2023-03-15 12:00:00`          |
