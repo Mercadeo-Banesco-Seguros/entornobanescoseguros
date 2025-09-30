@@ -13,7 +13,7 @@ import type { Prize } from '@/lib/types';
 import { jsPDF } from "jspdf";
 
 export default function CajeroPage() {
-  const { currentUser, loading } = useAuth();
+  const { currentUser, levels, avatars, loading } = useAuth();
   const [selectedPrize, setSelectedPrize] = useState<Prize | null>(null);
   const [isRedeemDialogOpen, setIsRedeemDialogOpen] = useState(false);
   const [isTicketDialogOpen, setIsTicketDialogOpen] = useState(false);
@@ -71,6 +71,11 @@ export default function CajeroPage() {
           <h1 className="text-4xl font-bold text-foreground">Cajero de Premios</h1>
           <p className="text-muted text-lg mt-1">Canjea tus CONECTCOINS por premios increíbles.</p>
         </header>
+         <Card className="sticky top-20 z-10">
+          <CardContent className="p-6">
+            <Skeleton className="h-12 w-full" />
+          </CardContent>
+        </Card>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {[...Array(4)].map((_, i) => (
             <Card key={i} className="flex flex-col">
@@ -90,6 +95,9 @@ export default function CajeroPage() {
       </div>
     );
   }
+  
+  const myLevel = levels.find(l => l.id === currentUser.level);
+  const myAvatar = avatars.find(av => av.name === currentUser.avatar);
 
   return (
     <div className="space-y-8">
@@ -97,6 +105,35 @@ export default function CajeroPage() {
         <h1 className="text-4xl font-bold text-foreground">Cajero de Premios</h1>
         <p className="text-muted text-lg mt-1">Canjea tus <span className="font-bold text-primary">{currentUser.xp.toLocaleString()} CONECTCOINS</span> por premios increíbles.</p>
       </header>
+      
+      <Card className="sticky top-20 z-10 bg-primary text-primary-foreground shadow-lg">
+        <CardContent className="p-6">
+          <div className="flex items-center">
+            <div className="flex-grow flex items-center gap-4">
+              <div className="p-1 bg-white/20 rounded-full w-12 h-12 flex items-center justify-center">
+                {myAvatar && (
+                  <Image src={myAvatar.imageUrl} alt={currentUser.avatar} width={40} height={40} className="object-contain" />
+                )}
+              </div>
+              <div>
+                <p className="font-semibold text-base">{currentUser.name} (Tú)</p>
+                <p className="text-xs text-primary-foreground/80">{currentUser.avatar}</p>
+              </div>
+            </div>
+            <div className="text-center w-48">
+              {myLevel && (
+                <span className="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full border">
+                  {myLevel.worldName}
+                </span>
+              )}
+            </div>
+            <div className="text-right w-48 flex items-baseline justify-end gap-1.5">
+              <span className="text-2xl font-bold">{currentUser.xp.toLocaleString()}</span>
+              <span className="text-xs font-normal text-primary-foreground/80">CONECTCOINS</span>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {prizes.map((prize) => {
