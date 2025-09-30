@@ -26,7 +26,7 @@ export const navLinks: NavLink[] = [
     { href: '/dashboard', label: 'Tablero', icon: Rocket },
     { href: '/misiones', label: 'Misiones', icon: ClipboardList },
     { href: '/ranking', label: 'Ranking', icon: Trophy },
-    { href: '/cajero', label: 'Cajero', icon: Store },
+    { href: '/cajero', label: 'Reliquias', icon: Store },
 ];
 
 export const prizes: Prize[] = [
