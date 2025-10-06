@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -13,6 +12,13 @@ import { Ticket, Coins, ArrowUpRight, Diamond, Award, Shield, Gem } from 'lucide
 import type { Prize, PrizeCategory } from '@/lib/types';
 import { jsPDF } from "jspdf";
 import { cn } from '@/lib/utils';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
 
 const categoryConfig: Record<PrizeCategory, { icon: React.ElementType, color: string }> = {
   'Diamante': { icon: Diamond, color: 'text-blue-400' },
@@ -77,57 +83,65 @@ export default function CajeroPage() {
   const renderPrizeCategory = (category: PrizeCategory) => {
     const categoryPrizes = prizes.filter(p => p.category === category);
     const CategoryIcon = categoryConfig[category].icon;
-    const categoryColor = categoryConfig[category].color;
 
     return (
-      <div key={category} className="space-y-6">
-        <div className="flex items-center gap-2">
-          <CategoryIcon className={`h-6 w-6 ${categoryColor}`} />
-          <h2 className={`text-2xl font-bold text-foreground`}>{category}</h2>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {categoryPrizes.map((prize) => {
-            const canAfford = currentUser && currentUser.xp >= prize.cost;
-            return (
-              <Card
-                key={prize.id}
-                className={cn(
-                  'overflow-hidden rounded-2xl bg-card border shadow-sm transition-all',
-                  !canAfford && 'opacity-60'
-                )}
-              >
-                <div className="p-4">
-                  <h3 className="font-semibold text-lg text-foreground truncate">{prize.name}</h3>
-                  <p className="text-sm text-muted-foreground">Recompensa</p>
+      <div key={category} className="space-y-4">
+        <Carousel
+          opts={{
+            align: "start",
+            loop: false,
+          }}
+          className="w-full"
+        >
+          <CarouselContent className="-ml-4">
+             <CarouselItem className="basis-auto pl-4">
+                <div className="flex flex-col items-center justify-center text-center h-full w-48 p-4">
+                  <p className="text-sm text-muted-foreground">Categoría</p>
+                  <p className="text-2xl font-bold">{category}</p>
+                  <CategoryIcon className={`h-16 w-16 mt-2 ${categoryConfig[category].color}`} />
                 </div>
-                <div className="relative aspect-square">
-                  <Image
-                    src={prize.imageUrl}
-                    alt={prize.name}
-                    fill
-                    className="object-contain p-4"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
-                  <div className="absolute bottom-4 left-4 text-white font-bold text-2xl">
-                    {prize.cost.toLocaleString()}
-                  </div>
-                  <Button
-                    size="icon"
-                    className={cn(
-                      "absolute bottom-4 right-4 rounded-full h-10 w-10 transition-transform",
-                      canAfford ? "bg-primary hover:scale-110" : "bg-muted text-muted-foreground"
-                    )}
-                    onClick={() => handleRedeemClick(prize)}
-                    disabled={!canAfford}
-                    aria-label={`Canjear ${prize.name}`}
-                  >
-                    <ArrowUpRight className="h-5 w-5" />
-                  </Button>
-                </div>
-              </Card>
-            );
-          })}
-        </div>
+              </CarouselItem>
+
+            {categoryPrizes.map((prize) => {
+              const canAfford = currentUser && currentUser.xp >= prize.cost;
+              return (
+                <CarouselItem key={prize.id} className="basis-1/2 md:basis-1/3 lg:basis-1/5 pl-4">
+                   <Card
+                      className={cn(
+                        'overflow-hidden rounded-2xl bg-card border shadow-sm transition-all h-full flex flex-col group',
+                        !canAfford && 'opacity-60'
+                      )}
+                      onClick={() => handleRedeemClick(prize)}
+                    >
+                      <CardContent className="p-4 flex-grow flex flex-col justify-center items-center text-center">
+                         <div className="relative w-32 h-32 mb-4">
+                           <Image
+                              src={prize.imageUrl}
+                              alt={prize.name}
+                              fill
+                              className="object-contain"
+                            />
+                         </div>
+                         <h3 className="font-semibold text-base text-foreground truncate">{prize.name}</h3>
+                         <p className="text-sm text-muted-foreground">Recompensa</p>
+                         <p className="text-lg font-bold text-primary mt-1">{prize.cost.toLocaleString()}</p>
+                      </CardContent>
+                      <CardFooter className="p-2">
+                        <Button
+                          className="w-full"
+                          disabled={!canAfford}
+                        >
+                          Canjear
+                        </Button>
+                      </CardFooter>
+                    </Card>
+                </CarouselItem>
+              );
+            })}
+          </CarouselContent>
+          <CarouselPrevious className="ml-14" />
+          <CarouselNext className="mr-14" />
+        </Carousel>
       </div>
     );
   };
