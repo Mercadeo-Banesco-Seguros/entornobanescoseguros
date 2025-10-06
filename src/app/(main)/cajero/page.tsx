@@ -114,7 +114,10 @@ export default function CajeroPage() {
                               src={prize.imageUrl}
                               alt={prize.name}
                               fill
-                              className="object-contain"
+                              className={cn(
+                                "object-contain",
+                                !canAfford && "grayscale"
+                              )}
                             />
                          </div>
                          <h3 className="font-semibold text-base text-foreground truncate tracking-tight">{prize.name}</h3>
