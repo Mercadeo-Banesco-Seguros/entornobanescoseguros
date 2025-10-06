@@ -131,8 +131,8 @@ export default function CajeroPage() {
               );
             })}
           </CarouselContent>
-          <CarouselPrevious className="ml-16" />
-          <CarouselNext className="mr-16" />
+          <CarouselPrevious className="ml-20" />
+          <CarouselNext className="mr-20" />
         </Carousel>
       </div>
     );
