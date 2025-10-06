@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
-import { Ticket, Coins, ArrowUpRight, Diamond, Award, Shield, Gem } from 'lucide-react';
+import { Ticket, Coins, Diamond, Award, Shield, Gem } from 'lucide-react';
 import type { Prize, PrizeCategory } from '@/lib/types';
 import { jsPDF } from "jspdf";
 import { cn } from '@/lib/utils';
@@ -108,8 +108,9 @@ export default function CajeroPage() {
                 <CarouselItem key={prize.id} className="basis-1/2 md:basis-1/3 lg:basis-1/5 pl-4">
                    <Card
                       className={cn(
-                        'overflow-hidden rounded-2xl bg-card border shadow-sm transition-all h-full flex flex-col group',
-                        !canAfford && 'opacity-60'
+                        'overflow-hidden rounded-2xl bg-card border-0 shadow-none transition-all h-full flex flex-col group',
+                        !canAfford && 'opacity-60',
+                        canAfford && 'cursor-pointer'
                       )}
                       onClick={() => handleRedeemClick(prize)}
                     >
@@ -123,17 +124,11 @@ export default function CajeroPage() {
                             />
                          </div>
                          <h3 className="font-semibold text-base text-foreground truncate">{prize.name}</h3>
-                         <p className="text-sm text-muted-foreground">Recompensa</p>
-                         <p className="text-lg font-bold text-primary mt-1">{prize.cost.toLocaleString()}</p>
+                         <div className="flex items-center gap-2 mt-2">
+                           <p className="text-sm text-muted-foreground">Recompensa</p>
+                           <p className="font-bold text-primary">{prize.cost.toLocaleString()}</p>
+                         </div>
                       </CardContent>
-                      <CardFooter className="p-2">
-                        <Button
-                          className="w-full"
-                          disabled={!canAfford}
-                        >
-                          Canjear
-                        </Button>
-                      </CardFooter>
                     </Card>
                 </CarouselItem>
               );
@@ -246,3 +241,5 @@ export default function CajeroPage() {
     </div>
   );
 }
+
+    
