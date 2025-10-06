@@ -102,7 +102,7 @@ export default function CajeroPage() {
             src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_agrfxbagrfxbagrf-Photoroom.png?raw=true"
             alt="Bazar de reliquias"
             layout="fill"
-            className="object-contain"
+            className="object-cover"
             data-ai-hint="treasure chest"
           />
         </div>
