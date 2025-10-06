@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -98,11 +99,11 @@ export default function CajeroPage() {
         </div>
         <div className="relative h-64 md:h-full w-full">
           <Image
-            src="https://picsum.photos/seed/lamp/600/400"
+            src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_agrfxbagrfxbagrf-Photoroom.png?raw=true"
             alt="Bazar de reliquias"
             layout="fill"
             className="object-cover"
-            data-ai-hint="modern lamp"
+            data-ai-hint="treasure chest"
           />
         </div>
       </div>
