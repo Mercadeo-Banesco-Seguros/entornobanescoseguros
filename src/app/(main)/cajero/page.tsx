@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useAuth } from '@/context/auth-context';
-import { prizes } from '@/lib/data';
+import { prizes, prizeCategories } from '@/lib/data';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
@@ -19,13 +19,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
-
-const categoryConfig: Record<PrizeCategory, { icon: React.ElementType, color: string }> = {
-  'Diamante': { icon: Diamond, color: 'text-blue-400' },
-  'Oro': { icon: Award, color: 'text-yellow-500' },
-  'Plata': { icon: Shield, color: 'text-gray-400' },
-  'Bronce': { icon: Gem, color: 'text-orange-500' },
-};
 
 export default function CajeroPage() {
   const { currentUser, loading } = useAuth();
@@ -80,12 +73,14 @@ export default function CajeroPage() {
     doc.save(`Ticket-${selectedPrize.name.replace(/\s/g, '_')}-${currentUser.name}.pdf`);
   };
   
-  const renderPrizeCategory = (category: PrizeCategory) => {
-    const categoryPrizes = prizes.filter(p => p.category === category);
-    const CategoryIcon = categoryConfig[category].icon;
+  const renderPrizeCategory = (categoryName: PrizeCategory['name']) => {
+    const category = prizeCategories.find(c => c.name === categoryName);
+    if (!category) return null;
+
+    const categoryPrizes = prizes.filter(p => p.category === categoryName);
 
     return (
-      <div key={category} className="space-y-4">
+      <div key={categoryName} className="space-y-4">
         <Carousel
           opts={{
             align: "start",
@@ -97,8 +92,15 @@ export default function CajeroPage() {
              <CarouselItem className="basis-auto pl-4">
                 <div className="flex flex-col items-center justify-center text-center h-full w-48 p-4">
                   <p className="text-sm text-muted-foreground">Categoría</p>
-                  <p className="text-2xl font-bold">{category}</p>
-                  <CategoryIcon className={`h-16 w-16 mt-2 ${categoryConfig[category].color}`} />
+                  <p className="text-2xl font-bold">{categoryName}</p>
+                   <div className="relative w-24 h-24 mt-2">
+                        <Image
+                            src={category.imageUrl}
+                            alt={categoryName}
+                            fill
+                            className="object-contain"
+                        />
+                   </div>
                 </div>
               </CarouselItem>
 
@@ -241,5 +243,3 @@ export default function CajeroPage() {
     </div>
   );
 }
-
-    

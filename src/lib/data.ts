@@ -1,5 +1,5 @@
 import { Trophy, User as UserIcon, LucideIcon, Rocket, ClipboardList, Home, Store } from 'lucide-react';
-import type { User, Task, Avatar, NavLink, Level, Prize } from './types';
+import type { User, Task, Avatar, NavLink, Level, Prize, PrizeCategory } from './types';
 
 export const avatars: Avatar[] = [
   { id: 1, name: 'Explorador', level: 1, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/AVATAR%20HOMBRE1.png?raw=true', description: 'Eres el héroe que inicia la aventura. Llevas tu mochila con provisiones, ropa resistente y un espíritu aventurero. Tu misión es aprender, observar y demostrar tu compromiso con los valores de Banesco Seguros. Cada acción que realices te permitirá ganar ConnectCoins, puntos que te acercarán a recompensas de nivel bronce, plata, oro o diamante. ¡Tú decides! 👀.' },
@@ -27,6 +27,13 @@ export const navLinks: NavLink[] = [
     { href: '/misiones', label: 'Misiones', icon: ClipboardList },
     { href: '/ranking', label: 'Ranking', icon: Trophy },
     { href: '/cajero', label: 'Bazar', icon: Store },
+];
+
+export const prizeCategories: PrizeCategory[] = [
+  { name: 'Diamante', imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/DIAMANTE.png?raw=true' },
+  { name: 'Oro', imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/ORO.png?raw=true' },
+  { name: 'Plata', imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/PLATA.png?raw=true' },
+  { name: 'Bronce', imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/BRONCE.png?raw=true' },
 ];
 
 export const prizes: Prize[] = [
