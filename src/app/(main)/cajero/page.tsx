@@ -14,7 +14,7 @@ import { jsPDF } from "jspdf";
 import { cn } from '@/lib/utils';
 
 export default function CajeroPage() {
-  const { currentUser, levels, avatars, loading } = useAuth();
+  const { currentUser, loading } = useAuth();
   const [selectedPrize, setSelectedPrize] = useState<Prize | null>(null);
   const [isRedeemDialogOpen, setIsRedeemDialogOpen] = useState(false);
   const [isTicketDialogOpen, setIsTicketDialogOpen] = useState(false);
@@ -66,26 +66,15 @@ export default function CajeroPage() {
     doc.save(`Ticket-${selectedPrize.name.replace(/\s/g, '_')}-${currentUser.name}.pdf`);
   };
 
-
   if (loading || !currentUser) {
     return (
       <div className="space-y-8">
-        <Card className="sticky top-20 z-10">
-          <CardContent className="p-6">
-            <Skeleton className="h-12 w-full" />
-          </CardContent>
-        </Card>
-        <header className="text-center">
-            <h1 className="text-4xl font-bold text-foreground">Bazar de Reliquias</h1>
-            <p className="text-muted text-lg mt-1">Canjea tus CONECTCOINS por premios increíbles.</p>
-        </header>
+        <div className="w-full h-80 bg-muted animate-pulse rounded-lg" />
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
           {[...Array(3)].map((_, i) => (
-            <Card key={i} className="flex flex-col text-center bg-secondary/30 p-8 items-center justify-between shadow-none border-0">
-                <div className="space-y-2">
-                    <Skeleton className="h-6 w-3/4 mx-auto" />
-                    <Skeleton className="h-4 w-1/2 mx-auto" />
-                </div>
+            <Card key={i} className="flex flex-col text-center bg-card p-8 items-center justify-between shadow-sm border">
+                <Skeleton className="h-6 w-3/4 mx-auto" />
+                <Skeleton className="h-4 w-1/2 mx-auto mt-2" />
                 <Skeleton className="w-full h-48 mt-8" />
             </Card>
           ))}
@@ -93,54 +82,64 @@ export default function CajeroPage() {
       </div>
     );
   }
-  
-  const myLevel = levels.find(l => l.id === currentUser.level);
-  const myAvatar = avatars.find(av => av.name === currentUser.avatar);
 
   return (
-    <div className="space-y-8">
-      <Card className="sticky top-20 z-10 bg-primary text-primary-foreground shadow-lg">
-        <CardContent className="p-6">
-          <div className="flex items-center"><div className="flex-grow flex items-center gap-4"><div className="p-1 bg-white/20 rounded-full w-12 h-12 flex items-center justify-center">{myAvatar && (<Image src={myAvatar.imageUrl} alt={currentUser.avatar} width={40} height={40} className="object-contain" />)}</div><div><p className="font-semibold text-base">{currentUser.name} (Tú)</p><p className="text-xs text-primary-foreground/80">{currentUser.avatar}</p></div></div><div className="text-center w-48">{myLevel && (<span className="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full border">{myLevel.worldName}</span>)}</div><div className="text-right w-48 flex items-baseline justify-end gap-1.5"><span className="text-2xl font-bold">{currentUser.xp.toLocaleString()}</span><span className="text-xs font-normal text-primary-foreground/80">CONECTCOINS</span></div></div>
-        </CardContent>
-      </Card>
-      
-      <header className="text-center">
-        <h1 className="text-4xl font-bold text-foreground">Bazar de Reliquias</h1>
-        <p className="text-muted text-lg mt-1">Canjea tus <span className="font-bold text-primary">{currentUser.xp.toLocaleString()} CONECTCOINS</span> por tesoros únicos de la expedición.</p>
-      </header>
-      
+    <div className="space-y-12">
+      {/* Hero Section */}
+      <div className="relative w-full h-[400px] bg-secondary/50 rounded-lg overflow-hidden flex items-center">
+        <Image
+          src="https://picsum.photos/seed/lamp/1200/400"
+          alt="Bazar de reliquias"
+          layout="fill"
+          className="object-cover opacity-30"
+          data-ai-hint="modern lamp"
+        />
+        <div className="relative z-10 p-8 md:p-16">
+          <p className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">Tus CONECTCOINS: {currentUser.xp.toLocaleString()}</p>
+          <h1 className="text-4xl md:text-6xl font-black text-foreground mt-2">Bazar de Reliquias.</h1>
+          <p className="mt-4 max-w-md text-muted-foreground">Canjea tus CONECTCOINS por tesoros únicos de la expedición y lleva tu aventura al siguiente nivel.</p>
+        </div>
+      </div>
+
+      {/* Prizes Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {prizes.map((prize) => {
           const canAfford = currentUser.xp >= prize.cost;
           return (
-            <div 
+            <Card 
               key={prize.id}
               className={cn(
-                'flex flex-col text-center bg-secondary/30 p-8 items-center justify-between rounded-lg transition-all',
+                'flex flex-col text-center bg-card items-center justify-between rounded-lg transition-all shadow-sm border p-0 overflow-hidden',
                 !canAfford && 'opacity-60'
               )}
             >
-              <div className="flex-grow flex flex-col justify-start items-center space-y-4">
-                  <h3 className="text-lg font-semibold text-foreground">{prize.name}</h3>
+              <CardHeader className="text-center w-full p-4">
+                <CardTitle className="text-lg font-semibold text-foreground">{prize.name}</CardTitle>
+                <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+                    <Coins className="w-4 h-4 text-primary" />
+                    <span>{prize.cost.toLocaleString()} CONECTCOINS</span>
+                </div>
+              </CardHeader>
+              <CardContent className="w-full p-0 flex-grow">
+                <div className="relative w-full h-48 bg-secondary/30">
+                    <Image
+                      src={prize.imageUrl}
+                      alt={prize.name}
+                      fill
+                      className="object-contain p-4"
+                    />
+                </div>
+              </CardContent>
+              <CardFooter className="p-4 w-full">
                   <Button 
                     onClick={() => handleRedeemClick(prize)}
-                    variant="link" 
-                    className="text-sm text-primary"
+                    className="w-full"
                     disabled={!canAfford}
                   >
                     Canjear ahora
                   </Button>
-              </div>
-              <div className="relative w-full h-48 mt-8">
-                  <Image
-                    src={prize.imageUrl}
-                    alt={prize.name}
-                    fill
-                    className="object-contain"
-                  />
-              </div>
-            </div>
+              </CardFooter>
+            </Card>
           );
         })}
       </div>
