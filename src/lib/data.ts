@@ -31,7 +31,7 @@ export const navLinks: NavLink[] = [
 
 export const prizeCategories: PrizeCategory[] = [
   { name: 'Diamante', imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(5).png?raw=true' },
-  { name: 'Oro', imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(6).png?raw=true' },
+  { name: 'Oro', imageUrl: 'https://i.pinimg.com/1200x/d9/78/d1/d978d119648bdd2117298ab050dafa62.jpg' },
   { name: 'Plata', imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/PLATA.png?raw=true' },
   { name: 'Bronce', imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/BRONCE.png?raw=true' },
 ];
