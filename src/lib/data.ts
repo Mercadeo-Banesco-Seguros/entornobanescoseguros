@@ -38,26 +38,26 @@ export const prizeCategories: PrizeCategory[] = [
 
 export const prizes: Prize[] = [
   // Bronce
-  { id: 1, name: 'Taza de Explorador', description: 'Una taza de cerámica para tus bebidas calientes.', cost: 100, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/taza.png?raw=true', category: 'Bronce' },
-  { id: 2, name: 'Llavero del Viajero', description: 'Lleva contigo el símbolo de la expedición.', cost: 150, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Bronce' },
-  { id: 3, name: 'Set de Pegatinas', description: 'Decora tus pertenencias con los emblemas de la expedición.', cost: 200, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Bronce' },
-  { id: 4, name: 'Cuaderno de Notas', description: 'Para apuntar todos tus descubrimientos.', cost: 220, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Bronce' },
+  { id: 1, name: 'Taza de Explorador', description: 'Una taza de cerámica para tus bebidas calientes.', cost: 50, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/taza.png?raw=true', category: 'Bronce' },
+  { id: 2, name: 'Llavero del Viajero', description: 'Lleva contigo el símbolo de la expedición.', cost: 50, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Bronce' },
+  { id: 3, name: 'Set de Pegatinas', description: 'Decora tus pertenencias con los emblemas de la expedición.', cost: 50, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Bronce' },
+  { id: 4, name: 'Cuaderno de Notas', description: 'Para apuntar todos tus descubrimientos.', cost: 50, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Bronce' },
   
   // Plata
-  { id: 5, name: 'Gorra de Aventurero', description: 'Una gorra resistente para tus expediciones.', cost: 250, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/gorra.png?raw=true', category: 'Plata' },
-  { id: 6, name: 'Botella de Agua', description: 'Mantente hidratado en tus aventuras.', cost: 400, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/botella.png?raw=true', category: 'Plata' },
-  { id: 7, name: 'Camiseta Oficial', description: 'Viste los colores de la expedición.', cost: 500, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Plata' },
-  { id: 8, name: 'Funda para Portátil', description: 'Protege tu equipo con estilo.', cost: 600, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Plata' },
+  { id: 5, name: 'Gorra de Aventurero', description: 'Una gorra resistente para tus expediciones.', cost: 100, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/gorra.png?raw=true', category: 'Plata' },
+  { id: 6, name: 'Botella de Agua', description: 'Mantente hidratado en tus aventuras.', cost: 100, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/botella.png?raw=true', category: 'Plata' },
+  { id: 7, name: 'Camiseta Oficial', description: 'Viste los colores de la expedición.', cost: 100, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Plata' },
+  { id: 8, name: 'Funda para Portátil', description: 'Protege tu equipo con estilo.', cost: 100, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Plata' },
   
   // Oro
-  { id: 9, name: 'Almuerzo Ejecutivo', description: 'Una sudadera cómoda y con estilo.', cost: 1000, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Oro' },
-  { id: 10, name: 'Desayuno Cafetín', description: 'Espaciosa y resistente para todas tus herramientas.', cost: 1200, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Oro' },
-  { id: 11, name: 'Chaqueta', description: 'Sumérgete en la banda sonora de tu aventura.', cost: 1500, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Oro' },
-  { id: 12, name: 'Audífonos', description: 'Para que nunca te quedes sin energía.', cost: 1800, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Oro' },
+  { id: 9, name: 'Almuerzo Ejecutivo', description: 'Una sudadera cómoda y con estilo.', cost: 200, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Oro' },
+  { id: 10, name: 'Desayuno Cafetín', description: 'Espaciosa y resistente para todas tus herramientas.', cost: 200, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Oro' },
+  { id: 11, name: 'Chaqueta', description: 'Sumérgete en la banda sonora de tu aventura.', cost: 200, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Oro' },
+  { id: 12, name: 'Audífonos', description: 'Para que nunca te quedes sin energía.', cost: 200, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Oro' },
 
   // Diamante
-  { id: 13, name: 'Reloj Inteligente', description: 'Monitorea tu progreso y mantente conectado.', cost: 3000, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Diamante' },
-  { id: 14, name: 'Tablet Gráfica', description: 'Digitaliza tus mapas y descubrimientos.', cost: 4000, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Diamante' },
-  { id: 15, name: 'Silla Gamer', description: 'La máxima comodidad para planificar tus próximas misiones.', cost: 5000, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Diamante' },
-  { id: 16, name: 'Viaje de Expedición', description: 'Un premio legendario: una experiencia de viaje real.', cost: 10000, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Diamante' },
+  { id: 13, name: 'Reloj Inteligente', description: 'Monitorea tu progreso y mantente conectado.', cost: 300, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Diamante' },
+  { id: 14, name: 'Tablet Gráfica', description: 'Digitaliza tus mapas y descubrimientos.', cost: 300, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Diamante' },
+  { id: 15, name: 'Silla Gamer', description: 'La máxima comodidad para planificar tus próximas misiones.', cost: 300, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Diamante' },
+  { id: 16, name: 'Viaje de Expedición', description: 'Un premio legendario: una experiencia de viaje real.', cost: 300, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Diamante' },
 ];
