@@ -50,10 +50,10 @@ export const prizes: Prize[] = [
   { id: 8, name: 'Funda para Portátil', description: 'Protege tu equipo con estilo.', cost: 600, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Plata' },
   
   // Oro
-  { id: 9, name: 'Sudadera "Leyenda"', description: 'Una sudadera cómoda y con estilo.', cost: 1000, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Oro' },
-  { id: 10, name: 'Mochila de Expedición', description: 'Espaciosa y resistente para todas tus herramientas.', cost: 1200, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Oro' },
-  { id: 11, name: 'Auriculares Inalámbricos', description: 'Sumérgete en la banda sonora de tu aventura.', cost: 1500, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blobια/sudadera.png?raw=true', category: 'Oro' },
-  { id: 12, name: 'Cargador Portátil', description: 'Para que nunca te quedes sin energía.', cost: 1800, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Oro' },
+  { id: 9, name: 'Almuerzo Ejecutivo', description: 'Una sudadera cómoda y con estilo.', cost: 1000, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Oro' },
+  { id: 10, name: 'Desayuno Cafetín', description: 'Espaciosa y resistente para todas tus herramientas.', cost: 1200, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Oro' },
+  { id: 11, name: 'Chaqueta', description: 'Sumérgete en la banda sonora de tu aventura.', cost: 1500, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Oro' },
+  { id: 12, name: 'Audífonos', description: 'Para que nunca te quedes sin energía.', cost: 1800, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Oro' },
 
   // Diamante
   { id: 13, name: 'Reloj Inteligente', description: 'Monitorea tu progreso y mantente conectado.', cost: 3000, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Diamante' },
