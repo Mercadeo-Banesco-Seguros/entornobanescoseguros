@@ -1,3 +1,4 @@
+
 import { Trophy, User as UserIcon, LucideIcon, Rocket, ClipboardList, Home, Store } from 'lucide-react';
 import type { User, Task, Avatar, NavLink, Level, Prize, PrizeCategory } from './types';
 
@@ -38,10 +39,10 @@ export const prizeCategories: PrizeCategory[] = [
 
 export const prizes: Prize[] = [
   // Bronce
-  { id: 1, name: 'Taza de Explorador', description: 'Una taza de cerámica para tus bebidas calientes.', cost: 50, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/taza.png?raw=true', category: 'Bronce' },
-  { id: 2, name: 'Llavero del Viajero', description: 'Lleva contigo el símbolo de la expedición.', cost: 50, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Bronce' },
-  { id: 3, name: 'Set de Pegatinas', description: 'Decora tus pertenencias con los emblemas de la expedición.', cost: 50, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Bronce' },
-  { id: 4, name: 'Cuaderno de Notas', description: 'Para apuntar todos tus descubrimientos.', cost: 50, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Bronce' },
+  { id: 1, name: 'Bolígrafo', description: 'Una taza de cerámica para tus bebidas calientes.', cost: 50, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/taza.png?raw=true', category: 'Bronce' },
+  { id: 2, name: 'Café', description: 'Lleva contigo el símbolo de la expedición.', cost: 50, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Bronce' },
+  { id: 3, name: 'Stickers', description: 'Decora tus pertenencias con los emblemas de la expedición.', cost: 50, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Bronce' },
+  { id: 4, name: 'Cartuchera', description: 'Para apuntar todos tus descubrimientos.', cost: 50, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Bronce' },
   
   // Plata
   { id: 5, name: 'Gorra', description: 'Una gorra resistente para tus expediciones.', cost: 100, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/gorra.png?raw=true', category: 'Plata' },
@@ -61,3 +62,6 @@ export const prizes: Prize[] = [
   { id: 15, name: 'Premio Misterioso', description: 'La recompensa definitiva para una leyenda.', cost: 300, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/pregunta.png?raw=true', category: 'Diamante' },
   { id: 16, name: 'Premio Misterioso', description: 'Solo para los exploradores más audaces.', cost: 300, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/pregunta.png?raw=true', category: 'Diamante' },
 ];
+
+
+    
