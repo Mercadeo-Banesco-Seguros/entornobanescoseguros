@@ -93,14 +93,6 @@ export default function CajeroPage() {
                 <div className="flex flex-col items-center justify-center text-center h-full w-48 p-4">
                   <p className="text-sm text-muted-foreground">Categoría</p>
                   <p className="text-2xl font-bold">{categoryName}</p>
-                   <div className="relative w-24 h-24 mt-2">
-                        <Image
-                            src={category.imageUrl}
-                            alt={categoryName}
-                            fill
-                            className="object-contain"
-                        />
-                   </div>
                 </div>
               </CarouselItem>
 

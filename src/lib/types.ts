@@ -45,7 +45,6 @@ export type NavLink = {
 
 export type PrizeCategory = {
   name: 'Diamante' | 'Oro' | 'Plata' | 'Bronce';
-  imageUrl: string;
 };
 
 export type Prize = {
