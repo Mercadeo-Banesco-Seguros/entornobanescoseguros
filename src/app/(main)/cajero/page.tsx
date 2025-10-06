@@ -91,7 +91,7 @@ export default function CajeroPage() {
   return (
     <div className="space-y-12">
       {/* Hero Section */}
-      <div className="relative w-full bg-secondary/50 rounded-lg overflow-hidden flex items-center grid grid-cols-1 md:grid-cols-2">
+      <div className="relative w-full rounded-lg overflow-hidden flex items-center grid grid-cols-1 md:grid-cols-2">
         <div className="relative z-10 p-8 md:p-16">
           <div className='mb-4'>
             <p className="text-sm font-medium text-muted-foreground">Tus CONECTCOINS</p>
