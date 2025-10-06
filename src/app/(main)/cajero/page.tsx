@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
-import { Ticket, Coins, Trophy } from 'lucide-react';
+import { Ticket, Coins } from 'lucide-react';
 import type { Prize } from '@/lib/types';
 import { jsPDF } from "jspdf";
 import { cn } from '@/lib/utils';
@@ -77,7 +77,7 @@ export default function CajeroPage() {
           </CardContent>
         </Card>
         <header>
-          <h1 className="text-4xl font-bold text-foreground">Cajero de Premios</h1>
+          <h1 className="text-4xl font-bold text-foreground">Bazar de Reliquias</h1>
           <p className="text-muted text-lg mt-1">Canjea tus CONECTCOINS por premios increíbles.</p>
         </header>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -92,9 +92,6 @@ export default function CajeroPage() {
   const myLevel = levels.find(l => l.id === currentUser.level);
   const myAvatar = avatars.find(av => av.name === currentUser.avatar);
 
-  const leftPrizes = prizes.slice(0, Math.ceil(prizes.length / 2));
-  const rightPrizes = prizes.slice(Math.ceil(prizes.length / 2));
-
   return (
     <div className="space-y-8">
       <Card className="sticky top-20 z-10 bg-primary text-primary-foreground shadow-lg">
@@ -104,73 +101,53 @@ export default function CajeroPage() {
       </Card>
       
       <header className="text-center">
-        <h1 className="text-4xl font-bold text-foreground">Cajero de Premios</h1>
-        <p className="text-muted text-lg mt-1">Canjea tus <span className="font-bold text-primary">{currentUser.xp.toLocaleString()} CONECTCOINS</span> por premios increíbles.</p>
+        <h1 className="text-4xl font-bold text-foreground">Bazar de Reliquias</h1>
+        <p className="text-muted text-lg mt-1">Canjea tus <span className="font-bold text-primary">{currentUser.xp.toLocaleString()} CONECTCOINS</span> por tesoros únicos de la expedición.</p>
       </header>
       
-      <div className="grid grid-cols-1 md:grid-cols-3 items-center justify-center gap-8">
-        {/* Left Column */}
-        <div className="space-y-6">
-          {leftPrizes.map((prize) => {
-            const canAfford = currentUser.xp >= prize.cost;
-            return (
-              <Card 
-                key={prize.id}
-                onClick={() => handleRedeemClick(prize)}
-                className={cn(
-                  'transition-all duration-300 ease-in-out',
-                  canAfford ? 'cursor-pointer hover:scale-105 hover:shadow-xl' : 'opacity-50 cursor-not-allowed',
-                  canAfford && 'bg-primary text-primary-foreground'
-                )}
-              >
-                <CardHeader>
-                  <CardTitle className="text-base flex items-center gap-3">
-                    <Coins className="h-5 w-5"/>
-                    {prize.name}
-                  </CardTitle>
-                  <CardDescription className={cn(canAfford && "text-primary-foreground/80")}>
-                    Costo: {prize.cost.toLocaleString()} CONECTCOINS
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            );
-          })}
-        </div>
-
-        {/* Center Column */}
-        <div className="flex items-center justify-center">
-            <Trophy className="w-64 h-64 md:w-80 md:h-80 text-primary/20" strokeWidth={1} />
-        </div>
-
-        {/* Right Column */}
-        <div className="space-y-6">
-           {rightPrizes.map((prize) => {
-            const canAfford = currentUser.xp >= prize.cost;
-            return (
-              <Card 
-                key={prize.id}
-                onClick={() => handleRedeemClick(prize)}
-                className={cn(
-                  'transition-all duration-300 ease-in-out',
-                  canAfford ? 'cursor-pointer hover:scale-105 hover:shadow-xl' : 'opacity-50 cursor-not-allowed',
-                  canAfford && 'bg-primary text-primary-foreground'
-                )}
-              >
-                <CardHeader>
-                  <CardTitle className="text-base flex items-center gap-3">
-                    <Coins className="h-5 w-5"/>
-                    {prize.name}
-                  </CardTitle>
-                  <CardDescription className={cn(canAfford && "text-primary-foreground/80")}>
-                     Costo: {prize.cost.toLocaleString()} CONECTCOINS
-                  </CardDescription>
-                </CardHeader>
-              </Card>
-            );
-          })}
-        </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        {prizes.map((prize) => {
+          const canAfford = currentUser.xp >= prize.cost;
+          return (
+            <Card 
+              key={prize.id}
+              className={cn(
+                'flex flex-col transition-all duration-300 ease-in-out',
+                !canAfford && 'opacity-60 cursor-not-allowed'
+              )}
+            >
+              <CardContent className="p-0">
+                <div className="relative w-full h-48 bg-secondary rounded-t-lg flex items-center justify-center">
+                  <Image
+                    src={prize.imageUrl}
+                    alt={prize.name}
+                    width={150}
+                    height={150}
+                    className="object-contain"
+                  />
+                </div>
+              </CardContent>
+              <CardHeader className="flex-grow">
+                <CardTitle className="text-lg">{prize.name}</CardTitle>
+                <CardDescription className="text-xs">{prize.description}</CardDescription>
+              </CardHeader>
+              <CardFooter className="flex flex-col items-start gap-4">
+                <div className="flex items-center gap-2 text-primary font-bold">
+                  <Coins className="h-5 w-5" />
+                  <span>{prize.cost.toLocaleString()} CONECTCOINS</span>
+                </div>
+                <Button 
+                  onClick={() => handleRedeemClick(prize)} 
+                  className="w-full"
+                  disabled={!canAfford}
+                >
+                  Canjear
+                </Button>
+              </CardFooter>
+            </Card>
+          );
+        })}
       </div>
-
 
       {/* Confirmation Dialog */}
       <Dialog open={isRedeemDialogOpen} onOpenChange={setIsRedeemDialogOpen}>
