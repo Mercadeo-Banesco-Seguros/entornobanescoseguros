@@ -52,7 +52,7 @@ export const prizes: Prize[] = [
   
   // Oro
   { id: 9, name: 'Almuerzo Ejecutivo', description: 'Una sudadera cómoda y con estilo.', cost: 200, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(8).png?raw=true', category: 'Oro' },
-  { id: 10, name: 'Desayuno Cafetín', description: 'Espaciosa y resistente para todas tus herramientas.', cost: 200, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Oro' },
+  { id: 10, name: 'Desayuno Cafetín', description: 'Espaciosa y resistente para todas tus herramientas.', cost: 200, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(9).png?raw=true', category: 'Oro' },
   { id: 11, name: 'Chaqueta', description: 'Sumérgete en la banda sonora de tu aventura.', cost: 200, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/unnamed%20(7).png?raw=true', category: 'Oro' },
   { id: 12, name: 'Audífonos', description: 'Para que nunca te quedes sin energía.', cost: 200, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Oro' },
 
