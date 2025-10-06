@@ -90,18 +90,20 @@ export default function CajeroPage() {
   return (
     <div className="space-y-12">
       {/* Hero Section */}
-      <div className="relative w-full h-[400px] bg-secondary/50 rounded-lg overflow-hidden flex items-center">
-        <Image
-          src="https://picsum.photos/seed/lamp/1200/400"
-          alt="Bazar de reliquias"
-          layout="fill"
-          className="object-cover opacity-30"
-          data-ai-hint="modern lamp"
-        />
+      <div className="relative w-full bg-secondary/50 rounded-lg overflow-hidden flex items-center grid grid-cols-1 md:grid-cols-2">
         <div className="relative z-10 p-8 md:p-16">
           <p className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">Tus CONECTCOINS: {currentUser.xp.toLocaleString()}</p>
           <h1 className="text-4xl md:text-6xl font-black text-foreground mt-2">Bazar de Reliquias.</h1>
           <p className="mt-4 max-w-md text-muted-foreground">Canjea tus CONECTCOINS por tesoros únicos de la expedición y lleva tu aventura al siguiente nivel.</p>
+        </div>
+        <div className="relative h-64 md:h-full w-full">
+          <Image
+            src="https://picsum.photos/seed/lamp/600/400"
+            alt="Bazar de reliquias"
+            layout="fill"
+            className="object-cover"
+            data-ai-hint="modern lamp"
+          />
         </div>
       </div>
 
