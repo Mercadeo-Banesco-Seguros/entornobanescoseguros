@@ -99,12 +99,12 @@ export default function CajeroPage() {
         </div>
         <div className="relative h-64 md:h-full w-full flex items-center justify-center">
           <Image
-            src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_agrfxbagrfxbagrf-Photoroom.png?raw=true"
+            src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_ghydwqghydwqghyd-Photoroom.png?raw=true"
             alt="Bazar de reliquias"
             width={400}
             height={400}
             className="object-contain"
-            data-ai-hint="treasure chest"
+            data-ai-hint="bazaar stall"
           />
         </div>
       </div>
