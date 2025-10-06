@@ -68,7 +68,6 @@ export default function CajeroPage() {
 
 
   if (loading || !currentUser) {
-    // SKELETON LOADER
     return (
       <div className="space-y-8">
         <Card className="sticky top-20 z-10">
@@ -76,13 +75,19 @@ export default function CajeroPage() {
             <Skeleton className="h-12 w-full" />
           </CardContent>
         </Card>
-        <header>
-          <h1 className="text-4xl font-bold text-foreground">Bazar de Reliquias</h1>
-          <p className="text-muted text-lg mt-1">Canjea tus CONECTCOINS por premios increíbles.</p>
+        <header className="text-center">
+            <h1 className="text-4xl font-bold text-foreground">Bazar de Reliquias</h1>
+            <p className="text-muted text-lg mt-1">Canjea tus CONECTCOINS por premios increíbles.</p>
         </header>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {[...Array(4)].map((_, i) => (
-            <Card key={i} className="flex flex-col"><CardContent className="p-0"><Skeleton className="w-full h-48 rounded-t-lg" /></CardContent><CardHeader><Skeleton className="h-6 w-3/4" /><Skeleton className="h-4 w-1/2 mt-1" /></CardHeader><CardFooter><Skeleton className="h-10 w-full" /></CardFooter></Card>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+          {[...Array(3)].map((_, i) => (
+            <Card key={i} className="flex flex-col text-center bg-secondary/30 p-8 items-center justify-between shadow-none border-0">
+                <div className="space-y-2">
+                    <Skeleton className="h-6 w-3/4 mx-auto" />
+                    <Skeleton className="h-4 w-1/2 mx-auto" />
+                </div>
+                <Skeleton className="w-full h-48 mt-8" />
+            </Card>
           ))}
         </div>
       </div>
@@ -109,42 +114,33 @@ export default function CajeroPage() {
         {prizes.map((prize) => {
           const canAfford = currentUser.xp >= prize.cost;
           return (
-            <Card 
+            <div 
               key={prize.id}
               className={cn(
-                'flex flex-col transition-all duration-300 ease-in-out',
-                !canAfford && 'opacity-60 cursor-not-allowed'
+                'flex flex-col text-center bg-secondary/30 p-8 items-center justify-between rounded-lg transition-all',
+                !canAfford && 'opacity-60'
               )}
             >
-              <CardContent className="p-0">
-                <div className="relative w-full h-48 bg-secondary rounded-t-lg flex items-center justify-center">
+              <div className="flex-grow flex flex-col justify-start items-center space-y-4">
+                  <h3 className="text-lg font-semibold text-foreground">{prize.name}</h3>
+                  <Button 
+                    onClick={() => handleRedeemClick(prize)}
+                    variant="link" 
+                    className="text-sm text-primary"
+                    disabled={!canAfford}
+                  >
+                    Canjear ahora
+                  </Button>
+              </div>
+              <div className="relative w-full h-48 mt-8">
                   <Image
                     src={prize.imageUrl}
                     alt={prize.name}
-                    width={150}
-                    height={150}
+                    fill
                     className="object-contain"
                   />
-                </div>
-              </CardContent>
-              <CardHeader className="flex-grow">
-                <CardTitle className="text-lg">{prize.name}</CardTitle>
-                <CardDescription className="text-xs">{prize.description}</CardDescription>
-              </CardHeader>
-              <CardFooter className="flex flex-col items-start gap-4">
-                <div className="flex items-center gap-2 text-primary font-bold">
-                  <Coins className="h-5 w-5" />
-                  <span>{prize.cost.toLocaleString()} CONECTCOINS</span>
-                </div>
-                <Button 
-                  onClick={() => handleRedeemClick(prize)} 
-                  className="w-full"
-                  disabled={!canAfford}
-                >
-                  Canjear
-                </Button>
-              </CardFooter>
-            </Card>
+              </div>
+            </div>
           );
         })}
       </div>
