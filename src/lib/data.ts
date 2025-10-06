@@ -40,7 +40,7 @@ export const prizeCategories: PrizeCategory[] = [
 export const prizes: Prize[] = [
   // Bronce
   { id: 1, name: 'Bolígrafo', description: 'Una taza de cerámica para tus bebidas calientes.', cost: 50, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Bronce' },
-  { id: 2, name: 'Café', description: 'Lleva contigo el símbolo de la expedición.', cost: 50, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Bronce' },
+  { id: 2, name: 'Café', description: 'Lleva contigo el símbolo de la expedición.', cost: 50, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/532f0c643d553e0449275c0b80d481aa-Photoroom.png?raw=true', category: 'Bronce' },
   { id: 3, name: 'Stickers', description: 'Decora tus pertenencias con los emblemas de la expedición.', cost: 50, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/sudadera.png?raw=true', category: 'Bronce' },
   { id: 4, name: 'Cartuchera', description: 'Para apuntar todos tus descubrimientos.', cost: 50, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/unnamed%20(8).png?raw=true', category: 'Bronce' },
   
