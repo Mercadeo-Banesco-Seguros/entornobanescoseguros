@@ -43,10 +43,13 @@ export type NavLink = {
   icon: LucideIcon;
 };
 
+export type PrizeCategory = 'Diamante' | 'Oro' | 'Plata' | 'Bronce';
+
 export type Prize = {
   id: number;
   name: string;
   description: string;
   cost: number;
   imageUrl: string;
+  category: PrizeCategory;
 };

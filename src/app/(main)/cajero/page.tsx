@@ -9,10 +9,17 @@ import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
-import { Ticket, Coins, ArrowUpRight } from 'lucide-react';
-import type { Prize } from '@/lib/types';
+import { Ticket, Coins, ArrowUpRight, Diamond, Award, Shield, Gem } from 'lucide-react';
+import type { Prize, PrizeCategory } from '@/lib/types';
 import { jsPDF } from "jspdf";
 import { cn } from '@/lib/utils';
+
+const categoryConfig: Record<PrizeCategory, { icon: React.ElementType, color: string }> = {
+  'Diamante': { icon: Diamond, color: 'text-blue-400' },
+  'Oro': { icon: Award, color: 'text-yellow-500' },
+  'Plata': { icon: Shield, color: 'text-gray-400' },
+  'Bronce': { icon: Gem, color: 'text-orange-500' },
+};
 
 export default function CajeroPage() {
   const { currentUser, loading } = useAuth();
@@ -66,13 +73,72 @@ export default function CajeroPage() {
 
     doc.save(`Ticket-${selectedPrize.name.replace(/\s/g, '_')}-${currentUser.name}.pdf`);
   };
+  
+  const renderPrizeCategory = (category: PrizeCategory) => {
+    const categoryPrizes = prizes.filter(p => p.category === category);
+    const CategoryIcon = categoryConfig[category].icon;
+    const categoryColor = categoryConfig[category].color;
+
+    return (
+      <div key={category} className="space-y-6">
+        <div className="flex items-center gap-2">
+          <CategoryIcon className={`h-6 w-6 ${categoryColor}`} />
+          <h2 className={`text-2xl font-bold text-foreground`}>{category}</h2>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {categoryPrizes.map((prize) => {
+            const canAfford = currentUser && currentUser.xp >= prize.cost;
+            return (
+              <Card
+                key={prize.id}
+                className={cn(
+                  'overflow-hidden rounded-2xl bg-card border shadow-sm transition-all',
+                  !canAfford && 'opacity-60'
+                )}
+              >
+                <div className="p-4">
+                  <h3 className="font-semibold text-lg text-foreground truncate">{prize.name}</h3>
+                  <p className="text-sm text-muted-foreground">Recompensa</p>
+                </div>
+                <div className="relative aspect-square">
+                  <Image
+                    src={prize.imageUrl}
+                    alt={prize.name}
+                    fill
+                    className="object-contain p-4"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
+                  <div className="absolute bottom-4 left-4 text-white font-bold text-2xl">
+                    {prize.cost.toLocaleString()}
+                  </div>
+                  <Button
+                    size="icon"
+                    className={cn(
+                      "absolute bottom-4 right-4 rounded-full h-10 w-10 transition-transform",
+                      canAfford ? "bg-primary hover:scale-110" : "bg-muted text-muted-foreground"
+                    )}
+                    onClick={() => handleRedeemClick(prize)}
+                    disabled={!canAfford}
+                    aria-label={`Canjear ${prize.name}`}
+                  >
+                    <ArrowUpRight className="h-5 w-5" />
+                  </Button>
+                </div>
+              </Card>
+            );
+          })}
+        </div>
+      </div>
+    );
+  };
+
 
   if (loading || !currentUser) {
     return (
       <div className="space-y-8">
         <div className="w-full h-80 bg-muted animate-pulse rounded-lg" />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {[...Array(4)].map((_, i) => (
+          {[...Array(8)].map((_, i) => (
              <Card key={i} className="overflow-hidden rounded-xl">
               <CardHeader className="p-4">
                 <Skeleton className="h-6 w-3/4" />
@@ -113,49 +179,13 @@ export default function CajeroPage() {
       </div>
 
       {/* Prizes Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {prizes.map((prize) => {
-          const canAfford = currentUser.xp >= prize.cost;
-          return (
-            <Card
-              key={prize.id}
-              className={cn(
-                'overflow-hidden rounded-2xl bg-card border shadow-sm transition-all',
-                !canAfford && 'opacity-60'
-              )}
-            >
-              <div className="p-4">
-                <h3 className="font-semibold text-lg text-foreground">{prize.name}</h3>
-                <p className="text-sm text-muted-foreground">Recompensa</p>
-              </div>
-              <div className="relative aspect-square">
-                <Image
-                  src={prize.imageUrl}
-                  alt={prize.name}
-                  fill
-                  className="object-contain p-4"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
-                <div className="absolute bottom-4 left-4 text-white font-bold text-2xl">
-                  {prize.cost.toLocaleString()}
-                </div>
-                <Button
-                  size="icon"
-                  className={cn(
-                    "absolute bottom-4 right-4 rounded-full h-10 w-10 transition-transform",
-                     canAfford ? "bg-primary hover:scale-110" : "bg-muted text-muted-foreground"
-                  )}
-                  onClick={() => handleRedeemClick(prize)}
-                  disabled={!canAfford}
-                  aria-label={`Canjear ${prize.name}`}
-                >
-                  <ArrowUpRight className="h-5 w-5" />
-                </Button>
-              </div>
-            </Card>
-          );
-        })}
+      <div className="space-y-12">
+        {renderPrizeCategory('Diamante')}
+        {renderPrizeCategory('Oro')}
+        {renderPrizeCategory('Plata')}
+        {renderPrizeCategory('Bronce')}
       </div>
+
 
       {/* Confirmation Dialog */}
       <Dialog open={isRedeemDialogOpen} onOpenChange={setIsRedeemDialogOpen}>
