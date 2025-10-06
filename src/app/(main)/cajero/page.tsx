@@ -177,9 +177,9 @@ export default function CajeroPage() {
           <h1 className="text-4xl md:text-6xl font-black text-foreground mt-2">Bazar de Reliquias.</h1>
           <p className="mt-4 max-w-md text-muted-foreground">Canjea tus CONECTCOINS por tesoros únicos de la expedición y lleva tu aventura al siguiente nivel.</p>
         </div>
-        <div className="relative h-64 md:h-full w-full flex items-center justify-start">
+        <div className="relative h-full flex items-center justify-start">
           <Image
-            src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_ghydwqghydwqghyd-Photoroom.png?raw=true"
+            src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(5).png?raw=true"
             alt="Bazar de reliquias"
             width={400}
             height={400}
