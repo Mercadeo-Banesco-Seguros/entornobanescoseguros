@@ -89,7 +89,7 @@ export default function CajeroPage() {
           className="w-full"
         >
           <CarouselContent className="-ml-4">
-             <CarouselItem className="basis-auto pl-4">
+             <CarouselItem className="basis-auto pl-4 ml-16">
                 <div className="flex flex-col items-center justify-center text-center h-full w-48 p-4">
                   <p className="text-sm text-muted-foreground">Categoría</p>
                   <p className="text-2xl font-bold">{categoryName}</p>
