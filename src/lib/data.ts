@@ -58,9 +58,6 @@ export const prizes: Prize[] = [
 
   // Diamante
   { id: 13, name: 'Premio Misterioso', description: 'Un tesoro legendario te espera.', cost: 300, imageUrl: 'https://i.pinimg.com/1200x/ba/34/b8/ba34b8109dbe4ae693349efc1dbe8ca5.jpg', category: 'Diamante' },
-  { id: 14, name: 'Premio Misterioso', description: 'Algo increíblemente valioso.', cost: 300, imageUrl: 'https://i.pinimg.com/1200x/ba/34/b8/ba34b8109dbe4ae693349efc1dbe8ca5.jpg', category: 'Diamante' },
-  { id: 15, name: 'Premio Misterioso', description: 'La recompensa definitiva para una leyenda.', cost: 300, imageUrl: 'https://i.pinimg.com/1200x/ba/34/b8/ba34b8109dbe4ae693349efc1dbe8ca5.jpg', category: 'Diamante' },
-  { id: 16, name: 'Premio Misterioso', description: 'Solo para los exploradores más audaces.', cost: 300, imageUrl: 'https://i.pinimg.com/1200x/ba/34/b8/ba34b8109dbe4ae693349efc1dbe8ca5.jpg', category: 'Diamante' },
 ];
 
 
