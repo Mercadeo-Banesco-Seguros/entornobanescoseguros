@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
-import { Ticket, Coins } from 'lucide-react';
+import { Ticket, Coins, ArrowUpRight } from 'lucide-react';
 import type { Prize } from '@/lib/types';
 import { jsPDF } from "jspdf";
 import { cn } from '@/lib/utils';
@@ -70,12 +70,16 @@ export default function CajeroPage() {
     return (
       <div className="space-y-8">
         <div className="w-full h-80 bg-muted animate-pulse rounded-lg" />
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-          {[...Array(3)].map((_, i) => (
-            <Card key={i} className="flex flex-col text-center bg-card p-8 items-center justify-between shadow-sm border">
-                <Skeleton className="h-6 w-3/4 mx-auto" />
-                <Skeleton className="h-4 w-1/2 mx-auto mt-2" />
-                <Skeleton className="w-full h-48 mt-8" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {[...Array(4)].map((_, i) => (
+             <Card key={i} className="overflow-hidden rounded-xl">
+              <CardHeader className="p-4">
+                <Skeleton className="h-6 w-3/4" />
+                <Skeleton className="h-4 w-1/2" />
+              </CardHeader>
+              <CardContent className="p-0">
+                <Skeleton className="h-64 w-full" />
+              </CardContent>
             </Card>
           ))}
         </div>
@@ -102,43 +106,45 @@ export default function CajeroPage() {
       </div>
 
       {/* Prizes Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {prizes.map((prize) => {
           const canAfford = currentUser.xp >= prize.cost;
           return (
-            <Card 
+            <Card
               key={prize.id}
               className={cn(
-                'flex flex-col text-center bg-card items-center justify-between rounded-lg transition-all shadow-sm border p-0 overflow-hidden',
+                'overflow-hidden rounded-2xl bg-card border shadow-sm transition-all',
                 !canAfford && 'opacity-60'
               )}
             >
-              <CardHeader className="text-center w-full p-4">
-                <CardTitle className="text-lg font-semibold text-foreground">{prize.name}</CardTitle>
-                <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
-                    <Coins className="w-4 h-4 text-primary" />
-                    <span>{prize.cost.toLocaleString()} CONECTCOINS</span>
+              <div className="p-4">
+                <h3 className="font-semibold text-lg text-foreground">{prize.name}</h3>
+                <p className="text-sm text-muted-foreground">Recompensa</p>
+              </div>
+              <div className="relative aspect-square">
+                <Image
+                  src={prize.imageUrl}
+                  alt={prize.name}
+                  fill
+                  className="object-contain p-4"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none" />
+                <div className="absolute bottom-4 left-4 text-white font-bold text-2xl">
+                  {prize.cost.toLocaleString()}
                 </div>
-              </CardHeader>
-              <CardContent className="w-full p-0 flex-grow">
-                <div className="relative w-full h-48 bg-secondary/30">
-                    <Image
-                      src={prize.imageUrl}
-                      alt={prize.name}
-                      fill
-                      className="object-contain p-4"
-                    />
-                </div>
-              </CardContent>
-              <CardFooter className="p-4 w-full">
-                  <Button 
-                    onClick={() => handleRedeemClick(prize)}
-                    className="w-full"
-                    disabled={!canAfford}
-                  >
-                    Canjear ahora
-                  </Button>
-              </CardFooter>
+                <Button
+                  size="icon"
+                  className={cn(
+                    "absolute bottom-4 right-4 rounded-full h-10 w-10 transition-transform",
+                     canAfford ? "bg-primary hover:scale-110" : "bg-muted text-muted-foreground"
+                  )}
+                  onClick={() => handleRedeemClick(prize)}
+                  disabled={!canAfford}
+                  aria-label={`Canjear ${prize.name}`}
+                >
+                  <ArrowUpRight className="h-5 w-5" />
+                </Button>
+              </div>
             </Card>
           );
         })}
