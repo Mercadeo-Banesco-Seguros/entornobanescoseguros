@@ -179,7 +179,7 @@ export default function CajeroPage() {
         </div>
         <div className="relative h-full flex items-center justify-start">
           <Image
-            src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(5).png?raw=true"
+            src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_ghydwqghydwqghyd-Photoroom.png?raw=true"
             alt="Bazar de reliquias"
             width={400}
             height={400}
