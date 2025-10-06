@@ -93,7 +93,10 @@ export default function CajeroPage() {
       {/* Hero Section */}
       <div className="relative w-full bg-secondary/50 rounded-lg overflow-hidden flex items-center grid grid-cols-1 md:grid-cols-2">
         <div className="relative z-10 p-8 md:p-16">
-          <p className="text-sm font-semibold uppercase tracking-widest text-muted-foreground">Tus CONECTCOINS: {currentUser.xp.toLocaleString()}</p>
+          <div className='mb-4'>
+            <p className="text-sm font-medium text-muted-foreground">Tus CONECTCOINS</p>
+            <p className="text-4xl font-bold text-primary">{currentUser.xp.toLocaleString()}</p>
+          </div>
           <h1 className="text-4xl md:text-6xl font-black text-foreground mt-2">Bazar de Reliquias.</h1>
           <p className="mt-4 max-w-md text-muted-foreground">Canjea tus CONECTCOINS por tesoros únicos de la expedición y lleva tu aventura al siguiente nivel.</p>
         </div>
