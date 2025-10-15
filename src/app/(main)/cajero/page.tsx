@@ -100,7 +100,7 @@ export default function CajeroPage() {
             <h1 className="text-5xl font-bold text-foreground mt-0 -mb-2 tracking-tighter">
               Premio
             </h1>
-            <p className="text-6xl md:text-8xl font-black text-foreground/10 tracking-tighter uppercase">
+            <p className="text-6xl md:text-8xl font-black text-primary/20 tracking-tighter uppercase">
               SORPRESA
             </p>
             <Button 
