@@ -87,6 +87,8 @@ export default function CajeroPage() {
   }
 
   const heroPrize = prizes.find(p => p.name === 'Premio Misterioso');
+  const [heroPrizeName, heroPrizeSubtitle] = heroPrize ? heroPrize.name.split(' ') : ["Premio", "Misterioso"];
+
 
   return (
     <div className="space-y-8">
@@ -94,7 +96,7 @@ export default function CajeroPage() {
       {heroPrize && (
         <div className="bg-blue-100 rounded-2xl grid grid-cols-1 md:grid-cols-2 items-center overflow-hidden">
           <div className="p-8 md:p-16">
-            <p className="font-semibold text-primary">{heroPrize.category}</p>
+            <span className="bg-white/50 text-primary font-medium text-xs px-3 py-1 rounded-full">{heroPrize.category}</span>
             <h1 className="text-5xl font-bold text-foreground mt-0 -mb-2 tracking-tighter">
               Premio
             </h1>
