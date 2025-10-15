@@ -104,11 +104,11 @@ export default function CajeroPage() {
               SORPRESA
             </p>
             <Button 
-              className="mt-4 bg-red-600 hover:bg-red-700 text-white rounded-lg"
+              className="mt-4 rounded-lg"
               onClick={() => handleRedeemClick(heroPrize)}
               disabled={currentUser.xp < heroPrize.cost}
             >
-              Canjear por {heroPrize.cost}
+              {heroPrize.cost}
             </Button>
           </div>
           <div className="relative h-64 md:h-full flex items-center justify-center">
