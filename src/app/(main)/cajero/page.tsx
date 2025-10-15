@@ -92,7 +92,7 @@ export default function CajeroPage() {
     <div className="space-y-8">
       {/* Hero Section */}
       {heroPrize && (
-        <div className="bg-neutral-100 rounded-2xl grid grid-cols-1 md:grid-cols-2 items-center overflow-hidden">
+        <div className="bg-blue-100 rounded-2xl grid grid-cols-1 md:grid-cols-2 items-center overflow-hidden">
           <div className="p-8 md:p-16">
             <p className="font-semibold text-primary">{heroPrize.category}</p>
             <h1 className="text-5xl font-bold text-foreground mt-0 -mb-2 tracking-tighter">
