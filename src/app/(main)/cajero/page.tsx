@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -111,7 +112,7 @@ export default function CajeroPage() {
                 </div>
                 <div className="flex flex-col items-center justify-center text-center mt-4 space-y-2">
                     <div className='flex items-center gap-2'>
-                        <h3 className="font-black text-2xl uppercase">{prize.name}</h3>
+                        <h3 className="font-black text-2xl">{prize.name}</h3>
                         <span className={cn('text-xs font-bold px-3 py-1 rounded-full', categoryColor, categoryTextColor)}>{prize.category}</span>
                     </div>
                     <div className={cn('text-sm font-bold px-4 py-1 rounded-full', costColor, costTextColor)}>
@@ -130,7 +131,7 @@ export default function CajeroPage() {
         <div className="bg-blue-100 rounded-2xl grid grid-cols-1 md:grid-cols-2 items-center overflow-hidden">
           <div className="p-8 md:p-16">
             <span className="bg-white/50 text-primary font-medium text-xs px-3 py-1 rounded-full">{heroPrize.category}</span>
-            <h1 className="text-5xl font-bold text-foreground mt-0 -mb-2 tracking-tighter">
+            <h1 className="text-5xl font-bold text-foreground mt-0 -mb-4 tracking-tighter">
               Premio
             </h1>
             <p className="text-6xl md:text-8xl font-black text-primary tracking-tighter uppercase">
@@ -226,3 +227,5 @@ export default function CajeroPage() {
     </div>
   );
 }
+
+    
