@@ -95,7 +95,7 @@ export default function CajeroPage() {
         <div className="bg-neutral-100 rounded-2xl grid grid-cols-1 md:grid-cols-2 items-center overflow-hidden">
           <div className="p-8 md:p-16">
             <p className="font-semibold text-primary">{heroPrize.category}</p>
-            <h1 className="text-5xl font-bold text-foreground mt-2 tracking-tighter">premio</h1>
+            <h1 className="text-5xl font-bold text-foreground mt-2 tracking-tighter">Premio</h1>
             <p className="text-6xl md:text-8xl font-black text-foreground/10 tracking-tighter -mt-6 md:-mt-10">Misterioso</p>
             <Button 
               className="mt-4 bg-red-600 hover:bg-red-700 text-white rounded-lg"
@@ -246,5 +246,6 @@ export default function CajeroPage() {
   );
 }
 
+    
     
     
