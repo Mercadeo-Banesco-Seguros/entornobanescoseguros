@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState } from 'react';
@@ -10,10 +11,9 @@ import { Ticket } from 'lucide-react';
 import type { Prize } from '@/lib/types';
 import { jsPDF } from "jspdf";
 import { cn } from '@/lib/utils';
-import { prizes } from '@/lib/data';
 
 export default function CajeroPage() {
-  const { currentUser, loading } = useAuth();
+  const { currentUser, loading, prizes, redeemPrize } = useAuth();
   const [selectedPrize, setSelectedPrize] = useState<Prize | null>(null);
   const [isRedeemDialogOpen, setIsRedeemDialogOpen] = useState(false);
   const [isTicketDialogOpen, setIsTicketDialogOpen] = useState(false);
@@ -25,11 +25,17 @@ export default function CajeroPage() {
     }
   };
 
-  const confirmRedemption = () => {
-    // Lógica de canje (restar puntos, etc.) se implementará después
-    console.log(`Canjeando ${selectedPrize?.name} para ${currentUser?.name}`);
-    setIsRedeemDialogOpen(false);
-    setIsTicketDialogOpen(true); // Mostrar el ticket después de confirmar
+  const confirmRedemption = async () => {
+    if (!selectedPrize || !currentUser) return;
+    try {
+      await redeemPrize(selectedPrize);
+      setIsRedeemDialogOpen(false);
+      setIsTicketDialogOpen(true); // Mostrar el ticket después de confirmar
+    } catch (error) {
+      console.error(error);
+      setIsRedeemDialogOpen(false);
+      // Aquí podrías mostrar un toast de error
+    }
   };
   
   const downloadTicket = () => {
@@ -75,9 +81,12 @@ export default function CajeroPage() {
       </div>
     );
   }
+  
+  if (!prizes || prizes.length === 0) {
+      return <div>No se encontraron premios.</div>;
+  }
 
-  const sortedPrizes = [...prizes].sort((a, b) => b.cost - a.cost);
-  const heroPrize = sortedPrizes[8] || prizes[0]; // Example: use a specific prize for hero
+  const heroPrize = prizes.find(p => p.name === 'Premio Misterioso');
 
   return (
     <div className="space-y-8">
