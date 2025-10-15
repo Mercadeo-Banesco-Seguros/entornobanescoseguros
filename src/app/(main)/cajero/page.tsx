@@ -10,9 +10,10 @@ import { Ticket } from 'lucide-react';
 import type { Prize } from '@/lib/types';
 import { jsPDF } from "jspdf";
 import { cn } from '@/lib/utils';
+import { prizes } from '@/lib/data';
 
 export default function CajeroPage() {
-  const { currentUser, prizes, loading } = useAuth();
+  const { currentUser, loading } = useAuth();
   const [selectedPrize, setSelectedPrize] = useState<Prize | null>(null);
   const [isRedeemDialogOpen, setIsRedeemDialogOpen] = useState(false);
   const [isTicketDialogOpen, setIsTicketDialogOpen] = useState(false);
@@ -64,7 +65,7 @@ export default function CajeroPage() {
     doc.save(`Ticket-${selectedPrize.name.replace(/\s/g, '_')}-${currentUser.name}.pdf`);
   };
 
-  if (loading || !currentUser || !prizes) {
+  if (loading || !currentUser) {
     return (
       <div className="space-y-8">
         <Skeleton className="w-full h-80 rounded-lg" />
@@ -121,14 +122,14 @@ export default function CajeroPage() {
                 !canAfford && 'opacity-60',
                 canAfford && 'cursor-pointer'
               )}
-              onClick={() => handleRedeemClick(prize)}
+              onClick={() => canAfford && handleRedeemClick(prize)}
             >
               <div>
                 <p className="font-semibold text-sm">{prize.category}</p>
                 <h2 className="text-2xl font-bold uppercase">{prize.name}</h2>
               </div>
               <div className="flex justify-between items-end">
-                <Button variant="link" className="text-inherit p-0 h-auto">Canjear</Button>
+                <Button variant="link" className="text-inherit p-0 h-auto" disabled={!canAfford}>Canjear</Button>
                 <div className="relative w-24 h-24">
                   <Image src={prize.imageUrl} alt={prize.name} fill className="object-contain" />
                 </div>
@@ -147,14 +148,14 @@ export default function CajeroPage() {
                  !canAfford && 'opacity-60',
                  canAfford && 'cursor-pointer'
               )}
-              onClick={() => handleRedeemClick(prize)}
+              onClick={() => canAfford && handleRedeemClick(prize)}
             >
               <div className="flex flex-col justify-between h-full">
                 <div>
                   <p className="font-semibold text-sm">{prize.category}</p>
                   <h2 className="text-3xl font-bold uppercase">{prize.name}</h2>
                 </div>
-                <Button variant="link" className="text-inherit p-0 h-auto self-start">Canjear</Button>
+                <Button variant="link" className="text-inherit p-0 h-auto self-start" disabled={!canAfford}>Canjear</Button>
               </div>
               <div className="relative w-48 h-48">
                   <Image src={prize.imageUrl} alt={prize.name} fill className="object-contain" />
@@ -173,14 +174,14 @@ export default function CajeroPage() {
                  !canAfford && 'opacity-60',
                  canAfford && 'cursor-pointer'
               )}
-              onClick={() => handleRedeemClick(prize)}
+              onClick={() => canAfford && handleRedeemClick(prize)}
             >
                <div className="flex flex-col justify-between h-full">
                 <div>
                   <p className="font-semibold text-sm">{prize.category}</p>
                   <h2 className="text-3xl font-bold uppercase">{prize.name}</h2>
                 </div>
-                <Button variant="link" className="text-inherit p-0 h-auto self-start">Canjear</Button>
+                <Button variant="link" className="text-inherit p-0 h-auto self-start" disabled={!canAfford}>Canjear</Button>
               </div>
               <div className="relative w-48 h-48">
                   <Image src={prize.imageUrl} alt={prize.name} fill className="object-contain" />

@@ -1,8 +1,8 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, ReactNode, useMemo, useCallback } from 'react';
-import type { User, Task, Avatar, Level } from '@/lib/types';
-import { tasks as staticTasks, levels as staticLevels, avatars as staticAvatars } from '@/lib/data';
+import type { User, Task, Avatar, Level, Prize, PrizeCategory } from '@/lib/types';
+import { tasks as staticTasks, levels as staticLevels, avatars as staticAvatars, prizes as staticPrizes, prizeCategories as staticPrizeCategories } from '@/lib/data';
 
 type AuthContextType = {
   currentUser: User | null;
@@ -10,12 +10,15 @@ type AuthContextType = {
   tasks: Task[];
   levels: Level[];
   avatars: Avatar[];
+  prizes: Prize[];
+  prizeCategories: PrizeCategory[];
   loading: boolean;
   error: string | null;
   login: (email: string, password: string) => Promise<void>;
   register: (name: string, email: string, password: string) => Promise<void>;
   logout: () => void;
   fetchUsers: () => Promise<void>;
+  redeemPrize: (prize: Prize) => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -23,16 +26,21 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [users, setUsers] = useState<User[]>([]);
-  const [tasks, setTasks] = useState<Task[]>([]);
-  const [levels, setLevels] = useState<Level[]>([]);
-  const [avatars, setAvatars] = useState<Avatar[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  // Static data from data.ts
+  const tasks = staticTasks.map(t => ({...t, status: 'pending'}) as Task);
+  const levels = staticLevels;
+  const avatars = staticAvatars;
+  const prizes = staticPrizes;
+  const prizeCategories = staticPrizeCategories;
+
 
   const fetchUsers = useCallback(async () => {
     try {
       const response = await fetch('/api/data', {
-        method: 'POST', // Siempre usamos POST para el proxy
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'getData' }),
         cache: 'no-store',
@@ -41,7 +49,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       if (data.error) throw new Error(data.message);
       
       const allUsers = (data.users || []).map((u: any) => ({
-        id: u.correo, // El ID único es el email
+        id: u.correo,
         name: u.nombre,
         email: u.correo,
         level: Number(u.nivel),
@@ -56,33 +64,28 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const loadInitialData = useCallback(async () => {
-    // Cargar datos estáticos directamente
-    const userTasks = staticTasks.map(t => ({...t, status: 'pending'}) as Task);
-    setTasks(userTasks);
-    setLevels(staticLevels);
-    setAvatars(staticAvatars);
-  }, []);
+    const userJson = localStorage.getItem('currentUser');
+    if (userJson) {
+        try {
+            const user = JSON.parse(userJson);
+            setCurrentUser(user);
+            await fetchUsers();
+        } catch (e) {
+            console.error("Failed to parse user from localStorage", e);
+            localStorage.removeItem('currentUser');
+        }
+    }
+  }, [fetchUsers]);
 
   useEffect(() => {
     const checkUserSession = async () => {
       setLoading(true);
       setError(null);
-      await loadInitialData(); // Carga los datos estáticos primero
-      const userJson = localStorage.getItem('currentUser');
-      if (userJson) {
-        try {
-            const user = JSON.parse(userJson);
-            setCurrentUser(user);
-            await fetchUsers(); // Carga el ranking después de verificar sesión
-        } catch (e) {
-            console.error("Failed to parse user from localStorage", e);
-            localStorage.removeItem('currentUser');
-        }
-      }
+      await loadInitialData();
       setLoading(false);
     };
     checkUserSession();
-  }, [loadInitialData, fetchUsers]);
+  }, [loadInitialData]);
   
   const login = async (email: string, password: string) => {
     setLoading(true);
@@ -141,6 +144,39 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const redeemPrize = async (prize: Prize) => {
+    if (!currentUser) throw new Error("Usuario no autenticado");
+    if (currentUser.xp < prize.cost) throw new Error("No tienes suficientes puntos");
+
+    try {
+        const response = await fetch('/api/bazar', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                action: 'registerPurchase',
+                userId: currentUser.id,
+                prizeId: prize.id,
+                cost: prize.cost,
+            }),
+        });
+
+        const result = await response.json();
+        if (result.error) {
+            throw new Error(result.message);
+        }
+
+        // Si la compra es exitosa, actualiza los puntos del usuario en el frontend
+        const updatedUser = { ...currentUser, xp: currentUser.xp - prize.cost };
+        setCurrentUser(updatedUser);
+        localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+
+    } catch (err: any) {
+        console.error("Error al canjear el premio:", err.message);
+        throw err; // Lanza el error para que la UI pueda manejarlo
+    }
+  };
+
+
   const logout = () => {
     setCurrentUser(null);
     localStorage.removeItem('currentUser');
@@ -154,13 +190,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     tasks,
     levels,
     avatars,
+    prizes,
+    prizeCategories,
     loading,
     error,
     login,
     register,
     logout,
     fetchUsers,
-  }), [currentUser, users, tasks, levels, avatars, loading, error, fetchUsers]);
+    redeemPrize
+  }), [currentUser, users, tasks, levels, avatars, prizes, prizeCategories, loading, error, fetchUsers]);
 
   return (
     <AuthContext.Provider value={value}>
