@@ -112,7 +112,7 @@ export default function CajeroPage() {
                 </div>
                 <div className="flex flex-col items-center justify-center text-center mt-4 space-y-2">
                     <div className='flex items-center gap-2'>
-                        <h3 className="font-black text-2xl tracking-tighter">{prize.name}</h3>
+                        <h3 className="font-black text-xl tracking-tighter">{prize.name}</h3>
                         <span className={cn('text-xs font-bold px-3 py-1 rounded-full', categoryColor, categoryTextColor)}>{prize.category}</span>
                     </div>
                     <div className={cn('text-sm font-bold px-4 py-1 rounded-full', costColor, costTextColor)}>
