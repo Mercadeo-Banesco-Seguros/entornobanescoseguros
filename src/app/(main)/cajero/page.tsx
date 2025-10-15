@@ -87,8 +87,8 @@ export default function CajeroPage() {
       return <div>No se encontraron premios.</div>;
   }
 
-  const heroPrize = prizes.find(p => p.name === 'Premio Misterioso');
-  const goldPrizes = prizes.filter(p => p.category === 'Oro' && p.id !== heroPrize?.id);
+  const heroPrize = prizes.find(p => p.category === 'Diamante');
+  const goldPrizes = prizes.filter(p => p.category === 'Oro');
   const silverPrizes = prizes.filter(p => p.category === 'Plata');
   const bronzePrizes = prizes.filter(p => p.category === 'Bronce');
 
@@ -100,7 +100,7 @@ export default function CajeroPage() {
                 "rounded-2xl p-6 flex flex-col justify-between h-80 transition-all",
                 bgColor,
                 textColor,
-                !canAfford ? 'opacity-60 grayscale' : 'cursor-pointer hover:scale-105'
+                !canAfford ? 'opacity-60' : 'cursor-pointer hover:scale-105'
             )}
             onClick={() => canAfford && handleRedeemClick(prize)}
         >
@@ -223,4 +223,5 @@ export default function CajeroPage() {
   );
 }
 
+    
     
