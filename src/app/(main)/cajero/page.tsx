@@ -11,6 +11,7 @@ import { Ticket } from 'lucide-react';
 import type { Prize } from '@/lib/types';
 import { jsPDF } from "jspdf";
 import { cn } from '@/lib/utils';
+import { Card, CardContent } from '@/components/ui/card';
 
 export default function CajeroPage() {
   const { currentUser, loading, prizes, redeemPrize } = useAuth();
@@ -87,11 +88,39 @@ export default function CajeroPage() {
   }
 
   const heroPrize = prizes.find(p => p.name === 'Premio Misterioso');
-  const [heroPrizeName, heroPrizeSubtitle] = heroPrize ? heroPrize.name.split(' ') : ["Premio", "Misterioso"];
+  const goldPrizes = prizes.filter(p => p.category === 'Oro' && p.id !== heroPrize?.id);
+  const silverPrizes = prizes.filter(p => p.category === 'Plata');
+  const bronzePrizes = prizes.filter(p => p.category === 'Bronce');
 
-
+  const PrizeCard = ({ prize, bgColor, textColor }: { prize: Prize, bgColor: string, textColor: string }) => {
+    const canAfford = currentUser.xp >= prize.cost;
+    return (
+        <Card 
+            className={cn(
+                "rounded-2xl p-6 flex flex-col justify-between h-80 transition-all",
+                bgColor,
+                textColor,
+                !canAfford ? 'opacity-60 grayscale' : 'cursor-pointer hover:scale-105'
+            )}
+            onClick={() => canAfford && handleRedeemClick(prize)}
+        >
+            <CardContent className="p-0 flex flex-col h-full">
+                <div className="flex-grow flex items-center justify-center">
+                    <div className="relative w-36 h-36">
+                        <Image src={prize.imageUrl} alt={prize.name} fill className="object-contain" />
+                    </div>
+                </div>
+                <div className="text-center mt-4">
+                    <h3 className="font-bold text-lg">{prize.name}</h3>
+                    <p className="font-semibold">{prize.cost.toLocaleString()} CONECTCOINS</p>
+                </div>
+            </CardContent>
+        </Card>
+    );
+  };
+  
   return (
-    <div className="space-y-8">
+    <div className="space-y-12">
       {/* Hero Section */}
       {heroPrize && (
         <div className="bg-blue-100 rounded-2xl grid grid-cols-1 md:grid-cols-2 items-center overflow-hidden">
@@ -124,86 +153,28 @@ export default function CajeroPage() {
         </div>
       )}
 
-      {/* Prizes Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 grid-rows-2 gap-6">
-        {prizes.filter(p => p.id !== heroPrize?.id).slice(0, 2).map((prize, index) => {
-          const canAfford = currentUser.xp >= prize.cost;
-          return (
-            <div 
-              key={prize.id} 
-              className={cn(
-                "rounded-2xl p-6 flex flex-col justify-between h-64",
-                index === 0 ? "bg-black text-white" : "bg-yellow-400 text-black",
-                !canAfford && 'opacity-60',
-                canAfford && 'cursor-pointer'
-              )}
-              onClick={() => canAfford && handleRedeemClick(prize)}
-            >
-              <div>
-                <p className="font-semibold text-sm">{prize.category}</p>
-                <h2 className="text-2xl font-bold uppercase">{prize.name}</h2>
-              </div>
-              <div className="flex justify-between items-end">
-                <Button variant="link" className="text-inherit p-0 h-auto" disabled={!canAfford}>Canjear</Button>
-                <div className="relative w-24 h-24">
-                  <Image src={prize.imageUrl} alt={prize.name} fill className="object-contain" />
-                </div>
-              </div>
-            </div>
-          );
-        })}
-        {prizes.filter(p => p.id !== heroPrize?.id).slice(2, 4).map((prize, index) => {
-          const canAfford = currentUser.xp >= prize.cost;
-          return (
-            <div 
-              key={prize.id} 
-              className={cn(
-                "col-span-2 rounded-2xl p-6 flex items-center justify-between h-64",
-                 index === 0 ? "bg-red-500 text-white" : "bg-neutral-100 text-black",
-                 !canAfford && 'opacity-60',
-                 canAfford && 'cursor-pointer'
-              )}
-              onClick={() => canAfford && handleRedeemClick(prize)}
-            >
-              <div className="flex flex-col justify-between h-full">
-                <div>
-                  <p className="font-semibold text-sm">{prize.category}</p>
-                  <h2 className="text-3xl font-bold uppercase">{prize.name}</h2>
-                </div>
-                <Button variant="link" className="text-inherit p-0 h-auto self-start" disabled={!canAfford}>Canjear</Button>
-              </div>
-              <div className="relative w-48 h-48">
-                  <Image src={prize.imageUrl} alt={prize.name} fill className="object-contain" />
-              </div>
-            </div>
-          );
-        })}
-         {prizes.filter(p => p.id !== heroPrize?.id).slice(4, 6).map((prize, index) => {
-          const canAfford = currentUser.xp >= prize.cost;
-          return (
-            <div 
-              key={prize.id} 
-              className={cn(
-                "col-span-2 rounded-2xl p-6 flex items-center justify-between h-64",
-                 index === 0 ? "bg-green-500 text-white" : "bg-blue-500 text-white",
-                 !canAfford && 'opacity-60',
-                 canAfford && 'cursor-pointer'
-              )}
-              onClick={() => canAfford && handleRedeemClick(prize)}
-            >
-               <div className="flex flex-col justify-between h-full">
-                <div>
-                  <p className="font-semibold text-sm">{prize.category}</p>
-                  <h2 className="text-3xl font-bold uppercase">{prize.name}</h2>
-                </div>
-                <Button variant="link" className="text-inherit p-0 h-auto self-start" disabled={!canAfford}>Canjear</Button>
-              </div>
-              <div className="relative w-48 h-48">
-                  <Image src={prize.imageUrl} alt={prize.name} fill className="object-contain" />
-              </div>
-            </div>
-          );
-        })}
+      {/* Gold Prizes */}
+      <div className="space-y-4">
+        <h2 className="text-2xl font-bold text-yellow-500">ORO</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {goldPrizes.map(prize => <PrizeCard key={prize.id} prize={prize} bgColor="bg-yellow-400" textColor="text-black" />)}
+        </div>
+      </div>
+
+      {/* Silver Prizes */}
+      <div className="space-y-4">
+        <h2 className="text-2xl font-bold text-gray-400">PLATA</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {silverPrizes.map(prize => <PrizeCard key={prize.id} prize={prize} bgColor="bg-gray-300" textColor="text-black" />)}
+        </div>
+      </div>
+      
+      {/* Bronze Prizes */}
+      <div className="space-y-4">
+        <h2 className="text-2xl font-bold text-amber-700">BRONCE</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {bronzePrizes.map(prize => <PrizeCard key={prize.id} prize={prize} bgColor="bg-amber-600" textColor="text-white" />)}
+        </div>
       </div>
 
       {/* Confirmation Dialog */}
@@ -251,3 +222,5 @@ export default function CajeroPage() {
     </div>
   );
 }
+
+    
