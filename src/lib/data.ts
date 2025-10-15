@@ -57,7 +57,7 @@ export const prizes: Prize[] = [
   { id: 12, name: 'Audífonos', description: 'Para que nunca te quedes sin energía.', cost: 200, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(10).png?raw=true', category: 'Oro' },
 
   // Diamante
-  { id: 13, name: 'Premio Misterioso', description: 'Un tesoro legendario te espera.', cost: 300, imageUrl: 'https://i.pinimg.com/1200x/ba/34/b8/ba34b8109dbe4ae693349efc1dbe8ca5.jpg', category: 'Diamante' },
+  { id: 13, name: 'Premio Misterioso', description: 'Un tesoro legendario te espera.', cost: 300, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/5ffdcd0d76650425722555858ebe6053-Photoroom.png?raw=true', category: 'Diamante' },
 ];
 
 
