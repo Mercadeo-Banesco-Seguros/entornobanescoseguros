@@ -96,7 +96,7 @@ export default function CajeroPage() {
           <div className="p-8 md:p-16">
             <p className="font-semibold text-primary">{heroPrize.category}</p>
             <h1 className="text-4xl md:text-6xl font-bold text-foreground mt-2 uppercase tracking-tighter">Premio</h1>
-            <p className="text-7xl md:text-9xl font-black text-foreground/10 -mt-4 md:-mt-8">Misterioso</p>
+            <p className="text-6xl md:text-8xl font-black text-foreground/10 -mt-4 md:-mt-8 tracking-tighter">Misterioso</p>
             <Button 
               className="mt-4 bg-red-600 hover:bg-red-700 text-white rounded-lg"
               onClick={() => handleRedeemClick(heroPrize)}
@@ -120,7 +120,7 @@ export default function CajeroPage() {
 
       {/* Prizes Grid */}
       <div className="grid grid-cols-2 md:grid-cols-4 grid-rows-2 gap-6">
-        {prizes.slice(0, 2).map((prize, index) => {
+        {prizes.filter(p => p.id !== heroPrize?.id).slice(0, 2).map((prize, index) => {
           const canAfford = currentUser.xp >= prize.cost;
           return (
             <div 
@@ -146,7 +146,7 @@ export default function CajeroPage() {
             </div>
           );
         })}
-        {prizes.slice(2, 4).map((prize, index) => {
+        {prizes.filter(p => p.id !== heroPrize?.id).slice(2, 4).map((prize, index) => {
           const canAfford = currentUser.xp >= prize.cost;
           return (
             <div 
@@ -172,7 +172,7 @@ export default function CajeroPage() {
             </div>
           );
         })}
-         {prizes.slice(4, 6).map((prize, index) => {
+         {prizes.filter(p => p.id !== heroPrize?.id).slice(4, 6).map((prize, index) => {
           const canAfford = currentUser.xp >= prize.cost;
           return (
             <div 
@@ -245,3 +245,5 @@ export default function CajeroPage() {
     </div>
   );
 }
+
+    
