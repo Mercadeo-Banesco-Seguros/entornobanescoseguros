@@ -108,7 +108,7 @@ export default function CajeroPage() {
               onClick={() => handleRedeemClick(heroPrize)}
               disabled={currentUser.xp < heroPrize.cost}
             >
-              {heroPrize.cost}
+              {heroPrize.cost} CONECTCOINS
             </Button>
           </div>
           <div className="relative h-64 md:h-full flex items-center justify-center">
