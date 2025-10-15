@@ -96,7 +96,7 @@ export default function CajeroPage() {
           <div className="p-8 md:p-16">
             <p className="font-semibold text-primary">{heroPrize.category}</p>
             <h1 className="text-5xl font-bold text-foreground mt-2">Premio</h1>
-            <p className="text-6xl md:text-8xl font-black text-foreground/10 tracking-tighter">Misterioso</p>
+            <p className="text-6xl md:text-8xl font-black text-foreground/10 tracking-tighter uppercase">SORPRESA</p>
             <Button 
               className="mt-4 bg-red-600 hover:bg-red-700 text-white rounded-lg"
               onClick={() => handleRedeemClick(heroPrize)}
