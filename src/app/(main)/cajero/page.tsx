@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState } from 'react';
@@ -76,7 +75,7 @@ export default function CajeroPage() {
     return (
       <div className="space-y-8">
         <Skeleton className="w-full h-80 rounded-lg" />
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {[...Array(8)].map((_, i) => <Skeleton key={i} className="h-64 w-full rounded-lg" />)}
         </div>
       </div>
@@ -92,12 +91,12 @@ export default function CajeroPage() {
   const silverPrizes = prizes.filter(p => p.category === 'Plata');
   const bronzePrizes = prizes.filter(p => p.category === 'Bronce');
 
-  const PrizeCard = ({ prize, bgColor, textColor }: { prize: Prize, bgColor: string, textColor: string }) => {
+  const PrizeCard = ({ prize, bgColor, textColor, categoryColor, categoryTextColor, costColor, costTextColor }: { prize: Prize, bgColor: string, textColor: string, categoryColor: string, categoryTextColor: string, costColor:string, costTextColor: string }) => {
     const canAfford = currentUser.xp >= prize.cost;
     return (
-        <Card 
+        <Card
             className={cn(
-                "rounded-2xl p-6 flex flex-col justify-between h-80 transition-all",
+                "rounded-2xl p-6 flex flex-col justify-between h-96 transition-all shadow-lg",
                 bgColor,
                 textColor,
                 !canAfford ? 'opacity-60' : 'cursor-pointer hover:scale-105'
@@ -106,13 +105,18 @@ export default function CajeroPage() {
         >
             <CardContent className="p-0 flex flex-col h-full">
                 <div className="flex-grow flex items-center justify-center">
-                    <div className="relative w-36 h-36">
+                    <div className="relative w-48 h-48">
                         <Image src={prize.imageUrl} alt={prize.name} fill className="object-contain" />
                     </div>
                 </div>
-                <div className="text-center mt-4">
-                    <h3 className="font-bold text-lg">{prize.name}</h3>
-                    <p className="font-semibold">{prize.cost.toLocaleString()} CONECTCOINS</p>
+                <div className="flex flex-col items-center justify-center text-center mt-4 space-y-2">
+                    <div className='flex items-center gap-2'>
+                        <h3 className="font-black text-2xl uppercase">{prize.name}</h3>
+                        <span className={cn('text-xs font-bold px-3 py-1 rounded-full', categoryColor, categoryTextColor)}>{prize.category}</span>
+                    </div>
+                    <div className={cn('text-sm font-bold px-4 py-1 rounded-full', costColor, costTextColor)}>
+                      {prize.cost.toLocaleString()} CC
+                    </div>
                 </div>
             </CardContent>
         </Card>
@@ -137,7 +141,7 @@ export default function CajeroPage() {
               onClick={() => handleRedeemClick(heroPrize)}
               disabled={currentUser.xp < heroPrize.cost}
             >
-              {heroPrize.cost} CONECTCOINS
+              {heroPrize.cost.toLocaleString()} CONECTCOINS
             </Button>
           </div>
           <div className="relative h-64 md:h-full flex items-center justify-center">
@@ -156,24 +160,24 @@ export default function CajeroPage() {
       {/* Gold Prizes */}
       <div className="space-y-4">
         <h2 className="text-2xl font-bold text-yellow-500">ORO</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {goldPrizes.map(prize => <PrizeCard key={prize.id} prize={prize} bgColor="bg-yellow-400" textColor="text-black" />)}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {goldPrizes.map(prize => <PrizeCard key={prize.id} prize={prize} bgColor="bg-yellow-400" textColor="text-black" categoryColor="bg-black/10" categoryTextColor="text-black" costColor="bg-black/80" costTextColor="text-white" />)}
         </div>
       </div>
 
       {/* Silver Prizes */}
       <div className="space-y-4">
         <h2 className="text-2xl font-bold text-gray-400">PLATA</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {silverPrizes.map(prize => <PrizeCard key={prize.id} prize={prize} bgColor="bg-gray-300" textColor="text-black" />)}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {silverPrizes.map(prize => <PrizeCard key={prize.id} prize={prize} bgColor="bg-gray-300" textColor="text-black" categoryColor="bg-black/10" categoryTextColor="text-black" costColor="bg-black/80" costTextColor="text-white" />)}
         </div>
       </div>
       
       {/* Bronze Prizes */}
       <div className="space-y-4">
         <h2 className="text-2xl font-bold text-amber-700">BRONCE</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {bronzePrizes.map(prize => <PrizeCard key={prize.id} prize={prize} bgColor="bg-amber-600" textColor="text-white" />)}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {bronzePrizes.map(prize => <PrizeCard key={prize.id} prize={prize} bgColor="bg-amber-600" textColor="text-white" categoryColor="bg-white/20" categoryTextColor="text-white" costColor="bg-white/90" costTextColor="text-black" />)}
         </div>
       </div>
 
@@ -222,6 +226,3 @@ export default function CajeroPage() {
     </div>
   );
 }
-
-    
-    
