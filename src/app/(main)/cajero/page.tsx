@@ -64,7 +64,7 @@ export default function CajeroPage() {
     doc.save(`Ticket-${selectedPrize.name.replace(/\s/g, '_')}-${currentUser.name}.pdf`);
   };
 
-  if (loading || !currentUser) {
+  if (loading || !currentUser || !prizes) {
     return (
       <div className="space-y-8">
         <Skeleton className="w-full h-80 rounded-lg" />
