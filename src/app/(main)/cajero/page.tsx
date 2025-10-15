@@ -76,7 +76,7 @@ export default function CajeroPage() {
     return (
       <div className="space-y-8">
         <Skeleton className="w-full h-80 rounded-lg" />
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {[...Array(8)].map((_, i) => <Skeleton key={i} className="h-64 w-full rounded-lg" />)}
         </div>
       </div>
@@ -161,7 +161,7 @@ export default function CajeroPage() {
       {/* Gold Prizes */}
       <div className="space-y-4">
         <h2 className="text-2xl font-bold text-yellow-500">ORO</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {goldPrizes.map(prize => <PrizeCard key={prize.id} prize={prize} bgColor="bg-yellow-400" textColor="text-black" categoryColor="bg-black/10" categoryTextColor="text-black" costColor="bg-black/80" costTextColor="text-white" />)}
         </div>
       </div>
@@ -169,7 +169,7 @@ export default function CajeroPage() {
       {/* Silver Prizes */}
       <div className="space-y-4">
         <h2 className="text-2xl font-bold text-gray-400">PLATA</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {silverPrizes.map(prize => <PrizeCard key={prize.id} prize={prize} bgColor="bg-gray-300" textColor="text-black" categoryColor="bg-black/10" categoryTextColor="text-black" costColor="bg-black/80" costTextColor="text-white" />)}
         </div>
       </div>
@@ -177,7 +177,7 @@ export default function CajeroPage() {
       {/* Bronze Prizes */}
       <div className="space-y-4">
         <h2 className="text-2xl font-bold text-amber-700">BRONCE</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {bronzePrizes.map(prize => <PrizeCard key={prize.id} prize={prize} bgColor="bg-amber-600" textColor="text-white" categoryColor="bg-white/20" categoryTextColor="text-white" costColor="bg-white/90" costTextColor="text-black" />)}
         </div>
       </div>
@@ -229,4 +229,6 @@ export default function CajeroPage() {
 }
 
     
+    
+
     
