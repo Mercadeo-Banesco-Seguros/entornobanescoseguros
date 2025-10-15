@@ -76,9 +76,9 @@ Contiene las URLs de las imágenes para los mundos.
 | `imageUrl`  | URL de la imagen.                         | `https://.../primer%20nivel.png?raw=true` |
 | `imageHint` | Pista para la IA (opcional).              | `jungle ruins`                            |
 
-### Hoja: `Premios` (NUEVA)
+### Hoja: `Premios`
 
-Contiene los premios disponibles para canjear en el "Cajero".
+Contiene los premios disponibles para canjear en el "Bazar".
 
 | Columna     | Descripción                               | Ejemplo                                   |
 | :---------- | :---------------------------------------- | :---------------------------------------- |
@@ -87,6 +87,7 @@ Contiene los premios disponibles para canjear en el "Cajero".
 | `description` | Descripción del premio.                   | `Una taza para tus bebidas calientes.`    |
 | `cost`      | Costo en CONECTCOINS.                     | `100`                                     |
 | `imageUrl`  | URL de la imagen del premio.              | `https://.../taza.png?raw=true`           |
+| `category`  | Categoría del premio ('Bronce', 'Plata', 'Oro', 'Diamante') | `Bronce` |
 
 ### Hoja: `Canjes` (NUEVA)
 

@@ -154,8 +154,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 action: 'registerPurchase',
-                userId: currentUser.id,
+                userId: currentUser.email, // Enviar el email del usuario
                 prizeId: prize.id,
+                prizeName: prize.name,
                 cost: prize.cost,
             }),
         });
@@ -199,7 +200,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     logout,
     fetchUsers,
     redeemPrize
-  }), [currentUser, users, tasks, levels, avatars, prizes, prizeCategories, loading, error, fetchUsers]);
+  }), [currentUser, users, tasks, levels, avatars, prizes, prizeCategories, loading, error, fetchUsers, redeemPrize]);
 
   return (
     <AuthContext.Provider value={value}>

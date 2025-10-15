@@ -1,11 +1,12 @@
 // ------------------- CONFIGURACIÓN -------------------
 // 1. Reemplaza esta URL con la URL de tu hoja de cálculo de Google.
-const SPREADSHEET_URL = "https://docs.google.com/spreadsheets/d/1Xy_JDI2AXD503kS2Wg6Enm3fM_eBGN4d8G1F2q3x-pM/edit#gid=0"; 
+const SPREADSHEET_URL = "https://docs.google.com/spreadsheets/d/10t2ToIlBben3d-IN9P3g-k5wu5hGRzlo1Tg2ch-4Xo4/edit#gid=1042210733"; 
 
 // 2. Define los nombres de las hojas que usarás. Deben coincidir EXACTAMENTE.
 const SHEET_NAMES = {
   USERS: "USUARIOS",
-  DATA: "DATA"
+  DATA: "DATA",
+  CANJES: "Canjes" // Nueva hoja para registrar canjes
 };
 // -----------------------------------------------------
 
@@ -30,7 +31,6 @@ function doOptions(e) {
 
 /**
  * Crea una respuesta JSON estándar con las cabeceras CORS correctas.
- * Esto es crucial para que Google Sites permita la petición.
  */
 function createJsonResponse(data) {
   return ContentService
@@ -38,6 +38,7 @@ function createJsonResponse(data) {
     .setMimeType(ContentService.MimeType.JSON)
     .withHeaders({ 'Access-Control-Allow-Origin': '*' });
 }
+
 
 /**
  * Función principal que maneja las peticiones POST.
@@ -64,6 +65,8 @@ function doPost(e) {
         return handleLogin(requestData);
       case 'getData':
         return handleGetData(requestData);
+      case 'registerPurchase':
+        return handleRegisterPurchase(requestData);
       default:
         return createJsonResponse({ error: true, message: "Acción no reconocida." });
     }
@@ -114,6 +117,55 @@ function handleRegister(data) {
 
   return createJsonResponse({ success: true, message: "Usuario registrado exitosamente." });
 }
+
+/**
+ * Maneja el registro de una nueva compra/canje.
+ */
+function handleRegisterPurchase(data) {
+  const { userId, prizeId, prizeName, cost } = data;
+  if (!userId || !prizeId || !prizeName || cost === undefined) {
+    return createJsonResponse({ error: true, message: "Faltan datos para registrar el canje." });
+  }
+
+  const canjesSheet = spreadsheet.getSheetByName(SHEET_NAMES.CANJES);
+  if (!canjesSheet) {
+    return createJsonResponse({ error: true, message: `La hoja "${SHEET_NAMES.CANJES}" no fue encontrada.` });
+  }
+  
+  try {
+    const idCanje = new Date().getTime(); // ID único basado en timestamp
+    const fecha = new Date();
+
+    // idCanje, correoUsuario, idPremio, nombrePremio, costo, fecha
+    canjesSheet.appendRow([idCanje, userId, prizeId, prizeName, cost, fecha]);
+    
+    // Opcional: Actualizar el puntaje del usuario en la hoja DATA
+    const dataSheet = spreadsheet.getSheetByName(SHEET_NAMES.DATA);
+    if(dataSheet) {
+        const dataUsers = getSheetDataWithRowIndex(dataSheet);
+        const userRow = dataUsers.find(u => u.data['correo'] && u.data['correo'].toString().toLowerCase() === userId.toLowerCase());
+        
+        if (userRow) {
+            const currentScore = parseInt(userRow.data['puntaje'], 10) || 0;
+            const newScore = currentScore - parseInt(cost, 10);
+            
+            // Encontrar la columna "Puntaje" (el índice es +1 para la hoja)
+            const headers = dataSheet.getRange(1, 1, 1, dataSheet.getLastColumn()).getValues()[0];
+            const scoreColumnIndex = headers.findIndex(h => h.toString().toLowerCase() === 'puntaje') + 1;
+            
+            if (scoreColumnIndex > 0) {
+                 dataSheet.getRange(userRow.rowIndex, scoreColumnIndex).setValue(newScore);
+            }
+        }
+    }
+
+    return createJsonResponse({ success: true, message: "Canje registrado exitosamente." });
+  } catch (error) {
+     Logger.log(`Error en handleRegisterPurchase: ${error.toString()}\nStack: ${error.stack}`);
+     return createJsonResponse({ error: true, message: `No se pudo registrar el canje: ${error.toString()}` });
+  }
+}
+
 
 
 /**
@@ -206,5 +258,28 @@ function getSheetData(sheet) {
       }
     });
     return rowData;
+  });
+}
+
+/**
+ * Igual que getSheetData, pero incluye el índice de la fila original.
+ */
+function getSheetDataWithRowIndex(sheet) {
+  if (!sheet) return [];
+  const range = sheet.getDataRange();
+  if (range.getNumRows() < 2) return [];
+
+  const values = range.getValues();
+  const headers = values.shift().map(header => header.toString().trim().toLowerCase());
+  
+  return values.map((row, rowIndex) => {
+    const rowData = {};
+    headers.forEach((header, index) => {
+      if(header){
+        rowData[header] = row[index];
+      }
+    });
+    // El índice de la fila en la hoja es rowIndex + 2 (1 por el header, 1 porque es 0-indexed)
+    return { rowIndex: rowIndex + 2, data: rowData };
   });
 }
