@@ -17,7 +17,7 @@ const spreadsheet = SpreadsheetApp.openByUrl(SPREADSHEET_URL);
 
 /**
  * Función para manejar las peticiones OPTIONS (preflight de CORS).
- * Esto es CRUCIAL para que las peticiones desde Google Sites funcionen.
+ * Esto es CRUCIAL para que las peticiones desde el cliente funcionen.
  */
 function doOptions(e) {
   return ContentService.createTextOutput()
@@ -28,6 +28,7 @@ function doOptions(e) {
       'Access-Control-Allow-Headers': 'Content-Type',
     });
 }
+
 
 /**
  * Crea una respuesta JSON estándar con las cabeceras CORS correctas.

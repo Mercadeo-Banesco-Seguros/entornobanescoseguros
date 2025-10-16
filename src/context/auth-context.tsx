@@ -149,12 +149,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (currentUser.xp < prize.cost) throw new Error("No tienes suficientes puntos");
 
     try {
-        const response = await fetch('/api/bazar', {
+        const response = await fetch('/api/bazar', { // Apunta a la nueva ruta del bazar
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 action: 'registerPurchase',
-                userId: currentUser.email, // Enviar el email del usuario
+                userId: currentUser.email,
                 prizeId: prize.id,
                 prizeName: prize.name,
                 cost: prize.cost,
@@ -166,14 +166,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             throw new Error(result.message);
         }
 
-        // Si la compra es exitosa, actualiza los puntos del usuario en el frontend
         const updatedUser = { ...currentUser, xp: currentUser.xp - prize.cost };
         setCurrentUser(updatedUser);
         localStorage.setItem('currentUser', JSON.stringify(updatedUser));
 
     } catch (err: any) {
         console.error("Error al canjear el premio:", err.message);
-        throw err; // Lanza el error para que la UI pueda manejarlo
+        throw err;
     }
   };
 

@@ -1,14 +1,14 @@
 
 import { NextResponse } from 'next/server';
 
-// Pega la URL de implementación de tu Google Apps Script aquí.
-const appsScriptUrl = 'https://script.google.com/macros/s/AKfycbwKhJu1WyG0Eu5Betp93M19WDKnqM926Xdus5_vzo3mEmyoXeNZAIxdVga9E6VdGvEzYg/exec';
+// Pega la URL de tu NUEVA implementación de Google Apps Script aquí.
+const appsScriptUrl = '';
 
 
 async function handleRequest(request: Request) {
   if (!appsScriptUrl) {
     return NextResponse.json(
-      { message: 'La URL de Apps Script no está configurada.' },
+      { message: 'La URL de Apps Script no está configurada para el bazar.' },
       { status: 500 }
     );
   }
@@ -26,8 +26,8 @@ async function handleRequest(request: Request) {
   
   const action = body.action;
 
-  if (!action) {
-      return NextResponse.json({ message: 'La acción no fue especificada.' }, { status: 400 });
+  if (action !== 'registerPurchase') {
+      return NextResponse.json({ message: 'Acción no válida para esta ruta.' }, { status: 400 });
   }
 
   try {
@@ -44,7 +44,7 @@ async function handleRequest(request: Request) {
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('Error desde Apps Script:', errorText);
+      console.error('Error desde Apps Script (Bazar):', errorText);
       return NextResponse.json(
         { message: 'Error al contactar el servicio de datos del bazar.', details: errorText },
         { status: response.status }
