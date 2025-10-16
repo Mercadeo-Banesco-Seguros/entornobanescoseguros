@@ -29,7 +29,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Static data from data.ts
   const tasks = staticTasks.map(t => ({...t, status: 'pending'}) as Task);
   const levels = staticLevels;
   const avatars = staticAvatars;
@@ -52,14 +51,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         id: u.correo,
         name: u.nombre,
         email: u.correo,
-        level: Number(u.nivel),
-        xp: Number(u.puntaje),
-        avatar: u.avatar
+        level: Number(u.nivel) || 1,
+        xp: Number(u.puntaje) || 0,
+        avatar: u.avatar || 'Explorador'
       }));
       setUsers(allUsers);
       
-      // Update current user data if they are in the list
-      // We read from a function-based state update to get the latest state without dependency
       setCurrentUser(prevUser => {
         if (prevUser) {
           const updatedCurrentUser = allUsers.find(u => u.email.toLowerCase() === prevUser.email.toLowerCase());
@@ -120,9 +117,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             id: data.user.id,
             name: data.user.name,
             email: data.user.email,
-            level: Number(data.user.level),
-            xp: Number(data.user.xp),
-            avatar: data.user.avatar
+            level: Number(data.user.level) || 1,
+            xp: Number(data.user.xp) || 0,
+            avatar: data.user.avatar || 'Explorador'
         };
 
         setCurrentUser(user);
@@ -179,8 +176,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         if (result.error) {
             throw new Error(result.message);
         }
-
-        // After successful redemption, refetch all user data to get the updated score
+        
         await fetchUsers();
 
     } catch (err: any) {
@@ -212,7 +208,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     logout,
     fetchUsers,
     redeemPrize
-  }), [currentUser, users, tasks, levels, avatars, prizes, prizeCategories, loading, error, fetchUsers]);
+  }), [currentUser, users, loading, error, fetchUsers]);
 
   return (
     <AuthContext.Provider value={value}>

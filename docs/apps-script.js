@@ -198,7 +198,7 @@ function handleLogin(data) {
 
   const userData = {
       id: userRow['correo'],
-      name: userRow['nombre'], // <-- OBTENIENDO EL NOMBRE DE LA HOJA USUARIOS
+      name: userRow['nombre'],
       email: userRow['correo'],
       level: publicData.level,
       xp: publicData.xp,
