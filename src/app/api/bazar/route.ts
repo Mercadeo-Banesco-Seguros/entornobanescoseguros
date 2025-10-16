@@ -2,7 +2,7 @@
 import { NextResponse } from 'next/server';
 
 // Pega la URL de tu NUEVA implementación de Google Apps Script aquí.
-const appsScriptUrl = '';
+const appsScriptUrl = 'https://script.google.com/macros/s/AKfycbwRsdRFb3Hzui7CRX-4DXWZFSzDLBV-rPQuxvnRTUtbo2ep4tTfyb38YpBxSxePTGz4wQ/exec';
 
 
 async function handleRequest(request: Request) {
