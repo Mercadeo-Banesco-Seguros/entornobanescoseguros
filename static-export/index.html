@@ -169,6 +169,9 @@ document.addEventListener('DOMContentLoaded', function() {
         loading: false,
         error: null,
     };
+    let isRedeeming = false;
+    let selectedPrize = null;
+
 
     // --- DOM Elements ---
     const appContainer = document.getElementById('app-container');
@@ -910,8 +913,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // --- BAZAR LOGIC ---
-    let selectedPrize = null;
-    let isRedeeming = false;
 
     window.handleRedeemClick = (prize) => {
         if (state.currentUser && state.currentUser.xp >= prize.cost) {
@@ -934,6 +935,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     async function confirmRedemption() {
         if (!selectedPrize || !state.currentUser || isRedeeming) return;
+        
         isRedeeming = true;
         const confirmBtn = document.getElementById('confirm-redeem-btn');
         if (confirmBtn) {
