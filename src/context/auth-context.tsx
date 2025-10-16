@@ -59,19 +59,23 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setUsers(allUsers);
       
       // Update current user data if they are in the list
-      if (currentUser) {
-        const updatedCurrentUser = allUsers.find(u => u.email.toLowerCase() === currentUser.email.toLowerCase());
-        if (updatedCurrentUser) {
-          setCurrentUser(updatedCurrentUser);
-          localStorage.setItem('currentUser', JSON.stringify(updatedCurrentUser));
+      // We read from a function-based state update to get the latest state without dependency
+      setCurrentUser(prevUser => {
+        if (prevUser) {
+          const updatedCurrentUser = allUsers.find(u => u.email.toLowerCase() === prevUser.email.toLowerCase());
+          if (updatedCurrentUser) {
+            localStorage.setItem('currentUser', JSON.stringify(updatedCurrentUser));
+            return updatedCurrentUser;
+          }
         }
-      }
+        return prevUser;
+      });
 
     } catch (err: any) {
       setError("Error cargando los datos del ranking: " + err.message);
       console.error(err);
     }
-  }, [currentUser]);
+  }, []);
 
   const loadInitialData = useCallback(async () => {
     const userJson = localStorage.getItem('currentUser');
@@ -208,7 +212,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     logout,
     fetchUsers,
     redeemPrize
-  }), [currentUser, users, tasks, levels, avatars, prizes, prizeCategories, loading, error, fetchUsers, redeemPrize]);
+  }), [currentUser, users, tasks, levels, avatars, prizes, prizeCategories, loading, error, fetchUsers]);
 
   return (
     <AuthContext.Provider value={value}>
