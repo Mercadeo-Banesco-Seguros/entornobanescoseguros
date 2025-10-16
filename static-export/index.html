@@ -51,6 +51,7 @@
         @keyframes pulse { 50% { opacity: .5; } }
     </style>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -100,11 +101,17 @@
     <div id="app-container">
         <!-- App content is rendered here -->
     </div>
+    
+    <div id="dialog-overlay" class="hidden fixed inset-0 z-50 bg-black/80"></div>
+    <div id="dialog-container" class="hidden fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg sm:rounded-lg"></div>
+
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // --- CONFIGURATION ---
-    const SPREADSHEET_URL = 'https://script.google.com/macros/s/AKfycbwKhJu1WyG0Eu5Betp93M19WDKnqM926Xdus5_vzo3mEmyoXeNZAIxdVga9E6VdGvEzYg/exec';
+    const DATA_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwKhJu1WyG0Eu5Betp93M19WDKnqM926Xdus5_vzo3mEmyoXeNZAIxdVga9E6VdGvEzYg/exec';
+    const BAZAR_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwRsdRFb3Hzui7CRX-4DXWZFSzDLBV-rPQuxvnRTUtbo2ep4tTfyb38YpBxSxePTGz4wQ/exec';
+    const { jsPDF } = window.jspdf;
     
     // --- STATIC DATA ---
     const avatars = [
@@ -116,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const levels = [
         { id: 1, name: 'Nivel 1', xpThreshold: 1000, worldName: 'Las Selvas Exteriores', worldImageId: 'world-level-1', story: 'Bienvenido a las Selvas Exteriores, la primera frontera de nuestra gran expedición. Aquí inicias tu viaje como Explorador(a), aprendiendo los primeros pasos y descubriendo los fragmentos iniciales del ADN Banesco Seguros. Este territorio está lleno de misterios, senderos desconocidos y secretos de nuestro ADN. Solo los exploradores más curiosos y valientes lograrán avanzar, dejando su huella en la historia de nuestra organización.' },
         { id: 2, name: 'Nivel 2', xpThreshold: 2500, worldName: 'La Ciudad Perdida', worldImageId: 'world-level-2', story: 'Bienvenido a la Ciudad Perdida, el corazón de antiguas ruinas que guarda secretos de nuestra expedición. Aquí continúas tu viaje como Aventurero(a), enfrentando enigmas más desafiantes y descubriendo fragmentos clave de nuestra cultura organizacional. Este lugar está lleno de misterios por descifrar que solo los exploradores audaces podrán revelar.' },
-        { id: 3, name: 'Nivel 3', xpThreshold: 5000, worldName: 'El Templo Oculto', worldImageId: 'world-level-3', story: 'Bienvenido al Templo Oculto, un lugar sagrado protegido por antiguas pruebas que desafían incluso a los exploradores más hábiles. Aquí continúas tu viaje como Guía Maestro(a), demostrando tu experiencia y liderando tu propio camino en la expedición. Este templo guarda pruebas cruciales que solo pueden ser superadas por aquellos que combinan conocimiento, estrategia y colaboración.' },
+        { id: 3, name: 'Nivel 3', xpThreshold: 5000, worldName: 'El Templo Oculto', worldImageId: 'world-level-3', story: 'Bienvenido al Templo Oculto, un lugar sagrado protegido por antiguas pruebas que desafían incluso a los exploradores más hábiles. Aquí continúas tu viaje como Guía Maestro(a), demostrando tu experiencia y liderando tu propio camino en la expedición. Este templo guarda pruebas cruciais que solo pueden ser superadas por aquellos que combinan conocimiento, estrategia y colaboración.' },
         { id: 4, name: 'Nivel 4', xpThreshold: 10000, worldName: 'El Núcleo del Legado', worldImageId: 'world-level-4', story: 'Bienvenido al Núcleo del Legado, el corazón de toda nuestra expedición, donde se concentran los logros más grandes y la prueba más valiosa. Aquí culmina tu viaje como Leyenda, el explorador que ha dominado cada desafío y ha demostrado maestría, liderazgo y compromiso con nuestra cultura.' },
     ];
     const placeholderImages = [
@@ -135,7 +142,24 @@ document.addEventListener('DOMContentLoaded', function() {
         { href: '#dashboard', label: 'Tablero' },
         { href: '#misiones', label: 'Misiones' },
         { href: '#ranking', label: 'Ranking' },
+        { href: '#cajero', label: 'Bazar' },
     ];
+    const prizes = [
+      { id: 1, name: 'Bolígrafo', description: 'Una taza de cerámica para tus bebidas calientes.', cost: 50, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(7).png?raw=true', category: 'Bronce' },
+      { id: 2, name: 'Café', description: 'Lleva contigo el símbolo de la expedición.', cost: 50, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/532f0c643d553e0449275c0b80d481aa-Photoroom.png?raw=true', category: 'Bronce' },
+      { id: 3, name: 'Stickers', description: 'Decora tus pertenencias con los emblemas de la expedición.', cost: 50, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(11).png?raw=true', category: 'Bronce' },
+      { id: 4, name: 'Cartuchera', description: 'Para apuntar todos tus descubrimientos.', cost: 50, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/unnamed%20(8).png?raw=true', category: 'Bronce' },
+      { id: 5, name: 'Gorra', description: 'Una gorra resistente para tus expediciones.', cost: 100, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/unnamed%20(2).png?raw=true', category: 'Plata' },
+      { id: 6, name: 'Termo', description: 'Mantente hidratado en tus aventuras.', cost: 100, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/unnamed%20(3).png?raw=true', category: 'Plata' },
+      { id: 7, name: 'Bolso', description: 'Viste los colores de la expedición.', cost: 100, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/unnamed%20(4).png?raw=true', category: 'Plata' },
+      { id: 8, name: 'Cangurera', description: 'Protege tu equipo con estilo.', cost: 100, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/unnamed%20(6).png?raw=true', category: 'Plata' },
+      { id: 9, name: 'Almuerzo Ejecutivo', description: 'Una sudadera cómoda y con estilo.', cost: 200, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(8).png?raw=true', category: 'Oro' },
+      { id: 10, name: 'Desayuno Cafetín', description: 'Espaciosa y resistente para todas tus herramientas.', cost: 200, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(9).png?raw=true', category: 'Oro' },
+      { id: 11, name: 'Chaqueta', description: 'Sumérgete en la banda sonora de tu aventura.', cost: 200, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/unnamed%20(7).png?raw=true', category: 'Oro' },
+      { id: 12, name: 'Audífonos', description: 'Para que nunca te quedes sin energía.', cost: 200, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(10).png?raw=true', category: 'Oro' },
+      { id: 13, name: 'Premio Misterioso', description: 'Un tesoro legendario te espera.', cost: 300, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/5ffdcd0d76650425722555858ebe6053-Photoroom.png?raw=true', category: 'Diamante' },
+    ];
+
 
     // --- APP STATE ---
     let state = {
@@ -148,6 +172,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- DOM Elements ---
     const appContainer = document.getElementById('app-container');
+    const dialogOverlay = document.getElementById('dialog-overlay');
+    const dialogContainer = document.getElementById('dialog-container');
+
+    // --- DIALOG ---
+    function openDialog(content) {
+        dialogContainer.innerHTML = content;
+        dialogOverlay.classList.remove('hidden');
+        dialogContainer.classList.remove('hidden');
+        const closeButton = dialogContainer.querySelector('[data-dialog-close]');
+        if (closeButton) {
+            closeButton.onclick = closeDialog;
+        }
+        dialogOverlay.onclick = closeDialog;
+    }
+
+    function closeDialog() {
+        dialogOverlay.classList.add('hidden');
+        dialogContainer.classList.add('hidden');
+        dialogContainer.innerHTML = '';
+    }
 
     // --- RENDER FUNCTIONS ---
     
@@ -254,7 +298,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function renderMainLayout(page) {
         const headerHTML = `
-            <header class="bg-primary text-primary-foreground sticky top-0 z-50">
+            <header class="bg-primary text-primary-foreground sticky top-0 z-40">
                 <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex items-center justify-between h-24">
                         <a href="#inicio" id="home-link" class="flex items-center space-x-3 text-white hover:text-white/90 transition-colors">
@@ -355,6 +399,8 @@ document.addEventListener('DOMContentLoaded', function() {
     function renderDashboard() {
         const pageContainer = document.getElementById('page-container');
         const currentUser = state.currentUser;
+        if(!currentUser.level) return pageContainer.innerHTML = 'Error: Nivel de usuario no encontrado.';
+        
         const levelTasks = tasks.filter(t => t.level === currentUser.level);
         pageContainer.innerHTML = `
             <div class="flex flex-col gap-8">
@@ -487,6 +533,96 @@ document.addEventListener('DOMContentLoaded', function() {
                     ${[...Array(5)].map(() => `<div class="flex items-center space-x-4"><div class="h-12 w-12 rounded-full bg-muted"></div><div class="flex-1 space-y-2"><div class="h-4 w-3/4 rounded bg-muted"></div><div class="h-4 w-1/2 rounded bg-muted"></div></div></div>`).join('')}
                 </div></div></div>`;
     }
+
+    function renderCajeroPage() {
+        const pageContainer = document.getElementById('page-container');
+        const currentUser = state.currentUser;
+
+        const heroPrize = prizes.find(p => p.category === 'Diamante');
+        const goldPrizes = prizes.filter(p => p.category === 'Oro');
+        const silverPrizes = prizes.filter(p => p.category === 'Plata');
+        const bronzePrizes = prizes.filter(p => p.category === 'Bronce');
+
+        const prizeCardHTML = (prize, bgColor, textColor, categoryColor, categoryTextColor, costColor, costTextColor) => {
+            const canAfford = currentUser.xp >= prize.cost;
+            return `
+                <div 
+                    class="rounded-2xl p-6 flex flex-col justify-between h-96 transition-all shadow-lg ${bgColor} ${textColor} ${!canAfford ? 'opacity-60' : 'cursor-pointer hover:scale-105'}"
+                    ${canAfford ? `onclick="handleRedeemClick(prizes.find(p => p.id === ${prize.id}))"` : ''}
+                >
+                    <div class="p-0 flex flex-col h-full">
+                        <div class="flex-grow flex items-center justify-center">
+                            <div class="relative w-48 h-48">
+                                <img src="${prize.imageUrl}" alt="${prize.name}" class="absolute inset-0 w-full h-full object-contain" />
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-center justify-center text-center mt-4 space-y-2">
+                            <div class='flex items-center gap-2'>
+                                <h3 class="font-black text-xl tracking-tighter">${prize.name}</h3>
+                                <span class='text-xs font-bold px-3 py-1 rounded-full ${categoryColor} ${categoryTextColor}'>${prize.category}</span>
+                            </div>
+                            <div class='text-sm font-bold px-4 py-1 rounded-full ${costColor} ${costTextColor}'>
+                              ${prize.cost.toLocaleString()} CC
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+        };
+
+        pageContainer.innerHTML = `
+            <div class="space-y-12">
+              ${heroPrize ? `
+                <div class="bg-blue-100 rounded-2xl grid grid-cols-1 md:grid-cols-2 items-center overflow-hidden">
+                  <div class="p-8 md:p-16">
+                    <span class="bg-white/50 text-primary font-medium text-xs px-3 py-1 rounded-full">${heroPrize.category}</span>
+                    <h1 class="text-5xl font-bold text-foreground mt-0 -mb-4 tracking-tighter">
+                      Premio
+                    </h1>
+                    <p class="text-6xl md:text-8xl font-black text-primary tracking-tighter uppercase">
+                      SORPRESA
+                    </p>
+                    <button 
+                      class="mt-4 rounded-lg h-10 px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
+                      ${currentUser.xp < heroPrize.cost ? 'disabled' : ''}
+                      onclick="handleRedeemClick(prizes.find(p => p.id === ${heroPrize.id}))"
+                    >
+                      ${heroPrize.cost.toLocaleString()} CONECTCOINS
+                    </button>
+                  </div>
+                  <div class="relative h-64 md:h-full flex items-center justify-center">
+                    <img
+                      src="${heroPrize.imageUrl}"
+                      alt="${heroPrize.name}"
+                      width="400"
+                      height="400"
+                      class="object-contain"
+                    />
+                  </div>
+                </div>` : ''}
+
+              <div class="space-y-4">
+                <h2 class="text-2xl font-bold text-yellow-500 tracking-tighter">ORO</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                  ${goldPrizes.map(p => prizeCardHTML(p, 'bg-yellow-400', 'text-black', 'bg-black/10', 'text-black', 'bg-black/80', 'text-white')).join('')}
+                </div>
+              </div>
+
+              <div class="space-y-4">
+                <h2 class="text-2xl font-bold text-gray-400 tracking-tighter">PLATA</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                  ${silverPrizes.map(p => prizeCardHTML(p, 'bg-gray-300', 'text-black', 'bg-black/10', 'text-black', 'bg-black/80', 'text-white')).join('')}
+                </div>
+              </div>
+              
+              <div class="space-y-4">
+                <h2 class="text-2xl font-bold text-amber-700 tracking-tighter">BRONCE</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                  ${bronzePrizes.map(p => prizeCardHTML(p, 'bg-amber-600', 'text-white', 'bg-white/20', 'text-white', 'bg-white/90', 'text-black')).join('')}
+                </div>
+              </div>
+            </div>`;
+    }
+
     
     function renderMisionesPage() {
         document.getElementById('page-container').innerHTML = `
@@ -514,15 +650,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- EVENT HANDLERS & LOGIC ---
 
-    async function handleApiCall(payload) {
+    async function handleApiCall(url, payload) {
         try {
-            const response = await fetch(SPREADSHEET_URL, {
+            const response = await fetch(url, {
                 method: 'POST',
                 headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                 body: JSON.stringify(payload),
                 redirect: 'follow',
                 mode: 'cors'
             });
+            
+            if (url === BAZAR_SCRIPT_URL) {
+                 if (response.ok) {
+                    return { success: true, message: "Canje procesado por el servidor." };
+                 } else {
+                    const errorText = await response.text();
+                    console.error('Error desde Bazar Apps Script:', errorText);
+                    throw new Error('Error al contactar el servicio de datos del bazar.');
+                 }
+            }
+
 
             if (!response.ok) {
                  const errorText = await response.text();
@@ -552,7 +699,7 @@ document.addEventListener('DOMContentLoaded', function() {
         errorContainer.classList.add('hidden');
 
         try {
-            const data = await handleApiCall({
+            const data = await handleApiCall(DATA_SCRIPT_URL, {
                 action: 'login',
                 email: form.email.value,
                 password: form.password.value
@@ -593,7 +740,7 @@ document.addEventListener('DOMContentLoaded', function() {
         successContainer.classList.add('hidden');
 
         try {
-            await handleApiCall({
+            await handleApiCall(DATA_SCRIPT_URL, {
                 action: 'register',
                 name: form.name.value,
                 email: form.email.value,
@@ -638,9 +785,10 @@ document.addEventListener('DOMContentLoaded', function() {
             case 'inicio': renderInicioPage(); break;
             case 'dashboard': renderDashboard(); break;
             case 'misiones': renderMisionesPage(); break;
+            case 'cajero': renderCajeroPage(); break;
             case 'ranking': 
                 renderRankingLoading();
-                handleApiCall({ action: 'getData' })
+                handleApiCall(DATA_SCRIPT_URL, { action: 'getData' })
                     .then(data => {
                         const allUsers = (data.users || []).map(u => ({ 
                             id: u.correo, 
@@ -758,7 +906,120 @@ document.addEventListener('DOMContentLoaded', function() {
         updateSelectedLevel();
     }
 
+    // --- BAZAR LOGIC ---
+    let selectedPrize = null;
+    let isRedeeming = false;
+
+    window.handleRedeemClick = (prize) => {
+        if (state.currentUser && state.currentUser.xp >= prize.cost) {
+            selectedPrize = prize;
+            openDialog(`
+                <div class="flex flex-col space-y-1.5 text-center sm:text-left">
+                    <h2 class="text-lg font-semibold leading-none tracking-tight">Confirmar Canje</h2>
+                    <p class="text-sm text-muted-foreground">
+                        ¿Estás seguro de que quieres canjear <span class="font-bold">${prize.cost.toLocaleString()} CONECTCOINS</span> por el premio <span class="font-bold">${prize.name}</span>?
+                    </p>
+                </div>
+                <div class="flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2 pt-6">
+                    <button data-dialog-close class="h-10 px-4 py-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground rounded-md text-sm font-medium">Cancelar</button>
+                    <button id="confirm-redeem-btn" class="h-10 px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-md text-sm font-medium">Confirmar</button>
+                </div>
+            `);
+            document.getElementById('confirm-redeem-btn').onclick = confirmRedemption;
+        }
+    };
+    
+    async function confirmRedemption() {
+        if (!selectedPrize || !state.currentUser || isRedeeming) return;
+        isRedeeming = true;
+        const confirmBtn = document.getElementById('confirm-redeem-btn');
+        confirmBtn.disabled = true;
+        confirmBtn.textContent = 'Canjeando...';
+        
+        try {
+            await handleApiCall(BAZAR_SCRIPT_URL, {
+                action: 'registerPurchase',
+                userId: state.currentUser.email,
+                prizeId: selectedPrize.id,
+                prizeName: selectedPrize.name,
+                cost: selectedPrize.cost,
+            });
+
+            const data = await handleApiCall(DATA_SCRIPT_URL, { action: 'getData' });
+            const allUsers = (data.users || []).map(u => ({ id: u.correo, name: u.nombre, email: u.correo, level: Number(u.nivel) || 1, xp: Number(u.puntaje) || 0, avatar: u.avatar || 'Explorador' }));
+            const updatedUser = allUsers.find(u => u.email === state.currentUser.email);
+            if(updatedUser) {
+                 state.currentUser = updatedUser;
+                 localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+            }
+
+            closeDialog();
+            showTicketDialog();
+            
+        } catch (error) {
+            console.error("Error al canjear:", error);
+            closeDialog();
+            alert('Hubo un error al procesar el canje.');
+        } finally {
+            isRedeeming = false;
+        }
+    }
+
+    function showTicketDialog() {
+        openDialog(`
+            <div class="max-w-md">
+                <div class="flex items-center justify-center flex-col text-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-16 w-16 text-primary"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path><path d="M13 5v2"></path><path d="M13 17v2"></path><path d="M13 11v2"></path></svg>
+                    <h2 class="text-2xl font-semibold">¡Canje Exitoso!</h2>
+                </div>
+                <p class="text-center pt-2 text-sm text-muted-foreground">
+                    Se ha generado tu ticket de canje. Guárdalo bien y preséntalo en Capital Humano para recibir tu premio.
+                </p>
+                <div class="mt-4 bg-secondary/50 border-dashed rounded-lg">
+                    <div class="p-4 text-center">
+                        <p class="text-sm text-muted-foreground">Premio Canjeado</p>
+                        <p class="text-lg font-bold text-foreground">${selectedPrize?.name}</p>
+                        <p class="text-xs text-muted-foreground mt-2">ID de Canje: ${Date.now()}</p>
+                    </div>
+                </div>
+                <div class="mt-4 flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2">
+                    <button data-dialog-close class="h-10 px-4 py-2 border border-input bg-background hover:bg-accent rounded-md text-sm">Cerrar</button>
+                    <button id="download-ticket-btn" class="h-10 px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 rounded-md text-sm">Descargar PDF</button>
+                </div>
+            </div>
+        `);
+        document.getElementById('download-ticket-btn').onclick = downloadTicket;
+    }
+    
+    function downloadTicket() {
+        if (!selectedPrize || !state.currentUser) return;
+        
+        const doc = new jsPDF();
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(22);
+        doc.text("Ticket de Canje - Banesco Expedición", 105, 20, { align: "center" });
+        doc.setFontSize(14);
+        doc.text(`¡Felicidades, ${state.currentUser.name}!`, 105, 40, { align: "center" });
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(12);
+        doc.text(`Has canjeado el siguiente premio:`, 105, 60, { align: "center" });
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(16);
+        doc.text(selectedPrize.name, 105, 75, { align: "center" });
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(10);
+        doc.text(`ID de Canje: ${Date.now()}`, 105, 85, { align: "center" });
+        doc.text(`Fecha: ${new Date().toLocaleDateString('es-ES')}`, 105, 90, { align: "center" });
+        doc.setFontSize(12);
+        doc.text("Instrucciones:", 20, 110);
+        doc.setFont("helvetica", "normal");
+        doc.text("Presenta este ticket (impreso o digital) en el departamento de", 20, 120);
+        doc.text("Capital Humano para recibir tu premio.", 20, 125);
+        doc.save(`Ticket-${selectedPrize.name.replace(/\s/g, '_')}-${state.currentUser.name}.pdf`);
+    }
+
     // --- INITIALIZATION ---
+    window.prizes = prizes; // Make prizes globally accessible for onclick handlers
     renderApp();
     window.addEventListener('hashchange', () => {
         const hash = window.location.hash.substring(1);
