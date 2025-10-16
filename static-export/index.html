@@ -936,8 +936,10 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!selectedPrize || !state.currentUser || isRedeeming) return;
         isRedeeming = true;
         const confirmBtn = document.getElementById('confirm-redeem-btn');
-        confirmBtn.disabled = true;
-        confirmBtn.textContent = 'Canjeando...';
+        if (confirmBtn) {
+            confirmBtn.disabled = true;
+            confirmBtn.textContent = 'Canjeando...';
+        }
         
         try {
             await handleApiCall(BAZAR_SCRIPT_URL, {
