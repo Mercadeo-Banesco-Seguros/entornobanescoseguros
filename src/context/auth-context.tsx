@@ -57,11 +57,21 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         avatar: u.avatar
       }));
       setUsers(allUsers);
+      
+      // Update current user data if they are in the list
+      if (currentUser) {
+        const updatedCurrentUser = allUsers.find(u => u.email.toLowerCase() === currentUser.email.toLowerCase());
+        if (updatedCurrentUser) {
+          setCurrentUser(updatedCurrentUser);
+          localStorage.setItem('currentUser', JSON.stringify(updatedCurrentUser));
+        }
+      }
+
     } catch (err: any) {
       setError("Error cargando los datos del ranking: " + err.message);
       console.error(err);
     }
-  }, []);
+  }, [currentUser]);
 
   const loadInitialData = useCallback(async () => {
     const userJson = localStorage.getItem('currentUser');
@@ -149,7 +159,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (currentUser.xp < prize.cost) throw new Error("No tienes suficientes puntos");
 
     try {
-        const response = await fetch('/api/bazar', { // Apunta a la nueva ruta del bazar
+        const response = await fetch('/api/bazar', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -166,9 +176,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             throw new Error(result.message);
         }
 
-        const updatedUser = { ...currentUser, xp: currentUser.xp - prize.cost };
-        setCurrentUser(updatedUser);
-        localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+        // After successful redemption, refetch all user data to get the updated score
+        await fetchUsers();
 
     } catch (err: any) {
         console.error("Error al canjear el premio:", err.message);

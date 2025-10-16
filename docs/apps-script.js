@@ -139,26 +139,6 @@ function handleRegisterPurchase(data) {
 
     // idCanje, correoUsuario, idPremio, nombrePremio, costo, fecha
     canjesSheet.appendRow([idCanje, userId, prizeId, prizeName, cost, fecha]);
-    
-    // Opcional: Actualizar el puntaje del usuario en la hoja DATA
-    const dataSheet = spreadsheet.getSheetByName(SHEET_NAMES.DATA);
-    if(dataSheet) {
-        const dataUsers = getSheetDataWithRowIndex(dataSheet);
-        const userRow = dataUsers.find(u => u.data['correo'] && u.data['correo'].toString().toLowerCase() === userId.toLowerCase());
-        
-        if (userRow) {
-            const currentScore = parseInt(userRow.data['puntaje'], 10) || 0;
-            const newScore = currentScore - parseInt(cost, 10);
-            
-            // Encontrar la columna "Puntaje" (el índice es +1 para la hoja)
-            const headers = dataSheet.getRange(1, 1, 1, dataSheet.getLastColumn()).getValues()[0];
-            const scoreColumnIndex = headers.findIndex(h => h.toString().toLowerCase() === 'puntaje') + 1;
-            
-            if (scoreColumnIndex > 0) {
-                 dataSheet.getRange(userRow.rowIndex, scoreColumnIndex).setValue(newScore);
-            }
-        }
-    }
 
     return createJsonResponse({ success: true, message: "Canje registrado exitosamente." });
   } catch (error) {
