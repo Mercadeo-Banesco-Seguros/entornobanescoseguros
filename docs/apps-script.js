@@ -174,12 +174,13 @@ function handleLogin(data) {
   }
   
   const dataSheet = spreadsheet.getSheetByName(SHEET_NAMES.DATA);
-  let publicData = { avatar: 'Explorador', xp: 0, level: 1 }; // Valores por defecto
+  let publicData = { name: 'Usuario', avatar: 'Explorador', xp: 0, level: 1 }; // Valores por defecto
 
   if(dataSheet) {
     const dataUsers = getSheetData(dataSheet);
     const publicUserRow = dataUsers.find(u => u['correo'] && u['correo'].toString().toLowerCase() === email.toLowerCase());
     if(publicUserRow) {
+      publicData.name = publicUserRow['nombre'] || 'Usuario'; // Corregido para tomar el nombre de DATA
       publicData.avatar = publicUserRow['avatar'] || 'Explorador';
       publicData.xp = parseInt(publicUserRow['puntaje'], 10) || 0;
       publicData.level = parseInt(publicUserRow['nivel'], 10) || 1;
@@ -188,7 +189,7 @@ function handleLogin(data) {
 
   const userData = {
       id: userRow['correo'],
-      name: userRow['nombre'],
+      name: publicData.name, // Usando el nombre de la hoja DATA
       email: userRow['correo'],
       level: publicData.level,
       xp: publicData.xp,
