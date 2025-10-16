@@ -18,6 +18,7 @@ export default function CajeroPage() {
   const [selectedPrize, setSelectedPrize] = useState<Prize | null>(null);
   const [isRedeemDialogOpen, setIsRedeemDialogOpen] = useState(false);
   const [isTicketDialogOpen, setIsTicketDialogOpen] = useState(false);
+  const [isRedeeming, setIsRedeeming] = useState(false);
 
   const handleRedeemClick = (prize: Prize) => {
     if (currentUser && currentUser.xp >= prize.cost) {
@@ -27,7 +28,8 @@ export default function CajeroPage() {
   };
 
   const confirmRedemption = async () => {
-    if (!selectedPrize || !currentUser) return;
+    if (!selectedPrize || !currentUser || isRedeeming) return;
+    setIsRedeeming(true);
     try {
       await redeemPrize(selectedPrize);
       setIsRedeemDialogOpen(false);
@@ -36,6 +38,8 @@ export default function CajeroPage() {
       console.error(error);
       setIsRedeemDialogOpen(false);
       // Aquí podrías mostrar un toast de error
+    } finally {
+      setIsRedeeming(false);
     }
   };
   
@@ -192,8 +196,10 @@ export default function CajeroPage() {
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setIsRedeemDialogOpen(false)}>Cancelar</Button>
-            <Button onClick={confirmRedemption}>Confirmar</Button>
+            <Button variant="outline" onClick={() => setIsRedeemDialogOpen(false)} disabled={isRedeeming}>Cancelar</Button>
+            <Button onClick={confirmRedemption} disabled={isRedeeming}>
+              {isRedeeming ? 'Canjeando...' : 'Confirmar'}
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -232,3 +238,4 @@ export default function CajeroPage() {
     
 
     
+
