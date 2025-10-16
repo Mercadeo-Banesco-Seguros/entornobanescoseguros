@@ -399,7 +399,10 @@ document.addEventListener('DOMContentLoaded', function() {
     function renderDashboard() {
         const pageContainer = document.getElementById('page-container');
         const currentUser = state.currentUser;
-        if(!currentUser.level) return pageContainer.innerHTML = 'Error: Nivel de usuario no encontrado.';
+        if(!currentUser.level || levels.find(l => l.id === currentUser.level) === undefined) {
+             pageContainer.innerHTML = '<div class="text-center text-red-500">Error: Nivel de usuario no encontrado.</div>';
+             return;
+        }
         
         const levelTasks = tasks.filter(t => t.level === currentUser.level);
         pageContainer.innerHTML = `
