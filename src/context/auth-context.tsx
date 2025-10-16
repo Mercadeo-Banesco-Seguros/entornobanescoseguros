@@ -212,7 +212,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     logout,
     fetchUsers,
     redeemPrize
-  }), [currentUser, users, tasks, levels, avatars, prizes, prizeCategories, loading, error, fetchUsers]);
+  }), [currentUser, users, tasks, levels, avatars, prizes, prizeCategories, loading, error, register, logout, fetchUsers, redeemPrize]);
 
   return (
     <AuthContext.Provider value={value}>
