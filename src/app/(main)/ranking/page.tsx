@@ -52,7 +52,6 @@ export default function RankingPage() {
   const sortedUsers = [...rankingUsers].sort((a, b) => (b.progreso || 0) - (a.progreso || 0));
 
   const myRank = sortedUsers.findIndex(u => u.email.toLowerCase() === me.email.toLowerCase()) + 1;
-  const myLevel = levels.find(l => l.id === me.level);
   const myAvatar = avatars.find(av => av.name === me.avatar);
 
   const getAvatar = (avatarName: string) => {
@@ -82,9 +81,9 @@ export default function RankingPage() {
               </div>
             </div>
             <div className="text-center w-48">
-              {myLevel && (
+              {me.vicepresidencia && (
                 <span className="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full">
-                  {myLevel.worldName}
+                  {me.vicepresidencia}
                 </span>
               )}
             </div>
@@ -101,7 +100,6 @@ export default function RankingPage() {
           <Table>
             <TableBody>
               {sortedUsers.slice(0, 10).map((user, index) => {
-                const userLevel = levels.find(l => l.id === user.level);
                 const userAvatar = getAvatar(user.avatar);
                 return (
                   <TableRow key={user.id} className={user.email.toLowerCase() === me.email.toLowerCase() ? 'bg-secondary/50' : ''}>
@@ -120,9 +118,9 @@ export default function RankingPage() {
                       </div>
                     </TableCell>
                     <TableCell className="text-center w-48">
-                      {userLevel && (
+                      {user.vicepresidencia && (
                         <span className="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full">
-                          {userLevel.worldName}
+                          {user.vicepresidencia}
                         </span>
                       )}
                     </TableCell>
