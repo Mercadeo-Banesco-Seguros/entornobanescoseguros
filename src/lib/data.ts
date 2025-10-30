@@ -21,7 +21,7 @@ En la capital, marcamos el ritmo. Esta es nuestra pista y estamos listos para to
 ¡A la meta por esa victoria!`,
       worldImageId: "world-level-1"
   },
-  "VP. Comercial Ctro. Occid. Los Andes": {
+  "VP. Comercial Ctro. Occid.Andes": {
       message: `¡Equipo VP. Comercial Ctro. Occid. Los Andes!
 
 ¡Se ha dado la señal de partida! El Concurso de Asesores Integrales está en marcha.
