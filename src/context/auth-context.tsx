@@ -62,8 +62,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setUsers(allUsers);
       
       setCurrentUser(prevUser => {
-        if (prevUser) {
-          const updatedCurrentUser = allUsers.find(u => u.email.toLowerCase() === prevUser.email.toLowerCase());
+        if (prevUser && prevUser.email) {
+          const updatedCurrentUser = allUsers.find(u => u.email && u.email.toLowerCase() === prevUser.email.toLowerCase());
           if (updatedCurrentUser) {
             localStorage.setItem('currentUser', JSON.stringify(updatedCurrentUser));
             return updatedCurrentUser;
