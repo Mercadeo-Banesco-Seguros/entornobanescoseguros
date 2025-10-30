@@ -48,9 +48,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       if (data.error) throw new Error(data.message);
       
       const allUsers = (data.users || []).map((u: any) => ({
-        id: u.id,
+        id: u.usuario,
         name: u.name,
-        email: u.email,
+        email: u.usuario,
         level: 1, // Nivel estático
         xp: u.xp || 0,
         avatar: u.avatar || 'Bronce', // Categoría del premio
