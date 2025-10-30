@@ -12,23 +12,25 @@ async function handleRequest(request: Request) {
   }
 
   const method = request.method;
-  let requestPayload: any = {};
+  let requestPayload: any;
 
-  if (method === 'POST') {
-    try {
-      const body = await request.json();
-      requestPayload = { ...body };
-    } catch (e) {
-      return NextResponse.json({ message: 'Cuerpo de la petición inválido.' }, { status: 400 });
+  try {
+    if (method === 'POST') {
+      requestPayload = await request.json();
+    } else if (method === 'GET') {
+      const { searchParams } = new URL(request.url);
+      const params: any = {};
+      searchParams.forEach((value, key) => {
+        params[key] = value;
+      });
+      requestPayload = params;
     }
-  } else if (method === 'GET') {
-    const { searchParams } = new URL(request.url);
-    searchParams.forEach((value, key) => {
-      requestPayload[key] = value;
-    });
+  } catch (e) {
+    return NextResponse.json({ message: 'Cuerpo de la petición inválido.' }, { status: 400 });
   }
 
-  if (!requestPayload.action) {
+
+  if (!requestPayload || !requestPayload.action) {
     return NextResponse.json({ message: 'La acción no fue especificada.' }, { status: 400 });
   }
 
@@ -43,7 +45,6 @@ async function handleRequest(request: Request) {
       redirect: 'follow', // Crucial para seguir las redirecciones de Google
     });
 
-    // Google Apps Script puede devolver el contenido como texto aunque el MIME sea JSON
     const responseText = await response.text();
 
     if (!response.ok) {
@@ -54,12 +55,10 @@ async function handleRequest(request: Request) {
       );
     }
     
-    // Intentamos parsear la respuesta como JSON
     try {
       const data = JSON.parse(responseText);
       if (data.error) {
-        // Si el script de Google devuelve un error conocido, lo reenviamos.
-        return NextResponse.json({ message: data.message }, { status: 401 });
+        return NextResponse.json({ message: data.message || 'Error del script de Google.' }, { status: 401 });
       }
       return NextResponse.json(data);
     } catch(e) {
@@ -87,7 +86,6 @@ export async function POST(request: Request) {
   return handleRequest(request);
 }
 
-// Manejo de preflight requests para CORS
 export async function OPTIONS() {
   return new Response(null, {
     status: 204,
