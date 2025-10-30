@@ -4,29 +4,46 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 import { useAuth } from '@/context/auth-context';
 import { Skeleton } from '@/components/ui/skeleton';
-import Image from 'next/image';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Check } from 'lucide-react';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+
 
 export default function RankingPage() {
   const { currentUser: me, users: rankingUsers, loading, error, fetchUsers } = useAuth();
-  
+  const [selectedVp, setSelectedVp] = useState('TODAS');
+
   useEffect(() => {
     fetchUsers();
   }, [fetchUsers]);
 
+  const competingUsers = useMemo(() => {
+    return rankingUsers.filter(user => user.cargo !== 'ADMINISTRADOR');
+  }, [rankingUsers]);
+
+  const vicepresidencias = useMemo(() => {
+    const allVps = competingUsers.map(user => user.vicepresidencia).filter(Boolean);
+    return ['TODAS', ...Array.from(new Set(allVps))];
+  }, [competingUsers]);
+
   const displayedUsers = useMemo(() => {
     if (!me) return [];
 
-    // Excluir a los administradores de la clasificación
-    const competingUsers = rankingUsers.filter(user => user.cargo !== 'ADMINISTRADOR');
-
     if (me.cargo === 'ADMINISTRADOR') {
-      return competingUsers;
+      if (selectedVp === 'TODAS') {
+        return competingUsers;
+      }
+      return competingUsers.filter(user => user.vicepresidencia === selectedVp);
     }
     // Para 'ASESOR INTEGRAL' y cualquier otro rol por defecto
     return competingUsers.filter(user => user.vicepresidencia === me.vicepresidencia);
-  }, [me, rankingUsers]);
+  }, [me, competingUsers, selectedVp]);
 
   if (loading || !me) {
     return (
@@ -98,11 +115,24 @@ export default function RankingPage() {
                 <p className="text-xs text-primary-foreground/80">{me.avatar}</p>
               </div>
             </div>
-            <div className="text-center w-64">
-              {me.vicepresidencia && (
-                <span className="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full whitespace-nowrap">
-                  {me.vicepresidencia}
-                </span>
+             <div className="text-center w-64">
+              {me.cargo === 'ADMINISTRADOR' ? (
+                 <Select onValueChange={setSelectedVp} defaultValue={selectedVp}>
+                  <SelectTrigger className="w-full bg-white/20 border-0 text-white font-bold">
+                    <SelectValue placeholder="Filtrar por VP" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {vicepresidencias.map((vp) => (
+                      <SelectItem key={vp} value={vp}>{vp === 'TODAS' ? 'Todas las Vicepresidencias' : vp}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              ) : (
+                me.vicepresidencia && (
+                  <span className="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full whitespace-nowrap">
+                    {me.vicepresidencia}
+                  </span>
+                )
               )}
             </div>
             <div className="text-right w-48 flex items-baseline justify-end gap-1.5">
