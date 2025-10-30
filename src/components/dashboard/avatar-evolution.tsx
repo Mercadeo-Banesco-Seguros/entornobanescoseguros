@@ -12,15 +12,22 @@ type CarEvolutionProps = {
 };
 
 export default function CarEvolution({ currentUser }: CarEvolutionProps) {
-  const userProgress = currentUser.progreso || 0;
+  const userCategory = currentUser.avatar; // 'Bronce', 'Plata', 'Oro'
 
+  // Determinar la evolución actual basada en la categoría del premio del usuario
   const getCurrentEvolution = () => {
-    const sortedEvolutions = [...carEvolutions].sort((a, b) => b.progressThreshold - a.progressThreshold);
-    return sortedEvolutions.find(evo => userProgress >= evo.progressThreshold) || carEvolutions[0];
+    if (userCategory === 'Oro') return carEvolutions.find(e => e.category === 'Oro');
+    if (userCategory === 'Plata') return carEvolutions.find(e => e.category === 'Plata');
+    if (userCategory === 'Bronce') return carEvolutions.find(e => e.category === 'Bronce');
+    return carEvolutions[0]; // Coche Básico por defecto
   };
 
   const currentEvolution = getCurrentEvolution();
   const [selectedEvolution, setSelectedEvolution] = useState(currentEvolution);
+
+  // Mapeo simple para determinar si una categoría está "desbloqueada"
+  const categoryOrder = { 'Base': 0, 'Bronce': 1, 'Plata': 2, 'Oro': 3 };
+  const userCategoryRank = categoryOrder[userCategory as keyof typeof categoryOrder] || 0;
 
   return (
     <Card className="h-full border-0 shadow-none">
@@ -36,7 +43,7 @@ export default function CarEvolution({ currentUser }: CarEvolutionProps) {
                         quality={100}
                         className={cn(
                           'object-contain',
-                          userProgress < selectedEvolution.progressThreshold && 'grayscale'
+                          (categoryOrder[selectedEvolution.category as keyof typeof categoryOrder] > userCategoryRank) && 'grayscale'
                         )}
                       />
                   </div>
@@ -58,8 +65,8 @@ export default function CarEvolution({ currentUser }: CarEvolutionProps) {
         </div>
         <div className="flex items-end justify-center space-x-4 w-full">
           {carEvolutions.map((evolution) => {
-            const isUnlocked = userProgress >= evolution.progressThreshold;
-            const isSelected = selectedEvolution.id === evolution.id;
+            const isUnlocked = categoryOrder[evolution.category as keyof typeof categoryOrder] <= userCategoryRank;
+            const isSelected = selectedEvolution?.id === evolution.id;
 
             return (
               <button

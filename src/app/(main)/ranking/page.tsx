@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Card, CardContent } from '@/components/ui/card';
@@ -9,7 +8,7 @@ import Image from 'next/image';
 import { useEffect } from 'react';
 
 export default function RankingPage() {
-  const { currentUser: me, users: rankingUsers, levels, avatars, loading, error, fetchUsers } = useAuth();
+  const { currentUser: me, users: rankingUsers, loading, error, fetchUsers } = useAuth();
   
   useEffect(() => {
     fetchUsers();
@@ -49,14 +48,10 @@ export default function RankingPage() {
     return <div className="text-destructive text-center">Error al cargar la clasificación: {error}</div>
   }
   
-  const sortedUsers = [...rankingUsers].sort((a, b) => (b.progreso || 0) - (a.progreso || 0));
+  // Ordenar usuarios por su posición
+  const sortedUsers = [...rankingUsers].sort((a, b) => (a.posicion || Infinity) - (b.posicion || Infinity));
 
-  const myRank = sortedUsers.findIndex(u => u.email.toLowerCase() === me.email.toLowerCase()) + 1;
-  const myAvatar = avatars.find(av => av.name === me.avatar);
-
-  const getAvatar = (avatarName: string) => {
-    return avatars.find(av => av.name === avatarName);
-  };
+  const myRank = me.posicion || 0;
 
   return (
     <div className="space-y-8">
@@ -70,12 +65,7 @@ export default function RankingPage() {
           <div className="flex items-center">
             <div className="font-bold text-lg text-white w-[80px]">#{myRank > 0 ? myRank : '-'}</div>
             <div className="flex-grow flex items-center gap-4">
-              <div className="p-1 bg-white/20 rounded-full w-12 h-12 flex items-center justify-center">
-                {myAvatar && (
-                  <Image src={myAvatar.imageUrl} alt={me.avatar} width={40} height={40} className="object-contain" />
-                )}
-              </div>
-              <div>
+               <div>
                 <p className="font-semibold text-base">{me.name} (Tú)</p>
                 <p className="text-xs text-primary-foreground/80">{me.avatar}</p>
               </div>
@@ -89,7 +79,7 @@ export default function RankingPage() {
             </div>
             <div className="text-right w-48 flex items-baseline justify-end gap-1.5">
               <span className="text-2xl font-bold">{(me.progreso || 0).toLocaleString()}%</span>
-              <span className="text-xs font-normal text-primary-foreground/80">de Progreso</span>
+              <span className="text-xs font-normal text-primary-foreground/80">de Logro</span>
             </div>
           </div>
         </CardContent>
@@ -99,18 +89,12 @@ export default function RankingPage() {
         <CardContent className="p-0">
           <Table>
             <TableBody>
-              {sortedUsers.slice(0, 10).map((user, index) => {
-                const userAvatar = getAvatar(user.avatar);
+              {sortedUsers.map((user, index) => {
                 return (
                   <TableRow key={user.id} className={user.email.toLowerCase() === me.email.toLowerCase() ? 'bg-secondary/50' : ''}>
-                    <TableCell className="font-bold text-lg text-muted w-[80px]">#{index + 1}</TableCell>
+                    <TableCell className="font-bold text-lg text-muted w-[80px]">#{user.posicion}</TableCell>
                     <TableCell>
                       <div className="flex items-center gap-4">
-                          <div className="p-1 bg-secondary rounded-full w-12 h-12 flex items-center justify-center">
-                            {userAvatar && (
-                              <Image src={userAvatar.imageUrl} alt={user.avatar} width={32} height={32} className="object-contain" />
-                            )}
-                          </div>
                         <div>
                           <p className="font-semibold text-foreground">{user.name}</p>
                           <p className="text-xs text-muted-foreground">{user.avatar}</p>

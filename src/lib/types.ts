@@ -3,12 +3,14 @@ import type { LucideIcon } from 'lucide-react';
 export type User = {
   id: number | string;
   name: string;
-  email: string;
+  email: string; // Se mantiene como identificador único, podría ser el mismo que 'usuario'
   level: number;
   xp: number;
-  avatar: string;
+  avatar: string; // Ahora es PREMIO_CAT: 'Bronce', 'Plata', 'Oro'
   progreso?: number;
   vicepresidencia?: string;
+  posicion?: number;
+  cargo?: string;
 };
 
 export type TaskStatus = 'completed' | 'pending';

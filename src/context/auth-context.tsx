@@ -14,7 +14,7 @@ type AuthContextType = {
   prizeCategories: PrizeCategory[];
   loading: boolean;
   error: string | null;
-  login: (email: string, password: string) => Promise<void>;
+  login: (username: string, password: string) => Promise<void>;
   register: (name: string, email: string, password: string, vicepresidencia: string, cargo: string) => Promise<void>;
   logout: () => void;
   fetchUsers: () => Promise<void>;
@@ -29,12 +29,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Datos estáticos que ya no dependen de la lógica de niveles compleja
   const tasks = staticTasks.map(t => ({...t, status: 'pending'}) as Task);
   const levels = staticLevels;
   const avatars = staticAvatars;
   const prizes = staticPrizes;
   const prizeCategories = staticPrizeCategories;
-
 
   const fetchUsers = useCallback(async () => {
     try {
@@ -48,14 +48,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       if (data.error) throw new Error(data.message);
       
       const allUsers = (data.users || []).map((u: any) => ({
-        id: u.correo,
-        name: u.nombre,
-        email: u.correo,
-        level: Number(u.nivel) || 1,
-        xp: Number(u.puntaje) || 0,
-        avatar: u.avatar || 'Piloto Novato',
-        progreso: Number(u.progreso) || 0,
+        id: u.id,
+        name: u.name,
+        email: u.email,
+        level: 1, // Nivel estático
+        xp: u.xp || 0,
+        avatar: u.avatar || 'Bronce', // Categoría del premio
+        progreso: u.progreso * 100 || 0, // Convertir a porcentaje
         vicepresidencia: u.vicepresidencia || '',
+        posicion: u.posicion || 0,
+        cargo: u.cargo || '',
       }));
       setUsers(allUsers);
       
@@ -100,14 +102,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     checkUserSession();
   }, [loadInitialData]);
   
-  const login = async (email: string, password: string) => {
+  const login = async (username: string, password: string) => {
     setLoading(true);
     setError(null);
     try {
         const response = await fetch('/api/data', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ action: 'login', email, password }),
+            body: JSON.stringify({ action: 'login', username, password }),
         });
 
         const data = await response.json();
@@ -119,11 +121,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             id: data.user.id,
             name: data.user.name,
             email: data.user.email,
-            level: Number(data.user.level) || 1,
-            xp: Number(data.user.xp) || 0,
-            avatar: data.user.avatar || 'Piloto Novato',
-            progreso: Number(data.user.progreso) || 0,
+            level: 1, // Nivel estático
+            xp: data.user.xp || 0,
+            avatar: data.user.avatar || 'Bronce',
+            progreso: data.user.progreso * 100 || 0, // Convertir a porcentaje
             vicepresidencia: data.user.vicepresidencia || '',
+            posicion: data.user.posicion || 0,
+            cargo: data.user.cargo || '',
         };
 
         setCurrentUser(user);
@@ -137,32 +141,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const register = async (name: string, email: string, password: string, vicepresidencia: string, cargo: string) => {
-    setLoading(true);
-    setError(null);
-     try {
-        const response = await fetch('/api/data', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ action: 'register', name, email, password, vicepresidencia, cargo }),
-        });
-
-        const data = await response.json();
-        if (data.error) {
-          throw new Error(data.message);
-        }
-    } catch (err: any) {
-        setError(err.message);
-        throw err;
-    } finally {
-        setLoading(false);
-    }
+  // La función de registro ya no es necesaria y se puede dejar vacía o eliminar.
+  const register = async () => {
+    console.warn("La función de registro no está implementada en esta versión.");
+    return Promise.resolve();
   };
-
+  
   const redeemPrize = async (prize: Prize) => {
     if (!currentUser) throw new Error("Usuario no autenticado");
-    if (currentUser.xp < prize.cost) throw new Error("No tienes suficientes puntos");
 
+    // Lógica de canjeo simplificada o eliminada según la nueva dirección
+    console.log("Intentando canjear premio:", prize.name);
     try {
         const response = await fetch('/api/bazar', {
             method: 'POST',
@@ -181,7 +170,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             throw new Error(result.message);
         }
         
-        // After a successful redemption, refetch all user data to get the updated points
         await fetchUsers();
 
     } catch (err: any) {
@@ -189,7 +177,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         throw err;
     }
   };
-
 
   const logout = () => {
     setCurrentUser(null);
@@ -213,7 +200,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     logout,
     fetchUsers,
     redeemPrize
-  }), [currentUser, users, tasks, levels, avatars, prizes, prizeCategories, loading, error, login, register, logout, fetchUsers, redeemPrize]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }), [currentUser, users, loading, error, fetchUsers]);
 
   return (
     <AuthContext.Provider value={value}>

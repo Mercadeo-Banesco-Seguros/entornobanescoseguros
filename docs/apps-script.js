@@ -1,12 +1,13 @@
 // ------------------- CONFIGURACIÓN -------------------
 // 1. Reemplaza esta URL con la URL de tu hoja de cálculo de Google.
-const SPREADSHEET_URL = "https://docs.google.com/spreadsheets/d/17jC0TG6BR0hV0DcQbutQoVethYl1wKldXUqlmHyWtTU/edit#gid=0"; 
+const SPREADSHEET_URL = "https://docs.google.com/spreadsheets/d/1rRXSKOPScB4Wmmy1UrhRS4cIMBzMmx_xxtcl4yi81y4/edit#gid=0"; 
 
 // 2. Define los nombres de las hojas que usarás. Deben coincidir EXACTAMENTE.
 const SHEET_NAMES = {
   USERS: "USUARIOS",
-  DATA: "DATA",
-  CANJES: "Canjes"
+  // No se usan las otras hojas en esta nueva lógica simplificada
+  // DATA: "DATA",
+  // CANJES: "Canjes"
 };
 // -----------------------------------------------------
 
@@ -49,12 +50,7 @@ function doPost(e) {
   let requestData;
   try {
     if (e.postData && e.postData.contents) {
-        // Si el Content-Type es text/plain, necesitamos parsear el contenido
-        if (e.postData.type === 'text/plain') {
-             requestData = JSON.parse(e.postData.contents);
-        } else {
-             requestData = JSON.parse(e.postData.contents);
-        }
+        requestData = JSON.parse(e.postData.contents);
     } else {
         return createJsonResponse({ error: true, message: `Petición inválida. No se recibió contenido.` });
     }
@@ -66,14 +62,15 @@ function doPost(e) {
     const action = requestData.action;
 
     switch (action) {
-      case 'register':
-        return handleRegister(requestData);
       case 'login':
         return handleLogin(requestData);
       case 'getData':
         return handleGetData(requestData);
-      case 'registerPurchase':
-        return handleRegisterPurchase(requestData);
+      // Las acciones 'register' y 'registerPurchase' ya no son necesarias
+      // case 'register':
+      //   return handleRegister(requestData);
+      // case 'registerPurchase':
+      //   return handleRegisterPurchase(requestData);
       default:
         return createJsonResponse({ error: true, message: "Acción no reconocida." });
     }
@@ -89,7 +86,6 @@ function doPost(e) {
  */
 function doGet(e) {
     if (e.parameter && e.parameter.action) {
-      // Simulamos un `e.postData` para que `doPost` lo pueda procesar
       const mockPostData = {
           type: 'application/json',
           contents: JSON.stringify(e.parameter)
@@ -99,78 +95,13 @@ function doGet(e) {
     return createJsonResponse({ error: true, message: "Acción no especificada para GET." });
 }
 
-
-/**
- * Maneja el registro de un nuevo usuario.
- */
-function handleRegister(data) {
-  const { name, email, password, vicepresidencia, cargo } = data;
-  if (!name || !email || !password || !vicepresidencia || !cargo) {
-    return createJsonResponse({ error: true, message: "Todos los campos son requeridos." });
-  }
-
-  const usersSheet = spreadsheet.getSheetByName(SHEET_NAMES.USERS);
-  if (!usersSheet) {
-    return createJsonResponse({ error: true, message: `La hoja "${SHEET_NAMES.USERS}" no fue encontrada.` });
-  }
-  
-  const usersData = getSheetData(usersSheet);
-  const userExists = usersData.some(row => row['correo'] && row['correo'].toString().toLowerCase() === email.toLowerCase());
-
-  if (userExists) {
-    return createJsonResponse({ error: true, message: "El correo electrónico ya está registrado." });
-  }
-  
-  // Estructura: NOMBRE, CORREO, CONTRASEÑA, VICEPRESIDENCIA, CARGO, PROGRESO
-  usersSheet.appendRow([name, email, password, vicepresidencia, cargo, 0]);
-
-  // También se añade a la hoja DATA con valores iniciales
-  const dataSheet = spreadsheet.getSheetByName(SHEET_NAMES.DATA);
-  if (dataSheet) {
-      // Estructura: Nombre, Correo, Puntaje, Nivel, Avatar
-      dataSheet.appendRow([name, email, 0, 1, 'Piloto Novato']);
-  }
-
-  return createJsonResponse({ success: true, message: "Usuario registrado exitosamente." });
-}
-
-/**
- * Maneja el registro de una nueva compra/canje.
- */
-function handleRegisterPurchase(data) {
-  const { userId, prizeId, prizeName, cost } = data;
-  if (!userId || !prizeId || !prizeName || cost === undefined) {
-    return createJsonResponse({ error: true, message: "Faltan datos para registrar el canje." });
-  }
-
-  const canjesSheet = spreadsheet.getSheetByName(SHEET_NAMES.CANJES);
-  if (!canjesSheet) {
-    return createJsonResponse({ error: true, message: `La hoja "${SHEET_NAMES.CANJES}" no fue encontrada.` });
-  }
-  
-  try {
-    const idCanje = new Date().getTime(); // ID único basado en timestamp
-    const fecha = new Date();
-
-    // idCanje, correoUsuario, idPremio, nombrePremio, costo, fecha
-    canjesSheet.appendRow([idCanje, userId, prizeId, prizeName, cost, fecha]);
-    
-    return createJsonResponse({ success: true, message: "Canje registrado exitosamente." });
-  } catch (error) {
-     Logger.log(`Error en handleRegisterPurchase: ${error.toString()}\nStack: ${error.stack}`);
-     return createJsonResponse({ error: true, message: `No se pudo registrar el canje: ${error.toString()}` });
-  }
-}
-
-
-
 /**
  * Maneja el inicio de sesión de un usuario.
  */
 function handleLogin(data) {
-  const { email, password } = data;
-  if (!email || !password) {
-    return createJsonResponse({ error: true, message: "Email y contraseña son requeridos." });
+  const { username, password } = data;
+  if (!username || !password) {
+    return createJsonResponse({ error: true, message: "Usuario y contraseña son requeridos." });
   }
 
   const usersSheet = spreadsheet.getSheetByName(SHEET_NAMES.USERS);
@@ -179,8 +110,9 @@ function handleLogin(data) {
   }
   
   const usersData = getSheetData(usersSheet);
+
   const userRow = usersData.find(row => 
-    row['correo'] && row['correo'].toString().toLowerCase() === email.toLowerCase() &&
+    row['usuario'] && row['usuario'].toString().toLowerCase() === username.toLowerCase() &&
     row['contraseña'] && row['contraseña'].toString() === password
   );
 
@@ -188,45 +120,48 @@ function handleLogin(data) {
     return createJsonResponse({ error: true, message: "Credenciales inválidas." });
   }
   
-  // Obtener datos públicos de la hoja DATA
-  const dataSheet = spreadsheet.getSheetByName(SHEET_NAMES.DATA);
-  let publicData = { avatar: 'Piloto Novato', xp: 0, level: 1, progreso: 0 }; // Valores por defecto
-
-  if(dataSheet) {
-    const dataUsers = getSheetData(dataSheet);
-    const publicUserRow = dataUsers.find(u => u['correo'] && u['correo'].toString().toLowerCase() === email.toLowerCase());
-    if(publicUserRow) {
-      publicData.avatar = publicUserRow['avatar'] || 'Piloto Novato';
-      publicData.xp = parseInt(publicUserRow['puntaje'], 10) || 0;
-      publicData.level = parseInt(publicUserRow['nivel'], 10) || 1;
-    }
-  }
-
+  // Como todos los datos están en una sola hoja, los devolvemos directamente
   const userData = {
-      id: userRow['correo'],
+      id: userRow['usuario'], // Usamos el usuario como ID
       name: userRow['nombre'],
-      email: userRow['correo'],
-      level: publicData.level,
-      xp: publicData.xp,
-      avatar: publicData.avatar,
-      progreso: userRow['progreso'] || 0,
-      vicepresidencia: userRow['vicepresidencia'] || ''
+      email: userRow['usuario'], // Usamos usuario también como email para compatibilidad
+      vicepresidencia: userRow['vicepresidencia'],
+      cargo: userRow['cargo'],
+      avatar: userRow['premio_cat'], // 'avatar' ahora es la categoría del premio
+      progreso: parseFloat(userRow['logro']) || 0,
+      posicion: parseInt(userRow['posicion'], 10) || 0,
+      xp: (parseFloat(userRow['logro']) || 0) * 100 // Un valor de XP calculado, por si se necesita
   };
 
   return createJsonResponse({ success: true, user: userData });
 }
 
 /**
- * Obtiene los datos para el ranking desde la hoja DATA.
+ * Obtiene todos los datos de los usuarios desde la hoja USUARIOS.
  */
 function handleGetData(params) {
   try {
-    const dataSheet = spreadsheet.getSheetByName(SHEET_NAMES.DATA);
+    const dataSheet = spreadsheet.getSheetByName(SHEET_NAMES.USERS);
     if (!dataSheet) {
-        return createJsonResponse({ error: true, message: `La hoja "${SHEET_NAMES.DATA}" no fue encontrada.` });
+        return createJsonResponse({ error: true, message: `La hoja "${SHEET_NAMES.USERS}" no fue encontrada.` });
     }
+    
+    const users = getSheetData(dataSheet).map(u => ({
+        id: u.usuario,
+        name: u.nombre,
+        email: u.usuario,
+        vicepresidencia: u.vicepresidencia,
+        cargo: u.cargo,
+        avatar: u.premio_cat,
+        progreso: parseFloat(u.logro) || 0,
+        posicion: parseInt(u.posicion, 10) || 0,
+        xp: (parseFloat(u.logro) || 0) * 100,
+        // No se necesita el nivel en esta lógica
+        level: 1 
+    }));
+
     const data = {
-      users: getSheetData(dataSheet),
+      users: users,
       error: false
     };
 
@@ -243,42 +178,29 @@ function handleGetData(params) {
  */
 function getSheetData(sheet) {
   if (!sheet) return [];
-  const range = sheet.getDataRange();
+  // Empezar desde la segunda fila para ignorar la fila de descripción
+  const range = sheet.getRange(2, 1, sheet.getLastRow() - 1, sheet.getLastColumn());
   if (range.getNumRows() < 2) return [];
 
   const values = range.getValues();
-  const headers = values.shift().map(header => header.toString().trim().toLowerCase());
+  // Los encabezados están en la primera fila
+  const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0].map(header => header.toString().trim().toLowerCase());
   
   return values.map(row => {
     const rowData = {};
     headers.forEach((header, index) => {
       if(header){
-        rowData[header] = row[index];
+        // Convertir números de porcentaje a decimales si es necesario
+        if (header === 'logro' && typeof row[index] === 'number' && row[index] <= 1) {
+            rowData[header] = row[index];
+        } else if (header === 'logro' && typeof row[index] === 'string' && row[index].includes('%')) {
+            rowData[header] = parseFloat(row[index].replace('%', '')) / 100;
+        }
+        else {
+            rowData[header] = row[index];
+        }
       }
     });
     return rowData;
-  });
-}
-
-/**
- * Igual que getSheetData, pero incluye el índice de la fila original.
- */
-function getSheetDataWithRowIndex(sheet) {
-  if (!sheet) return [];
-  const range = sheet.getDataRange();
-  if (range.getNumRows() < 2) return [];
-
-  const values = range.getValues();
-  const headers = values.shift().map(header => header.toString().trim().toLowerCase());
-  
-  return values.map((row, rowIndex) => {
-    const rowData = {};
-    headers.forEach((header, index) => {
-      if(header){
-        rowData[header] = row[index];
-      }
-    });
-    // El índice de la fila en la hoja es rowIndex + 2 (1 por el header, 1 porque es 0-indexed)
-    return { rowIndex: rowIndex + 2, data: rowData };
   });
 }

@@ -15,14 +15,13 @@ import {
 import { Input } from '@/components/ui/input';
 import { useAuth } from '@/context/auth-context';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import Image from 'next/image';
 
 const formSchema = z.object({
-  email: z.string().email({ message: 'Por favor, introduce un correo válido.' }),
+  username: z.string().min(1, { message: 'Por favor, introduce tu usuario.' }),
   password: z.string().min(1, { message: 'La contraseña no puede estar vacía.' }),
 });
 
@@ -35,7 +34,7 @@ export default function LoginPage() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: '',
+      username: '',
       password: '',
     },
   });
@@ -43,7 +42,7 @@ export default function LoginPage() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setLoading(true);
     try {
-      await login(values.email, values.password);
+      await login(values.username, values.password);
       router.push('/inicio');
     } catch (error: any) {
       toast({
@@ -71,12 +70,12 @@ export default function LoginPage() {
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                 <FormField
                   control={form.control}
-                  name="email"
+                  name="username"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Correo Electrónico</FormLabel>
+                      <FormLabel>Usuario</FormLabel>
                       <FormControl>
-                        <Input placeholder="tu.correo@example.com" {...field} />
+                        <Input placeholder="tu.usuario" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -100,12 +99,6 @@ export default function LoginPage() {
                 </Button>
               </form>
             </Form>
-            <div className="mt-4 text-center text-sm">
-              ¿No eres un piloto?{' '}
-              <Link href="/register" className="underline">
-                Regístrate
-              </Link>
-            </div>
           </CardContent>
         </Card>
       </div>
