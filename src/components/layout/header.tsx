@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -35,8 +36,8 @@ export default function Header() {
                 height={20}
               />
                <Image 
-                src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Texto%20del%20p%C3%A1rrafo-Photoroom.png?raw=true"
-                alt="CONECTAD2S Logo"
+                src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(22).png?raw=true"
+                alt="Circuito Banesco Seguros Logo"
                 width={120}
                 height={20}
                 className="hidden sm:inline"
