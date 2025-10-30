@@ -9,7 +9,7 @@ export const carEvolutions: CarEvolution[] = [
 ];
 
 export const vicepresidenciaMessages: { [key: string]: { message: string; worldImageId: string; } } = {
-  "VP. Comercial Gran Caracas": {
+  "Comercial Gran Caracas": {
       message: `¡Equipo VP. Comercial Gran Caracas!
 
 ¡Los motores están encendidos! La gran carrera del Concurso de Asesores Integrales ha comenzado.
@@ -21,7 +21,7 @@ En la capital, marcamos el ritmo. Esta es nuestra pista y estamos listos para to
 ¡A la meta por esa victoria!`,
       worldImageId: "world-level-1"
   },
-  "VP. Comercial Ctro. Occid.Andes": {
+  "Comercial Ctro. Occid.Andes": {
       message: `¡Equipo VP. Comercial Ctro. Occid. Los Andes!
 
 ¡Se ha dado la señal de partida! El Concurso de Asesores Integrales está en marcha.
@@ -33,7 +33,7 @@ Esta es una carrera de resistencia y potencia, y nuestro equipo sabe cómo manej
 ¡Vamos con todo hacia la bandera a cuadros!`,
       worldImageId: "world-level-2"
   },
-  "VP. Comercial Centro Llanos-Carabobo": {
+  "Comercial Centro Llanos-Carabobo": {
       message: `¡Equipo VP. Comercial Centro Llanos-Carabobo!
 
 ¡Luz verde! La competencia de Asesores Integrales ha iniciado oficialmente.
@@ -45,7 +45,7 @@ En el corazón del país, tenemos el combustible y la potencia para dominar esta
 ¡Acelera, equipo! ¡Nos vemos en la meta!`,
       worldImageId: "world-level-3"
   },
-  "VP. Comercial Oriente": {
+  "Comercial Oriente": {
       message: `¡Equipo VP. Comercial Oriente!
 
 ¡La carrera ha comenzado! El Concurso de Asesores Integrales espera por sus campeones.
@@ -57,7 +57,7 @@ En Oriente sabemos lo que es arrancar con fuerza y mantener la velocidad. Esta e
 ¡Directo al podio, Oriente!`,
       worldImageId: "world-level-4"
   },
-  "VP. Comercial Zulia - Falcón": {
+  "Comercial Zulia - Falcón": {
       message: `¡Equipo VP. Comercial Zulia - Falcón!
 
 ¡Se ha bajado la bandera verde! El Concurso de Asesores Integrales está aquí.
