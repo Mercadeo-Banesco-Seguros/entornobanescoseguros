@@ -18,7 +18,6 @@ type AuthContextType = {
   register: (name: string, email: string, password: string, vicepresidencia: string, cargo: string) => Promise<void>;
   logout: () => void;
   fetchUsers: () => Promise<void>;
-  redeemPrize: (prize: Prize) => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -145,37 +144,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     return Promise.resolve();
   };
   
-  const redeemPrize = async (prize: Prize) => {
-    if (!currentUser) throw new Error("Usuario no autenticado");
-
-    // Lógica de canjeo simplificada o eliminada según la nueva dirección
-    console.log("Intentando canjear premio:", prize.name);
-    try {
-        const response = await fetch('/api/bazar', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                action: 'registerPurchase',
-                userId: currentUser.id,
-                prizeId: prize.id,
-                prizeName: prize.name,
-                cost: prize.cost,
-            }),
-        });
-
-        const result = await response.json();
-        if (result.error) {
-            throw new Error(result.message);
-        }
-        
-        await fetchUsers();
-
-    } catch (err: any) {
-        console.error("Error al canjear el premio:", err.message);
-        throw err;
-    }
-  };
-
   const logout = () => {
     setCurrentUser(null);
     localStorage.removeItem('currentUser');
@@ -197,7 +165,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     register,
     logout,
     fetchUsers,
-    redeemPrize
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }), [currentUser, users, loading, error, fetchUsers]);
 

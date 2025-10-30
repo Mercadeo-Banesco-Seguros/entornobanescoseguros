@@ -64,7 +64,6 @@ export const navLinks: NavLink[] = [
 ];
 
 export const prizeCategories: PrizeCategory[] = [
-  { name: 'Diamante' },
   { name: 'Oro' },
   { name: 'Plata' },
   { name: 'Bronce' },
@@ -86,7 +85,4 @@ export const prizes: Prize[] = [
   { id: 10, name: 'Desayuno Cafetín', description: 'El desayuno de los campeones.', cost: 200, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(9).png?raw=true', category: 'Oro' },
   { id: 11, name: 'Chaqueta', description: 'La chaqueta oficial del equipo de élite.', cost: 200, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/unnamed%20(7).png?raw=true', category: 'Oro' },
   { id: 7, name: 'Bolso', description: 'Lleva tu equipo con estilo profesional.', cost: 200, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/unnamed%20(4).png?raw=true', category: 'Oro' },
-
-  // Diamante
-  { id: 13, name: 'Premio Misterioso', description: 'Un trofeo legendario te espera en el podio.', cost: 300, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/5ffdcd0d76650425722555858ebe6053-Photoroom.png?raw=true', category: 'Diamante' },
 ];

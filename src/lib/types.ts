@@ -56,7 +56,7 @@ export type NavLink = {
 };
 
 export type PrizeCategory = {
-  name: 'Diamante' | 'Oro' | 'Plata' | 'Bronce';
+  name: 'Oro' | 'Plata' | 'Bronce';
 };
 
 export type Prize = {
