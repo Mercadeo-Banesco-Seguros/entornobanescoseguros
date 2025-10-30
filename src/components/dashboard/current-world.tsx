@@ -17,11 +17,10 @@ type CurrentWorldProps = {
 export default function CurrentWorld({ currentUser, levels, users }: CurrentWorldProps) {
   const isAdministrator = currentUser.cargo === 'ADMINISTRADOR';
 
-  // Obtener una lista única de todas las vicepresidencias de los usuarios
+  // Obtener la lista de VPs directamente de los datos estáticos para asegurar que sea correcta.
   const vicepresidencias = useMemo(() => {
-    const allVps = users.map(user => user.vicepresidencia).filter(Boolean) as string[];
-    return [...Array.from(new Set(allVps))];
-  }, [users]);
+    return Object.keys(vicepresidenciaMessages);
+  }, []);
   
   // El estado de la VP seleccionada por el admin. Por defecto, la primera de la lista.
   const [selectedVp, setSelectedVp] = useState(vicepresidencias[0] || '');
