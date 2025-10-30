@@ -3,31 +3,31 @@
     {
       "id": "world-level-1",
       "description": "Pista de Gran Caracas",
-      "imageUrl": "https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_2j7a6k2j7a6k2j7a-Photoroom.png?raw=true",
+      "imageUrl": "https://www.banescoseguros.com/wp-content/uploads/2025/10/Gemini_Generated_Image_2j7a6k2j7a6k2j7a-Photoroom.png",
       "imageHint": "city race track"
     },
     {
       "id": "world-level-2",
       "description": "Pista de Ctro. Occid. Los Andes",
-      "imageUrl": "https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_9n2grt9n2grt9n2g-Photoroom.png?raw=true",
+      "imageUrl": "https://www.banescoseguros.com/wp-content/uploads/2025/10/Gemini_Generated_Image_9n2grt9n2grt9n2g-Photoroom.png",
       "imageHint": "mountain race track"
     },
     {
       "id": "world-level-3",
-      "description": "Pista de Alta Velocidad",
-      "imageUrl": "https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/95995a3a-149d-4250-848f-365cdab86634.jpeg",
-      "imageHint": "high-speed track"
+      "description": "Pista de Centro Llanos - Carabobo",
+      "imageUrl": "https://www.banescoseguros.com/wp-content/uploads/2025/10/Gemini_Generated_Image_6sbz9r6sbz9r6sbz-Photoroom.png",
+      "imageHint": "plains race track"
     },
     {
       "id": "world-level-4",
-      "description": "El Circuito de Leyendas",
-      "imageUrl": "https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/1e839e55-32e6-42d8-b80c-a90a2a465922.jpeg",
-      "imageHint": "legendary circuit"
+      "description": "Pista de Oriente",
+      "imageUrl": "https://www.banescoseguros.com/wp-content/uploads/2025/10/Gemini_Generated_Image_obguokobguokobgu-Photoroom.png",
+      "imageHint": "coastal race track"
     },
     {
       "id": "world-level-5",
       "description": "Pista de Zulia - Falcón",
-      "imageUrl": "https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_yexmseyexmseyexm-Photoroom.png?raw=true",
+      "imageUrl": "https://www.banescoseguros.com/wp-content/uploads/2025/10/Gemini_Generated_Image_yexmseyexmseyexm-Photoroom.png",
       "imageHint": "desert race track"
     }
   ]
