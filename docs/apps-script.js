@@ -115,7 +115,6 @@ function handleLogin(data) {
   const userData = {
       id: userRow['usuario'],
       name: userRow['nombre'],
-      email: userRow['usuario'], // Asumimos que el usuario es el email para compatibilidad
       vicepresidencia: userRow['vicepresidencia'],
       cargo: userRow['cargo'],
       avatar: userRow['premio_cat'],
@@ -141,7 +140,6 @@ function handleGetData(params) {
     const users = getSheetData(dataSheet).map(u => ({
         id: u.usuario,
         name: u.nombre,
-        email: u.usuario,
         vicepresidencia: u.vicepresidencia,
         cargo: u.cargo,
         avatar: u.premio_cat,

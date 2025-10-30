@@ -50,7 +50,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const allUsers = (data.users || []).map((u: any) => ({
         id: u.id,
         name: u.name,
-        email: u.email,
         level: 1, // Nivel estático
         xp: u.xp || 0,
         avatar: u.avatar || 'Bronce', // Categoría del premio
@@ -62,8 +61,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setUsers(allUsers);
       
       setCurrentUser(prevUser => {
-        if (prevUser && prevUser.email) {
-          const updatedCurrentUser = allUsers.find(u => u.email && u.email.toLowerCase() === prevUser.email.toLowerCase());
+        if (prevUser && prevUser.id) {
+          const updatedCurrentUser = allUsers.find(u => u.id && u.id.toString().toLowerCase() === prevUser.id.toString().toLowerCase());
           if (updatedCurrentUser) {
             localStorage.setItem('currentUser', JSON.stringify(updatedCurrentUser));
             return updatedCurrentUser;
@@ -120,7 +119,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         const user: User = {
             id: data.user.id,
             name: data.user.name,
-            email: data.user.email,
             level: 1, // Nivel estático
             xp: data.user.xp || 0,
             avatar: data.user.avatar || 'Bronce',
@@ -158,7 +156,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 action: 'registerPurchase',
-                userId: currentUser.email,
+                userId: currentUser.id,
                 prizeId: prize.id,
                 prizeName: prize.name,
                 cost: prize.cost,

@@ -91,7 +91,7 @@ export default function RankingPage() {
             <TableBody>
               {sortedUsers.map((user, index) => {
                 return (
-                  <TableRow key={user.id} className={user.email.toLowerCase() === me.email.toLowerCase() ? 'bg-secondary/50' : ''}>
+                  <TableRow key={user.id} className={user.id.toString().toLowerCase() === me.id.toString().toLowerCase() ? 'bg-secondary/50' : ''}>
                     <TableCell className="font-bold text-lg text-muted w-[80px]">#{user.posicion}</TableCell>
                     <TableCell>
                       <div className="flex items-center gap-4">

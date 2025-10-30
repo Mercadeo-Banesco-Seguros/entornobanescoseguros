@@ -3,7 +3,6 @@ import type { LucideIcon } from 'lucide-react';
 export type User = {
   id: number | string;
   name: string;
-  email: string; // Se mantiene como identificador único, podría ser el mismo que 'usuario'
   level: number;
   xp: number;
   avatar: string; // Ahora es PREMIO_CAT: 'Bronce', 'Plata', 'Oro'
