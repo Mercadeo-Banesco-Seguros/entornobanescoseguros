@@ -14,12 +14,20 @@ const SHEET_NAMES = {
 
 /**
  * Crea una respuesta JSON estándar con las cabeceras CORS correctas.
+ * (Versión segura sin encadenamiento de métodos)
  */
 function createJsonResponse(data) {
-  return ContentService
-    .createTextOutput(JSON.stringify(data))
-    .setMimeType(ContentService.MimeType.JSON)
-    .addHeader('Access-Control-Allow-Origin', '*');
+  // 1. Crear el objeto de salida con el JSON
+  var output = ContentService.createTextOutput(JSON.stringify(data));
+  
+  // 2. Establecer el tipo MIME
+  output.setMimeType(ContentService.MimeType.JSON);
+  
+  // 3. Añadir la cabecera CORS
+  output.addHeader('Access-Control-Allow-Origin', '*');
+  
+  // 4. Devolver el objeto configurado
+  return output;
 }
 
 /**
@@ -161,3 +169,4 @@ function getSheetData(sheet) {
     return rowData;
   });
 }
+
