@@ -18,14 +18,19 @@ function toTitleCase(str: string): string {
 }
 
 export default function CarEvolution({ currentUser }: CarEvolutionProps) {
-  // Normalize user category to 'Bronce', 'Plata', 'Oro', etc.
+  const isAdministrator = currentUser.cargo === 'ADMINISTRADOR';
   const userCategory = toTitleCase(currentUser.avatar);
 
   const categoryOrder: { [key: string]: number } = { 'Base': 0, 'Bronce': 1, 'Plata': 2, 'Oro': 3 };
-  const userCategoryRank = categoryOrder[userCategory] ?? 0;
+  
+  // Admin can see all evolutions, others are based on their rank
+  const userCategoryRank = isAdministrator ? 3 : (categoryOrder[userCategory] ?? 0);
 
   const getCurrentEvolution = () => {
-    // Encuentra la evolución más alta que el usuario ha desbloqueado
+    if (isAdministrator) {
+        return carEvolutions.find(e => e.category === 'Oro') || carEvolutions[carEvolutions.length - 1];
+    }
+    // Find the highest evolution the user has unlocked
     const unlockedEvolutions = carEvolutions.filter(e => categoryOrder[e.category as keyof typeof categoryOrder] <= userCategoryRank);
     return unlockedEvolutions.sort((a, b) => categoryOrder[b.category as keyof typeof categoryOrder] - categoryOrder[a.category as keyof typeof categoryOrder])[0] || carEvolutions[0];
   };
@@ -33,7 +38,7 @@ export default function CarEvolution({ currentUser }: CarEvolutionProps) {
   const [selectedEvolution, setSelectedEvolution] = useState(getCurrentEvolution());
 
   useEffect(() => {
-    // Si el usuario cambia, actualizamos la evolución seleccionada por defecto
+    // If the user changes, update the default selected evolution
     setSelectedEvolution(getCurrentEvolution());
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser]);
