@@ -8,6 +8,7 @@ export type User = {
   xp: number;
   avatar: string;
   progreso?: number;
+  vicepresidencia?: string;
 };
 
 export type TaskStatus = 'completed' | 'pending';

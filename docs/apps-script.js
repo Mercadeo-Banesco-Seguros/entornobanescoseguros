@@ -209,7 +209,8 @@ function handleLogin(data) {
       level: publicData.level,
       xp: publicData.xp,
       avatar: publicData.avatar,
-      progreso: userRow['progreso'] || 0
+      progreso: userRow['progreso'] || 0,
+      vicepresidencia: userRow['vicepresidencia'] || ''
   };
 
   return createJsonResponse({ success: true, user: userData });

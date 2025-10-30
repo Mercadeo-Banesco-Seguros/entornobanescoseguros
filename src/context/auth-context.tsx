@@ -54,7 +54,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         level: Number(u.nivel) || 1,
         xp: Number(u.puntaje) || 0,
         avatar: u.avatar || 'Piloto Novato',
-        progreso: Number(u.progreso) || 0
+        progreso: Number(u.progreso) || 0,
+        vicepresidencia: u.vicepresidencia || '',
       }));
       setUsers(allUsers);
       
@@ -122,6 +123,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             xp: Number(data.user.xp) || 0,
             avatar: data.user.avatar || 'Piloto Novato',
             progreso: Number(data.user.progreso) || 0,
+            vicepresidencia: data.user.vicepresidencia || '',
         };
 
         setCurrentUser(user);

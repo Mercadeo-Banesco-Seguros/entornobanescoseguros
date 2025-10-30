@@ -45,7 +45,7 @@ export default function CurrentWorld({ currentUser, levels }: CurrentWorldProps)
                 )}
             </div>
              <div className="w-64 text-center md:text-left">
-                <h3 className="text-base font-semibold">{currentLevel.worldName}</h3>
+                <h3 className="text-base font-semibold">{currentUser.vicepresidencia || currentLevel.worldName}</h3>
                 <p className="text-xs text-muted-foreground mt-1">{currentLevel.story}</p>
             </div>
         </div>
