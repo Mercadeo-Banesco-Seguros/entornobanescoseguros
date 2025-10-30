@@ -99,8 +99,14 @@ export default function RankingPage() {
               )}
             </div>
             <div className="text-right w-48 flex items-baseline justify-end gap-1.5">
-              <span className="text-2xl font-bold">{(me.progreso || 0).toLocaleString()}%</span>
-              <span className="text-xs font-normal text-primary-foreground/80">de Logro</span>
+              {me.cargo === 'ADMINISTRADOR' ? (
+                  <span className="text-sm font-semibold text-white/90">Administrador</span>
+              ) : (
+                <>
+                  <span className="text-2xl font-bold">{(me.progreso || 0).toLocaleString()}%</span>
+                  <span className="text-xs font-normal text-primary-foreground/80">de Logro</span>
+                </>
+              )}
             </div>
           </div>
         </CardContent>
