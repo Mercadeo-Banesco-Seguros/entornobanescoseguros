@@ -29,7 +29,7 @@ export default function InicioPage() {
 
         <div className="flex justify-center">
           <Image
-            src="https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/c2b29402-990a-426c-851f-d5b78ac313a0-removebg-preview.png"
+            src="https://www.banescoseguros.com/wp-content/uploads/2025/10/inicio.png"
             alt="Casco de carreras"
             width={450}
             height={450}
