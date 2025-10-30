@@ -34,7 +34,10 @@ export default function CarEvolution({ currentUser }: CarEvolutionProps) {
                         alt={selectedEvolution.name} 
                         fill 
                         quality={100}
-                        className="object-contain"
+                        className={cn(
+                          'object-contain',
+                          userProgress < selectedEvolution.progressThreshold && 'grayscale'
+                        )}
                       />
                   </div>
                   <div className="w-64 text-center md:text-left">
@@ -66,7 +69,6 @@ export default function CarEvolution({ currentUser }: CarEvolutionProps) {
                   'flex flex-col items-center text-center transition-all duration-300',
                   isSelected ? 'scale-110' : 'scale-100 opacity-50 hover:opacity-75'
                 )}
-                disabled={!isUnlocked}
               >
                 <div
                   className={cn(
