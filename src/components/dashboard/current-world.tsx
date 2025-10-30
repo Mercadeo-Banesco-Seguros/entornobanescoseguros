@@ -14,40 +14,37 @@ type CurrentWorldProps = {
   users: User[];
 };
 
-// Helper function to normalize VP names for robust matching
-const normalizeVpName = (name: string): string => {
-  if (!name) return '';
-  return name.toLowerCase().replace(/^(vp\.\s*)/, '').trim();
+// More robust function to get a simplified key from a full VP name
+const getVpKeyFromName = (name: string): string | null => {
+  if (!name) return null;
+  const lowerName = name.toLowerCase();
+  if (lowerName.includes('gran caracas')) return 'gran-caracas';
+  if (lowerName.includes('ctro. occid') || lowerName.includes('andes')) return 'centro-occidente-andes';
+  if (lowerName.includes('centro llanos') || lowerName.includes('carabobo')) return 'centro-llanos-carabobo';
+  if (lowerName.includes('oriente')) return 'oriente';
+  if (lowerName.includes('zulia') || lowerName.includes('falcón')) return 'zulia-falcon';
+  return null;
 };
 
 
 export default function CurrentWorld({ currentUser, levels, users }: CurrentWorldProps) {
   const isAdministrator = currentUser.cargo === 'ADMINISTRADOR';
-
-  const vicepresidencias = useMemo(() => {
-    return Object.keys(vicepresidenciaMessages);
-  }, []);
+  const vicepresidenciaKeys = useMemo(() => Object.keys(vicepresidenciaMessages), []);
   
-  const [selectedVp, setSelectedVp] = useState(vicepresidencias[0] || '');
+  const initialVpKey = getVpKeyFromName(currentUser.vicepresidencia || '') || vicepresidenciaKeys[0];
+  const [selectedVpKey, setSelectedVpKey] = useState(initialVpKey);
 
-  const displayVp = isAdministrator ? selectedVp : currentUser.vicepresidencia;
+  const displayVpKey = isAdministrator ? selectedVpKey : getVpKeyFromName(currentUser.vicepresidencia || '');
 
   const vpDetails = useMemo(() => {
-    if (!displayVp) return null;
-    
-    const normalizedDisplayVp = normalizeVpName(displayVp);
-    
-    const foundVpKey = Object.keys(vicepresidenciaMessages).find(key => normalizeVpName(key) === normalizedDisplayVp);
-    
-    if (!foundVpKey) return null;
-    
-    return vicepresidenciaMessages[foundVpKey];
-  }, [displayVp]);
+    if (!displayVpKey) return null;
+    return vicepresidenciaMessages[displayVpKey];
+  }, [displayVpKey]);
 
   const welcomeMessage = vpDetails?.message || "Bienvenido al Circuito Banesco. Mensaje no disponible para tu vicepresidencia.";
   const worldImageId = vpDetails?.worldImageId;
   const worldImage = PlaceHolderImages.find(p => p.id === worldImageId);
-  const worldName = displayVp || "Pista General";
+  const worldName = vpDetails?.name || currentUser.vicepresidencia || "Pista General";
 
   // Vista para Asesores Integrales (no administradores)
   if (!isAdministrator) {
@@ -102,15 +99,15 @@ export default function CurrentWorld({ currentUser, levels, users }: CurrentWorl
         </div>
         {/* Selector de vicepresidencias */}
          <div className="flex items-end justify-center space-x-2 w-full overflow-x-auto pb-2">
-          {vicepresidencias.map((vp) => {
-            const vpData = vicepresidenciaMessages[vp];
+          {vicepresidenciaKeys.map((vpKey) => {
+            const vpData = vicepresidenciaMessages[vpKey];
             const image = vpData ? PlaceHolderImages.find(p => p.id === vpData.worldImageId) : null;
-            const isSelected = selectedVp === vp;
+            const isSelected = selectedVpKey === vpKey;
 
             return (
               <button
-                key={vp}
-                onClick={() => setSelectedVp(vp)}
+                key={vpKey}
+                onClick={() => setSelectedVpKey(vpKey)}
                 className={cn(
                   'flex flex-col items-center text-center transition-all duration-300 flex-shrink-0',
                   isSelected ? 'scale-105' : 'scale-100 opacity-60 hover:opacity-100'
@@ -125,14 +122,14 @@ export default function CurrentWorld({ currentUser, levels, users }: CurrentWorl
                   {image ? (
                       <Image
                         src={image.imageUrl}
-                        alt={vp}
+                        alt={vpData.name}
                         width={80}
                         height={80}
                         className="object-contain"
                       />
                   ) : <div className="w-full h-full bg-gray-300 rounded-md" />}
                 </div>
-                <p className="text-[10px] font-semibold w-24 truncate">{vp}</p>
+                <p className="text-[10px] font-semibold w-24 truncate">{vpData.name}</p>
               </button>
             );
           })}
