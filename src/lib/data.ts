@@ -60,7 +60,7 @@ export const navLinks: NavLink[] = [
     { href: '/inicio', label: 'Inicio', icon: Home },
     { href: '/dashboard', label: 'Panel', icon: Rocket },
     { href: '/ranking', label: 'Clasificación', icon: Trophy },
-    { href: '/cajero', label: 'Meta', icon: Flag },
+    { href: '/cajero', label: 'Gran Premio', icon: Flag },
 ];
 
 export const prizeCategories: PrizeCategory[] = [
