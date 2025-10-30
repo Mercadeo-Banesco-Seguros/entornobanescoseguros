@@ -31,7 +31,7 @@ function doOptions(e) {
 
 /**
  * Crea una respuesta JSON estándar con las cabeceras CORS correctas.
- */
+ */-
 function createJsonResponse(data) {
   return ContentService
     .createTextOutput(JSON.stringify(data))
@@ -126,6 +126,7 @@ function handleLogin(data) {
 
   return createJsonResponse({ success: true, user: userData });
 }
+
 
 /**
  * Obtiene todos los datos de los usuarios desde la hoja USUARIOS.
