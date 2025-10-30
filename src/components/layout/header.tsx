@@ -73,7 +73,11 @@ export default function Header() {
               <>
                 <div className="text-right hidden sm:block">
                   <p className="text-sm font-bold text-white">{currentUser.name}</p>
-                  <p className="text-xs text-white/80">{currentUser.progreso || 0}% de Progreso</p>
+                  {currentUser.cargo === 'ADMINISTRADOR' ? (
+                    <p className="text-xs text-white/80">Administrador</p>
+                  ) : (
+                    <p className="text-xs text-white/80">{currentUser.progreso || 0}% de Progreso</p>
+                  )}
                 </div>
                 <Avatar>
                   <AvatarFallback>
