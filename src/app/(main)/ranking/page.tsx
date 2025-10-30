@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Card, CardContent } from '@/components/ui/card';
@@ -118,12 +119,12 @@ export default function RankingPage() {
              <div className="text-center w-64">
               {me.cargo === 'ADMINISTRADOR' ? (
                  <Select onValueChange={setSelectedVp} defaultValue={selectedVp}>
-                  <SelectTrigger className="w-full bg-white/20 border-0 text-white font-bold">
+                  <SelectTrigger className="w-full bg-white/20 border-0 text-white">
                     <SelectValue placeholder="Filtrar por VP" />
                   </SelectTrigger>
                   <SelectContent>
                     {vicepresidencias.map((vp) => (
-                      <SelectItem key={vp} value={vp}>{vp === 'TODAS' ? 'Todas las Vicepresidencias' : vp}</SelectItem>
+                      <SelectItem key={vp} value={vp}>{vp === 'TODAS' ? 'TODAS' : vp}</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
