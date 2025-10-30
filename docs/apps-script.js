@@ -1,7 +1,7 @@
 
 // ------------------- CONFIGURACIÓN -------------------
 // 1. Reemplaza esta URL con la URL de tu hoja de cálculo de Google.
-const SPREADSHEET_URL = "https://docs.google.com/spreadsheets/d/1rRXSKOPScB4Wmmy1UrhRS4cIMBzMmx_xxtcl4yi81y4/edit#gid=0"; 
+const SPREADSHEET_URL = "https://docs.google.com/spreadsheets/d/1rRXSKOPScB4Wmmy1UrhRS4cIMBzMmx_xxtcl4yi81y4/edit"; 
 
 // 2. Define los nombres de las hojas que usarás. Deben coincidir EXACTAMENTE.
 const SHEET_NAMES = {
