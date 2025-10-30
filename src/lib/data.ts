@@ -10,64 +10,24 @@ export const carEvolutions: CarEvolution[] = [
 
 export const vicepresidenciaMessages: { [key: string]: { message: string; worldImageId: string; } } = {
   "Comercial Gran Caracas": {
-      message: `¡Equipo VP. Comercial Gran Caracas!
-
-¡Los motores están encendidos! La gran carrera del Concurso de Asesores Integrales ha comenzado.
-
-En la capital, marcamos el ritmo. Esta es nuestra pista y estamos listos para tomar la pole position. Es hora de acelerar a fondo, demostrar nuestra agilidad y estrategia en cada curva.
-
-¡Que nadie nos alcance! ¡Vamos a demostrar por qué Gran Caracas siempre está en la delantera!
-
-¡A la meta por esa victoria!`,
-      worldImageId: "world-level-1"
+    message: `¡Equipo VP. Comercial Gran Caracas!\n\n¡Los motores están encendidos! La gran carrera del Concurso de Asesores Integrales ha comenzado.\n\nEn la capital, marcamos el ritmo. Esta es nuestra pista y estamos listos para tomar la pole position. Es hora de acelerar a fondo, demostrar nuestra agilidad y estrategia en cada curva.\n\n¡Que nadie nos alcance! ¡Vamos a demostrar por qué Gran Caracas siempre está en la delantera!\n\n¡A la meta por esa victoria!`,
+    worldImageId: "world-level-1"
   },
   "Comercial Ctro. Occid.Andes": {
-      message: `¡Equipo VP. Comercial Ctro. Occid. Los Andes!
-
-¡Se ha dado la señal de partida! El Concurso de Asesores Integrales está en marcha.
-
-Esta es una carrera de resistencia y potencia, y nuestro equipo sabe cómo manejar tanto las rectas como las subidas más exigentes. Es el momento de activar toda nuestra tracción y avanzar con fuerza imparable.
-
-¡Demostremos la tenacidad que nos caracteriza! ¡Que el podio lleve nuestro nombre!
-
-¡Vamos con todo hacia la bandera a cuadros!`,
-      worldImageId: "world-level-2"
+    message: `¡Equipo VP. Comercial Ctro. Occid. Los Andes!\n\n¡Se ha dado la señal de partida! El Concurso de Asesores Integrales está en marcha.\n\nEsta es una carrera de resistencia y potencia, y nuestro equipo sabe cómo manejar tanto las rectas como las subidas más exigentes. Es el momento de activar toda nuestra tracción y avanzar con fuerza imparable.\n\n¡Demostremos la tenacidad que nos caracteriza! ¡Que el podio lleve nuestro nombre!\n\n¡Vamos con todo hacia la bandera a cuadros!`,
+    worldImageId: "world-level-2"
   },
   "Comercial Centro Llanos-Carabobo": {
-      message: `¡Equipo VP. Comercial Centro Llanos-Carabobo!
-
-¡Luz verde! La competencia de Asesores Integrales ha iniciado oficialmente.
-
-En el corazón del país, tenemos el combustible y la potencia para dominar esta pista. Es hora de pisar el acelerador, mantenernos en el carril rápido y demostrar de qué estamos hechos.
-
-¡Que el rugido de nuestros motores resuene en toda la pista! ¡Vamos a liderar cada vuelta!
-
-¡Acelera, equipo! ¡Nos vemos en la meta!`,
-      worldImageId: "world-level-3"
+    message: `¡Equipo VP. Comercial Centro Llanos-Carabobo!\n\n¡Luz verde! La competencia de Asesores Integrales ha iniciado oficialmente.\n\nEn el corazón del país, tenemos el combustible y la potencia para dominar esta pista. Es hora de pisar el acelerador, mantenernos en el carril rápido y demostrar de qué estamos hechos.\n\n¡Que el rugido de nuestros motores resuene en toda la pista! ¡Vamos a liderar cada vuelta!\n\n¡Acelera, equipo! ¡Nos vemos en la meta!`,
+    worldImageId: "world-level-3"
   },
   "Comercial Oriente": {
-      message: `¡Equipo VP. Comercial Oriente!
-
-¡La carrera ha comenzado! El Concurso de Asesores Integrales espera por sus campeones.
-
-En Oriente sabemos lo que es arrancar con fuerza y mantener la velocidad. Esta es nuestra oportunidad de brillar, de demostrar nuestra destreza y de trabajar en equipo como la mejor escudería.
-
-¡Activemos el nitro y no dejemos que nadie nos rebase! ¡Esta victoria es nuestra!
-
-¡Directo al podio, Oriente!`,
-      worldImageId: "world-level-4"
+    message: `¡Equipo VP. Comercial Oriente!\n\n¡La carrera ha comenzado! El Concurso de Asesores Integrales espera por sus campeones.\n\nEn Oriente sabemos lo que es arrancar con fuerza y mantener la velocidad. Esta es nuestra oportunidad de brillar, de demostrar nuestra destreza y de trabajar en equipo como la mejor escudería.\n\n¡Activemos el nitro y no dejemos que nadie nos rebase! ¡Esta victoria es nuestra!\n\n¡Directo al podio, Oriente!`,
+    worldImageId: "world-level-4"
   },
   "Comercial Zulia - Falcón": {
-      message: `¡Equipo VP. Comercial Zulia - Falcón!
-
-¡Se ha bajado la bandera verde! El Concurso de Asesores Integrales está aquí.
-
-Sabemos que en nuestra VP corre la energía y la determinación. Esta es una carrera de campeones, y estamos listos para demostrar que tenemos la potencia para ganar.
-
-¡Es hora de poner toda la máquina a funcionar, no mirar por el retrovisor y conquistar esa meta!
-
-¡Vamos con esa fuerza indetenible! ¡A ganar!`,
-      worldImageId: "world-level-1"
+    message: `¡Equipo VP. Comercial Zulia - Falcón!\n\n¡Se ha bajado la bandera verde! El Concurso de Asesores Integrales está aquí.\n\nSabemos que en nuestra VP corre la energía y la determinación. Esta es una carrera de campeones, y estamos listos para demostrar que tenemos la potencia para ganar.\n\n¡Es hora de poner toda la máquina a funcionar, no mirar por el retrovisor y conquistar esa meta!\n\n¡Vamos con esa fuerza indetenible! ¡A ganar!`,
+    worldImageId: "world-level-1"
   },
 };
 

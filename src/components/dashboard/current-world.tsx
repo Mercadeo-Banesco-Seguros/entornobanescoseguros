@@ -15,34 +15,29 @@ type CurrentWorldProps = {
 };
 
 export default function CurrentWorld({ currentUser, levels, users }: CurrentWorldProps) {
-  const currentLevel = levels.find(l => l.id === currentUser.level);
-
   const vicepresidencias = useMemo(() => {
     const allVps = users.map(user => user.vicepresidencia).filter(Boolean) as string[];
     return [...Array.from(new Set(allVps))];
   }, [users]);
   
   const [selectedVp, setSelectedVp] = useState(currentUser.vicepresidencia || vicepresidencias[0]);
-  
-  if (!currentLevel) {
-    return (
-        <Card className="h-full border-0 shadow-none">
-            <CardContent className="flex items-center justify-center h-full">
-                <p>Información de la pista no disponible.</p>
-            </CardContent>
-        </Card>
-    );
-  }
 
   const isAdministrator = currentUser.cargo === 'ADMINISTRADOR';
+  
+  // Determina qué VP mostrar. Para el admin, es la que selecciona. Para el resto, es la suya.
   const displayVp = isAdministrator ? selectedVp : currentUser.vicepresidencia;
 
+  // Busca los detalles de la VP a mostrar.
   const vpDetails = displayVp ? vicepresidenciaMessages[displayVp] : null;
-  
-  // Prioritize VP-specific message, fallback to level story
-  const welcomeMessage = vpDetails ? vpDetails.message : currentLevel.story;
-  const worldImageId = vpDetails ? vpDetails.worldImageId : currentLevel.worldImageId;
+
+  // Busca el nivel actual del usuario para tenerlo de respaldo si algo falla.
+  const currentLevel = levels.find(l => l.id === currentUser.level);
+
+  // **LÓGICA CORREGIDA**: Prioriza SIEMPRE el mensaje de la VP. Si no existe, usa la historia del nivel como último recurso.
+  const welcomeMessage = vpDetails?.message || currentLevel?.story || "Mensaje no disponible.";
+  const worldImageId = vpDetails?.worldImageId || currentLevel?.worldImageId;
   const worldImage = PlaceHolderImages.find(p => p.id === worldImageId);
+  const worldName = vpDetails ? displayVp : currentLevel?.worldName;
 
 
   if (!isAdministrator) {
@@ -54,7 +49,7 @@ export default function CurrentWorld({ currentUser, levels, users }: CurrentWorl
                         {worldImage ? (
                             <Image
                                 src={worldImage.imageUrl}
-                                alt={displayVp || currentLevel.worldName}
+                                alt={worldName || ''}
                                 fill
                                 quality={100}
                                 className="object-contain"
@@ -63,7 +58,7 @@ export default function CurrentWorld({ currentUser, levels, users }: CurrentWorl
                         ) : <div className="w-full h-full bg-gray-200 rounded-lg" />}
                     </div>
                     <div className="w-64 text-center md:text-left">
-                       <h3 className="text-base font-semibold">{displayVp || currentLevel.worldName}</h3>
+                       <h3 className="text-base font-semibold">{worldName}</h3>
                        <p className="text-xs text-muted-foreground mt-1 whitespace-pre-line">{welcomeMessage}</p>
                     </div>
                 </div>
@@ -81,7 +76,7 @@ export default function CurrentWorld({ currentUser, levels, users }: CurrentWorl
                  {worldImage ? (
                     <Image
                         src={worldImage.imageUrl}
-                        alt={displayVp || ''}
+                        alt={worldName || ''}
                         fill
                         quality={100}
                         className="object-contain"
@@ -90,7 +85,7 @@ export default function CurrentWorld({ currentUser, levels, users }: CurrentWorl
                 ) : <div className="w-full h-full bg-gray-200 rounded-lg" />}
             </div>
             <div className="w-64 text-center md:text-left">
-               <h3 className="text-base font-semibold">{displayVp}</h3>
+               <h3 className="text-base font-semibold">{worldName}</h3>
                <p className="text-xs text-muted-foreground mt-1 whitespace-pre-line">{welcomeMessage}</p>
             </div>
         </div>
