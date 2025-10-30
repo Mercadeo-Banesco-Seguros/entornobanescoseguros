@@ -1,3 +1,4 @@
+
 // ------------------- CONFIGURACIÓN -------------------
 // 1. Reemplaza esta URL con la URL de tu hoja de cálculo de Google.
 const SPREADSHEET_URL = "https://docs.google.com/spreadsheets/d/1rRXSKOPScB4Wmmy1UrhRS4cIMBzMmx_xxtcl4yi81y4/edit#gid=0"; 
@@ -11,34 +12,6 @@ const SHEET_NAMES = {
 
 // --- NO EDITAR DEBAJO DE ESTA LÍNEA ---
 
-const spreadsheet = SpreadsheetApp.openByUrl(SPREADSHEET_URL);
-// Chequeo inicial para asegurar que podemos acceder a la hoja principal.
-try {
-    if (!spreadsheet.getSheetByName(SHEET_NAMES.USERS)) {
-        throw new Error(`La hoja "${SHEET_NAMES.USERS}" no fue encontrada. Verifica la URL y el nombre de la hoja.`);
-    }
-} catch (e) {
-    // Si falla la apertura, no podemos continuar.
-    Logger.log(`Error crítico al iniciar el script: ${e.message}`);
-}
-
-
-/**
- * Función para manejar las peticiones OPTIONS (preflight de CORS).
- * Esto es CRUCIAL para que las peticiones desde el cliente funcionen.
- */
-function doOptions(e) {
-  const response = ContentService.createTextOutput();
-  response.setMimeType(ContentService.MimeType.JSON);
-  response.withHeaders({
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type',
-  });
-  return response;
-}
-
-
 /**
  * Crea una respuesta JSON estándar con las cabeceras CORS correctas.
  */
@@ -46,26 +19,29 @@ function createJsonResponse(data) {
   return ContentService
     .createTextOutput(JSON.stringify(data))
     .setMimeType(ContentService.MimeType.JSON)
-    .withHeaders({ 'Access-control-allow-origin': '*' });
+    .withHeaders({ 'Access-Control-Allow-Origin': '*' });
 }
 
-
 /**
- * Función principal que maneja las peticiones POST.
+ * Función principal que maneja las peticiones POST. Unifica toda la lógica.
  */
 function doPost(e) {
-  let requestData;
   try {
-    if (e.postData && e.postData.contents) {
-        requestData = JSON.parse(e.postData.contents);
-    } else {
-        return createJsonResponse({ error: true, message: `Petición inválida. No se recibió contenido.` });
+    let requestData;
+    try {
+      if (!e || !e.postData || !e.postData.contents) {
+        throw new Error("Petición inválida. No se recibió contenido (postData).");
+      }
+      requestData = JSON.parse(e.postData.contents);
+    } catch (error) {
+      Logger.log(`Error parseando JSON: ${error.message}. Contenido recibido: ${e.postData ? e.postData.contents : 'ninguno'}`);
+      return createJsonResponse({ error: true, message: `Petición inválida. Se esperaba un JSON. Error: ${error.message}` });
     }
-  } catch (error) {
-    return createJsonResponse({ error: true, message: `Petición inválida. Se esperaba un JSON. Contenido recibido: ${e.postData ? e.postData.contents : 'ninguno'}` });
-  }
 
-  try {
+    if (!requestData || !requestData.action) {
+      return createJsonResponse({ error: true, message: "Acción no reconocida o datos inválidos." });
+    }
+    
     const action = requestData.action;
 
     switch (action) {
@@ -74,27 +50,26 @@ function doPost(e) {
       case 'getData':
         return handleGetData(requestData);
       default:
-        return createJsonResponse({ error: true, message: "Acción no reconocida." });
+        return createJsonResponse({ error: true, message: `Acción no reconocida: "${action}"` });
     }
   } catch (error) {
-    Logger.log(`Error en doPost: ${error.toString()}\nStack: ${error.stack}`);
-    return createJsonResponse({ error: true, message: `Error en el servidor: ${error.toString()}` });
+    Logger.log(`Error crítico en el servidor de Apps Script: ${error.toString()}\nStack: ${error.stack}`);
+    return createJsonResponse({ error: true, message: `Error interno en el servidor: ${error.toString()}` });
   }
 }
 
 /**
- * La función doGet ahora simplemente redirige a doPost para consistencia,
- * pasando los parámetros de la URL como si fueran el cuerpo de la petición.
+ * La función doGet ahora simplemente simula una petición POST.
+ * Esto centraliza toda la lógica en doPost.
  */
 function doGet(e) {
-    if (e.parameter && e.parameter.action) {
-      const mockPostData = {
-          type: 'application/json',
-          contents: JSON.stringify(e.parameter)
-      };
-      return doPost({ postData: mockPostData });
-    }
-    return createJsonResponse({ error: true, message: "Acción no especificada para GET." });
+    const mockPostEvent = {
+      postData: {
+        contents: JSON.stringify(e.parameters),
+        type: 'application/json'
+      }
+    };
+    return doPost(mockPostEvent);
 }
 
 /**
@@ -106,16 +81,17 @@ function handleLogin(data) {
     return createJsonResponse({ error: true, message: "Usuario y contraseña son requeridos." });
   }
 
+  const spreadsheet = SpreadsheetApp.openByUrl(SPREADSHEET_URL);
   const usersSheet = spreadsheet.getSheetByName(SHEET_NAMES.USERS);
   if (!usersSheet) {
-    return createJsonResponse({ error: true, message: `La hoja "${SHEET_NAMES.USERS}" no fue encontrada.` });
+    throw new Error(`La hoja "${SHEET_NAMES.USERS}" no fue encontrada. Verifica la URL y el nombre de la hoja.`);
   }
   
   const usersData = getSheetData(usersSheet);
 
   const userRow = usersData.find(row => 
-    row['usuario'] && row['usuario'].toString().toLowerCase() === username.toLowerCase() &&
-    row['contraseña'] && row['contraseña'].toString() === password
+    row && row['usuario'] && row['usuario'].toString().toLowerCase() === username.toLowerCase() &&
+    row && row['contraseña'] && row['contraseña'].toString() === password
   );
 
   if (!userRow) {
@@ -136,15 +112,14 @@ function handleLogin(data) {
   return createJsonResponse({ success: true, user: userData });
 }
 
-
 /**
  * Obtiene todos los datos de los usuarios desde la hoja USUARIOS.
  */
 function handleGetData(params) {
-  try {
+    const spreadsheet = SpreadsheetApp.openByUrl(SPREADSHEET_URL);
     const dataSheet = spreadsheet.getSheetByName(SHEET_NAMES.USERS);
     if (!dataSheet) {
-        return createJsonResponse({ error: true, message: `La hoja "${SHEET_NAMES.USERS}" no fue encontrada.` });
+        throw new Error(`La hoja "${SHEET_NAMES.USERS}" no fue encontrada.`);
     }
     
     const users = getSheetData(dataSheet).map(u => ({
@@ -159,15 +134,7 @@ function handleGetData(params) {
         level: 1 
     }));
 
-    const data = {
-      users: users,
-      error: false
-    };
-
-    return createJsonResponse(data);
-  } catch (error) {
-    return createJsonResponse({ error: true, message: `No se pudieron obtener los datos: ${error.toString()}` });
-  }
+    return createJsonResponse({ users: users, error: false });
 }
 
 
@@ -187,7 +154,7 @@ function getSheetData(sheet) {
   return values.slice(1).map(row => {
     const rowData = {};
     headers.forEach((header, index) => {
-      if(header){
+      if(header){ // Solo añade la propiedad si el encabezado no está vacío
         rowData[header] = row[index];
       }
     });

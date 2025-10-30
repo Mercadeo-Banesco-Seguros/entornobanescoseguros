@@ -1,7 +1,8 @@
+
 import { NextResponse } from 'next/server';
 
 // Pega la URL de implementación de tu Google Apps Script aquí.
-const appsScriptUrl = 'https://script.google.com/macros/s/AKfycbzviv3j7UUWT0d3ZIaXTDiEwAymCyYnQ5jet4TebQ4W0eXDqM8wl3KcdwcwzdEBsiL63w/exec';
+const appsScriptUrl = 'https://script.google.com/macros/s/AKfycbwRsdRFb3Hzui7CRX-4DXWZFSzDLBV-rPQuxvnRTUtbo2ep4tTfyb38YpBxSxePTGz4wQ/exec';
 
 async function handleRequest(request: Request) {
   if (!appsScriptUrl) {
@@ -11,24 +12,18 @@ async function handleRequest(request: Request) {
     );
   }
 
-  const method = request.method;
   let requestPayload: any;
-
   try {
-    if (method === 'POST') {
       requestPayload = await request.json();
-    } else if (method === 'GET') {
+  } catch (e) {
+      // Si el cuerpo está vacío o no es JSON, usa los parámetros de la URL para GET
       const { searchParams } = new URL(request.url);
       const params: any = {};
       searchParams.forEach((value, key) => {
         params[key] = value;
       });
       requestPayload = params;
-    }
-  } catch (e) {
-    return NextResponse.json({ message: 'Cuerpo de la petición inválido.' }, { status: 400 });
   }
-
 
   if (!requestPayload || !requestPayload.action) {
     return NextResponse.json({ message: 'La acción no fue especificada.' }, { status: 400 });
@@ -40,9 +35,9 @@ async function handleRequest(request: Request) {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(requestPayload), // Enviamos el payload construido
+      body: JSON.stringify(requestPayload),
       cache: 'no-store',
-      redirect: 'follow', // Crucial para seguir las redirecciones de Google
+      redirect: 'follow',
     });
 
     const responseText = await response.text();
@@ -58,21 +53,23 @@ async function handleRequest(request: Request) {
     try {
       const data = JSON.parse(responseText);
       if (data.error) {
-        return NextResponse.json({ message: data.message || 'Error del script de Google.' }, { status: 401 });
+        // El script devolvió un error JSON, lo cual es bueno. Lo reenviamos.
+        return NextResponse.json({ message: data.message || 'Error del script de Google.' }, { status: 400 });
       }
       return NextResponse.json(data);
     } catch(e) {
-      console.error('Error al parsear la respuesta JSON de Apps Script:', responseText);
+      // Esto se activa si la respuesta NO es JSON (probablemente una página de error de Google).
+      console.error('Error al parsear la respuesta JSON de Apps Script. Contenido recibido:', responseText);
       return NextResponse.json(
-        { message: 'La respuesta del servicio de datos no es un JSON válido.', details: responseText },
+        { message: 'La respuesta del servicio de datos no es un JSON válido. Revisa los logs del servidor.', details: responseText },
         { status: 500 }
       );
     }
 
   } catch (error: any) {
-    console.error('Error al contactar con el proxy de Apps Script:', error);
+    console.error('Error crítico al contactar con el proxy de Apps Script:', error);
     return NextResponse.json(
-      { message: 'Error interno del servidor al obtener los datos.', error: error.message },
+      { message: 'Error interno del servidor al procesar la petición.', error: error.message },
       { status: 500 }
     );
   }
