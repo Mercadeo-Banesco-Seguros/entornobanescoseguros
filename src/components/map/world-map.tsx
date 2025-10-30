@@ -7,6 +7,7 @@ import type { User, Level } from '@/lib/types';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
 import { CircleCheck, Lock, MapPin } from 'lucide-react';
+import { vicepresidenciaMessages } from '@/lib/data';
 
 type WorldMapProps = {
   currentUser: User;
@@ -25,6 +26,8 @@ export default function WorldMap({ currentUser, levels }: WorldMapProps) {
   const isSelectedLevelUnlocked = selectedLevel.id <= currentUser.level;
   
   const allLevels = [...levels].sort((a, b) => a.id - b.id);
+  
+  const vpMessage = currentUser.vicepresidencia ? vicepresidenciaMessages[currentUser.vicepresidencia]?.message : '';
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
@@ -53,7 +56,7 @@ export default function WorldMap({ currentUser, levels }: WorldMapProps) {
              <Card>
                 <CardHeader>
                     <CardTitle>{selectedLevel.worldName}</CardTitle>
-                    <CardDescription>{selectedLevel.story}</CardDescription>
+                    <CardDescription>{vpMessage}</CardDescription>
                 </CardHeader>
             </Card>
         </div>

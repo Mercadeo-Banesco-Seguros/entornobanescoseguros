@@ -39,10 +39,10 @@ export const avatars: Avatar[] = [
 ];
 
 export const levels: Level[] = [
-    { id: 1, name: 'Pista de Calentamiento', xpThreshold: 1000, worldName: 'Pista de Calentamiento', worldImageId: 'world-level-1', story: 'Bienvenido a la Pista de Calentamiento, la primera etapa de tu carrera. Aquí inicias como Piloto Novato, aprendiendo las trazadas y sumando tus primeros puntos. Este circuito pondrá a prueba tu potencial. Solo los más rápidos y constantes lograrán avanzar.' },
-    { id: 2, name: 'Circuito Profesional', xpThreshold: 2500, worldName: 'Circuito Profesional', worldImageId: 'world-level-2', story: 'Has llegado al Circuito Profesional. Las curvas son más cerradas y los rivales más duros. Como Piloto Profesional, te enfrentarás a desafíos mayores que pondrán a prueba tu habilidad y estrategia. Este es el lugar donde se forjan los campeones.' },
-    { id: 3, name: 'Pista de Alta Velocidad', xpThreshold: 5000, worldName: 'Pista de Alta Velocidad', worldImageId: 'world-level-3', story: 'Bienvenido a la Pista de Alta Velocidad, un desafío solo para la élite. Como Piloto de Élite, deberás demostrar tu experiencia y liderar la carrera. Esta pista exige perfección en cada maniobra y una colaboración impecable con tu equipo.' },
-    { id: 4, name: 'El Circuito de Leyendas', xpThreshold: 10000, worldName: 'El Circuito de Leyendas', worldImageId: 'world-level-4', story: 'Has llegado al olimpo de las carreras, el Circuito de Leyendas. Aquí culmina tu viaje. Como Leyenda, has dominado cada desafío. Tu misión final es cruzar la meta y consolidar tu legado como el mejor Asesor Integral en la historia de Banesco Seguros.' },
+    { id: 1, name: 'Pista de Calentamiento', xpThreshold: 1000, worldName: 'Pista de Calentamiento', worldImageId: 'world-level-1' },
+    { id: 2, name: 'Circuito Profesional', xpThreshold: 2500, worldName: 'Circuito Profesional', worldImageId: 'world-level-2' },
+    { id: 3, name: 'Pista de Alta Velocidad', xpThreshold: 5000, worldName: 'Pista de Alta Velocidad', worldImageId: 'world-level-3' },
+    { id: 4, name: 'El Circuito de Leyendas', xpThreshold: 10000, worldName: 'El Circuito de Leyendas', worldImageId: 'world-level-4' },
 ];
 
 export const tasks: Omit<Task, 'status'>[] = [

@@ -15,31 +15,32 @@ type CurrentWorldProps = {
 };
 
 export default function CurrentWorld({ currentUser, levels, users }: CurrentWorldProps) {
+  const isAdministrator = currentUser.cargo === 'ADMINISTRADOR';
+
+  // Obtener una lista única de todas las vicepresidencias de los usuarios
   const vicepresidencias = useMemo(() => {
     const allVps = users.map(user => user.vicepresidencia).filter(Boolean) as string[];
     return [...Array.from(new Set(allVps))];
   }, [users]);
   
-  const [selectedVp, setSelectedVp] = useState(currentUser.vicepresidencia || vicepresidencias[0]);
+  // El estado de la VP seleccionada por el admin. Por defecto, la primera de la lista.
+  const [selectedVp, setSelectedVp] = useState(vicepresidencias[0] || '');
 
-  const isAdministrator = currentUser.cargo === 'ADMINISTRADOR';
-  
-  // Determina qué VP mostrar. Para el admin, es la que selecciona. Para el resto, es la suya.
+  // Determinar qué vicepresidencia mostrar: la seleccionada por el admin o la del propio asesor.
   const displayVp = isAdministrator ? selectedVp : currentUser.vicepresidencia;
 
-  // Busca los detalles de la VP a mostrar.
-  const vpDetails = displayVp ? vicepresidenciaMessages[displayVp] : null;
+  // Obtener los detalles (mensaje e imagen) para la vicepresidencia a mostrar.
+  const vpDetails = useMemo(() => {
+    if (!displayVp) return null;
+    return vicepresidenciaMessages[displayVp];
+  }, [displayVp]);
 
-  // Busca el nivel actual del usuario para tenerlo de respaldo si algo falla.
-  const currentLevel = levels.find(l => l.id === currentUser.level);
-
-  // **LÓGICA CORREGIDA**: Prioriza SIEMPRE el mensaje de la VP. Si no existe, usa la historia del nivel como último recurso.
-  const welcomeMessage = vpDetails?.message || currentLevel?.story || "Mensaje no disponible.";
-  const worldImageId = vpDetails?.worldImageId || currentLevel?.worldImageId;
+  const welcomeMessage = vpDetails?.message || "Bienvenido al Circuito Banesco. Mensaje no disponible para tu vicepresidencia.";
+  const worldImageId = vpDetails?.worldImageId;
   const worldImage = PlaceHolderImages.find(p => p.id === worldImageId);
-  const worldName = vpDetails ? displayVp : currentLevel?.worldName;
+  const worldName = displayVp || "Pista General";
 
-
+  // Vista para Asesores Integrales (no administradores)
   if (!isAdministrator) {
     return (
         <Card className="h-full border-0 shadow-none">
@@ -49,13 +50,13 @@ export default function CurrentWorld({ currentUser, levels, users }: CurrentWorl
                         {worldImage ? (
                             <Image
                                 src={worldImage.imageUrl}
-                                alt={worldName || ''}
+                                alt={worldName}
                                 fill
                                 quality={100}
                                 className="object-contain"
                                 data-ai-hint={worldImage.imageHint}
                             />
-                        ) : <div className="w-full h-full bg-gray-200 rounded-lg" />}
+                        ) : <div className="w-full h-full bg-gray-200 rounded-lg flex items-center justify-center text-muted-foreground">Imagen no disponible</div>}
                     </div>
                     <div className="w-64 text-center md:text-left">
                        <h3 className="text-base font-semibold">{worldName}</h3>
@@ -67,28 +68,30 @@ export default function CurrentWorld({ currentUser, levels, users }: CurrentWorl
     );
   }
 
-  // Admin view with selectable cards
+  // Vista para Administradores, con tarjetas seleccionables
   return (
     <Card className="h-full border-0 shadow-none">
       <CardContent className="flex flex-col items-center text-center gap-8 pt-6 h-full">
+        {/* Contenedor principal de la imagen y texto */}
         <div className="flex-grow flex flex-col md:flex-row items-center justify-center h-96 w-full md:gap-4">
             <div className="relative w-80 h-80">
                  {worldImage ? (
                     <Image
                         src={worldImage.imageUrl}
-                        alt={worldName || ''}
+                        alt={worldName}
                         fill
                         quality={100}
                         className="object-contain"
                         data-ai-hint={worldImage.imageHint}
                     />
-                ) : <div className="w-full h-full bg-gray-200 rounded-lg" />}
+                ) : <div className="w-full h-full bg-gray-200 rounded-lg flex items-center justify-center text-muted-foreground">Imagen no disponible</div>}
             </div>
             <div className="w-64 text-center md:text-left">
                <h3 className="text-base font-semibold">{worldName}</h3>
                <p className="text-xs text-muted-foreground mt-1 whitespace-pre-line">{welcomeMessage}</p>
             </div>
         </div>
+        {/* Selector de vicepresidencias */}
          <div className="flex items-end justify-center space-x-2 w-full overflow-x-auto pb-2">
           {vicepresidencias.map((vp) => {
             const vpData = vicepresidenciaMessages[vp];
@@ -110,7 +113,7 @@ export default function CurrentWorld({ currentUser, levels, users }: CurrentWorl
                      isSelected ? 'border-2 border-primary' : 'border-2 border-transparent'
                   )}
                 >
-                  {image && (
+                  {image ? (
                       <Image
                         src={image.imageUrl}
                         alt={vp}
@@ -118,7 +121,7 @@ export default function CurrentWorld({ currentUser, levels, users }: CurrentWorl
                         height={80}
                         className="object-contain"
                       />
-                  )}
+                  ) : <div className="w-full h-full bg-gray-300 rounded-md" />}
                 </div>
                 <p className="text-[10px] font-semibold w-24 truncate">{vp}</p>
               </button>
