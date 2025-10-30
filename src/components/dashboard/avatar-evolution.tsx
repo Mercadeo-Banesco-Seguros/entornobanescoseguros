@@ -11,11 +11,18 @@ type CarEvolutionProps = {
   currentUser: User;
 };
 
-export default function CarEvolution({ currentUser }: CarEvolutionProps) {
-  const userCategory = currentUser.avatar; 
+// Helper function to convert a string to Title Case
+function toTitleCase(str: string): string {
+  if (!str) return '';
+  return str.toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
+}
 
-  const categoryOrder = { 'Base': 0, 'Bronce': 1, 'Plata': 2, 'Oro': 3 };
-  const userCategoryRank = categoryOrder[userCategory as keyof typeof categoryOrder] ?? 0;
+export default function CarEvolution({ currentUser }: CarEvolutionProps) {
+  // Normalize user category to 'Bronce', 'Plata', 'Oro', etc.
+  const userCategory = toTitleCase(currentUser.avatar);
+
+  const categoryOrder: { [key: string]: number } = { 'Base': 0, 'Bronce': 1, 'Plata': 2, 'Oro': 3 };
+  const userCategoryRank = categoryOrder[userCategory] ?? 0;
 
   const getCurrentEvolution = () => {
     // Encuentra la evolución más alta que el usuario ha desbloqueado
