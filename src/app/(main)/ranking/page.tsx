@@ -6,6 +6,7 @@ import { useAuth } from '@/context/auth-context';
 import { Skeleton } from '@/components/ui/skeleton';
 import Image from 'next/image';
 import { useEffect, useMemo } from 'react';
+import { Check } from 'lucide-react';
 
 export default function RankingPage() {
   const { currentUser: me, users: rankingUsers, loading, error, fetchUsers } = useAuth();
@@ -84,7 +85,9 @@ export default function RankingPage() {
       <Card className="sticky top-20 z-10 bg-primary text-primary-foreground shadow-lg">
         <CardContent className="p-6">
           <div className="flex items-center">
-            <div className="font-bold text-lg text-white w-[80px]">#{myRank > 0 ? myRank : '-'}</div>
+            <div className="font-bold text-lg text-white w-[80px]">
+                {me.cargo === 'ADMINISTRADOR' ? <Check className="h-6 w-6 text-white" /> : `#${myRank > 0 ? myRank : '-'}`}
+            </div>
             <div className="flex-grow flex items-center gap-4">
                <div>
                 <p className="font-semibold text-base">{me.name} (Tú)</p>
