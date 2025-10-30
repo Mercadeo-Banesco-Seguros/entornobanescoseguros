@@ -181,6 +181,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             throw new Error(result.message);
         }
         
+        // After a successful redemption, refetch all user data to get the updated points
         await fetchUsers();
 
     } catch (err: any) {

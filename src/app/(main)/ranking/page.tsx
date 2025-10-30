@@ -49,7 +49,7 @@ export default function RankingPage() {
     return <div className="text-destructive text-center">Error al cargar la clasificación: {error}</div>
   }
   
-  const sortedUsers = [...rankingUsers].sort((a, b) => b.xp - a.xp);
+  const sortedUsers = [...rankingUsers].sort((a, b) => (b.progreso || 0) - (a.progreso || 0));
 
   const myRank = sortedUsers.findIndex(u => u.email.toLowerCase() === me.email.toLowerCase()) + 1;
   const myLevel = levels.find(l => l.id === me.level);
@@ -89,8 +89,8 @@ export default function RankingPage() {
               )}
             </div>
             <div className="text-right w-48 flex items-baseline justify-end gap-1.5">
-              <span className="text-2xl font-bold">{me.xp.toLocaleString()}</span>
-              <span className="text-xs font-normal text-primary-foreground/80">Puntos</span>
+              <span className="text-2xl font-bold">{(me.progreso || 0).toLocaleString()}%</span>
+              <span className="text-xs font-normal text-primary-foreground/80">de Progreso</span>
             </div>
           </div>
         </CardContent>
@@ -128,7 +128,7 @@ export default function RankingPage() {
                     </TableCell>
                     <TableCell className="text-right w-48">
                       <span className="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full">
-                        {user.xp.toLocaleString()}
+                        {(user.progreso || 0).toLocaleString()}%
                       </span>
                     </TableCell>
                   </TableRow>
