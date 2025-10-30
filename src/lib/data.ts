@@ -1,4 +1,4 @@
-import { Trophy, User as UserIcon, LucideIcon, Rocket, ClipboardList, Home, Store, Wrench } from 'lucide-react';
+import { Trophy, User as UserIcon, LucideIcon, Rocket, ClipboardList, Home, Store, Wrench, Flag } from 'lucide-react';
 import type { User, Task, Avatar, NavLink, Level, Prize, PrizeCategory, CarEvolution } from './types';
 
 export const carEvolutions: CarEvolution[] = [
@@ -32,7 +32,7 @@ export const navLinks: NavLink[] = [
     { href: '/inicio', label: 'Inicio', icon: Home },
     { href: '/dashboard', label: 'Panel', icon: Rocket },
     { href: '/ranking', label: 'Clasificación', icon: Trophy },
-    { href: '/cajero', label: 'Pits', icon: Wrench },
+    { href: '/cajero', label: 'Meta', icon: Flag },
 ];
 
 export const prizeCategories: PrizeCategory[] = [
