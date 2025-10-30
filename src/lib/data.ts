@@ -27,7 +27,7 @@ export const vicepresidenciaMessages: { [key: string]: { message: string; worldI
   },
   "Comercial Zulia - Falcón": {
     message: `¡Equipo VP. Comercial Zulia - Falcón!\n\n¡Se ha bajado la bandera verde! El Concurso de Asesores Integrales está aquí.\n\nSabemos que en nuestra VP corre la energía y la determinación. Esta es una carrera de campeones, y estamos listos para demostrar que tenemos la potencia para ganar.\n\n¡Es hora de poner toda la máquina a funcionar, no mirar por el retrovisor y conquistar esa meta!\n\n¡Vamos con esa fuerza indetenible! ¡A ganar!`,
-    worldImageId: "world-level-1"
+    worldImageId: "world-level-5"
   },
 };
 

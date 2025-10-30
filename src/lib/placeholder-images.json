@@ -23,6 +23,12 @@
       "description": "El Circuito de Leyendas",
       "imageUrl": "https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/1e839e55-32e6-42d8-b80c-a90a2a465922.jpeg",
       "imageHint": "legendary circuit"
+    },
+    {
+      "id": "world-level-5",
+      "description": "Pista de Zulia - Falcón",
+      "imageUrl": "https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_yexmseyexmseyexm-Photoroom.png?raw=true",
+      "imageHint": "desert race track"
     }
   ]
 }
