@@ -2,9 +2,9 @@
   "placeholderImages": [
     {
       "id": "world-level-1",
-      "description": "Pista de Calentamiento",
-      "imageUrl": "https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/a6e9a6a8-4c28-484c-ac33-f5f4f4699f7d.jpeg",
-      "imageHint": "race track start"
+      "description": "Pista de Gran Caracas",
+      "imageUrl": "https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_2j7a6k2j7a6k2j7a-Photoroom.png?raw=true",
+      "imageHint": "city race track"
     },
     {
       "id": "world-level-2",
