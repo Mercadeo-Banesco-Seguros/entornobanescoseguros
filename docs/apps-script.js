@@ -49,7 +49,12 @@ function doPost(e) {
   let requestData;
   try {
     if (e.postData && e.postData.contents) {
-        requestData = JSON.parse(e.postData.contents);
+        // Si el Content-Type es text/plain, necesitamos parsear el contenido
+        if (e.postData.type === 'text/plain') {
+             requestData = JSON.parse(e.postData.contents);
+        } else {
+             requestData = JSON.parse(e.postData.contents);
+        }
     } else {
         return createJsonResponse({ error: true, message: `Petición inválida. No se recibió contenido.` });
     }
@@ -86,6 +91,7 @@ function doGet(e) {
     if (e.parameter && e.parameter.action) {
       // Simulamos un `e.postData` para que `doPost` lo pueda procesar
       const mockPostData = {
+          type: 'application/json',
           contents: JSON.stringify(e.parameter)
       };
       return doPost({ postData: mockPostData });
@@ -184,7 +190,7 @@ function handleLogin(data) {
   
   // Obtener datos públicos de la hoja DATA
   const dataSheet = spreadsheet.getSheetByName(SHEET_NAMES.DATA);
-  let publicData = { avatar: 'Piloto Novato', xp: 0, level: 1 }; // Valores por defecto
+  let publicData = { avatar: 'Piloto Novato', xp: 0, level: 1, progreso: 0 }; // Valores por defecto
 
   if(dataSheet) {
     const dataUsers = getSheetData(dataSheet);
@@ -202,7 +208,8 @@ function handleLogin(data) {
       email: userRow['correo'],
       level: publicData.level,
       xp: publicData.xp,
-      avatar: publicData.avatar
+      avatar: publicData.avatar,
+      progreso: userRow['progreso'] || 0
   };
 
   return createJsonResponse({ success: true, user: userData });
