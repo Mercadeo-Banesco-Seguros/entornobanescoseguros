@@ -70,9 +70,9 @@ export default function RankingPage() {
                 <p className="text-xs text-primary-foreground/80">{me.avatar}</p>
               </div>
             </div>
-            <div className="text-center w-48">
+            <div className="text-center w-64">
               {me.vicepresidencia && (
-                <span className="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full">
+                <span className="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full whitespace-nowrap">
                   {me.vicepresidencia}
                 </span>
               )}
@@ -101,9 +101,9 @@ export default function RankingPage() {
                         </div>
                       </div>
                     </TableCell>
-                    <TableCell className="text-center w-48">
+                    <TableCell className="text-center w-64">
                       {user.vicepresidencia && (
-                        <span className="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full">
+                        <span className="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full whitespace-nowrap">
                           {user.vicepresidencia}
                         </span>
                       )}
