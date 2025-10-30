@@ -31,7 +31,6 @@ export const tasks: Omit<Task, 'status'>[] = [
 export const navLinks: NavLink[] = [
     { href: '/inicio', label: 'Inicio', icon: Home },
     { href: '/dashboard', label: 'Panel', icon: Rocket },
-    { href: '/misiones', label: 'Objetivos', icon: ClipboardList },
     { href: '/ranking', label: 'Clasificación', icon: Trophy },
     { href: '/cajero', label: 'Pits', icon: Wrench },
 ];
