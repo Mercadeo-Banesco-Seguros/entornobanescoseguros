@@ -14,24 +14,34 @@ type CurrentWorldProps = {
   users: User[];
 };
 
+// Helper function to normalize VP names for robust matching
+const normalizeVpName = (name: string): string => {
+  if (!name) return '';
+  return name.toLowerCase().replace(/^(vp\.\s*)/, '').trim();
+};
+
+
 export default function CurrentWorld({ currentUser, levels, users }: CurrentWorldProps) {
   const isAdministrator = currentUser.cargo === 'ADMINISTRADOR';
 
-  // Obtener la lista de VPs directamente de los datos estáticos para asegurar que sea correcta.
   const vicepresidencias = useMemo(() => {
     return Object.keys(vicepresidenciaMessages);
   }, []);
   
-  // El estado de la VP seleccionada por el admin. Por defecto, la primera de la lista.
   const [selectedVp, setSelectedVp] = useState(vicepresidencias[0] || '');
 
-  // Determinar qué vicepresidencia mostrar: la seleccionada por el admin o la del propio asesor.
   const displayVp = isAdministrator ? selectedVp : currentUser.vicepresidencia;
 
-  // Obtener los detalles (mensaje e imagen) para la vicepresidencia a mostrar.
   const vpDetails = useMemo(() => {
     if (!displayVp) return null;
-    return vicepresidenciaMessages[displayVp];
+    
+    const normalizedDisplayVp = normalizeVpName(displayVp);
+    
+    const foundVpKey = Object.keys(vicepresidenciaMessages).find(key => normalizeVpName(key) === normalizedDisplayVp);
+    
+    if (!foundVpKey) return null;
+    
+    return vicepresidenciaMessages[foundVpKey];
   }, [displayVp]);
 
   const welcomeMessage = vpDetails?.message || "Bienvenido al Circuito Banesco. Mensaje no disponible para tu vicepresidencia.";
