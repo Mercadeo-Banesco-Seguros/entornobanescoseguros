@@ -29,7 +29,7 @@ export default function InicioPage() {
 
         <div className="flex justify-center">
           <Image
-            src="https://www.banescoseguros.com/wp-content/uploads/2025/10/inicio.png"
+            src="https://www.banescoseguros.com/wp-content/uploads/2025/10/Gemini_Generated_Image_6800ak6800ak6800-Photoroom.png"
             alt="Casco de carreras"
             width={450}
             height={450}
