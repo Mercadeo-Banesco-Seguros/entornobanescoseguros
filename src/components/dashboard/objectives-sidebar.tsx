@@ -21,7 +21,7 @@ export default function ObjectivesSidebar({ tasks: initialTasks }: ObjectivesSid
   return (
     <Card className="h-full bg-transparent border-0 shadow-none">
       <CardHeader className="px-2">
-        <CardTitle className="font-bold text-xl text-foreground">Lista de Misiones</CardTitle>
+        <CardTitle className="font-bold text-xl text-foreground">Lista de Objetivos</CardTitle>
       </CardHeader>
       <CardContent className="px-2">
         <div className="space-y-3">

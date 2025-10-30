@@ -21,7 +21,7 @@ export default function MainLayout({ children }: { children: ReactNode }) {
       <div className="w-full h-screen flex items-center justify-center">
         <div className="flex flex-col items-center gap-2">
           <Skeleton className="h-12 w-12 rounded-full" />
-          <p className="text-muted-foreground mt-4">Cargando datos de la expedición...</p>
+          <p className="text-muted-foreground mt-4">Cargando datos del circuito...</p>
         </div>
       </div>
     );

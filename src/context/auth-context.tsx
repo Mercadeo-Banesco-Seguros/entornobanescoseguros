@@ -53,7 +53,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         email: u.correo,
         level: Number(u.nivel) || 1,
         xp: Number(u.puntaje) || 0,
-        avatar: u.avatar || 'Explorador'
+        avatar: u.avatar || 'Piloto Novato'
       }));
       setUsers(allUsers);
       
@@ -69,7 +69,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       });
 
     } catch (err: any) {
-      setError("Error cargando los datos del ranking: " + err.message);
+      setError("Error cargando los datos de la clasificación: " + err.message);
       console.error(err);
     }
   }, []);
@@ -119,7 +119,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             email: data.user.email,
             level: Number(data.user.level) || 1,
             xp: Number(data.user.xp) || 0,
-            avatar: data.user.avatar || 'Explorador'
+            avatar: data.user.avatar || 'Piloto Novato'
         };
 
         setCurrentUser(user);
@@ -208,7 +208,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     logout,
     fetchUsers,
     redeemPrize
-  }), [currentUser, users, loading, error, fetchUsers]);
+  }), [currentUser, users, tasks, levels, avatars, prizes, prizeCategories, loading, error, login, register, logout, fetchUsers, redeemPrize]);
 
   return (
     <AuthContext.Provider value={value}>

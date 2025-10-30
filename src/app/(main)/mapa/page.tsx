@@ -11,8 +11,8 @@ export default function MapaPage() {
     return (
       <div className="space-y-8">
         <header>
-          <h1 className="text-4xl font-bold text-foreground">Mapa de la Expedición</h1>
-          <p className="text-muted text-lg mt-1">Explora los mundos y tu progreso.</p>
+          <h1 className="text-4xl font-bold text-foreground">Mapa del Circuito</h1>
+          <p className="text-muted text-lg mt-1">Explora las pistas y tu progreso en la carrera.</p>
         </header>
         <Skeleton className="w-full h-[600px] rounded-lg" />
       </div>
@@ -22,8 +22,8 @@ export default function MapaPage() {
   return (
     <div className="space-y-8">
       <header>
-        <h1 className="text-4xl font-bold text-foreground">Mapa de la Expedición</h1>
-        <p className="text-muted text-lg mt-1">Explora los mundos y tu progreso.</p>
+        <h1 className="text-4xl font-bold text-foreground">Mapa del Circuito</h1>
+        <p className="text-muted text-lg mt-1">Explora las pistas y tu progreso en la carrera.</p>
       </header>
       <WorldMap currentUser={currentUser} levels={levels} />
     </div>

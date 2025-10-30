@@ -89,11 +89,11 @@ export default function WorldMap({ currentUser, levels }: WorldMapProps) {
                    <div className="mt-2 flex flex-col items-start gap-2 text-sm">
                     {isUnlocked ? (
                         <span className="flex items-center gap-1 text-green-600 font-semibold">
-                            <CircleCheck className="h-4 w-4" /> Desbloqueado
+                            <CircleCheck className="h-4 w-4" /> Desbloqueada
                         </span>
                     ) : (
                         <span className="flex items-center gap-1 text-muted-foreground font-semibold">
-                            <Lock className="h-4 w-4" /> Bloqueado
+                            <Lock className="h-4 w-4" /> Bloqueada
                         </span>
                     )}
                     {currentUser.level === level.id && (

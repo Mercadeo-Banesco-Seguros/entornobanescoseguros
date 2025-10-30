@@ -49,7 +49,7 @@ export default function CajeroPage() {
     const doc = new jsPDF();
     doc.setFont("helvetica", "bold");
     doc.setFontSize(22);
-    doc.text("Ticket de Canje - Banesco Expedición", 105, 20, { align: "center" });
+    doc.text("Ticket de Canje - Circuito Banesco", 105, 20, { align: "center" });
 
     doc.setFontSize(14);
     doc.text(`¡Felicidades, ${currentUser.name}!`, 105, 40, { align: "center" });
@@ -120,7 +120,7 @@ export default function CajeroPage() {
                         <span className={cn('text-xs font-bold px-3 py-1 rounded-full', categoryColor, categoryTextColor)}>{prize.category}</span>
                     </div>
                     <div className={cn('text-sm font-bold px-4 py-1 rounded-full', costColor, costTextColor)}>
-                      {prize.cost.toLocaleString()} CC
+                      {prize.cost.toLocaleString()} Puntos
                     </div>
                 </div>
             </CardContent>
@@ -146,7 +146,7 @@ export default function CajeroPage() {
               onClick={() => handleRedeemClick(heroPrize)}
               disabled={currentUser.xp < heroPrize.cost}
             >
-              {heroPrize.cost.toLocaleString()} CONECTCOINS
+              {heroPrize.cost.toLocaleString()} Puntos
             </Button>
           </div>
           <div className="relative h-64 md:h-full flex items-center justify-center">
@@ -192,7 +192,7 @@ export default function CajeroPage() {
           <DialogHeader>
             <DialogTitle>Confirmar Canje</DialogTitle>
             <DialogDescription>
-              ¿Estás seguro de que quieres canjear <span className="font-bold">{selectedPrize?.cost.toLocaleString()} CONECTCOINS</span> por el premio <span className="font-bold">{selectedPrize?.name}</span>?
+              ¿Estás seguro de que quieres canjear <span className="font-bold">{selectedPrize?.cost.toLocaleString()} Puntos</span> por el premio <span className="font-bold">{selectedPrize?.name}</span>?
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
@@ -233,9 +233,3 @@ export default function CajeroPage() {
     </div>
   );
 }
-
-    
-    
-
-    
-

@@ -19,8 +19,8 @@ export default function RankingPage() {
     return (
       <div className="space-y-8">
         <header>
-          <h1 className="text-4xl font-bold text-foreground">Ranking de la Expedición</h1>
-          <p className="text-muted text-lg mt-1">Mira tu progreso y el de tus compañeros.</p>
+          <h1 className="text-4xl font-bold text-foreground">Clasificación de Pilotos</h1>
+          <p className="text-muted text-lg mt-1">Mira tu posición y la de tus compañeros en el circuito.</p>
         </header>
         <Card className="sticky top-20 z-10">
           <CardContent className="p-6">
@@ -46,7 +46,7 @@ export default function RankingPage() {
   }
 
   if (error) {
-    return <div className="text-destructive text-center">Error al cargar el ranking: {error}</div>
+    return <div className="text-destructive text-center">Error al cargar la clasificación: {error}</div>
   }
   
   const sortedUsers = [...rankingUsers].sort((a, b) => b.xp - a.xp);
@@ -62,8 +62,8 @@ export default function RankingPage() {
   return (
     <div className="space-y-8">
       <header>
-        <h1 className="text-4xl font-bold text-foreground">Ranking de la Expedición</h1>
-        <p className="text-muted text-lg mt-1">Mira tu progreso y el de tus compañeros.</p>
+        <h1 className="text-4xl font-bold text-foreground">Clasificación de Pilotos</h1>
+        <p className="text-muted text-lg mt-1">Mira tu posición y la de tus compañeros en el circuito.</p>
       </header>
 
       <Card className="sticky top-20 z-10 bg-primary text-primary-foreground shadow-lg">
@@ -90,7 +90,7 @@ export default function RankingPage() {
             </div>
             <div className="text-right w-48 flex items-baseline justify-end gap-1.5">
               <span className="text-2xl font-bold">{me.xp.toLocaleString()}</span>
-              <span className="text-xs font-normal text-primary-foreground/80">CONECTCOINS</span>
+              <span className="text-xs font-normal text-primary-foreground/80">Puntos</span>
             </div>
           </div>
         </CardContent>

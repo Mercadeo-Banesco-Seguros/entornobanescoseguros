@@ -2,27 +2,27 @@
   "placeholderImages": [
     {
       "id": "world-level-1",
-      "description": "Las Selvas Exteriores",
-      "imageUrl": "https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/primer%20nivel.png?raw=true",
-      "imageHint": "jungle ruins"
+      "description": "Pista de Calentamiento",
+      "imageUrl": "https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/a6e9a6a8-4c28-484c-ac33-f5f4f4699f7d.jpeg",
+      "imageHint": "race track start"
     },
     {
       "id": "world-level-2",
-      "description": "La Ciudad Perdida",
-      "imageUrl": "https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/segundo%20nivel.png?raw=true",
-      "imageHint": "lost city"
+      "description": "Circuito Profesional",
+      "imageUrl": "https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/55022831-2d7c-4034-8b63-b23023e3f4e1.jpeg",
+      "imageHint": "professional circuit"
     },
     {
       "id": "world-level-3",
-      "description": "El Templo Oculto",
-      "imageUrl": "https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/tercer%20nivel.png?raw=true",
-      "imageHint": "hidden temple"
+      "description": "Pista de Alta Velocidad",
+      "imageUrl": "https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/95995a3a-149d-4250-848f-365cdab86634.jpeg",
+      "imageHint": "high-speed track"
     },
     {
       "id": "world-level-4",
-      "description": "El Núcleo del Legado",
-      "imageUrl": "https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/CUARTO%20NIVELL.png?raw=true",
-      "imageHint": "legacy core"
+      "description": "El Circuito de Leyendas",
+      "imageUrl": "https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/1e839e55-32e6-42d8-b80c-a90a2a465922.jpeg",
+      "imageHint": "legendary circuit"
     }
   ]
 }

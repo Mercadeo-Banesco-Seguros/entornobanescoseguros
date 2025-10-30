@@ -14,10 +14,10 @@ export default function MisionesPage() {
         quality={100}
       />
       <h1 className="text-3xl font-bold text-foreground mt-8">
-        ¡Esta sección se está forjando!
+        ¡Nuevos objetivos en preparación!
       </h1>
       <p className="text-sm text-muted-foreground mt-2 max-w-md">
-        Nuestros mejores exploradores están preparando misiones emocionantes para ti. ¡Vuelve pronto para descubrir los próximos desafíos!
+        Nuestros ingenieros de pista están preparando nuevos desafíos para ti. ¡Vuelve pronto para descubrir tus próximos objetivos y seguir sumando puntos!
       </p>
     </div>
   );

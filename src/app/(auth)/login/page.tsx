@@ -63,7 +63,7 @@ export default function LoginPage() {
           <CardHeader>
             <CardTitle className="text-2xl">Iniciar Sesión</CardTitle>
             <CardDescription>
-              Introduce tus credenciales para acceder a tu expedición.
+              Introduce tus credenciales para entrar al circuito.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -96,12 +96,12 @@ export default function LoginPage() {
                   )}
                 />
                 <Button type="submit" className="w-full" disabled={loading}>
-                  {loading ? 'Iniciando Sesión...' : 'Iniciar Sesión'}
+                  {loading ? 'Iniciando Sesión...' : 'Entrar a la Carrera'}
                 </Button>
               </form>
             </Form>
             <div className="mt-4 text-center text-sm">
-              ¿No tienes una cuenta?{' '}
+              ¿No eres un piloto?{' '}
               <Link href="/register" className="underline">
                 Regístrate
               </Link>
@@ -111,11 +111,11 @@ export default function LoginPage() {
       </div>
        <div className="hidden lg:block relative">
         <Image
-          src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_vd8htnvd8htnvd8h.png?raw=true"
-          alt="Imagen de expedición en la jungla"
+          src="https://images.unsplash.com/photo-1552642762-f55d6b53a0f9?q=80&w=1974&auto=format&fit=crop"
+          alt="Imagen de un auto de carreras"
           layout="fill"
           className="object-cover"
-          data-ai-hint="jungle expedition"
+          data-ai-hint="race car"
         />
       </div>
     </div>

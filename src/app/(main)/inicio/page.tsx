@@ -15,26 +15,26 @@ export default function InicioPage() {
       <div className="grid md:grid-cols-2 gap-12 items-center">
         <div className="space-y-6 text-center md:text-left">
           <h1 className="text-4xl md:text-5xl font-black text-foreground tracking-tight uppercase">
-            La Búsqueda por Nuestro ADN
+            El Circuito Banesco Seguros
           </h1>
           <p className="text-sm text-muted-foreground">
-            ¡Explorador, la aventura ha comenzado! Este diario es el centro de nuestra expedición. Aquí encontrarás el mapa, tus misiones y cómo avanzamos juntos para reconstruir el ADN de Banesco Seguros.
+            ¡Piloto, la carrera ha comenzado! Este es tu panel de control. Aquí encontrarás el mapa del circuito, tus objetivos y cómo avanzas en la competición para llegar a la meta.
           </p>
           <Link href="/dashboard">
             <Button size="lg" className="mt-4">
-              Comenzar mi Expedición
+              Ir a mi Panel de Piloto
             </Button>
           </Link>
         </div>
 
         <div className="flex justify-center">
           <Image
-            src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_5wzjq95wzjq95wzj-Photoroom.png?raw=true"
-            alt="Diario de la expedición"
+            src="https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/c2b29402-990a-426c-851f-d5b78ac313a0-removebg-preview.png"
+            alt="Casco de carreras"
             width={450}
             height={450}
             className="object-contain"
-            data-ai-hint="expedition journal"
+            data-ai-hint="racing helmet"
             quality={100}
           />
         </div>
@@ -46,20 +46,20 @@ export default function InicioPage() {
               <Skeleton className="w-full h-[400px] rounded-lg" />
             ) : (
               <Image 
-                src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_xo3kzaxo3kzaxo3k-Photoroom.png?raw=true"
-                alt="Mapa de la expedición"
+                src="https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/55022831-2d7c-4034-8b63-b23023e3f4e1-removebg-preview.png"
+                alt="Mapa del circuito de carreras"
                 width={600}
                 height={400}
                 className="rounded-lg object-cover w-full h-full"
-                data-ai-hint="expedition map"
+                data-ai-hint="race track map"
                 quality={100}
               />
             )}
         </div>
         <div className="space-y-4">
-           <h2 className="text-3xl font-bold text-foreground">RUTA DEL EXPLORADOR</h2>
+           <h2 className="text-3xl font-bold text-foreground">RUTA DEL PILOTO</h2>
            <p className="text-sm text-muted-foreground max-w-3xl">
-            Descubre los territorios y sigue el rastro del ADN Banesco Seguros. Este es tu punto actual en la expedición. A medida que vayas completando las misiones y acumules ConnectCoins, la ruta hacia nuevos territorios se desbloqueará para ti.
+            Descubre las pistas y sigue tu trazada hacia la meta. Este es tu punto actual en el circuito. A medida que vayas completando objetivos y acumules puntos, la ruta hacia nuevas pistas se desbloqueará para ti.
           </p>
         </div>
       </div>

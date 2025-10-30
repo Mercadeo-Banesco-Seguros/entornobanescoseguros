@@ -72,7 +72,7 @@ export default function Header() {
               <>
                 <div className="text-right hidden sm:block">
                   <p className="text-sm font-bold text-white">{currentUser.name}</p>
-                  <p className="text-xs text-white/80">{currentUser.xp.toLocaleString()} CONECTCOINS</p>
+                  <p className="text-xs text-white/80">{currentUser.xp.toLocaleString()} Puntos</p>
                 </div>
                 <Avatar>
                   <AvatarFallback>

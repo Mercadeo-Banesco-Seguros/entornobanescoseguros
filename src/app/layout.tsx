@@ -11,8 +11,8 @@ const fontSans = FontSans({
 })
 
 export const metadata: Metadata = {
-  title: 'Banesco Seguros: Expedition',
-  description: 'Herramienta de motivación y formación interna para Banesco Seguros.',
+  title: 'Banesco Seguros: Circuito',
+  description: 'Herramienta de gamificación para Asesores Integrales de Banesco Seguros.',
 };
 
 export default function RootLayout({

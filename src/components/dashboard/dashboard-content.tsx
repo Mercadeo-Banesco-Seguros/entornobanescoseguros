@@ -37,7 +37,7 @@ export default function DashboardContent() {
         </Card>
         <Card className="h-full bg-transparent border-0 shadow-none">
           <CardHeader className="px-2">
-            <CardTitle className="font-bold text-xl text-foreground">Lista de Misiones</CardTitle>
+            <CardTitle className="font-bold text-xl text-foreground">Lista de Objetivos</CardTitle>
           </CardHeader>
           <CardContent className="px-2 space-y-3">
             <Skeleton className="h-20 w-full" />
@@ -50,15 +50,15 @@ export default function DashboardContent() {
   }
 
   if (!currentUser) {
-    return <div>Usuario no encontrado o no autorizado.</div>;
+    return <div>Piloto no encontrado o no autorizado.</div>;
   }
 
   const userLevel = levels.find(l => l.id === currentUser.level);
   if (!userLevel) {
-    return <div>Error: Nivel de usuario no encontrado.</div>;
+    return <div>Error: Pista del piloto no encontrada.</div>;
   }
   
-  // Mostrar solo las misiones del nivel actual del usuario
+  // Mostrar solo los objetivos del nivel actual del piloto
   const levelTasks = tasks.filter(t => t.level === currentUser.level);
 
   return (
