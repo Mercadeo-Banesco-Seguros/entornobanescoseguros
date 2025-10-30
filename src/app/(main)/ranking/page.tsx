@@ -85,8 +85,12 @@ export default function RankingPage() {
       <Card className="sticky top-20 z-10 bg-primary text-primary-foreground shadow-lg">
         <CardContent className="p-6">
           <div className="flex items-center">
-            <div className="font-bold text-lg text-white w-[80px]">
-                {me.cargo === 'ADMINISTRADOR' ? <Check className="h-6 w-6 text-white" /> : `#${myRank > 0 ? myRank : '-'}`}
+            <div className="font-bold text-lg text-white w-[80px] flex items-center justify-center">
+                {me.cargo === 'ADMINISTRADOR' ? (
+                  <div className="bg-white text-primary rounded-full h-8 w-8 flex items-center justify-center">
+                    <Check className="h-5 w-5" />
+                  </div>
+                ) : `#${myRank > 0 ? myRank : '-'}`}
             </div>
             <div className="flex-grow flex items-center gap-4">
                <div>
