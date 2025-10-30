@@ -16,11 +16,15 @@ export default function RankingPage() {
 
   const displayedUsers = useMemo(() => {
     if (!me) return [];
+
+    // Excluir a los administradores de la clasificación
+    const competingUsers = rankingUsers.filter(user => user.cargo !== 'ADMINISTRADOR');
+
     if (me.cargo === 'ADMINISTRADOR') {
-      return rankingUsers;
+      return competingUsers;
     }
     // Para 'ASESOR INTEGRAL' y cualquier otro rol por defecto
-    return rankingUsers.filter(user => user.vicepresidencia === me.vicepresidencia);
+    return competingUsers.filter(user => user.vicepresidencia === me.vicepresidencia);
   }, [me, rankingUsers]);
 
   if (loading || !me) {
