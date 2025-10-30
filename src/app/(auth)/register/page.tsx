@@ -25,6 +25,8 @@ const formSchema = z.object({
   name: z.string().min(2, { message: 'El nombre debe tener al menos 2 caracteres.' }),
   email: z.string().email({ message: 'Por favor, introduce un correo válido.' }),
   password: z.string().min(6, { message: 'La contraseña debe tener al menos 6 caracteres.' }),
+  vicepresidencia: z.string().min(1, { message: 'La vicepresidencia no puede estar vacía.' }),
+  cargo: z.string().min(1, { message: 'El cargo no puede estar vacío.' }),
 });
 
 export default function RegisterPage() {
@@ -39,13 +41,15 @@ export default function RegisterPage() {
       name: '',
       email: '',
       password: '',
+      vicepresidencia: '',
+      cargo: '',
     },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setLoading(true);
     try {
-      await register(values.name, values.email, values.password);
+      await register(values.name, values.email, values.password, values.vicepresidencia, values.cargo);
       toast({
         title: "¡Registro exitoso!",
         description: "Ahora puedes iniciar sesión con tus credenciales.",
@@ -118,6 +122,32 @@ export default function RegisterPage() {
                       <FormLabel>Contraseña</FormLabel>
                       <FormControl>
                         <Input type="password" placeholder="••••••••" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="vicepresidencia"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Vicepresidencia</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Tu Vicepresidencia" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                 <FormField
+                  control={form.control}
+                  name="cargo"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Cargo</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Tu Cargo" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

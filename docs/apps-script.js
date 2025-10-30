@@ -1,12 +1,12 @@
 // ------------------- CONFIGURACIÓN -------------------
 // 1. Reemplaza esta URL con la URL de tu hoja de cálculo de Google.
-const SPREADSHEET_URL = "https://docs.google.com/spreadsheets/d/10t2ToIlBben3d-IN9P3g-k5wu5hGRzlo1Tg2ch-4Xo4/edit#gid=1042210733"; 
+const SPREADSHEET_URL = "https://docs.google.com/spreadsheets/d/17jC0TG6BR0hV0DcQbutQoVethYl1wKldXUqlmHyWtTU/edit#gid=0"; 
 
 // 2. Define los nombres de las hojas que usarás. Deben coincidir EXACTAMENTE.
 const SHEET_NAMES = {
   USERS: "USUARIOS",
   DATA: "DATA",
-  CANJES: "Canjes" // Nueva hoja para registrar canjes
+  CANJES: "Canjes"
 };
 // -----------------------------------------------------
 
@@ -98,9 +98,9 @@ function doGet(e) {
  * Maneja el registro de un nuevo usuario.
  */
 function handleRegister(data) {
-  const { name, email, password } = data;
-  if (!name || !email || !password) {
-    return createJsonResponse({ error: true, message: "Nombre, email y contraseña son requeridos." });
+  const { name, email, password, vicepresidencia, cargo } = data;
+  if (!name || !email || !password || !vicepresidencia || !cargo) {
+    return createJsonResponse({ error: true, message: "Todos los campos son requeridos." });
   }
 
   const usersSheet = spreadsheet.getSheetByName(SHEET_NAMES.USERS);
@@ -115,14 +115,14 @@ function handleRegister(data) {
     return createJsonResponse({ error: true, message: "El correo electrónico ya está registrado." });
   }
   
-  // Asumiendo que las columnas son Nombre, Correo, Contraseña
-  usersSheet.appendRow([name, email, password]);
+  // Estructura: NOMBRE, CORREO, CONTRASEÑA, VICEPRESIDENCIA, CARGO, PROGRESO
+  usersSheet.appendRow([name, email, password, vicepresidencia, cargo, 0]);
 
-  // También se añade a la hoja DATA
+  // También se añade a la hoja DATA con valores iniciales
   const dataSheet = spreadsheet.getSheetByName(SHEET_NAMES.DATA);
   if (dataSheet) {
-      // Asumiendo columnas Nombre, Correo, Sexo, Puntaje, Nivel, Avatar
-      dataSheet.appendRow([name, email, 'No especificado', 0, 1, 'Explorador']);
+      // Estructura: Nombre, Correo, Puntaje, Nivel, Avatar
+      dataSheet.appendRow([name, email, 0, 1, 'Piloto Novato']);
   }
 
   return createJsonResponse({ success: true, message: "Usuario registrado exitosamente." });
@@ -184,13 +184,13 @@ function handleLogin(data) {
   
   // Obtener datos públicos de la hoja DATA
   const dataSheet = spreadsheet.getSheetByName(SHEET_NAMES.DATA);
-  let publicData = { avatar: 'Explorador', xp: 0, level: 1 }; // Valores por defecto
+  let publicData = { avatar: 'Piloto Novato', xp: 0, level: 1 }; // Valores por defecto
 
   if(dataSheet) {
     const dataUsers = getSheetData(dataSheet);
     const publicUserRow = dataUsers.find(u => u['correo'] && u['correo'].toString().toLowerCase() === email.toLowerCase());
     if(publicUserRow) {
-      publicData.avatar = publicUserRow['avatar'] || 'Explorador';
+      publicData.avatar = publicUserRow['avatar'] || 'Piloto Novato';
       publicData.xp = parseInt(publicUserRow['puntaje'], 10) || 0;
       publicData.level = parseInt(publicUserRow['nivel'], 10) || 1;
     }

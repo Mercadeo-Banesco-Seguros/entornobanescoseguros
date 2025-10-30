@@ -15,7 +15,7 @@ type AuthContextType = {
   loading: boolean;
   error: string | null;
   login: (email: string, password: string) => Promise<void>;
-  register: (name: string, email: string, password: string) => Promise<void>;
+  register: (name: string, email: string, password: string, vicepresidencia: string, cargo: string) => Promise<void>;
   logout: () => void;
   fetchUsers: () => Promise<void>;
   redeemPrize: (prize: Prize) => Promise<void>;
@@ -133,14 +133,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const register = async (name: string, email: string, password: string) => {
+  const register = async (name: string, email: string, password: string, vicepresidencia: string, cargo: string) => {
     setLoading(true);
     setError(null);
      try {
         const response = await fetch('/api/data', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ action: 'register', name, email, password }),
+          body: JSON.stringify({ action: 'register', name, email, password, vicepresidencia, cargo }),
         });
 
         const data = await response.json();
