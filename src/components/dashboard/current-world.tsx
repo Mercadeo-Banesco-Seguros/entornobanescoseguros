@@ -5,6 +5,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import type { User, Level } from '@/lib/types';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
+import { vicepresidenciaMessages } from '@/lib/data';
 
 type CurrentWorldProps = {
   currentUser: User;
@@ -25,6 +26,8 @@ export default function CurrentWorld({ currentUser, levels }: CurrentWorldProps)
   }
 
   const worldImage = PlaceHolderImages.find(p => p.id === currentLevel.worldImageId);
+  
+  const welcomeMessage = currentUser.vicepresidencia ? (vicepresidenciaMessages[currentUser.vicepresidencia] || currentLevel.story) : currentLevel.story;
 
   return (
     <Card className="h-full border-0 shadow-none">
@@ -46,7 +49,7 @@ export default function CurrentWorld({ currentUser, levels }: CurrentWorldProps)
             </div>
              <div className="w-64 text-center md:text-left">
                 <h3 className="text-base font-semibold">{currentUser.vicepresidencia || currentLevel.worldName}</h3>
-                <p className="text-xs text-muted-foreground mt-1">{currentLevel.story}</p>
+                <p className="text-xs text-muted-foreground mt-1 whitespace-pre-line">{welcomeMessage}</p>
             </div>
         </div>
       </CardContent>

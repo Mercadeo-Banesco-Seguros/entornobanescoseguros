@@ -8,6 +8,54 @@ export const carEvolutions: CarEvolution[] = [
   { id: 4, name: 'Fórmula 1', category: 'Oro', progressThreshold: 75, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/F1%20-%20CIRCUITO.png?raw=true', description: 'Has llegado a la élite. Tu coche es una máquina de precisión de Fórmula 1, diseñado para la máxima velocidad y rendimiento. El podio es tu único objetivo.' },
 ];
 
+export const vicepresidenciaMessages: { [key: string]: string } = {
+  "VP. Comercial Gran Caracas": `¡Equipo VP. Comercial Gran Caracas!
+
+¡Los motores están encendidos! La gran carrera del Concurso de Asesores Integrales ha comenzado.
+
+En la capital, marcamos el ritmo. Esta es nuestra pista y estamos listos para tomar la pole position. Es hora de acelerar a fondo, demostrar nuestra agilidad y estrategia en cada curva.
+
+¡Que nadie nos alcance! ¡Vamos a demostrar por qué Gran Caracas siempre está en la delantera!
+
+¡A la meta por esa victoria!`,
+  "VP. Comercial Ctro. Occid. Los Andes": `¡Equipo VP. Comercial Ctro. Occid. Los Andes!
+
+¡Se ha dado la señal de partida! El Concurso de Asesores Integrales está en marcha.
+
+Esta es una carrera de resistencia y potencia, y nuestro equipo sabe cómo manejar tanto las rectas como las subidas más exigentes. Es el momento de activar toda nuestra tracción y avanzar con fuerza imparable.
+
+¡Demostremos la tenacidad que nos caracteriza! ¡Que el podio lleve nuestro nombre!
+
+¡Vamos con todo hacia la bandera a cuadros!`,
+  "VP. Comercial Centro Llanos-Carabobo": `¡Equipo VP. Comercial Centro Llanos-Carabobo!
+
+¡Luz verde! La competencia de Asesores Integrales ha iniciado oficialmente.
+
+En el corazón del país, tenemos el combustible y la potencia para dominar esta pista. Es hora de pisar el acelerador, mantenernos en el carril rápido y demostrar de qué estamos hechos.
+
+¡Que el rugido de nuestros motores resuene en toda la pista! ¡Vamos a liderar cada vuelta!
+
+¡Acelera, equipo! ¡Nos vemos en la meta!`,
+  "VP. Comercial Oriente": `¡Equipo VP. Comercial Oriente!
+
+¡La carrera ha comenzado! El Concurso de Asesores Integrales espera por sus campeones.
+
+En Oriente sabemos lo que es arrancar con fuerza y mantener la velocidad. Esta es nuestra oportunidad de brillar, de demostrar nuestra destreza y de trabajar en equipo como la mejor escudería.
+
+¡Activemos el nitro y no dejemos que nadie nos rebase! ¡Esta victoria es nuestra!
+
+¡Directo al podio, Oriente!`,
+  "VP. Comercial Zulia - Falcón": `¡Equipo VP. Comercial Zulia - Falcón!
+
+¡Se ha bajado la bandera verde! El Concurso de Asesores Integrales está aquí.
+
+Sabemos que en nuestra VP corre la energía y la determinación. Esta es una carrera de campeones, y estamos listos para demostrar que tenemos la potencia para ganar.
+
+¡Es hora de poner toda la máquina a funcionar, no mirar por el retrovisor y conquistar esa meta!
+
+¡Vamos con esa fuerza indetenible! ¡A ganar!`,
+};
+
 export const avatars: Avatar[] = [
   { id: 1, name: 'Piloto Novato', level: 1, imageUrl: 'https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/c2b29402-990a-426c-851f-d5b78ac313a0-removebg-preview.png', description: 'Inicias tu carrera en el circuito. Tu coche está listo, tu casco puesto y el espíritu de competición arde en ti. Tu misión es aprender la pista, dominar las curvas y demostrar tu compromiso. Cada acción te suma Puntos para canjear por mejoras y premios. ¡Tú decides tu estrategia!' },
   { id: 2, name: 'Piloto Profesional', level: 2, imageUrl: 'https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/c2b29402-990a-426c-851f-d5b78ac313a0-removebg-preview.png', description: 'Ya no eres un novato. Conoces cada curva y cada recta. Tu equipo y tu coche han mejorado. Tu misión es aplicar tu conocimiento, colaborar con tu equipo y demostrar tus habilidades de adelantamiento para avanzar en la clasificación. ¡La meta está más cerca!' },
