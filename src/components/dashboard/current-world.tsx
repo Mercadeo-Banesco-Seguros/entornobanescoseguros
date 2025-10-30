@@ -38,6 +38,8 @@ export default function CurrentWorld({ currentUser, levels, users }: CurrentWorl
   const displayVp = isAdministrator ? selectedVp : currentUser.vicepresidencia;
 
   const vpDetails = displayVp ? vicepresidenciaMessages[displayVp] : null;
+  
+  // Prioritize VP-specific message, fallback to level story
   const welcomeMessage = vpDetails ? vpDetails.message : currentLevel.story;
   const worldImageId = vpDetails ? vpDetails.worldImageId : currentLevel.worldImageId;
   const worldImage = PlaceHolderImages.find(p => p.id === worldImageId);
