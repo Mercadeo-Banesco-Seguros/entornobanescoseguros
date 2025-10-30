@@ -5,7 +5,7 @@ import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 import { useAuth } from '@/context/auth-context';
 import { Skeleton } from '@/components/ui/skeleton';
 import Image from 'next/image';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 
 export default function RankingPage() {
   const { currentUser: me, users: rankingUsers, loading, error, fetchUsers } = useAuth();
@@ -13,6 +13,15 @@ export default function RankingPage() {
   useEffect(() => {
     fetchUsers();
   }, [fetchUsers]);
+
+  const displayedUsers = useMemo(() => {
+    if (!me) return [];
+    if (me.cargo === 'ADMINISTRADOR') {
+      return rankingUsers;
+    }
+    // Para 'ASESOR INTEGRAL' y cualquier otro rol por defecto
+    return rankingUsers.filter(user => user.vicepresidencia === me.vicepresidencia);
+  }, [me, rankingUsers]);
 
   if (loading || !me) {
     return (
@@ -48,7 +57,7 @@ export default function RankingPage() {
     return <div className="text-destructive text-center">Error al cargar la clasificación: {error}</div>
   }
   
-  const sortedUsers = [...rankingUsers].sort((a, b) => {
+  const sortedUsers = [...displayedUsers].sort((a, b) => {
     const posA = a.posicion || Infinity;
     const posB = b.posicion || Infinity;
     if (posA !== posB) {
@@ -98,9 +107,10 @@ export default function RankingPage() {
           <Table>
             <TableBody>
               {sortedUsers.map((user, index) => {
+                const rankPosition = user.posicion > 0 ? user.posicion : index + 1;
                 return (
                   <TableRow key={user.id} className={user.id.toString().toLowerCase() === me.id.toString().toLowerCase() ? 'bg-secondary/50' : ''}>
-                    <TableCell className="font-bold text-lg text-muted w-[80px]">#{user.posicion > 0 ? user.posicion : index + 1}</TableCell>
+                    <TableCell className="font-bold text-lg text-muted w-[80px]">#{rankPosition}</TableCell>
                     <TableCell>
                       <div className="flex items-center gap-4">
                         <div>
