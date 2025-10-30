@@ -5,9 +5,6 @@ const SPREADSHEET_URL = "https://docs.google.com/spreadsheets/d/1rRXSKOPScB4Wmmy
 // 2. Define los nombres de las hojas que usarás. Deben coincidir EXACTAMENTE.
 const SHEET_NAMES = {
   USERS: "USUARIOS",
-  // No se usan las otras hojas en esta nueva lógica simplificada
-  // DATA: "DATA",
-  // CANJES: "Canjes"
 };
 // -----------------------------------------------------
 
@@ -39,7 +36,7 @@ function createJsonResponse(data) {
   return ContentService
     .createTextOutput(JSON.stringify(data))
     .setMimeType(ContentService.MimeType.JSON)
-    .withHeaders({ 'Access-Control-Allow-Origin': '*' });
+    .withHeaders({ 'Access-control-allow-origin': '*' });
 }
 
 
@@ -66,11 +63,6 @@ function doPost(e) {
         return handleLogin(requestData);
       case 'getData':
         return handleGetData(requestData);
-      // Las acciones 'register' y 'registerPurchase' ya no son necesarias
-      // case 'register':
-      //   return handleRegister(requestData);
-      // case 'registerPurchase':
-      //   return handleRegisterPurchase(requestData);
       default:
         return createJsonResponse({ error: true, message: "Acción no reconocida." });
     }
@@ -120,17 +112,16 @@ function handleLogin(data) {
     return createJsonResponse({ error: true, message: "Credenciales inválidas." });
   }
   
-  // Como todos los datos están en una sola hoja, los devolvemos directamente
   const userData = {
-      id: userRow['usuario'], // Usamos el usuario como ID
+      id: userRow['usuario'],
       name: userRow['nombre'],
-      email: userRow['usuario'], // Usamos usuario también como email para compatibilidad
+      email: userRow['usuario'],
       vicepresidencia: userRow['vicepresidencia'],
       cargo: userRow['cargo'],
-      avatar: userRow['premio_cat'], // 'avatar' ahora es la categoría del premio
+      avatar: userRow['premio_cat'],
       progreso: parseFloat(userRow['logro']) || 0,
       posicion: parseInt(userRow['posicion'], 10) || 0,
-      xp: (parseFloat(userRow['logro']) || 0) * 100 // Un valor de XP calculado, por si se necesita
+      xp: (parseFloat(userRow['logro']) || 0) * 100 
   };
 
   return createJsonResponse({ success: true, user: userData });
@@ -156,7 +147,6 @@ function handleGetData(params) {
         progreso: parseFloat(u.logro) || 0,
         posicion: parseInt(u.posicion, 10) || 0,
         xp: (parseFloat(u.logro) || 0) * 100,
-        // No se necesita el nivel en esta lógica
         level: 1 
     }));
 
@@ -174,7 +164,6 @@ function handleGetData(params) {
 
 /**
  * Función de utilidad para convertir una hoja en un array de objetos.
- * Es más robusta para manejar hojas vacías o con solo cabeceras.
  * Convierte los encabezados a minúsculas para un acceso consistente.
  */
 function getSheetData(sheet) {
@@ -190,15 +179,7 @@ function getSheetData(sheet) {
     const rowData = {};
     headers.forEach((header, index) => {
       if(header){
-        // Convertir números de porcentaje a decimales si es necesario
-        if (header === 'logro' && typeof row[index] === 'number' && row[index] <= 1) {
-            rowData[header] = row[index];
-        } else if (header === 'logro' && typeof row[index] === 'string' && row[index].includes('%')) {
-            rowData[header] = parseFloat(row[index].replace('%', '')) / 100;
-        }
-        else {
-            rowData[header] = row[index];
-        }
+        rowData[header] = row[index];
       }
     });
     return rowData;

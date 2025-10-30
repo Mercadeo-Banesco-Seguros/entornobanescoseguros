@@ -1,15 +1,13 @@
 import { NextResponse } from 'next/server';
 
 // Pega la URL de implementación de tu Google Apps Script aquí.
-// Asegúrate de que la URL esté entre comillas simples o dobles.
-// Ejemplo: const appsScriptUrl = 'https://script.google.com/macros/s/ABC.../exec';
 const appsScriptUrl = 'https://script.google.com/macros/s/AKfycbwKhJu1WyG0Eu5Betp93M19WDKnqM926Xdus5_vzo3mEmyoXeNZAIxdVga9E6VdGvEzYg/exec';
 
 
 async function handleRequest(request: Request) {
   if (!appsScriptUrl) {
     return NextResponse.json(
-      { message: 'La URL de Apps Script no está configurada. Por favor, edita src/app/api/data/route.ts' },
+      { message: 'La URL de Apps Script no está configurada.' },
       { status: 500 }
     );
   }
@@ -25,20 +23,17 @@ async function handleRequest(request: Request) {
     }
   }
 
-  // Para peticiones GET, el 'action' viene en la URL. Para POST, está en el body.
-  const action = method === 'GET' ? 'getData' : body.action;
+  const action = method === 'GET' ? new URL(request.url).searchParams.get('action') : body.action;
 
   try {
     const response = await fetch(appsScriptUrl, {
-      method: 'POST', // Apps Script siempre recibe POST
+      method: 'POST',
       headers: {
-        // Usar 'text/plain' es una técnica para evitar preflight requests de CORS
-        'Content-Type': 'text/plain;charset=utf-8', 
+        'Content-Type': 'application/json',
       },
-      // El cuerpo se envía como un string JSON. Apps Script lo parseará.
       body: JSON.stringify({ action, ...body }),
-      cache: 'no-store', // Deshabilitar caché para obtener siempre datos frescos
-      redirect: 'follow', // Seguir las redirecciones de Apps Script
+      cache: 'no-store',
+      redirect: 'follow', // Crucial para seguir las redirecciones de Google
     });
 
     if (!response.ok) {
@@ -63,10 +58,21 @@ async function handleRequest(request: Request) {
 }
 
 export async function GET(request: Request) {
-  // Las peticiones GET solo se usarán para obtener datos (ranking).
   return handleRequest(request);
 }
 
 export async function POST(request: Request) {
   return handleRequest(request);
+}
+
+// Manejo de preflight requests para CORS
+export async function OPTIONS() {
+  return new Response(null, {
+    status: 204,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    },
+  });
 }

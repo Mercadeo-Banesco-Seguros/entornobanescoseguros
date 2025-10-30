@@ -1,7 +1,6 @@
 
 import { NextResponse } from 'next/server';
 
-// Pega la URL de tu NUEVA implementación de Google Apps Script aquí.
 const appsScriptUrl = 'https://script.google.com/macros/s/AKfycbwRsdRFb3Hzui7CRX-4DXWZFSzDLBV-rPQuxvnRTUtbo2ep4tTfyb38YpBxSxePTGz4wQ/exec';
 
 
@@ -41,16 +40,13 @@ async function handleRequest(request: Request) {
       redirect: 'follow', // Seguir redirecciones de Google
     });
 
-    // Si la hoja de cálculo se está actualizando, significa que la llamada fue exitosa.
-    // El problema es al procesar la respuesta de Apps Script.
-    // En lugar de intentar parsear un JSON que puede ser problemático,
-    // simplemente verificamos que la petición se haya completado con éxito (status 200 OK).
     if (response.ok) {
-      // Si la petición fue exitosa, devolvemos nuestro propio mensaje de éxito.
-      // El frontend solo necesita saber que todo salió bien.
-      return NextResponse.json({ success: true, message: "Canje procesado por el servidor." });
+      const result = await response.json();
+      if(result.error) {
+        throw new Error(result.message);
+      }
+      return NextResponse.json(result);
     } else {
-      // Si la respuesta no es OK, intentamos obtener más detalles.
       const errorText = await response.text();
       console.error('Error desde Apps Script (Bazar):', errorText);
       return NextResponse.json(
