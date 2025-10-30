@@ -18,28 +18,32 @@ import {
 
 export default function RankingPage() {
   const { currentUser: me, users: rankingUsers, loading, error, fetchUsers } = useAuth();
-  const [selectedVp, setSelectedVp] = useState('TODAS');
-
-  useEffect(() => {
-    fetchUsers();
-  }, [fetchUsers]);
-
+  
   const competingUsers = useMemo(() => {
     return rankingUsers.filter(user => user.cargo !== 'ADMINISTRADOR');
   }, [rankingUsers]);
 
   const vicepresidencias = useMemo(() => {
     const allVps = competingUsers.map(user => user.vicepresidencia).filter(Boolean);
-    return ['TODAS', ...Array.from(new Set(allVps))];
+    return [...Array.from(new Set(allVps))];
   }, [competingUsers]);
+
+  const [selectedVp, setSelectedVp] = useState(vicepresidencias[0] || '');
+
+  useEffect(() => {
+    fetchUsers();
+  }, [fetchUsers]);
+  
+  useEffect(() => {
+    if (vicepresidencias.length > 0 && !selectedVp) {
+        setSelectedVp(vicepresidencias[0]);
+    }
+  }, [vicepresidencias, selectedVp]);
 
   const displayedUsers = useMemo(() => {
     if (!me) return [];
 
     if (me.cargo === 'ADMINISTRADOR') {
-      if (selectedVp === 'TODAS') {
-        return competingUsers;
-      }
       return competingUsers.filter(user => user.vicepresidencia === selectedVp);
     }
     // Para 'ASESOR INTEGRAL' y cualquier otro rol por defecto
@@ -118,13 +122,13 @@ export default function RankingPage() {
             </div>
              <div className="text-center w-64">
               {me.cargo === 'ADMINISTRADOR' ? (
-                 <Select onValueChange={setSelectedVp} defaultValue={selectedVp}>
+                 <Select onValueChange={setSelectedVp} value={selectedVp}>
                   <SelectTrigger className="w-64 bg-white/20 border-0 text-white text-xs">
                     <SelectValue placeholder="Filtrar por VP" />
                   </SelectTrigger>
                   <SelectContent>
                     {vicepresidencias.map((vp) => (
-                      <SelectItem key={vp} value={vp}>{vp === 'TODAS' ? 'TODAS' : vp}</SelectItem>
+                      <SelectItem key={vp} value={vp}>{vp}</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
