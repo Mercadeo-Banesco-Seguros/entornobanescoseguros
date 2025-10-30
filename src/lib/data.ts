@@ -8,8 +8,9 @@ export const carEvolutions: CarEvolution[] = [
   { id: 4, name: 'Fórmula 1', category: 'Oro', progressThreshold: 75, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/F1%20-%20CIRCUITO.png?raw=true', description: 'Has llegado a la élite. Tu coche es una máquina de precisión de Fórmula 1, diseñado para la máxima velocidad y rendimiento. El podio es tu único objetivo.' },
 ];
 
-export const vicepresidenciaMessages: { [key: string]: string } = {
-  "VP. Comercial Gran Caracas": `¡Equipo VP. Comercial Gran Caracas!
+export const vicepresidenciaMessages: { [key: string]: { message: string; worldImageId: string; } } = {
+  "VP. Comercial Gran Caracas": {
+      message: `¡Equipo VP. Comercial Gran Caracas!
 
 ¡Los motores están encendidos! La gran carrera del Concurso de Asesores Integrales ha comenzado.
 
@@ -18,7 +19,10 @@ En la capital, marcamos el ritmo. Esta es nuestra pista y estamos listos para to
 ¡Que nadie nos alcance! ¡Vamos a demostrar por qué Gran Caracas siempre está en la delantera!
 
 ¡A la meta por esa victoria!`,
-  "VP. Comercial Ctro. Occid. Los Andes": `¡Equipo VP. Comercial Ctro. Occid. Los Andes!
+      worldImageId: "world-level-1"
+  },
+  "VP. Comercial Ctro. Occid. Los Andes": {
+      message: `¡Equipo VP. Comercial Ctro. Occid. Los Andes!
 
 ¡Se ha dado la señal de partida! El Concurso de Asesores Integrales está en marcha.
 
@@ -27,7 +31,10 @@ Esta es una carrera de resistencia y potencia, y nuestro equipo sabe cómo manej
 ¡Demostremos la tenacidad que nos caracteriza! ¡Que el podio lleve nuestro nombre!
 
 ¡Vamos con todo hacia la bandera a cuadros!`,
-  "VP. Comercial Centro Llanos-Carabobo": `¡Equipo VP. Comercial Centro Llanos-Carabobo!
+      worldImageId: "world-level-2"
+  },
+  "VP. Comercial Centro Llanos-Carabobo": {
+      message: `¡Equipo VP. Comercial Centro Llanos-Carabobo!
 
 ¡Luz verde! La competencia de Asesores Integrales ha iniciado oficialmente.
 
@@ -36,7 +43,10 @@ En el corazón del país, tenemos el combustible y la potencia para dominar esta
 ¡Que el rugido de nuestros motores resuene en toda la pista! ¡Vamos a liderar cada vuelta!
 
 ¡Acelera, equipo! ¡Nos vemos en la meta!`,
-  "VP. Comercial Oriente": `¡Equipo VP. Comercial Oriente!
+      worldImageId: "world-level-3"
+  },
+  "VP. Comercial Oriente": {
+      message: `¡Equipo VP. Comercial Oriente!
 
 ¡La carrera ha comenzado! El Concurso de Asesores Integrales espera por sus campeones.
 
@@ -45,7 +55,10 @@ En Oriente sabemos lo que es arrancar con fuerza y mantener la velocidad. Esta e
 ¡Activemos el nitro y no dejemos que nadie nos rebase! ¡Esta victoria es nuestra!
 
 ¡Directo al podio, Oriente!`,
-  "VP. Comercial Zulia - Falcón": `¡Equipo VP. Comercial Zulia - Falcón!
+      worldImageId: "world-level-4"
+  },
+  "VP. Comercial Zulia - Falcón": {
+      message: `¡Equipo VP. Comercial Zulia - Falcón!
 
 ¡Se ha bajado la bandera verde! El Concurso de Asesores Integrales está aquí.
 
@@ -54,6 +67,8 @@ Sabemos que en nuestra VP corre la energía y la determinación. Esta es una car
 ¡Es hora de poner toda la máquina a funcionar, no mirar por el retrovisor y conquistar esa meta!
 
 ¡Vamos con esa fuerza indetenible! ¡A ganar!`,
+      worldImageId: "world-level-1"
+  },
 };
 
 export const avatars: Avatar[] = [
