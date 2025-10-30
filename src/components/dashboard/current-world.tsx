@@ -6,9 +6,7 @@ import type { User, Level } from '@/lib/types';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { vicepresidenciaMessages } from '@/lib/data';
 import { useState, useMemo } from 'react';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
-import { CircleCheck, Lock } from 'lucide-react';
 
 type CurrentWorldProps = {
   currentUser: User;
@@ -20,7 +18,7 @@ export default function CurrentWorld({ currentUser, levels, users }: CurrentWorl
   const currentLevel = levels.find(l => l.id === currentUser.level);
 
   const vicepresidencias = useMemo(() => {
-    const allVps = users.map(user => user.vicepresidencia).filter(Boolean);
+    const allVps = users.map(user => user.vicepresidencia).filter(Boolean) as string[];
     return [...Array.from(new Set(allVps))];
   }, [users]);
   
