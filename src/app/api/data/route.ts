@@ -16,14 +16,12 @@ async function handleRequest(request: Request) {
 
   if (method === 'POST') {
     try {
-      // Para POST, el cuerpo es la fuente principal de datos
       const body = await request.json();
       requestPayload = { ...body };
     } catch (e) {
       return NextResponse.json({ message: 'Cuerpo de la petición inválido.' }, { status: 400 });
     }
   } else if (method === 'GET') {
-    // Para GET, los parámetros de la URL son la fuente
     const { searchParams } = new URL(request.url);
     searchParams.forEach((value, key) => {
       requestPayload[key] = value;
@@ -59,6 +57,10 @@ async function handleRequest(request: Request) {
     // Intentamos parsear la respuesta como JSON
     try {
       const data = JSON.parse(responseText);
+      if (data.error) {
+        // Si el script de Google devuelve un error conocido, lo reenviamos.
+        return NextResponse.json({ message: data.message }, { status: 401 });
+      }
       return NextResponse.json(data);
     } catch(e) {
       console.error('Error al parsear la respuesta JSON de Apps Script:', responseText);
@@ -67,7 +69,6 @@ async function handleRequest(request: Request) {
         { status: 500 }
       );
     }
-
 
   } catch (error: any) {
     console.error('Error al contactar con el proxy de Apps Script:', error);
