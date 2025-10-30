@@ -4,16 +4,25 @@ import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
 import type { User, Level } from '@/lib/types';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { cn } from '@/lib/utils';
 import { vicepresidenciaMessages } from '@/lib/data';
+import { useState, useMemo } from 'react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 type CurrentWorldProps = {
   currentUser: User;
   levels: Level[];
+  users: User[];
 };
 
-export default function CurrentWorld({ currentUser, levels }: CurrentWorldProps) {
+export default function CurrentWorld({ currentUser, levels, users }: CurrentWorldProps) {
   const currentLevel = levels.find(l => l.id === currentUser.level);
+
+  const vicepresidencias = useMemo(() => {
+    const allVps = users.map(user => user.vicepresidencia).filter(Boolean);
+    return [...Array.from(new Set(allVps))];
+  }, [users]);
+  
+  const [selectedVp, setSelectedVp] = useState(currentUser.vicepresidencia || vicepresidencias[0]);
 
   if (!currentLevel) {
     return (
@@ -27,7 +36,9 @@ export default function CurrentWorld({ currentUser, levels }: CurrentWorldProps)
 
   const worldImage = PlaceHolderImages.find(p => p.id === currentLevel.worldImageId);
   
-  const welcomeMessage = currentUser.vicepresidencia ? (vicepresidenciaMessages[currentUser.vicepresidencia] || currentLevel.story) : currentLevel.story;
+  const isAdministrator = currentUser.cargo === 'ADMINISTRADOR';
+  const displayVp = isAdministrator ? selectedVp : currentUser.vicepresidencia;
+  const welcomeMessage = displayVp ? (vicepresidenciaMessages[displayVp] || currentLevel.story) : currentLevel.story;
 
   return (
     <Card className="h-full border-0 shadow-none">
@@ -48,7 +59,20 @@ export default function CurrentWorld({ currentUser, levels }: CurrentWorldProps)
                 )}
             </div>
              <div className="w-64 text-center md:text-left">
-                <h3 className="text-base font-semibold">{currentUser.vicepresidencia || currentLevel.worldName}</h3>
+                {isAdministrator ? (
+                    <Select onValueChange={setSelectedVp} defaultValue={selectedVp}>
+                        <SelectTrigger className="w-full mb-2 text-base font-semibold">
+                            <SelectValue placeholder="Seleccionar VP" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {vicepresidencias.map((vp) => (
+                                <SelectItem key={vp} value={vp}>{vp}</SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                ) : (
+                   <h3 className="text-base font-semibold">{displayVp || currentLevel.worldName}</h3>
+                )}
                 <p className="text-xs text-muted-foreground mt-1 whitespace-pre-line">{welcomeMessage}</p>
             </div>
         </div>

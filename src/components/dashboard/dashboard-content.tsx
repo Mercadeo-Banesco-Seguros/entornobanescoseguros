@@ -7,7 +7,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 
 export default function DashboardContent() {
-  const { currentUser, levels, loading } = useAuth();
+  const { currentUser, levels, loading, users } = useAuth();
 
   if (loading) {
     return (
@@ -32,7 +32,7 @@ export default function DashboardContent() {
     );
   }
 
-  if (!currentUser) {
+  if (!currentUser || !users) {
     return <div>Piloto no encontrado o no autorizado.</div>;
   }
 
@@ -48,7 +48,7 @@ export default function DashboardContent() {
           <CarEvolution currentUser={currentUser} />
         </div>
         <div className="w-full">
-          <CurrentWorld currentUser={currentUser} levels={levels} />
+          <CurrentWorld currentUser={currentUser} levels={levels} users={users} />
         </div>
       </div>
     </div>
