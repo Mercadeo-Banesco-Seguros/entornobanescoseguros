@@ -70,19 +70,7 @@ export const prizeCategories: PrizeCategory[] = [
 ];
 
 export const prizes: Prize[] = [
-  // Bronce
-  { id: 1, name: 'Bolígrafo', description: 'Un bolígrafo de precisión para tus estrategias.', cost: 50, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(7).png?raw=true', category: 'Bronce' },
-  { id: 2, name: 'Libreta', description: 'Anota tus ideas y estrategias de carrera.', cost: 50, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/unnamed%20(5).png?raw=true', category: 'Bronce' },
-  { id: 4, name: 'Cartuchera', description: 'Para guardar tus herramientas de piloto.', cost: 50, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/unnamed%20(8).png?raw=true', category: 'Bronce' },
-  
-  // Plata
-  { id: 5, name: 'Gorra', description: 'Una gorra oficial del equipo para los días de carrera.', cost: 100, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/unnamed%20(2).png?raw=true', category: 'Plata' },
-  { id: 6, name: 'Termo', description: 'Mantén la hidratación en las carreras más largas.', cost: 100, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/unnamed%20(3).png?raw=true', category: 'Plata' },
-  { id: 8, name: 'Cangurera', description: 'Lleva lo esencial contigo en la pista.', cost: 100, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/unnamed%20(6).png?raw=true', category: 'Plata' },
-  
-  // Oro
-  { id: 9, name: 'Almuerzo Ejecutivo', description: 'Recarga energías como un campeón.', cost: 200, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(8).png?raw=true', category: 'Oro' },
-  { id: 10, name: 'Desayuno Cafetín', description: 'El desayuno de los campeones.', cost: 200, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(9).png?raw=true', category: 'Oro' },
-  { id: 11, name: 'Chaqueta', description: 'La chaqueta oficial del equipo de élite.', cost: 200, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/unnamed%20(7).png?raw=true', category: 'Oro' },
-  { id: 7, name: 'Bolso', description: 'Lleva tu equipo con estilo profesional.', cost: 200, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/unnamed%20(4).png?raw=true', category: 'Oro' },
+  { id: 1, name: 'Viaje a Margarita + $500', description: 'Un viaje inolvidable a la Perla del Caribe y $500 para tus gastos.', cost: 0, imageUrl: 'https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?q=80&w=1974&auto=format&fit=crop', category: 'Oro' },
+  { id: 2, name: '$150 en efectivo', description: 'Un premio de $150 para que lo uses en lo que quieras.', cost: 0, imageUrl: 'https://images.unsplash.com/photo-1561414927-6d86591d0c4f?q=80&w=2070&auto=format&fit=crop', category: 'Plata' },
+  { id: 3, name: '$50 en efectivo', description: 'Un premio de $50 para empezar a celebrar.', cost: 0, imageUrl: 'https://images.unsplash.com/photo-1580674285624-a7a3b3510c2c?q=80&w=2070&auto=format&fit=crop', category: 'Bronce' },
 ];
