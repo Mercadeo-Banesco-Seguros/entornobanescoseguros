@@ -48,13 +48,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       if (data.error) throw new Error(data.message);
       
       const allUsers = (data.users || []).map((u: any) => ({
-        id: u.usuario,
+        id: u.id,
         name: u.name,
-        email: u.usuario,
+        email: u.email,
         level: 1, // Nivel estático
         xp: u.xp || 0,
         avatar: u.avatar || 'Bronce', // Categoría del premio
-        progreso: u.progreso * 100 || 0, // Convertir a porcentaje
+        progreso: u.progreso || 0, 
         vicepresidencia: u.vicepresidencia || '',
         posicion: u.posicion || 0,
         cargo: u.cargo || '',
@@ -124,7 +124,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             level: 1, // Nivel estático
             xp: data.user.xp || 0,
             avatar: data.user.avatar || 'Bronce',
-            progreso: data.user.progreso * 100 || 0, // Convertir a porcentaje
+            progreso: data.user.progreso || 0,
             vicepresidencia: data.user.vicepresidencia || '',
             posicion: data.user.posicion || 0,
             cargo: data.user.cargo || '',

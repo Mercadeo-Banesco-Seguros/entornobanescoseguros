@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 // Pega la URL de implementación de tu Google Apps Script aquí.
-const appsScriptUrl = 'https://script.google.com/macros/s/AKfycbwKhJu1WyG0Eu5Betp93M19WDKnqM926Xdus5_vzo3mEmyoXeNZAIxdVga9E6VdGvEzYg/exec';
+const appsScriptUrl = 'https://script.google.com/macros/s/AKfycbw1Ky0iCg2NWrXHP2AvUc59_vec1gC2mfGEpGpK4oEr5Oc9Onw_k1bxi1A1u459_svvgg/exec';
 
 
 async function handleRequest(request: Request) {

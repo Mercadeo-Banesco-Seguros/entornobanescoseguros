@@ -115,7 +115,7 @@ function handleLogin(data) {
   const userData = {
       id: userRow['usuario'],
       name: userRow['nombre'],
-      email: userRow['usuario'],
+      email: userRow['usuario'], // Asumimos que el usuario es el email para compatibilidad
       vicepresidencia: userRow['vicepresidencia'],
       cargo: userRow['cargo'],
       avatar: userRow['premio_cat'],
