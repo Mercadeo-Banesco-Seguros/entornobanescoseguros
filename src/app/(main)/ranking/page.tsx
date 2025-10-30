@@ -119,7 +119,7 @@ export default function RankingPage() {
              <div className="text-center w-64">
               {me.cargo === 'ADMINISTRADOR' ? (
                  <Select onValueChange={setSelectedVp} defaultValue={selectedVp}>
-                  <SelectTrigger className="w-full bg-white/20 border-0 text-white">
+                  <SelectTrigger className="w-64 bg-white/20 border-0 text-white text-xs">
                     <SelectValue placeholder="Filtrar por VP" />
                   </SelectTrigger>
                   <SelectContent>
