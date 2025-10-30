@@ -31,7 +31,7 @@ function doOptions(e) {
 
 /**
  * Crea una respuesta JSON estándar con las cabeceras CORS correctas.
- */-
+ */
 function createJsonResponse(data) {
   return ContentService
     .createTextOutput(JSON.stringify(data))
