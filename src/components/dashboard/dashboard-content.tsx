@@ -1,6 +1,6 @@
 'use client';
 
-import AvatarEvolution from '@/components/dashboard/avatar-evolution';
+import CarEvolution from '@/components/dashboard/avatar-evolution';
 import CurrentWorld from '@/components/dashboard/current-world';
 import ObjectivesSidebar from '@/components/dashboard/objectives-sidebar';
 import { useAuth } from '@/context/auth-context';
@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 
 export default function DashboardContent() {
-  const { currentUser, levels, tasks, avatars, loading } = useAuth();
+  const { currentUser, levels, tasks, loading } = useAuth();
 
   if (loading) {
     return (
@@ -65,7 +65,7 @@ export default function DashboardContent() {
     <div className="flex flex-col gap-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
         <div className="w-full">
-          <AvatarEvolution currentUser={currentUser} avatars={avatars} />
+          <CarEvolution currentUser={currentUser} />
         </div>
         <div className="w-full">
           <CurrentWorld currentUser={currentUser} levels={levels} />

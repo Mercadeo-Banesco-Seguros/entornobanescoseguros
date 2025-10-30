@@ -30,6 +30,15 @@ export type Level = {
   story: string;
 };
 
+export type CarEvolution = {
+  id: number;
+  name: string;
+  category: 'Bronce' | 'Plata' | 'Oro' | 'Base';
+  progressThreshold: number; // Progreso mínimo para alcanzar esta evolución
+  imageUrl: string;
+  description: string;
+};
+
 export type Avatar = {
   id: number;
   name: string;
@@ -37,6 +46,7 @@ export type Avatar = {
   imageUrl: string;
   description: string;
 };
+
 
 export type NavLink = {
   href: string;

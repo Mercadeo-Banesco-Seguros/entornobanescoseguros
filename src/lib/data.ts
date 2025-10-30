@@ -1,5 +1,12 @@
 import { Trophy, User as UserIcon, LucideIcon, Rocket, ClipboardList, Home, Store, Wrench } from 'lucide-react';
-import type { User, Task, Avatar, NavLink, Level, Prize, PrizeCategory } from './types';
+import type { User, Task, Avatar, NavLink, Level, Prize, PrizeCategory, CarEvolution } from './types';
+
+export const carEvolutions: CarEvolution[] = [
+  { id: 1, name: 'Coche Básico', category: 'Base', progressThreshold: 0, imageUrl: 'https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/coche_base-Photoroom.png', description: 'Tu coche inicial. Fiable, pero con mucho margen de mejora. Cada carrera y cada objetivo completado te permitirán mejorarlo.' },
+  { id: 2, name: 'Coche de Rally', category: 'Bronce', progressThreshold: 25, imageUrl: 'https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/coche_rally-Photoroom.png', description: 'Has alcanzado la categoría Bronce. Tu coche ahora es más robusto y está preparado para terrenos más difíciles. La suspensión y los neumáticos han sido mejorados.' },
+  { id: 3, name: 'Coche de Competición', category: 'Plata', progressThreshold: 50, imageUrl: 'https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/coche_rally-Photoroom.png', description: 'Categoría Plata. El motor ha sido ajustado para una mayor potencia y la aerodinámica ha mejorado. Estás listo para competir en las grandes ligas.' },
+  { id: 4, name: 'Fórmula 1', category: 'Oro', progressThreshold: 75, imageUrl: 'https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/coche_f1-Photoroom.png', description: 'Has llegado a la élite. Tu coche es una máquina de precisión de Fórmula 1, diseñado para la máxima velocidad y rendimiento. El podio es tu único objetivo.' },
+];
 
 export const avatars: Avatar[] = [
   { id: 1, name: 'Piloto Novato', level: 1, imageUrl: 'https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/c2b29402-990a-426c-851f-d5b78ac313a0-removebg-preview.png', description: 'Inicias tu carrera en el circuito. Tu coche está listo, tu casco puesto y el espíritu de competición arde en ti. Tu misión es aprender la pista, dominar las curvas y demostrar tu compromiso. Cada acción te suma Puntos para canjear por mejoras y premios. ¡Tú decides tu estrategia!' },
