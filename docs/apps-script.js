@@ -175,18 +175,18 @@ function handleGetData(params) {
 /**
  * Función de utilidad para convertir una hoja en un array de objetos.
  * Es más robusta para manejar hojas vacías o con solo cabeceras.
+ * Convierte los encabezados a minúsculas para un acceso consistente.
  */
 function getSheetData(sheet) {
   if (!sheet) return [];
-  // Empezar desde la segunda fila para ignorar la fila de descripción
-  const range = sheet.getRange(2, 1, sheet.getLastRow() - 1, sheet.getLastColumn());
-  if (range.getNumRows() < 2) return [];
-
-  const values = range.getValues();
-  // Los encabezados están en la primera fila
-  const headers = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0].map(header => header.toString().trim().toLowerCase());
+  const dataRange = sheet.getDataRange();
+  const values = dataRange.getValues();
   
-  return values.map(row => {
+  if (values.length < 2) return [];
+
+  const headers = values[0].map(header => header.toString().trim().toLowerCase());
+  
+  return values.slice(1).map(row => {
     const rowData = {};
     headers.forEach((header, index) => {
       if(header){
