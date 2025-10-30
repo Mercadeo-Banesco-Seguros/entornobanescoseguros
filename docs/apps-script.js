@@ -12,6 +12,16 @@ const SHEET_NAMES = {
 // --- NO EDITAR DEBAJO DE ESTA LÍNEA ---
 
 const spreadsheet = SpreadsheetApp.openByUrl(SPREADSHEET_URL);
+// Chequeo inicial para asegurar que podemos acceder a la hoja principal.
+try {
+    if (!spreadsheet.getSheetByName(SHEET_NAMES.USERS)) {
+        throw new Error(`La hoja "${SHEET_NAMES.USERS}" no fue encontrada. Verifica la URL y el nombre de la hoja.`);
+    }
+} catch (e) {
+    // Si falla la apertura, no podemos continuar.
+    Logger.log(`Error crítico al iniciar el script: ${e.message}`);
+}
+
 
 /**
  * Función para manejar las peticiones OPTIONS (preflight de CORS).
