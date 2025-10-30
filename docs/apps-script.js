@@ -19,7 +19,7 @@ function createJsonResponse(data) {
   return ContentService
     .createTextOutput(JSON.stringify(data))
     .setMimeType(ContentService.MimeType.JSON)
-    .setHeaders({ 'Access-Control-Allow-Origin': '*' });
+    .addHeader('Access-Control-Allow-Origin', '*');
 }
 
 /**
