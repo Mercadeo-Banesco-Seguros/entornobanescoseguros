@@ -5,29 +5,32 @@ import { User } from '@/lib/types';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { carEvolutions } from '@/lib/data';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 type CarEvolutionProps = {
   currentUser: User;
 };
 
 export default function CarEvolution({ currentUser }: CarEvolutionProps) {
-  const userCategory = currentUser.avatar; // 'Bronce', 'Plata', 'Oro'
+  const userCategory = currentUser.avatar; 
 
-  // Determinar la evolución actual basada en la categoría del premio del usuario
+  const categoryOrder = { 'Base': 0, 'Bronce': 1, 'Plata': 2, 'Oro': 3 };
+  const userCategoryRank = categoryOrder[userCategory as keyof typeof categoryOrder] ?? 0;
+
   const getCurrentEvolution = () => {
-    if (userCategory === 'Oro') return carEvolutions.find(e => e.category === 'Oro');
-    if (userCategory === 'Plata') return carEvolutions.find(e => e.category === 'Plata');
-    if (userCategory === 'Bronce') return carEvolutions.find(e => e.category === 'Bronce');
-    return carEvolutions[0]; // Coche Básico por defecto
+    // Encuentra la evolución más alta que el usuario ha desbloqueado
+    const unlockedEvolutions = carEvolutions.filter(e => categoryOrder[e.category as keyof typeof categoryOrder] <= userCategoryRank);
+    return unlockedEvolutions.sort((a, b) => categoryOrder[b.category as keyof typeof categoryOrder] - categoryOrder[a.category as keyof typeof categoryOrder])[0] || carEvolutions[0];
   };
 
-  const currentEvolution = getCurrentEvolution();
-  const [selectedEvolution, setSelectedEvolution] = useState(currentEvolution);
+  const [selectedEvolution, setSelectedEvolution] = useState(getCurrentEvolution());
 
-  // Mapeo simple para determinar si una categoría está "desbloqueada"
-  const categoryOrder = { 'Base': 0, 'Bronce': 1, 'Plata': 2, 'Oro': 3 };
-  const userCategoryRank = categoryOrder[userCategory as keyof typeof categoryOrder] || 0;
+  useEffect(() => {
+    // Si el usuario cambia, actualizamos la evolución seleccionada por defecto
+    setSelectedEvolution(getCurrentEvolution());
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentUser]);
+
 
   return (
     <Card className="h-full border-0 shadow-none">
