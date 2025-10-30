@@ -129,7 +129,6 @@ export default function CurrentWorld({ currentUser, levels, users }: CurrentWorl
                       />
                   ) : <div className="w-full h-full bg-gray-300 rounded-md" />}
                 </div>
-                <p className="text-[10px] font-semibold w-24 truncate">{vpData.name}</p>
               </button>
             );
           })}
