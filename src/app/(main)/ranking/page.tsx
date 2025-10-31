@@ -25,28 +25,31 @@ export default function RankingPage() {
 
   const vicepresidencias = useMemo(() => {
     const allVps = competingUsers.map(user => user.vicepresidencia).filter(Boolean);
-    return [...Array.from(new Set(allVps))];
+    return ['Todas', ...Array.from(new Set(allVps))];
   }, [competingUsers]);
 
-  const [selectedVp, setSelectedVp] = useState(vicepresidencias[0] || '');
+  const [selectedVp, setSelectedVp] = useState('Todas');
 
   useEffect(() => {
     fetchUsers();
   }, [fetchUsers]);
   
   useEffect(() => {
-    if (vicepresidencias.length > 0 && !selectedVp) {
-        setSelectedVp(vicepresidencias[0]);
+    if (me?.cargo !== 'ADMINISTRADOR' && me?.vicepresidencia) {
+      setSelectedVp(me.vicepresidencia);
     }
-  }, [vicepresidencias, selectedVp]);
+  }, [me]);
 
   const displayedUsers = useMemo(() => {
     if (!me) return [];
 
     if (me.cargo === 'ADMINISTRADOR') {
+      if (selectedVp === 'Todas') {
+        return competingUsers;
+      }
       return competingUsers.filter(user => user.vicepresidencia === selectedVp);
     }
-    // Para 'ASESOR INTEGRAL' y cualquier otro rol por defecto
+    
     return competingUsers.filter(user => user.vicepresidencia === me.vicepresidencia);
   }, [me, competingUsers, selectedVp]);
 
