@@ -22,7 +22,7 @@ export default function CajeroPage() {
       <div className="text-center md:text-left md:flex md:items-center md:gap-8 mb-12">
         <div className="flex-shrink-0 mb-8 md:mb-0 mx-auto md:mx-0">
           <Image
-            src="https://www.banescoseguros.com/wp-content/uploads/2025/10/Gemini_Generated_Image_vll4rkvll4rkvll4-Photoroom.png"
+            src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_xxt9shxxt9shxxt9-Photoroom.png?raw=true"
             alt="Resort"
             width={250}
             height={250}
