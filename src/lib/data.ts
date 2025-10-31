@@ -72,5 +72,5 @@ export const prizeCategories: PrizeCategory[] = [
 export const prizes: Prize[] = [
   { id: 1, name: 'Primer Lugar', description: 'Viaje en grupo de los 10 ganadores de 3 días y 2 noches en el Sunsol Ecoland de Margarita Todo incluido y un abono de USD 200 en la 15.', cost: 0, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_y3vuvey3vuvey3vu-Photoroom.png?raw=true', category: 'Oro' },
   { id: 2, name: 'Segundo Lugar', description: 'Abono de USD 150 en la 15. Fecha del abono 9/1/2026', cost: 0, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_erpasterpasterpa-Photoroom.png?raw=true', category: 'Plata' },
-  { id: 3, name: 'Tercer Lugar', description: 'Abono de USD 50 en la 15. Fecha del abono 9/1/2026', cost: 0, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_c6nfohc6nfohc6nf-Photoroom.png?raw=true', category: 'Bronce' },
+  { id: 3, name: 'Tercer Lugar', description: 'Abono de USD 50 en la 15. Fecha del abono 9/1/2026', cost: 0, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_v7m48hv7m48hv7m4-Photoroom.png?raw=true', category: 'Bronce' },
 ];
