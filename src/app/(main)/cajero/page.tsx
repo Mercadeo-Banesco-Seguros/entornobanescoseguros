@@ -44,12 +44,12 @@ export default function CajeroPage() {
         {firstPlace && (
           <Card className="p-6 border-0 shadow-none">
             <div className="grid md:grid-cols-3 items-center gap-8">
-              <div className="relative h-64 md:h-80 w-full flex justify-center md:justify-start">
+              <div className="relative h-96 md:h-[480px] w-full flex justify-center md:justify-start">
                 <Image
                   src={firstPlace.imageUrl}
                   alt={firstPlace.name}
-                  width={200}
-                  height={320}
+                  width={300}
+                  height={480}
                   className="object-contain"
                 />
               </div>
@@ -65,12 +65,12 @@ export default function CajeroPage() {
         {secondPlace && (
           <Card className="p-6 border-0 shadow-none">
             <div className="grid md:grid-cols-3 items-center gap-8">
-              <div className="relative h-64 md:h-80 w-full flex justify-center md:justify-start">
+              <div className="relative h-96 md:h-[480px] w-full flex justify-center md:justify-start">
                 <Image
                   src={secondPlace.imageUrl}
                   alt={secondPlace.name}
-                  width={200}
-                  height={320}
+                  width={300}
+                  height={480}
                   className="object-contain"
                 />
               </div>
@@ -86,12 +86,12 @@ export default function CajeroPage() {
         {thirdPlace && (
            <Card className="p-6 border-0 shadow-none">
             <div className="grid md:grid-cols-3 items-center gap-8">
-              <div className="relative h-64 md:h-80 w-full flex justify-center md:justify-start">
+              <div className="relative h-96 md:h-[480px] w-full flex justify-center md:justify-start">
                 <Image
                   src={thirdPlace.imageUrl}
                   alt={thirdPlace.name}
-                   width={200}
-                  height={320}
+                   width={300}
+                  height={480}
                   className="object-contain"
                 />
               </div>
