@@ -46,12 +46,12 @@ export default function InicioPage() {
               <Skeleton className="w-full h-[400px] rounded-lg" />
             ) : (
               <Image 
-                src="https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/55022831-2d7c-4034-8b63-b23023e3f4e1-removebg-preview.png"
-                alt="Mapa del circuito de carreras"
+                src="https://www.banescoseguros.com/wp-content/uploads/2025/10/oro.png"
+                alt="Coche de Fórmula 1"
                 width={600}
                 height={400}
                 className="rounded-lg object-cover w-full h-full"
-                data-ai-hint="race track map"
+                data-ai-hint="formula 1 car"
                 quality={100}
               />
             )}
