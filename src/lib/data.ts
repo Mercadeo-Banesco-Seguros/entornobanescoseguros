@@ -70,7 +70,7 @@ export const prizeCategories: PrizeCategory[] = [
 ];
 
 export const prizes: Prize[] = [
-  { id: 1, name: 'Viaje a Margarita + $500', description: 'Un viaje inolvidable a la Perla del Caribe y $500 para tus gastos.', cost: 0, imageUrl: 'https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?q=80&w=1974&auto=format&fit=crop', category: 'Oro' },
-  { id: 2, name: '$150 en efectivo', description: 'Un premio de $150 para que lo uses en lo que quieras.', cost: 0, imageUrl: 'https://images.unsplash.com/photo-1561414927-6d86591d0c4f?q=80&w=2070&auto=format&fit=crop', category: 'Plata' },
-  { id: 3, name: '$50 en efectivo', description: 'Un premio de $50 para empezar a celebrar.', cost: 0, imageUrl: 'https://images.unsplash.com/photo-1580674285624-a7a3b3510c2c?q=80&w=2070&auto=format&fit=crop', category: 'Bronce' },
+  { id: 1, name: 'Primer Lugar', description: 'Viaje en grupo de los 10 ganadores de 3 días y 2 noches en el Sunsol Ecoland de Margarita Todo incluido y un abono de USD 200 en la 15.', cost: 0, imageUrl: 'https://www.banescoseguros.com/wp-content/uploads/2025/10/image-Photoroom-1.png', category: 'Oro' },
+  { id: 2, name: 'Segundo Lugar', description: 'Abono de USD 150 en la 15. Fecha del abono 9/1/2026', cost: 0, imageUrl: 'https://www.banescoseguros.com/wp-content/uploads/2025/10/image-Photoroom-2.png', category: 'Plata' },
+  { id: 3, name: 'Tercer Lugar', description: 'Abono de USD 50 en la 15. Fecha del abono 9/1/2026', cost: 0, imageUrl: 'https://www.banescoseguros.com/wp-content/uploads/2025/10/image-Photoroom.png', category: 'Bronce' },
 ];
