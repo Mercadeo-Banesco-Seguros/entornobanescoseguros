@@ -15,7 +15,7 @@ export default function CajeroPage() {
         </div>
       <div className="relative w-full h-[70vh] max-h-[700px]">
         <Image
-          src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Tarjeta%20Datos%20Bancarios%20Org%C3%A1nico%20Rosa%20y%20Amarillo%20(2)-Photoroom.png?raw=true"
+          src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Tarjeta%20Datos%20Bancarios%20Org%C3%A1nico%20Rosa%20y%20Amarillo%20(3)-Photoroom.png?raw=true"
           alt="Información de premios del Circuito Banesco"
           layout="fill"
           className="object-contain"
