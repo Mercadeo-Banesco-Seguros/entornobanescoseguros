@@ -1,7 +1,6 @@
 'use client';
 
 import { useAuth } from '@/context/auth-context';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Image from 'next/image';
 
 export default function CajeroPage() {
@@ -17,80 +16,68 @@ export default function CajeroPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-black text-foreground tracking-tight uppercase">
-          Gran Premio
+      <div className="text-left mb-12">
+        <h1 className="text-5xl font-black text-foreground tracking-tight">
+          ¡Descubre la lista de Premios!
         </h1>
-        <p className="text-muted-foreground mt-2">
-          ¡Descubre los grandiosos premios que te esperan en la meta!
+        <p className="text-muted-foreground mt-2 max-w-2xl">
+          Aprende a desenvolverte mejor en el entorno empresarial con el sistema de cursos y herramientas educativas de Banesco Seguros.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center items-end">
+        {/* Primer Lugar */}
         {primerLugar && (
-          <Card className="border-yellow-400 border-2 shadow-lg flex flex-col">
-            <CardHeader>
-              <div className="relative mx-auto w-48 h-48 mb-4">
-                <Image
-                  src={primerLugar.imageUrl}
-                  alt={primerLugar.name}
-                  layout="fill"
-                  className="object-contain"
-                  quality={100}
-                />
-              </div>
-              <CardTitle className="text-2xl font-bold text-yellow-500">
-                {primerLugar.name}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="flex-grow">
-              <CardDescription>{primerLugar.description}</CardDescription>
-            </CardContent>
-          </Card>
+          <div className="flex flex-col items-center">
+            <div className="relative w-full h-80">
+              <Image
+                src={primerLugar.imageUrl}
+                alt={primerLugar.name}
+                layout="fill"
+                className="object-contain"
+                quality={100}
+              />
+            </div>
+            <div className="mt-4">
+              <p className="text-sm text-muted-foreground">{primerLugar.description}</p>
+            </div>
+          </div>
         )}
 
+        {/* Segundo Lugar */}
         {segundoLugar && (
-          <Card className="border-gray-300 border-2 shadow-lg flex flex-col">
-            <CardHeader>
-              <div className="relative mx-auto w-48 h-48 mb-4">
-                <Image
-                  src={segundoLugar.imageUrl}
-                  alt={segundoLugar.name}
-                  layout="fill"
-                  className="object-contain"
-                  quality={100}
-                />
-              </div>
-              <CardTitle className="text-2xl font-bold text-gray-400">
-                {segundoLugar.name}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="flex-grow">
-              <CardDescription>{segundoLugar.description}</CardDescription>
-            </CardContent>
-          </Card>
+          <div className="flex flex-col items-center">
+            <div className="relative w-full h-80">
+              <Image
+                src={segundoLugar.imageUrl}
+                alt={segundoLugar.name}
+                layout="fill"
+                className="object-contain"
+                quality={100}
+              />
+            </div>
+             <div className="mt-4">
+              <p className="text-sm text-muted-foreground">{segundoLugar.description}</p>
+            </div>
+          </div>
         )}
 
+        {/* Tercer Lugar */}
         {tercerLugar && (
-          <Card className="border-amber-700 border-2 shadow-lg flex flex-col">
-            <CardHeader>
-              <div className="relative mx-auto w-48 h-48 mb-4">
-                <Image
-                  src={tercerLugar.imageUrl}
-                  alt={tercerLugar.name}
-                  layout="fill"
-                  className="object-contain"
-                  quality={100}
-                />
-              </div>
-              <CardTitle className="text-2xl font-bold text-amber-600">
-                {tercerLugar.name}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="flex-grow">
-              <CardDescription>{tercerLugar.description}</CardDescription>
-            </CardContent>
-          </Card>
+          <div className="flex flex-col items-center">
+            <div className="relative w-full h-80">
+              <Image
+                src={tercerLugar.imageUrl}
+                alt={tercerLugar.name}
+                layout="fill"
+                className="object-contain"
+                quality={100}
+              />
+            </div>
+             <div className="mt-4">
+              <p className="text-sm text-muted-foreground">{tercerLugar.description}</p>
+            </div>
+          </div>
         )}
       </div>
     </div>
