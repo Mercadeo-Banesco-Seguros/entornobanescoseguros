@@ -5,7 +5,8 @@ import { User } from '@/lib/types';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { carEvolutions } from '@/lib/data';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+import { Progress } from '@/components/ui/progress';
 
 type CarEvolutionProps = {
   currentUser: User;
@@ -23,25 +24,45 @@ export default function CarEvolution({ currentUser }: CarEvolutionProps) {
 
   const categoryOrder: { [key: string]: number } = { 'Base': 0, 'Bronce': 1, 'Plata': 2, 'Oro': 3 };
   
-  // Admin can see all evolutions, others are based on their rank
   const userCategoryRank = isAdministrator ? 3 : (categoryOrder[userCategory] ?? 0);
 
   const getCurrentEvolution = () => {
     if (isAdministrator) {
         return carEvolutions.find(e => e.category === 'Oro') || carEvolutions[carEvolutions.length - 1];
     }
-    // Find the highest evolution the user has unlocked
     const unlockedEvolutions = carEvolutions.filter(e => categoryOrder[e.category as keyof typeof categoryOrder] <= userCategoryRank);
     return unlockedEvolutions.sort((a, b) => categoryOrder[b.category as keyof typeof categoryOrder] - categoryOrder[a.category as keyof typeof categoryOrder])[0] || carEvolutions[0];
   };
-
+  
   const [selectedEvolution, setSelectedEvolution] = useState(getCurrentEvolution());
 
   useEffect(() => {
-    // If the user changes, update the default selected evolution
     setSelectedEvolution(getCurrentEvolution());
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser]);
+  
+  const progressData = useMemo(() => {
+    const currentProgress = currentUser.progreso || 0;
+    const currentEvo = getCurrentEvolution();
+    if (!currentEvo) return { progress: 0, text: '0%' };
+
+    const currentThreshold = currentEvo.progressThreshold;
+    const nextEvolution = carEvolutions.find(e => categoryOrder[e.category as keyof typeof categoryOrder] === categoryOrder[currentEvo.category as keyof typeof categoryOrder] + 1);
+    const nextThreshold = nextEvolution ? nextEvolution.progressThreshold : 100;
+    
+    if (currentProgress >= nextThreshold) {
+        return { progress: 100, text: '¡Categoría completada!' };
+    }
+
+    const range = nextThreshold - currentThreshold;
+    if (range <= 0) return { progress: 100, text: 'Progreso máximo' };
+
+    const progressInBuffer = currentProgress - currentThreshold;
+    const percentage = (progressInBuffer / range) * 100;
+    
+    return { progress: Math.max(0, Math.min(100, percentage)), text: `${percentage.toFixed(0)}% para la siguiente categoría` };
+
+  }, [currentUser.progreso, userCategoryRank]);
 
 
   return (
@@ -78,6 +99,12 @@ export default function CarEvolution({ currentUser }: CarEvolutionProps) {
                 </>
             )}
         </div>
+         {!isAdministrator && (
+          <div className="w-full max-w-sm px-4">
+            <Progress value={progressData.progress} className="h-2" />
+            <p className="text-xs text-muted-foreground mt-2">{progressData.text}</p>
+          </div>
+        )}
         <div className="flex items-end justify-center space-x-4 w-full">
           {carEvolutions.map((evolution) => {
             const isUnlocked = categoryOrder[evolution.category as keyof typeof categoryOrder] <= userCategoryRank;
