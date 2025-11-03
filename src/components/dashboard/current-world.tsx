@@ -98,7 +98,7 @@ export default function CurrentWorld({ currentUser, levels, users }: CurrentWorl
             </div>
         </div>
         {/* Selector de vicepresidencias */}
-         <div className="flex items-center justify-center space-x-2 w-full overflow-x-auto pb-2 min-h-[104px]">
+         <div className="flex items-end justify-center space-x-2 w-full overflow-x-auto pb-2 min-h-[114px]">
           {vicepresidenciaKeys.map((vpKey) => {
             const vpData = vicepresidenciaMessages[vpKey];
             const image = vpData ? PlaceHolderImages.find(p => p.id === vpData.worldImageId) : null;
