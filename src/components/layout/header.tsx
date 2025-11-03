@@ -76,7 +76,7 @@ export default function Header() {
                   {currentUser.cargo === 'ADMINISTRADOR' ? (
                     <p className="text-xs text-white/80">Administrador</p>
                   ) : (
-                    <p className="text-xs text-white/80">{currentUser.progreso || 0}% de Progreso</p>
+                    <p className="text-xs text-white/80">{(currentUser.progreso || 0).toFixed(2)}% de Progreso</p>
                   )}
                 </div>
                 <Avatar>

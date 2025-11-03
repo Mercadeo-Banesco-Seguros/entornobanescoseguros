@@ -148,7 +148,7 @@ export default function RankingPage() {
                   <span className="text-sm font-semibold text-white/90">Administrador</span>
               ) : (
                 <>
-                  <span className="text-2xl font-bold">{(me.progreso || 0).toLocaleString()}%</span>
+                  <span className="text-2xl font-bold">{(me.progreso || 0).toFixed(2)}%</span>
                   <span className="text-xs font-normal text-primary-foreground/80">de Logro</span>
                 </>
               )}
@@ -183,7 +183,7 @@ export default function RankingPage() {
                     </TableCell>
                     <TableCell className="text-right w-48">
                       <span className="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full">
-                        {(user.progreso || 0).toLocaleString()}%
+                        {(user.progreso || 0).toFixed(2)}%
                       </span>
                     </TableCell>
                   </TableRow>
