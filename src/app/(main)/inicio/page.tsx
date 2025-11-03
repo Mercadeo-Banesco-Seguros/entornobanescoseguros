@@ -15,7 +15,7 @@ export default function InicioPage() {
       <div className="grid md:grid-cols-2 gap-12 items-center">
         <div className="space-y-6 text-center md:text-left">
           <h1 className="text-4xl md:text-5xl font-black text-foreground tracking-tight uppercase">
-            El Circuito Banesco Seguros
+            EL CIRCUITO DE CAMPEONES BANESCO SEGUROS
           </h1>
           <p className="text-sm text-muted-foreground">
             ¡Piloto, la carrera ha comenzado! Este es tu panel de control. Aquí encontrarás el mapa del circuito, tus objetivos y cómo avanzas en la competición para llegar a la meta.
