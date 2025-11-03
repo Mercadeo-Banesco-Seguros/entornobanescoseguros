@@ -182,7 +182,7 @@ export default function RankingPage() {
                       )}
                     </TableCell>
                     <TableCell className="text-right w-48">
-                      <span className="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full">
+                      <span className="bg-primary text-primary-foreground text-xs px-3 py-1 rounded-full">
                         {(user.progreso || 0).toFixed(2)}%
                       </span>
                     </TableCell>
