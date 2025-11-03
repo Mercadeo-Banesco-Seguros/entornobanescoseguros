@@ -44,7 +44,7 @@ export default function PrizeModal({ prize, onClose }: PrizeModalProps) {
         ),
         images: (
              <div className="flex justify-center items-end mt-8">
-                <Image src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/cb867c0cd96708c8ed4e0e6a0160d7f6-Photoroom.png?raw=true" alt="Dinero" width={250} height={180} className="object-contain" />
+                <Image src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/cb867c0cd96708c8ed4e0e6a0160d7f6-Photoroom.png?raw=true" alt="Dinero" width={200} height={150} className="object-contain" />
             </div>
         )
     },
