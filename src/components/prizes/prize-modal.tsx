@@ -44,7 +44,7 @@ export default function PrizeModal({ prize, onClose }: PrizeModalProps) {
         ),
         images: (
              <div className="flex justify-center items-end mt-8">
-                <Image src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_ennz50ennz50ennz-Photoroom.png?raw=true" alt="Dinero" width={150} height={150} className="object-contain" />
+                <Image src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_ennz50ennz50ennz-Photoroom.png?raw=true" alt="Dinero" width={200} height={200} quality={100} className="object-contain" />
             </div>
         )
     },
@@ -59,7 +59,7 @@ export default function PrizeModal({ prize, onClose }: PrizeModalProps) {
         ),
         images: (
             <div className="flex justify-center items-end mt-8">
-                <Image src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_ennz50ennz50ennz-Photoroom.png?raw=true" alt="Dinero" width={150} height={150} className="object-contain" />
+                <Image src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_ennz50ennz50ennz-Photoroom.png?raw=true" alt="Dinero" width={200} height={200} quality={100} className="object-contain" />
             </div>
         )
     }
