@@ -39,7 +39,7 @@ export default function CajeroPage() {
               />
             </div>
             <div className="mt-4">
-              <p className="text-sm text-muted-foreground">{primerLugar.description}</p>
+              
             </div>
           </div>
         )}
