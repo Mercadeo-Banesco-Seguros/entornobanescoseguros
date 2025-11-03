@@ -4,6 +4,7 @@ import type { Prize } from '@/lib/types';
 import Image from 'next/image';
 import { X } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import Link from 'next/link';
 
 type PrizeModalProps = {
   prize: Prize;
@@ -28,7 +29,9 @@ export default function PrizeModal({ prize, onClose }: PrizeModalProps) {
         ),
         images: (
             <div className="flex justify-center items-center gap-4 mt-4">
-                <Image src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(26).png?raw=true" alt="Avión" width={180} height={180} className="object-contain" />
+                <Link href="https://drive.google.com/drive/folders/1ynl2HLESEungCG5_6YLgBW5Nv9y2Lm1b?usp=drive_link" target="_blank" rel="noopener noreferrer">
+                    <Image src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(26).png?raw=true" alt="Avión" width={240} height={240} className="object-contain" />
+                </Link>
                 <Image src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_ennz50ennz50ennz-Photoroom.png?raw=true" alt="Dinero" width={112} height={75} className="object-contain" />
             </div>
         )
@@ -69,7 +72,7 @@ export default function PrizeModal({ prize, onClose }: PrizeModalProps) {
 
   return (
     <Dialog open={true} onOpenChange={onClose}>
-        <DialogContent className="sm:max-w-[625px] bg-primary text-primary-foreground border-0 p-10 overflow-hidden min-h-[580px] flex flex-col justify-between">
+        <DialogContent className="sm:max-w-[625px] bg-primary text-primary-foreground border-0 p-10 overflow-hidden flex flex-col justify-between min-h-[580px]">
             <DialogHeader className="space-y-4">
                 <DialogTitle className="text-6xl font-black tracking-tighter text-white">{details?.title}</DialogTitle>
                 <DialogDescription asChild>
