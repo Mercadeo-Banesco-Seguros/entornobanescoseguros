@@ -60,7 +60,7 @@ export default function CarEvolution({ currentUser }: CarEvolutionProps) {
     const progressInBuffer = currentProgress - currentThreshold;
     const percentage = (progressInBuffer / range) * 100;
     
-    return { progress: Math.max(0, Math.min(100, percentage)), text: `${percentage.toFixed(0)}% para la siguiente categoría` };
+    return { progress: Math.max(0, Math.min(100, percentage)), text: `Llevas ${percentage.toFixed(0)}% de progreso para desbloquear la próxima categoría` };
 
   }, [currentUser.progreso, userCategoryRank]);
 
