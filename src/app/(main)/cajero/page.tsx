@@ -26,7 +26,7 @@ export default function CajeroPage() {
             ¡Descubre la lista de Premios!
           </h1>
           <p className="text-muted-foreground mt-2 max-w-2xl">
-            Aprende a desenvolverte mejor en el entorno empresarial con el sistema de cursos y herramientas educativas de Banesco Seguros.
+            Has demostrado tu valía en la pista, ahora es momento de celebrar. Revisa los increíbles premios que te esperan en la meta. ¡Sigue acelerando!
           </p>
         </div>
 
