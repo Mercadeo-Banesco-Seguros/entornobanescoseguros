@@ -57,7 +57,6 @@ export default function CajeroPage() {
               />
             </div>
              <div className="mt-4">
-              <p className="text-sm text-muted-foreground">{segundoLugar.description}</p>
             </div>
           </div>
         )}
@@ -75,7 +74,6 @@ export default function CajeroPage() {
               />
             </div>
              <div className="mt-4">
-              <p className="text-sm text-muted-foreground">{tercerLugar.description}</p>
             </div>
           </div>
         )}
