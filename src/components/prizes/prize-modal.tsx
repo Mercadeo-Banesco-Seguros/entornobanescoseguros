@@ -28,8 +28,8 @@ export default function PrizeModal({ prize, onClose }: PrizeModalProps) {
         ),
         images: (
             <div className="flex justify-between items-end mt-8 -mb-12">
-                <Image src="https://www.banescoseguros.com/wp-content/uploads/2025/10/Gemini_Generated_Image_v29k8wv29k8wv29k-Photoroom.png" alt="Avión" width={300} height={200} className="object-contain" />
-                <Image src="https://www.banescoseguros.com/wp-content/uploads/2025/10/Gemini_Generated_Image_b6r01ib6r01ib6r0-Photoroom.png" alt="Dinero" width={200} height={150} className="object-contain" />
+                <Image src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(26).png?raw=true" alt="Avión" width={300} height={200} className="object-contain" />
+                <Image src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/cb867c0cd96708c8ed4e0e6a0160d7f6-Photoroom.png?raw=true" alt="Dinero" width={200} height={150} className="object-contain" />
             </div>
         )
     },
@@ -44,7 +44,7 @@ export default function PrizeModal({ prize, onClose }: PrizeModalProps) {
         ),
         images: (
              <div className="flex justify-center items-end mt-8 -mb-12">
-                <Image src="https://www.banescoseguros.com/wp-content/uploads/2025/10/Gemini_Generated_Image_b6r01ib6r01ib6r0-Photoroom.png" alt="Dinero" width={250} height={180} className="object-contain" />
+                <Image src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/cb867c0cd96708c8ed4e0e6a0160d7f6-Photoroom.png?raw=true" alt="Dinero" width={250} height={180} className="object-contain" />
             </div>
         )
     },
@@ -59,7 +59,7 @@ export default function PrizeModal({ prize, onClose }: PrizeModalProps) {
         ),
         images: (
             <div className="flex justify-center items-end mt-8 -mb-12">
-                <Image src="https://www.banescoseguros.com/wp-content/uploads/2025/10/Gemini_Generated_Image_b6r01ib6r01ib6r0-Photoroom.png" alt="Dinero" width={200} height={150} className="object-contain" />
+                <Image src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/cb867c0cd96708c8ed4e0e6a0160d7f6-Photoroom.png?raw=true" alt="Dinero" width={200} height={150} className="object-contain" />
             </div>
         )
     }
