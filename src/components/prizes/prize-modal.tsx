@@ -27,9 +27,9 @@ export default function PrizeModal({ prize, onClose }: PrizeModalProps) {
             </>
         ),
         images: (
-            <div className="flex justify-between items-center mt-8 -mb-12">
+            <div className="flex justify-between items-center mt-8">
                 <Image src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(26).png?raw=true" alt="Avión" width={300} height={200} className="object-contain" />
-                <Image src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/cb867c0cd96708c8ed4e0e6a0160d7f6-Photoroom.png?raw=true" alt="Dinero" width={168} height={112} className="object-contain" />
+                <Image src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/cb867c0cd96708c8ed4e0e6a0160d7f6-Photoroom.png?raw=true" alt="Dinero" width={112} height={75} className="object-contain" />
             </div>
         )
     },
@@ -43,7 +43,7 @@ export default function PrizeModal({ prize, onClose }: PrizeModalProps) {
             </>
         ),
         images: (
-             <div className="flex justify-center items-end mt-8 -mb-12">
+             <div className="flex justify-center items-end mt-8">
                 <Image src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/cb867c0cd96708c8ed4e0e6a0160d7f6-Photoroom.png?raw=true" alt="Dinero" width={250} height={180} className="object-contain" />
             </div>
         )
@@ -58,7 +58,7 @@ export default function PrizeModal({ prize, onClose }: PrizeModalProps) {
             </>
         ),
         images: (
-            <div className="flex justify-center items-end mt-8 -mb-12">
+            <div className="flex justify-center items-end mt-8">
                 <Image src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/cb867c0cd96708c8ed4e0e6a0160d7f6-Photoroom.png?raw=true" alt="Dinero" width={200} height={150} className="object-contain" />
             </div>
         )
@@ -69,7 +69,7 @@ export default function PrizeModal({ prize, onClose }: PrizeModalProps) {
 
   return (
     <Dialog open={true} onOpenChange={onClose}>
-        <DialogContent className="sm:max-w-[625px] bg-primary text-primary-foreground border-0 p-10 overflow-hidden">
+        <DialogContent className="sm:max-w-[625px] bg-primary text-primary-foreground border-0 p-10 overflow-hidden min-h-[580px] flex flex-col justify-between">
             <DialogHeader className="space-y-4">
                 <DialogTitle className="text-6xl font-black tracking-tighter text-white">{details?.title}</DialogTitle>
                 <DialogDescription asChild>
