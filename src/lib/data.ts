@@ -70,7 +70,7 @@ export const prizeCategories: PrizeCategory[] = [
 ];
 
 export const prizes: Prize[] = [
-  { id: 1, name: 'Primer Lugar', description: 'Viaje en grupo de los 10 ganadores de 3 días y 2 noches en el Sunsol Ecoland de Margarita Todo incluido y un abono de USD 200 en la 15.', cost: 0, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_vh9r48vh9r48vh9r-Photoroom.png?raw=true', category: 'Oro' },
-  { id: 2, name: 'Segundo Lugar', description: 'Abono de USD 150 en la 15. Fecha del abono 9/1/2026', cost: 0, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_ka5k70ka5k70ka5k-Photoroom.png?raw=true', category: 'Plata' },
-  { id: 3, name: 'Tercer Lugar', description: 'Abono de USD 50 en la 15. Fecha del abono 9/1/2026', cost: 0, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_v7m48hv7m48hv7m4-Photoroom.png?raw=true', category: 'Bronce' },
+  { id: 1, name: 'Primer Lugar', description: 'Viaje en grupo de los 10 ganadores de 3 días y 2 noches en el Sunsol Ecoland de Margarita Todo incluido y un abono de USD 200 en la 15.', cost: 0, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Tarjeta%20Datos%20Bancarios%20Org%C3%A1nico%20Rosa%20y%20Amarillo%20(4)-Photoroom.png?raw=true', category: 'Oro' },
+  { id: 2, name: 'Segundo Lugar', description: 'Abono de USD 150 en la 15. Fecha del abono 9/1/2026', cost: 0, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Tarjeta%20Datos%20Bancarios%20Org%C3%A1nico%20Rosa%20y%20Amarillo%20(5)-Photoroom.png?raw=true', category: 'Plata' },
+  { id: 3, name: 'Tercer Lugar', description: 'Abono de USD 50 en la 15. Fecha del abono 9/1/2026', cost: 0, imageUrl: 'https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Tarjeta%20Datos%20Bancarios%20Org%C3%A1nico%20Rosa%20y%20Amarillo%20(6)-Photoroom.png?raw=true', category: 'Bronce' },
 ];
