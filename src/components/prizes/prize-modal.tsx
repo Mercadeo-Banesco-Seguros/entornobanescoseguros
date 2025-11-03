@@ -21,14 +21,14 @@ export default function PrizeModal({ prize, onClose }: PrizeModalProps) {
                 <br /><br />
                 El ganador disfrutará de 3 días y 2 noches inolvidables con TODO INCLUIDO en el espectacular resort Sunsol Ecoland.
                 <br /><br />
-                Un merecido descanso en el paraíso, donde tu única misión será relajarte. Y para celebrar tu victoria como se debe, ¡te llevas un bono de $200 en tu T5 de Todoticket para consentirte!
+                Un merecido descanso en el paraíso, donde tu única misión será relajarte. Y para celebrar tu victoria como se debe, ¡te llevas un abono equivalente a $200 en tu T5 de todoticket para disfrutar!
                 <br /><br />
                 ¿Estás listo para demostrar que eres el número uno?
             </>
         ),
         images: (
             <div className="flex justify-center items-center gap-4 mt-4">
-                <Image src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(26).png?raw=true" alt="Avión" width={200} height={150} className="object-contain" />
+                <Image src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(26).png?raw=true" alt="Avión" width={150} height={150} className="object-contain" />
                 <Image src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/cb867c0cd96708c8ed4e0e6a0160d7f6-Photoroom.png?raw=true" alt="Dinero" width={112} height={75} className="object-contain" />
             </div>
         )
@@ -44,7 +44,7 @@ export default function PrizeModal({ prize, onClose }: PrizeModalProps) {
         ),
         images: (
              <div className="flex justify-center items-end mt-8">
-                <Image src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/cb867c0cd96708c8ed4e0e6a0160d7f6-Photoroom.png?raw=true" alt="Dinero" width={200} height={150} className="object-contain" />
+                <Image src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/cb867c0cd96708c8ed4e0e6a0160d7f6-Photoroom.png?raw=true" alt="Dinero" width={150} height={150} className="object-contain" />
             </div>
         )
     },
@@ -59,7 +59,7 @@ export default function PrizeModal({ prize, onClose }: PrizeModalProps) {
         ),
         images: (
             <div className="flex justify-center items-end mt-8">
-                <Image src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/cb867c0cd96708c8ed4e0e6a0160d7f6-Photoroom.png?raw=true" alt="Dinero" width={200} height={150} className="object-contain" />
+                <Image src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/cb867c0cd96708c8ed4e0e6a0160d7f6-Photoroom.png?raw=true" alt="Dinero" width={150} height={150} className="object-contain" />
             </div>
         )
     }
