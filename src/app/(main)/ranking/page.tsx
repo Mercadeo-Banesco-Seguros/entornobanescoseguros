@@ -137,7 +137,7 @@ export default function RankingPage() {
                 </Select>
               ) : (
                 me.vicepresidencia && (
-                  <span className="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full whitespace-nowrap">
+                  <span className="bg-primary text-primary-foreground text-xs px-3 py-1 rounded-full whitespace-nowrap">
                     {me.vicepresidencia}
                   </span>
                 )
@@ -176,7 +176,7 @@ export default function RankingPage() {
                     </TableCell>
                     <TableCell className="text-center w-64">
                       {user.vicepresidencia && (
-                        <span className="bg-primary text-primary-foreground font-bold text-xs px-3 py-1 rounded-full whitespace-nowrap">
+                        <span className="bg-primary text-primary-foreground text-xs px-3 py-1 rounded-full whitespace-nowrap">
                           {user.vicepresidencia}
                         </span>
                       )}
