@@ -26,27 +26,9 @@ export default function CajeroPage() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center items-end">
-        {/* Primer Lugar */}
-        {primerLugar && (
-          <div className="flex flex-col items-center">
-            <div className="relative w-full h-80">
-              <Image
-                src={primerLugar.imageUrl}
-                alt={primerLugar.name}
-                layout="fill"
-                className="object-contain"
-                quality={100}
-              />
-            </div>
-            <div className="mt-4">
-              
-            </div>
-          </div>
-        )}
-
-        {/* Segundo Lugar */}
+        
         {segundoLugar && (
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center transition-transform duration-300 ease-in-out hover:scale-105">
             <div className="relative w-full h-80">
               <Image
                 src={segundoLugar.imageUrl}
@@ -61,9 +43,25 @@ export default function CajeroPage() {
           </div>
         )}
 
-        {/* Tercer Lugar */}
+        {primerLugar && (
+          <div className="flex flex-col items-center transition-transform duration-300 ease-in-out hover:scale-105">
+            <div className="relative w-full h-96">
+              <Image
+                src={primerLugar.imageUrl}
+                alt={primerLugar.name}
+                layout="fill"
+                className="object-contain"
+                quality={100}
+              />
+            </div>
+            <div className="mt-4">
+              
+            </div>
+          </div>
+        )}
+
         {tercerLugar && (
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center transition-transform duration-300 ease-in-out hover:scale-105">
             <div className="relative w-full h-80">
               <Image
                 src={tercerLugar.imageUrl}
