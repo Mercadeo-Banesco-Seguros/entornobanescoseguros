@@ -27,7 +27,7 @@ export default function PrizeModal({ prize, onClose }: PrizeModalProps) {
             </>
         ),
         images: (
-            <div className="flex justify-between items-center mt-4">
+            <div className="flex justify-center items-center gap-4 mt-4">
                 <Image src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(26).png?raw=true" alt="Avión" width={200} height={150} className="object-contain" />
                 <Image src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/cb867c0cd96708c8ed4e0e6a0160d7f6-Photoroom.png?raw=true" alt="Dinero" width={112} height={75} className="object-contain" />
             </div>
