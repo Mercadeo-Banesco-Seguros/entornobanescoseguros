@@ -297,7 +297,7 @@ export default function EstadisticasPage() {
                 {top10Users.map((user, index) => (
                   <div key={index} className="grid grid-cols-3 items-center gap-4">
                     <div className="col-span-1">
-                      <p className="font-bold text-sm truncate">{user.name}</p>
+                      <p className="font-normal text-xs tracking-tight truncate">{user.name}</p>
                     </div>
                     <div className="col-span-2">
                       <div 
