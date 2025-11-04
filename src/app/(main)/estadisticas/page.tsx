@@ -9,7 +9,6 @@ import { useRouter } from 'next/navigation';
 import { ArrowDown, ArrowUp } from 'lucide-react';
 
 const areaChartData = [
-  { month: 'Jul', value: 4.2 },
   { month: 'Octubre', value: 4.0 },
   { month: 'Noviembre', value: 4.8 },
   { month: 'Diciembre', value: 4.6 },
