@@ -3,7 +3,7 @@
 import CarEvolution from '@/components/dashboard/avatar-evolution';
 import CurrentWorld from '@/components/dashboard/current-world';
 import { useAuth } from '@/context/auth-context';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 
 export default function DashboardContent() {
@@ -41,6 +41,18 @@ export default function DashboardContent() {
     return <div>Error: Pista del piloto no encontrada.</div>;
   }
 
+  const rules = [
+    "Periodo del concurso desde el 1 de octubre hasta el 19 de diciembre de 2025.",
+    "Son válidas para participar, todas las pólizas estructuradas nuevas, suscritas y cobradas dentro del periodo del concurso.",
+    "Las pólizas deben estar cobradas (en caso de fraccionamiento, la primera cuota) para ser contadas en el incentivo.",
+    "Para participar debes mínimo suscribir 2.300$ y cobrar 200$ mensuales o alcanzar en total, mínimo 7.000$ y cobrar 800$ al cierre del concurso, el 19 de diciembre.",
+    "Para subir de categoría debes cumplir con la cantidad de pólizas, prima suscrita y cobrada indicada por categoría.",
+    "Serán descontadas del inventario las pólizas que sean suscritas y anuladas dentro del periodo del concurso, por lo que debes estar atento a tu progreso semanal.",
+    "Las pólizas estructuradas son: RCV, Banesco Familia Segura de Servicio Funerario, Accidentes Personales, Indemnización Diaria por Hospitalización y Protección por Cáncer.",
+    "Ganarán por cada Vicepresidencia, los 2 Asesores integrales de cada categoría que tengan el mayor cumplimiento en prima cobrada y suscrita.",
+    "Los premios serán entregados en enero de 2026."
+  ];
+
   return (
     <div className="flex flex-col gap-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
@@ -51,6 +63,21 @@ export default function DashboardContent() {
           <CurrentWorld currentUser={currentUser} levels={levels} users={users} />
         </div>
       </div>
+      <Card className="bg-primary text-primary-foreground">
+        <CardHeader>
+          <CardTitle className="text-3xl font-black text-center">Reglas de Participación</CardTitle>
+        </CardHeader>
+        <CardContent>
+            <ul className="space-y-4">
+              {rules.map((rule, index) => (
+                <li key={index} className="flex items-start gap-4">
+                  <span className="text-primary-foreground/80 mt-1">&#8226;</span>
+                  <p className="flex-1 text-sm">{rule}</p>
+                </li>
+              ))}
+            </ul>
+        </CardContent>
+      </Card>
     </div>
   );
 }
