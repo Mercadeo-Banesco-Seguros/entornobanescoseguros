@@ -61,6 +61,19 @@ export default function Header() {
                   </Link>
                 )
               )}
+               {currentUser?.cargo === 'ADMINISTRADOR' && (
+                <Link
+                  href="/estadisticas"
+                  className={cn(
+                    'px-3 py-2 rounded-md text-xs transition-colors',
+                    pathname === '/estadisticas'
+                      ? 'font-bold text-white'
+                      : 'font-normal text-white/70 hover:text-white'
+                  )}
+                >
+                  Estadísticas
+                </Link>
+              )}
             </div>
           </div>
           <div className="flex items-center gap-4">
