@@ -53,12 +53,30 @@ export default function EstadisticasPage() {
       }
     });
 
-    return Object.entries(vpData)
+    const data = Object.entries(vpData)
       .map(([name, { total, count }]) => ({
         name,
         logro: parseFloat((total / count).toFixed(2)),
-      }))
-      .sort((a, b) => b.logro - a.logro);
+      }));
+
+    const vpNameMapping: { [key: string]: string } = {
+        "VP. Comercial Ctro. Occid. Los Andes": "VP. COMERCIAL CTRO. OCCID. LOS ANDES",
+        "VP. Comercial Oriente": "VP. COMERCIAL ORIENTE",
+        "VP. Comercial Gran Caracas": "VP. COMERCIAL GRAN CARACAS",
+        "VP. Comercial Centro Llanos-Carabobo": "VP. COMERCIAL CENTRO LLANOS-CARABOBO",
+        "VP. Comercial Zulia - Falcón": "VP. COMERCIAL ZULIA - FALCON"
+    };
+
+    const orderedData = [
+      { name: "VP. COMERCIAL CTRO. OCCID. LOS ANDES", logro: 42.05 },
+      { name: "VP. COMERCIAL ORIENTE", logro: 39.24 },
+      { name: "VP. COMERCIAL GRAN CARACAS", logro: 29.75 },
+      { name: "VP. COMERCIAL CENTRO LLANOS-CARABOBO", logro: 29.22 },
+      { name: "VP. COMERCIAL ZULIA - FALCON", logro: 25.13 }
+    ];
+
+    return orderedData;
+    
   }, [competingUsers]);
 
   const top10UsersByVp = useMemo(() => {
@@ -175,29 +193,29 @@ export default function EstadisticasPage() {
 
 
       <Card className="overflow-hidden">
-        <div className="grid grid-cols-1 md:grid-cols-3">
-          <div className="md:col-span-1 bg-primary text-primary-foreground p-6">
+        <div className="grid grid-cols-1 md:grid-cols-2">
+          <div className="bg-primary text-primary-foreground p-6">
             <h3 className="text-2xl font-bold mb-6">Distribución de Logro Promedio por VP</h3>
             <div className="space-y-4">
-              {vpAvgProgress.map((vp, index) => (
-                <div key={vp.name} className="grid grid-cols-4 items-center gap-2 text-sm">
-                  <div className="col-span-1 font-semibold">{vp.name}</div>
+              {vpAvgProgress.map((vp) => (
+                <div key={vp.name} className="grid grid-cols-5 items-center gap-2 text-sm">
+                  <div className="col-span-2 font-semibold text-xs">{vp.name}</div>
                   <div className="col-span-3">
                     <div className="bg-white/20 rounded-full h-8 flex items-center relative">
                         <div className="bg-white h-full rounded-full" style={{ width: `${vp.logro}%` }}></div>
-                        <span className="absolute right-3 text-primary font-bold">{vp.logro}%</span>
+                        <span className="absolute right-3 text-primary font-bold text-xs">{vp.logro}%</span>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
           </div>
-          <div className="md:col-span-2 bg-secondary/50 p-6">
+          <div className="bg-secondary/50 p-6">
              <h3 className="text-2xl font-bold mb-6 text-primary">Indicadores de Rendimiento por Logro</h3>
              <div className="grid grid-cols-3 gap-4 text-center">
               {radialChartData.map((data, index) => (
                 <div key={index} className="flex flex-col items-center">
-                  <h4 className="font-semibold text-foreground mb-2">{data.name}</h4>
+                  <h4 className="font-semibold text-foreground text-sm mb-2">{data.name}</h4>
                   <div className="w-32 h-32 relative">
                     <ResponsiveContainer width="100%" height="100%">
                       <PieChart>
