@@ -256,15 +256,15 @@ export default function EstadisticasPage() {
           <h2 className="text-3xl font-black tracking-tighter">Top 10 Pilotos</h2>
           <p className="text-3xl font-black tracking-tighter text-muted-foreground -mt-2">por Logro Promedio</p>
           
-          <div className="space-y-6 mt-8">
+          <div className="space-y-4 mt-8">
             {top10Users.map((user, index) => (
               <div key={index} className="grid grid-cols-3 items-center gap-4">
                 <div className="col-span-1">
-                  <p className="font-bold text-lg">{user.name}</p>
+                  <p className="font-bold text-base">{user.name}</p>
                 </div>
                 <div className="col-span-2">
                   <div 
-                    className="bg-primary rounded-full h-10 flex items-center justify-end px-4"
+                    className="bg-primary rounded-full h-8 flex items-center justify-end px-4"
                     style={{ width: `${user.logro}%` }}
                   >
                     <span className="text-primary-foreground font-normal">{user.logro}%</span>
