@@ -317,7 +317,7 @@ export default function EstadisticasPage() {
                   <p className="text-lg font-semibold tracking-tighter text-primary -mt-1">por Logro Promedio</p>
                 </div>
                 <Select onValueChange={setSelectedVp} value={selectedVp}>
-                  <SelectTrigger className="w-48 bg-primary text-primary-foreground text-xs rounded-full">
+                  <SelectTrigger className="w-48 bg-primary text-primary-foreground rounded-full" style={{ fontSize: '0.65rem' }}>
                     <SelectValue placeholder="Filtrar por VP" />
                   </SelectTrigger>
                   <SelectContent>
