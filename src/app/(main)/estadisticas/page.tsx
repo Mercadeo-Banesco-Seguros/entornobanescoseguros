@@ -303,8 +303,8 @@ export default function EstadisticasPage() {
               <Image
                 src={dynamicImageSrc}
                 alt="Imagen de Vicepresidencia"
-                width={400}
-                height={400}
+                width={selectedVp === 'Total' ? 500 : 400}
+                height={selectedVp === 'Total' ? 500 : 400}
                 className="object-contain"
                 key={dynamicImageSrc}
               />
