@@ -142,7 +142,7 @@ export default function EstadisticasPage() {
         </Card>
       </div>
 
-       <Card className="grid grid-cols-1 md:grid-cols-3 gap-4">
+       <Card className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="md:col-span-1 p-6">
             <p className="text-sm font-medium text-muted-foreground">Logro Promedio de los Participantes</p>
             <p className="text-4xl font-bold text-foreground mt-2 tracking-tight">4,5%</p>
@@ -151,7 +151,7 @@ export default function EstadisticasPage() {
                 32.5K vs. last month
             </p>
         </div>
-        <div className="md:col-span-2">
+        <div className="md:col-span-1">
             <div className="w-full h-[200px] p-0">
                 <ResponsiveContainer width="100%" height="100%">
                     <AreaChart
@@ -202,8 +202,9 @@ export default function EstadisticasPage() {
                   <div className="col-span-2 font-semibold text-xs">{vp.name}</div>
                   <div className="col-span-3">
                     <div className="bg-white/20 rounded-full h-8 flex items-center relative">
-                        <div className="bg-white h-full rounded-full" style={{ width: `${vp.logro}%` }}></div>
-                        <span className="absolute right-3 text-primary font-bold text-xs">{vp.logro}%</span>
+                        <div className="bg-white h-full rounded-full flex items-center justify-end pr-3" style={{ width: `${vp.logro}%` }}>
+                           <span className="text-primary text-xs">{vp.logro}%</span>
+                        </div>
                     </div>
                   </div>
                 </div>
