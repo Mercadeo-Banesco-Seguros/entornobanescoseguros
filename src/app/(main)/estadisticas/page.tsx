@@ -1,10 +1,8 @@
-
 'use client';
 
 import { useMemo, useState } from 'react';
-import { Area, AreaChart, Bar, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, PieChart, Pie, Cell } from 'recharts';
+import { Area, AreaChart, Pie, PieChart, ResponsiveContainer, XAxis, Tooltip } from 'recharts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useAuth } from '@/context/auth-context';
 import { useRouter } from 'next/navigation';
 import { ArrowDown, ArrowUp } from 'lucide-react';
@@ -20,7 +18,6 @@ const radialChartData = [
   { name: 'Logro Cobrado', value: 75 },
   { name: 'Logro Pólizas', value: 75 },
 ];
-const COLORS = ['hsl(var(--primary))', 'hsl(var(--secondary))'];
 
 export default function EstadisticasPage() {
   const { users, currentUser } = useAuth();
@@ -34,13 +31,6 @@ export default function EstadisticasPage() {
   const competingUsers = useMemo(() => {
     return users.filter(user => user.cargo !== 'ADMINISTRADOR' && user.vicepresidencia);
   }, [users]);
-  
-  const vicepresidencias = useMemo(() => {
-    const allVps = competingUsers.map(user => user.vicepresidencia).filter(Boolean);
-    return ['Todas', ...Array.from(new Set(allVps as string[]))];
-  }, [competingUsers]);
-
-  const [selectedVp, setSelectedVp] = useState('Todas');
   
   const vpAvgProgress = useMemo(() => {
     const data = [
@@ -79,19 +69,15 @@ export default function EstadisticasPage() {
     return Math.max(...vpAvgProgress.map(vp => vp.logro));
   }, [vpAvgProgress]);
 
-  const top10UsersByVp = useMemo(() => {
-    let filteredUsers = competingUsers;
-    if (selectedVp !== 'Todas') {
-      filteredUsers = competingUsers.filter(u => u.vicepresidencia === selectedVp);
-    }
-    return filteredUsers
-      .sort((a, b) => (b.progreso || 0) - (b.progreso || 0))
+  const top10Users = useMemo(() => {
+    return competingUsers
+      .sort((a, b) => (b.progreso || 0) - (a.progreso || 0))
       .slice(0, 10)
       .map(u => ({
           name: u.name,
           logro: parseFloat((u.progreso || 0).toFixed(2)),
       }));
-  }, [competingUsers, selectedVp]);
+  }, [competingUsers]);
 
   return (
     <div className="space-y-8">
@@ -249,7 +235,7 @@ export default function EstadisticasPage() {
                           cornerRadius={999}
                           fill="hsl(var(--primary))"
                           stroke="none"
-                          paddingAngle={-10}
+                          paddingAngle={5}
                         >
                         </Pie>
                       </PieChart>
@@ -265,53 +251,30 @@ export default function EstadisticasPage() {
         </div>
       </Card>
       
-      <Card>
-        <CardHeader>
-          <div className="flex justify-between items-center">
-            <div>
-              <CardTitle>Top 10 Pilotos</CardTitle>
-              <CardDescription>Los pilotos con mayor progreso.</CardDescription>
-            </div>
-            <Select onValueChange={setSelectedVp} value={selectedVp}>
-              <SelectTrigger className="w-[280px]">
-                <SelectValue placeholder="Filtrar por Vicepresidencia" />
-              </SelectTrigger>
-              <SelectContent>
-                {vicepresidencias.map((vp) => (
-                  <SelectItem key={vp} value={vp}>{vp}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-        </CardHeader>
-        <CardContent>
-          <div className="w-full h-[400px]">
-             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={top10UsersByVp} margin={{ top: 5, right: 20, left: -10, bottom: 5 }} layout="vertical">
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis type="number" unit="%" />
-                <YAxis dataKey="name" type="category" width={150} interval={0} fontSize={12} />
-                <Tooltip 
-                  formatter={(value) => `${value}%`}
-                  cursor={{fill: 'hsl(var(--muted) / 0.2)'}}
-                />
-                <Legend />
-                <Bar dataKey="logro" name="Progreso" fill="hsl(var(--primary))" barSize={30} />
-              </BarChart>
-            </ResponsiveContainer>
+       <Card>
+        <CardContent className="p-6">
+          <h2 className="text-3xl font-black tracking-tighter">Top 10 Pilotos</h2>
+          <p className="text-3xl font-black tracking-tighter text-muted-foreground -mt-2">por Logro Promedio</p>
+          
+          <div className="space-y-6 mt-8">
+            {top10Users.map((user, index) => (
+              <div key={index} className="grid grid-cols-3 items-center gap-4">
+                <div className="col-span-1">
+                  <p className="font-bold text-lg">{user.name}</p>
+                </div>
+                <div className="col-span-2">
+                  <div 
+                    className="bg-primary rounded-full h-10 flex items-center justify-end px-4"
+                    style={{ width: `${user.logro}%` }}
+                  >
+                    <span className="text-primary-foreground font-normal">{user.logro}%</span>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </CardContent>
       </Card>
     </div>
   );
 }
-
-    
-
-    
-
-    
-
-    
-
-    
