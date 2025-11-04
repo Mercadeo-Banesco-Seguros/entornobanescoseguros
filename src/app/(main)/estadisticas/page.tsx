@@ -64,7 +64,7 @@ export default function EstadisticasPage() {
       filteredUsers = competingUsers.filter(u => u.vicepresidencia === selectedVp);
     }
     return filteredUsers
-      .sort((a, b) => (b.progreso || 0) - (a.progreso || 0))
+      .sort((a, b) => (b.progreso || 0) - (b.progreso || 0))
       .slice(0, 10)
       .map(u => ({
           name: u.name,
@@ -174,7 +174,7 @@ export default function EstadisticasPage() {
       <Card className="overflow-hidden">
         <div className="grid grid-cols-1 md:grid-cols-2">
           <div className="bg-primary text-primary-foreground p-6">
-            <h3 className="text-2xl font-bold mb-6">Distribución de Logro Promedio por VP</h3>
+            <h3 className="text-2xl font-bold mb-6 tracking-tight">Distribución de Logro Promedio por VP</h3>
             <div className="space-y-4">
               {vpAvgProgress.map((vp) => (
                 <div key={vp.name} className="grid grid-cols-5 items-center gap-2 text-sm">
@@ -266,3 +266,5 @@ export default function EstadisticasPage() {
     </div>
   );
 }
+
+    
