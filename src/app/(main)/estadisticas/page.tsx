@@ -296,7 +296,7 @@ export default function EstadisticasPage() {
         </div>
       </Card>
       
-       <Card>
+       <Card className="border-0 shadow-none">
         <CardContent className="p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div className="flex justify-center">
