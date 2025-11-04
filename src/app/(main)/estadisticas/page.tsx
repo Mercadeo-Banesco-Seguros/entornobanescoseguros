@@ -42,42 +42,21 @@ export default function EstadisticasPage() {
   const [selectedVp, setSelectedVp] = useState('Todas');
   
   const vpAvgProgress = useMemo(() => {
-    const vpData: { [key: string]: { total: number; count: number } } = {};
-    competingUsers.forEach(user => {
-      if (user.vicepresidencia) {
-        if (!vpData[user.vicepresidencia]) {
-          vpData[user.vicepresidencia] = { total: 0, count: 0 };
-        }
-        vpData[user.vicepresidencia].total += user.progreso || 0;
-        vpData[user.vicepresidencia].count++;
-      }
-    });
-
-    const data = Object.entries(vpData)
-      .map(([name, { total, count }]) => ({
-        name,
-        logro: parseFloat((total / count).toFixed(2)),
-      }));
-
-    const vpNameMapping: { [key: string]: string } = {
-        "VP. Comercial Ctro. Occid. Los Andes": "VP. COMERCIAL CTRO. OCCID. LOS ANDES",
-        "VP. Comercial Oriente": "VP. COMERCIAL ORIENTE",
-        "VP. Comercial Gran Caracas": "VP. COMERCIAL GRAN CARACAS",
-        "VP. Comercial Centro Llanos-Carabobo": "VP. COMERCIAL CENTRO LLANOS-CARABOBO",
-        "VP. Comercial Zulia - Falcón": "VP. COMERCIAL ZULIA - FALCON"
-    };
-
-    const orderedData = [
+    const data = [
       { name: "VP. COMERCIAL CTRO. OCCID. LOS ANDES", logro: 42.05 },
       { name: "VP. COMERCIAL ORIENTE", logro: 39.24 },
       { name: "VP. COMERCIAL GRAN CARACAS", logro: 29.75 },
       { name: "VP. COMERCIAL CENTRO LLANOS-CARABOBO", logro: 29.22 },
       { name: "VP. COMERCIAL ZULIA - FALCON", logro: 25.13 }
     ].sort((a, b) => b.logro - a.logro);
-
-    return orderedData;
+    return data;
     
-  }, [competingUsers]);
+  }, []);
+
+  const maxLogro = useMemo(() => {
+    if (vpAvgProgress.length === 0) return 0;
+    return Math.max(...vpAvgProgress.map(vp => vp.logro));
+  }, [vpAvgProgress]);
 
   const top10UsersByVp = useMemo(() => {
     let filteredUsers = competingUsers;
@@ -202,7 +181,7 @@ export default function EstadisticasPage() {
                   <div className="col-span-2 font-semibold text-xs">{vp.name}</div>
                   <div className="col-span-3">
                     <div className="h-8 flex items-center relative">
-                        <div className="bg-white h-full rounded-full flex items-center justify-end pr-2" style={{ width: `${vp.logro}%` }}>
+                        <div className="bg-white h-full rounded-full flex items-center justify-end pr-2" style={{ width: `${(vp.logro / maxLogro) * 95}%` }}>
                            <span className="text-primary text-xs">{vp.logro}%</span>
                         </div>
                     </div>
