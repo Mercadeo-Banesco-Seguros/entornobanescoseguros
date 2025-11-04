@@ -6,7 +6,7 @@ export const carEvolutions: CarEvolution[] = [
   { id: 1, name: 'Coche Básico', category: 'Base', progressThreshold: 0, imageUrl: 'https://www.banescoseguros.com/wp-content/uploads/2025/10/inicio.png', description: 'Tu coche inicial. Fiable, pero con mucho margen de mejora.\n\nPara mejorarlo debes lograr en el mes mínimo 50 pólizas, 2.300$ suscritos y 200$ cobrados, o ACELERAR a fondo y lograr antes del cierre del concurso mínimo 150 pólizas, 7.000$ de suscrito y 600$ de cobrado' },
   { id: 2, name: 'Coche de Rally', category: 'Bronce', progressThreshold: 25, imageUrl: 'https://www.banescoseguros.com/wp-content/uploads/2025/10/bronce.png', description: 'Ya estas participando por el Bronce. Tu coche ahora es más robusto.\n\nPara alcanzar un siguiente nivel debes lograr en el mes mínimo 60 pólizas, con un suscrito de 2.700$ y un cobrado de 250$ o Acelerar a fondo en la recta final y lograr antes del cierre del concurso mínimo 180 pólizas, con un suscrito de 8.000$ y un cobrado de 800$' },
   { id: 3, name: 'Coche de Competición', category: 'Plata', progressThreshold: 50, imageUrl: 'https://www.banescoseguros.com/wp-content/uploads/2025/10/plataa.png', description: 'Ya estas participando en el nivel Plata. El motor ha sido ajustado para una mayor potencia.\n\nPara alcanzar la gloria del Oro debes lograr en el mes mínimo 75 pólizas, con un suscrito de 3.300$ y un cobrado de 300$ o cerrar a máxima velocidad para lograr antes del cierre de concurso 225 pólizas, con un suscrito de 9.900$ y un cobrado de 1.000$' },
-  { id: 4, name: 'Fórmula 1', category: 'Oro', progressThreshold: 75, imageUrl: 'https://www.banescoseguros.com/wp-content/uploads/2025/10/oro.png', description: 'Has llegado a la élite. Tu coche es una máquina de precisión de Fórmula 1, diseñado para la máxima velocidad y rendimiento. El podio es tu único objetivo.' },
+  { id: 4, name: 'Fórmula 1', category: 'Oro', progressThreshold: 75, imageUrl: 'https://www.banescoseguros.com/wp-content/uploads/2025/10/oro.png', description: 'Has llegado a la élite. Tu coche es una máquina de precisión de Fórmula 1, mantén el acelerador a fondo para alcanzar la meta en primer lugar.' },
 ];
 
 export const vicepresidenciaMessages: { [key: string]: { name: string; message: string; worldImageId: string; } } = {
@@ -96,6 +96,8 @@ export const prizes: Prize[] = [
     category: 'Bronce' 
   },
 ];
+
+    
 
     
 
