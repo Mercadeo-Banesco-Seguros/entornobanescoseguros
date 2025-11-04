@@ -128,6 +128,11 @@ export default function EstadisticasPage() {
       }));
   }, [competingUsers, selectedVp]);
 
+  const timeFilters = ['Octubre', 'Noviembre', 'Diciembre', 'All time'];
+  const [suscritoTime, setSuscritoTime] = useState('November');
+  const [cobradoTime, setCobradoTime] = useState('All time');
+  const [polizasTime, setPolizasTime] = useState('November');
+
   return (
     <div className="space-y-8">
       <header>
@@ -139,7 +144,14 @@ export default function EstadisticasPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Suscrito</CardTitle>
-             <span className="text-xs text-muted-foreground bg-secondary px-2 py-1 rounded-full">November</span>
+            <Select value={suscritoTime} onValueChange={setSuscritoTime}>
+              <SelectTrigger className="text-xs text-muted-foreground bg-secondary px-2 py-1 rounded-full h-auto border-none w-auto gap-1">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {timeFilters.map(filter => <SelectItem key={filter} value={filter}>{filter}</SelectItem>)}
+              </SelectContent>
+            </Select>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold tracking-tight">450</div>
@@ -152,7 +164,14 @@ export default function EstadisticasPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Cobrado</CardTitle>
-            <span className="text-xs text-muted-foreground bg-secondary px-2 py-1 rounded-full">All time</span>
+            <Select value={cobradoTime} onValueChange={setCobradoTime}>
+              <SelectTrigger className="text-xs text-muted-foreground bg-secondary px-2 py-1 rounded-full h-auto border-none w-auto gap-1">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {timeFilters.map(filter => <SelectItem key={filter} value={filter}>{filter}</SelectItem>)}
+              </SelectContent>
+            </Select>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold tracking-tight">245</div>
@@ -165,7 +184,14 @@ export default function EstadisticasPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Pólizas</CardTitle>
-            <span className="text-xs text-muted-foreground bg-secondary px-2 py-1 rounded-full">November</span>
+            <Select value={polizasTime} onValueChange={setPolizasTime}>
+              <SelectTrigger className="text-xs text-muted-foreground bg-secondary px-2 py-1 rounded-full h-auto border-none w-auto gap-1">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {timeFilters.map(filter => <SelectItem key={filter} value={filter}>{filter}</SelectItem>)}
+              </SelectContent>
+            </Select>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold tracking-tight">245</div>
