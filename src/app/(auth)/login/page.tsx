@@ -102,9 +102,9 @@ export default function LoginPage() {
           </CardContent>
         </Card>
       </div>
-       <div className="hidden lg:block relative p-8">
+       <div className="hidden lg:block relative p-12">
         <Image
-          src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_mi81u2mi81u2mi81-Photoroom.png?raw=true"
+          src="https://www.banescoseguros.com/wp-content/uploads/2025/11/portadaVF.png"
           alt="Imagen de un auto de carreras"
           layout="fill"
           className="object-contain"
