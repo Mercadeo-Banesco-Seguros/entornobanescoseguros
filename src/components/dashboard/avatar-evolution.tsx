@@ -94,7 +94,7 @@ export default function CarEvolution({ currentUser }: CarEvolutionProps) {
                           {selectedEvolution.category}
                       </span>
                       <h3 className="text-base font-semibold mt-2">{selectedEvolution.name}</h3>
-                      <p className="text-xs text-muted-foreground mt-1">{selectedEvolution.description}</p>
+                      <p className="text-xs text-muted-foreground mt-1 whitespace-pre-line">{selectedEvolution.description}</p>
                   </div>
                 </>
             )}
