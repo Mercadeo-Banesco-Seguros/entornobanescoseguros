@@ -191,7 +191,7 @@ export default function EstadisticasPage() {
             </div>
           </div>
           <div className="bg-secondary/50 p-6">
-             <h3 className="text-2xl font-bold mb-6 text-primary">Indicadores de Rendimiento por Logro</h3>
+             <h3 className="text-2xl font-bold mb-6 text-primary tracking-tight">Indicadores de Rendimiento por Logro</h3>
              <div className="grid grid-cols-3 gap-4 text-center">
               {radialChartData.map((data, index) => (
                 <div key={index} className="flex flex-col items-center">
