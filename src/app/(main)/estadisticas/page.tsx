@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState, useEffect } from 'react';
-import { Area, AreaChart, Pie, PieChart, ResponsiveContainer, XAxis, Tooltip } from 'recharts';
+import { Area, AreaChart, ResponsiveContainer, XAxis, Tooltip } from 'recharts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAuth } from '@/context/auth-context';
 import { useRouter } from 'next/navigation';
@@ -210,11 +210,8 @@ export default function EstadisticasPage() {
                         <XAxis 
                           dataKey="month" 
                           axisLine={false} 
-                          tickLine={false} 
-                          fontSize={12} 
-                          interval="preserveStartEnd"
-                          tick={{ textAnchor: 'middle' }}
-                          dy={10}
+                          tickLine={false}
+                          tick={false}
                         />
                         <Tooltip
                             contentStyle={{
@@ -242,7 +239,7 @@ export default function EstadisticasPage() {
                   <div className="col-span-2 font-semibold text-xs">{vp.name}</div>
                   <div className="col-span-3">
                     <div className="h-8 flex items-center relative">
-                        <div className="bg-white h-full rounded-full flex items-center justify-end pr-2" style={{ width: `${(vp.logro / maxLogro) * 100}%` }}>
+                        <div className="bg-white h-full rounded-full flex items-center justify-end pr-2" style={{ width: `${(vp.logro / maxLogro) * 90}%` }}>
                            <span className="text-primary text-xs font-normal">{vp.logro}%</span>
                         </div>
                     </div>
