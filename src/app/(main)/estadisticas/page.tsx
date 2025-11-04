@@ -120,7 +120,7 @@ export default function EstadisticasPage() {
        <Card className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="md:col-span-1 p-6">
             <p className="text-sm font-medium text-muted-foreground">Logro Promedio de los Participantes</p>
-            <p className="text-4xl font-bold text-foreground mt-2">4,5%</p>
+            <p className="text-4xl font-bold text-foreground mt-2 tracking-tight">4,5%</p>
             <p className="text-xs text-muted-foreground flex items-center gap-1 mt-1">
                 <ArrowDown className="h-4 w-4 text-destructive" />
                 32.5K vs. last month
