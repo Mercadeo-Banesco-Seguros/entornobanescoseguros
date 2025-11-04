@@ -10,8 +10,6 @@ import { ArrowDown, ArrowUp } from 'lucide-react';
 
 const areaChartData = [
   { month: 'Octubre', value: 4.0 },
-  { month: 'Noviembre', value: 4.8 },
-  { month: 'Diciembre', value: 4.6 },
 ];
 
 export default function EstadisticasPage() {
