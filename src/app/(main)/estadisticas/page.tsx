@@ -314,7 +314,7 @@ export default function EstadisticasPage() {
               <div className="flex justify-between items-center mb-6">
                 <div className="text-left">
                   <h2 className="text-lg font-bold tracking-tighter">Top 10 Pilotos</h2>
-                  <p className="text-lg font-semibold tracking-tighter text-muted-foreground -mt-1">por Logro Promedio</p>
+                  <p className="text-lg font-semibold tracking-tighter text-primary -mt-1">por Logro Promedio</p>
                 </div>
                 <Select onValueChange={setSelectedVp} value={selectedVp}>
                   <SelectTrigger className="w-48 bg-primary text-primary-foreground text-xs rounded-full">
