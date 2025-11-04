@@ -102,12 +102,12 @@ export default function LoginPage() {
           </CardContent>
         </Card>
       </div>
-       <div className="hidden lg:block relative">
+       <div className="hidden lg:block relative p-8">
         <Image
           src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_mi81u2mi81u2mi81-Photoroom.png?raw=true"
           alt="Imagen de un auto de carreras"
           layout="fill"
-          className="object-cover"
+          className="object-contain"
           data-ai-hint="race car"
         />
       </div>
