@@ -104,7 +104,7 @@ export default function LoginPage() {
       </div>
        <div className="hidden lg:block relative">
         <Image
-          src="https://images.unsplash.com/photo-1552642762-f55d6b53a0f9?q=80&w=1974&auto=format&fit=crop"
+          src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_mi81u2mi81u2mi81-Photoroom.png?raw=true"
           alt="Imagen de un auto de carreras"
           layout="fill"
           className="object-cover"
