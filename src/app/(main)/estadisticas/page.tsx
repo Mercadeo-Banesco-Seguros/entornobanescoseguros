@@ -82,7 +82,7 @@ export default function EstadisticasPage() {
              <span className="text-xs text-muted-foreground bg-secondary px-2 py-1 rounded-full">November</span>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">450</div>
+            <div className="text-2xl font-bold tracking-tight">450</div>
             <p className="text-xs text-muted-foreground flex items-center gap-1">
               <ArrowDown className="h-4 w-4 text-destructive" />
               25% vs. last month
@@ -95,7 +95,7 @@ export default function EstadisticasPage() {
             <span className="text-xs text-muted-foreground bg-secondary px-2 py-1 rounded-full">All time</span>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">245</div>
+            <div className="text-2xl font-bold tracking-tight">245</div>
              <p className="text-xs text-muted-foreground flex items-center gap-1">
                <ArrowUp className="h-4 w-4 text-green-600" />
               0.2% vs. last Monday
@@ -108,7 +108,7 @@ export default function EstadisticasPage() {
             <span className="text-xs text-muted-foreground bg-secondary px-2 py-1 rounded-full">November</span>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">245</div>
+            <div className="text-2xl font-bold tracking-tight">245</div>
             <p className="text-xs text-muted-foreground flex items-center gap-1">
                <ArrowUp className="h-4 w-4 text-green-600" />
               0.2% vs. last Monday
@@ -231,3 +231,5 @@ export default function EstadisticasPage() {
     </div>
   );
 }
+
+    
