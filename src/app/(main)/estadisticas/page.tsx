@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useMemo, useState } from 'react';
@@ -222,12 +223,13 @@ export default function EstadisticasPage() {
                           cornerRadius={999}
                           fill="hsl(var(--primary))"
                           stroke="none"
+                          paddingAngle={-10}
                         >
                         </Pie>
                       </PieChart>
                     </ResponsiveContainer>
                     <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="text-3xl font-bold text-primary">{data.value}</span>
+                        <span className="text-3xl font-bold text-primary tracking-tight">{data.value}</span>
                     </div>
                   </div>
                 </div>
@@ -277,5 +279,7 @@ export default function EstadisticasPage() {
     </div>
   );
 }
+
+    
 
     
