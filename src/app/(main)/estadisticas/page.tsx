@@ -1,18 +1,27 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { Area, AreaChart, Bar, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, Line, LineChart } from 'recharts';
+import { Area, AreaChart, Bar, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, Line, LineChart, PieChart, Pie, Cell } from 'recharts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useAuth } from '@/context/auth-context';
 import { useRouter } from 'next/navigation';
 import { ArrowDown, ArrowUp } from 'lucide-react';
+import { Progress } from '@/components/ui/progress';
+
 
 const areaChartData = [
   { month: 'Octubre', value: 4.0 },
   { month: 'Noviembre', value: 3.0 },
   { month: 'Diciembre', value: 4.2 },
 ];
+
+const radialChartData = [
+  { name: 'Logro Suscrito', value: 25 },
+  { name: 'Logro Cobrado', value: 75 },
+  { name: 'Logro Pólizas', value: 75 },
+];
+const COLORS = ['hsl(var(--primary))', 'hsl(var(--secondary))'];
 
 export default function EstadisticasPage() {
   const { users, currentUser } = useAuth();
@@ -167,28 +176,58 @@ export default function EstadisticasPage() {
       </Card>
 
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Logro Promedio por Vicepresidencia</CardTitle>
-          <CardDescription>Comparativa del progreso medio entre las diferentes vicepresidencias.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="w-full h-[400px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={vpAvgProgress} margin={{ top: 5, right: 20, left: -10, bottom: 5 }}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" angle={-45} textAnchor="end" height={100} interval={0} fontSize={12} />
-                <YAxis unit="%" />
-                <Tooltip
-                    formatter={(value) => `${value}%`}
-                    cursor={{fill: 'hsl(var(--muted) / 0.2)'}}
-                />
-                <Legend />
-                <Bar dataKey="logro" name="Logro Promedio" fill="hsl(var(--primary))" barSize={40} />
-              </BarChart>
-            </ResponsiveContainer>
+      <Card className="overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-3">
+          <div className="md:col-span-1 bg-primary text-primary-foreground p-6">
+            <h3 className="text-2xl font-bold mb-6">Distribución de Logro Promedio por VP</h3>
+            <div className="space-y-4">
+              {vpAvgProgress.map((vp, index) => (
+                <div key={vp.name} className="grid grid-cols-4 items-center gap-2 text-sm">
+                  <div className="col-span-1 font-semibold">{`VP${index + 1}`}</div>
+                  <div className="col-span-3">
+                    <div className="bg-white/20 rounded-full h-8 flex items-center relative">
+                        <div className="bg-white h-full rounded-full" style={{ width: `${vp.logro}%` }}></div>
+                        <span className="absolute right-3 text-primary-foreground font-bold">{vp.logro}%</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-        </CardContent>
+          <div className="md:col-span-2 bg-secondary/50 p-6">
+             <h3 className="text-2xl font-bold mb-6 text-primary">Indicadores de Rendimiento por Logro</h3>
+             <div className="grid grid-cols-3 gap-4 text-center">
+              {radialChartData.map((data, index) => (
+                <div key={index} className="flex flex-col items-center">
+                  <h4 className="font-semibold text-foreground mb-2">{data.name}</h4>
+                  <div className="w-32 h-32 relative">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <PieChart>
+                        <Pie
+                          data={[{ value: data.value }, { value: 100 - data.value }]}
+                          cx="50%"
+                          cy="50%"
+                          dataKey="value"
+                          innerRadius="80%"
+                          outerRadius="100%"
+                          startAngle={90}
+                          endAngle={450}
+                          stroke="none"
+                        >
+                          <Cell fill="hsl(var(--primary))" />
+                          <Cell fill="hsl(var(--border))" />
+                        </Pie>
+                      </PieChart>
+                    </ResponsiveContainer>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="text-3xl font-bold text-primary">{data.value}%</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+             </div>
+          </div>
+        </div>
       </Card>
       
       <Card>
@@ -231,5 +270,3 @@ export default function EstadisticasPage() {
     </div>
   );
 }
-
-    
