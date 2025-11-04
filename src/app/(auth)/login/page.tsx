@@ -22,7 +22,7 @@ import Image from 'next/image';
 
 const formSchema = z.object({
   username: z.string().min(1, { message: 'Por favor, introduce tu usuario.' }),
-  password: z.string().min(1, { message: 'La contraseña no puede estar vacía.' }),
+  cedula: z.string().min(1, { message: 'La cédula no puede estar vacía.' }),
 });
 
 export default function LoginPage() {
@@ -35,14 +35,14 @@ export default function LoginPage() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       username: '',
-      password: '',
+      cedula: '',
     },
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setLoading(true);
     try {
-      await login(values.username, values.password);
+      await login(values.username, values.cedula);
       router.push('/inicio');
     } catch (error: any) {
       toast({
@@ -83,12 +83,12 @@ export default function LoginPage() {
                 />
                 <FormField
                   control={form.control}
-                  name="password"
+                  name="cedula"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Contraseña</FormLabel>
+                      <FormLabel>Cédula</FormLabel>
                       <FormControl>
-                        <Input type="password" placeholder="••••••••" {...field} />
+                        <Input type="text" placeholder="V-12345678" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

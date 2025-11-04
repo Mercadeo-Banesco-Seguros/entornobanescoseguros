@@ -14,7 +14,7 @@ type AuthContextType = {
   prizeCategories: PrizeCategory[];
   loading: boolean;
   error: string | null;
-  login: (username: string, password: string) => Promise<void>;
+  login: (username: string, cedula: string) => Promise<void>;
   register: (name: string, email: string, password: string, vicepresidencia: string, cargo: string) => Promise<void>;
   logout: () => void;
   fetchUsers: () => Promise<void>;
@@ -100,14 +100,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     checkUserSession();
   }, [loadInitialData]);
   
-  const login = async (username: string, password: string) => {
+  const login = async (username: string, cedula: string) => {
     setLoading(true);
     setError(null);
     try {
         const response = await fetch('/api/data', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ action: 'login', username, password }),
+            body: JSON.stringify({ action: 'login', username, password: cedula }),
         });
 
         const data = await response.json();
