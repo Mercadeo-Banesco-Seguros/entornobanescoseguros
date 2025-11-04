@@ -9,7 +9,6 @@ import { useRouter } from 'next/navigation';
 import { ArrowDown, ArrowUp } from 'lucide-react';
 
 const areaChartData = [
-  { month: 'Septiembre', value: 2.5 },
   { month: 'Octubre', value: 4.0 },
   { month: 'Noviembre', value: 3.0 },
   { month: 'Diciembre', value: 4.2 },
@@ -68,8 +67,6 @@ export default function EstadisticasPage() {
           logro: parseFloat((u.progreso || 0).toFixed(2)),
       }));
   }, [competingUsers, selectedVp]);
-
-  const chartDataForDisplay = areaChartData.slice(1);
 
   return (
     <div className="space-y-8">
@@ -152,8 +149,7 @@ export default function EstadisticasPage() {
                           axisLine={false} 
                           tickLine={false} 
                           fontSize={12} 
-                          tickFormatter={(value, index) => areaChartData[index + 1]?.month || ''}
-                          interval={0}
+                          interval="preserveStartEnd"
                         />
                         <Tooltip
                             contentStyle={{
