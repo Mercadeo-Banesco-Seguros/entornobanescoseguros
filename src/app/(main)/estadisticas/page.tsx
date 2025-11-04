@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useMemo, useState, useEffect } from 'react';
@@ -328,11 +329,11 @@ export default function EstadisticasPage() {
               </div>
               <div className="space-y-4">
                 {top10Users.map((user, index) => (
-                  <div key={index} className="grid grid-cols-3 items-center gap-4">
+                  <div key={index} className="grid grid-cols-2 items-center gap-4">
                     <div className="col-span-1">
-                      <p className="font-normal text-xs tracking-tight truncate">{user.name}</p>
+                      <p className="font-normal text-xs tracking-tight">{user.name}</p>
                     </div>
-                    <div className="col-span-2">
+                    <div className="col-span-1">
                       <div 
                         className="bg-primary rounded-full h-8 flex items-center justify-end px-2"
                         style={{ width: `${Math.max(15, user.logro)}%` }} // Asegura un ancho mínimo
