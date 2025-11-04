@@ -73,7 +73,7 @@ export default function EstadisticasPage() {
       { name: "VP. COMERCIAL GRAN CARACAS", logro: 29.75 },
       { name: "VP. COMERCIAL CENTRO LLANOS-CARABOBO", logro: 29.22 },
       { name: "VP. COMERCIAL ZULIA - FALCON", logro: 25.13 }
-    ];
+    ].sort((a, b) => b.logro - a.logro);
 
     return orderedData;
     
@@ -201,8 +201,8 @@ export default function EstadisticasPage() {
                 <div key={vp.name} className="grid grid-cols-5 items-center gap-2 text-sm">
                   <div className="col-span-2 font-semibold text-xs">{vp.name}</div>
                   <div className="col-span-3">
-                    <div className="bg-white/20 rounded-full h-8 flex items-center relative">
-                        <div className="bg-white h-full rounded-full flex items-center justify-end pr-3" style={{ width: `${vp.logro}%` }}>
+                    <div className="h-8 flex items-center relative">
+                        <div className="bg-white h-full rounded-full flex items-center justify-end pr-2" style={{ width: `${vp.logro}%` }}>
                            <span className="text-primary text-xs">{vp.logro}%</span>
                         </div>
                     </div>
