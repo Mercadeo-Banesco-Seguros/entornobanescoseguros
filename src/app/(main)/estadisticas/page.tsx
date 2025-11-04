@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { Area, AreaChart, Pie, PieChart, ResponsiveContainer, XAxis, Tooltip } from 'recharts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAuth } from '@/context/auth-context';
@@ -8,6 +8,8 @@ import { useRouter } from 'next/navigation';
 import { ArrowDown, ArrowUp } from 'lucide-react';
 import Image from 'next/image';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { vicepresidenciaMessages } from '@/lib/data';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 const areaChartData = [
   { month: 'Octubre', value: 4.0 },
@@ -20,6 +22,18 @@ const radialChartData = [
   { name: 'Logro Cobrado', value: 75 },
   { name: 'Logro Pólizas', value: 75 },
 ];
+
+const getVpKeyFromName = (name: string): string | null => {
+  if (!name) return null;
+  const lowerName = name.toLowerCase();
+  if (lowerName.includes('gran caracas')) return 'gran-caracas';
+  if (lowerName.includes('ctro. occid') || lowerName.includes('andes')) return 'centro-occidente-andes';
+  if (lowerName.includes('centro llanos') || lowerName.includes('carabobo')) return 'centro-llanos-carabobo';
+  if (lowerName.includes('oriente')) return 'oriente';
+  if (lowerName.includes('zulia') || lowerName.includes('falcón')) return 'zulia-falcon';
+  return null;
+};
+
 
 export default function EstadisticasPage() {
   const { users, currentUser } = useAuth();
@@ -77,6 +91,27 @@ export default function EstadisticasPage() {
   }, [competingUsers]);
 
   const [selectedVp, setSelectedVp] = useState('Total');
+  const [dynamicImageSrc, setDynamicImageSrc] = useState('https://i.pinimg.com/564x/2b/24/38/2b24386151152a3e351838637775dca2.jpg');
+
+  useEffect(() => {
+    if (selectedVp === 'Total') {
+        setDynamicImageSrc('https://i.pinimg.com/564x/2b/24/38/2b24386151152a3e351838637775dca2.jpg');
+        return;
+    }
+    const vpKey = getVpKeyFromName(selectedVp);
+    if (vpKey) {
+        const vpData = vicepresidenciaMessages[vpKey];
+        if (vpData) {
+            const image = PlaceHolderImages.find(p => p.id === vpData.worldImageId);
+            if (image) {
+                setDynamicImageSrc(image.imageUrl);
+                return;
+            }
+        }
+    }
+    setDynamicImageSrc('https://i.pinimg.com/564x/2b/24/38/2b24386151152a3e351838637775dca2.jpg');
+  }, [selectedVp]);
+
 
   const top10Users = useMemo(() => {
     const usersToFilter = selectedVp === 'Total'
@@ -207,7 +242,7 @@ export default function EstadisticasPage() {
                   <div className="col-span-2 font-semibold text-xs">{vp.name}</div>
                   <div className="col-span-3">
                     <div className="h-8 flex items-center relative">
-                        <div className="bg-white h-full rounded-full flex items-center justify-end pr-2" style={{ width: `${(vp.logro / maxLogro) * 95}%` }}>
+                        <div className="bg-white h-full rounded-full flex items-center justify-end pr-2" style={{ width: `${(vp.logro / maxLogro) * 100}%` }}>
                            <span className="text-primary text-xs font-normal">{vp.logro}%</span>
                         </div>
                     </div>
@@ -269,11 +304,12 @@ export default function EstadisticasPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div className="flex justify-center">
               <Image
-                src="https://i.pinimg.com/564x/2b/24/38/2b24386151152a3e351838637775dca2.jpg"
-                alt="Piloto con trofeo"
+                src={dynamicImageSrc}
+                alt="Imagen de Vicepresidencia"
                 width={400}
                 height={400}
                 className="object-contain"
+                key={dynamicImageSrc}
               />
             </div>
             <div>
