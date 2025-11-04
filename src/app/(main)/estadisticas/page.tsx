@@ -2,7 +2,7 @@
 'use client';
 
 import { useMemo, useState, useEffect } from 'react';
-import { Area, AreaChart, ResponsiveContainer, XAxis, Tooltip, PieChart, Pie } from 'recharts';
+import { Area, AreaChart, ResponsiveContainer, XAxis, Tooltip, Pie, PieChart } from 'recharts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAuth } from '@/context/auth-context';
 import { useRouter } from 'next/navigation';
@@ -92,11 +92,11 @@ export default function EstadisticasPage() {
   }, [competingUsers]);
 
   const [selectedVp, setSelectedVp] = useState('Total');
-  const [dynamicImageSrc, setDynamicImageSrc] = useState('https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_mi81u2mi81u2mi81-Photoroom.png?raw=true');
+  const [dynamicImageSrc, setDynamicImageSrc] = useState('https://www.banescoseguros.com/wp-content/uploads/2025/11/Gemini_Generated_Image_mi81u2mi81u2mi81-Photoroom.png');
 
   useEffect(() => {
     if (selectedVp === 'Total') {
-        setDynamicImageSrc('https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_mi81u2mi81u2mi81-Photoroom.png?raw=true');
+        setDynamicImageSrc('https://www.banescoseguros.com/wp-content/uploads/2025/11/Gemini_Generated_Image_mi81u2mi81u2mi81-Photoroom.png');
         return;
     }
     const vpKey = getVpKeyFromName(selectedVp);
@@ -110,7 +110,7 @@ export default function EstadisticasPage() {
             }
         }
     }
-    setDynamicImageSrc('https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_mi81u2mi81u2mi81-Photoroom.png?raw=true');
+    setDynamicImageSrc('https://www.banescoseguros.com/wp-content/uploads/2025/11/Gemini_Generated_Image_mi81u2mi81u2mi81-Photoroom.png');
   }, [selectedVp]);
 
 
