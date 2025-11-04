@@ -1,7 +1,7 @@
 'use client';
 
 import { useAuth } from '@/context/auth-context';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, type ReactNode } from 'react';
 import Header from '@/components/layout/header';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -9,12 +9,17 @@ import { Skeleton } from '@/components/ui/skeleton';
 export default function MainLayout({ children }: { children: ReactNode }) {
   const { currentUser, loading } = useAuth();
   const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
-    if (!loading && !currentUser) {
-      router.replace('/login');
+    if (!loading) {
+      if (!currentUser) {
+        router.replace('/login');
+      } else if (pathname === '/estadisticas' && currentUser.cargo !== 'ADMINISTRADOR') {
+        router.replace('/inicio');
+      }
     }
-  }, [currentUser, loading, router]);
+  }, [currentUser, loading, router, pathname]);
 
   if (loading || !currentUser) {
     return (
