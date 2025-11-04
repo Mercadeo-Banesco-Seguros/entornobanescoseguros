@@ -200,23 +200,34 @@ export default function EstadisticasPage() {
                     <ResponsiveContainer width="100%" height="100%">
                       <PieChart>
                         <Pie
-                          data={[{ value: data.value }, { value: 100 - data.value }]}
+                          data={[{ value: 1 }]}
+                          dataKey="value"
                           cx="50%"
                           cy="50%"
-                          dataKey="value"
-                          innerRadius="80%"
-                          outerRadius="100%"
-                          startAngle={90}
-                          endAngle={450}
+                          innerRadius="60%"
+                          outerRadius="80%"
+                          fill="hsl(var(--border))"
                           stroke="none"
                         >
-                          <Cell fill="hsl(var(--primary))" />
-                          <Cell fill="hsl(var(--border))" />
+                        </Pie>
+                        <Pie
+                          data={[{ value: data.value }]}
+                          dataKey="value"
+                          cx="50%"
+                          cy="50%"
+                          innerRadius="60%"
+                          outerRadius="80%"
+                          startAngle={90}
+                          endAngle={90 - (data.value / 100) * 360}
+                          cornerRadius={999}
+                          fill="hsl(var(--primary))"
+                          stroke="none"
+                        >
                         </Pie>
                       </PieChart>
                     </ResponsiveContainer>
                     <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="text-3xl font-bold text-primary">{data.value}%</span>
+                        <span className="text-3xl font-bold text-primary">{data.value}</span>
                     </div>
                   </div>
                 </div>
