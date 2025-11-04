@@ -60,6 +60,19 @@ export default function EstadisticasPage() {
     return total / competingUsers.length;
   }, [competingUsers]);
 
+  const monthlyChange = useMemo(() => {
+    if (areaChartData.length < 2) return { text: 'Datos insuficientes', isPositive: true, diff: '0.0' };
+    const lastMonth = areaChartData[areaChartData.length - 2];
+    const currentMonth = areaChartData[areaChartData.length - 1];
+    const difference = currentMonth.value - lastMonth.value;
+    const percentageChange = (difference / lastMonth.value) * 100;
+    return {
+      text: `${Math.abs(percentageChange).toFixed(1)}% vs. el mes pasado`,
+      isPositive: percentageChange >= 0,
+      diff: percentageChange.toFixed(1)
+    };
+  }, []);
+
 
   const maxLogro = useMemo(() => {
     if (vpAvgProgress.length === 0) return 0;
@@ -134,8 +147,12 @@ export default function EstadisticasPage() {
             <p className="text-sm font-medium text-muted-foreground">Logro Promedio de los Participantes</p>
             <p className="text-4xl font-bold text-foreground mt-2 tracking-tight">{totalAvgProgress.toFixed(2)}%</p>
             <p className="text-xs text-muted-foreground flex items-center gap-1 mt-1">
-                <ArrowDown className="h-4 w-4 text-destructive" />
-                32.5K vs. last month
+                {monthlyChange.isPositive ? (
+                  <ArrowUp className="h-4 w-4 text-green-600" />
+                ) : (
+                  <ArrowDown className="h-4 w-4 text-destructive" />
+                )}
+                {monthlyChange.text}
             </p>
         </div>
         <div className="md:col-span-1">
@@ -288,6 +305,8 @@ export default function EstadisticasPage() {
     </div>
   );
 }
+
+    
 
     
 
