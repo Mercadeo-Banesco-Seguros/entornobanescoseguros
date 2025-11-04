@@ -208,7 +208,7 @@ export default function EstadisticasPage() {
                   <div className="col-span-3">
                     <div className="h-8 flex items-center relative">
                         <div className="bg-white h-full rounded-full flex items-center justify-end pr-2" style={{ width: `${(vp.logro / maxLogro) * 95}%` }}>
-                           <span className="text-primary text-xs">{vp.logro}%</span>
+                           <span className="text-primary text-xs font-normal">{vp.logro}%</span>
                         </div>
                     </div>
                   </div>
@@ -280,7 +280,7 @@ export default function EstadisticasPage() {
               <div className="flex justify-between items-center mb-6">
                 <div className="text-left">
                   <h2 className="text-lg font-bold tracking-tighter">Top 10 Pilotos</h2>
-                  <p className="text-lg font-black tracking-tighter text-muted-foreground -mt-1">por Logro Promedio</p>
+                  <p className="text-lg font-semibold tracking-tighter text-muted-foreground -mt-1">por Logro Promedio</p>
                 </div>
                 <Select onValueChange={setSelectedVp} value={selectedVp}>
                   <SelectTrigger className="w-48 bg-primary text-primary-foreground text-xs rounded-full">
