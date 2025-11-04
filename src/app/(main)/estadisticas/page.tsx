@@ -91,11 +91,11 @@ export default function EstadisticasPage() {
   }, [competingUsers]);
 
   const [selectedVp, setSelectedVp] = useState('Total');
-  const [dynamicImageSrc, setDynamicImageSrc] = useState('https://i.pinimg.com/564x/2b/24/38/2b24386151152a3e351838637775dca2.jpg');
+  const [dynamicImageSrc, setDynamicImageSrc] = useState('https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_mi81u2mi81u2mi81-Photoroom.png?raw=true');
 
   useEffect(() => {
     if (selectedVp === 'Total') {
-        setDynamicImageSrc('https://i.pinimg.com/564x/2b/24/38/2b24386151152a3e351838637775dca2.jpg');
+        setDynamicImageSrc('https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_mi81u2mi81u2mi81-Photoroom.png?raw=true');
         return;
     }
     const vpKey = getVpKeyFromName(selectedVp);
@@ -109,7 +109,7 @@ export default function EstadisticasPage() {
             }
         }
     }
-    setDynamicImageSrc('https://i.pinimg.com/564x/2b/24/38/2b24386151152a3e351838637775dca2.jpg');
+    setDynamicImageSrc('https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/Gemini_Generated_Image_mi81u2mi81u2mi81-Photoroom.png?raw=true');
   }, [selectedVp]);
 
 
