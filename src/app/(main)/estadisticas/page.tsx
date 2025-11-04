@@ -6,6 +6,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { useAuth } from '@/context/auth-context';
 import { useRouter } from 'next/navigation';
 import { ArrowDown, ArrowUp } from 'lucide-react';
+import Image from 'next/image';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const areaChartData = [
   { month: 'Octubre', value: 4.0 },
@@ -69,15 +71,26 @@ export default function EstadisticasPage() {
     return Math.max(...vpAvgProgress.map(vp => vp.logro));
   }, [vpAvgProgress]);
 
+  const vicepresidencias = useMemo(() => {
+    const allVps = competingUsers.map(user => user.vicepresidencia).filter(Boolean);
+    return ['Total', ...Array.from(new Set(allVps))];
+  }, [competingUsers]);
+
+  const [selectedVp, setSelectedVp] = useState('Total');
+
   const top10Users = useMemo(() => {
-    return competingUsers
+    const usersToFilter = selectedVp === 'Total'
+      ? competingUsers
+      : competingUsers.filter(user => user.vicepresidencia === selectedVp);
+
+    return usersToFilter
       .sort((a, b) => (b.progreso || 0) - (a.progreso || 0))
       .slice(0, 10)
       .map(u => ({
           name: u.name,
           logro: parseFloat((u.progreso || 0).toFixed(2)),
       }));
-  }, [competingUsers]);
+  }, [competingUsers, selectedVp]);
 
   return (
     <div className="space-y-8">
@@ -253,25 +266,51 @@ export default function EstadisticasPage() {
       
        <Card>
         <CardContent className="p-6">
-          <h2 className="text-3xl font-black tracking-tighter">Top 10 Pilotos</h2>
-          <p className="text-3xl font-black tracking-tighter text-muted-foreground -mt-2">por Logro Promedio</p>
-          
-          <div className="space-y-4 mt-8">
-            {top10Users.map((user, index) => (
-              <div key={index} className="grid grid-cols-3 items-center gap-4">
-                <div className="col-span-1">
-                  <p className="font-bold text-base">{user.name}</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+            <div className="flex justify-center">
+              <Image
+                src="https://i.pinimg.com/564x/2b/24/38/2b24386151152a3e351838637775dca2.jpg"
+                alt="Piloto con trofeo"
+                width={400}
+                height={400}
+                className="object-contain"
+              />
+            </div>
+            <div>
+              <div className="flex justify-between items-center mb-6">
+                <div className="text-left">
+                  <h2 className="text-lg font-bold tracking-tighter">Top 10 Pilotos</h2>
+                  <p className="text-lg font-black tracking-tighter text-muted-foreground -mt-1">por Logro Promedio</p>
                 </div>
-                <div className="col-span-2">
-                  <div 
-                    className="bg-primary rounded-full h-8 flex items-center justify-end px-4"
-                    style={{ width: `${user.logro}%` }}
-                  >
-                    <span className="text-primary-foreground font-normal">{user.logro}%</span>
-                  </div>
-                </div>
+                <Select onValueChange={setSelectedVp} value={selectedVp}>
+                  <SelectTrigger className="w-48 bg-primary text-primary-foreground text-xs rounded-full">
+                    <SelectValue placeholder="Filtrar por VP" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {vicepresidencias.map((vp) => (
+                      <SelectItem key={vp} value={vp}>{vp}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
-            ))}
+              <div className="space-y-4">
+                {top10Users.map((user, index) => (
+                  <div key={index} className="grid grid-cols-3 items-center gap-4">
+                    <div className="col-span-1">
+                      <p className="font-bold text-sm truncate">{user.name}</p>
+                    </div>
+                    <div className="col-span-2">
+                      <div 
+                        className="bg-primary rounded-full h-8 flex items-center justify-end px-2"
+                        style={{ width: `${Math.max(15, user.logro)}%` }} // Asegura un ancho mínimo
+                      >
+                        <span className="text-primary-foreground font-normal text-xs">{user.logro}%</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </CardContent>
       </Card>
