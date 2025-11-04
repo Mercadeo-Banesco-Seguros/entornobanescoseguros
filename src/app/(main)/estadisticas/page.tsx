@@ -1,14 +1,12 @@
 'use client';
 
 import { useMemo, useState } from 'react';
-import { Area, AreaChart, Bar, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, Line, LineChart, PieChart, Pie, Cell } from 'recharts';
+import { Area, AreaChart, Bar, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, PieChart, Pie, Cell } from 'recharts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useAuth } from '@/context/auth-context';
 import { useRouter } from 'next/navigation';
 import { ArrowDown, ArrowUp } from 'lucide-react';
-import { Progress } from '@/components/ui/progress';
-
 
 const areaChartData = [
   { month: 'Octubre', value: 4.0 },
@@ -183,11 +181,11 @@ export default function EstadisticasPage() {
             <div className="space-y-4">
               {vpAvgProgress.map((vp, index) => (
                 <div key={vp.name} className="grid grid-cols-4 items-center gap-2 text-sm">
-                  <div className="col-span-1 font-semibold">{`VP${index + 1}`}</div>
+                  <div className="col-span-1 font-semibold">{vp.name}</div>
                   <div className="col-span-3">
                     <div className="bg-white/20 rounded-full h-8 flex items-center relative">
                         <div className="bg-white h-full rounded-full" style={{ width: `${vp.logro}%` }}></div>
-                        <span className="absolute right-3 text-primary-foreground font-bold">{vp.logro}%</span>
+                        <span className="absolute right-3 text-primary font-bold">{vp.logro}%</span>
                     </div>
                   </div>
                 </div>
