@@ -63,21 +63,16 @@ export default function DashboardContent() {
           <CurrentWorld currentUser={currentUser} levels={levels} users={users} />
         </div>
       </div>
-      <Card className="bg-primary text-primary-foreground">
-        <CardHeader>
-          <CardTitle className="text-3xl font-black text-center">Reglas de Participación</CardTitle>
-        </CardHeader>
-        <CardContent>
-            <ul className="space-y-4">
-              {rules.map((rule, index) => (
-                <li key={index} className="flex items-start gap-4">
-                  <span className="text-primary-foreground/80 mt-1">&#8226;</span>
-                  <p className="flex-1 text-sm">{rule}</p>
-                </li>
-              ))}
-            </ul>
-        </CardContent>
-      </Card>
+      <div className="bg-primary text-primary-foreground p-8 rounded-2xl">
+        <h2 className="text-4xl font-black text-center mb-8">Reglas de Participación</h2>
+        <div className="space-y-3">
+          {rules.map((rule, index) => (
+            <div key={index} className="bg-[#00529b] text-white text-center text-sm p-4 rounded-full">
+              <p>{rule}</p>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
