@@ -63,8 +63,10 @@ export default function DashboardContent() {
           <CurrentWorld currentUser={currentUser} levels={levels} users={users} />
         </div>
       </div>
-      <div className="bg-primary text-primary-foreground p-8 rounded-2xl">
-        <h2 className="text-4xl font-black text-center mb-8">Reglas de Participación</h2>
+      <div className="p-8">
+        <div className="bg-[#003c71] text-white text-center p-4 rounded-2xl mb-8">
+            <h2 className="text-4xl font-black">Reglas de Participación</h2>
+        </div>
         <div className="space-y-3">
           {rules.map((rule, index) => (
             <div key={index} className="bg-[#00529b] text-white text-center text-sm p-4 rounded-full">
