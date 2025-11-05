@@ -63,9 +63,9 @@ export default function DashboardContent() {
           <CurrentWorld currentUser={currentUser} levels={levels} users={users} />
         </div>
       </div>
-      <div className="p-8">
-        <div className="bg-[#003c71] text-white text-center p-4 rounded-2xl mb-8">
-            <h2 className="text-4xl font-black">Reglas de Participación</h2>
+       <div className="p-8">
+        <div className="bg-[#003c71] text-white text-center py-6 px-4 rounded-2xl mb-8">
+            <h2 className="text-3xl font-black">Reglas de Participación</h2>
         </div>
         <div className="space-y-3">
           {rules.map((rule, index) => (
