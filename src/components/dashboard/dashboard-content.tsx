@@ -41,18 +41,6 @@ export default function DashboardContent() {
     return <div>Error: Pista del piloto no encontrada.</div>;
   }
 
-  const rules = [
-    "Periodo del concurso desde el 1 de octubre hasta el 19 de diciembre de 2025.",
-    "Son válidas para participar, todas las pólizas estructuradas nuevas, suscritas y cobradas dentro del periodo del concurso.",
-    "Las pólizas deben estar cobradas (en caso de fraccionamiento, la primera cuota) para ser contadas en el incentivo.",
-    "Para participar debes mínimo suscribir 2.300$ y cobrar 200$ mensuales o alcanzar en total, mínimo 7.000$ y cobrar 800$ al cierre del concurso, el 19 de diciembre.",
-    "Para subir de categoría debes cumplir con la cantidad de pólizas, prima suscrita y cobrada indicada por categoría.",
-    "Serán descontadas del inventario las pólizas que sean suscritas y anuladas dentro del periodo del concurso, por lo que debes estar atento a tu progreso semanal.",
-    "Las pólizas estructuradas son: RCV, Banesco Familia Segura de Servicio Funerario, Accidentes Personales, Indemnización Diaria por Hospitalización y Protección por Cáncer.",
-    "Ganarán por cada Vicepresidencia, los 2 Asesores integrales de cada categoría que tengan el mayor cumplimiento en prima cobrada y suscrita.",
-    "Los premios serán entregados en enero de 2026."
-  ];
-
   return (
     <div className="flex flex-col gap-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
@@ -61,18 +49,6 @@ export default function DashboardContent() {
         </div>
         <div className="w-full">
           <CurrentWorld currentUser={currentUser} levels={levels} users={users} />
-        </div>
-      </div>
-       <div className="p-8">
-        <div className="bg-[#003c71] text-white text-center py-6 px-4 rounded-2xl mb-8">
-            <h2 className="text-3xl font-black">Reglas de Participación</h2>
-        </div>
-        <div className="space-y-3">
-          {rules.map((rule, index) => (
-            <div key={index} className="bg-[#00529b] text-white text-center text-sm p-4 rounded-full">
-              <p>{rule}</p>
-            </div>
-          ))}
         </div>
       </div>
     </div>
