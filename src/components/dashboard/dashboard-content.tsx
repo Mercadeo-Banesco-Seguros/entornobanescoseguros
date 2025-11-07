@@ -66,7 +66,7 @@ export default function DashboardContent() {
               </CardDescription>
             </CardHeader>
             <div className="pt-6">
-              <Link href="https://www.banescoseguros.com/" target="_blank" rel="noopener noreferrer">
+              <Link href="https://drive.google.com/file/d/1GtASq9tTkrNhtCZBhqSKzTbC2Uq0XuNp/view?usp=sharing" target="_blank" rel="noopener noreferrer">
                 <Button>
                   <BookOpen className="mr-2 h-4 w-4" />
                   Acceder a Recursos
