@@ -850,7 +850,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- Chart Renderers ---
     function renderAreaChart(containerId) {
         const container = document.getElementById(containerId);
-        if (!container) return;
         container.innerHTML = `
             <svg viewBox="0 0 400 200" class="w-full h-full">
                 <defs>
@@ -867,7 +866,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function renderPieChart(containerId, value, name) {
         const container = document.getElementById(containerId);
-        if (!container) return;
         const radius = 40;
         const circumference = 2 * Math.PI * radius;
         const offset = circumference - (value / 100) * circumference;
@@ -890,37 +888,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
     async function handleApiCall(url, payload) {
         try {
-            // Apps Script requires a POST request with a JSON body.
             const response = await fetch(url, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'text/plain;charset=utf-8', // Required by Apps Script web apps for CORS
-                },
                 body: JSON.stringify(payload),
-                redirect: 'follow', // Apps Script web apps often redirect, this handles it.
+                headers: { 'Content-Type': 'application/json' },
             });
-
-            // The response from a redirected Apps Script POST request is often returned as text
             const text = await response.text();
-            
-            // Now, try to parse this text as JSON
             try {
                 const data = JSON.parse(text);
-                if (data.error) {
-                    throw new Error(data.message || 'Error desconocido del script.');
+                 if (data.error && data.message) {
+                    throw new Error(data.message);
                 }
                 return data;
             } catch (e) {
-                console.error("Failed to parse JSON response:", text);
-                // If parsing fails, it might be an HTML error page from Google.
+                // This can happen if Apps Script returns an HTML error page.
+                console.error("Failed to parse JSON, raw response:", text);
                 throw new Error("Respuesta inválida del servidor. Revisa los logs de Apps Script.");
             }
-
         } catch (error) {
             console.error('Error en handleApiCall:', error);
             throw error; // Re-throw the error to be caught by the caller
         }
     }
+
 
     async function handleLogin(event) {
         event.preventDefault();
@@ -1066,3 +1056,5 @@ document.addEventListener('DOMContentLoaded', function() {
 
 </body>
 </html>
+
+    
