@@ -66,7 +66,7 @@ export default function InicioPage() {
               )}
           </div>
           <div className="space-y-4">
-            <h2 className="text-3xl font-bold text-foreground">Recursos Estratégicos</h2>
+            <h2 className="text-4xl md:text-5xl font-black text-foreground tracking-tight uppercase">Recursos Estratégicos</h2>
             <p className="text-sm text-muted-foreground max-w-3xl">
               Descubre las pistas y sigue tu trazada hacia la meta. Este es tu punto actual en el circuito. A medida que vayas completando objetivos y acumules puntos, la ruta hacia nuevas pistas se desbloqueará para ti.
             </p>
