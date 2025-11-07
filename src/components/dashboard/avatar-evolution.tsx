@@ -20,11 +20,10 @@ function toTitleCase(str: string): string {
 }
 
 export default function CarEvolution({ currentUser }: CarEvolutionProps) {
-  const isAdministrator = currentUser.cargo === 'ADMINISTRADOR';
+  const isAdministrator = currentUser.cargo === 'ADMINISTRATOR';
   const userCategory = toTitleCase(currentUser.avatar);
 
   const categoryOrder: { [key: string]: number } = { 'Base': 0, 'Bronce': 1, 'Plata': 2, 'Oro': 3 };
-  const categoryThresholds: { [key: string]: number } = { 'Base': 0, 'Bronce': 25, 'Plata': 50, 'Oro': 75, 'MAX': 100 };
   
   const userCategoryRank = isAdministrator ? 3 : (categoryOrder[userCategory] ?? 0);
 
@@ -45,40 +44,11 @@ export default function CarEvolution({ currentUser }: CarEvolutionProps) {
 
   const progressData = useMemo(() => {
     const currentProgress = currentUser.progreso || 0;
-    const currentEvo = getCurrentEvolution();
-    if (!currentEvo) return { progress: 0, text: 'Progreso no disponible.' };
-
-    const currentCategory = currentEvo.category;
-    const currentCategoryKey = Object.keys(categoryOrder).find(key => key === currentCategory) as keyof typeof categoryOrder;
-    const currentCategoryThreshold = categoryThresholds[currentCategoryKey];
-
-    const nextCategoryName = Object.keys(categoryOrder).find(key => categoryOrder[key] === categoryOrder[currentCategory] + 1);
-
-    if (!nextCategoryName) {
-      return { progress: 100, text: '¡Felicidades! Has alcanzado la categoría Oro.' };
-    }
-    
-    const nextCategoryThreshold = categoryThresholds[nextCategoryName as keyof typeof categoryThresholds];
-    
-    const range = nextCategoryThreshold - currentCategoryThreshold;
-    const progressInRange = currentProgress - currentCategoryThreshold;
-    const progressPercentage = range > 0 ? (progressInRange / range) * 100 : 0;
-    
-    const remaining = nextCategoryThreshold - currentProgress;
-    
-    // Si el progreso actual ya es mayor o igual que el siguiente umbral, la categoría debería cambiar pronto.
-    if(currentProgress >= nextCategoryThreshold) {
-        return { 
-            progress: 100, 
-            text: `¡Felicidades! Has cumplido los requisitos para ${nextCategoryName}.` 
-        };
-    }
-
-    return { 
-        progress: Math.max(0, Math.min(100, progressPercentage)), 
-        text: `Te falta un ${remaining > 0 ? remaining.toFixed(2) : 0}% para la categoría ${nextCategoryName}.`
+    return {
+        progress: currentProgress,
+        text: `Llevas un ${currentProgress.toFixed(2)}% de logro.`
     };
-  }, [currentUser.progreso, categoryOrder, categoryThresholds]);
+  }, [currentUser.progreso]);
 
 
   return (
