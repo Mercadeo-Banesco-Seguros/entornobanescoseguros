@@ -42,18 +42,12 @@ export default function CarEvolution({ currentUser }: CarEvolutionProps) {
   }, [currentUser]);
 
   const progressData = useMemo(() => {
-    if (isAdministrator) {
-      return {
-        progress: 100,
-        text: `Llevas un 100.00% de logro.`
-      };
-    }
     const currentProgress = currentUser.progreso || 0;
     return {
         progress: currentProgress,
         text: `Llevas un ${currentProgress.toFixed(2)}% de logro.`
     };
-  }, [currentUser.progreso, isAdministrator]);
+  }, [currentUser.progreso]);
 
   const isSelectedEvolutionUnlocked = selectedEvolution && categoryOrder[selectedEvolution.category as keyof typeof categoryOrder] <= userCategoryRank;
 
@@ -92,7 +86,7 @@ export default function CarEvolution({ currentUser }: CarEvolutionProps) {
             )}
         </div>
         
-        {isSelectedEvolutionUnlocked && (
+        {!isAdministrator && isSelectedEvolutionUnlocked && (
           <div className="w-full max-w-sm px-4">
             <Progress value={progressData.progress} className="h-2" />
             <p className="text-xs text-muted-foreground mt-2 whitespace-nowrap">{progressData.text}</p>
