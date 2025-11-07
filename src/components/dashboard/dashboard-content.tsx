@@ -78,8 +78,8 @@ export default function DashboardContent() {
             <Image
               src="https://www.banescoseguros.com/wp-content/uploads/2025/11/Gemini_Generated_Image_xebblzxebblzxebb-Photoroom-1.png"
               alt="Recursos estratégicos"
-              width={450}
-              height={450}
+              width={500}
+              height={500}
               className="object-contain"
             />
           </div>
