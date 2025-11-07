@@ -3,8 +3,11 @@
 import CarEvolution from '@/components/dashboard/avatar-evolution';
 import CurrentWorld from '@/components/dashboard/current-world';
 import { useAuth } from '@/context/auth-context';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import { BookOpen } from 'lucide-react';
 
 export default function DashboardContent() {
   const { currentUser, levels, loading, users } = useAuth();
@@ -51,6 +54,23 @@ export default function DashboardContent() {
           <CurrentWorld currentUser={currentUser} levels={levels} users={users} />
         </div>
       </div>
+      
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-2xl font-black uppercase tracking-tight">Recursos Estratégicos</CardTitle>
+          <CardDescription>
+            Accede a manuales, información de productos y todo lo que necesitas para ganar la carrera.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+            <Link href="https://www.banescoseguros.com/" target="_blank" rel="noopener noreferrer">
+              <Button>
+                <BookOpen className="mr-2 h-4 w-4" />
+                Acceder a Recursos
+              </Button>
+            </Link>
+        </CardContent>
+      </Card>
     </div>
   );
 }
