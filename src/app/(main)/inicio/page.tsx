@@ -30,7 +30,7 @@ export default function InicioPage() {
                   Ir a mi Panel de Piloto
                 </Button>
               </Link>
-              <Button size="lg" variant="outline" onClick={() => setShowRules(true)}>
+              <Button size="lg" onClick={() => setShowRules(true)}>
                 Reglas de Participación
               </Button>
             </div>
