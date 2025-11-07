@@ -50,6 +50,7 @@ export default function CarEvolution({ currentUser }: CarEvolutionProps) {
     };
   }, [currentUser.progreso]);
 
+  const isSelectedEvolutionUnlocked = selectedEvolution && categoryOrder[selectedEvolution.category as keyof typeof categoryOrder] <= userCategoryRank;
 
   return (
     <Card className="h-full border-0 shadow-none">
@@ -65,7 +66,7 @@ export default function CarEvolution({ currentUser }: CarEvolutionProps) {
                         quality={100}
                         className={cn(
                           'object-contain',
-                          (categoryOrder[selectedEvolution.category as keyof typeof categoryOrder] > userCategoryRank) && 'grayscale'
+                          !isSelectedEvolutionUnlocked && 'grayscale'
                         )}
                       />
                   </div>
@@ -85,7 +86,7 @@ export default function CarEvolution({ currentUser }: CarEvolutionProps) {
                 </>
             )}
         </div>
-         {!isAdministrator && (
+         {!isAdministrator && isSelectedEvolutionUnlocked && (
           <div className="w-full max-w-sm px-4">
             <Progress value={progressData.progress} className="h-2" />
             <p className="text-xs text-muted-foreground mt-2 whitespace-nowrap">{progressData.text}</p>
