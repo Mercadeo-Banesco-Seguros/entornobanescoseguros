@@ -770,7 +770,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function renderCurrentWorld(container) {
         const currentUser = state.currentUser;
-        const isAdministrator = currentUser.cargo === 'ADMINISTRADOR';
+        const isAdministrator = currentUser.cargo === 'ADMINISTRATOR';
         const vpKeys = Object.keys(vicepresidenciaMessages);
 
         const getVpKeyFromName = (name) => {
@@ -885,36 +885,47 @@ document.addEventListener('DOMContentLoaded', function() {
 
     async function handleApiCall(url, payload) {
         try {
+            // This forces a POST request, which is required by the Apps Script deployment for CORS.
             const response = await fetch(url, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                },
                 body: JSON.stringify(payload),
                 cache: 'no-store',
-                redirect: 'follow', 
+                mode: 'cors', // Important for cross-origin requests
             });
 
             const responseText = await response.text();
+
             if (!response.ok) {
-                console.error('Error desde Apps Script (Respuesta no OK):', responseText);
-                throw new Error('Error al contactar el servicio de datos.');
+                console.error('Error from Apps Script (Not OK):', responseText, 'Status:', response.status);
+                // Try to parse error, but fall back to a generic message
+                try {
+                    const errorData = JSON.parse(responseText);
+                    throw new Error(errorData.message || `Error del servidor: ${response.status}`);
+                } catch {
+                    throw new Error(`Error del servidor: ${response.status}`);
+                }
             }
             
             try {
                 const data = JSON.parse(responseText);
                 if (data.error) {
-                    throw new Error(data.message || 'Error del script de Google.');
+                    throw new Error(data.message || 'Error desconocido en el script de Google.');
                 }
                 return data;
             } catch(e) {
-                console.error('Error al parsear la respuesta JSON de Apps Script:', responseText);
-                throw new Error('La respuesta del servicio de datos no es un JSON válido.');
+                console.error('Error parsing JSON from Apps Script:', responseText);
+                throw new Error('La respuesta del servicio de datos no fue válida.');
             }
 
         } catch (error) {
-            console.error('Error crítico al contactar con el proxy de Apps Script:', error);
-            throw error;
+            console.error('Critical error calling Apps Script:', error);
+            throw error; // Re-throw the error to be caught by the caller
         }
     }
+
 
     async function handleLogin(event) {
         event.preventDefault();
@@ -1060,5 +1071,3 @@ document.addEventListener('DOMContentLoaded', function() {
 
 </body>
 </html>
-
-    
