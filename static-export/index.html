@@ -685,6 +685,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- Component Renderers ---
     function renderCarEvolution(container) {
         const currentUser = state.currentUser;
+        if (!container) return;
         const isAdministrator = currentUser.cargo === 'ADMINISTRATOR';
         const categoryOrder = { 'Base': 0, 'Bronce': 1, 'Plata': 2, 'Oro': 3 };
         const userCategory = toTitleCase(currentUser.avatar);
@@ -699,6 +700,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let selectedEvolution = getCurrentEvolution();
         
         const renderContent = () => {
+            if (!container) return;
             const isSelectedEvolutionUnlocked = selectedEvolution && categoryOrder[selectedEvolution.category] <= userCategoryRank;
             
             const categoryClasses = {
@@ -770,6 +772,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function renderCurrentWorld(container) {
         const currentUser = state.currentUser;
+        if (!container) return;
         const isAdministrator = currentUser.cargo === 'ADMINISTRATOR';
         const vpKeys = Object.keys(vicepresidenciaMessages);
 
@@ -788,6 +791,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let selectedVpKey = initialVpKey;
         
         const renderContent = () => {
+            if (!container) return;
             const displayVpKey = isAdministrator ? selectedVpKey : getVpKeyFromName(currentUser.vicepresidencia || '');
             const vpDetails = vpKeys.includes(displayVpKey) ? vicepresidenciaMessages[displayVpKey] : null;
 
@@ -847,6 +851,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- Chart Renderers ---
     function renderAreaChart(containerId) {
         const container = document.getElementById(containerId);
+        if (!container) return;
         container.innerHTML = `
             <svg viewBox="0 0 400 200" class="w-full h-full">
                 <defs>
@@ -863,6 +868,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function renderPieChart(containerId, value, name) {
         const container = document.getElementById(containerId);
+        if (!container) return;
         const radius = 40;
         const circumference = 2 * Math.PI * radius;
         const offset = circumference - (value / 100) * circumference;
@@ -885,47 +891,37 @@ document.addEventListener('DOMContentLoaded', function() {
 
     async function handleApiCall(url, payload) {
         try {
-            // This forces a POST request, which is required by the Apps Script deployment for CORS.
+            // Apps Script requires a POST request with a JSON body.
             const response = await fetch(url, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'text/plain;charset=utf-8', // Required by Apps Script web apps for CORS
                 },
                 body: JSON.stringify(payload),
-                cache: 'no-store',
-                mode: 'cors', // Important for cross-origin requests
+                redirect: 'follow', // Apps Script web apps often redirect, this handles it.
             });
 
-            const responseText = await response.text();
-
-            if (!response.ok) {
-                console.error('Error from Apps Script (Not OK):', responseText, 'Status:', response.status);
-                // Try to parse error, but fall back to a generic message
-                try {
-                    const errorData = JSON.parse(responseText);
-                    throw new Error(errorData.message || `Error del servidor: ${response.status}`);
-                } catch {
-                    throw new Error(`Error del servidor: ${response.status}`);
-                }
-            }
+            // The response from a redirected Apps Script POST request is often returned as text
+            const text = await response.text();
             
+            // Now, try to parse this text as JSON
             try {
-                const data = JSON.parse(responseText);
+                const data = JSON.parse(text);
                 if (data.error) {
-                    throw new Error(data.message || 'Error desconocido en el script de Google.');
+                    throw new Error(data.message || 'Error desconocido del script.');
                 }
                 return data;
-            } catch(e) {
-                console.error('Error parsing JSON from Apps Script:', responseText);
-                throw new Error('La respuesta del servicio de datos no fue válida.');
+            } catch (e) {
+                console.error("Failed to parse JSON response:", text);
+                // If parsing fails, it might be an HTML error page from Google.
+                throw new Error("Respuesta inválida del servidor. Revisa los logs de Apps Script.");
             }
 
         } catch (error) {
-            console.error('Critical error calling Apps Script:', error);
+            console.error('Error en handleApiCall:', error);
             throw error; // Re-throw the error to be caught by the caller
         }
     }
-
 
     async function handleLogin(event) {
         event.preventDefault();
