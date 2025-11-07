@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useState } from 'react';
 import RulesModal from '@/components/rules/rules-modal';
+import { BookOpen } from 'lucide-react';
 
 export default function InicioPage() {
   const { currentUser, levels, loading } = useAuth();
@@ -70,6 +71,14 @@ export default function InicioPage() {
             <p className="text-sm text-muted-foreground max-w-3xl">
               Descubre las pistas y sigue tu trazada hacia la meta. Este es tu punto actual en el circuito. A medida que vayas completando objetivos y acumules puntos, la ruta hacia nuevas pistas se desbloqueará para ti.
             </p>
+            <div className="pt-2">
+              <Link href="https://drive.google.com/file/d/1GtASq9tTkrNhtCZBhqSKzTbC2Uq0XuNp/view?usp=sharing" target="_blank" rel="noopener noreferrer">
+                <Button>
+                  <BookOpen className="mr-2 h-4 w-4" />
+                  Acceder a Recursos
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
 
