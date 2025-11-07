@@ -36,10 +36,10 @@ export default function Header() {
                 height={20}
               />
                <Image 
-                src="https://github.com/Rduque2025/web-assets-banesco-seguros/blob/main/image-Photoroom%20(22).png?raw=true"
+                src="https://www.banescoseguros.com/wp-content/uploads/2025/11/logo-circuito.png"
                 alt="Circuito Banesco Seguros Logo"
                 width={120}
-                height={20}
+                height={40}
                 className="hidden sm:inline"
               />
             </Link>
