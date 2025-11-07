@@ -8,13 +8,15 @@ type RulesModalProps = {
 };
 
 const rules = [
-    'El concurso tiene una duración de 3 meses. Inicia el 01/10/2024 y finaliza el 31/12/2024.',
-    'El Asesor Integral debe tener un mínimo de 3 meses de antigüedad en la empresa.',
-    'La meta del concurso es de USD 3.300.',
-    'El mínimo de cumplimiento para entrar en el concurso es del 75%.',
-    'El concurso tiene una meta de 75 pólizas.',
-    'Para el concurso se tomarán en cuenta todas las pólizas de Salud, Activos y Líneas Personales que se suscriban y cobren durante la vigencia del mismo.',
-    'El concurso tiene una meta de cobrado de USD 300.',
+    'Periodo del concurso desde el 1 de octubre hasta el 19 de diciembre de 2025.',
+    'Son válidas para participar, todas las pólizas estructuradas nuevas, suscritas y cobradas dentro del periodo del concurso.',
+    'Las pólizas deben estar cobradas (en caso de fraccionamiento, la primera cuota) para ser contadas en el incentivo.',
+    'Para participar debes mínimo suscribir 2.300$ y cobrar 200$ mensuales o alcanzar en total, mínimo 7.000$ y cobrar 800$ al cierre del concurso, el 19 de diciembre.',
+    'Para subir de categoría debes cumplir con la cantidad de pólizas, prima suscrita y cobrada indicada por categoría.',
+    'Serán descontadas del inventario las pólizas que sean suscritas y anuladas dentro del periodo del concurso, por lo que debes estar atento a tu progreso semanal.',
+    'Las pólizas estructuradas son: RCV, Banesco Familia Segura de Servicio Funerario, Accidentes Personales, Indemnización Diaria por Hospitalización y Protección por Cáncer.',
+    'Ganarán por cada Vicepresidencia, los 2 Asesores integrales de cada categoría que tengan el mayor cumplimiento en prima cobrada y suscrita.',
+    'Los premios serán entregados en enero de 2026.',
 ];
 
 export default function RulesModal({ onClose }: RulesModalProps) {
