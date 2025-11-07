@@ -20,7 +20,7 @@ export default function PrizeModal({ prize, onClose }: PrizeModalProps) {
             <>
                 Tu esfuerzo extraordinario merece una recompensa legendaria. Alcanza la cima en nuestra competencia y prepárate para celebrar tu éxito con una escapada de lujo a la Isla de Margarita.
                 <br /><br />
-                El ganador disfrutará de 3 días y 2 noches inolvidables con TODO INCLUIDO en el espectacular resort Sunsol Ecoland.
+                El ganador disfrutará de 3 días y 2 noches inolvidables con TODO INCLUIDO en el espectacular resort Sunsol Isla Caribe.
                 <br /><br />
                 Un merecido descanso en el paraíso, donde tu única misión será relajarte. Y para celebrar tu victoria como se debe, ¡te llevas un abono equivalente a $200 en tu T5 de todoticket para disfrutar!
                 <br /><br />
