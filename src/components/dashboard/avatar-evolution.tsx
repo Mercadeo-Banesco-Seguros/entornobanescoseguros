@@ -86,7 +86,7 @@ export default function CarEvolution({ currentUser }: CarEvolutionProps) {
             )}
         </div>
         
-        {currentUser.cargo !== 'ADMINISTRATOR' && isSelectedEvolutionUnlocked && (
+        {!isAdministrator && isSelectedEvolutionUnlocked && (
           <div className="w-full max-w-sm px-4">
             <Progress value={progressData.progress} className="h-2" />
             <p className="text-xs text-muted-foreground mt-2 whitespace-nowrap">{progressData.text}</p>
