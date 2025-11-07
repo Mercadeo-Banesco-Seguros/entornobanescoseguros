@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils';
 import { carEvolutions } from '@/lib/data';
 import { useState, useEffect, useMemo } from 'react';
 import { Progress } from '@/components/ui/progress';
+import { Lock, Check } from 'lucide-react';
 
 type CarEvolutionProps = {
   currentUser: User;
@@ -23,6 +24,7 @@ export default function CarEvolution({ currentUser }: CarEvolutionProps) {
   const userCategory = toTitleCase(currentUser.avatar);
 
   const categoryOrder: { [key: string]: number } = { 'Base': 0, 'Bronce': 1, 'Plata': 2, 'Oro': 3 };
+  const categoryThresholds: { [key: string]: number } = { 'Base': 0, 'Bronce': 25, 'Plata': 50, 'Oro': 75, 'MAX': 100 };
   
   const userCategoryRank = isAdministrator ? 3 : (categoryOrder[userCategory] ?? 0);
 
@@ -40,23 +42,37 @@ export default function CarEvolution({ currentUser }: CarEvolutionProps) {
     setSelectedEvolution(getCurrentEvolution());
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser]);
-  
+
   const progressData = useMemo(() => {
     const currentProgress = currentUser.progreso || 0;
     const currentEvo = getCurrentEvolution();
-    
-    if (!currentEvo) return { progress: 0, text: '0%' };
-    
-    // Si el usuario está en la categoría Oro y ha superado el 100%
-    if (currentEvo.category === 'Oro' && currentProgress >= 100) {
-        return { progress: 100, text: '¡Felicidades! Has alcanzado el máximo progreso en la categoría Oro.' };
+    if (!currentEvo) return { progress: 0, text: 'Progreso no disponible.' };
+
+    const currentCategory = currentEvo.category;
+    const nextCategoryName = Object.keys(categoryOrder).find(key => categoryOrder[key] === categoryOrder[currentCategory] + 1);
+
+    if (!nextCategoryName) {
+      return { progress: 100, text: '¡Felicidades! Has alcanzado el máximo progreso en la categoría Oro.' };
     }
 
+    const nextCategoryThreshold = categoryThresholds[nextCategoryName as keyof typeof categoryThresholds];
+    
+    if (currentProgress >= nextCategoryThreshold) {
+       return { progress: 100, text: `¡Felicidades! Has superado el umbral para ${nextCategoryName}.`};
+    }
+
+    const currentCategoryThreshold = categoryThresholds[currentCategory as keyof typeof categoryThresholds];
+    const range = nextCategoryThreshold - currentCategoryThreshold;
+    const progressInBuffer = currentProgress - currentCategoryThreshold;
+    const progressPercentage = range > 0 ? (progressInBuffer / range) * 100 : 0;
+    
+    const remaining = nextCategoryThreshold - currentProgress;
+
     return { 
-        progress: currentProgress, 
-        text: `Llevas un ${currentProgress.toFixed(2)}% de logro en tu categoría actual.`
+        progress: progressPercentage, 
+        text: `Te falta un ${remaining.toFixed(2)}% para la categoría ${nextCategoryName}.`
     };
-  }, [currentUser.progreso]);
+  }, [currentUser.progreso, categoryOrder, categoryThresholds]);
 
 
   return (
@@ -129,6 +145,15 @@ export default function CarEvolution({ currentUser }: CarEvolutionProps) {
                       !isUnlocked && 'grayscale'
                     )}
                   />
+                  {!isUnlocked ? (
+                    <div className="absolute inset-0 bg-black/30 rounded-lg flex items-center justify-center">
+                      <Lock className="w-6 h-6 text-white/70" />
+                    </div>
+                  ) : (
+                    <div className="absolute top-1 right-1 bg-green-500 rounded-full p-0.5">
+                      <Check className="w-3 h-3 text-white" />
+                    </div>
+                  )}
                 </div>
               </button>
             );
