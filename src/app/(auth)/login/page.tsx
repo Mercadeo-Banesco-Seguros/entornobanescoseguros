@@ -88,7 +88,7 @@ export default function LoginPage() {
                     <FormItem>
                       <FormLabel>Cédula</FormLabel>
                       <FormControl>
-                        <Input type="password" placeholder="Cédula de Identidad" {...field} />
+                        <Input type="password" placeholder="12345678" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
