@@ -49,28 +49,34 @@ export default function CarEvolution({ currentUser }: CarEvolutionProps) {
     if (!currentEvo) return { progress: 0, text: 'Progreso no disponible.' };
 
     const currentCategory = currentEvo.category;
+    const currentCategoryKey = Object.keys(categoryOrder).find(key => key === currentCategory) as keyof typeof categoryOrder;
+    const currentCategoryThreshold = categoryThresholds[currentCategoryKey];
+
     const nextCategoryName = Object.keys(categoryOrder).find(key => categoryOrder[key] === categoryOrder[currentCategory] + 1);
 
     if (!nextCategoryName) {
-      return { progress: 100, text: '¡Felicidades! Has alcanzado el máximo progreso en la categoría Oro.' };
+      return { progress: 100, text: '¡Felicidades! Has alcanzado la categoría Oro.' };
     }
-
+    
     const nextCategoryThreshold = categoryThresholds[nextCategoryName as keyof typeof categoryThresholds];
     
-    if (currentProgress >= nextCategoryThreshold) {
-       return { progress: 100, text: `¡Felicidades! Has superado el umbral para ${nextCategoryName}.`};
-    }
-
-    const currentCategoryThreshold = categoryThresholds[currentCategory as keyof typeof categoryThresholds];
     const range = nextCategoryThreshold - currentCategoryThreshold;
-    const progressInBuffer = currentProgress - currentCategoryThreshold;
-    const progressPercentage = range > 0 ? (progressInBuffer / range) * 100 : 0;
+    const progressInRange = currentProgress - currentCategoryThreshold;
+    const progressPercentage = range > 0 ? (progressInRange / range) * 100 : 0;
     
     const remaining = nextCategoryThreshold - currentProgress;
+    
+    // Si el progreso actual ya es mayor o igual que el siguiente umbral, la categoría debería cambiar pronto.
+    if(currentProgress >= nextCategoryThreshold) {
+        return { 
+            progress: 100, 
+            text: `¡Felicidades! Has cumplido los requisitos para ${nextCategoryName}.` 
+        };
+    }
 
     return { 
-        progress: progressPercentage, 
-        text: `Te falta un ${remaining.toFixed(2)}% para la categoría ${nextCategoryName}.`
+        progress: Math.max(0, Math.min(100, progressPercentage)), 
+        text: `Te falta un ${remaining > 0 ? remaining.toFixed(2) : 0}% para la categoría ${nextCategoryName}.`
     };
   }, [currentUser.progreso, categoryOrder, categoryThresholds]);
 
