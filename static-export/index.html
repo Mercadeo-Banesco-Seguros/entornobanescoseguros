@@ -770,7 +770,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function renderCurrentWorld(container) {
         const currentUser = state.currentUser;
-        const isAdministrator = currentUser.cargo === 'ADMINISTRATOR';
+        const isAdministrator = currentUser.cargo === 'ADMINISTRADOR';
         const vpKeys = Object.keys(vicepresidenciaMessages);
 
         const getVpKeyFromName = (name) => {
@@ -885,35 +885,34 @@ document.addEventListener('DOMContentLoaded', function() {
 
     async function handleApiCall(url, payload) {
         try {
-            // Apps Script requires a POST request with a JSON body.
             const response = await fetch(url, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'text/plain;charset=utf-8', // Required by Apps Script web apps for CORS
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload),
-                redirect: 'follow', // Apps Script web apps often redirect, this handles it.
+                cache: 'no-store',
+                redirect: 'follow', 
             });
 
-            // The response from a redirected Apps Script POST request is often returned as text
-            const text = await response.text();
+            const responseText = await response.text();
+            if (!response.ok) {
+                console.error('Error desde Apps Script (Respuesta no OK):', responseText);
+                throw new Error('Error al contactar el servicio de datos.');
+            }
             
-            // Now, try to parse this text as JSON
             try {
-                const data = JSON.parse(text);
+                const data = JSON.parse(responseText);
                 if (data.error) {
-                    throw new Error(data.message || 'Error desconocido del script.');
+                    throw new Error(data.message || 'Error del script de Google.');
                 }
                 return data;
-            } catch (e) {
-                console.error("Failed to parse JSON response:", text);
-                // If parsing fails, it might be an HTML error page from Google.
-                throw new Error("Respuesta inválida del servidor. Revisa los logs de Apps Script.");
+            } catch(e) {
+                console.error('Error al parsear la respuesta JSON de Apps Script:', responseText);
+                throw new Error('La respuesta del servicio de datos no es un JSON válido.');
             }
 
         } catch (error) {
-            console.error('Error en handleApiCall:', error);
-            throw error; // Re-throw the error to be caught by the caller
+            console.error('Error crítico al contactar con el proxy de Apps Script:', error);
+            throw error;
         }
     }
 
@@ -1062,5 +1061,4 @@ document.addEventListener('DOMContentLoaded', function() {
 </body>
 </html>
 
-    
     
