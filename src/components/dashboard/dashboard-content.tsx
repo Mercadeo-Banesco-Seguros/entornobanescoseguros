@@ -8,6 +8,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { BookOpen } from 'lucide-react';
+import Image from 'next/image';
 
 export default function DashboardContent() {
   const { currentUser, levels, loading, users } = useAuth();
@@ -56,19 +57,32 @@ export default function DashboardContent() {
       </div>
       
       <Card className="border-0 shadow-none">
-        <CardHeader>
-          <CardTitle className="text-3xl font-black uppercase tracking-tight">Recursos Estratégicos</CardTitle>
-          <CardDescription>
-            Aquí encontrarás todo el material de apoyo que necesitas para dominar cada tramo del circuito. Accede a manuales de productos, guías de venta, y herramientas exclusivas para optimizar tu estrategia y acelerar hacia la victoria.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-            <Link href="https://www.banescoseguros.com/" target="_blank" rel="noopener noreferrer">
-              <Button>
-                <BookOpen className="mr-2 h-4 w-4" />
-                Acceder a Recursos
-              </Button>
-            </Link>
+        <CardContent className="p-6 grid grid-cols-1 md:grid-cols-2 items-center gap-8">
+          <div>
+            <CardHeader className="p-0">
+              <CardTitle className="text-3xl font-black uppercase tracking-tight">Recursos Estratégicos</CardTitle>
+              <CardDescription>
+                Aquí encontrarás todo el material de apoyo que necesitas para dominar cada tramo del circuito. Accede a manuales de productos, guías de venta, y herramientas exclusivas para optimizar tu estrategia y acelerar hacia la victoria.
+              </CardDescription>
+            </CardHeader>
+            <div className="pt-6">
+              <Link href="https://www.banescoseguros.com/" target="_blank" rel="noopener noreferrer">
+                <Button>
+                  <BookOpen className="mr-2 h-4 w-4" />
+                  Acceder a Recursos
+                </Button>
+              </Link>
+            </div>
+          </div>
+          <div className="flex justify-center">
+            <Image
+              src="https://www.banescoseguros.com/wp-content/uploads/2025/11/Gemini_Generated_Image_xebblzxebblzxebb-Photoroom-1.png"
+              alt="Recursos estratégicos"
+              width={400}
+              height={400}
+              className="object-contain"
+            />
+          </div>
         </CardContent>
       </Card>
     </div>
