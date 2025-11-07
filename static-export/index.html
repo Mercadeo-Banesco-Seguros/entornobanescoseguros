@@ -885,24 +885,35 @@ document.addEventListener('DOMContentLoaded', function() {
 
     async function handleApiCall(url, payload) {
         try {
-            const response = await fetch(`${url}?` + new URLSearchParams(payload), {
-                method: 'GET', // Using GET and query params for simplicity with Apps Script GET endpoint
-                redirect: 'follow',
+            // Apps Script requires a POST request with a JSON body.
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'text/plain;charset=utf-8', // Required by Apps Script web apps for CORS
+                },
+                body: JSON.stringify(payload),
+                redirect: 'follow', // Apps Script web apps often redirect, this handles it.
             });
+
+            // The response from a redirected Apps Script POST request is often returned as text
             const text = await response.text();
-             try {
+            
+            // Now, try to parse this text as JSON
+            try {
                 const data = JSON.parse(text);
                 if (data.error) {
                     throw new Error(data.message || 'Error desconocido del script.');
                 }
                 return data;
-            } catch(e) {
+            } catch (e) {
                 console.error("Failed to parse JSON response:", text);
-                throw new Error("Respuesta inválida del servidor.");
+                // If parsing fails, it might be an HTML error page from Google.
+                throw new Error("Respuesta inválida del servidor. Revisa los logs de Apps Script.");
             }
+
         } catch (error) {
             console.error('Error en handleApiCall:', error);
-            throw error;
+            throw error; // Re-throw the error to be caught by the caller
         }
     }
 
@@ -1051,4 +1062,5 @@ document.addEventListener('DOMContentLoaded', function() {
 </body>
 </html>
 
+    
     
