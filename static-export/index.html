@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -684,8 +683,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- Component Renderers ---
     function renderCarEvolution(container) {
-        const currentUser = state.currentUser;
         if (!container) return;
+        const currentUser = state.currentUser;
         const isAdministrator = currentUser.cargo === 'ADMINISTRATOR';
         const categoryOrder = { 'Base': 0, 'Bronce': 1, 'Plata': 2, 'Oro': 3 };
         const userCategory = toTitleCase(currentUser.avatar);
@@ -771,9 +770,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function renderCurrentWorld(container) {
-        const currentUser = state.currentUser;
         if (!container) return;
-        const isAdministrator = currentUser.cargo === 'ADMINISTRATOR';
+        const currentUser = state.currentUser;
+        const isAdministrator = currentUser.cargo === 'ADMINISTRADOR';
         const vpKeys = Object.keys(vicepresidenciaMessages);
 
         const getVpKeyFromName = (name) => {
