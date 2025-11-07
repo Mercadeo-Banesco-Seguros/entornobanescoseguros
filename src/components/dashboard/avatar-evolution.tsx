@@ -13,7 +13,6 @@ type CarEvolutionProps = {
   currentUser: User;
 };
 
-// Helper function to convert a string to Title Case
 function toTitleCase(str: string): string {
   if (!str) return '';
   return str.toLowerCase().replace(/\b\w/g, char => char.toUpperCase());
@@ -86,7 +85,7 @@ export default function CarEvolution({ currentUser }: CarEvolutionProps) {
                 </>
             )}
         </div>
-         {!isAdministrator && isSelectedEvolutionUnlocked && (
+        {!isAdministrator && isSelectedEvolutionUnlocked && (
           <div className="w-full max-w-sm px-4">
             <Progress value={progressData.progress} className="h-2" />
             <p className="text-xs text-muted-foreground mt-2 whitespace-nowrap">{progressData.text}</p>
