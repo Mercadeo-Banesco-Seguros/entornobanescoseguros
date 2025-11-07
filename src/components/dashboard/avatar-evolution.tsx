@@ -48,19 +48,28 @@ export default function CarEvolution({ currentUser }: CarEvolutionProps) {
 
     const currentThreshold = currentEvo.progressThreshold;
     const nextEvolution = carEvolutions.find(e => categoryOrder[e.category as keyof typeof categoryOrder] === categoryOrder[currentEvo.category as keyof typeof categoryOrder] + 1);
-    const nextThreshold = nextEvolution ? nextEvolution.progressThreshold : 100;
     
-    if (currentProgress >= nextThreshold) {
-        return { progress: 100, text: '¡Categoría completada!' };
+    // Si no hay próxima evolución, es la categoría máxima (Oro)
+    if (!nextEvolution) {
+      const isMaxProgress = currentProgress >= currentThreshold;
+       return { progress: isMaxProgress ? 100 : (currentProgress / currentThreshold) * 100, text: 'Progreso máximo alcanzado' };
     }
 
-    const range = nextThreshold - currentThreshold;
-    if (range <= 0) return { progress: 100, text: 'Progreso máximo' };
-
-    const progressInBuffer = currentProgress - currentThreshold;
-    const percentage = (progressInBuffer / range) * 100;
+    const nextThreshold = nextEvolution.progressThreshold;
     
-    return { progress: Math.max(0, Math.min(100, percentage)), text: `Llevas ${percentage.toFixed(0)}% de progreso para desbloquear la próxima categoría` };
+    const range = nextThreshold - currentThreshold;
+    // Si el rango es 0 o negativo, significa que ya superó el umbral.
+    if (range <= 0) {
+        return { progress: 100, text: `Progreso para ${nextEvolution.name}` };
+    }
+
+    const progressInCurrentCategory = currentProgress - currentThreshold;
+    const percentage = (progressInCurrentCategory / range) * 100;
+    
+    return { 
+        progress: Math.max(0, Math.min(100, percentage)), 
+        text: `Llevas ${percentage.toFixed(0)}% para desbloquear la categoría ${nextEvolution.category}` 
+    };
 
   }, [currentUser.progreso, userCategoryRank]);
 
