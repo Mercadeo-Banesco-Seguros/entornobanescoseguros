@@ -85,12 +85,14 @@ export default function CarEvolution({ currentUser }: CarEvolutionProps) {
                 </>
             )}
         </div>
-        {!isAdministrator && isSelectedEvolutionUnlocked && (
+        
+        {currentUser.cargo !== 'ADMINISTRATOR' && isSelectedEvolutionUnlocked && (
           <div className="w-full max-w-sm px-4">
             <Progress value={progressData.progress} className="h-2" />
             <p className="text-xs text-muted-foreground mt-2 whitespace-nowrap">{progressData.text}</p>
           </div>
         )}
+
         <div className="flex items-end justify-center space-x-4 w-full">
           {carEvolutions.map((evolution) => {
             const isUnlocked = categoryOrder[evolution.category as keyof typeof categoryOrder] <= userCategoryRank;
