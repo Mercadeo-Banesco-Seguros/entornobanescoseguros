@@ -55,11 +55,11 @@ export default function DashboardContent() {
         </div>
       </div>
       
-      <Card>
+      <Card className="border-0 shadow-none">
         <CardHeader>
           <CardTitle className="text-2xl font-black uppercase tracking-tight">Recursos Estratégicos</CardTitle>
           <CardDescription>
-            Accede a manuales, información de productos y todo lo que necesitas para ganar la carrera.
+            Aquí encontrarás todo el material de apoyo que necesitas para dominar cada tramo del circuito. Accede a manuales de productos, guías de venta, y herramientas exclusivas para optimizar tu estrategia y acelerar hacia la victoria.
           </CardDescription>
         </CardHeader>
         <CardContent>
