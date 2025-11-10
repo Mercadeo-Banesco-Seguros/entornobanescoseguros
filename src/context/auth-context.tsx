@@ -56,6 +56,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         vicepresidencia: u.vicepresidencia || '',
         posicion: u.posicion || 0,
         cargo: u.cargo || '',
+        prog_pol: u.prog_pol || 0,
+        prog_sus: u.prog_sus || 0,
+        prog_cob: u.prog_cob || 0,
       }));
       setUsers(allUsers);
       
@@ -125,6 +128,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             vicepresidencia: data.user.vicepresidencia || '',
             posicion: data.user.posicion || 0,
             cargo: data.user.cargo || '',
+            prog_pol: data.user.prog_pol || 0,
+            prog_sus: data.user.prog_sus || 0,
+            prog_cob: data.user.prog_cob || 0,
         };
 
         setCurrentUser(user);

@@ -143,13 +143,27 @@ export default function RankingPage() {
                 )
               )}
             </div>
-            <div className="text-right w-48 flex items-baseline justify-end gap-1.5">
+            <div className="text-right w-auto flex flex-wrap justify-end gap-2">
               {me.cargo === 'ADMINISTRADOR' ? (
                   <span className="text-sm font-semibold text-white/90">Administrador</span>
               ) : (
                 <>
-                  <span className="text-2xl font-bold">{(me.progreso || 0).toFixed(2)}%</span>
-                  <span className="text-xs font-normal text-primary-foreground/80">de Logro</span>
+                  <div className="text-center">
+                    <span className="text-2xl font-bold">{(me.progreso || 0).toFixed(2)}%</span>
+                    <p className="text-xs font-normal text-primary-foreground/80">Total</p>
+                  </div>
+                   <div className="text-center">
+                    <span className="text-2xl font-bold">{(me.prog_pol || 0).toFixed(2)}%</span>
+                    <p className="text-xs font-normal text-primary-foreground/80">Pólizas</p>
+                  </div>
+                   <div className="text-center">
+                    <span className="text-2xl font-bold">{(me.prog_sus || 0).toFixed(2)}%</span>
+                    <p className="text-xs font-normal text-primary-foreground/80">Suscrito</p>
+                  </div>
+                   <div className="text-center">
+                    <span className="text-2xl font-bold">{(me.prog_cob || 0).toFixed(2)}%</span>
+                    <p className="text-xs font-normal text-primary-foreground/80">Cobrado</p>
+                  </div>
                 </>
               )}
             </div>
@@ -181,10 +195,21 @@ export default function RankingPage() {
                         </span>
                       )}
                     </TableCell>
-                    <TableCell className="text-right w-48">
-                      <span className="bg-primary text-primary-foreground text-xs px-3 py-1 rounded-full">
-                        {(user.progreso || 0).toFixed(2)}%
-                      </span>
+                    <TableCell className="text-right w-auto">
+                      <div className="flex justify-end items-center gap-2">
+                        <span className="bg-primary text-primary-foreground text-xs px-3 py-1 rounded-full" title="Logro Total">
+                          {(user.progreso || 0).toFixed(2)}%
+                        </span>
+                         <span className="bg-secondary text-secondary-foreground text-xs px-2 py-1 rounded-full" title="Logro Pólizas">
+                          {(user.prog_pol || 0).toFixed(2)}%
+                        </span>
+                         <span className="bg-secondary text-secondary-foreground text-xs px-2 py-1 rounded-full" title="Logro Suscrito">
+                          {(user.prog_sus || 0).toFixed(2)}%
+                        </span>
+                         <span className="bg-secondary text-secondary-foreground text-xs px-2 py-1 rounded-full" title="Logro Cobrado">
+                          {(user.prog_cob || 0).toFixed(2)}%
+                        </span>
+                      </div>
                     </TableCell>
                   </TableRow>
                 )

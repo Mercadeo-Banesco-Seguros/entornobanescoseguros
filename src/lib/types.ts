@@ -10,6 +10,9 @@ export type User = {
   vicepresidencia?: string;
   posicion?: number;
   cargo?: string;
+  prog_pol?: number;
+  prog_sus?: number;
+  prog_cob?: number;
 };
 
 export type TaskStatus = 'completed' | 'pending';
