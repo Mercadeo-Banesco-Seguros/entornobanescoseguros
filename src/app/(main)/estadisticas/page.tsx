@@ -124,11 +124,11 @@ export default function EstadisticasPage() {
     return Math.max(...vpAvgProgress.map(vp => vp.logro));
   }, [vpAvgProgress]);
 
-  const [selectedVp, setSelectedVp] = useState('Total');
+  const [selectedVp, setSelectedVp] = useState('Todas');
   const [dynamicImageSrc, setDynamicImageSrc] = useState('https://www.banescoseguros.com/wp-content/uploads/2025/11/Gemini_Generated_Image_mi81u2mi81u2mi81-Photoroom.png');
 
   useEffect(() => {
-    if (selectedVp === 'Total') {
+    if (selectedVp === 'Todas') {
         setDynamicImageSrc('https://www.banescoseguros.com/wp-content/uploads/2025/11/Gemini_Generated_Image_mi81u2mi81u2mi81-Photoroom.png');
         return;
     }
@@ -148,7 +148,7 @@ export default function EstadisticasPage() {
 
 
   const top10Users = useMemo(() => {
-    const usersToFilter = selectedVp === 'Total'
+    const usersToFilter = selectedVp === 'Todas'
       ? competingUsers
       : competingUsers.filter(user => user.vicepresidencia === selectedVp);
 
@@ -355,7 +355,7 @@ export default function EstadisticasPage() {
       
        <Card className="border-0 shadow-none">
         <CardContent className="p-6">
-          <div className="flex flex-col-reverse md:flex-row gap-8 items-start">
+          <div className="flex flex-col md:flex-row gap-8 items-start">
             <div className="w-full md:w-1/2">
               <div className="flex justify-between items-center mb-6">
                 <div className="text-left">
@@ -393,12 +393,12 @@ export default function EstadisticasPage() {
                 ))}
               </div>
             </div>
-            <div className="w-full md:w-1/2 flex justify-center">
+            <div className="w-full md:w-1/2 flex justify-center items-center">
               <Image
                 src={dynamicImageSrc}
                 alt="Imagen de Vicepresidencia"
-                width={selectedVp === 'Total' ? 500 : 400}
-                height={selectedVp === 'Total' ? 500 : 400}
+                width={selectedVp === 'Todas' ? 500 : 400}
+                height={selectedVp === 'Todas' ? 500 : 400}
                 className="object-contain"
                 key={dynamicImageSrc}
               />
@@ -408,7 +408,3 @@ export default function EstadisticasPage() {
       </Card>
     </div>
   );
-}
-
-    
-    
