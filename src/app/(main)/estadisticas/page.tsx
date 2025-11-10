@@ -31,11 +31,16 @@ const getVpKeyFromName = (name: string): string | null => {
 
 
 export default function EstadisticasPage() {
-  const { users, currentUser } = useAuth();
+  const { users, currentUser, vicepresidencias } = useAuth();
   const router = useRouter();
 
+  useEffect(() => {
+    if (currentUser?.cargo !== 'ADMINISTRADOR') {
+      router.replace('/inicio');
+    }
+  }, [currentUser, router]);
+
   if (currentUser?.cargo !== 'ADMINISTRADOR') {
-    router.replace('/inicio');
     return null;
   }
 
@@ -43,11 +48,6 @@ export default function EstadisticasPage() {
     return users.filter(user => user.cargo !== 'ADMINISTRADOR' && user.vicepresidencia);
   }, [users]);
   
-  const vicepresidencias = useMemo(() => {
-    const allVps = competingUsers.map(user => user.vicepresidencia).filter(Boolean);
-    return ['Total', ...Array.from(new Set(allVps))];
-  }, [competingUsers]);
-
   const vpAvgProgress = useMemo(() => {
     if (competingUsers.length === 0) return [];
 
@@ -162,9 +162,9 @@ export default function EstadisticasPage() {
   }, [competingUsers, selectedVp]);
 
   const timeFilters = ['Octubre', 'Noviembre', 'Diciembre', 'All time'];
-  const [suscritoTime, setSuscritoTime] = useState('November');
+  const [suscritoTime, setSuscritoTime] = useState('All time');
   const [cobradoTime, setCobradoTime] = useState('All time');
-  const [polizasTime, setPolizasTime] = useState('November');
+  const [polizasTime, setPolizasTime] = useState('All time');
 
   return (
     <div className="space-y-8">
@@ -187,10 +187,9 @@ export default function EstadisticasPage() {
             </Select>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold tracking-tight">450</div>
+            <div className="text-2xl font-bold tracking-tight">0</div>
             <p className="text-xs text-muted-foreground flex items-center gap-1">
-              <ArrowDown className="h-4 w-4 text-destructive" />
-              25% vs. last month
+              -
             </p>
           </CardContent>
         </Card>
@@ -207,10 +206,9 @@ export default function EstadisticasPage() {
             </Select>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold tracking-tight">245</div>
+            <div className="text-2xl font-bold tracking-tight">0</div>
              <p className="text-xs text-muted-foreground flex items-center gap-1">
-               <ArrowUp className="h-4 w-4 text-green-600" />
-              0.2% vs. last Monday
+               -
             </p>
           </CardContent>
         </Card>
@@ -227,10 +225,9 @@ export default function EstadisticasPage() {
             </Select>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold tracking-tight">245</div>
+            <div className="text-2xl font-bold tracking-tight">0</div>
             <p className="text-xs text-muted-foreground flex items-center gap-1">
-               <ArrowUp className="h-4 w-4 text-green-600" />
-              0.2% vs. last Monday
+               -
             </p>
           </CardContent>
         </Card>
@@ -358,7 +355,7 @@ export default function EstadisticasPage() {
       
        <Card className="border-0 shadow-none">
         <CardContent className="p-6">
-          <div className="flex flex-col-reverse md:flex-row gap-8 items-center">
+          <div className="flex flex-col-reverse md:flex-row gap-8 items-start">
             <div className="w-full md:w-1/2">
               <div className="flex justify-between items-center mb-6">
                 <div className="text-left">
@@ -413,4 +410,5 @@ export default function EstadisticasPage() {
   );
 }
 
+    
     
