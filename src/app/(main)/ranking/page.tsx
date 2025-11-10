@@ -97,15 +97,15 @@ export default function RankingPage() {
 
   return (
     <div className="space-y-8">
-      <header className="flex justify-between items-center">
+      <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
           <h1 className="text-4xl font-bold text-foreground">Clasificación de Pilotos</h1>
           <p className="text-muted text-lg mt-1">Mira tu posición y la de tus compañeros en el circuito.</p>
         </div>
         {me.cargo === 'ADMINISTRADOR' && (
-          <div className="w-64">
+          <div className="w-full sm:w-64">
             <Select onValueChange={setSelectedVp} value={selectedVp}>
-              <SelectTrigger className="bg-primary text-primary-foreground text-xs">
+              <SelectTrigger className="bg-primary text-primary-foreground text-xs w-full">
                 <SelectValue placeholder="Filtrar por VP" />
               </SelectTrigger>
               <SelectContent>

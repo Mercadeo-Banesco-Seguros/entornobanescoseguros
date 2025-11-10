@@ -128,7 +128,7 @@ export default function EstadisticasPage() {
   const [cobradoTime, setCobradoTime] = useState('All time');
   const [polizasTime, setPolizasTime] = useState('November');
 
-  const filteredVicepresidencias = useMemo(() => vicepresidencias.filter(vp => vp !== 'Todas'), [vicepresidencias]);
+  const filteredVicepresidencias = useMemo(() => ['Total', ...vicepresidencias.filter(vp => vp !== 'Todas')], [vicepresidencias]);
 
   return (
     <div className="space-y-8">

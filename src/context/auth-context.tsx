@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, ReactNode, useMemo, useCallback } from 'react';
@@ -36,14 +37,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const prizes = staticPrizes;
   const prizeCategories = staticPrizeCategories;
 
-  const competingUsers = useMemo(() => {
-    return users.filter(user => user.cargo !== 'ADMINISTRADOR');
-  }, [users]);
-
   const vicepresidencias = useMemo(() => {
+    const competingUsers = users.filter(user => user.cargo !== 'ADMINISTRADOR');
     const allVps = competingUsers.map(user => user.vicepresidencia).filter(Boolean);
     return ['Todas', ...Array.from(new Set(allVps))];
-  }, [competingUsers]);
+  }, [users]);
 
   const fetchUsers = useCallback(async () => {
     try {
