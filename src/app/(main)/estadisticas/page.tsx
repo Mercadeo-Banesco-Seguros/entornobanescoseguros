@@ -37,7 +37,7 @@ const getVpKeyFromName = (name: string): string | null => {
 
 
 export default function EstadisticasPage() {
-  const { users, currentUser } = useAuth();
+  const { users, currentUser, vicepresidencias } = useAuth();
   const router = useRouter();
 
   if (currentUser?.cargo !== 'ADMINISTRADOR') {
@@ -86,11 +86,6 @@ export default function EstadisticasPage() {
     return Math.max(...vpAvgProgress.map(vp => vp.logro));
   }, [vpAvgProgress]);
 
-  const vicepresidencias = useMemo(() => {
-    const allVps = competingUsers.map(user => user.vicepresidencia).filter(Boolean);
-    return ['Total', ...Array.from(new Set(allVps))];
-  }, [competingUsers]);
-
   const [selectedVp, setSelectedVp] = useState('Total');
   const [dynamicImageSrc, setDynamicImageSrc] = useState('https://www.banescoseguros.com/wp-content/uploads/2025/11/Gemini_Generated_Image_mi81u2mi81u2mi81-Photoroom.png');
 
@@ -132,6 +127,8 @@ export default function EstadisticasPage() {
   const [suscritoTime, setSuscritoTime] = useState('November');
   const [cobradoTime, setCobradoTime] = useState('All time');
   const [polizasTime, setPolizasTime] = useState('November');
+
+  const filteredVicepresidencias = useMemo(() => vicepresidencias.filter(vp => vp !== 'Todas'), [vicepresidencias]);
 
   return (
     <div className="space-y-8">
@@ -343,12 +340,12 @@ export default function EstadisticasPage() {
                   <p className="text-lg font-semibold tracking-tighter text-primary -mt-1">por Logro Promedio</p>
                 </div>
                 <div className="w-48">
-                  <Select onValueChange={setSelectedVp} value={selectedVp}>
+                   <Select onValueChange={setSelectedVp} value={selectedVp}>
                     <SelectTrigger className="bg-primary text-primary-foreground rounded-full" style={{ fontSize: '0.65rem' }}>
                       <SelectValue placeholder="Filtrar por VP" />
                     </SelectTrigger>
                     <SelectContent>
-                      {vicepresidencias.map((vp) => (
+                      {filteredVicepresidencias.map((vp) => (
                         <SelectItem key={vp} value={vp}>{vp}</SelectItem>
                       ))}
                     </SelectContent>

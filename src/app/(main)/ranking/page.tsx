@@ -17,16 +17,11 @@ import {
 
 
 export default function RankingPage() {
-  const { currentUser: me, users: rankingUsers, loading, error, fetchUsers } = useAuth();
+  const { currentUser: me, users: rankingUsers, loading, error, fetchUsers, vicepresidencias } = useAuth();
   
   const competingUsers = useMemo(() => {
     return rankingUsers.filter(user => user.cargo !== 'ADMINISTRADOR');
   }, [rankingUsers]);
-
-  const vicepresidencias = useMemo(() => {
-    const allVps = competingUsers.map(user => user.vicepresidencia).filter(Boolean);
-    return ['Todas', ...Array.from(new Set(allVps))];
-  }, [competingUsers]);
 
   const [selectedVp, setSelectedVp] = useState('Todas');
 
@@ -102,9 +97,25 @@ export default function RankingPage() {
 
   return (
     <div className="space-y-8">
-      <header>
-        <h1 className="text-4xl font-bold text-foreground">Clasificación de Pilotos</h1>
-        <p className="text-muted text-lg mt-1">Mira tu posición y la de tus compañeros en el circuito.</p>
+      <header className="flex justify-between items-center">
+        <div>
+          <h1 className="text-4xl font-bold text-foreground">Clasificación de Pilotos</h1>
+          <p className="text-muted text-lg mt-1">Mira tu posición y la de tus compañeros en el circuito.</p>
+        </div>
+        {me.cargo === 'ADMINISTRADOR' && (
+          <div className="w-64">
+            <Select onValueChange={setSelectedVp} value={selectedVp}>
+              <SelectTrigger className="bg-primary text-primary-foreground text-xs">
+                <SelectValue placeholder="Filtrar por VP" />
+              </SelectTrigger>
+              <SelectContent>
+                {vicepresidencias.map((vp) => (
+                  <SelectItem key={vp} value={vp}>{vp}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        )}
       </header>
 
       <Card className="bg-primary text-primary-foreground shadow-lg">
@@ -124,27 +135,12 @@ export default function RankingPage() {
               </div>
             </div>
              <div className="text-center">
-              {me.cargo === 'ADMINISTRADOR' ? (
-                <div className="w-64">
-                   <Select onValueChange={setSelectedVp} value={selectedVp}>
-                    <SelectTrigger className="bg-white/20 border-0 text-white text-xs">
-                      <SelectValue placeholder="Filtrar por VP" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {vicepresidencias.map((vp) => (
-                        <SelectItem key={vp} value={vp}>{vp}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              ) : (
-                me.vicepresidencia && (
+              {me.cargo !== 'ADMINISTRADOR' && me.vicepresidencia && (
                   <div className="w-64">
                     <span className="bg-primary text-primary-foreground text-xs px-3 py-1 rounded-full whitespace-nowrap">
                       {me.vicepresidencia}
                     </span>
                   </div>
-                )
               )}
             </div>
             <div className="text-right w-auto flex flex-wrap justify-end gap-2">

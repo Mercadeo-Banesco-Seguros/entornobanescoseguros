@@ -18,6 +18,7 @@ type AuthContextType = {
   register: (name: string, email: string, password: string, vicepresidencia: string, cargo: string) => Promise<void>;
   logout: () => void;
   fetchUsers: () => Promise<void>;
+  vicepresidencias: string[];
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -34,6 +35,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const avatars = staticAvatars;
   const prizes = staticPrizes;
   const prizeCategories = staticPrizeCategories;
+
+  const competingUsers = useMemo(() => {
+    return users.filter(user => user.cargo !== 'ADMINISTRADOR');
+  }, [users]);
+
+  const vicepresidencias = useMemo(() => {
+    const allVps = competingUsers.map(user => user.vicepresidencia).filter(Boolean);
+    return ['Todas', ...Array.from(new Set(allVps))];
+  }, [competingUsers]);
 
   const fetchUsers = useCallback(async () => {
     try {
@@ -171,8 +181,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     register,
     logout,
     fetchUsers,
+    vicepresidencias,
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }), [currentUser, users, loading, error, fetchUsers]);
+  }), [currentUser, users, loading, error, fetchUsers, vicepresidencias]);
 
   return (
     <AuthContext.Provider value={value}>
