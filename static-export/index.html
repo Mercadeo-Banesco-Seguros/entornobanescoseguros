@@ -62,7 +62,7 @@
                             foreground: 'hsl(var(--secondary-foreground))',
                         },
                         destructive: {
-                            DEFAULT: 'hsl(var(--destructive))',
+                            DEFAULT: 'hsl(var(--destructive-foreground))',
                             foreground: 'hsl(var(--destructive-foreground))',
                         },
                         muted: {
@@ -388,11 +388,11 @@ document.addEventListener('DOMContentLoaded', function() {
         renderCurrentWorld(document.getElementById('current-world-container'));
     }
     
-    function renderRanking(rankingUsers) {
+    function renderRanking() {
         const pageContainer = document.getElementById('page-container');
         const currentUser = state.currentUser;
         
-        const competingUsers = rankingUsers.filter(user => user.cargo !== 'ADMINISTRADOR');
+        const competingUsers = state.users.filter(user => user.cargo !== 'ADMINISTRADOR');
 
         let selectedVp = 'Todas';
         if (currentUser?.cargo !== 'ADMINISTRADOR' && currentUser?.vicepresidencia) {
@@ -966,14 +966,6 @@ document.addEventListener('DOMContentLoaded', function() {
             try {
                 const data = JSON.parse(text);
                 if (data.error) throw new Error(data.message || 'Error desconocido del script.');
-                
-                // Filter users by 'cargo'
-                if (data.users && Array.isArray(data.users)) {
-                    data.users = data.users.filter(user => 
-                        user.cargo === 'Asesor Integral' || user.cargo === 'ADMINISTRADOR'
-                    );
-                }
-                
                 return data;
             } catch (e) {
                 console.error("Failed to parse JSON response:", text);
@@ -1000,7 +992,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const data = await handleApiCall(APPS_SCRIPT_URL, {
                 action: 'login',
                 username: form.username.value,
-                password: form.cedula.value, // Using cedula as password
+                password: form.cedula.value,
             });
             
             const user = {
@@ -1057,14 +1049,20 @@ document.addEventListener('DOMContentLoaded', function() {
         if (page === 'ranking' || page === 'estadisticas') {
              try {
                 const data = await handleApiCall(APPS_SCRIPT_URL, { action: 'getData' });
-                state.users = (data.users || []).map(u => ({
+                
+                const allUsers = (data.users || []).map(u => ({
                     id: u.id, name: u.name, level: 1, xp: u.xp || 0, avatar: u.avatar || 'Bronce', progreso: u.progreso || 0, vicepresidencia: u.vicepresidencia || '', posicion: u.posicion || 0, cargo: u.cargo || '', prog_pol: u.prog_pol || 0, prog_sus: u.prog_sus || 0, prog_cob: u.prog_cob || 0,
                 }));
+                
+                state.users = allUsers.filter(user => 
+                    user.cargo === 'Asesor Integral' || user.cargo === 'ADMINISTRADOR'
+                );
+
                 const competingUsers = state.users.filter(user => user.cargo !== 'ADMINISTRADOR');
                 const allVps = competingUsers.map(user => user.vicepresidencia).filter(Boolean);
                 state.vicepresidencias = ['Todas', ...Array.from(new Set(allVps))];
 
-                if(page === 'ranking') renderRanking(state.users);
+                if(page === 'ranking') renderRanking();
                 if(page === 'estadisticas') renderEstadisticasPage();
              } catch(err) {
                  pageContainer.innerHTML = `<p class="text-red-500 text-center">Error al cargar datos: ${err.message}</p>`;
@@ -1090,7 +1088,7 @@ document.addEventListener('DOMContentLoaded', function() {
    function showRulesModal() {
         let rulesHTML = rules.map(rule => `
             <div class="flex items-start gap-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-primary flex-shrink-0 mt-1"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-primary flex-shrink-0 mt-1"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
                 <p class="text-sm text-muted-foreground">${rule}</p>
             </div>
         `).join('');
