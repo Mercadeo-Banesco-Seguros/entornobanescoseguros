@@ -29,6 +29,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [vicepresidencias, setVicepresidencias] = useState<string[]>(['Todas']);
 
   // Datos estáticos que ya no dependen de la lógica de niveles compleja
   const tasks = staticTasks.map(t => ({...t, status: 'pending'}) as Task);
@@ -36,12 +37,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const avatars = staticAvatars;
   const prizes = staticPrizes;
   const prizeCategories = staticPrizeCategories;
-
-  const vicepresidencias = useMemo(() => {
-    const competingUsers = users.filter(user => user.cargo !== 'ADMINISTRADOR');
-    const allVps = competingUsers.map(user => user.vicepresidencia).filter(Boolean);
-    return ['Todas', ...Array.from(new Set(allVps))];
-  }, [users]);
 
   const fetchUsers = useCallback(async () => {
     try {
@@ -70,6 +65,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }));
       setUsers(allUsers);
       
+      // Calculate and set vicepresidencias here, after users are fetched
+      const competingUsers = allUsers.filter((user: User) => user.cargo !== 'ADMINISTRADOR');
+      const allVps = competingUsers.map(user => user.vicepresidencia).filter(Boolean);
+      setVicepresidencias(['Todas', ...Array.from(new Set(allVps))]);
+
       setCurrentUser(prevUser => {
         if (prevUser && prevUser.id) {
           const updatedCurrentUser = allUsers.find(u => u.id && u.id.toString().toLowerCase() === prevUser.id.toString().toLowerCase());
@@ -163,6 +163,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     localStorage.removeItem('currentUser');
     setUsers([]);
     setError(null);
+    setVicepresidencias(['Todas']);
   };
 
   const value = useMemo(() => ({
