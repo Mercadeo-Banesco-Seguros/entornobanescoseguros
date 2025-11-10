@@ -49,16 +49,30 @@ export default function EstadisticasPage() {
   }, [competingUsers]);
 
   const vpAvgProgress = useMemo(() => {
-    const data = [
-      { name: "VP. COMERCIAL CTRO. OCCID. LOS ANDES", logro: 42.05 },
-      { name: "VP. COMERCIAL ORIENTE", logro: 39.24 },
-      { name: "VP. COMERCIAL GRAN CARACAS", logro: 29.75 },
-      { name: "VP. COMERCIAL CENTRO LLANOS-CARABOBO", logro: 29.22 },
-      { name: "VP. COMERCIAL ZULIA - FALCON", logro: 25.13 }
-    ].sort((a, b) => b.logro - a.logro);
-    return data;
-    
-  }, []);
+    if (competingUsers.length === 0) return [];
+
+    const vpData: { [key: string]: { total: number; count: number } } = {};
+
+    competingUsers.forEach(user => {
+      if (user.vicepresidencia) {
+        if (!vpData[user.vicepresidencia]) {
+          vpData[user.vicepresidencia] = { total: 0, count: 0 };
+        }
+        vpData[user.vicepresidencia].total += user.progreso || 0;
+        vpData[user.vicepresidencia].count++;
+      }
+    });
+
+    const avgData = Object.keys(vpData).map(vpName => {
+      const avg = vpData[vpName].count > 0 ? vpData[vpName].total / vpData[vpName].count : 0;
+      return {
+        name: vpName,
+        logro: parseFloat(avg.toFixed(2)),
+      };
+    });
+
+    return avgData.sort((a, b) => b.logro - a.logro);
+  }, [competingUsers]);
 
   const totalAvgProgress = useMemo(() => {
     if (competingUsers.length === 0) return 0;
@@ -344,18 +358,8 @@ export default function EstadisticasPage() {
       
        <Card className="border-0 shadow-none">
         <CardContent className="p-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            <div className="flex justify-center">
-              <Image
-                src={dynamicImageSrc}
-                alt="Imagen de Vicepresidencia"
-                width={selectedVp === 'Total' ? 500 : 400}
-                height={selectedVp === 'Total' ? 500 : 400}
-                className="object-contain"
-                key={dynamicImageSrc}
-              />
-            </div>
-            <div>
+          <div className="flex flex-col-reverse md:flex-row gap-8 items-center">
+            <div className="w-full md:w-1/2">
               <div className="flex justify-between items-center mb-6">
                 <div className="text-left">
                   <h2 className="text-lg font-bold tracking-tighter">Top 10 Pilotos</h2>
@@ -392,9 +396,21 @@ export default function EstadisticasPage() {
                 ))}
               </div>
             </div>
+            <div className="w-full md:w-1/2 flex justify-center">
+              <Image
+                src={dynamicImageSrc}
+                alt="Imagen de Vicepresidencia"
+                width={selectedVp === 'Total' ? 500 : 400}
+                height={selectedVp === 'Total' ? 500 : 400}
+                className="object-contain"
+                key={dynamicImageSrc}
+              />
+            </div>
           </div>
         </CardContent>
       </Card>
     </div>
   );
 }
+
+    
