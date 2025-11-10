@@ -18,12 +18,6 @@ const areaChartData = [
   { month: 'Diciembre', value: 4.2 },
 ];
 
-const radialChartData = [
-  { name: 'Logro Suscrito', value: 25 },
-  { name: 'Logro Cobrado', value: 75 },
-  { name: 'Logro Pólizas', value: 75 },
-];
-
 const getVpKeyFromName = (name: string): string | null => {
   if (!name) return null;
   const lowerName = name.toLowerCase();
@@ -71,6 +65,31 @@ export default function EstadisticasPage() {
     const total = competingUsers.reduce((sum, user) => sum + (user.progreso || 0), 0);
     return total / competingUsers.length;
   }, [competingUsers]);
+
+  const avgSuscrito = useMemo(() => {
+    if (competingUsers.length === 0) return 0;
+    const total = competingUsers.reduce((sum, user) => sum + (user.prog_sus || 0), 0);
+    return total / competingUsers.length;
+  }, [competingUsers]);
+
+  const avgCobrado = useMemo(() => {
+    if (competingUsers.length === 0) return 0;
+    const total = competingUsers.reduce((sum, user) => sum + (user.prog_cob || 0), 0);
+    return total / competingUsers.length;
+  }, [competingUsers]);
+
+  const avgPolizas = useMemo(() => {
+    if (competingUsers.length === 0) return 0;
+    const total = competingUsers.reduce((sum, user) => sum + (user.prog_pol || 0), 0);
+    return total / competingUsers.length;
+  }, [competingUsers]);
+
+  const radialChartData = useMemo(() => [
+    { name: 'Logro Suscrito', value: parseFloat(avgSuscrito.toFixed(2)) },
+    { name: 'Logro Cobrado', value: parseFloat(avgCobrado.toFixed(2)) },
+    { name: 'Logro Pólizas', value: parseFloat(avgPolizas.toFixed(2)) },
+  ], [avgSuscrito, avgCobrado, avgPolizas]);
+
 
   const monthlyChange = useMemo(() => {
     if (areaChartData.length < 2) return { text: 'Datos insuficientes', isPositive: true, diff: '0.0' };
