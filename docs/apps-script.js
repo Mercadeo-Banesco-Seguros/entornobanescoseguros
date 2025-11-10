@@ -1,4 +1,3 @@
-
 // ------------------- CONFIGURACIÓN -------------------
 // 1. Reemplaza esta URL con la URL de tu hoja de cálculo de Google.
 const SPREADSHEET_URL = "https://docs.google.com/spreadsheets/d/1rRXSKOPScB4Wmmy1UrhRS4cIMBzMmx_xxtcl4yi81y4/edit"; 
@@ -108,7 +107,10 @@ function handleLogin(data) {
       avatar: userRow['premio_cat'],
       progreso: parseFloat(userRow['logro']) || 0,
       posicion: parseInt(userRow['posicion'], 10) || 0,
-      xp: (parseFloat(userRow['logro']) || 0) * 100 
+      xp: (parseFloat(userRow['logro']) || 0) * 100,
+      prog_pol: parseFloat(userRow['prog_pol']) || 0,
+      prog_sus: parseFloat(userRow['prog_sus']) || 0,
+      prog_cob: parseFloat(userRow['prog_cob']) || 0
   };
 
   return createJsonResponse({ success: true, user: userData });
@@ -133,7 +135,10 @@ function handleGetData(params) {
         progreso: parseFloat(u.logro) || 0,
         posicion: parseInt(u.posicion, 10) || 0,
         xp: (parseFloat(u.logro) || 0) * 100,
-        level: 1 
+        level: 1,
+        prog_pol: parseFloat(u['prog_pol']) || 0,
+        prog_sus: parseFloat(u['prog_sus']) || 0,
+        prog_cob: parseFloat(u['prog_cob']) || 0
     }));
 
     return createJsonResponse({ users: users, error: false });
