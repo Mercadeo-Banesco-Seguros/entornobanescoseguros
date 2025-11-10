@@ -749,7 +749,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function renderCarEvolution(container) {
         if (!container) return;
         const currentUser = state.currentUser;
-        const isAdministrator = currentUser.cargo === 'ADMINISTRATOR';
+        const isAdministrator = currentUser.cargo === 'ADMINISTRADOR';
         const categoryOrder = { 'Base': 0, 'Bronce': 1, 'Plata': 2, 'Oro': 3 };
         const userCategory = toTitleCase(currentUser.avatar);
         const userCategoryRank = isAdministrator ? 3 : (categoryOrder[userCategory] ?? 0);
@@ -954,35 +954,35 @@ document.addEventListener('DOMContentLoaded', function() {
 
     async function handleApiCall(url, payload) {
         try {
-            // Apps Script requires a POST request with a JSON body.
             const response = await fetch(url, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'text/plain;charset=utf-8', // Required by Apps Script web apps for CORS
-                },
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
                 body: JSON.stringify(payload),
-                redirect: 'follow', // Apps Script web apps often redirect, this handles it.
+                redirect: 'follow',
             });
 
-            // The response from a redirected Apps Script POST request is often returned as text
             const text = await response.text();
             
-            // Now, try to parse this text as JSON
             try {
                 const data = JSON.parse(text);
-                if (data.error) {
-                    throw new Error(data.message || 'Error desconocido del script.');
+                if (data.error) throw new Error(data.message || 'Error desconocido del script.');
+                
+                // Filter users by 'cargo'
+                if (data.users && Array.isArray(data.users)) {
+                    data.users = data.users.filter(user => 
+                        user.cargo === 'Asesor Integral' || user.cargo === 'ADMINISTRADOR'
+                    );
                 }
+                
                 return data;
             } catch (e) {
                 console.error("Failed to parse JSON response:", text);
-                // If parsing fails, it might be an HTML error page from Google.
                 throw new Error("Respuesta inválida del servidor. Revisa los logs de Apps Script.");
             }
 
         } catch (error) {
             console.error('Error en handleApiCall:', error);
-            throw error; // Re-throw the error to be caught by the caller
+            throw error;
         }
     }
 
@@ -1054,7 +1054,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const pageContainer = document.getElementById('page-container');
         renderLoading(pageContainer);
         
-        // Fetch data if needed and then render
         if (page === 'ranking' || page === 'estadisticas') {
              try {
                 const data = await handleApiCall(APPS_SCRIPT_URL, { action: 'getData' });
@@ -1088,7 +1087,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    function showRulesModal() {
+   function showRulesModal() {
         let rulesHTML = rules.map(rule => `
             <div class="flex items-start gap-3">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-primary flex-shrink-0 mt-1"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
@@ -1104,21 +1103,21 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="p-6 pt-0 mt-4 space-y-4 max-h-[60vh] overflow-y-auto">
                 ${rulesHTML}
             </div>
-        `, 'sm:max-w-lg');
+        `);
     }
 
     window.showPrizeModal = (prizeId) => {
         const details = prizeDetails[prizeId];
         if (!details) return;
         openDialog(`
-            <div class="p-10 overflow-hidden flex flex-col justify-between min-h-[580px]">
+            <div class="p-10 overflow-hidden flex flex-col justify-between min-h-[350px]">
                 <div class="space-y-4">
                     <h2 class="text-6xl font-black tracking-tighter text-white">${details.title}</h2>
                     <div class="text-white/80 text-base">${details.description}</div>
                 </div>
                 ${details.images}
             </div>
-        `, 'sm:max-w-[625px] bg-primary text-primary-foreground border-0');
+        `, 'sm:max-w-[900px] bg-primary text-primary-foreground border-0');
     }
 
     // --- INITIALIZATION ---
