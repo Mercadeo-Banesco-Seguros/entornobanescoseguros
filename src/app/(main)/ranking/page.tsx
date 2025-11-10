@@ -123,23 +123,27 @@ export default function RankingPage() {
                 <p className="text-xs text-primary-foreground/80">{me.avatar}</p>
               </div>
             </div>
-             <div className="text-center w-64">
+             <div className="text-center">
               {me.cargo === 'ADMINISTRADOR' ? (
-                 <Select onValueChange={setSelectedVp} value={selectedVp}>
-                  <SelectTrigger className="w-64 bg-white/20 border-0 text-white text-xs">
-                    <SelectValue placeholder="Filtrar por VP" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {vicepresidencias.map((vp) => (
-                      <SelectItem key={vp} value={vp}>{vp}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <div className="w-64">
+                   <Select onValueChange={setSelectedVp} value={selectedVp}>
+                    <SelectTrigger className="bg-white/20 border-0 text-white text-xs">
+                      <SelectValue placeholder="Filtrar por VP" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {vicepresidencias.map((vp) => (
+                        <SelectItem key={vp} value={vp}>{vp}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
               ) : (
                 me.vicepresidencia && (
-                  <span className="bg-primary text-primary-foreground text-xs px-3 py-1 rounded-full whitespace-nowrap">
-                    {me.vicepresidencia}
-                  </span>
+                  <div className="w-64">
+                    <span className="bg-primary text-primary-foreground text-xs px-3 py-1 rounded-full whitespace-nowrap">
+                      {me.vicepresidencia}
+                    </span>
+                  </div>
                 )
               )}
             </div>
