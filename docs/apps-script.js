@@ -102,7 +102,7 @@ function handleLogin(data) {
   const userData = {
       id: userRow['usuario'],
       name: userRow['nombre'],
-      vicepresidencia: userRow['vp'],
+      vicepresidencia: userRow['vicepresidencia'],
       cargo: userRow['cargo'],
       avatar: userRow['premio_cat'],
       progreso: parseFloat(userRow['logro']) || 0,
@@ -129,7 +129,7 @@ function handleGetData(params) {
     const users = getSheetData(dataSheet).map(u => ({
         id: u.usuario,
         name: u.nombre,
-        vicepresidencia: u.vp,
+        vicepresidencia: u.vicepresidencia,
         cargo: u.cargo,
         avatar: u.premio_cat,
         progreso: parseFloat(u.logro) || 0,
