@@ -342,16 +342,18 @@ export default function EstadisticasPage() {
                   <h2 className="text-lg font-bold tracking-tighter">Top 10 Pilotos</h2>
                   <p className="text-lg font-semibold tracking-tighter text-primary -mt-1">por Logro Promedio</p>
                 </div>
-                <Select onValueChange={setSelectedVp} value={selectedVp}>
-                  <SelectTrigger className="w-48 bg-primary text-primary-foreground rounded-full" style={{ fontSize: '0.65rem' }}>
-                    <SelectValue placeholder="Filtrar por VP" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {vicepresidencias.map((vp) => (
-                      <SelectItem key={vp} value={vp}>{vp}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <div className="w-48">
+                  <Select onValueChange={setSelectedVp} value={selectedVp}>
+                    <SelectTrigger className="bg-primary text-primary-foreground rounded-full" style={{ fontSize: '0.65rem' }}>
+                      <SelectValue placeholder="Filtrar por VP" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {vicepresidencias.map((vp) => (
+                        <SelectItem key={vp} value={vp}>{vp}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
               <div className="space-y-4">
                 {top10Users.map((user, index) => (
