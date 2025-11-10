@@ -196,19 +196,23 @@ export default function RankingPage() {
                       )}
                     </TableCell>
                     <TableCell className="text-right w-auto">
-                      <div className="flex justify-end items-center gap-2">
-                        <span className="bg-primary text-primary-foreground text-xs px-3 py-1 rounded-full" title="Logro Total">
-                          {(user.progreso || 0).toFixed(2)}%
-                        </span>
-                         <span className="bg-secondary text-secondary-foreground text-xs px-2 py-1 rounded-full" title="Logro Pólizas">
-                          {(user.prog_pol || 0).toFixed(2)}%
-                        </span>
-                         <span className="bg-secondary text-secondary-foreground text-xs px-2 py-1 rounded-full" title="Logro Suscrito">
-                          {(user.prog_sus || 0).toFixed(2)}%
-                        </span>
-                         <span className="bg-secondary text-secondary-foreground text-xs px-2 py-1 rounded-full" title="Logro Cobrado">
-                          {(user.prog_cob || 0).toFixed(2)}%
-                        </span>
+                      <div className="flex justify-end items-center gap-4">
+                        <div className="text-center" title="Logro Total">
+                            <span className="font-bold">{(user.progreso || 0).toFixed(2)}%</span>
+                            <p className="text-xs text-muted-foreground">Total</p>
+                        </div>
+                        <div className="text-center" title="Logro Pólizas">
+                            <span className="font-bold">{(user.prog_pol || 0).toFixed(2)}%</span>
+                            <p className="text-xs text-muted-foreground">Pólizas</p>
+                        </div>
+                        <div className="text-center" title="Logro Suscrito">
+                            <span className="font-bold">{(user.prog_sus || 0).toFixed(2)}%</span>
+                            <p className="text-xs text-muted-foreground">Suscrito</p>
+                        </div>
+                        <div className="text-center" title="Logro Cobrado">
+                            <span className="font-bold">{(user.prog_cob || 0).toFixed(2)}%</span>
+                            <p className="text-xs text-muted-foreground">Cobrado</p>
+                        </div>
                       </div>
                     </TableCell>
                   </TableRow>
