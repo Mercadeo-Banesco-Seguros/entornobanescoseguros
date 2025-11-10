@@ -37,7 +37,7 @@ const getVpKeyFromName = (name: string): string | null => {
 
 
 export default function EstadisticasPage() {
-  const { users, currentUser, vicepresidencias } = useAuth();
+  const { users, currentUser } = useAuth();
   const router = useRouter();
 
   if (currentUser?.cargo !== 'ADMINISTRADOR') {
@@ -49,6 +49,11 @@ export default function EstadisticasPage() {
     return users.filter(user => user.cargo !== 'ADMINISTRADOR' && user.vicepresidencia);
   }, [users]);
   
+  const vicepresidencias = useMemo(() => {
+    const allVps = competingUsers.map(user => user.vicepresidencia).filter(Boolean);
+    return ['Total', ...Array.from(new Set(allVps))];
+  }, [competingUsers]);
+
   const vpAvgProgress = useMemo(() => {
     const data = [
       { name: "VP. COMERCIAL CTRO. OCCID. LOS ANDES", logro: 42.05 },
@@ -127,8 +132,6 @@ export default function EstadisticasPage() {
   const [suscritoTime, setSuscritoTime] = useState('November');
   const [cobradoTime, setCobradoTime] = useState('All time');
   const [polizasTime, setPolizasTime] = useState('November');
-
-  const filteredVicepresidencias = useMemo(() => ['Total', ...vicepresidencias.filter(vp => vp !== 'Todas')], [vicepresidencias]);
 
   return (
     <div className="space-y-8">
@@ -345,7 +348,7 @@ export default function EstadisticasPage() {
                       <SelectValue placeholder="Filtrar por VP" />
                     </SelectTrigger>
                     <SelectContent>
-                      {filteredVicepresidencias.map((vp) => (
+                      {vicepresidencias.map((vp) => (
                         <SelectItem key={vp} value={vp}>{vp}</SelectItem>
                       ))}
                     </SelectContent>

@@ -17,11 +17,16 @@ import {
 
 
 export default function RankingPage() {
-  const { currentUser: me, users: rankingUsers, loading, error, fetchUsers, vicepresidencias } = useAuth();
+  const { currentUser: me, users: rankingUsers, loading, error, fetchUsers } = useAuth();
   
   const competingUsers = useMemo(() => {
     return rankingUsers.filter(user => user.cargo !== 'ADMINISTRADOR');
   }, [rankingUsers]);
+  
+  const vicepresidencias = useMemo(() => {
+    const allVps = competingUsers.map(user => user.vicepresidencia).filter(Boolean);
+    return ['Todas', ...Array.from(new Set(allVps))];
+  }, [competingUsers]);
 
   const [selectedVp, setSelectedVp] = useState('Todas');
 
