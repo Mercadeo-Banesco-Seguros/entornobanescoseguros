@@ -60,7 +60,7 @@ export default function RankingPage() {
           <h1 className="text-4xl font-bold text-foreground">Clasificación de Pilotos</h1>
           <p className="text-muted text-lg mt-1">Mira tu posición y la de tus compañeros en el circuito.</p>
         </header>
-        <Card className="sticky top-20 z-10">
+        <Card>
           <CardContent className="p-6">
             <Skeleton className="h-12 w-full" />
           </CardContent>
@@ -107,7 +107,7 @@ export default function RankingPage() {
         <p className="text-muted text-lg mt-1">Mira tu posición y la de tus compañeros en el circuito.</p>
       </header>
 
-      <Card className="sticky top-20 z-10 bg-primary text-primary-foreground shadow-lg">
+      <Card className="bg-primary text-primary-foreground shadow-lg">
         <CardContent className="p-6">
           <div className="flex items-center">
             <div className="font-bold text-lg text-white w-[80px] flex items-center justify-center">
