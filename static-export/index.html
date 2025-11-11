@@ -1061,9 +1061,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 const allUsers = (data.users || []).map(u => ({
                     id: u.id, name: u.name, level: 1, xp: u.xp || 0, avatar: u.avatar || 'Bronce', progreso: u.progreso || 0, vicepresidencia: u.vicepresidencia || '', posicion: u.posicion || 0, cargo: u.cargo || '', prog_pol: u.prog_pol || 0, prog_sus: u.prog_sus || 0, prog_cob: u.prog_cob || 0,
                 }));
-
-                const validCargos = ['ASISTENTE DE VP', 'ANALISTA DE COMISIONES', 'GERENTE DE SUCURSAL', 'EJECUTIVO DE NEGOCIOS', 'ESPECIALISTA DE NEGOCIOS'];
-                state.users = allUsers.filter(user => validCargos.includes(user.cargo) || user.cargo === 'ADMINISTRADOR');
+                
+                state.users = allUsers.filter(user => user.cargo === 'ASESOR INTEGRAL' || user.cargo === 'ADMINISTRADOR');
 
                 const competingUsers = state.users.filter(user => user.cargo !== 'ADMINISTRADOR');
                 const allVps = competingUsers.map(user => user.vicepresidencia).filter(Boolean);
