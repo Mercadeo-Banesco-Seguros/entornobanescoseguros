@@ -49,20 +49,23 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const data = await response.json();
       if (data.error) throw new Error(data.message);
       
-      const allUsers = (data.users || []).map((u: any) => ({
-        id: u.id,
-        name: u.name,
-        level: 1, // Nivel estático
-        xp: u.xp || 0,
-        avatar: u.avatar || 'Bronce', // Categoría del premio
-        progreso: u.progreso || 0, 
-        vicepresidencia: u.vicepresidencia || '',
-        posicion: u.posicion || 0,
-        cargo: u.cargo || '',
-        prog_pol: u.prog_pol || 0,
-        prog_sus: u.prog_sus || 0,
-        prog_cob: u.prog_cob || 0,
-      }));
+      const allUsers = (data.users || [])
+        .map((u: any) => ({
+          id: u.id,
+          name: u.name,
+          level: 1, // Nivel estático
+          xp: u.xp || 0,
+          avatar: u.avatar || 'Bronce', // Categoría del premio
+          progreso: u.progreso || 0, 
+          vicepresidencia: u.vicepresidencia || '',
+          posicion: u.posicion || 0,
+          cargo: u.cargo || '',
+          prog_pol: u.prog_pol || 0,
+          prog_sus: u.prog_sus || 0,
+          prog_cob: u.prog_cob || 0,
+        }))
+        .filter((user: User) => user.cargo === 'ASESOR INTEGRAL' || user.cargo === 'ADMINISTRADOR');
+
       setUsers(allUsers);
       
       // Calculate and set vicepresidencias here, after users are fetched
