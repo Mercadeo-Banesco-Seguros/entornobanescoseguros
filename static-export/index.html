@@ -488,7 +488,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="p-6">
                         <div class="flex items-center">
                            <div class="font-bold text-lg text-white w-[80px] flex items-center justify-center">
-                                ${currentUser.cargo === 'ADMINISTRADOR' ? `<div class="bg-white text-primary rounded-full h-8 w-8 flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M20 6 9 17l-5-5"></path></svg></div>` : `#${myRank > 0 ? myRank : '-'}`}
+                                ${currentUser.cargo === 'ADMINISTRADOR' ? `<div class="bg-white text-primary rounded-full h-8 w-8 flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M20 6 9 17l-5-5"></path></svg></div>` : `#${myRank > 0 ? myRank : '-'}`}
                             </div>
                             <div class="flex-grow flex items-center gap-4">
                                <div>
@@ -1061,11 +1061,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 const allUsers = (data.users || []).map(u => ({
                     id: u.id, name: u.name, level: 1, xp: u.xp || 0, avatar: u.avatar || 'Bronce', progreso: u.progreso || 0, vicepresidencia: u.vicepresidencia || '', posicion: u.posicion || 0, cargo: u.cargo || '', prog_pol: u.prog_pol || 0, prog_sus: u.prog_sus || 0, prog_cob: u.prog_cob || 0,
                 }));
-                
-                // Filter users by cargo
-                state.users = allUsers.filter(user => 
-                    user.cargo === 'Asesor Integral' || user.cargo === 'ADMINISTRADOR'
-                );
+
+                const validCargos = ['ASISTENTE DE VP', 'ANALISTA DE COMISIONES', 'GERENTE DE SUCURSAL', 'EJECUTIVO DE NEGOCIOS', 'ESPECIALISTA DE NEGOCIOS'];
+                state.users = allUsers.filter(user => validCargos.includes(user.cargo) || user.cargo === 'ADMINISTRADOR');
 
                 const competingUsers = state.users.filter(user => user.cargo !== 'ADMINISTRADOR');
                 const allVps = competingUsers.map(user => user.vicepresidencia).filter(Boolean);
