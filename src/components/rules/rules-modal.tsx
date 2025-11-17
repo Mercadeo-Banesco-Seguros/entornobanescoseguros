@@ -8,7 +8,7 @@ type RulesModalProps = {
 };
 
 const rules = [
-    'Periodo del concurso desde el 1 de octubre hasta el 19 de diciembre de 2025.',
+    'Periodo del concurso desde el 1 de octubre hasta el 30 de diciembre de 2025.',
     'Son válidas para participar, todas las pólizas estructuradas nuevas, suscritas y cobradas dentro del periodo del concurso.',
     'Las pólizas deben estar cobradas (en caso de fraccionamiento, la primera cuota) para ser contadas en el incentivo.',
     'Para participar debes mínimo suscribir 2.300$ y cobrar 200$ mensuales o alcanzar en total, mínimo 7.000$ y cobrar 800$ al cierre del concurso, el 19 de diciembre.',
