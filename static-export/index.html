@@ -155,6 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
         'Serán descontadas del inventario las pólizas que sean suscritas y anuladas dentro del periodo del concurso, por lo que debes estar atento a tu progreso semanal.',
         'Las pólizas estructuradas son: RCV, Banesco Familia Segura de Servicio Funerario, Accidentes Personales, Indemnización Diaria por Hospitalización y Protección por Cáncer.',
         'Ganarán por cada Vicepresidencia, los 2 Asesores integrales de cada categoría que tengan el mayor cumplimiento en prima cobrada y suscrita.',
+        'Para desbloquear el premio logrado en el concurso debes cumplir con el 80% del TIV.',
         'Los premios serán entregados en enero de 2026.',
     ];
 
@@ -342,7 +343,7 @@ document.addEventListener('DOMContentLoaded', function() {
                   </p>
                   <div class="pt-2">
                     <a href="https://drive.google.com/file/d/1GtASq9tTkrNhtCZBhqSKzTbC2Uq0XuNp/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium h-10 px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 shrink-0 mr-2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 shrink-0 mr-2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
                         Acceder a Recursos
                     </a>
                   </div>
@@ -406,31 +407,27 @@ document.addEventListener('DOMContentLoaded', function() {
                 return competingUsers.filter(user => user.vicepresidencia === selectedVp);
             }
             return competingUsers.filter(user => user.vicepresidencia === currentUser.vicepresidencia);
-        }
-
+        };
+        
         const categoryOrder = { 'Oro': 3, 'Plata': 2, 'Bronce': 1, 'Base': 0 };
 
-        const sortedUsers = [...getDisplayedUsers()].sort((a, b) => {
-            const levelA = categoryOrder[a.avatar] ?? -1;
-            const levelB = categoryOrder[b.avatar] ?? -1;
-            if (levelA !== levelB) {
-                return levelB - levelA; // Sort by level first (descending)
-            }
-            return (b.progreso || 0) - (a.progreso || 0); // Then by progress
-        });
-        
+        const sortUsers = (users) => {
+            return [...users].sort((a, b) => {
+                const levelA = categoryOrder[a.avatar] ?? -1;
+                const levelB = categoryOrder[b.avatar] ?? -1;
+                if (levelA !== levelB) {
+                    return levelB - levelA; // Sort by category first (descending)
+                }
+                return (b.progreso || 0) - (a.progreso || 0); // Then by progress
+            });
+        };
+
+        const sortedUsers = sortUsers(getDisplayedUsers());
         const myRankIndex = sortedUsers.findIndex(u => u.id.toString().toLowerCase() === currentUser.id.toString().toLowerCase());
         const myRank = myRankIndex !== -1 ? myRankIndex + 1 : 0;
 
         const renderTable = () => {
-            const currentSortedUsers = [...getDisplayedUsers()].sort((a, b) => {
-                const levelA = categoryOrder[a.avatar] ?? -1;
-                const levelB = categoryOrder[b.avatar] ?? -1;
-                if (levelA !== levelB) {
-                    return levelB - levelA;
-                }
-                return (b.progreso || 0) - (a.progreso || 0);
-            });
+            const currentSortedUsers = sortUsers(getDisplayedUsers());
             
             return `
                 <div class="rounded-lg border bg-card text-card-foreground shadow-sm">
@@ -500,7 +497,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="p-6">
                         <div class="flex items-center">
                            <div class="font-bold text-lg text-white w-[80px] flex items-center justify-center">
-                                ${currentUser.cargo === 'ADMINISTRADOR' ? `<div class="bg-white text-primary rounded-full h-8 w-8 flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M20 6 9 17l-5-5"></path></svg></div>` : `#${myRank > 0 ? myRank : '-'}`}
+                                ${currentUser.cargo === 'ADMINISTRADOR' ? `<div class="bg-white text-primary rounded-full h-8 w-8 flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M20 6 9 17l-5-5"></path></svg></div>` : `#${myRank > 0 ? myRank : '-'}`}
                             </div>
                             <div class="flex-grow flex items-center gap-4">
                                <div>
@@ -1070,12 +1067,13 @@ document.addEventListener('DOMContentLoaded', function() {
         if (page === 'ranking' || page === 'estadisticas') {
              try {
                 const data = await handleApiCall(APPS_SCRIPT_URL, { action: 'getData' });
+                
                 const allUsers = (data.users || []).map(u => ({
                     id: u.id, name: u.name, level: 1, xp: u.xp || 0, avatar: u.avatar || 'Bronce', progreso: u.progreso || 0, vicepresidencia: u.vicepresidencia || '', posicion: u.posicion || 0, cargo: u.cargo || '', prog_pol: u.prog_pol || 0, prog_sus: u.prog_sus || 0, prog_cob: u.prog_cob || 0,
                 }));
-                 // CORRECTED: Filter users by 'cargo'
-                state.users = allUsers.filter(user => user.cargo === 'ASESOR INTEGRAL' || user.cargo === 'ADMINISTRADOR');
-
+                
+                state.users = allUsers.filter(user => user.cargo === 'ASESOR INTEGRAL' || user.cargo === 'ADMINISTRADOR' || user.cargo === 'ASISTENTE DE VP' || user.cargo === 'ANALISTA DE COMISIONES' || user.cargo === 'GERENTE DE SUCURSAL' || user.cargo === 'EJECUTIVO DE NEGOCIOS' || user.cargo === 'ESPECIALISTA DE NEGOCIOS');
+                
                 const competingUsers = state.users.filter(user => user.cargo !== 'ADMINISTRADOR');
                 const allVps = competingUsers.map(user => user.vicepresidencia).filter(Boolean);
                 state.vicepresidencias = ['Todas', ...Array.from(new Set(allVps))];

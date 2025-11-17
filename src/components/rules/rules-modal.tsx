@@ -16,6 +16,7 @@ const rules = [
     'Serán descontadas del inventario las pólizas que sean suscritas y anuladas dentro del periodo del concurso, por lo que debes estar atento a tu progreso semanal.',
     'Las pólizas estructuradas son: RCV, Banesco Familia Segura de Servicio Funerario, Accidentes Personales, Indemnización Diaria por Hospitalización y Protección por Cáncer.',
     'Ganarán por cada Vicepresidencia, los 2 Asesores integrales de cada categoría que tengan el mayor cumplimiento en prima cobrada y suscrita.',
+    'Para desbloquear el premio logrado en el concurso debes cumplir con el 80% del TIV.',
     'Los premios serán entregados en enero de 2026.',
 ];
 
