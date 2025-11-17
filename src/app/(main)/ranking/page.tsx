@@ -1,4 +1,3 @@
-
 'use client';
 
 import { Card, CardContent } from '@/components/ui/card';
@@ -87,17 +86,22 @@ export default function RankingPage() {
     return <div className="text-destructive text-center">Error al cargar la clasificación: {error}</div>
   }
   
+  const categoryOrder: { [key: string]: number } = { 'Oro': 3, 'Plata': 2, 'Bronce': 1, 'Base': 0 };
+
   const sortedUsers = [...displayedUsers].sort((a, b) => {
-    const posA = a.posicion || Infinity;
-    const posB = b.posicion || Infinity;
-    if (posA !== posB) {
-      return posA - posB;
+    const levelA = categoryOrder[a.avatar] ?? -1;
+    const levelB = categoryOrder[b.avatar] ?? -1;
+
+    if (levelA !== levelB) {
+      return levelB - levelA; // Sort by level first (descending)
     }
+    
+    // If levels are the same, sort by progress (descending)
     return (b.progreso || 0) - (a.progreso || 0);
   });
 
   const myRankIndex = sortedUsers.findIndex(u => u.id.toString().toLowerCase() === me.id.toString().toLowerCase());
-  const myRank = myRankIndex !== -1 ? myRankIndex + 1 : me.posicion || 0;
+  const myRank = myRankIndex !== -1 ? myRankIndex + 1 : 0;
 
 
   return (
@@ -181,7 +185,7 @@ export default function RankingPage() {
           <Table>
             <TableBody>
               {sortedUsers.map((user, index) => {
-                const rankPosition = user.posicion > 0 ? user.posicion : index + 1;
+                const rankPosition = index + 1;
                 return (
                   <TableRow key={user.id} className={user.id.toString().toLowerCase() === me.id.toString().toLowerCase() ? 'bg-secondary/50' : ''}>
                     <TableCell className="font-bold text-lg text-muted w-[80px]">#{rankPosition}</TableCell>
