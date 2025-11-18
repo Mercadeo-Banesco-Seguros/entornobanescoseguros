@@ -8,7 +8,7 @@ type RulesModalProps = {
 };
 
 const rules = [
-    'Periodo del concurso desde el 1 de octubre hasta el 30 de diciembre de 2025.',
+    'Periodo del concurso desde el 1 de Noviembre hasta el 30 de diciembre de 2025.',
     'Son válidas para participar, todas las pólizas estructuradas nuevas, suscritas y cobradas dentro del periodo del concurso.',
     'Las pólizas deben estar cobradas (en caso de fraccionamiento, la primera cuota) para ser contadas en el incentivo.',
     'Para participar debes mínimo suscribir 2.300$ y cobrar 200$ mensuales o alcanzar en total, mínimo 7.000$ y cobrar 800$ al cierre del concurso, el 19 de diciembre.',
@@ -30,7 +30,7 @@ export default function RulesModal({ onClose }: RulesModalProps) {
                     Asegúrate de cumplir con todos los requisitos para ser el próximo campeón del circuito.
                 </DialogDescription>
             </DialogHeader>
-            <div className="mt-4 space-y-4">
+            <div className="mt-4 space-y-4 max-h-[60vh] overflow-y-auto">
                 {rules.map((rule, index) => (
                     <div key={index} className="flex items-start gap-3">
                         <BadgeCheck className="h-5 w-5 text-primary flex-shrink-0 mt-1" />

@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', function() {
         3: { title: "TERCER LUGAR!!", description: `¡Tu esfuerzo te ha colocado entre los tres mejores! Has luchado en cada curva y tu perseverancia ha dado frutos. Para celebrar tu victoria, te premiamos con un bono de $50 en tu T5 de Todoticket.<br /><br />¡Sigue acelerando hacia el éxito!`, images: `<div class="flex justify-center items-end mt-8"><img src="https://www.banescoseguros.com/wp-content/uploads/2025/11/Gemini_Generated_Image_ennz50ennz50ennz-Photoroom.png" alt="Dinero" width="200" height="200" class="object-contain" /></div>` }
     };
     const rules = [
-        'Periodo del concurso desde el 1 de octubre hasta el 30 de diciembre de 2025.',
+        'Periodo del concurso desde el 1 de Noviembre hasta el 30 de diciembre de 2025.',
         'Son válidas para participar, todas las pólizas estructuradas nuevas, suscritas y cobradas dentro del periodo del concurso.',
         'Las pólizas deben estar cobradas (en caso de fraccionamiento, la primera cuota) para ser contadas en el incentivo.',
         'Para participar debes mínimo suscribir 2.300$ y cobrar 200$ mensuales o alcanzar en total, mínimo 7.000$ y cobrar 800$ al cierre del concurso, el 19 de diciembre.',
@@ -389,11 +389,11 @@ document.addEventListener('DOMContentLoaded', function() {
         renderCurrentWorld(document.getElementById('current-world-container'));
     }
     
-    function renderRanking() {
+    function renderRanking(rankingUsers) {
         const pageContainer = document.getElementById('page-container');
         const currentUser = state.currentUser;
         
-        const competingUsers = state.users.filter(user => user.cargo !== 'ADMINISTRADOR');
+        const competingUsers = rankingUsers.filter(user => user.cargo !== 'ADMINISTRADOR');
 
         let selectedVp = 'Todas';
         if (currentUser?.cargo !== 'ADMINISTRADOR' && currentUser?.vicepresidencia) {
@@ -407,18 +407,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 return competingUsers.filter(user => user.vicepresidencia === selectedVp);
             }
             return competingUsers.filter(user => user.vicepresidencia === currentUser.vicepresidencia);
-        };
+        }
         
         const categoryOrder = { 'Oro': 3, 'Plata': 2, 'Bronce': 1, 'Base': 0 };
 
         const sortUsers = (users) => {
-            return [...users].sort((a, b) => {
+             return [...users].sort((a, b) => {
                 const levelA = categoryOrder[a.avatar] ?? -1;
                 const levelB = categoryOrder[b.avatar] ?? -1;
+
                 if (levelA !== levelB) {
-                    return levelB - levelA; // Sort by category first (descending)
+                  return levelB - levelA; // Sort by level first (descending)
                 }
-                return (b.progreso || 0) - (a.progreso || 0); // Then by progress
+                
+                // If levels are the same, sort by progress (descending)
+                return (b.progreso || 0) - (a.progreso || 0);
             });
         };
 
@@ -497,7 +500,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="p-6">
                         <div class="flex items-center">
                            <div class="font-bold text-lg text-white w-[80px] flex items-center justify-center">
-                                ${currentUser.cargo === 'ADMINISTRADOR' ? `<div class="bg-white text-primary rounded-full h-8 w-8 flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M20 6 9 17l-5-5"></path></svg></div>` : `#${myRank > 0 ? myRank : '-'}`}
+                                ${currentUser.cargo === 'ADMINISTRADOR' ? `<div class="bg-white text-primary rounded-full h-8 w-8 flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M20 6 9 17l-5-5"></path></svg></div>` : `#${myRank > 0 ? myRank : '-'}`}
                             </div>
                             <div class="flex-grow flex items-center gap-4">
                                <div>
@@ -1067,17 +1070,17 @@ document.addEventListener('DOMContentLoaded', function() {
         if (page === 'ranking' || page === 'estadisticas') {
              try {
                 const data = await handleApiCall(APPS_SCRIPT_URL, { action: 'getData' });
-                 const allUsers = (data.users || []).map(u => ({
+                const allUsers = (data.users || []).map(u => ({
                     id: u.id, name: u.name, level: 1, xp: u.xp || 0, avatar: u.avatar || 'Bronce', progreso: u.progreso || 0, vicepresidencia: u.vicepresidencia || '', posicion: u.posicion || 0, cargo: u.cargo || '', prog_pol: u.prog_pol || 0, prog_sus: u.prog_sus || 0, prog_cob: u.prog_cob || 0,
                 }));
-
-                state.users = allUsers.filter(user => user.cargo === 'ASESOR INTEGRAL' || user.cargo === 'ADMINISTRADOR');
-
+                
+                state.users = allUsers.filter(user => user.cargo === 'ASESOR INTEGRAL' || user.cargo === 'ADMINISTRADOR' || user.cargo === 'ASISTENTE DE VP' || user.cargo === 'ANALISTA DE COMISIONES' || user.cargo === 'GERENTE DE SUCURSAL' || user.cargo === 'EJECUTIVO DE NEGOCIOS' || user.cargo === 'ESPECIALISTA DE NEGOCIOS');
+                
                 const competingUsers = state.users.filter(user => user.cargo !== 'ADMINISTRADOR');
                 const allVps = competingUsers.map(user => user.vicepresidencia).filter(Boolean);
                 state.vicepresidencias = ['Todas', ...Array.from(new Set(allVps))];
 
-                if(page === 'ranking') renderRanking();
+                if(page === 'ranking') renderRanking(state.users);
                 if(page === 'estadisticas') renderEstadisticasPage();
              } catch(err) {
                  pageContainer.innerHTML = `<p class="text-red-500 text-center">Error al cargar datos: ${err.message}</p>`;
