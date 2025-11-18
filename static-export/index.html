@@ -142,8 +142,8 @@ document.addEventListener('DOMContentLoaded', function() {
       { id: 3, name: 'Tercer Lugar', imageUrl: 'https://www.banescoseguros.com/wp-content/uploads/2025/11/Tarjeta-Datos-Bancarios-Organico-Rosa-y-Amarillo-6-Photoroom.png' },
     ];
     const prizeDetails = {
-        1: { title: "PRIMER LUGAR!!", description: `Tu esfuerzo extraordinario merece una recompensa legendaria. Alcanza la cima en nuestra competencia y prepárate para celebrar tu éxito con una escapada de lujo a la Isla de Margarita.<br /><br />El ganador disfrutará de 3 días y 2 noches inolvidables con TODO INCLUIDO.<br /><br />Un merecido descanso en el paraíso, donde tu única misión será relajarte. Y para celebrar tu victoria como se debe, ¡te llevas un abono equivalente a $200 en tu T5 de todoticket para disfrutar!<br /><br />¿Estás listo para demostrar que eres el número uno?`, images: `<div class="flex justify-center items-center gap-4 mt-4"><a href="https://drive.google.com/drive/folders/1ynl2HLESEungCG5_6YLgBW5Nv9y2Lm1b?usp=drive_link" target="_blank" rel="noopener noreferrer"><img src="https://www.banescoseguros.com/wp-content/uploads/2025/11/image-Photoroom-26.png" alt="Avión" width="240" height="240" class="object-contain" /></a><img src="https://www.banescoseguros.com/wp-content/uploads/2025/11/Gemini_Generated_Image_ennz50ennz50ennz-Photoroom.png" alt="Dinero" width="112" height="75" class="object-contain" /></div>` },
-        2: { title: "SEGUNDO LUGAR!!", description: `¡Has demostrado ser uno de los mejores! Tu constancia y dedicación te han llevado a asegurar un merecido lugar en el podio. Como recompensa, te llevas un increíble bono de $150 en tu T5 de Todoticket para que lo disfrutes como prefieras.<br /><br />¡Felicidades por este gran logro!`, images: `<div class="flex justify-center items-end mt-8"><img src="https://www.banescoseguros.com/wp-content/uploads/2025/11/Gemini_Generated_Image_ennz50ennz50ennz-Photoroom.png" alt="Dinero" width="200" height="200" class="object-contain" /></div>` },
+        1: { title: "PRIMER LUGAR!!", description: `Tu esfuerzo extraordinario merece una recompensa legendaria. Alcanza la cima en nuestra competencia y prepárate para celebrar tu éxito con una escapada de lujo a la Isla de Margarita.<br /><br />El ganador disfrutará de 3 días y 2 noches inolvidables con TODO INCLUIDO.<br /><br />Un merecido descanso en el paraíso, donde tu única misión será relajarte. Y para celebrar tu victoria como se debe, ¡te llevas un abono equivalente a $100 en tu T5 de todoticket para disfrutar!<br /><br />¿Estás listo para demostrar que eres el número uno?`, images: `<div class="flex justify-center items-center gap-4 mt-4"><a href="https://drive.google.com/drive/folders/1ynl2HLESEungCG5_6YLgBW5Nv9y2Lm1b?usp=drive_link" target="_blank" rel="noopener noreferrer"><img src="https://www.banescoseguros.com/wp-content/uploads/2025/11/image-Photoroom-26.png" alt="Avión" width="240" height="240" class="object-contain" /></a><img src="https://www.banescoseguros.com/wp-content/uploads/2025/11/Gemini_Generated_Image_ennz50ennz50ennz-Photoroom.png" alt="Dinero" width="112" height="75" class="object-contain" /></div>` },
+        2: { title: "SEGUNDO LUGAR!!", description: `¡Has demostrado ser uno de los mejores! Tu constancia y dedicación te han llevado a asegurar un merecido lugar en el podio. Como recompensa, te llevas un increíble bono de $70 en tu T5 de Todoticket para que lo disfrutes como prefieras.<br /><br />¡Felicidades por este gran logro!`, images: `<div class="flex justify-center items-end mt-8"><img src="https://www.banescoseguros.com/wp-content/uploads/2025/11/Gemini_Generated_Image_ennz50ennz50ennz-Photoroom.png" alt="Dinero" width="200" height="200" class="object-contain" /></div>` },
         3: { title: "TERCER LUGAR!!", description: `¡Tu esfuerzo te ha colocado entre los tres mejores! Has luchado en cada curva y tu perseverancia ha dado frutos. Para celebrar tu victoria, te premiamos con un bono de $50 en tu T5 de Todoticket.<br /><br />¡Sigue acelerando hacia el éxito!`, images: `<div class="flex justify-center items-end mt-8"><img src="https://www.banescoseguros.com/wp-content/uploads/2025/11/Gemini_Generated_Image_ennz50ennz50ennz-Photoroom.png" alt="Dinero" width="200" height="200" class="object-contain" /></div>` }
     };
     const rules = [
@@ -408,7 +408,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             return competingUsers.filter(user => user.vicepresidencia === currentUser.vicepresidencia);
         }
-
+        
         const categoryOrder = { 'Oro': 3, 'Plata': 2, 'Bronce': 1, 'Base': 0 };
 
         const sortUsers = (users) => {
@@ -423,11 +423,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 return (b.progreso || 0) - (a.progreso || 0);
             });
         };
-        
+
         const sortedUsers = sortUsers(getDisplayedUsers());
         const myRankIndex = sortedUsers.findIndex(u => u.id.toString().toLowerCase() === currentUser.id.toString().toLowerCase());
         const myRank = myRankIndex !== -1 ? myRankIndex + 1 : 0;
-        
+
         const renderTable = () => {
             const currentSortedUsers = sortUsers(getDisplayedUsers());
             
@@ -818,7 +818,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                     <div class="relative mb-2 w-24 h-24 bg-secondary rounded-lg flex items-center justify-center p-2 transition-all ${isSelected ? 'border-2 border-primary' : 'border-2 border-transparent'}">
                                         <img src="${evolution.imageUrl}" alt="${evolution.name}" width="80" height="80" class="object-contain ${!isUnlocked ? 'grayscale' : ''}">
                                         ${!isUnlocked ? `<div class="absolute inset-0 bg-black/30 rounded-lg flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-white/70"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></div>` 
-                                        : `<div class="absolute top-1 right-1 bg-green-500 rounded-full p-0.5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3 text-white"><polyline points="20 6 9 17 4 12"></polyline></svg></div>`}
+                                        : `<div class="absolute top-1 right-1 bg-green-500 rounded-full p-0.5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3 text-white"><polyline points="20 6 9 17 4 12"></polyline></svg></div>`}
                                     </div>
                                 </button>
                             `;
@@ -1069,10 +1069,12 @@ document.addEventListener('DOMContentLoaded', function() {
         if (page === 'ranking' || page === 'estadisticas') {
              try {
                 const data = await handleApiCall(APPS_SCRIPT_URL, { action: 'getData' });
+                
                 const allUsers = (data.users || []).map(u => ({
                     id: u.id, name: u.name, level: 1, xp: u.xp || 0, avatar: u.avatar || 'Bronce', progreso: u.progreso || 0, vicepresidencia: u.vicepresidencia || '', posicion: u.posicion || 0, cargo: u.cargo || '', prog_pol: u.prog_pol || 0, prog_sus: u.prog_sus || 0, prog_cob: u.prog_cob || 0,
                 }));
                 
+                // Filter users by cargo right after fetching
                 state.users = allUsers.filter(user => user.cargo === 'ASESOR INTEGRAL' || user.cargo === 'ADMINISTRADOR');
 
                 const competingUsers = state.users.filter(user => user.cargo !== 'ADMINISTRADOR');
@@ -1105,7 +1107,7 @@ document.addEventListener('DOMContentLoaded', function() {
    function showRulesModal() {
         let rulesHTML = rules.map(rule => `
             <div class="flex items-start gap-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-primary flex-shrink-0 mt-1"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-primary flex-shrink-0 mt-1"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
                 <p class="text-sm text-muted-foreground">${rule}</p>
             </div>
         `).join('');
