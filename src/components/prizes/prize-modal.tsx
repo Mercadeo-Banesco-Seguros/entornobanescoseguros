@@ -22,7 +22,7 @@ export default function PrizeModal({ prize, onClose }: PrizeModalProps) {
                 <br /><br />
                 El ganador disfrutará de 3 días y 2 noches inolvidables con TODO INCLUIDO.
                 <br /><br />
-                Un merecido descanso en el paraíso, donde tu única misión será relajarte. Y para celebrar tu victoria como se debe, ¡te llevas un abono equivalente a $100 en tu T5 de todoticket para disfrutar!
+                Un merecido descanso en el paraíso, donde tu única misión será relajarte. Y para celebrar tu victoria como se debe, ¡te llevas un abono de 51.000 Bs. en tu T5 de todoticket para disfrutar!
                 <br /><br />
                 ¿Estás listo para demostrar que eres el número uno?
             </>
@@ -40,7 +40,7 @@ export default function PrizeModal({ prize, onClose }: PrizeModalProps) {
         title: "SEGUNDO LUGAR!!",
         description: (
              <>
-                ¡Has demostrado ser uno de los mejores! Tu constancia y dedicación te han llevado a asegurar un merecido lugar en el podio. Como recompensa, te llevas un increíble bono de $70 en tu T5 de Todoticket para que lo disfrutes como prefieras.
+                ¡Has demostrado ser uno de los mejores! Tu constancia y dedicación te han llevado a asegurar un merecido lugar en el podio. Como recompensa, te llevas un increíble bono de 34.000 Bs. en tu T5 de Todoticket para que lo disfrutes como prefieras.
                 <br /><br />
                 ¡Felicidades por este gran logro!
             </>
@@ -55,7 +55,7 @@ export default function PrizeModal({ prize, onClose }: PrizeModalProps) {
         title: "TERCER LUGAR!!",
         description: (
              <>
-                ¡Tu esfuerzo te ha colocado entre los tres mejores! Has luchado en cada curva y tu perseverancia ha dado frutos. Para celebrar tu victoria, te premiamos con un bono de $50 en tu T5 de Todoticket.
+                ¡Tu esfuerzo te ha colocado entre los tres mejores! Has luchado en cada curva y tu perseverancia ha dado frutos. Para celebrar tu victoria, te premiamos con un bono de 17.000 Bs. en tu T5 de Todoticket.
                 <br /><br />
                 ¡Sigue acelerando hacia el éxito!
             </>
