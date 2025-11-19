@@ -194,21 +194,44 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- RENDER FUNCTIONS ---
     
     function renderApp() {
-        const userJson = localStorage.getItem('currentUser');
-        if (userJson) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const dataParam = urlParams.get('data');
+        const pageParam = urlParams.get('page');
+
+        if (dataParam) {
             try {
-                state.currentUser = JSON.parse(userJson);
-                const hash = window.location.hash.substring(1) || 'inicio';
-                renderMainLayout(hash);
+                const decodedData = JSON.parse(atob(dataParam));
+                state.currentUser = decodedData.currentUser;
+                localStorage.setItem('currentUser', JSON.stringify(state.currentUser));
+                handleJsonpResponse(decodedData.apiResponse);
+                if (pageParam) {
+                    renderMainLayout(pageParam);
+                } else {
+                    renderMainLayout('inicio');
+                }
             } catch (e) {
-                console.error("Failed to parse user JSON", e);
+                console.error("Error processing data from URL:", e);
                 localStorage.removeItem('currentUser');
                 renderLoginPage();
             }
         } else {
-            renderLoginPage();
+            const userJson = localStorage.getItem('currentUser');
+            if (userJson) {
+                try {
+                    state.currentUser = JSON.parse(userJson);
+                    const hash = window.location.hash.substring(1) || 'inicio';
+                    renderMainLayout(hash);
+                } catch (e) {
+                    console.error("Failed to parse user JSON", e);
+                    localStorage.removeItem('currentUser');
+                    renderLoginPage();
+                }
+            } else {
+                renderLoginPage();
+            }
         }
     }
+
 
     function renderLoginPage() {
         appContainer.innerHTML = `
@@ -389,11 +412,11 @@ document.addEventListener('DOMContentLoaded', function() {
         renderCurrentWorld(document.getElementById('current-world-container'));
     }
     
-    function renderRanking(rankingUsers) {
+    function renderRanking() {
         const pageContainer = document.getElementById('page-container');
         const currentUser = state.currentUser;
         
-        const competingUsers = rankingUsers.filter(user => user.cargo === 'ASESOR INTEGRAL');
+        const competingUsers = state.users.filter(user => user.cargo !== 'ADMINISTRADOR');
 
         let selectedVp = 'Todas';
         if (currentUser?.cargo !== 'ADMINISTRADOR' && currentUser?.vicepresidencia) {
@@ -408,18 +431,16 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             return competingUsers.filter(user => user.vicepresidencia === currentUser.vicepresidencia);
         }
-
+        
         const categoryOrder = { 'Oro': 3, 'Plata': 2, 'Bronce': 1, 'Base': 0 };
 
         const sortUsers = (users) => {
              return [...users].sort((a, b) => {
                 const levelA = categoryOrder[a.avatar] ?? -1;
                 const levelB = categoryOrder[b.avatar] ?? -1;
-
                 if (levelA !== levelB) {
                   return levelB - levelA;
                 }
-                
                 return (b.progreso || 0) - (a.progreso || 0);
             });
         };
@@ -581,7 +602,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        const competingUsers = state.users.filter(user => user.cargo === 'ASESOR INTEGRAL' && user.vicepresidencia);
+        const competingUsers = state.users.filter(user => user.cargo !== 'ADMINISTRADOR' && user.vicepresidencia);
         
         const vpAvgProgress = (() => {
             if (competingUsers.length === 0) return [];
@@ -964,37 +985,28 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- HELPERS & API ---
 
     async function handleApiCall(url, payload) {
-        try {
-            // Apps Script requires a POST request with a JSON body.
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'text/plain;charset=utf-8', // Required by Apps Script web apps for CORS
-                },
-                body: JSON.stringify(payload),
-                redirect: 'follow', // Apps Script web apps often redirect, this handles it.
-            });
-
-            // The response from a redirected Apps Script POST request is often returned as text
-            const text = await response.text();
-            
-            // Now, try to parse this text as JSON
-            try {
-                const data = JSON.parse(text);
+        return new Promise((resolve, reject) => {
+            const callbackName = 'jsonp_callback_' + Math.round(100000 * Math.random());
+            window[callbackName] = function(data) {
+                delete window[callbackName];
+                document.body.removeChild(script);
                 if (data.error) {
-                    throw new Error(data.message || 'Error desconocido del script.');
+                    reject(new Error(data.message || 'Error desconocido del script.'));
+                } else {
+                    resolve(data);
                 }
-                return data;
-            } catch (e) {
-                console.error("Failed to parse JSON response:", text);
-                // If parsing fails, it might be an HTML error page from Google.
-                throw new Error("Respuesta inválida del servidor. Revisa los logs de Apps Script.");
-            }
+            };
 
-        } catch (error) {
-            console.error('Error en handleApiCall:', error);
-            throw error; // Re-throw the error to be caught by the caller
-        }
+            const script = document.createElement('script');
+            const queryString = Object.keys(payload).map(key => encodeURIComponent(key) + '=' + encodeURIComponent(payload[key])).join('&');
+            script.src = url + '?' + queryString + '&callback=' + callbackName;
+            script.onerror = () => {
+                delete window[callbackName];
+                document.body.removeChild(script);
+                reject(new Error('Failed to fetch data from Apps Script.'));
+            };
+            document.body.appendChild(script);
+        });
     }
 
     async function handleLogin(event) {
@@ -1011,13 +1023,13 @@ document.addEventListener('DOMContentLoaded', function() {
             const data = await handleApiCall(APPS_SCRIPT_URL, {
                 action: 'login',
                 username: form.username.value,
-                password: form.cedula.value, // Using cedula as password
+                password: form.cedula.value,
             });
             
             const user = {
                 id: data.user.id,
                 name: data.user.name,
-                level: 1, // Static level
+                level: 1,
                 xp: data.user.xp || 0,
                 avatar: data.user.avatar || 'Bronce',
                 progreso: data.user.progreso || 0,
@@ -1046,12 +1058,28 @@ document.addEventListener('DOMContentLoaded', function() {
     function handleLogout() {
         localStorage.removeItem('currentUser');
         state.currentUser = null;
-        window.location.hash = 'login';
-        renderLoginPage();
+        state.users = [];
+        state.vicepresidencias = ['Todas'];
+        // Clear URL parameters and hash
+        window.history.pushState("", document.title, window.location.pathname + window.location.search);
+        location.replace(window.location.pathname);
+    }
+
+    function handleJsonpResponse(data) {
+        state.users = (data.users || []).filter(u => u.cargo === 'ASESOR INTEGRAL' || u.cargo === 'ADMINISTRADOR').map(u => ({
+            id: u.id, name: u.name, level: 1, xp: u.xp || 0, avatar: u.avatar || 'Bronce', progreso: u.progreso || 0, vicepresidencia: u.vicepresidencia || '', posicion: u.posicion || 0, cargo: u.cargo || '', prog_pol: u.prog_pol || 0, prog_sus: u.prog_sus || 0, prog_cob: u.prog_cob || 0,
+        }));
+        const competingUsers = state.users.filter(user => user.cargo !== 'ADMINISTRADOR');
+        const allVps = competingUsers.map(user => user.vicepresidencia).filter(Boolean);
+        state.vicepresidencias = ['Todas', ...Array.from(new Set(allVps))];
     }
     
     async function navigate(page) {
-        window.location.hash = page;
+        const currentHash = window.location.hash.substring(1);
+        if (currentHash !== page) {
+             window.location.hash = page;
+        }
+
         const links = state.currentUser?.cargo === 'ADMINISTRADOR' ? adminNavLinksData : navLinksData;
         document.querySelectorAll('.nav-link').forEach(link => {
             const isCurrentPage = link.dataset.page === page;
@@ -1065,21 +1093,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const pageContainer = document.getElementById('page-container');
         renderLoading(pageContainer);
         
-        // Fetch data if needed and then render
-        if (page === 'ranking' || page === 'estadisticas') {
+        if ((page === 'ranking' || page === 'estadisticas') && state.users.length === 0) {
              try {
-                const data = await handleApiCall(APPS_SCRIPT_URL, { action: 'getData' });
-                const allUsers = (data.users || []).map(u => ({
-                    id: u.id, name: u.name, level: 1, xp: u.xp || 0, avatar: u.avatar || 'Bronce', progreso: u.progreso || 0, vicepresidencia: u.vicepresidencia || '', posicion: u.posicion || 0, cargo: u.cargo || '', prog_pol: u.prog_pol || 0, prog_sus: u.prog_sus || 0, prog_cob: u.prog_cob || 0,
-                }));
-                state.users = allUsers.filter(user => user.cargo === 'ASESOR INTEGRAL' || user.cargo === 'ADMINISTRADOR');
+                const apiResponse = await handleApiCall(APPS_SCRIPT_URL, { action: 'getData' });
+                handleJsonpResponse(apiResponse);
+                
+                if (page === 'ranking') renderRanking();
+                if (page === 'estadisticas') renderEstadisticasPage();
 
-                const competingUsers = state.users.filter(user => user.cargo === 'ASESOR INTEGRAL');
-                const allVps = competingUsers.map(user => user.vicepresidencia).filter(Boolean);
-                state.vicepresidencias = ['Todas', ...Array.from(new Set(allVps))];
-
-                if(page === 'ranking') renderRanking(state.users);
-                if(page === 'estadisticas') renderEstadisticasPage();
              } catch(err) {
                  pageContainer.innerHTML = `<p class="text-red-500 text-center">Error al cargar datos: ${err.message}</p>`;
              }
@@ -1088,6 +1109,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 case 'inicio': renderInicioPage(); break;
                 case 'dashboard': renderDashboard(); break;
                 case 'cajero': renderCajeroPage(); break;
+                case 'ranking': renderRanking(); break;
+                case 'estadisticas': renderEstadisticasPage(); break;
                 default: renderInicioPage(); break;
             }
         }
@@ -1139,7 +1162,9 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('hashchange', () => {
         const hash = window.location.hash.substring(1);
         if (state.currentUser) {
-            navigate(hash || 'inicio');
+            if (hash !== state.currentPage) {
+                navigate(hash || 'inicio');
+            }
         } else {
             renderApp();
         }
@@ -1149,3 +1174,5 @@ document.addEventListener('DOMContentLoaded', function() {
 
 </body>
 </html>
+
+    
