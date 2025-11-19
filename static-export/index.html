@@ -194,44 +194,21 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- RENDER FUNCTIONS ---
     
     function renderApp() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const dataParam = urlParams.get('data');
-        const pageParam = urlParams.get('page');
-
-        if (dataParam) {
+        const userJson = localStorage.getItem('currentUser');
+        if (userJson) {
             try {
-                const decodedData = JSON.parse(atob(dataParam));
-                state.currentUser = decodedData.currentUser;
-                localStorage.setItem('currentUser', JSON.stringify(state.currentUser));
-                handleJsonpResponse(decodedData.apiResponse);
-                if (pageParam) {
-                    renderMainLayout(pageParam);
-                } else {
-                    renderMainLayout('inicio');
-                }
+                state.currentUser = JSON.parse(userJson);
+                const hash = window.location.hash.substring(1) || 'inicio';
+                renderMainLayout(hash);
             } catch (e) {
-                console.error("Error processing data from URL:", e);
+                console.error("Failed to parse user JSON", e);
                 localStorage.removeItem('currentUser');
                 renderLoginPage();
             }
         } else {
-            const userJson = localStorage.getItem('currentUser');
-            if (userJson) {
-                try {
-                    state.currentUser = JSON.parse(userJson);
-                    const hash = window.location.hash.substring(1) || 'inicio';
-                    renderMainLayout(hash);
-                } catch (e) {
-                    console.error("Failed to parse user JSON", e);
-                    localStorage.removeItem('currentUser');
-                    renderLoginPage();
-                }
-            } else {
-                renderLoginPage();
-            }
+            renderLoginPage();
         }
     }
-
 
     function renderLoginPage() {
         appContainer.innerHTML = `
@@ -366,7 +343,7 @@ document.addEventListener('DOMContentLoaded', function() {
                   </p>
                   <div class="pt-2">
                     <a href="https://drive.google.com/file/d/1GtASq9tTkrNhtCZBhqSKzTbC2Uq0XuNp/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium h-10 px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 shrink-0 mr-2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4 shrink-0 mr-2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
                         Acceder a Recursos
                     </a>
                   </div>
@@ -412,11 +389,11 @@ document.addEventListener('DOMContentLoaded', function() {
         renderCurrentWorld(document.getElementById('current-world-container'));
     }
     
-    function renderRanking() {
+    function renderRanking(rankingUsers) {
         const pageContainer = document.getElementById('page-container');
         const currentUser = state.currentUser;
         
-        const competingUsers = state.users.filter(user => user.cargo !== 'ADMINISTRADOR');
+        const competingUsers = rankingUsers.filter(user => user.cargo !== 'ADMINISTRADOR');
 
         let selectedVp = 'Todas';
         if (currentUser?.cargo !== 'ADMINISTRADOR' && currentUser?.vicepresidencia) {
@@ -431,26 +408,30 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             return competingUsers.filter(user => user.vicepresidencia === currentUser.vicepresidencia);
         }
-        
+
         const categoryOrder = { 'Oro': 3, 'Plata': 2, 'Bronce': 1, 'Base': 0 };
 
-        const sortUsers = (users) => {
-             return [...users].sort((a, b) => {
-                const levelA = categoryOrder[a.avatar] ?? -1;
-                const levelB = categoryOrder[b.avatar] ?? -1;
-                if (levelA !== levelB) {
-                  return levelB - levelA;
-                }
-                return (b.progreso || 0) - (a.progreso || 0);
-            });
-        };
-
-        const sortedUsers = sortUsers(getDisplayedUsers());
+        const sortedUsers = [...getDisplayedUsers()].sort((a, b) => {
+            const levelA = categoryOrder[a.avatar] ?? -1;
+            const levelB = categoryOrder[b.avatar] ?? -1;
+            if (levelA !== levelB) {
+                return levelB - levelA; // Sort by level first (descending)
+            }
+            return (b.progreso || 0) - (a.progreso || 0); // Then by progress
+        });
+        
         const myRankIndex = sortedUsers.findIndex(u => u.id.toString().toLowerCase() === currentUser.id.toString().toLowerCase());
         const myRank = myRankIndex !== -1 ? myRankIndex + 1 : 0;
 
         const renderTable = () => {
-            const currentSortedUsers = sortUsers(getDisplayedUsers());
+            const currentSortedUsers = [...getDisplayedUsers()].sort((a, b) => {
+                const levelA = categoryOrder[a.avatar] ?? -1;
+                const levelB = categoryOrder[b.avatar] ?? -1;
+                if (levelA !== levelB) {
+                    return levelB - levelA;
+                }
+                return (b.progreso || 0) - (a.progreso || 0);
+            });
             
             return `
                 <div class="rounded-lg border bg-card text-card-foreground shadow-sm">
@@ -520,7 +501,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="p-6">
                         <div class="flex items-center">
                            <div class="font-bold text-lg text-white w-[80px] flex items-center justify-center">
-                                ${currentUser.cargo === 'ADMINISTRADOR' ? `<div class="bg-white text-primary rounded-full h-8 w-8 flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M20 6 9 17l-5-5"></path></svg></div>` : `#${myRank > 0 ? myRank : '-'}`}
+                                ${currentUser.cargo === 'ADMINISTRADOR' ? `<div class="bg-white text-primary rounded-full h-8 w-8 flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><path d="M20 6 9 17l-5-5"></path></svg></div>` : `#${myRank > 0 ? myRank : '-'}`}
                             </div>
                             <div class="flex-grow flex items-center gap-4">
                                <div>
@@ -985,28 +966,37 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- HELPERS & API ---
 
     async function handleApiCall(url, payload) {
-        return new Promise((resolve, reject) => {
-            const callbackName = 'jsonp_callback_' + Math.round(100000 * Math.random());
-            window[callbackName] = function(data) {
-                delete window[callbackName];
-                document.body.removeChild(script);
-                if (data.error) {
-                    reject(new Error(data.message || 'Error desconocido del script.'));
-                } else {
-                    resolve(data);
-                }
-            };
+        try {
+            // Apps Script requires a POST request with a JSON body.
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'text/plain;charset=utf-8', // Required by Apps Script web apps for CORS
+                },
+                body: JSON.stringify(payload),
+                redirect: 'follow', // Apps Script web apps often redirect, this handles it.
+            });
 
-            const script = document.createElement('script');
-            const queryString = Object.keys(payload).map(key => encodeURIComponent(key) + '=' + encodeURIComponent(payload[key])).join('&');
-            script.src = url + '?' + queryString + '&callback=' + callbackName;
-            script.onerror = () => {
-                delete window[callbackName];
-                document.body.removeChild(script);
-                reject(new Error('Failed to fetch data from Apps Script.'));
-            };
-            document.body.appendChild(script);
-        });
+            // The response from a redirected Apps Script POST request is often returned as text
+            const text = await response.text();
+            
+            // Now, try to parse this text as JSON
+            try {
+                const data = JSON.parse(text);
+                if (data.error) {
+                    throw new Error(data.message || 'Error desconocido del script.');
+                }
+                return data;
+            } catch (e) {
+                console.error("Failed to parse JSON response:", text);
+                // If parsing fails, it might be an HTML error page from Google.
+                throw new Error("Respuesta inválida del servidor. Revisa los logs de Apps Script.");
+            }
+
+        } catch (error) {
+            console.error('Error en handleApiCall:', error);
+            throw error; // Re-throw the error to be caught by the caller
+        }
     }
 
     async function handleLogin(event) {
@@ -1023,13 +1013,13 @@ document.addEventListener('DOMContentLoaded', function() {
             const data = await handleApiCall(APPS_SCRIPT_URL, {
                 action: 'login',
                 username: form.username.value,
-                password: form.cedula.value,
+                password: form.cedula.value, // Using cedula as password
             });
             
             const user = {
                 id: data.user.id,
                 name: data.user.name,
-                level: 1,
+                level: 1, // Static level
                 xp: data.user.xp || 0,
                 avatar: data.user.avatar || 'Bronce',
                 progreso: data.user.progreso || 0,
@@ -1058,28 +1048,12 @@ document.addEventListener('DOMContentLoaded', function() {
     function handleLogout() {
         localStorage.removeItem('currentUser');
         state.currentUser = null;
-        state.users = [];
-        state.vicepresidencias = ['Todas'];
-        // Clear URL parameters and hash
-        window.history.pushState("", document.title, window.location.pathname + window.location.search);
-        location.replace(window.location.pathname);
-    }
-
-    function handleJsonpResponse(data) {
-        state.users = (data.users || []).filter(u => u.cargo === 'ASESOR INTEGRAL' || u.cargo === 'ADMINISTRADOR').map(u => ({
-            id: u.id, name: u.name, level: 1, xp: u.xp || 0, avatar: u.avatar || 'Bronce', progreso: u.progreso || 0, vicepresidencia: u.vicepresidencia || '', posicion: u.posicion || 0, cargo: u.cargo || '', prog_pol: u.prog_pol || 0, prog_sus: u.prog_sus || 0, prog_cob: u.prog_cob || 0,
-        }));
-        const competingUsers = state.users.filter(user => user.cargo !== 'ADMINISTRADOR');
-        const allVps = competingUsers.map(user => user.vicepresidencia).filter(Boolean);
-        state.vicepresidencias = ['Todas', ...Array.from(new Set(allVps))];
+        window.location.hash = 'login';
+        renderLoginPage();
     }
     
     async function navigate(page) {
-        const currentHash = window.location.hash.substring(1);
-        if (currentHash !== page) {
-             window.location.hash = page;
-        }
-
+        window.location.hash = page;
         const links = state.currentUser?.cargo === 'ADMINISTRADOR' ? adminNavLinksData : navLinksData;
         document.querySelectorAll('.nav-link').forEach(link => {
             const isCurrentPage = link.dataset.page === page;
@@ -1093,14 +1067,22 @@ document.addEventListener('DOMContentLoaded', function() {
         const pageContainer = document.getElementById('page-container');
         renderLoading(pageContainer);
         
-        if ((page === 'ranking' || page === 'estadisticas') && state.users.length === 0) {
+        // Fetch data if needed and then render
+        if (page === 'ranking' || page === 'estadisticas') {
              try {
-                const apiResponse = await handleApiCall(APPS_SCRIPT_URL, { action: 'getData' });
-                handleJsonpResponse(apiResponse);
-                
-                if (page === 'ranking') renderRanking();
-                if (page === 'estadisticas') renderEstadisticasPage();
+                const data = await handleApiCall(APPS_SCRIPT_URL, { action: 'getData' });
+                const allUsers = (data.users || []).map(u => ({
+                    id: u.id, name: u.name, level: 1, xp: u.xp || 0, avatar: u.avatar || 'Bronce', progreso: u.progreso || 0, vicepresidencia: u.vicepresidencia || '', posicion: u.posicion || 0, cargo: u.cargo || '', prog_pol: u.prog_pol || 0, prog_sus: u.prog_sus || 0, prog_cob: u.prog_cob || 0,
+                }));
+                 // CORRECTED: Filter users by 'cargo'
+                state.users = allUsers.filter(user => user.cargo === 'ASESOR INTEGRAL' || user.cargo === 'ADMINISTRADOR');
 
+                const competingUsers = state.users.filter(user => user.cargo !== 'ADMINISTRADOR');
+                const allVps = competingUsers.map(user => user.vicepresidencia).filter(Boolean);
+                state.vicepresidencias = ['Todas', ...Array.from(new Set(allVps))];
+
+                if(page === 'ranking') renderRanking(state.users);
+                if(page === 'estadisticas') renderEstadisticasPage();
              } catch(err) {
                  pageContainer.innerHTML = `<p class="text-red-500 text-center">Error al cargar datos: ${err.message}</p>`;
              }
@@ -1109,8 +1091,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 case 'inicio': renderInicioPage(); break;
                 case 'dashboard': renderDashboard(); break;
                 case 'cajero': renderCajeroPage(); break;
-                case 'ranking': renderRanking(); break;
-                case 'estadisticas': renderEstadisticasPage(); break;
                 default: renderInicioPage(); break;
             }
         }
@@ -1127,7 +1107,7 @@ document.addEventListener('DOMContentLoaded', function() {
    function showRulesModal() {
         let rulesHTML = rules.map(rule => `
             <div class="flex items-start gap-3">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-primary flex-shrink-0 mt-1"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-primary flex-shrink-0 mt-1"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="m9 12 2 2 4-4"></path></svg>
                 <p class="text-sm text-muted-foreground">${rule}</p>
             </div>
         `).join('');
@@ -1162,9 +1142,7 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('hashchange', () => {
         const hash = window.location.hash.substring(1);
         if (state.currentUser) {
-            if (hash !== state.currentPage) {
-                navigate(hash || 'inicio');
-            }
+            navigate(hash || 'inicio');
         } else {
             renderApp();
         }
@@ -1174,5 +1152,3 @@ document.addEventListener('DOMContentLoaded', function() {
 
 </body>
 </html>
-
-    
