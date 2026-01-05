@@ -24,6 +24,11 @@ type AuthContextType = {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+function toTitleCase(str: string): string {
+  if (!str) return 'Base';
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+}
+
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [users, setUsers] = useState<User[]>([]);
@@ -55,7 +60,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           name: u.name,
           level: 1, // Nivel estático
           xp: u.xp || 0,
-          avatar: u.avatar || 'Bronce', // Categoría del premio
+          avatar: toTitleCase(u.avatar),
           progreso: u.progreso || 0, 
           vicepresidencia: u.vicepresidencia || '',
           posicion: u.posicion || 0,
@@ -134,7 +139,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             name: data.user.name,
             level: 1, // Nivel estático
             xp: data.user.xp || 0,
-            avatar: data.user.avatar || 'Bronce',
+            avatar: toTitleCase(data.user.avatar),
             progreso: data.user.progreso || 0,
             vicepresidencia: data.user.vicepresidencia || '',
             posicion: data.user.posicion || 0,
