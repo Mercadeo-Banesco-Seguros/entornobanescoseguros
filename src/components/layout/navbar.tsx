@@ -42,8 +42,7 @@ export default function Navbar() {
 
   if (!mounted) return null;
 
-  // Formateo de hora en 12h (AM/PM)
-  const hour12 = (currentTime.getHours() % 12) || 12;
+  // Formateo de hora en 12h (AM/PM) con minutos
   const fullTimeFormatted = currentTime.toLocaleTimeString('en-US', { 
     hour: 'numeric', 
     minute: '2-digit', 
@@ -68,8 +67,8 @@ export default function Navbar() {
           "flex items-center gap-2 px-3 h-8 rounded-full transition-all duration-300",
           isTimeExpanded ? "bg-white/10" : ""
         )}>
-          <span className="text-[10px] font-light text-white tabular-nums">
-            {hour12}
+          <span className="text-[10px] font-light text-white tabular-nums whitespace-nowrap">
+            {fullTimeFormatted}
           </span>
           {isTimeExpanded && (
             <div className="flex items-center gap-2 border-l border-white/20 pl-2 animate-in fade-in slide-in-from-left-2 duration-300 whitespace-nowrap">
@@ -78,7 +77,7 @@ export default function Navbar() {
                   {day} {month}
                 </span>
                 <span className="text-[8px] text-white font-light uppercase">
-                  {fullTimeFormatted}
+                  CARACAS
                 </span>
               </div>
               <div className="h-3 w-[1px] bg-white/10 mx-0.5" />
