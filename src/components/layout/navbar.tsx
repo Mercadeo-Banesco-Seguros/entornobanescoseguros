@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from 'next/link';
@@ -33,18 +32,21 @@ export default function Navbar() {
   const temperature = 24; // Temperatura simulada para el ejemplo
 
   return (
-    <div className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4">
-      <nav className="bg-[#003B73]/90 backdrop-blur-sm rounded-full px-2 py-1 flex items-center gap-0.5 shadow-2xl border border-white/10 max-w-fit overflow-x-auto no-scrollbar">
-        
-        {/* Cápsula de Hora e Información Dinámica */}
-        <div 
-          onClick={() => setIsTimeExpanded(!isTimeExpanded)}
-          className={cn(
-            "flex items-center gap-2 px-3 py-2 rounded-full transition-all duration-300 cursor-pointer hover:bg-white/10",
-            isTimeExpanded ? "bg-white/10 pr-4" : ""
-          )}
-        >
-          <span className="text-[10px] font-bold text-white tabular-nums w-4 text-center">
+    <div className="fixed top-6 left-0 right-0 z-50 flex justify-center items-center gap-3 px-4">
+      
+      {/* Cápsula de Tiempo Independiente */}
+      <div 
+        onClick={() => setIsTimeExpanded(!isTimeExpanded)}
+        className={cn(
+          "bg-[#003B73]/90 backdrop-blur-sm rounded-full py-1 px-1 flex items-center transition-all duration-300 cursor-pointer hover:bg-[#003B73]/100 shadow-2xl border border-white/10",
+          isTimeExpanded ? "pr-4" : ""
+        )}
+      >
+        <div className={cn(
+          "flex items-center gap-2 px-3 py-2 rounded-full transition-all duration-300",
+          isTimeExpanded ? "bg-white/10" : ""
+        )}>
+          <span className="text-[10px] font-light text-white tabular-nums w-4 text-center">
             {hour}
           </span>
           {isTimeExpanded && (
@@ -53,7 +55,7 @@ export default function Navbar() {
                 <span className="text-[7px] text-white/50 font-light uppercase tracking-tighter">
                   {day} {month}
                 </span>
-                <span className="text-[8px] text-white font-medium">
+                <span className="text-[8px] text-white font-light">
                   {fullTime}
                 </span>
               </div>
@@ -62,10 +64,10 @@ export default function Navbar() {
             </div>
           )}
         </div>
+      </div>
 
-        {/* Separador vertical inicial */}
-        <div className="h-3 w-[1px] bg-white/10 mx-1" />
-
+      {/* Barra de Navegación Principal */}
+      <nav className="bg-[#003B73]/90 backdrop-blur-sm rounded-full px-2 py-1 flex items-center gap-0.5 shadow-2xl border border-white/10 max-w-fit overflow-x-auto no-scrollbar">
         <div className="flex items-center gap-0.5">
           {navLinks.map((link) => {
             const Icon = link.icon;
