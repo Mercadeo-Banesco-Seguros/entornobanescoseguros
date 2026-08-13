@@ -1,4 +1,3 @@
-
 'use client';
 
 import { ArrowRight, Sparkles } from 'lucide-react';
