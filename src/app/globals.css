@@ -35,3 +35,26 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  @keyframes drift {
+    from {
+      transform: translateX(-20vw);
+    }
+    to {
+      transform: translateX(120vw);
+    }
+  }
+
+  .animate-drift {
+    animation: drift var(--duration, 40s) linear infinite;
+  }
+}

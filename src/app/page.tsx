@@ -1,13 +1,128 @@
 'use client';
 
+import * as React from "react";
+import { Cloud } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+type TimePeriod = 'day' | 'night';
+
 export default function LandingPage() {
+  const [mounted, setMounted] = React.useState(false);
+  const [timeTheme, setTimeTheme] = React.useState<TimePeriod>('day');
+  const [showFinalText, setShowFinalText] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+    
+    const updateTheme = () => {
+      const hour = new Date().getHours();
+      // Cielo azul (day) siempre, excepto de 18:00 (6 PM) a 05:59 que es noche (night)
+      if (hour >= 18 || hour < 6) {
+        setTimeTheme('night');
+      } else {
+        setTimeTheme('day');
+      }
+    };
+
+    updateTheme();
+    const interval = setInterval(updateTheme, 60000); // Revisar cada minuto
+
+    // Iniciar la transición del texto después de 3 segundos para dar impacto inicial
+    const textTimer = setTimeout(() => {
+      setShowFinalText(true);
+    }, 3000);
+
+    return () => {
+      clearInterval(interval);
+      clearTimeout(textTimer);
+    };
+  }, []);
+
+  if (!mounted) return null;
+
+  const themes = {
+    day: {
+      gradient: "bg-gradient-to-b from-[#0284c7] via-[#38bdf8] to-[#bae6fd]",
+      textColor: "text-blue-50/95",
+      cloudOpacity: "opacity-90",
+      cloudColor: "text-white fill-white",
+      bottomGradient: "from-white/50"
+    },
+    night: {
+      gradient: "bg-gradient-to-b from-[#003c71] via-[#002d54] to-[#001a3d]",
+      textColor: "text-blue-50/80",
+      cloudOpacity: "opacity-40",
+      cloudColor: "text-white fill-white",
+      bottomGradient: "from-black/40"
+    }
+  };
+
+  const current = themes[timeTheme];
+
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-gradient-to-b from-[#40C4FF] via-[#00B0FF] to-[#0091EA]">
-      <div className="container mx-auto px-4 text-center">
-        <h1 className="text-6xl md:text-8xl font-bold text-white tracking-tighter leading-tight max-w-5xl mx-auto">
-          Decisiones basadas en datos.
-        </h1>
+    <div className="fixed inset-0 top-0 left-0 w-full h-full overflow-hidden font-sans select-none">
+      
+      {/* 1. Fondo Dinámico */}
+      <div className={cn("absolute inset-0 transition-all duration-[3000ms] ease-in-out -z-30", current.gradient)} />
+
+      {/* 2. Capa de Nubes Animadas */}
+      <div className="absolute inset-x-0 bottom-0 h-2/3 overflow-hidden pointer-events-none -z-20">
+        {[...Array(16)].map((_, i) => (
+          <div 
+            key={i}
+            className={cn("absolute animate-drift transition-opacity duration-[3000ms]", current.cloudOpacity)}
+            style={{ 
+              top: `${Math.random() * 85}%`, 
+              left: "-20%", 
+              '--duration': `${40 + Math.random() * 50}s`,
+              animationDelay: `${-Math.random() * 60}s`,
+            } as React.CSSProperties}
+          >
+            <Cloud 
+              className={cn("drop-shadow-[0_20px_50px_rgba(255,255,255,0.4)]", current.cloudColor)}
+              size={280 + Math.random() * 420} 
+              strokeWidth={0}
+            />
+          </div>
+        ))}
       </div>
+
+      {/* 3. Contenido Principal (Hero) */}
+      <main className="relative z-10 w-full h-full flex flex-col items-center pt-32 px-6">
+        <div className="max-w-6xl text-center w-full relative h-[300px] flex items-center justify-center">
+          
+          {/* Texto 1: Inteligencia Comercial */}
+          <h1 
+            className={cn(
+              "absolute text-4xl md:text-6xl lg:text-8xl font-bold tracking-tighter leading-[0.95] transition-all duration-[1000ms] ease-[cubic-bezier(0.34,1.56,0.64,1)]",
+              current.textColor,
+              showFinalText 
+                ? "opacity-0 scale-50 blur-xl pointer-events-none" 
+                : "opacity-100 scale-100 blur-none"
+            )}
+          >
+            Inteligencia <br /> Comercial
+          </h1>
+
+          {/* Texto 2: Decisiones basadas en datos */}
+          <h1 
+            className={cn(
+              "absolute text-4xl md:text-6xl lg:text-8xl font-bold tracking-tighter leading-[0.95] transition-all duration-[1200ms] ease-[cubic-bezier(0.34,1.56,0.64,1)]",
+              current.textColor,
+              showFinalText 
+                ? "opacity-100 scale-100 blur-none" 
+                : "opacity-0 scale-50 blur-xl pointer-events-none"
+            )}
+          >
+            Decisiones basadas <br /> en datos.
+          </h1>
+
+        </div>
+      </main>
+
+      {/* Gradiente sutil inferior */}
+      <div className={cn("absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t to-transparent pointer-events-none -z-10 transition-all duration-[3000ms]", current.bottomGradient)} />
+
     </div>
   );
 }
