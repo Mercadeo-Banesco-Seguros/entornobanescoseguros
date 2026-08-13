@@ -21,7 +21,7 @@ export default function Navbar() {
 
   return (
     <div className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4">
-      <nav className="bg-[#003B73]/90 backdrop-blur-sm rounded-full px-3 py-1 flex items-center gap-0.5 shadow-2xl border border-white/10 max-w-fit overflow-x-auto no-scrollbar">
+      <nav className="bg-[#003B73]/90 backdrop-blur-sm rounded-full px-2 py-1 flex items-center gap-0.5 shadow-2xl border border-white/10 max-w-fit overflow-x-auto no-scrollbar">
         <div className="flex items-center gap-0.5">
           {navLinks.map((link) => {
             const Icon = link.icon;
@@ -32,7 +32,7 @@ export default function Navbar() {
                 key={link.label}
                 href={link.href}
                 className={cn(
-                  'flex items-center gap-1 px-3 py-2 rounded-full transition-all duration-200 group whitespace-nowrap',
+                  'flex items-center gap-1 px-2 py-2 rounded-full transition-all duration-200 group whitespace-nowrap',
                   isActive 
                     ? 'bg-[#FFFFFF]/10 text-white' 
                     : 'text-white/60 hover:text-white'
@@ -52,10 +52,10 @@ export default function Navbar() {
           })}
         </div>
 
-        {/* Separador vertical */}
-        <div className="h-3 w-[1px] bg-white/10 mx-2 hidden sm:block" />
+        {/* Separador vertical más estrecho */}
+        <div className="h-3 w-[1px] bg-white/10 mx-1 hidden sm:block" />
 
-        <div className="flex items-center gap-0.5 sm:gap-1 px-1">
+        <div className="flex items-center gap-0 px-0.5">
           <button className="p-1.5 text-white/60 hover:text-white transition-colors">
             <Search className="w-3 h-3" strokeWidth={1.5} />
           </button>
