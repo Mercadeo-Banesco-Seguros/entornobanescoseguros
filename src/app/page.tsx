@@ -122,14 +122,14 @@ export default function LandingPage() {
           {/* Texto 2: Estamos Contigo */}
           <h1 
             className={cn(
-              "absolute text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[0.95] transition-all duration-[1200ms] ease-[cubic-bezier(0.34,1.56,0.64,1)]",
+              "absolute text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[0.95] transition-all duration-[1200ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] whitespace-nowrap",
               current.textColor,
               showFinalText 
                 ? "opacity-100 scale-100 blur-none" 
                 : "opacity-0 scale-50 blur-xl pointer-events-none"
             )}
           >
-            Estamos <br /> Contigo
+            Estamos Contigo
           </h1>
 
         </div>
