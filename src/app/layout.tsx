@@ -3,12 +3,13 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
+import Navbar from '@/components/layout/navbar';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
 export const metadata: Metadata = {
-  title: 'Mi Nueva Landing Page',
-  description: 'Un lienzo en blanco para tu gran idea.',
+  title: 'Mi Portal Corporativo',
+  description: 'Un espacio diseñado para tu bienestar y crecimiento.',
 };
 
 export default function RootLayout({
@@ -18,7 +19,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className="scroll-smooth">
-      <body className={cn(inter.variable, "min-h-screen bg-background font-sans antialiased")}>
+      <body className={cn(inter.variable, "min-h-screen bg-slate-50 font-sans antialiased pt-24")}>
+        <Navbar />
         {children}
         <Toaster />
       </body>
