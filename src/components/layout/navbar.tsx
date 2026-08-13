@@ -70,7 +70,7 @@ export default function Navbar() {
           isTimeExpanded ? "min-w-fit" : ""
         )}
       >
-        {/* Cápsula interna Glassy para la hora - Tamaño base: h-8, px-3 */}
+        {/* Cápsula interna Glassy para la hora */}
         <div className={cn(
           "flex items-center gap-2 px-3 h-8 rounded-full bg-white/10 transition-all duration-300",
           !isTimeExpanded && "hover:bg-white/20"
@@ -99,7 +99,7 @@ export default function Navbar() {
       </div>
 
       {/* Barra de Navegación Principal */}
-      <nav className="bg-[#003B73]/90 backdrop-blur-sm rounded-full px-2 py-1 flex items-center gap-0.5 shadow-2xl border border-white/10 max-w-fit overflow-x-auto no-scrollbar h-10">
+      <nav className="bg-[#003B73]/90 backdrop-blur-sm rounded-full px-1 py-1 flex items-center gap-0.5 shadow-2xl border border-white/10 max-w-fit overflow-x-auto no-scrollbar h-10">
         <div className="flex items-center gap-0.5">
           {navLinks.map((link) => {
             const Icon = link.icon;
@@ -131,7 +131,7 @@ export default function Navbar() {
         </div>
 
         {/* Separador vertical de acciones */}
-        <div className="h-3 w-[1px] bg-white/10 mx-1.5 hidden sm:block" />
+        <div className="h-3 w-[1px] bg-white/10 mx-1 hidden sm:block" />
 
         <div className="flex items-center gap-0 px-0.5">
           <button className="p-1.5 text-white/60 hover:text-white transition-colors">
