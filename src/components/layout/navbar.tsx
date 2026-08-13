@@ -192,20 +192,19 @@ export default function Navbar() {
           <div className="relative bg-red-50/95 backdrop-blur-md p-4 rounded-[28px] shadow-2xl border border-red-200/50 flex items-center gap-4">
             
             {/* Distintivo Superior */}
-            <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-red-600 text-white text-[9px] font-bold px-3 py-0.5 rounded-full flex items-center gap-1 shadow-sm">
-              <X className="w-2.5 h-2.5" strokeWidth={2.5} />
-              <span className="tracking-wide uppercase">AVISO</span>
+            <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-red-600 text-white text-[9px] font-light px-3 py-0.5 rounded-full flex items-center gap-1 shadow-sm">
+              <X className="w-2.5 h-2.5" strokeWidth={1.5} />
+              <span className="tracking-wide">Aviso</span>
             </div>
 
-            {/* Icono Principal */}
+            {/* Icono Principal (Fondo sin icono redundante) */}
             <div className="flex-shrink-0 w-12 h-12 rounded-2xl bg-gradient-to-br from-red-100 to-red-200 border border-red-300/50 flex items-center justify-center relative overflow-hidden">
               <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle, currentColor 1px, transparent 1px)', backgroundSize: '4px 4px' }} />
-              <X className="w-6 h-6 text-red-900/80" strokeWidth={1} />
             </div>
 
             {/* Bloque de Texto */}
             <div className="flex flex-col gap-0.5">
-              <h4 className="text-xs font-bold text-red-950/90 tracking-tight">Módulo en Desarrollo</h4>
+              <h4 className="text-xs font-light text-red-950/90 tracking-tight">Módulo en desarrollo</h4>
               <p className="text-[10px] font-light text-red-900/80 leading-tight tracking-tight">
                 Las funcionalidades de inteligencia artificial se encuentran en fase de implementación y estarán disponibles próximamente.
               </p>
