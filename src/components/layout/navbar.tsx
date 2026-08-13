@@ -194,7 +194,7 @@ export default function Navbar() {
             
             <div className="flex-grow">
               <p className="text-[10px] font-light text-red-900 leading-tight tracking-tight">
-                las funcionalidades de inteligencia artificial se encuentran en fase de implementación y estarán disponibles próximamente.
+                Las funcionalidades de inteligencia artificial se encuentran en fase de implementación y estarán disponibles próximamente.
               </p>
             </div>
 
