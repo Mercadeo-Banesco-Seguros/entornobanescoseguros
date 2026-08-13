@@ -4,7 +4,7 @@ import {
   Calendar, 
   Heart, 
   GraduationCap, 
-  Camera, 
+  Video, 
   Mail, 
   Library 
 } from 'lucide-react';
@@ -16,7 +16,7 @@ export const navLinks: (NavLink & { icon: any })[] = [
     { href: '/calendario', label: 'Calendario', icon: Calendar },
     { href: '/bienestar', label: 'Bienestar', icon: Heart },
     { href: '/academia', label: 'Academia', icon: GraduationCap },
-    { href: '/multimedia', label: 'Multimedia', icon: Camera },
+    { href: '/multimedia', label: 'Multimedia', icon: Video },
     { href: '/requerimientos', label: 'Requerimientos', icon: Mail },
     { href: '/biblioteca', label: 'Biblioteca', icon: Library },
 ];
