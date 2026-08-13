@@ -18,7 +18,7 @@ export default function Navbar() {
 
   const triggerNotification = () => {
     setShowIANotification(true);
-    setTimeout(() => setShowIANotification(false), 3000);
+    setTimeout(() => setShowIANotification(false), 4000);
   };
 
   useEffect(() => {
@@ -195,11 +195,11 @@ export default function Navbar() {
 
       {/* Notificación de IA */}
       {showIANotification && (
-        <div className="animate-in fade-in slide-in-from-top-4 duration-300">
-          <div className="bg-white/95 backdrop-blur-md px-4 py-2 rounded-full shadow-xl border border-white/20 flex items-center gap-3">
-            <XCircle className="w-4 h-4 text-red-500" />
-            <span className="text-[10px] font-medium text-slate-700">
-              Las funcionalidades de IA aún no están disponibles, estarán muy pronto.
+        <div className="animate-in fade-in slide-in-from-top-4 duration-500">
+          <div className="bg-white/95 backdrop-blur-md px-5 py-2.5 rounded-full shadow-2xl border border-white/20 flex items-center gap-3">
+            <XCircle className="w-3.5 h-3.5 text-red-500/80" strokeWidth={1.5} />
+            <span className="text-[10px] font-light text-slate-600 tracking-tight">
+              Las funciones de inteligencia artificial se encuentran en fase de implementación y estarán disponibles próximamente.
             </span>
           </div>
         </div>
