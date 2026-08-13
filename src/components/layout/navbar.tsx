@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { navLinks } from '@/lib/data';
 import { cn } from '@/lib/utils';
-import { Search, Bell, User, Plus, Mic, X, AlertTriangle, Info } from 'lucide-react';
+import { Search, Bell, User, Plus, Mic, X, AlertTriangle } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 export default function Navbar() {
@@ -194,7 +194,7 @@ export default function Navbar() {
             
             <div className="flex-grow">
               <p className="text-[10px] font-light text-red-900 leading-tight tracking-tight">
-                Módulo en desarrollo: las funcionalidades de inteligencia artificial se encuentran en fase de implementación y estarán disponibles próximamente.
+                las funcionalidades de inteligencia artificial se encuentran en fase de implementación y estarán disponibles próximamente.
               </p>
             </div>
 
