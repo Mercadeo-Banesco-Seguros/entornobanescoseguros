@@ -28,9 +28,12 @@ export default function Navbar() {
                     : 'text-white/70 hover:text-white'
                 )}
               >
-                <Icon className={cn("w-3.5 h-3.5", isActive ? "text-white" : "text-white/70 group-hover:text-white")} />
+                <Icon 
+                  className={cn("w-3.5 h-3.5", isActive ? "text-white" : "text-white/70 group-hover:text-white")} 
+                  strokeWidth={1.5}
+                />
                 {isActive && (
-                  <span className="text-[11px] font-semibold">
+                  <span className="text-[11px] font-light tracking-tight">
                     {link.label}
                   </span>
                 )}
@@ -44,13 +47,13 @@ export default function Navbar() {
 
         <div className="flex items-center gap-0.5 sm:gap-1">
           <button className="p-1.5 text-white/70 hover:text-white transition-colors">
-            <Search className="w-3.5 h-3.5" />
+            <Search className="w-3.5 h-3.5" strokeWidth={1.5} />
           </button>
           <button className="p-1.5 text-white/70 hover:text-white transition-colors relative">
-            <Bell className="w-3.5 h-3.5" />
-            <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-blue-400 rounded-full border border-[#003B73]" />
+            <Bell className="w-3.5 h-3.5" strokeWidth={1.5} />
+            <span className="absolute top-1.5 right-1.5 w-1 h-1 bg-blue-400 rounded-full border border-[#003B73]" />
           </button>
-          <div className="ml-1 w-7 h-7 rounded-full border border-white/20 flex items-center justify-center bg-white/10 text-white text-[10px] font-bold cursor-pointer hover:bg-white/20 transition-colors shrink-0">
+          <div className="ml-1 w-6 h-6 rounded-full border border-white/20 flex items-center justify-center bg-white/10 text-white text-[9px] font-light cursor-pointer hover:bg-white/20 transition-colors shrink-0">
             RD
           </div>
         </div>
