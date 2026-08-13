@@ -11,17 +11,61 @@ import { useEffect, useState } from 'react';
 export default function Navbar() {
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
+  const [isTimeExpanded, setIsTimeExpanded] = useState(false);
+  const [currentTime, setCurrentTime] = useState(new Date());
 
   // Evitar errores de hidratación asegurando que los estilos dinámicos se apliquen tras el montaje
   useEffect(() => {
     setMounted(true);
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 60000);
+    return () => clearInterval(timer);
   }, []);
 
   if (!mounted) return null;
 
+  // Formateo de fecha y hora local
+  const hour = currentTime.getHours().toString().padStart(2, '0');
+  const fullTime = currentTime.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+  const day = currentTime.getDate();
+  const month = currentTime.toLocaleString('es-ES', { month: 'short' });
+  const temperature = 24; // Temperatura simulada para el ejemplo
+
   return (
     <div className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4">
       <nav className="bg-[#003B73]/90 backdrop-blur-sm rounded-full px-2 py-1 flex items-center gap-0.5 shadow-2xl border border-white/10 max-w-fit overflow-x-auto no-scrollbar">
+        
+        {/* Cápsula de Hora e Información Dinámica */}
+        <div 
+          onClick={() => setIsTimeExpanded(!isTimeExpanded)}
+          className={cn(
+            "flex items-center gap-2 px-3 py-2 rounded-full transition-all duration-300 cursor-pointer hover:bg-white/10",
+            isTimeExpanded ? "bg-white/10 pr-4" : ""
+          )}
+        >
+          <span className="text-[10px] font-bold text-white tabular-nums w-4 text-center">
+            {hour}
+          </span>
+          {isTimeExpanded && (
+            <div className="flex items-center gap-2 border-l border-white/20 pl-2 animate-in fade-in slide-in-from-left-2 duration-300 whitespace-nowrap">
+              <div className="flex flex-col leading-none">
+                <span className="text-[7px] text-white/50 font-light uppercase tracking-tighter">
+                  {day} {month}
+                </span>
+                <span className="text-[8px] text-white font-medium">
+                  {fullTime}
+                </span>
+              </div>
+              <div className="h-3 w-[1px] bg-white/10 mx-0.5" />
+              <span className="text-[8px] text-white font-light">{temperature}°C</span>
+            </div>
+          )}
+        </div>
+
+        {/* Separador vertical inicial */}
+        <div className="h-3 w-[1px] bg-white/10 mx-1" />
+
         <div className="flex items-center gap-0.5">
           {navLinks.map((link) => {
             const Icon = link.icon;
@@ -52,7 +96,7 @@ export default function Navbar() {
           })}
         </div>
 
-        {/* Separador vertical más estrecho */}
+        {/* Separador vertical de acciones */}
         <div className="h-3 w-[1px] bg-white/10 mx-1 hidden sm:block" />
 
         <div className="flex items-center gap-0 px-0.5">
