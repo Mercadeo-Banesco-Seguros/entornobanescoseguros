@@ -38,7 +38,7 @@ export default function LandingPage() {
       setShowFinalText(true);
     }, 3000);
 
-    // Generate cloud positions only on client to avoid hydration mismatch
+    // Generar nubes solo en el cliente para evitar discrepancias de hidratación
     setClouds([...Array(16)].map(() => ({
       top: `${Math.random() * 85}%`,
       duration: `${40 + Math.random() * 50}s`,
@@ -108,7 +108,7 @@ export default function LandingPage() {
           {/* Texto 1: Inteligencia Comercial */}
           <h1 
             className={cn(
-              "absolute text-4xl md:text-6xl lg:text-8xl font-bold tracking-tighter leading-[0.95] transition-all duration-[1000ms] ease-[cubic-bezier(0.34,1.56,0.64,1)]",
+              "absolute text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[0.95] transition-all duration-[1000ms] ease-[cubic-bezier(0.34,1.56,0.64,1)]",
               current.textColor,
               showFinalText 
                 ? "opacity-0 scale-50 blur-xl pointer-events-none" 
@@ -121,7 +121,7 @@ export default function LandingPage() {
           {/* Texto 2: Decisiones basadas en datos */}
           <h1 
             className={cn(
-              "absolute text-4xl md:text-6xl lg:text-8xl font-bold tracking-tighter leading-[0.95] transition-all duration-[1200ms] ease-[cubic-bezier(0.34,1.56,0.64,1)]",
+              "absolute text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[0.95] transition-all duration-[1200ms] ease-[cubic-bezier(0.34,1.56,0.64,1)]",
               current.textColor,
               showFinalText 
                 ? "opacity-100 scale-100 blur-none" 

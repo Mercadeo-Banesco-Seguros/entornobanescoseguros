@@ -5,9 +5,18 @@ import { usePathname } from 'next/navigation';
 import { navLinks } from '@/lib/data';
 import { cn } from '@/lib/utils';
 import { Search, Bell, User } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 export default function Navbar() {
   const pathname = usePathname();
+  const [mounted, setMounted] = useState(false);
+
+  // Evitar errores de hidratación asegurando que los estilos dinámicos se apliquen tras el montaje
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
 
   return (
     <div className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4">
