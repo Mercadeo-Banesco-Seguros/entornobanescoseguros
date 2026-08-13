@@ -17,33 +17,23 @@ interface CloudData {
 const values = [
   { 
     id: '01', 
-    title: 'Experiencia', 
-    description: 'En Banesco Seguros, nuestra trayectoria es el pilar de cada solución. Brindamos conocimiento invaluable y solidez para proteger lo que más importa. Confíe en nosotros para entregar soluciones innovadoras respaldadas por nuestra amplia experiencia e información del sector.' 
+    title: 'Innovación', 
+    description: 'Transformamos el futuro del sector asegurador mediante tecnología de vanguardia y soluciones creativas que anticipan y superan las expectativas de nuestros clientes.' 
   },
   { 
     id: '02', 
-    title: 'Escalabilidad', 
-    description: 'Diseñamos protecciones que crecen contigo. Nuestras soluciones se adaptan a tus necesidades cambiantes, asegurando un respaldo constante en cada etapa de tu evolución personal o empresarial.' 
+    title: 'Responsabilidad', 
+    description: 'Actuamos con integridad y compromiso social, garantizando que cada una de nuestras decisiones fortalezca la seguridad y el bienestar de las comunidades que protegemos.' 
   },
   { 
     id: '03', 
-    title: 'Eficiencia', 
-    description: 'Optimizamos cada proceso para ofrecerte respuestas rápidas y efectivas. Tu tiempo y tranquilidad son nuestra prioridad absoluta, apalancando tecnología de punta para resultados excepcionales.' 
+    title: 'Calidad', 
+    description: 'Buscamos la excelencia en cada proceso y servicio, ofreciendo estándares superiores de atención y respaldo que definen nuestro liderazgo en el mercado.' 
   },
   { 
     id: '04', 
-    title: 'Confianza', 
-    description: 'Construimos relaciones basadas en la transparencia y el cumplimiento. Somos el aliado seguro en el que puedes delegar tu protección, garantizando integridad en cada interacción.' 
-  },
-  { 
-    id: '05', 
-    title: 'Colaboración', 
-    description: 'Trabajamos de la mano con nuestros clientes y aliados para crear un ecosistema de bienestar integral y crecimiento mutuo, donde el éxito compartido es nuestra meta.' 
-  },
-  { 
-    id: '06', 
-    title: 'Oportunidad', 
-    description: 'Identificamos y creamos soluciones innovadoras que abren nuevas puertas de seguridad y progreso para todos, anticipándonos a los desafíos del futuro.' 
+    title: 'Confiabilidad', 
+    description: 'Somos el aliado sólido en el que puedes delegar tu tranquilidad. Nuestra palabra es compromiso y nuestra trayectoria es la garantía de tu protección.' 
   },
 ];
 
