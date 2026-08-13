@@ -27,6 +27,7 @@ export default function Navbar() {
         const data = await response.text();
         if (data) {
           const cleanTemp = data.trim().replace('+', '');
+          // Handle cases where API returns a longer string
           if (cleanTemp.length > 6) {
             const match = cleanTemp.match(/(\d+°C)/);
             setTemperature(match ? match[1] : '--°C');
@@ -134,9 +135,7 @@ export default function Navbar() {
           </button>
           <button className="p-1.5 text-white/60 hover:text-white transition-colors relative">
             <Bell className="w-3 h-3" strokeWidth={1.5} />
-            <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-blue-500 rounded-full flex items-center justify-center text-[6px] text-white font-bold">
-              4
-            </span>
+            <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-blue-500 rounded-full" />
           </button>
           <button className="p-1.5 text-white/60 hover:text-white transition-colors">
             <User className="w-3 h-3" strokeWidth={1.5} />
