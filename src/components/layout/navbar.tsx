@@ -34,12 +34,9 @@ export default function Navbar() {
         const data = await response.text();
         if (data) {
           const cleanTemp = data.trim().replace('+', '');
-          if (cleanTemp.length > 6) {
-            const match = cleanTemp.match(/(\d+°C)/);
-            setTemperature(match ? match[1] : '--°C');
-          } else {
-            setTemperature(cleanTemp || '--°C');
-          }
+          // Extrae solo la temperatura corta (ej. 24°C)
+          const match = cleanTemp.match(/(\d+°C)/);
+          setTemperature(match ? match[1] : cleanTemp.substring(0, 5));
         }
       } catch (error) {
         console.error("Error fetching weather:", error);
@@ -169,7 +166,7 @@ export default function Navbar() {
                   setInputValue('');
                 }
               }}
-              className="bg-transparent text-[9px] font-light text-white placeholder:text-white/60 tracking-tight outline-none w-24 border-none focus:ring-0 p-0"
+              className="bg-transparent text-[9px] font-light text-white placeholder:text-white/60 tracking-tight outline-none w-20 border-none focus:ring-0 p-0"
             />
           </div>
           <button 
@@ -197,7 +194,7 @@ export default function Navbar() {
       {showIANotification && (
         <div className="animate-in fade-in slide-in-from-top-4 duration-500">
           <div className="bg-white/95 backdrop-blur-md px-5 py-2.5 rounded-full shadow-2xl border border-white/20 flex items-center gap-3">
-            <XCircle className="w-3.5 h-3.5 text-red-500/80" strokeWidth={1.5} />
+            <XCircle className="w-3.5 h-3.5 text-red-500/80" strokeWidth={1.2} />
             <span className="text-[10px] font-light text-slate-600 tracking-tight">
               Las funciones de inteligencia artificial se encuentran en fase de implementación y estarán disponibles próximamente.
             </span>
