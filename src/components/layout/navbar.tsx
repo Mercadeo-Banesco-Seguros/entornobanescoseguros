@@ -4,14 +4,14 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { navLinks } from '@/lib/data';
 import { cn } from '@/lib/utils';
-import { Search, Bell } from 'lucide-react';
+import { Search, Bell, User } from 'lucide-react';
 
 export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <div className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4">
-      <nav className="bg-[#003B73] rounded-full px-3 py-2 flex items-center gap-0.5 shadow-2xl border border-white/10 max-w-fit overflow-x-auto no-scrollbar">
+    <div className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4">
+      <nav className="bg-[#003B73]/90 backdrop-blur-sm rounded-full px-3 py-1.5 flex items-center gap-0.5 shadow-2xl border border-white/10 max-w-fit overflow-x-auto no-scrollbar">
         <div className="flex items-center gap-0.5">
           {navLinks.map((link) => {
             const Icon = link.icon;
@@ -22,18 +22,18 @@ export default function Navbar() {
                 key={link.label}
                 href={link.href}
                 className={cn(
-                  'flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all duration-200 group whitespace-nowrap',
+                  'flex items-center gap-1 px-2.5 py-1.5 rounded-full transition-all duration-200 group whitespace-nowrap',
                   isActive 
-                    ? 'bg-[#004B8D] text-white' 
-                    : 'text-white/70 hover:text-white'
+                    ? 'bg-[#FFFFFF]/10 text-white' 
+                    : 'text-white/60 hover:text-white'
                 )}
               >
                 <Icon 
-                  className={cn("w-3.5 h-3.5", isActive ? "text-white" : "text-white/70 group-hover:text-white")} 
+                  className={cn("w-3 h-3", isActive ? "text-white" : "text-white/60 group-hover:text-white")} 
                   strokeWidth={1.5}
                 />
                 {isActive && (
-                  <span className="text-[10px] font-light tracking-tight">
+                  <span className="text-[9px] font-light tracking-tight">
                     {link.label}
                   </span>
                 )}
@@ -43,19 +43,21 @@ export default function Navbar() {
         </div>
 
         {/* Separador vertical */}
-        <div className="h-4 w-[1px] bg-white/20 mx-2 hidden sm:block" />
+        <div className="h-3 w-[1px] bg-white/10 mx-2 hidden sm:block" />
 
-        <div className="flex items-center gap-0.5 sm:gap-1">
-          <button className="p-1.5 text-white/70 hover:text-white transition-colors">
-            <Search className="w-3.5 h-3.5" strokeWidth={1.5} />
+        <div className="flex items-center gap-0.5 sm:gap-1 px-1">
+          <button className="p-1.5 text-white/60 hover:text-white transition-colors">
+            <Search className="w-3 h-3" strokeWidth={1.5} />
           </button>
-          <button className="p-1.5 text-white/70 hover:text-white transition-colors relative">
-            <Bell className="w-3.5 h-3.5" strokeWidth={1.5} />
-            <span className="absolute top-1.5 right-1.5 w-1 h-1 bg-blue-400 rounded-full border border-[#003B73]" />
+          <button className="p-1.5 text-white/60 hover:text-white transition-colors relative">
+            <Bell className="w-3 h-3" strokeWidth={1.5} />
+            <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-blue-500 rounded-full border-[1.5px] border-[#003B73] flex items-center justify-center text-[5px] text-white font-bold">
+              4
+            </span>
           </button>
-          <div className="ml-1 w-6 h-6 rounded-full border border-white/20 flex items-center justify-center bg-white/10 text-white text-[9px] font-light cursor-pointer hover:bg-white/20 transition-colors shrink-0">
-            RD
-          </div>
+          <button className="p-1.5 text-white/60 hover:text-white transition-colors">
+            <User className="w-3 h-3" strokeWidth={1.5} />
+          </button>
         </div>
       </nav>
     </div>
