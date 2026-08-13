@@ -17,18 +17,15 @@ export default function Navbar() {
   useEffect(() => {
     setMounted(true);
     
-    // Actualizar reloj cada minuto
     const timer = setInterval(() => {
       setCurrentTime(new Date());
     }, 60000);
 
-    // Obtener clima real (Caracas) usando wttr.in
     const fetchWeather = async () => {
       try {
         const response = await fetch('https://wttr.in/Caracas?format=%t');
         const data = await response.text();
         if (data) {
-          // Limpiar el texto para obtener solo la temperatura corta (ej: 24°C)
           const cleanTemp = data.trim().replace('+', '');
           if (cleanTemp.length > 6) {
             const match = cleanTemp.match(/(\d+°C)/);
@@ -49,7 +46,6 @@ export default function Navbar() {
 
   if (!mounted) return null;
 
-  // Formateo de hora en 12h (AM/PM) con minutos
   const fullTimeFormatted = currentTime.toLocaleTimeString('en-US', { 
     hour: 'numeric', 
     minute: '2-digit', 
@@ -70,7 +66,6 @@ export default function Navbar() {
           isTimeExpanded ? "min-w-fit" : ""
         )}
       >
-        {/* Cápsula interna Glassy para la hora */}
         <div className={cn(
           "flex items-center gap-2 px-3 h-8 rounded-full bg-white/10 transition-all duration-300",
           !isTimeExpanded && "hover:bg-white/20"
@@ -133,13 +128,13 @@ export default function Navbar() {
         {/* Separador vertical de acciones */}
         <div className="h-3 w-[1px] bg-white/10 mx-1 hidden sm:block" />
 
-        <div className="flex items-center gap-0 px-0.5">
+        <div className="flex items-center gap-0.5 pr-0.5">
           <button className="p-1.5 text-white/60 hover:text-white transition-colors">
             <Search className="w-3 h-3" strokeWidth={1.5} />
           </button>
           <button className="p-1.5 text-white/60 hover:text-white transition-colors relative">
             <Bell className="w-3 h-3" strokeWidth={1.5} />
-            <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 bg-blue-500 rounded-full flex items-center justify-center text-[7px] text-white font-light">
+            <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-blue-500 rounded-full flex items-center justify-center text-[6px] text-white font-bold">
               4
             </span>
           </button>
