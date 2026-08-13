@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { navLinks } from '@/lib/data';
 import { cn } from '@/lib/utils';
-import { Search, Bell, User, Plus, Mic, XCircle } from 'lucide-react';
+import { Search, Bell, User, Plus, Mic, TriangleAlert } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 export default function Navbar() {
@@ -18,7 +18,7 @@ export default function Navbar() {
 
   const triggerNotification = () => {
     setShowIANotification(true);
-    setTimeout(() => setShowIANotification(false), 4000);
+    setTimeout(() => setShowIANotification(false), 5000);
   };
 
   useEffect(() => {
@@ -34,7 +34,6 @@ export default function Navbar() {
         const data = await response.text();
         if (data) {
           const cleanTemp = data.trim().replace('+', '');
-          // Extrae solo la temperatura corta (ej. 24°C)
           const match = cleanTemp.match(/(\d+°C)/);
           setTemperature(match ? match[1] : cleanTemp.substring(0, 5));
         }
@@ -71,10 +70,7 @@ export default function Navbar() {
             isTimeExpanded ? "min-w-fit" : ""
           )}
         >
-          <div className={cn(
-            "flex items-center gap-2 px-3 h-8 rounded-full bg-white/10 transition-all duration-300",
-            !isTimeExpanded && "hover:bg-white/20"
-          )}>
+          <div className="flex items-center gap-2 px-3 h-8 rounded-full bg-white/10">
             <span className="text-[10px] font-light text-white tabular-nums whitespace-nowrap">
               {fullTimeFormatted}
             </span>
@@ -99,8 +95,8 @@ export default function Navbar() {
         </div>
 
         {/* Barra de Navegación Principal */}
-        <nav className="bg-[#003B73]/90 backdrop-blur-sm rounded-full px-1 py-1 flex items-center gap-0 shadow-2xl border border-white/10 max-w-fit overflow-x-auto no-scrollbar h-10">
-          <div className="flex items-center gap-0">
+        <nav className="bg-[#003B73]/90 backdrop-blur-sm rounded-full px-1 py-1 flex items-center shadow-2xl border border-white/10 max-w-fit overflow-x-auto no-scrollbar h-10">
+          <div className="flex items-center">
             {navLinks.map((link) => {
               const Icon = link.icon;
               const isActive = pathname === link.href;
@@ -132,15 +128,15 @@ export default function Navbar() {
 
           <div className="h-3 w-[1px] bg-white/10 mx-1 hidden sm:block" />
 
-          <div className="flex items-center gap-0 pr-0.5">
-            <button className="p-1.5 text-white/60 hover:text-white transition-colors">
+          <div className="flex items-center pr-0.5">
+            <button onClick={triggerNotification} className="p-1.5 text-white/60 hover:text-white transition-colors">
               <Search className="w-3 h-3" strokeWidth={1.5} />
             </button>
-            <button className="p-1.5 text-white/60 hover:text-white transition-colors relative">
+            <button onClick={triggerNotification} className="p-1.5 text-white/60 hover:text-white transition-colors relative">
               <Bell className="w-3 h-3" strokeWidth={1.5} />
               <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-blue-500 rounded-full" />
             </button>
-            <button className="p-1.5 text-white/60 hover:text-white transition-colors">
+            <button onClick={triggerNotification} className="p-1.5 text-white/60 hover:text-white transition-colors">
               <User className="w-3 h-3" strokeWidth={1.5} />
             </button>
           </div>
@@ -166,7 +162,7 @@ export default function Navbar() {
                   setInputValue('');
                 }
               }}
-              className="bg-transparent text-[9px] font-light text-white placeholder:text-white/60 tracking-tight outline-none w-20 border-none focus:ring-0 p-0"
+              className="bg-transparent text-[9px] font-light text-white placeholder:text-white/60 tracking-tight outline-none w-16 border-none focus:ring-0 p-0"
             />
           </div>
           <button 
@@ -192,12 +188,28 @@ export default function Navbar() {
 
       {/* Notificación de IA */}
       {showIANotification && (
-        <div className="animate-in fade-in slide-in-from-top-4 duration-500">
-          <div className="bg-white/95 backdrop-blur-md px-5 py-2.5 rounded-full shadow-2xl border border-white/20 flex items-center gap-3">
-            <XCircle className="w-3.5 h-3.5 text-red-500/80" strokeWidth={1.2} />
-            <span className="text-[10px] font-light text-slate-600 tracking-tight">
-              Las funciones de inteligencia artificial se encuentran en fase de implementación y estarán disponibles próximamente.
-            </span>
+        <div className="animate-in fade-in slide-in-from-top-4 duration-500 absolute top-20 left-1/2 -translate-x-1/2 w-full max-w-sm px-4">
+          <div className="relative bg-amber-50/95 backdrop-blur-md p-4 rounded-[28px] shadow-2xl border border-amber-200/50 flex items-center gap-4">
+            
+            {/* Distintivo Superior */}
+            <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-[#F59E0B] text-white text-[9px] font-bold px-3 py-0.5 rounded-full flex items-center gap-1 shadow-sm">
+              <TriangleAlert className="w-2.5 h-2.5" strokeWidth={2.5} />
+              <span className="tracking-wide uppercase">AVISO</span>
+            </div>
+
+            {/* Icono Principal */}
+            <div className="flex-shrink-0 w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-100 to-amber-200 border border-amber-300/50 flex items-center justify-center relative overflow-hidden">
+              <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle, currentColor 1px, transparent 1px)', backgroundSize: '4px 4px' }} />
+              <TriangleAlert className="w-6 h-6 text-amber-900/80" strokeWidth={1.5} />
+            </div>
+
+            {/* Bloque de Texto */}
+            <div className="flex flex-col gap-0.5">
+              <h4 className="text-xs font-bold text-amber-950/90 tracking-tight">Módulo en Desarrollo</h4>
+              <p className="text-[10px] font-light text-amber-900/80 leading-tight tracking-tight">
+                Las funciones de inteligencia artificial se encuentran en fase de implementación y estarán disponibles próximamente.
+              </p>
+            </div>
           </div>
         </div>
       )}
