@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { navLinks } from '@/lib/data';
 import { cn } from '@/lib/utils';
-import { Search, Bell, User, Plus, Mic, X, Info } from 'lucide-react';
+import { Search, Bell, User, Plus, Mic, X, AlertTriangle, Info } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 export default function Navbar() {
@@ -190,7 +190,7 @@ export default function Navbar() {
       {showIANotification && (
         <div className="animate-in fade-in slide-in-from-top-4 duration-500 absolute top-20 left-1/2 -translate-x-1/2 w-full max-w-2xl px-4 pointer-events-auto">
           <div className="bg-red-100/90 backdrop-blur-md py-3 px-6 rounded-2xl shadow-xl border border-red-200/50 flex items-center gap-4">
-            <Info className="w-5 h-5 text-red-600 shrink-0" strokeWidth={1.5} />
+            <AlertTriangle className="w-5 h-5 text-red-600 shrink-0" strokeWidth={1.5} />
             
             <div className="flex-grow">
               <p className="text-[10px] font-light text-red-900 leading-tight tracking-tight">
