@@ -2,6 +2,7 @@
 'use client';
 
 import { ArrowRight, Sparkles } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 export default function HomePage() {
   return (
@@ -18,9 +19,9 @@ export default function HomePage() {
         </p>
       </div>
       <div className="flex gap-4">
-        <button className="bg-primary text-primary-foreground px-8 py-3 rounded-full font-bold flex items-center gap-2 hover:opacity-90 transition-opacity">
-          Comenzar Proyecto <ArrowRight className="h-4 w-4" />
-        </button>
+        <Button size="lg" className="rounded-full font-bold">
+          Comenzar Proyecto <ArrowRight className="ml-2 h-4 w-4" />
+        </Button>
       </div>
     </div>
   );
