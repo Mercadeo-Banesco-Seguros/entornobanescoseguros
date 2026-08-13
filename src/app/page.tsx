@@ -190,7 +190,7 @@ export default function LandingPage() {
           {/* Columna Derecha: Tarjeta Visual y Descripción */}
           <div className="flex flex-col gap-12 max-w-lg mx-auto lg:mx-0 w-full">
             {/* Tarjeta con Gradiente */}
-            <div className="relative aspect-[2/1] w-full rounded-3xl overflow-hidden bg-gradient-to-br from-blue-900 via-blue-800 to-sky-600 p-8 flex flex-col justify-between shadow-2xl">
+            <div className="relative aspect-[2/1] w-full rounded-3xl overflow-hidden bg-gradient-to-br from-blue-900 via-blue-800 to-sky-600 p-8 flex flex-col justify-between">
               <div className="w-2 h-2 rounded-full bg-white/40" />
               
               <div className="relative z-10">
