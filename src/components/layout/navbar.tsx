@@ -146,9 +146,9 @@ export default function Navbar() {
         <button className="p-1.5 text-white/60 hover:text-white transition-colors">
           <Plus className="w-3 h-3" strokeWidth={1.5} />
         </button>
-        <div className="px-3">
+        <div className="px-3 flex items-center">
           <span className="text-[9px] font-light text-white/60 tracking-tight whitespace-nowrap">
-            Ask anything
+            Hola "Usuario"...
           </span>
         </div>
         <button className="p-1.5 text-white/60 hover:text-white transition-colors">
