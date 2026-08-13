@@ -1,7 +1,8 @@
+
 'use client';
 
 import * as React from "react";
-import { Cloud } from "lucide-react";
+import { Cloud, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type TimePeriod = 'day' | 'night';
@@ -13,11 +14,45 @@ interface CloudData {
   size: number;
 }
 
+const values = [
+  { 
+    id: '01', 
+    title: 'Experiencia', 
+    description: 'En Banesco Seguros, nuestra trayectoria es el pilar de cada solución. Brindamos conocimiento invaluable y solidez para proteger lo que más importa. Confíe en nosotros para entregar soluciones innovadoras respaldadas por nuestra amplia experiencia e información del sector.' 
+  },
+  { 
+    id: '02', 
+    title: 'Escalabilidad', 
+    description: 'Diseñamos protecciones que crecen contigo. Nuestras soluciones se adaptan a tus necesidades cambiantes, asegurando un respaldo constante en cada etapa de tu evolución personal o empresarial.' 
+  },
+  { 
+    id: '03', 
+    title: 'Eficiencia', 
+    description: 'Optimizamos cada proceso para ofrecerte respuestas rápidas y efectivas. Tu tiempo y tranquilidad son nuestra prioridad absoluta, apalancando tecnología de punta para resultados excepcionales.' 
+  },
+  { 
+    id: '04', 
+    title: 'Confianza', 
+    description: 'Construimos relaciones basadas en la transparencia y el cumplimiento. Somos el aliado seguro en el que puedes delegar tu protección, garantizando integridad en cada interacción.' 
+  },
+  { 
+    id: '05', 
+    title: 'Colaboración', 
+    description: 'Trabajamos de la mano con nuestros clientes y aliados para crear un ecosistema de bienestar integral y crecimiento mutuo, donde el éxito compartido es nuestra meta.' 
+  },
+  { 
+    id: '06', 
+    title: 'Oportunidad', 
+    description: 'Identificamos y creamos soluciones innovadoras que abren nuevas puertas de seguridad y progreso para todos, anticipándonos a los desafíos del futuro.' 
+  },
+];
+
 export default function LandingPage() {
   const [mounted, setMounted] = React.useState(false);
   const [timeTheme, setTimeTheme] = React.useState<TimePeriod>('day');
   const [showFinalText, setShowFinalText] = React.useState(false);
   const [clouds, setClouds] = React.useState<CloudData[]>([]);
+  const [activeValue, setActiveValue] = React.useState(values[0]);
 
   React.useEffect(() => {
     setMounted(true);
@@ -38,7 +73,6 @@ export default function LandingPage() {
       setShowFinalText(true);
     }, 3000);
 
-    // Generar nubes de forma estable en el cliente para evitar discrepancias de hidratación
     setClouds([...Array(16)].map((_, i) => ({
       top: `${(i * 5 + Math.sin(i) * 10) % 85}%`,
       duration: `${40 + (i % 5) * 10}s`,
@@ -74,68 +108,127 @@ export default function LandingPage() {
   const current = themes[timeTheme];
 
   return (
-    <div className="fixed inset-0 top-0 left-0 w-full h-full overflow-hidden font-sans select-none">
+    <div className="relative w-full font-sans select-none overflow-x-hidden">
       
-      {/* Fondo Dinámico */}
-      <div className={cn("absolute inset-0 transition-all duration-[3000ms] ease-in-out -z-30", current.gradient)} />
+      {/* Sección Hero */}
+      <section className="relative h-screen w-full overflow-hidden">
+        {/* Fondo Dinámico */}
+        <div className={cn("absolute inset-0 transition-all duration-[3000ms] ease-in-out -z-30", current.gradient)} />
 
-      {/* Capa de Nubes Animadas */}
-      <div className="absolute inset-x-0 bottom-0 h-2/3 overflow-hidden pointer-events-none -z-20">
-        {clouds.map((cloud, i) => (
-          <div 
-            key={i}
-            className={cn("absolute animate-drift transition-opacity duration-[3000ms]", current.cloudOpacity)}
-            style={{ 
-              top: cloud.top, 
-              left: "-20%", 
-              '--duration': cloud.duration,
-              animationDelay: cloud.delay,
-            } as React.CSSProperties}
-          >
-            <Cloud 
-              className={cn("drop-shadow-[0_20px_50px_rgba(255,255,255,0.4)]", current.cloudColor)}
-              size={cloud.size} 
-              strokeWidth={0}
-            />
+        {/* Capa de Nubes Animadas */}
+        <div className="absolute inset-x-0 bottom-0 h-2/3 overflow-hidden pointer-events-none -z-20">
+          {clouds.map((cloud, i) => (
+            <div 
+              key={i}
+              className={cn("absolute animate-drift transition-opacity duration-[3000ms]", current.cloudOpacity)}
+              style={{ 
+                top: cloud.top, 
+                left: "-20%", 
+                '--duration': cloud.duration,
+                animationDelay: cloud.delay,
+              } as React.CSSProperties}
+            >
+              <Cloud 
+                className={cn("drop-shadow-[0_20px_50px_rgba(255,255,255,0.4)]", current.cloudColor)}
+                size={cloud.size} 
+                strokeWidth={0}
+              />
+            </div>
+          ))}
+        </div>
+
+        <main className="relative z-10 w-full h-full flex flex-col items-center pt-32 px-6">
+          <div className="max-w-6xl text-center w-full relative h-[300px] flex items-center justify-center">
+            <h1 
+              className={cn(
+                "absolute text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[0.95] transition-all duration-[1000ms] ease-[cubic-bezier(0.34,1.56,0.64,1)]",
+                current.textColor,
+                showFinalText 
+                  ? "opacity-0 scale-50 blur-xl pointer-events-none" 
+                  : "opacity-100 scale-100 blur-none"
+              )}
+            >
+              Bienvenido al Entorno <br /> Banesco Seguros
+            </h1>
+
+            <h1 
+              className={cn(
+                "absolute text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[0.95] transition-all duration-[1200ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] whitespace-nowrap",
+                current.textColor,
+                showFinalText 
+                  ? "opacity-100 scale-100 blur-none" 
+                  : "opacity-0 scale-50 blur-xl pointer-events-none"
+              )}
+            >
+              Estamos Contigo
+            </h1>
           </div>
-        ))}
-      </div>
+        </main>
 
-      {/* Contenido Principal (Hero) */}
-      <main className="relative z-10 w-full h-full flex flex-col items-center pt-32 px-6">
-        <div className="max-w-6xl text-center w-full relative h-[300px] flex items-center justify-center">
+        <div className={cn("absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t to-transparent pointer-events-none -z-10 transition-all duration-[3000ms]", current.bottomGradient)} />
+      </section>
+
+      {/* Sección Nuestros Valores */}
+      <section className="bg-white py-32 px-6 md:px-12 lg:px-24">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           
-          {/* Texto 1: Bienvenido al Entorno Banesco Seguros */}
-          <h1 
-            className={cn(
-              "absolute text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[0.95] transition-all duration-[1000ms] ease-[cubic-bezier(0.34,1.56,0.64,1)]",
-              current.textColor,
-              showFinalText 
-                ? "opacity-0 scale-50 blur-xl pointer-events-none" 
-                : "opacity-100 scale-100 blur-none"
-            )}
-          >
-            Bienvenido al Entorno <br /> Banesco Seguros
-          </h1>
+          {/* Columna Izquierda: Lista de Valores */}
+          <div className="space-y-6">
+            <h2 className="text-sm font-medium text-gray-400 mb-12 uppercase tracking-widest">Nuestros Valores</h2>
+            <div className="flex flex-col gap-4">
+              {values.map((val) => (
+                <div 
+                  key={val.id}
+                  onMouseEnter={() => setActiveValue(val)}
+                  className="group flex items-center gap-4 cursor-pointer"
+                >
+                  <div className={cn(
+                    "w-1.5 h-1.5 rounded-full bg-black transition-all duration-300",
+                    activeValue.id === val.id ? "opacity-100 scale-100" : "opacity-0 scale-0"
+                  )} />
+                  <span className={cn(
+                    "text-4xl md:text-5xl lg:text-6xl font-light tracking-tighter transition-all duration-300",
+                    activeValue.id === val.id ? "text-black translate-x-2" : "text-gray-300 group-hover:text-gray-400"
+                  )}>
+                    {val.title}.
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
 
-          {/* Texto 2: Estamos Contigo */}
-          <h1 
-            className={cn(
-              "absolute text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[0.95] transition-all duration-[1200ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] whitespace-nowrap",
-              current.textColor,
-              showFinalText 
-                ? "opacity-100 scale-100 blur-none" 
-                : "opacity-0 scale-50 blur-xl pointer-events-none"
-            )}
-          >
-            Estamos Contigo
-          </h1>
+          {/* Columna Derecha: Tarjeta Visual y Descripción */}
+          <div className="flex flex-col gap-12 max-w-lg mx-auto lg:mx-0">
+            {/* Tarjeta con Gradiente y Patrón */}
+            <div className="relative aspect-[16/10] w-full rounded-3xl overflow-hidden bg-gradient-to-br from-green-900 via-green-800 to-teal-600 p-8 flex flex-col justify-between shadow-2xl">
+              <div className="w-2 h-2 rounded-full bg-white/40" />
+              
+              {/* Patrón de Destellos */}
+              <div className="absolute inset-0 flex items-center justify-end pr-8 pointer-events-none opacity-30">
+                <div className="grid grid-cols-5 gap-6">
+                  {[...Array(25)].map((_, i) => (
+                    <Sparkles key={i} className="w-4 h-4 text-white" strokeWidth={1} />
+                  ))}
+                </div>
+              </div>
+
+              <div className="relative z-10">
+                <span className="text-7xl font-light text-white/90 tracking-tighter tabular-nums">
+                  {activeValue.id}
+                </span>
+              </div>
+            </div>
+
+            {/* Descripción Dinámica */}
+            <div className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-500" key={activeValue.id}>
+              <p className="text-sm text-gray-500 leading-relaxed font-light">
+                {activeValue.description}
+              </p>
+            </div>
+          </div>
 
         </div>
-      </main>
-
-      {/* Gradiente sutil inferior */}
-      <div className={cn("absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t to-transparent pointer-events-none -z-10 transition-all duration-[3000ms]", current.bottomGradient)} />
+      </section>
 
     </div>
   );
