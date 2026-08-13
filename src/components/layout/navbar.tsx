@@ -12,7 +12,7 @@ export default function Navbar() {
   const [mounted, setMounted] = useState(false);
   const [isTimeExpanded, setIsTimeExpanded] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [temperature, setTemperature] = useState<number | null>(null);
+  const [temperature, setTemperature] = useState<string | null>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -22,13 +22,14 @@ export default function Navbar() {
       setCurrentTime(new Date());
     }, 60000);
 
-    // Obtener clima real (Caracas)
+    // Obtener clima real (Caracas) usando wttr.in
     const fetchWeather = async () => {
       try {
-        const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=10.4880&longitude=-66.8791&current=temperature_2m');
-        const data = await response.json();
-        if (data?.current?.temperature_2m !== undefined) {
-          setTemperature(Math.round(data.current.temperature_2m));
+        const response = await fetch('https://wttr.in/Caracas?format=%t');
+        const data = await response.text();
+        if (data) {
+          // Limpiar posibles espacios o signos + que devuelve wttr.in
+          setTemperature(data.trim().replace('+', ''));
         }
       } catch (error) {
         console.error("Error fetching weather:", error);
@@ -63,13 +64,15 @@ export default function Navbar() {
           isTimeExpanded ? "min-w-fit" : ""
         )}
       >
+        {/* Cápsula interna Glassy para la hora */}
         <div className={cn(
-          "flex items-center gap-2 px-3 h-8 rounded-full transition-all duration-300",
-          isTimeExpanded ? "bg-white/10" : ""
+          "flex items-center gap-2 px-3 h-8 rounded-full bg-white/10 transition-all duration-300",
+          !isTimeExpanded && "hover:bg-white/20"
         )}>
           <span className="text-[10px] font-light text-white tabular-nums whitespace-nowrap">
             {fullTimeFormatted}
           </span>
+          
           {isTimeExpanded && (
             <div className="flex items-center gap-2 border-l border-white/20 pl-2 animate-in fade-in slide-in-from-left-2 duration-300 whitespace-nowrap">
               <div className="flex flex-col leading-none">
@@ -82,7 +85,7 @@ export default function Navbar() {
               </div>
               <div className="h-3 w-[1px] bg-white/10 mx-0.5" />
               <span className="text-[8px] text-white font-light">
-                {temperature !== null ? `${temperature}°C` : '--°C'}
+                {temperature || '--°C'}
               </span>
             </div>
           )}
