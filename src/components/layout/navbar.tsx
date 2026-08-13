@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { navLinks } from '@/lib/data';
 import { cn } from '@/lib/utils';
-import { Search, Bell, User } from 'lucide-react';
+import { Search, Bell, User, Plus, Mic } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 export default function Navbar() {
@@ -27,7 +27,6 @@ export default function Navbar() {
         const data = await response.text();
         if (data) {
           const cleanTemp = data.trim().replace('+', '');
-          // Handle cases where API returns a longer string
           if (cleanTemp.length > 6) {
             const match = cleanTemp.match(/(\d+°C)/);
             setTemperature(match ? match[1] : '--°C');
@@ -126,7 +125,6 @@ export default function Navbar() {
           })}
         </div>
 
-        {/* Separador vertical de acciones */}
         <div className="h-3 w-[1px] bg-white/10 mx-1 hidden sm:block" />
 
         <div className="flex items-center gap-0.5 pr-0.5">
@@ -142,6 +140,31 @@ export default function Navbar() {
           </button>
         </div>
       </nav>
+
+      {/* Cápsula de Chat IA */}
+      <div className="bg-[#003B73]/90 backdrop-blur-sm rounded-full flex items-center shadow-2xl border border-white/10 h-10 px-1 gap-1">
+        <button className="p-1.5 text-white/60 hover:text-white transition-colors">
+          <Plus className="w-3 h-3" strokeWidth={1.5} />
+        </button>
+        <div className="px-3">
+          <span className="text-[9px] font-light text-white/60 tracking-tight whitespace-nowrap">
+            Ask anything
+          </span>
+        </div>
+        <button className="p-1.5 text-white/60 hover:text-white transition-colors">
+          <Mic className="w-3 h-3" strokeWidth={1.5} />
+        </button>
+        <div className="h-8 w-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer">
+           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-white">
+              <rect x="3" y="10" width="1.5" height="4" rx="0.75" fill="currentColor" />
+              <rect x="7.5" y="7" width="1.5" height="10" rx="0.75" fill="currentColor" />
+              <rect x="12" y="4" width="1.5" height="16" rx="0.75" fill="currentColor" />
+              <rect x="16.5" y="7" width="1.5" height="10" rx="0.75" fill="currentColor" />
+              <rect x="21" y="10" width="1.5" height="4" rx="0.75" fill="currentColor" />
+           </svg>
+        </div>
+      </div>
+
     </div>
   );
 }
