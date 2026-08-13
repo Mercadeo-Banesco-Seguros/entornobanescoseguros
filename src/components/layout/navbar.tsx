@@ -28,8 +28,15 @@ export default function Navbar() {
         const response = await fetch('https://wttr.in/Caracas?format=%t');
         const data = await response.text();
         if (data) {
-          // Limpiar posibles espacios o signos + que devuelve wttr.in
-          setTemperature(data.trim().replace('+', ''));
+          // Limpiar el texto para obtener solo la temperatura corta (ej: 24°C)
+          const cleanTemp = data.trim().replace('+', '');
+          // Si el texto es demasiado largo, intentamos extraer solo el patrón de grados
+          if (cleanTemp.length > 6) {
+            const match = cleanTemp.match(/(\d+°C)/);
+            setTemperature(match ? match[1] : '--°C');
+          } else {
+            setTemperature(cleanTemp || '--°C');
+          }
         }
       } catch (error) {
         console.error("Error fetching weather:", error);
@@ -104,7 +111,7 @@ export default function Navbar() {
                 key={link.label}
                 href={link.href}
                 className={cn(
-                  'flex items-center gap-1 px-2 py-2 rounded-full transition-all duration-200 group whitespace-nowrap',
+                  'flex items-center gap-1 px-2.5 py-2 rounded-full transition-all duration-200 group whitespace-nowrap',
                   isActive 
                     ? 'bg-white/10 text-white font-normal' 
                     : 'text-white/60 hover:text-white font-light'
@@ -125,7 +132,7 @@ export default function Navbar() {
         </div>
 
         {/* Separador vertical de acciones */}
-        <div className="h-3 w-[1px] bg-white/10 mx-1 hidden sm:block" />
+        <div className="h-3 w-[1px] bg-white/10 mx-1.5 hidden sm:block" />
 
         <div className="flex items-center gap-0 px-0.5">
           <button className="p-1.5 text-white/60 hover:text-white transition-colors">

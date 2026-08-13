@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from "react";
@@ -40,11 +39,11 @@ export default function LandingPage() {
     }, 3000);
 
     // Generar nubes solo en el cliente para evitar discrepancias de hidratación
-    setClouds([...Array(16)].map(() => ({
-      top: `${Math.random() * 85}%`,
-      duration: `${40 + Math.random() * 50}s`,
-      delay: `${-Math.random() * 60}s`,
-      size: 280 + Math.random() * 420
+    setClouds([...Array(16)].map((_, i) => ({
+      top: `${(i * 5 + Math.sin(i) * 10) % 85}%`,
+      duration: `${40 + (i % 5) * 10}s`,
+      delay: `${-i * 5}s`,
+      size: 280 + (i % 3) * 100
     })));
 
     return () => {
