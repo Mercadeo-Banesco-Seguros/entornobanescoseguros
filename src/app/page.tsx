@@ -1,15 +1,16 @@
+
 'use client';
 
 import { ArrowRight, Sparkles } from 'lucide-react';
 
 export default function HomePage() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center p-6 text-center space-y-8">
+    <div className="flex min-h-screen flex-col items-center justify-center p-6 text-center space-y-8 bg-background">
       <div className="bg-primary/5 p-3 rounded-full">
         <Sparkles className="h-8 w-8 text-primary" />
       </div>
       <div className="max-w-2xl space-y-4">
-        <h1 className="text-5xl font-black tracking-tight sm:text-6xl italic uppercase">
+        <h1 className="text-5xl font-black tracking-tight sm:text-6xl italic uppercase text-foreground">
           Lienzo en Blanco
         </h1>
         <p className="text-xl text-muted-foreground">
