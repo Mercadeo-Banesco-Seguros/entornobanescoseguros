@@ -106,7 +106,7 @@ export default function LandingPage() {
       <main className="relative z-10 w-full h-full flex flex-col items-center pt-32 px-6">
         <div className="max-w-6xl text-center w-full relative h-[300px] flex items-center justify-center">
           
-          {/* Texto 1: Inteligencia Comercial */}
+          {/* Texto 1: Bienvenido al Entorno Banesco Seguros */}
           <h1 
             className={cn(
               "absolute text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[0.95] transition-all duration-[1000ms] ease-[cubic-bezier(0.34,1.56,0.64,1)]",
@@ -116,10 +116,10 @@ export default function LandingPage() {
                 : "opacity-100 scale-100 blur-none"
             )}
           >
-            Inteligencia <br /> Comercial
+            Bienvenido al Entorno <br /> Banesco Seguros
           </h1>
 
-          {/* Texto 2: Decisiones basadas en datos */}
+          {/* Texto 2: Estamos Contigo */}
           <h1 
             className={cn(
               "absolute text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[0.95] transition-all duration-[1200ms] ease-[cubic-bezier(0.34,1.56,0.64,1)]",
@@ -129,7 +129,7 @@ export default function LandingPage() {
                 : "opacity-0 scale-50 blur-xl pointer-events-none"
             )}
           >
-            Decisiones basadas <br /> en datos.
+            Estamos <br /> Contigo
           </h1>
 
         </div>
