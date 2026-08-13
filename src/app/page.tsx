@@ -188,20 +188,11 @@ export default function LandingPage() {
           </div>
 
           {/* Columna Derecha: Tarjeta Visual y Descripción */}
-          <div className="flex flex-col gap-12 max-w-lg mx-auto lg:mx-0">
-            {/* Tarjeta con Gradiente y Patrón */}
-            <div className="relative aspect-[16/10] w-full rounded-3xl overflow-hidden bg-gradient-to-br from-green-900 via-green-800 to-teal-600 p-8 flex flex-col justify-between shadow-2xl">
+          <div className="flex flex-col gap-12 max-w-lg mx-auto lg:mx-0 w-full">
+            {/* Tarjeta con Gradiente */}
+            <div className="relative aspect-[2/1] w-full rounded-3xl overflow-hidden bg-gradient-to-br from-blue-900 via-blue-800 to-sky-600 p-8 flex flex-col justify-between shadow-2xl">
               <div className="w-2 h-2 rounded-full bg-white/40" />
               
-              {/* Patrón de Destellos */}
-              <div className="absolute inset-0 flex items-center justify-end pr-8 pointer-events-none opacity-30">
-                <div className="grid grid-cols-5 gap-6">
-                  {[...Array(25)].map((_, i) => (
-                    <Sparkles key={i} className="w-4 h-4 text-white" strokeWidth={1} />
-                  ))}
-                </div>
-              </div>
-
               <div className="relative z-10">
                 <span className="text-7xl font-light text-white/90 tracking-tighter tabular-nums">
                   {activeValue.id}
