@@ -99,8 +99,8 @@ export default function Navbar() {
         </div>
 
         {/* Barra de Navegación Principal */}
-        <nav className="bg-[#003B73]/90 backdrop-blur-sm rounded-full px-1 py-1 flex items-center gap-0.5 shadow-2xl border border-white/10 max-w-fit overflow-x-auto no-scrollbar h-10">
-          <div className="flex items-center gap-0.5">
+        <nav className="bg-[#003B73]/90 backdrop-blur-sm rounded-full px-1 py-1 flex items-center gap-0 shadow-2xl border border-white/10 max-w-fit overflow-x-auto no-scrollbar h-10">
+          <div className="flex items-center gap-0">
             {navLinks.map((link) => {
               const Icon = link.icon;
               const isActive = pathname === link.href;
@@ -132,7 +132,7 @@ export default function Navbar() {
 
           <div className="h-3 w-[1px] bg-white/10 mx-1 hidden sm:block" />
 
-          <div className="flex items-center gap-0.5 pr-0.5">
+          <div className="flex items-center gap-0 pr-0.5">
             <button className="p-1.5 text-white/60 hover:text-white transition-colors">
               <Search className="w-3 h-3" strokeWidth={1.5} />
             </button>
