@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
 export const metadata: Metadata = {
   title: 'Mi Nueva Landing Page',
-  description: 'Creada desde cero con un lienzo en blanco.',
+  description: 'Un lienzo en blanco para tu gran idea.',
 };
 
 export default function RootLayout({
@@ -17,7 +17,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
+    <html lang="es" className="scroll-smooth">
       <body className={cn(inter.variable, "min-h-screen bg-background font-sans antialiased")}>
         {children}
         <Toaster />
