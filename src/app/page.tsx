@@ -6,17 +6,24 @@ import { cn } from "@/lib/utils";
 
 type TimePeriod = 'day' | 'night';
 
+interface CloudData {
+  top: string;
+  duration: string;
+  delay: string;
+  size: number;
+}
+
 export default function LandingPage() {
   const [mounted, setMounted] = React.useState(false);
   const [timeTheme, setTimeTheme] = React.useState<TimePeriod>('day');
   const [showFinalText, setShowFinalText] = React.useState(false);
+  const [clouds, setClouds] = React.useState<CloudData[]>([]);
 
   React.useEffect(() => {
     setMounted(true);
     
     const updateTheme = () => {
       const hour = new Date().getHours();
-      // Cielo azul (day) siempre, excepto de 18:00 (6 PM) a 05:59 que es noche (night)
       if (hour >= 18 || hour < 6) {
         setTimeTheme('night');
       } else {
@@ -25,12 +32,19 @@ export default function LandingPage() {
     };
 
     updateTheme();
-    const interval = setInterval(updateTheme, 60000); // Revisar cada minuto
+    const interval = setInterval(updateTheme, 60000);
 
-    // Iniciar la transición del texto después de 3 segundos para dar impacto inicial
     const textTimer = setTimeout(() => {
       setShowFinalText(true);
     }, 3000);
+
+    // Generate cloud positions only on client to avoid hydration mismatch
+    setClouds([...Array(16)].map(() => ({
+      top: `${Math.random() * 85}%`,
+      duration: `${40 + Math.random() * 50}s`,
+      delay: `${-Math.random() * 60}s`,
+      size: 280 + Math.random() * 420
+    })));
 
     return () => {
       clearInterval(interval);
@@ -67,20 +81,20 @@ export default function LandingPage() {
 
       {/* 2. Capa de Nubes Animadas */}
       <div className="absolute inset-x-0 bottom-0 h-2/3 overflow-hidden pointer-events-none -z-20">
-        {[...Array(16)].map((_, i) => (
+        {clouds.map((cloud, i) => (
           <div 
             key={i}
             className={cn("absolute animate-drift transition-opacity duration-[3000ms]", current.cloudOpacity)}
             style={{ 
-              top: `${Math.random() * 85}%`, 
+              top: cloud.top, 
               left: "-20%", 
-              '--duration': `${40 + Math.random() * 50}s`,
-              animationDelay: `${-Math.random() * 60}s`,
+              '--duration': cloud.duration,
+              animationDelay: cloud.delay,
             } as React.CSSProperties}
           >
             <Cloud 
               className={cn("drop-shadow-[0_20px_50px_rgba(255,255,255,0.4)]", current.cloudColor)}
-              size={280 + Math.random() * 420} 
+              size={cloud.size} 
               strokeWidth={0}
             />
           </div>
