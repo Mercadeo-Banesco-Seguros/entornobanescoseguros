@@ -30,7 +30,6 @@ export default function Navbar() {
         if (data) {
           // Limpiar el texto para obtener solo la temperatura corta (ej: 24°C)
           const cleanTemp = data.trim().replace('+', '');
-          // Si el texto es demasiado largo, intentamos extraer solo el patrón de grados
           if (cleanTemp.length > 6) {
             const match = cleanTemp.match(/(\d+°C)/);
             setTemperature(match ? match[1] : '--°C');
@@ -71,7 +70,7 @@ export default function Navbar() {
           isTimeExpanded ? "min-w-fit" : ""
         )}
       >
-        {/* Cápsula interna Glassy para la hora */}
+        {/* Cápsula interna Glassy para la hora - Tamaño base: h-8, px-3 */}
         <div className={cn(
           "flex items-center gap-2 px-3 h-8 rounded-full bg-white/10 transition-all duration-300",
           !isTimeExpanded && "hover:bg-white/20"
@@ -111,9 +110,9 @@ export default function Navbar() {
                 key={link.label}
                 href={link.href}
                 className={cn(
-                  'flex items-center gap-1 px-2.5 py-2 rounded-full transition-all duration-200 group whitespace-nowrap',
+                  'flex items-center gap-1.5 px-3 h-8 rounded-full transition-all duration-200 group whitespace-nowrap',
                   isActive 
-                    ? 'bg-white/10 text-white font-normal' 
+                    ? 'bg-white/10 text-white font-light' 
                     : 'text-white/60 hover:text-white font-light'
                 )}
               >

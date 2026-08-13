@@ -38,7 +38,7 @@ export default function LandingPage() {
       setShowFinalText(true);
     }, 3000);
 
-    // Generar nubes solo en el cliente para evitar discrepancias de hidratación
+    // Generar nubes de forma estable en el cliente para evitar discrepancias de hidratación
     setClouds([...Array(16)].map((_, i) => ({
       top: `${(i * 5 + Math.sin(i) * 10) % 85}%`,
       duration: `${40 + (i % 5) * 10}s`,
@@ -76,10 +76,10 @@ export default function LandingPage() {
   return (
     <div className="fixed inset-0 top-0 left-0 w-full h-full overflow-hidden font-sans select-none">
       
-      {/* 1. Fondo Dinámico */}
+      {/* Fondo Dinámico */}
       <div className={cn("absolute inset-0 transition-all duration-[3000ms] ease-in-out -z-30", current.gradient)} />
 
-      {/* 2. Capa de Nubes Animadas */}
+      {/* Capa de Nubes Animadas */}
       <div className="absolute inset-x-0 bottom-0 h-2/3 overflow-hidden pointer-events-none -z-20">
         {clouds.map((cloud, i) => (
           <div 
@@ -101,7 +101,7 @@ export default function LandingPage() {
         ))}
       </div>
 
-      {/* 3. Contenido Principal (Hero) */}
+      {/* Contenido Principal (Hero) */}
       <main className="relative z-10 w-full h-full flex flex-col items-center pt-32 px-6">
         <div className="max-w-6xl text-center w-full relative h-[300px] flex items-center justify-center">
           
