@@ -148,7 +148,7 @@ export default function Navbar() {
         </button>
         <div className="px-3 flex items-center">
           <span className="text-[9px] font-light text-white/60 tracking-tight whitespace-nowrap">
-            Hola "Usuario"...
+            Hola Usuario...
           </span>
         </div>
         <button className="p-1.5 text-white/60 hover:text-white transition-colors">
