@@ -51,7 +51,7 @@ export default function Navbar() {
           </button>
           <button className="p-1.5 text-white/60 hover:text-white transition-colors relative">
             <Bell className="w-3 h-3" strokeWidth={1.5} />
-            <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-blue-500 rounded-full border-[1.5px] border-[#003B73] flex items-center justify-center text-[5px] text-white font-bold">
+            <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-blue-500 rounded-full border-[1px] border-[#003B73] flex items-center justify-center text-[5.5px] text-white font-light">
               4
             </span>
           </button>
