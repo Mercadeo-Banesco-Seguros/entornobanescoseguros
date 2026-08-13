@@ -193,8 +193,8 @@ export default function Navbar() {
             <Info className="w-5 h-5 text-red-600 shrink-0" strokeWidth={1.5} />
             
             <div className="flex-grow">
-              <p className="text-[11px] font-light text-red-900 leading-tight tracking-tight">
-                módulo en desarrollo: las funcionalidades de inteligencia artificial se encuentran en fase de implementación y estarán disponibles próximamente.
+              <p className="text-[10px] font-light text-red-900 leading-tight tracking-tight">
+                Módulo en desarrollo: las funcionalidades de inteligencia artificial se encuentran en fase de implementación y estarán disponibles próximamente.
               </p>
             </div>
 
