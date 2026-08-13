@@ -33,7 +33,7 @@ export default function Navbar() {
                   strokeWidth={1.5}
                 />
                 {isActive && (
-                  <span className="text-[11px] font-light tracking-tight">
+                  <span className="text-[10px] font-light tracking-tight">
                     {link.label}
                   </span>
                 )}
