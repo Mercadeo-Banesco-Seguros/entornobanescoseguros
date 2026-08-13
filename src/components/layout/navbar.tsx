@@ -42,9 +42,14 @@ export default function Navbar() {
 
   if (!mounted) return null;
 
-  // Formateo de fecha y hora local
-  const hour = currentTime.getHours().toString().padStart(2, '0');
-  const fullTime = currentTime.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+  // Formateo de hora en 12h (AM/PM)
+  const hour12 = (currentTime.getHours() % 12) || 12;
+  const fullTimeFormatted = currentTime.toLocaleTimeString('en-US', { 
+    hour: 'numeric', 
+    minute: '2-digit', 
+    hour12: true 
+  });
+  
   const day = currentTime.getDate();
   const month = currentTime.toLocaleString('es-ES', { month: 'short' });
 
@@ -55,16 +60,16 @@ export default function Navbar() {
       <div 
         onClick={() => setIsTimeExpanded(!isTimeExpanded)}
         className={cn(
-          "bg-[#003B73]/90 backdrop-blur-sm rounded-full py-1 px-1 flex items-center transition-all duration-300 cursor-pointer hover:bg-[#003B73]/100 shadow-2xl border border-white/10",
-          isTimeExpanded ? "pr-4" : ""
+          "bg-[#003B73]/90 backdrop-blur-sm rounded-full flex items-center transition-all duration-300 cursor-pointer hover:bg-[#003B73]/100 shadow-2xl border border-white/10 h-10 px-1",
+          isTimeExpanded ? "min-w-fit" : ""
         )}
       >
         <div className={cn(
-          "flex items-center gap-2 px-3 py-2 rounded-full transition-all duration-300",
+          "flex items-center gap-2 px-3 h-8 rounded-full transition-all duration-300",
           isTimeExpanded ? "bg-white/10" : ""
         )}>
-          <span className="text-[10px] font-light text-white tabular-nums min-w-[14px] text-center">
-            {hour}
+          <span className="text-[10px] font-light text-white tabular-nums">
+            {hour12}
           </span>
           {isTimeExpanded && (
             <div className="flex items-center gap-2 border-l border-white/20 pl-2 animate-in fade-in slide-in-from-left-2 duration-300 whitespace-nowrap">
@@ -72,8 +77,8 @@ export default function Navbar() {
                 <span className="text-[7px] text-white/60 font-light uppercase tracking-tighter">
                   {day} {month}
                 </span>
-                <span className="text-[8px] text-white font-light">
-                  {fullTime}
+                <span className="text-[8px] text-white font-light uppercase">
+                  {fullTimeFormatted}
                 </span>
               </div>
               <div className="h-3 w-[1px] bg-white/10 mx-0.5" />
@@ -86,7 +91,7 @@ export default function Navbar() {
       </div>
 
       {/* Barra de Navegación Principal */}
-      <nav className="bg-[#003B73]/90 backdrop-blur-sm rounded-full px-2 py-1 flex items-center gap-0.5 shadow-2xl border border-white/10 max-w-fit overflow-x-auto no-scrollbar">
+      <nav className="bg-[#003B73]/90 backdrop-blur-sm rounded-full px-2 py-1 flex items-center gap-0.5 shadow-2xl border border-white/10 max-w-fit overflow-x-auto no-scrollbar h-10">
         <div className="flex items-center gap-0.5">
           {navLinks.map((link) => {
             const Icon = link.icon;
