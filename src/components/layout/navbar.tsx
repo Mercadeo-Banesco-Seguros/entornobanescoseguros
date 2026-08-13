@@ -11,7 +11,7 @@ export default function Navbar() {
 
   return (
     <div className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4">
-      <nav className="bg-[#003B73] rounded-full px-2.5 py-1 flex items-center gap-0.5 shadow-2xl border border-white/10 max-w-fit overflow-x-auto no-scrollbar">
+      <nav className="bg-[#003B73] rounded-full px-3 py-2 flex items-center gap-0.5 shadow-2xl border border-white/10 max-w-fit overflow-x-auto no-scrollbar">
         <div className="flex items-center gap-0.5">
           {navLinks.map((link) => {
             const Icon = link.icon;
@@ -22,7 +22,7 @@ export default function Navbar() {
                 key={link.label}
                 href={link.href}
                 className={cn(
-                  'flex items-center gap-1.5 px-2.5 py-1.5 rounded-full transition-all duration-200 group whitespace-nowrap',
+                  'flex items-center gap-1.5 px-3 py-1.5 rounded-full transition-all duration-200 group whitespace-nowrap',
                   isActive 
                     ? 'bg-[#004B8D] text-white' 
                     : 'text-white/70 hover:text-white'
