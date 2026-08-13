@@ -12,13 +12,31 @@ export default function Navbar() {
   const [mounted, setMounted] = useState(false);
   const [isTimeExpanded, setIsTimeExpanded] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [temperature, setTemperature] = useState<number | null>(null);
 
-  // Evitar errores de hidratación asegurando que los estilos dinámicos se apliquen tras el montaje
   useEffect(() => {
     setMounted(true);
+    
+    // Actualizar reloj cada minuto
     const timer = setInterval(() => {
       setCurrentTime(new Date());
     }, 60000);
+
+    // Obtener clima real (Caracas)
+    const fetchWeather = async () => {
+      try {
+        const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=10.4880&longitude=-66.8791&current=temperature_2m');
+        const data = await response.json();
+        if (data?.current?.temperature_2m !== undefined) {
+          setTemperature(Math.round(data.current.temperature_2m));
+        }
+      } catch (error) {
+        console.error("Error fetching weather:", error);
+      }
+    };
+
+    fetchWeather();
+    
     return () => clearInterval(timer);
   }, []);
 
@@ -29,7 +47,6 @@ export default function Navbar() {
   const fullTime = currentTime.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
   const day = currentTime.getDate();
   const month = currentTime.toLocaleString('es-ES', { month: 'short' });
-  const temperature = 24; // Temperatura simulada para el ejemplo
 
   return (
     <div className="fixed top-6 left-0 right-0 z-50 flex justify-center items-center gap-3 px-4">
@@ -46,13 +63,13 @@ export default function Navbar() {
           "flex items-center gap-2 px-3 py-2 rounded-full transition-all duration-300",
           isTimeExpanded ? "bg-white/10" : ""
         )}>
-          <span className="text-[10px] font-light text-white tabular-nums w-4 text-center">
+          <span className="text-[10px] font-light text-white tabular-nums min-w-[14px] text-center">
             {hour}
           </span>
           {isTimeExpanded && (
             <div className="flex items-center gap-2 border-l border-white/20 pl-2 animate-in fade-in slide-in-from-left-2 duration-300 whitespace-nowrap">
               <div className="flex flex-col leading-none">
-                <span className="text-[7px] text-white/50 font-light uppercase tracking-tighter">
+                <span className="text-[7px] text-white/60 font-light uppercase tracking-tighter">
                   {day} {month}
                 </span>
                 <span className="text-[8px] text-white font-light">
@@ -60,7 +77,9 @@ export default function Navbar() {
                 </span>
               </div>
               <div className="h-3 w-[1px] bg-white/10 mx-0.5" />
-              <span className="text-[8px] text-white font-light">{temperature}°C</span>
+              <span className="text-[8px] text-white font-light">
+                {temperature !== null ? `${temperature}°C` : '--°C'}
+              </span>
             </div>
           )}
         </div>
@@ -80,16 +99,16 @@ export default function Navbar() {
                 className={cn(
                   'flex items-center gap-1 px-2 py-2 rounded-full transition-all duration-200 group whitespace-nowrap',
                   isActive 
-                    ? 'bg-[#FFFFFF]/10 text-white' 
-                    : 'text-white/60 hover:text-white'
+                    ? 'bg-white/10 text-white font-normal' 
+                    : 'text-white/60 hover:text-white font-light'
                 )}
               >
                 <Icon 
                   className={cn("w-3 h-3", isActive ? "text-white" : "text-white/60 group-hover:text-white")} 
-                  strokeWidth={1.5}
+                  strokeWidth={isActive ? 2 : 1.5}
                 />
                 {isActive && (
-                  <span className="text-[9px] font-light tracking-tight">
+                  <span className="text-[9px] tracking-tight">
                     {link.label}
                   </span>
                 )}
