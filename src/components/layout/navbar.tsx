@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { navLinks } from '@/lib/data';
 import { cn } from '@/lib/utils';
-import { Search, Bell, User, Plus, Mic, X } from 'lucide-react';
+import { Search, Bell, User, Plus, Mic, X, Info } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 export default function Navbar() {
@@ -18,7 +18,7 @@ export default function Navbar() {
 
   const triggerNotification = () => {
     setShowIANotification(true);
-    setTimeout(() => setShowIANotification(false), 5000);
+    setTimeout(() => setShowIANotification(false), 8000);
   };
 
   useEffect(() => {
@@ -59,8 +59,8 @@ export default function Navbar() {
   const month = currentTime.toLocaleString('es-ES', { month: 'short' });
 
   return (
-    <div className="fixed top-6 left-0 right-0 z-50 flex flex-col items-center gap-3 px-4">
-      <div className="flex justify-center items-center gap-3 w-full">
+    <div className="fixed top-6 left-0 right-0 z-50 flex flex-col items-center gap-3 px-4 pointer-events-none">
+      <div className="flex justify-center items-center gap-3 w-full pointer-events-auto">
         
         {/* Cápsula de Tiempo Independiente */}
         <div 
@@ -188,22 +188,22 @@ export default function Navbar() {
 
       {/* Notificación de IA */}
       {showIANotification && (
-        <div className="animate-in fade-in slide-in-from-top-4 duration-500 absolute top-20 left-1/2 -translate-x-1/2 w-full max-w-md px-4">
-          <div className="relative bg-red-50/95 backdrop-blur-md p-5 rounded-[28px] shadow-2xl border border-red-200/50 flex flex-col items-center text-center">
+        <div className="animate-in fade-in slide-in-from-top-4 duration-500 absolute top-20 left-1/2 -translate-x-1/2 w-full max-w-2xl px-4 pointer-events-auto">
+          <div className="bg-red-100/90 backdrop-blur-md py-3 px-6 rounded-2xl shadow-xl border border-red-200/50 flex items-center gap-4">
+            <Info className="w-5 h-5 text-red-600 shrink-0" strokeWidth={1.5} />
             
-            {/* Distintivo Superior */}
-            <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-red-600 text-white text-[9px] font-light px-3 py-0.5 rounded-full flex items-center gap-1 shadow-sm">
-              <X className="w-2.5 h-2.5" strokeWidth={1.5} />
-              <span className="tracking-wide">aviso</span>
-            </div>
-
-            {/* Bloque de Texto */}
-            <div className="flex flex-col gap-0.5">
-              <h4 className="text-xs font-light text-red-950/90 tracking-tight">módulo en desarrollo</h4>
-              <p className="text-[10px] font-light text-red-900/80 leading-tight tracking-tight">
-                las funcionalidades de inteligencia artificial se encuentran en fase de implementación y estarán disponibles próximamente.
+            <div className="flex-grow">
+              <p className="text-[11px] font-light text-red-900 leading-tight tracking-tight">
+                módulo en desarrollo: las funcionalidades de inteligencia artificial se encuentran en fase de implementación y estarán disponibles próximamente.
               </p>
             </div>
+
+            <button 
+              onClick={() => setShowIANotification(false)}
+              className="p-1 text-red-600/60 hover:text-red-600 transition-colors"
+            >
+              <X className="w-4 h-4" strokeWidth={1.5} />
+            </button>
           </div>
         </div>
       )}
