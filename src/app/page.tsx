@@ -325,9 +325,9 @@ export default function LandingPage() {
             <div className="space-y-4 text-left">
               <div className="space-y-0">
                 <p className="text-white/70 text-[10px] font-light tracking-tight">Viste Seguro</p>
-                <h2 className="text-white text-xl font-semibold tracking-tighter">Banesco Seguros</h2>
+                <h2 className="text-white text-3xl font-semibold tracking-tighter">Banesco Seguros</h2>
               </div>
-              <Button variant="secondary" className="bg-white text-black hover:bg-white/90 rounded-xl px-8 font-light text-[10px] h-8">
+              <Button variant="secondary" className="bg-white text-[#0054A6] hover:bg-white/90 rounded-full px-8 font-light text-[10px] h-9">
                 Explorar Guía
               </Button>
             </div>
@@ -336,7 +336,7 @@ export default function LandingPage() {
             <div className="flex flex-col items-end gap-6">
               <div className="text-right">
                 <p className="text-white/80 text-[10px] font-normal uppercase tracking-widest">{activeDay.day}</p>
-                <h3 className="text-white text-4xl md:text-6xl font-normal tracking-tighter leading-none mt-1">
+                <h3 className="text-white text-3xl font-semibold tracking-tighter leading-none mt-1">
                   {activeDay.style}
                 </h3>
               </div>
@@ -345,10 +345,10 @@ export default function LandingPage() {
                 <button
                   onClick={() => setActiveGender('Caballeros')}
                   className={cn(
-                    "px-4 py-1.5 rounded-full text-[9px] font-light transition-all duration-300 border border-transparent",
+                    "px-8 py-2 rounded-full text-[10px] font-light transition-all duration-300 h-9",
                     activeGender === 'Caballeros' 
                       ? "bg-white text-[#0054A6]" 
-                      : "text-white/60 hover:text-white border-white/20"
+                      : "bg-white/10 text-white/60 hover:text-white"
                   )}
                 >
                   Caballeros
@@ -356,10 +356,10 @@ export default function LandingPage() {
                 <button
                   onClick={() => setActiveGender('Damas')}
                   className={cn(
-                    "px-4 py-1.5 rounded-full text-[9px] font-light transition-all duration-300 border border-transparent",
+                    "px-8 py-2 rounded-full text-[10px] font-light transition-all duration-300 h-9",
                     activeGender === 'Damas' 
                       ? "bg-white text-[#0054A6]" 
-                      : "text-white/60 hover:text-white border-white/20"
+                      : "bg-white/10 text-white/60 hover:text-white"
                   )}
                 >
                   Damas
