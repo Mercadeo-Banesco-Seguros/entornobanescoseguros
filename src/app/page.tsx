@@ -574,7 +574,7 @@ export default function LandingPage() {
             </div>
             
             <div className="max-w-md space-y-6">
-              <p className="text-xs text-slate-500 font-light leading-relaxed">
+              <p className="text-[9px] text-slate-500 font-light leading-relaxed">
                 Nuestros cursos traen claridad, no complejidad - uniendo cada concepto en un sistema adaptativo que aprende, actúa y evoluciona en tu carrera profesional.
               </p>
               <Button className="bg-[#0054A6] hover:bg-[#0054A6]/90 text-white rounded-xl px-10 h-11 text-[10px] font-light tracking-normal">
@@ -616,13 +616,6 @@ export default function LandingPage() {
 
                   <div className="relative z-10 p-10 h-full flex flex-col justify-between">
                     <div className="space-y-8">
-                      <span className={cn(
-                        "text-6xl font-extralight tracking-normal transition-colors tabular-nums",
-                        isFeatured ? "text-white/20" : "text-slate-200 group-hover:text-slate-300"
-                      )}>
-                        {course.id}.
-                      </span>
-                      
                       <div className="space-y-4">
                         <div className={cn(
                           "w-10 h-10 rounded-xl flex items-center justify-center transition-colors",
@@ -652,7 +645,7 @@ export default function LandingPage() {
                       isFeatured ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
                     )}>
                       <p className={cn(
-                        "text-xs font-light leading-relaxed",
+                        "text-[9px] font-light leading-relaxed",
                         isFeatured ? "text-blue-50" : "text-slate-500"
                       )}>
                         {course.description}
