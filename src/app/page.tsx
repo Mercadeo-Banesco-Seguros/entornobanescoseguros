@@ -31,7 +31,7 @@ const values = [
   { 
     id: '03', 
     title: 'Calidad', 
-    description: 'Buscamos la excelencia en cada proceso y servicio, ofreciendo estándares superiores de atención y respaldo que definen nuestro liderazgo en el mercado.' 
+    description: 'Buscamos la excellence en cada proceso y servicio, ofreciendo estándares superiores de atención y respaldo que definen nuestro liderazgo en el mercado.' 
   },
   { 
     id: '04', 
@@ -561,7 +561,7 @@ export default function LandingPage() {
         {/* Cuadrícula de fondo sutil */}
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '30px 30px' }} />
         
-        <div className="container mx-auto px-6 relative z-10">
+        <div className="container mx-auto px-12 md:px-24 relative z-10">
           {/* Cabecera de la sección */}
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-20 gap-8">
             <div className="space-y-4">
@@ -578,7 +578,7 @@ export default function LandingPage() {
               <p className="text-sm text-slate-500 font-light leading-relaxed">
                 Nuestros cursos traen claridad, no complejidad - uniendo cada concepto en un sistema adaptativo que aprende, actúa y evoluciona en tu carrera profesional.
               </p>
-              <Button className="bg-black hover:bg-black/90 text-white rounded-full px-8 h-12 text-[11px] font-medium tracking-wide">
+              <Button className="bg-black hover:bg-black/90 text-white rounded-xl px-10 h-11 text-[10px] font-light tracking-tight">
                 Explorar Más
               </Button>
             </div>
@@ -598,8 +598,8 @@ export default function LandingPage() {
                   className={cn(
                     "relative transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] cursor-pointer group rounded-[2rem] overflow-hidden border border-white/40",
                     isFeatured 
-                      ? "lg:col-span-1 lg:h-[600px] bg-white shadow-2xl scale-[1.02] z-20" 
-                      : "lg:col-span-1 lg:h-[450px] bg-white/50 backdrop-blur-sm shadow-xl opacity-80 hover:opacity-100"
+                      ? "lg:col-span-1 lg:h-[520px] bg-white shadow-2xl scale-[1.02] z-20" 
+                      : "lg:col-span-1 lg:h-[400px] bg-white/50 backdrop-blur-sm shadow-xl opacity-80 hover:opacity-100"
                   )}
                 >
                   {/* Contenido de la tarjeta destacada */}
