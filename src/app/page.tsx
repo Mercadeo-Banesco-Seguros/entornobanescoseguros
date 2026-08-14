@@ -287,7 +287,7 @@ export default function LandingPage() {
       </section>
 
       {/* Sección Viste Seguro */}
-      <section className="relative w-full bg-[#0054A6] py-20 overflow-hidden min-h-[750px] flex flex-col">
+      <section className="relative w-full bg-[#0054A6] py-12 overflow-hidden min-h-[600px] flex flex-col">
         {/* Acentos diagonales de fondo */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute top-0 left-[20%] w-[1px] h-full bg-white/10 -rotate-12 transform scale-150" />
@@ -297,7 +297,7 @@ export default function LandingPage() {
 
         <div className="container mx-auto px-12 md:px-24 relative z-10 flex flex-col flex-grow">
           {/* Fila de Avatares */}
-          <div className="flex justify-center items-end gap-1 md:gap-4 lg:gap-6 flex-grow pb-16">
+          <div className="flex justify-center items-end gap-1 md:gap-4 lg:gap-6 flex-grow pb-12">
             {dressCodeDays.map((item) => (
               <div 
                 key={item.day}
