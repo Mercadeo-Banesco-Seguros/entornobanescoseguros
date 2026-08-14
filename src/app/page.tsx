@@ -49,37 +49,29 @@ const mission = [
 ];
 
 const dressCodeDays = [
-  { 
-    id: 'lunes',
-    day: 'Lunes', 
-    style: 'Corporativo', 
-    image: 'https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/Gemini_Generated_Image_ruwheoruwheoruwh-Photoroom.png' 
-  },
-  { 
-    id: 'martes',
-    day: 'Martes', 
-    style: 'Corporativo', 
-    image: 'https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/Gemini_Generated_Image_qzecp6qzecp6qzec-Photoroom.png' 
-  },
-  { 
-    id: 'miercoles',
-    day: 'Miércoles', 
-    style: 'Corporativo', 
-    image: 'https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/Gemini_Generated_Image_xh0ronxh0ronxh0r-Photoroom.png' 
-  },
-  { 
-    id: 'jueves',
-    day: 'Jueves', 
-    style: 'Corporativo', 
-    image: 'https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/Gemini_Generated_Image_cps86vcps86vcps8-Photoroom.png' 
-  },
-  { 
-    id: 'viernes',
-    day: 'Viernes', 
-    style: 'Corporativo', 
-    image: 'https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/Gemini_Generated_Image_6txkf46txkf46txk-Photoroom.png' 
-  },
+  { id: 'lunes', day: 'Lunes', style: 'Corporativo' },
+  { id: 'martes', day: 'Martes', style: 'Corporativo' },
+  { id: 'miercoles', day: 'Miércoles', style: 'Corporativo' },
+  { id: 'jueves', day: 'Jueves', style: 'Corporativo' },
+  { id: 'viernes', day: 'Viernes', style: 'Corporativo' },
 ];
+
+const dressCodeImages = {
+  Caballeros: [
+    'https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/Gemini_Generated_Image_ruwheoruwheoruwh-Photoroom.png',
+    'https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/Gemini_Generated_Image_qzecp6qzecp6qzec-Photoroom.png',
+    'https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/Gemini_Generated_Image_xh0ronxh0ronxh0r-Photoroom.png',
+    'https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/Gemini_Generated_Image_cps86vcps86vcps8-Photoroom.png',
+    'https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/Gemini_Generated_Image_6txkf46txkf46txk-Photoroom.png',
+  ],
+  Damas: [
+    'https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/Gemini_Generated_Image_br9lsfbr9lsfbr9l-Photoroom.png',
+    'https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/Casual%2520de%2520negocios%25202%2520DAMA-Photoroom.png',
+    'https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/Gemini_Generated_Image_8t6e9o8t6e9o8t6e-Photoroom.png',
+    'https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/Gemini_Generated_Image_2gtngz2gtngz2gtn-Photoroom.png',
+    'https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/Gemini_Generated_Image_851tlb851tlb851t-Photoroom.png',
+  ]
+};
 
 export default function LandingPage() {
   const [mounted, setMounted] = React.useState(false);
@@ -87,7 +79,7 @@ export default function LandingPage() {
   const [showFinalText, setShowFinalText] = React.useState(false);
   const [clouds, setClouds] = React.useState<CloudData[]>([]);
   const [activeCategory, setActiveCategory] = React.useState('Nuestros Valores');
-  const [activeDay, setActiveDay] = React.useState(dressCodeDays[4]); // Viernes por defecto
+  const [activeDayIndex, setActiveDayIndex] = React.useState(4); // Viernes por defecto
   const [activeGender, setActiveGender] = React.useState<'Caballeros' | 'Damas'>('Caballeros');
   
   const currentItems = React.useMemo(() => {
@@ -154,6 +146,7 @@ export default function LandingPage() {
   };
 
   const current = themes[timeTheme];
+  const activeDay = dressCodeDays[activeDayIndex];
 
   return (
     <div className="relative w-full font-sans select-none overflow-x-hidden">
@@ -299,27 +292,32 @@ export default function LandingPage() {
         <div className="container mx-auto px-12 md:px-24 relative z-10 flex flex-col flex-grow">
           {/* Fila de Avatares */}
           <div className="flex justify-center items-end gap-1 md:gap-4 lg:gap-6 flex-grow pb-6">
-            {dressCodeDays.map((item) => (
-              <div 
-                key={item.day}
-                onClick={() => setActiveDay(item)}
-                className={cn(
-                  "relative transition-all duration-500 cursor-pointer group flex flex-col items-center",
-                  activeDay.day === item.day 
-                    ? "scale-100 z-20 translate-y-[-10px]" 
-                    : "scale-75 opacity-40 hover:opacity-100 hover:scale-100 hover:z-20"
-                )}
-              >
-                <div className="relative w-20 h-40 md:w-32 h-64 lg:w-44 lg:h-[340px]">
-                  <Image 
-                    src={item.image} 
-                    alt={item.day} 
-                    fill 
-                    className="object-contain"
-                  />
+            {dressCodeDays.map((item, index) => {
+              const currentImageUrl = dressCodeImages[activeGender][index];
+              const isActive = activeDayIndex === index;
+
+              return (
+                <div 
+                  key={item.day}
+                  onClick={() => setActiveDayIndex(index)}
+                  className={cn(
+                    "relative transition-all duration-500 cursor-pointer group flex flex-col items-center",
+                    isActive 
+                      ? "scale-100 z-20 translate-y-[-10px]" 
+                      : "scale-75 opacity-40 hover:opacity-100 hover:scale-100 hover:z-20"
+                  )}
+                >
+                  <div className="relative w-20 h-40 md:w-32 h-64 lg:w-44 lg:h-[340px]">
+                    <Image 
+                      src={currentImageUrl} 
+                      alt={item.day} 
+                      fill 
+                      className="object-contain"
+                    />
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           {/* Controles Inferiores */}
