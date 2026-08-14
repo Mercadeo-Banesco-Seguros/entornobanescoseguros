@@ -568,7 +568,7 @@ export default function LandingPage() {
                 <Share2 className="w-3 h-3 text-slate-600" />
                 <span className="text-[10px] font-medium text-slate-600 uppercase tracking-widest">Academia</span>
               </div>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[0.9] text-slate-900">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[0.9] text-slate-900">
                 Hemos orquestado <br /> <span className="text-[#0054A6]">Inteligencia.</span>
               </h2>
             </div>
@@ -596,8 +596,8 @@ export default function LandingPage() {
                   className={cn(
                     "relative transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] cursor-pointer group rounded-[2rem] overflow-hidden border border-white/40",
                     isFeatured 
-                      ? "lg:col-span-1 lg:h-[450px] bg-[#0054A6] shadow-2xl scale-[1.02] z-20" 
-                      : "lg:col-span-1 lg:h-[380px] bg-white/50 backdrop-blur-sm shadow-xl opacity-80 hover:opacity-100"
+                      ? "lg:col-span-1 lg:h-[380px] bg-[#0054A6] shadow-2xl scale-[1.02] z-20" 
+                      : "lg:col-span-1 lg:h-[320px] bg-white/50 backdrop-blur-sm shadow-xl opacity-80 hover:opacity-100"
                   )}
                 >
                   {/* Fondo de la tarjeta seleccionada */}
