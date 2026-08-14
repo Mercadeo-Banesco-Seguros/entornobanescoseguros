@@ -330,7 +330,7 @@ export default function LandingPage() {
             <div className="space-y-4 text-left">
               <div className="space-y-0">
                 <p className="text-white/70 text-[10px] font-light tracking-tight">Viste Seguro</p>
-                <h2 className="text-white text-2xl font-light tracking-tighter">Banesco Seguros</h2>
+                <h2 className="text-white text-2xl md:text-3xl font-light tracking-tighter">Banesco Seguros</h2>
               </div>
               <Button 
                 variant="secondary" 
@@ -344,7 +344,7 @@ export default function LandingPage() {
             <div className="flex flex-col items-end gap-6">
               <div className="text-right">
                 <p className="text-white/80 text-[10px] font-light uppercase tracking-widest">{activeDay.day}</p>
-                <h3 className="text-white text-2xl font-light tracking-tighter leading-none mt-1">
+                <h3 className="text-white text-2xl md:text-3xl font-light tracking-tighter leading-none mt-1">
                   {activeDay.style}
                 </h3>
               </div>
@@ -383,13 +383,16 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Card 1: Planifica Vacaciones */}
           <div className="group relative aspect-[4/3] md:aspect-[16/10] rounded-[2.5rem] overflow-hidden cursor-pointer shadow-xl transition-transform duration-500 hover:scale-[1.01]">
-            <Image 
-              src={vacationsImage?.imageUrl || "https://picsum.photos/seed/vacations/800/600"} 
-              alt="Planifica tus Próximas Vacaciones" 
-              fill 
-              className="object-cover transition-transform duration-700 group-hover:scale-110"
-              data-ai-hint={vacationsImage?.imageHint || "airplane tropical"}
-            />
+            {vacationsImage && (
+              <Image 
+                src={vacationsImage.imageUrl} 
+                alt="Planifica tus Próximas Vacaciones" 
+                fill 
+                unoptimized
+                className="object-cover transition-transform duration-700 group-hover:scale-110"
+                data-ai-hint={vacationsImage.imageHint}
+              />
+            )}
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
             <div className="absolute inset-0 p-10 flex flex-col justify-end items-start gap-4">
               <span className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[10px] text-white font-light tracking-tight">
@@ -406,13 +409,16 @@ export default function LandingPage() {
 
           {/* Card 2: Consultar Días */}
           <div className="group relative aspect-[4/3] md:aspect-[16/10] rounded-[2.5rem] overflow-hidden cursor-pointer shadow-xl transition-transform duration-500 hover:scale-[1.01]">
-            <Image 
-              src={consultImage?.imageUrl || "https://picsum.photos/seed/coast/800/600"} 
-              alt="Consultar Días Disponibles" 
-              fill 
-              className="object-cover transition-transform duration-700 group-hover:scale-110"
-              data-ai-hint={consultImage?.imageHint || "aerial coast"}
-            />
+            {consultImage && (
+              <Image 
+                src={consultImage.imageUrl} 
+                alt="Consultar Días Disponibles" 
+                fill 
+                unoptimized
+                className="object-cover transition-transform duration-700 group-hover:scale-110"
+                data-ai-hint={consultImage.imageHint}
+              />
+            )}
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
             <div className="absolute inset-0 p-10 flex flex-col justify-end items-start gap-4">
               <span className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[10px] text-white font-light tracking-tight">

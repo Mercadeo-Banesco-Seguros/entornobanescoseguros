@@ -33,13 +33,13 @@
     {
       "id": "vacations-banner",
       "description": "Planifica tus Vacaciones",
-      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vRdCFewBPX6NhcaUZa7Y6xm09NZsmF44JcEdZ6XDwqEnEMjv0p2skH15keFX1wS6kIDqNZtGYZUwNIz/pub?w=960&h=720",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vRdCFewBPX6NhcaUZa7Y6xm09NZsmF44JcEdZ6XDwqEnEMjv0p2skH15keFX1wS6kIDqNZtGYZUwNIz/pub?format=png&w=960&h=720",
       "imageHint": "vacation trip"
     },
     {
       "id": "consult-days-banner",
       "description": "Consultar Días Disponibles",
-      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vTRIMtbyH681Kwd9ieGqYvqFgF-QaT8FniYRyg09hCUQuY6DH0ZKZrxlD4TkfxBdy6FsrH3u_iimdZV/pub?w=960&h=720",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vTRIMtbyH681Kwd9ieGqYvqFgF-QaT8FniYRyg09hCUQuY6DH0ZKZrxlD4TkfxBdy6FsrH3u_iimdZV/pub?format=png&w=960&h=720",
       "imageHint": "calendar check"
     }
   ]
