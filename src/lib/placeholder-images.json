@@ -29,6 +29,18 @@
       "description": "Pista de Zulia - Falcón",
       "imageUrl": "https://www.banescoseguros.com/wp-content/uploads/2025/10/Gemini_Generated_Image_yexmseyexmseyexm-Photoroom.png",
       "imageHint": "desert race track"
+    },
+    {
+      "id": "vacations-banner",
+      "description": "Planifica tus Vacaciones",
+      "imageUrl": "https://picsum.photos/seed/vacations/800/600",
+      "imageHint": "airplane tropical"
+    },
+    {
+      "id": "consult-days-banner",
+      "description": "Consultar Días Disponibles",
+      "imageUrl": "https://picsum.photos/seed/coast/800/600",
+      "imageHint": "aerial coast"
     }
   ]
 }

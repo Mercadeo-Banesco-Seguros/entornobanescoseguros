@@ -1,10 +1,12 @@
+
 'use client';
 
 import * as React from "react";
-import { Cloud, ArrowRight } from "lucide-react";
+import { Cloud } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { PlaceHolderImages } from "@/lib/placeholder-images";
 
 type TimePeriod = 'day' | 'night';
 
@@ -79,7 +81,7 @@ export default function LandingPage() {
   const [showFinalText, setShowFinalText] = React.useState(false);
   const [clouds, setClouds] = React.useState<CloudData[]>([]);
   const [activeCategory, setActiveCategory] = React.useState('Nuestros Valores');
-  const [activeDayIndex, setActiveDayIndex] = React.useState(4); // Viernes por defecto
+  const [activeDayIndex, setActiveDayIndex] = React.useState(new Date().getDay() === 0 || new Date().getDay() === 6 ? 0 : new Date().getDay() - 1);
   const [activeGender, setActiveGender] = React.useState<'Caballeros' | 'Damas'>('Caballeros');
   
   const currentItems = React.useMemo(() => {
@@ -147,6 +149,9 @@ export default function LandingPage() {
 
   const current = themes[timeTheme];
   const activeDay = dressCodeDays[activeDayIndex];
+  
+  const vacationsImage = PlaceHolderImages.find(img => img.id === 'vacations-banner');
+  const consultImage = PlaceHolderImages.find(img => img.id === 'consult-days-banner');
 
   return (
     <div className="relative w-full font-sans select-none overflow-x-hidden">
@@ -306,7 +311,7 @@ export default function LandingPage() {
                       : "scale-75 opacity-40 hover:opacity-100 hover:scale-100 hover:z-20"
                   )}
                 >
-                  <div className="relative w-20 h-40 md:w-32 h-64 lg:w-44 lg:h-[340px]">
+                  <div className="relative w-24 h-48 md:w-36 md:h-72 lg:w-56 lg:h-[420px]">
                     <Image 
                       src={currentImageUrl} 
                       alt={item.day} 
@@ -320,7 +325,7 @@ export default function LandingPage() {
           </div>
 
           {/* Controles Inferiores */}
-          <div className="flex flex-col md:flex-row justify-between items-end w-full gap-8 px-4">
+          <div className="flex flex-col md:flex-row justify-between items-end w-full gap-8 px-4 pb-4">
             {/* Izquierda: Título y Botón */}
             <div className="space-y-4 text-left">
               <div className="space-y-0">
@@ -329,7 +334,7 @@ export default function LandingPage() {
               </div>
               <Button 
                 variant="secondary" 
-                className="bg-white hover:bg-white/90 rounded-md px-6 font-light text-[10px] h-8 transition-colors duration-700 text-[#0054A6]"
+                className="bg-white hover:bg-white/90 rounded-xl px-6 font-light text-[10px] h-8 transition-colors duration-700 text-[#0054A6] border-none"
               >
                 Explorar Guía
               </Button>
@@ -348,7 +353,7 @@ export default function LandingPage() {
                 <button
                   onClick={() => setActiveGender('Caballeros')}
                   className={cn(
-                    "px-6 py-2 rounded-md text-[10px] font-light transition-all duration-300 h-8",
+                    "px-6 py-2 rounded-xl text-[10px] font-light transition-all duration-300 h-8",
                     activeGender === 'Caballeros' 
                       ? "bg-white text-[#0054A6]" 
                       : "bg-white/10 text-white/60 hover:text-white"
@@ -359,7 +364,7 @@ export default function LandingPage() {
                 <button
                   onClick={() => setActiveGender('Damas')}
                   className={cn(
-                    "px-6 py-2 rounded-md text-[10px] font-light transition-all duration-300 h-8",
+                    "px-6 py-2 rounded-xl text-[10px] font-light transition-all duration-300 h-8",
                     activeGender === 'Damas' 
                       ? "bg-white text-[#0054A6]" 
                       : "bg-white/10 text-white/60 hover:text-white"
@@ -368,6 +373,57 @@ export default function LandingPage() {
                   Damas
                 </button>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Sección Capital Humano - Vacaciones */}
+      <section className="bg-white py-24 px-6 md:px-12 lg:px-24">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Card 1: Planifica Vacaciones */}
+          <div className="group relative aspect-[4/3] md:aspect-[16/10] rounded-[2.5rem] overflow-hidden cursor-pointer shadow-xl transition-transform duration-500 hover:scale-[1.01]">
+            <Image 
+              src={vacationsImage?.imageUrl || "https://picsum.photos/seed/vacations/800/600"} 
+              alt="Planifica tus Próximas Vacaciones" 
+              fill 
+              className="object-cover transition-transform duration-700 group-hover:scale-110"
+              data-ai-hint={vacationsImage?.imageHint || "airplane tropical"}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+            <div className="absolute inset-0 p-10 flex flex-col justify-end items-start gap-4">
+              <span className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[10px] text-white font-light tracking-tight">
+                Capital Humano
+              </span>
+              <h3 className="text-white text-3xl md:text-4xl font-bold tracking-tighter leading-tight max-w-sm">
+                Planifica tus Próximas Vacaciones
+              </h3>
+              <button className="mt-2 px-8 py-2.5 rounded-xl bg-white/20 backdrop-blur-lg border border-white/20 text-white text-[11px] font-light hover:bg-white/30 transition-colors">
+                Gestionar
+              </button>
+            </div>
+          </div>
+
+          {/* Card 2: Consultar Días */}
+          <div className="group relative aspect-[4/3] md:aspect-[16/10] rounded-[2.5rem] overflow-hidden cursor-pointer shadow-xl transition-transform duration-500 hover:scale-[1.01]">
+            <Image 
+              src={consultImage?.imageUrl || "https://picsum.photos/seed/coast/800/600"} 
+              alt="Consultar Días Disponibles" 
+              fill 
+              className="object-cover transition-transform duration-700 group-hover:scale-110"
+              data-ai-hint={consultImage?.imageHint || "aerial coast"}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+            <div className="absolute inset-0 p-10 flex flex-col justify-end items-start gap-4">
+              <span className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[10px] text-white font-light tracking-tight">
+                Capital Humano
+              </span>
+              <h3 className="text-white text-3xl md:text-4xl font-bold tracking-tighter leading-tight max-w-sm">
+                Consultar Días Disponibles
+              </h3>
+              <button className="mt-2 px-8 py-2.5 rounded-xl bg-white/20 backdrop-blur-lg border border-white/20 text-white text-[11px] font-light hover:bg-white/30 transition-colors">
+                Consultar
+              </button>
             </div>
           </div>
         </div>
