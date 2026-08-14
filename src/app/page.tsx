@@ -287,7 +287,7 @@ export default function LandingPage() {
       </section>
 
       {/* Sección Viste Seguro */}
-      <section className="relative w-full bg-[#0054A6] py-16 overflow-hidden min-h-[500px] flex flex-col">
+      <section className="relative w-full bg-[#0054A6] py-12 overflow-hidden min-h-[450px] flex flex-col">
         {/* Acentos diagonales de fondo */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute top-0 left-[20%] w-[1px] h-full bg-white/10 -rotate-12 transform scale-150" />
@@ -295,19 +295,21 @@ export default function LandingPage() {
           <div className="absolute top-0 right-0 w-[40%] h-full bg-gradient-to-l from-white/5 to-transparent skew-x-[-15deg] transform translate-x-1/2" />
         </div>
 
-        <div className="container mx-auto px-6 relative z-10 flex flex-col flex-grow">
+        <div className="container mx-auto px-12 md:px-24 relative z-10 flex flex-col flex-grow">
           {/* Fila de Avatares */}
-          <div className="flex justify-center items-end gap-2 md:gap-8 lg:gap-16 flex-grow pb-12">
+          <div className="flex justify-center items-end gap-2 md:gap-6 lg:gap-12 flex-grow pb-10">
             {dressCodeDays.map((item) => (
               <div 
                 key={item.day}
                 onClick={() => setActiveDay(item)}
                 className={cn(
                   "relative transition-all duration-500 cursor-pointer group flex flex-col items-center",
-                  activeDay.day === item.day ? "scale-110 translate-y-[-10px]" : "scale-90 opacity-60 hover:opacity-90 hover:scale-95"
+                  activeDay.day === item.day 
+                    ? "scale-100 z-20 translate-y-[-5px]" 
+                    : "scale-75 opacity-40 hover:opacity-100 hover:scale-100 hover:z-20"
                 )}
               >
-                <div className="relative w-20 h-40 md:w-32 md:h-60 lg:w-40 lg:h-80">
+                <div className="relative w-16 h-32 md:w-24 h-48 lg:w-32 lg:h-64">
                   <Image 
                     src={item.image} 
                     alt={item.day} 
@@ -320,14 +322,14 @@ export default function LandingPage() {
           </div>
 
           {/* Controles Inferiores */}
-          <div className="flex flex-col md:flex-row justify-between items-end w-full gap-8">
+          <div className="flex flex-col md:flex-row justify-between items-end w-full gap-8 px-4">
             {/* Izquierda: Título y Botón */}
             <div className="space-y-4 text-left">
               <div className="space-y-0">
                 <p className="text-white/70 text-[10px] font-light tracking-tight">Viste Seguro</p>
-                <h2 className="text-white text-3xl font-light tracking-tighter">Banesco Seguros</h2>
+                <h2 className="text-white text-2xl font-light tracking-tighter">Banesco Seguros</h2>
               </div>
-              <Button variant="secondary" className="bg-white text-[#0054A6] hover:bg-white/90 rounded-md px-8 font-light text-[10px] h-9">
+              <Button variant="secondary" className="bg-white text-[#0054A6] hover:bg-white/90 rounded-md px-6 font-light text-[10px] h-8">
                 Explorar Guía
               </Button>
             </div>
@@ -335,17 +337,17 @@ export default function LandingPage() {
             {/* Derecha: Info Día y Género */}
             <div className="flex flex-col items-end gap-6">
               <div className="text-right">
-                <p className="text-white/80 text-[10px] font-normal uppercase tracking-widest">{activeDay.day}</p>
-                <h3 className="text-white text-3xl font-light tracking-tighter leading-none mt-1">
+                <p className="text-white/80 text-[10px] font-light uppercase tracking-widest">{activeDay.day}</p>
+                <h3 className="text-white text-2xl font-light tracking-tighter leading-none mt-1">
                   {activeDay.style}
                 </h3>
               </div>
               
-              <div className="flex gap-4">
+              <div className="flex gap-3">
                 <button
                   onClick={() => setActiveGender('Caballeros')}
                   className={cn(
-                    "px-8 py-2 rounded-md text-[10px] font-light transition-all duration-300 h-9",
+                    "px-6 py-2 rounded-md text-[10px] font-light transition-all duration-300 h-8",
                     activeGender === 'Caballeros' 
                       ? "bg-white text-[#0054A6]" 
                       : "bg-white/10 text-white/60 hover:text-white"
@@ -356,7 +358,7 @@ export default function LandingPage() {
                 <button
                   onClick={() => setActiveGender('Damas')}
                   className={cn(
-                    "px-8 py-2 rounded-md text-[10px] font-light transition-all duration-300 h-9",
+                    "px-6 py-2 rounded-md text-[10px] font-light transition-all duration-300 h-8",
                     activeGender === 'Damas' 
                       ? "bg-white text-[#0054A6]" 
                       : "bg-white/10 text-white/60 hover:text-white"
