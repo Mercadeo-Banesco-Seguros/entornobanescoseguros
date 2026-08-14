@@ -574,7 +574,7 @@ export default function LandingPage() {
             </div>
             
             <div className="max-w-md space-y-6">
-              <p className="text-[9px] text-slate-500 font-light leading-relaxed">
+              <p className="text-[10px] text-slate-500 font-light leading-relaxed">
                 Nuestros cursos traen claridad, no complejidad - uniendo cada concepto en un sistema adaptativo que aprende, actúa y evoluciona en tu carrera profesional.
               </p>
               <Button className="bg-[#0054A6] hover:bg-[#0054A6]/90 text-white rounded-xl px-10 h-11 text-[10px] font-light tracking-normal">
