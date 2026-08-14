@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from "react";
-import { Cloud } from "lucide-react";
+import { Cloud, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -82,6 +82,7 @@ export default function LandingPage() {
   const [activeCategory, setActiveCategory] = React.useState('Nuestros Valores');
   const [activeDayIndex, setActiveDayIndex] = React.useState(new Date().getDay() === 0 || new Date().getDay() === 6 ? 0 : new Date().getDay() - 1);
   const [activeGender, setActiveGender] = React.useState<'Caballeros' | 'Damas'>('Caballeros');
+  const [showShortcuts, setShowShortcuts] = React.useState(false);
   
   const currentItems = React.useMemo(() => {
     if (activeCategory === 'Nuestros Pilares') return pillars;
@@ -440,21 +441,80 @@ export default function LandingPage() {
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full blur-[150px] bg-blue-400/20 translate-x-1/2 -translate-y-1/2" />
           <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full blur-[150px] bg-blue-300/10 -translate-x-1/4 translate-y-1/4" />
+          <div className="absolute top-0 left-1/4 w-[2px] h-[200%] bg-white/5 -rotate-45 transform origin-top" />
+          <div className="absolute top-0 left-1/2 w-[200px] h-[200%] bg-white/5 -rotate-45 transform origin-top" />
         </div>
 
-        <div className="container mx-auto px-6 relative z-10 text-center space-y-10">
-          <h2 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-tight max-w-4xl mx-auto">
-            Visita nuestro <br /> Portal de Requerimientos
-          </h2>
-          
-          <div className="flex justify-center gap-4">
-            <button className="px-10 py-3 rounded-xl bg-white text-[#0054A6] text-[10px] font-light hover:bg-white/90 transition-colors">
-              Acceder
-            </button>
-            <button className="px-10 py-3 rounded-xl bg-transparent border border-white/40 text-white text-[10px] font-light hover:bg-white/10 transition-colors">
-              Atajos
-            </button>
-          </div>
+        <div className="container mx-auto px-6 relative z-10">
+          {!showShortcuts ? (
+            <div className="text-center space-y-10 animate-in fade-in duration-500">
+              <h2 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-tight max-w-4xl mx-auto">
+                Visita nuestro <br /> Portal de Requerimientos
+              </h2>
+              
+              <div className="flex justify-center gap-4">
+                <button className="px-10 py-3 rounded-xl bg-white text-[#0054A6] text-[10px] font-light hover:bg-white/90 transition-colors">
+                  Acceder
+                </button>
+                <button 
+                  onClick={() => setShowShortcuts(true)}
+                  className="px-10 py-3 rounded-xl bg-transparent border border-white/40 text-white text-[10px] font-light hover:bg-white/10 transition-colors"
+                >
+                  Atajos
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="relative w-full max-w-6xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <button 
+                onClick={() => setShowShortcuts(false)}
+                className="absolute -top-12 md:top-0 right-0 p-2 text-white/60 hover:text-white transition-colors z-20"
+              >
+                <X className="w-6 h-6" />
+              </button>
+              
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-12 text-left pt-8 md:pt-0">
+                <div className="space-y-6">
+                  <h4 className="text-white font-bold text-lg tracking-tight">Capital Humano</h4>
+                  <ul className="space-y-3 text-white/70 text-sm font-light">
+                    <li className="hover:text-white cursor-pointer transition-colors">Vacaciones</li>
+                    <li className="hover:text-white cursor-pointer transition-colors">Carta de Trabajo</li>
+                    <li className="hover:text-white cursor-pointer transition-colors">Inquietudes</li>
+                    <li className="hover:text-white cursor-pointer transition-colors">Solicitudes</li>
+                  </ul>
+                </div>
+
+                <div className="space-y-6">
+                  <h4 className="text-white font-bold text-lg tracking-tight">Comercial</h4>
+                  <ul className="space-y-3 text-white/70 text-sm font-light">
+                    <li className="hover:text-white cursor-pointer transition-colors">Sistemática Comercial</li>
+                    <li className="hover:text-white cursor-pointer transition-colors">Mercadeo</li>
+                    <li className="hover:text-white cursor-pointer transition-colors">Comunicaciones</li>
+                  </ul>
+                </div>
+
+                <div className="space-y-6">
+                  <h4 className="text-white font-bold text-lg tracking-tight">Tecnología</h4>
+                  <ul className="space-y-3 text-white/70 text-sm font-light">
+                    <li className="hover:text-white cursor-pointer transition-colors">Seguridad</li>
+                    <li className="hover:text-white cursor-pointer transition-colors">Actualizaciones</li>
+                    <li className="hover:text-white cursor-pointer transition-colors">Solicitudes</li>
+                    <li className="hover:text-white cursor-pointer transition-colors">Problemas</li>
+                  </ul>
+                </div>
+
+                <div className="space-y-6">
+                  <h4 className="text-white font-bold text-lg tracking-tight">Suscripción</h4>
+                  <ul className="space-y-3 text-white/70 text-sm font-light">
+                    <li className="hover:text-white cursor-pointer transition-colors">Salud</li>
+                    <li className="hover:text-white cursor-pointer transition-colors">Patrimonial</li>
+                    <li className="hover:text-white cursor-pointer transition-colors">Automóvil</li>
+                    <li className="hover:text-white cursor-pointer transition-colors">Personas</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
