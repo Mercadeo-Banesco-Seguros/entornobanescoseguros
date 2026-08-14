@@ -1,7 +1,8 @@
+
 'use client';
 
 import * as React from "react";
-import { Cloud, X } from "lucide-react";
+import { Cloud, X, Zap, Globe, Link as LinkIcon, Box, Share2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -74,6 +75,42 @@ const dressCodeImages = {
   ]
 };
 
+const courses = [
+  { 
+    id: '01', 
+    title: 'Gestión de Riesgos', 
+    subtitle: 'Amplify Intelligence',
+    description: 'Analiza y mitiga riesgos con herramientas de última generación en el entorno asegurador.',
+    icon: Zap,
+    image: 'course-1'
+  },
+  { 
+    id: '02', 
+    title: 'Estrategia Comercial', 
+    subtitle: 'Command Global Operations',
+    description: 'Coordina tu organización a través de agentes orquestados que aseguran precisión y eficiencia.',
+    icon: Globe,
+    image: 'course-2',
+    featured: true
+  },
+  { 
+    id: '03', 
+    title: 'Eliminate Silos', 
+    subtitle: 'Conectividad Total',
+    description: 'Rompe las barreras operativas y fomenta la colaboración interdisciplinaria.',
+    icon: LinkIcon,
+    image: 'course-3'
+  },
+  { 
+    id: '04', 
+    title: 'Scale with Clarity', 
+    subtitle: 'Escalabilidad Segura',
+    description: 'Crece de manera sostenible con visión estratégica y procesos optimizados.',
+    icon: Box,
+    image: 'course-4'
+  },
+];
+
 export default function LandingPage() {
   const [mounted, setMounted] = React.useState(false);
   const [timeTheme, setTimeTheme] = React.useState<TimePeriod>('day');
@@ -83,6 +120,7 @@ export default function LandingPage() {
   const [activeDayIndex, setActiveDayIndex] = React.useState(new Date().getDay() === 0 || new Date().getDay() === 6 ? 0 : new Date().getDay() - 1);
   const [activeGender, setActiveGender] = React.useState<'Caballeros' | 'Damas'>('Caballeros');
   const [showShortcuts, setShowShortcuts] = React.useState(false);
+  const [activeCourseId, setActiveCourseId] = React.useState(courses.find(c => c.featured)?.id || courses[0].id);
   
   const currentItems = React.useMemo(() => {
     if (activeCategory === 'Nuestros Pilares') return pillars;
@@ -515,6 +553,115 @@ export default function LandingPage() {
               </div>
             </div>
           )}
+        </div>
+      </section>
+
+      {/* Sección Nuestros Cursos */}
+      <section className="relative w-full py-32 bg-[#F8FAFC] overflow-hidden">
+        {/* Cuadrícula de fondo sutil */}
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '30px 30px' }} />
+        
+        <div className="container mx-auto px-6 relative z-10">
+          {/* Cabecera de la sección */}
+          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-20 gap-8">
+            <div className="space-y-4">
+              <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-slate-200/50 w-fit backdrop-blur-sm border border-slate-300/30">
+                <Share2 className="w-3 h-3 text-slate-600" />
+                <span className="text-[10px] font-medium text-slate-600 uppercase tracking-widest">Academia</span>
+              </div>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-[0.9] text-slate-900">
+                Hemos orquestado <br /> <span className="text-[#0054A6]">Inteligencia.</span>
+              </h2>
+            </div>
+            
+            <div className="max-w-md space-y-6">
+              <p className="text-sm text-slate-500 font-light leading-relaxed">
+                Nuestros cursos traen claridad, no complejidad - uniendo cada concepto en un sistema adaptativo que aprende, actúa y evoluciona en tu carrera profesional.
+              </p>
+              <Button className="bg-black hover:bg-black/90 text-white rounded-full px-8 h-12 text-[11px] font-medium tracking-wide">
+                Explorar Más
+              </Button>
+            </div>
+          </div>
+
+          {/* Grid de Cursos */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-center">
+            {courses.map((course) => {
+              const Icon = course.icon;
+              const isFeatured = activeCourseId === course.id;
+              const placeholder = PlaceHolderImages.find(img => img.id === course.image);
+
+              return (
+                <div 
+                  key={course.id}
+                  onMouseEnter={() => setActiveCourseId(course.id)}
+                  className={cn(
+                    "relative transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] cursor-pointer group rounded-[2rem] overflow-hidden border border-white/40",
+                    isFeatured 
+                      ? "lg:col-span-1 lg:h-[600px] bg-white shadow-2xl scale-[1.02] z-20" 
+                      : "lg:col-span-1 lg:h-[450px] bg-white/50 backdrop-blur-sm shadow-xl opacity-80 hover:opacity-100"
+                  )}
+                >
+                  {/* Contenido de la tarjeta destacada */}
+                  {isFeatured && placeholder && (
+                    <div className="absolute inset-0 z-0">
+                      <Image 
+                        src={placeholder.imageUrl} 
+                        alt={course.title} 
+                        fill 
+                        className="object-cover transition-transform duration-1000 group-hover:scale-105 opacity-20"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-b from-white/50 via-white/80 to-white" />
+                    </div>
+                  )}
+
+                  <div className="relative z-10 p-10 h-full flex flex-col justify-between">
+                    <div className="space-y-8">
+                      <span className="text-6xl font-light text-slate-200 tracking-tighter tabular-nums group-hover:text-slate-300 transition-colors">
+                        {course.id}.
+                      </span>
+                      
+                      <div className="space-y-4">
+                        <div className={cn(
+                          "w-10 h-10 rounded-xl flex items-center justify-center transition-colors",
+                          isFeatured ? "bg-[#0054A6] text-white" : "bg-slate-100 text-slate-400 group-hover:text-slate-600"
+                        )}>
+                          <Icon className="w-5 h-5" strokeWidth={1.5} />
+                        </div>
+                        <div className="space-y-2">
+                          <h4 className={cn(
+                            "text-xs font-semibold tracking-wide transition-colors",
+                            isFeatured ? "text-slate-400" : "text-slate-400"
+                          )}>
+                            {course.subtitle}
+                          </h4>
+                          <h3 className={cn(
+                            "text-2xl font-bold tracking-tighter transition-colors",
+                            isFeatured ? "text-slate-900" : "text-slate-600 group-hover:text-slate-900"
+                          )}>
+                            {course.title}
+                          </h3>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className={cn(
+                      "transition-all duration-500",
+                      isFeatured ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+                    )}>
+                      <p className="text-sm text-slate-500 font-light leading-relaxed mb-8">
+                        {course.description}
+                      </p>
+                      <button className="flex items-center gap-2 text-[10px] font-bold text-slate-900 group-hover:gap-3 transition-all uppercase tracking-widest">
+                        Ver Detalles
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </section>
 
