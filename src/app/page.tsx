@@ -407,7 +407,7 @@ export default function LandingPage() {
             </div>
           </div>
 
-          {/* Card 2: Consultar Días */}
+          {/* Card 2: Consultar Días Disponibles */}
           <div className="group relative aspect-[4/3] md:aspect-[16/10] rounded-[2.5rem] overflow-hidden cursor-pointer shadow-xl transition-transform duration-500 hover:scale-[1.01]">
             {consultImage && (
               <Image 
@@ -473,10 +473,10 @@ export default function LandingPage() {
                 <X className="w-6 h-6" />
               </button>
               
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-12 text-left pt-8 md:pt-0">
-                <div className="space-y-6">
-                  <h4 className="text-white font-bold text-lg tracking-tight">Capital Humano</h4>
-                  <ul className="space-y-3 text-white/70 text-sm font-light">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-left pt-8 md:pt-0">
+                <div className="space-y-4">
+                  <h4 className="text-white font-bold text-base tracking-tight">Capital Humano</h4>
+                  <ul className="space-y-2 text-white/70 text-[11px] font-light">
                     <li className="hover:text-white cursor-pointer transition-colors">Vacaciones</li>
                     <li className="hover:text-white cursor-pointer transition-colors">Carta de Trabajo</li>
                     <li className="hover:text-white cursor-pointer transition-colors">Inquietudes</li>
@@ -484,18 +484,18 @@ export default function LandingPage() {
                   </ul>
                 </div>
 
-                <div className="space-y-6">
-                  <h4 className="text-white font-bold text-lg tracking-tight">Comercial</h4>
-                  <ul className="space-y-3 text-white/70 text-sm font-light">
+                <div className="space-y-4">
+                  <h4 className="text-white font-bold text-base tracking-tight">Comercial</h4>
+                  <ul className="space-y-2 text-white/70 text-[11px] font-light">
                     <li className="hover:text-white cursor-pointer transition-colors">Sistemática Comercial</li>
                     <li className="hover:text-white cursor-pointer transition-colors">Mercadeo</li>
                     <li className="hover:text-white cursor-pointer transition-colors">Comunicaciones</li>
                   </ul>
                 </div>
 
-                <div className="space-y-6">
-                  <h4 className="text-white font-bold text-lg tracking-tight">Tecnología</h4>
-                  <ul className="space-y-3 text-white/70 text-sm font-light">
+                <div className="space-y-4">
+                  <h4 className="text-white font-bold text-base tracking-tight">Tecnología</h4>
+                  <ul className="space-y-2 text-white/70 text-[11px] font-light">
                     <li className="hover:text-white cursor-pointer transition-colors">Seguridad</li>
                     <li className="hover:text-white cursor-pointer transition-colors">Actualizaciones</li>
                     <li className="hover:text-white cursor-pointer transition-colors">Solicitudes</li>
@@ -503,9 +503,9 @@ export default function LandingPage() {
                   </ul>
                 </div>
 
-                <div className="space-y-6">
-                  <h4 className="text-white font-bold text-lg tracking-tight">Suscripción</h4>
-                  <ul className="space-y-3 text-white/70 text-sm font-light">
+                <div className="space-y-4">
+                  <h4 className="text-white font-bold text-base tracking-tight">Suscripción</h4>
+                  <ul className="space-y-2 text-white/70 text-[11px] font-light">
                     <li className="hover:text-white cursor-pointer transition-colors">Salud</li>
                     <li className="hover:text-white cursor-pointer transition-colors">Patrimonial</li>
                     <li className="hover:text-white cursor-pointer transition-colors">Automóvil</li>
