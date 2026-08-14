@@ -1,8 +1,11 @@
+
 'use client';
 
 import * as React from "react";
-import { Cloud } from "lucide-react";
+import { Cloud, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
 
 type TimePeriod = 'day' | 'night';
 
@@ -46,12 +49,47 @@ const mission = [
   { id: '01', title: 'Propósito', description: 'Nuestra misión es brindar protección y seguridad a las familias venezolanas, acompañándolas en cada paso de su vida con soluciones innovadoras y confiables.' },
 ];
 
+const dressCodeDays = [
+  { 
+    id: 'lunes',
+    day: 'Lunes', 
+    style: 'Corporativo', 
+    image: 'https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/Gemini_Generated_Image_ruwheoruwheoruwh-Photoroom.png' 
+  },
+  { 
+    id: 'martes',
+    day: 'Martes', 
+    style: 'Corporativo', 
+    image: 'https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/Gemini_Generated_Image_qzecp6qzecp6qzec-Photoroom.png' 
+  },
+  { 
+    id: 'miercoles',
+    day: 'Miércoles', 
+    style: 'Corporativo', 
+    image: 'https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/Gemini_Generated_Image_xh0ronxh0ronxh0r-Photoroom.png' 
+  },
+  { 
+    id: 'jueves',
+    day: 'Jueves', 
+    style: 'Corporativo', 
+    image: 'https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/Gemini_Generated_Image_cps86vcps86vcps8-Photoroom.png' 
+  },
+  { 
+    id: 'viernes',
+    day: 'Viernes', 
+    style: 'Corporativo', 
+    image: 'https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/Gemini_Generated_Image_6txkf46txkf46txk-Photoroom.png' 
+  },
+];
+
 export default function LandingPage() {
   const [mounted, setMounted] = React.useState(false);
   const [timeTheme, setTimeTheme] = React.useState<TimePeriod>('day');
   const [showFinalText, setShowFinalText] = React.useState(false);
   const [clouds, setClouds] = React.useState<CloudData[]>([]);
   const [activeCategory, setActiveCategory] = React.useState('Nuestros Valores');
+  const [activeDay, setActiveDay] = React.useState(dressCodeDays[4]); // Viernes por defecto
+  const [activeGender, setActiveGender] = React.useState<'Caballeros' | 'Damas'>('Caballeros');
   
   const currentItems = React.useMemo(() => {
     if (activeCategory === 'Nuestros Pilares') return pillars;
@@ -205,6 +243,7 @@ export default function LandingPage() {
                 <div 
                   key={item.id}
                   onMouseEnter={() => setActiveItem(item)}
+                  onClick={() => setActiveItem(item)}
                   className="group flex items-center gap-4 cursor-pointer"
                 >
                   <div className={cn(
@@ -248,6 +287,91 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Sección Viste Seguro */}
+      <section className="relative w-full bg-[#0054A6] py-32 overflow-hidden min-h-[700px] flex flex-col">
+        {/* Acentos diagonales de fondo */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute top-0 left-[20%] w-[1px] h-full bg-white/10 -rotate-12 transform scale-150" />
+          <div className="absolute top-0 right-[30%] w-[1px] h-full bg-white/10 -rotate-12 transform scale-150" />
+          <div className="absolute top-0 right-0 w-[40%] h-full bg-gradient-to-l from-white/5 to-transparent skew-x-[-15deg] transform translate-x-1/2" />
+        </div>
+
+        <div className="container mx-auto px-6 relative z-10 flex flex-col flex-grow">
+          {/* Fila de Avatares */}
+          <div className="flex justify-center items-end gap-2 md:gap-8 lg:gap-16 flex-grow pb-20">
+            {dressCodeDays.map((item) => (
+              <div 
+                key={item.day}
+                onClick={() => setActiveDay(item)}
+                className={cn(
+                  "relative transition-all duration-500 cursor-pointer group flex flex-col items-center",
+                  activeDay.day === item.day ? "scale-110 translate-y-[-10px]" : "scale-90 opacity-60 hover:opacity-90 hover:scale-95"
+                )}
+              >
+                <div className="relative w-24 h-48 md:w-40 md:h-72 lg:w-48 lg:h-96">
+                  <Image 
+                    src={item.image} 
+                    alt={item.day} 
+                    fill 
+                    className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.3)]"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Controles Inferiores */}
+          <div className="flex flex-col md:flex-row justify-between items-end w-full gap-8">
+            {/* Izquierda: Título y Botón */}
+            <div className="space-y-4 text-left">
+              <div className="space-y-0">
+                <p className="text-white/70 text-xs font-light tracking-tight">Viste Seguro</p>
+                <h2 className="text-white text-3xl font-bold tracking-tighter">Banesco Seguros</h2>
+              </div>
+              <Button variant="secondary" className="bg-white text-black hover:bg-white/90 rounded-xl px-8 font-light text-xs h-9">
+                Explorar Guía
+              </Button>
+            </div>
+
+            {/* Derecha: Info Día y Género */}
+            <div className="flex flex-col items-end gap-6">
+              <div className="text-right">
+                <p className="text-white/80 text-xs font-bold uppercase tracking-widest">{activeDay.day}</p>
+                <h3 className="text-white text-6xl md:text-8xl font-black tracking-tighter leading-none mt-1">
+                  {activeDay.style}
+                </h3>
+              </div>
+              
+              <div className="flex gap-2 p-1 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10">
+                <button
+                  onClick={() => setActiveGender('Caballeros')}
+                  className={cn(
+                    "px-6 py-2 rounded-lg text-[10px] font-medium transition-all duration-300",
+                    activeGender === 'Caballeros' 
+                      ? "bg-white text-[#0054A6] shadow-xl" 
+                      : "text-white/60 hover:text-white"
+                  )}
+                >
+                  Caballeros
+                </button>
+                <button
+                  onClick={() => setActiveGender('Damas')}
+                  className={cn(
+                    "px-6 py-2 rounded-lg text-[10px] font-medium transition-all duration-300",
+                    activeGender === 'Damas' 
+                      ? "bg-white text-[#0054A6] shadow-xl" 
+                      : "text-white/60 hover:text-white"
+                  )}
+                >
+                  Damas
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
     </div>
   );
 }
+
