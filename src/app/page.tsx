@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from "react";
@@ -303,7 +302,7 @@ export default function LandingPage() {
               return (
                 <div 
                   key={item.day}
-                  onClick={() => setActiveDayIndex(index)}
+                  onMouseEnter={() => setActiveDayIndex(index)}
                   className={cn(
                     "relative transition-all duration-500 cursor-pointer group flex flex-col items-center",
                     isActive 
@@ -311,7 +310,7 @@ export default function LandingPage() {
                       : "scale-75 opacity-40 hover:opacity-100 hover:scale-100 hover:z-20"
                   )}
                 >
-                  <div className="relative w-24 h-48 md:w-36 md:h-72 lg:w-56 lg:h-[420px]">
+                  <div className="relative w-24 h-48 md:w-36 md:h-72 lg:w-40 lg:h-80">
                     <Image 
                       src={currentImageUrl} 
                       alt={item.day} 
@@ -431,6 +430,30 @@ export default function LandingPage() {
                 Consultar
               </button>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Sección Portal de Requerimientos */}
+      <section className="relative w-full py-32 overflow-hidden flex flex-col items-center justify-center transition-colors duration-700 bg-[#0054A6]">
+        {/* Fondo con formas abstractas */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full blur-[150px] bg-blue-400/20 translate-x-1/2 -translate-y-1/2" />
+          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full blur-[150px] bg-blue-300/10 -translate-x-1/4 translate-y-1/4" />
+        </div>
+
+        <div className="container mx-auto px-6 relative z-10 text-center space-y-10">
+          <h2 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-tight max-w-4xl mx-auto">
+            Visita nuestro <br /> Portal de Requerimientos
+          </h2>
+          
+          <div className="flex justify-center gap-4">
+            <button className="px-10 py-3 rounded-xl bg-white text-[#0054A6] text-[10px] font-light hover:bg-white/90 transition-colors">
+              Acceder
+            </button>
+            <button className="px-10 py-3 rounded-xl bg-transparent border border-white/40 text-white text-[10px] font-light hover:bg-white/10 transition-colors">
+              Atajos
+            </button>
           </div>
         </div>
       </section>
