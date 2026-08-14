@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from "react";
@@ -557,19 +556,19 @@ export default function LandingPage() {
       </section>
 
       {/* Sección Nuestros Cursos */}
-      <section className="relative w-full py-32 bg-[#F8FAFC] overflow-hidden">
+      <section className="relative w-full py-24 bg-[#F8FAFC] overflow-hidden">
         {/* Cuadrícula de fondo sutil */}
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '30px 30px' }} />
         
-        <div className="container mx-auto px-12 md:px-24 relative z-10">
+        <div className="container mx-auto px-16 relative z-10">
           {/* Cabecera de la sección */}
-          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-20 gap-8">
+          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-16 gap-8">
             <div className="space-y-4">
               <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-slate-200/50 w-fit backdrop-blur-sm border border-slate-300/30">
                 <Share2 className="w-3 h-3 text-slate-600" />
                 <span className="text-[10px] font-medium text-slate-600 uppercase tracking-widest">Academia</span>
               </div>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-[0.9] text-slate-900">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[0.9] text-slate-900">
                 Hemos orquestado <br /> <span className="text-[#0054A6]">Inteligencia.</span>
               </h2>
             </div>
@@ -578,7 +577,7 @@ export default function LandingPage() {
               <p className="text-sm text-slate-500 font-light leading-relaxed">
                 Nuestros cursos traen claridad, no complejidad - uniendo cada concepto en un sistema adaptativo que aprende, actúa y evoluciona en tu carrera profesional.
               </p>
-              <Button className="bg-black hover:bg-black/90 text-white rounded-xl px-10 h-11 text-[10px] font-light tracking-tight">
+              <Button className="bg-black hover:bg-black/90 text-white rounded-xl px-10 h-11 text-[10px] font-light tracking-normal">
                 Explorar Más
               </Button>
             </div>
@@ -598,8 +597,8 @@ export default function LandingPage() {
                   className={cn(
                     "relative transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] cursor-pointer group rounded-[2rem] overflow-hidden border border-white/40",
                     isFeatured 
-                      ? "lg:col-span-1 lg:h-[520px] bg-white shadow-2xl scale-[1.02] z-20" 
-                      : "lg:col-span-1 lg:h-[400px] bg-white/50 backdrop-blur-sm shadow-xl opacity-80 hover:opacity-100"
+                      ? "lg:col-span-1 lg:h-[450px] bg-[#0054A6] shadow-2xl scale-[1.02] z-20" 
+                      : "lg:col-span-1 lg:h-[380px] bg-white/50 backdrop-blur-sm shadow-xl opacity-80 hover:opacity-100"
                   )}
                 >
                   {/* Contenido de la tarjeta destacada */}
@@ -611,33 +610,36 @@ export default function LandingPage() {
                         fill 
                         className="object-cover transition-transform duration-1000 group-hover:scale-105 opacity-20"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-b from-white/50 via-white/80 to-white" />
+                      <div className="absolute inset-0 bg-gradient-to-b from-[#0054A6]/50 via-[#0054A6]/80 to-[#0054A6]" />
                     </div>
                   )}
 
                   <div className="relative z-10 p-10 h-full flex flex-col justify-between">
                     <div className="space-y-8">
-                      <span className="text-6xl font-light text-slate-200 tracking-tighter tabular-nums group-hover:text-slate-300 transition-colors">
+                      <span className={cn(
+                        "text-6xl font-light tracking-tight transition-colors tabular-nums",
+                        isFeatured ? "text-white/20" : "text-slate-200 group-hover:text-slate-300"
+                      )}>
                         {course.id}.
                       </span>
                       
                       <div className="space-y-4">
                         <div className={cn(
                           "w-10 h-10 rounded-xl flex items-center justify-center transition-colors",
-                          isFeatured ? "bg-[#0054A6] text-white" : "bg-slate-100 text-slate-400 group-hover:text-slate-600"
+                          isFeatured ? "bg-white text-[#0054A6]" : "bg-slate-100 text-slate-400 group-hover:text-slate-600"
                         )}>
                           <Icon className="w-5 h-5" strokeWidth={1.5} />
                         </div>
                         <div className="space-y-2">
                           <h4 className={cn(
-                            "text-xs font-semibold tracking-wide transition-colors",
-                            isFeatured ? "text-slate-400" : "text-slate-400"
+                            "text-xs font-semibold tracking-normal transition-colors",
+                            isFeatured ? "text-blue-100" : "text-slate-400"
                           )}>
                             {course.subtitle}
                           </h4>
                           <h3 className={cn(
-                            "text-2xl font-bold tracking-tighter transition-colors",
-                            isFeatured ? "text-slate-900" : "text-slate-600 group-hover:text-slate-900"
+                            "text-2xl font-bold tracking-tight transition-colors",
+                            isFeatured ? "text-white" : "text-slate-600 group-hover:text-slate-900"
                           )}>
                             {course.title}
                           </h3>
@@ -649,10 +651,16 @@ export default function LandingPage() {
                       "transition-all duration-500",
                       isFeatured ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
                     )}>
-                      <p className="text-sm text-slate-500 font-light leading-relaxed mb-8">
+                      <p className={cn(
+                        "text-sm font-light leading-relaxed mb-8",
+                        isFeatured ? "text-blue-50" : "text-slate-500"
+                      )}>
                         {course.description}
                       </p>
-                      <button className="flex items-center gap-2 text-[10px] font-bold text-slate-900 group-hover:gap-3 transition-all uppercase tracking-widest">
+                      <button className={cn(
+                        "flex items-center gap-2 text-[10px] font-bold group-hover:gap-3 transition-all uppercase tracking-widest",
+                        isFeatured ? "text-white" : "text-slate-900"
+                      )}>
                         Ver Detalles
                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                       </button>
