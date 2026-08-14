@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from "react";
@@ -342,14 +341,14 @@ export default function LandingPage() {
                 </h3>
               </div>
               
-              <div className="flex gap-2 p-1 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10">
+              <div className="flex gap-4">
                 <button
                   onClick={() => setActiveGender('Caballeros')}
                   className={cn(
-                    "px-6 py-2 rounded-lg text-[9px] font-medium transition-all duration-300",
+                    "px-4 py-1.5 rounded-full text-[9px] font-light transition-all duration-300 border border-transparent",
                     activeGender === 'Caballeros' 
-                      ? "bg-white text-[#0054A6] shadow-xl" 
-                      : "text-white/60 hover:text-white"
+                      ? "bg-white text-[#0054A6]" 
+                      : "text-white/60 hover:text-white border-white/20"
                   )}
                 >
                   Caballeros
@@ -357,10 +356,10 @@ export default function LandingPage() {
                 <button
                   onClick={() => setActiveGender('Damas')}
                   className={cn(
-                    "px-6 py-2 rounded-lg text-[9px] font-medium transition-all duration-300",
+                    "px-4 py-1.5 rounded-full text-[9px] font-light transition-all duration-300 border border-transparent",
                     activeGender === 'Damas' 
-                      ? "bg-white text-[#0054A6] shadow-xl" 
-                      : "text-white/60 hover:text-white"
+                      ? "bg-white text-[#0054A6]" 
+                      : "text-white/60 hover:text-white border-white/20"
                   )}
                 >
                   Damas
