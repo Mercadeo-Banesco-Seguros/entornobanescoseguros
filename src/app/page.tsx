@@ -252,8 +252,8 @@ export default function LandingPage() {
                   <span className={cn(
                     "font-light tracking-tighter transition-all duration-300",
                     activeItem.id === item.id 
-                      ? "text-black translate-x-2 text-3xl md:text-4xl lg:text-5xl" 
-                      : "text-gray-300 group-hover:text-gray-400 text-2xl md:text-3xl lg:text-4xl"
+                      ? "text-black translate-x-2 text-2xl md:text-3xl lg:text-4xl" 
+                      : "text-gray-300 group-hover:text-gray-400 text-xl md:text-2xl lg:text-3xl"
                   )}>
                     {item.title}.
                   </span>
@@ -309,7 +309,7 @@ export default function LandingPage() {
                     : "scale-75 opacity-40 hover:opacity-100 hover:scale-100 hover:z-20"
                 )}
               >
-                <div className="relative w-28 h-56 md:w-48 h-80 lg:w-64 lg:h-[480px]">
+                <div className="relative w-20 h-40 md:w-32 h-64 lg:w-44 lg:h-[340px]">
                   <Image 
                     src={item.image} 
                     alt={item.day} 
