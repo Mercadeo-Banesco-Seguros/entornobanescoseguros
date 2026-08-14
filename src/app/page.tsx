@@ -617,7 +617,7 @@ export default function LandingPage() {
                   <div className="relative z-10 p-10 h-full flex flex-col justify-between">
                     <div className="space-y-8">
                       <span className={cn(
-                        "text-6xl font-light tracking-tight transition-colors tabular-nums",
+                        "text-6xl font-extralight tracking-normal transition-colors tabular-nums",
                         isFeatured ? "text-white/20" : "text-slate-200 group-hover:text-slate-300"
                       )}>
                         {course.id}.
