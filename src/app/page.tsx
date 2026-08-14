@@ -652,18 +652,11 @@ export default function LandingPage() {
                       isFeatured ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
                     )}>
                       <p className={cn(
-                        "text-sm font-light leading-relaxed mb-8",
+                        "text-sm font-light leading-relaxed",
                         isFeatured ? "text-blue-50" : "text-slate-500"
                       )}>
                         {course.description}
                       </p>
-                      <button className={cn(
-                        "flex items-center gap-2 text-[10px] font-bold group-hover:gap-3 transition-all uppercase tracking-widest",
-                        isFeatured ? "text-white" : "text-slate-900"
-                      )}>
-                        Ver Detalles
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                      </button>
                     </div>
                   </div>
                 </div>
