@@ -78,7 +78,7 @@ const courses = [
   { 
     id: '01', 
     title: 'Gestión de Riesgos', 
-    subtitle: 'Amplify Intelligence',
+    subtitle: 'Inteligencia Amplificada',
     description: 'Analiza y mitiga riesgos con herramientas de última generación en el entorno asegurador.',
     icon: Zap,
     image: 'course-1'
@@ -86,7 +86,7 @@ const courses = [
   { 
     id: '02', 
     title: 'Estrategia Comercial', 
-    subtitle: 'Command Global Operations',
+    subtitle: 'Operaciones Globales',
     description: 'Coordina tu organización a través de agentes orquestados que aseguran precisión y eficiencia.',
     icon: Globe,
     image: 'course-2',
@@ -94,7 +94,7 @@ const courses = [
   },
   { 
     id: '03', 
-    title: 'Eliminate Silos', 
+    title: 'Eliminar Silos', 
     subtitle: 'Conectividad Total',
     description: 'Rompe las barreras operativas y fomenta la colaboración interdisciplinaria.',
     icon: LinkIcon,
@@ -102,7 +102,7 @@ const courses = [
   },
   { 
     id: '04', 
-    title: 'Scale with Clarity', 
+    title: 'Escalar con Claridad', 
     subtitle: 'Escalabilidad Segura',
     description: 'Crece de manera sostenible con visión estratégica y procesos optimizados.',
     icon: Box,
@@ -422,7 +422,7 @@ export default function LandingPage() {
           <div className="group relative aspect-[4/3] md:aspect-[16/10] rounded-[2.5rem] overflow-hidden cursor-pointer shadow-xl transition-transform duration-500 hover:scale-[1.01]">
             {vacationsImage && (
               <Image 
-                src={vacationsImage.imageUrl} 
+                src={`${vacationsImage.imageUrl}&format=png`} 
                 alt="Planifica tus Próximas Vacaciones" 
                 fill 
                 unoptimized
@@ -448,7 +448,7 @@ export default function LandingPage() {
           <div className="group relative aspect-[4/3] md:aspect-[16/10] rounded-[2.5rem] overflow-hidden cursor-pointer shadow-xl transition-transform duration-500 hover:scale-[1.01]">
             {consultImage && (
               <Image 
-                src={consultImage.imageUrl} 
+                src={`${consultImage.imageUrl}&format=png`} 
                 alt="Consultar Días Disponibles" 
                 fill 
                 unoptimized
@@ -510,10 +510,10 @@ export default function LandingPage() {
                 <X className="w-6 h-6" />
               </button>
               
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-left pt-8 md:pt-0">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-left pt-8 md:pt-0">
                 <div className="space-y-4">
-                  <h4 className="text-white font-bold text-base tracking-tight">Capital Humano</h4>
-                  <ul className="space-y-2 text-white/70 text-[11px] font-light">
+                  <h4 className="text-white font-bold text-[13px] tracking-tight">Capital Humano</h4>
+                  <ul className="space-y-1.5 text-white/70 text-[10px] font-light">
                     <li className="hover:text-white cursor-pointer transition-colors">Vacaciones</li>
                     <li className="hover:text-white cursor-pointer transition-colors">Carta de Trabajo</li>
                     <li className="hover:text-white cursor-pointer transition-colors">Inquietudes</li>
@@ -522,8 +522,8 @@ export default function LandingPage() {
                 </div>
 
                 <div className="space-y-4">
-                  <h4 className="text-white font-bold text-base tracking-tight">Comercial</h4>
-                  <ul className="space-y-2 text-white/70 text-[11px] font-light">
+                  <h4 className="text-white font-bold text-[13px] tracking-tight">Comercial</h4>
+                  <ul className="space-y-1.5 text-white/70 text-[10px] font-light">
                     <li className="hover:text-white cursor-pointer transition-colors">Sistemática Comercial</li>
                     <li className="hover:text-white cursor-pointer transition-colors">Mercadeo</li>
                     <li className="hover:text-white cursor-pointer transition-colors">Comunicaciones</li>
@@ -531,8 +531,8 @@ export default function LandingPage() {
                 </div>
 
                 <div className="space-y-4">
-                  <h4 className="text-white font-bold text-base tracking-tight">Tecnología</h4>
-                  <ul className="space-y-2 text-white/70 text-[11px] font-light">
+                  <h4 className="text-white font-bold text-[13px] tracking-tight">Tecnología</h4>
+                  <ul className="space-y-1.5 text-white/70 text-[10px] font-light">
                     <li className="hover:text-white cursor-pointer transition-colors">Seguridad</li>
                     <li className="hover:text-white cursor-pointer transition-colors">Actualizaciones</li>
                     <li className="hover:text-white cursor-pointer transition-colors">Solicitudes</li>
@@ -541,8 +541,8 @@ export default function LandingPage() {
                 </div>
 
                 <div className="space-y-4">
-                  <h4 className="text-white font-bold text-base tracking-tight">Suscripción</h4>
-                  <ul className="space-y-2 text-white/70 text-[11px] font-light">
+                  <h4 className="text-white font-bold text-[13px] tracking-tight">Suscripción</h4>
+                  <ul className="space-y-1.5 text-white/70 text-[10px] font-light">
                     <li className="hover:text-white cursor-pointer transition-colors">Salud</li>
                     <li className="hover:text-white cursor-pointer transition-colors">Patrimonial</li>
                     <li className="hover:text-white cursor-pointer transition-colors">Automóvil</li>
@@ -588,7 +588,6 @@ export default function LandingPage() {
             {courses.map((course) => {
               const Icon = course.icon;
               const isFeatured = activeCourseId === course.id;
-              const placeholder = PlaceHolderImages.find(img => img.id === course.image);
 
               return (
                 <div 
@@ -601,16 +600,17 @@ export default function LandingPage() {
                       : "lg:col-span-1 lg:h-[380px] bg-white/50 backdrop-blur-sm shadow-xl opacity-80 hover:opacity-100"
                   )}
                 >
-                  {/* Contenido de la tarjeta destacada */}
-                  {isFeatured && placeholder && (
+                  {/* Fondo de la tarjeta seleccionada */}
+                  {isFeatured && (
                     <div className="absolute inset-0 z-0">
                       <Image 
-                        src={placeholder.imageUrl} 
+                        src="https://docs.google.com/drawings/d/e/2PACX-1vSD7pB-bTLWe5lwhcuWvZ_bEoJTiPMAIhPBRLNZSEE73sMh5-z7G33Q8KlsSBNMuh1mCuCIggL7VBZl/pub?w=960&h=720&format=png" 
                         alt={course.title} 
                         fill 
-                        className="object-cover transition-transform duration-1000 group-hover:scale-105 opacity-20"
+                        unoptimized
+                        className="object-cover transition-transform duration-1000 group-hover:scale-105 opacity-30"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-b from-[#0054A6]/50 via-[#0054A6]/80 to-[#0054A6]" />
+                      <div className="absolute inset-0 bg-gradient-to-b from-[#0054A6]/40 via-[#0054A6]/70 to-[#0054A6]" />
                     </div>
                   )}
 
@@ -625,7 +625,7 @@ export default function LandingPage() {
                         </div>
                         <div className="space-y-2">
                           <h4 className={cn(
-                            "text-xs font-semibold tracking-normal transition-colors",
+                            "text-xs font-light tracking-normal transition-colors",
                             isFeatured ? "text-blue-100" : "text-slate-400"
                           )}>
                             {course.subtitle}
@@ -645,7 +645,7 @@ export default function LandingPage() {
                       isFeatured ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
                     )}>
                       <p className={cn(
-                        "text-[9px] font-light leading-relaxed",
+                        "text-[8px] font-light leading-relaxed",
                         isFeatured ? "text-blue-50" : "text-slate-500"
                       )}>
                         {course.description}
