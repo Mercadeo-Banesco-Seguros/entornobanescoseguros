@@ -288,11 +288,12 @@ export default function LandingPage() {
 
       {/* Sección Viste Seguro */}
       <section className="relative w-full bg-[#0054A6] py-12 overflow-hidden min-h-[600px] flex flex-col">
-        {/* Acentos diagonales de fondo */}
+        {/* Fondo con formas abstractas azules */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute top-0 left-[20%] w-[1px] h-full bg-white/10 -rotate-12 transform scale-150" />
-          <div className="absolute top-0 right-[30%] w-[1px] h-full bg-white/10 -rotate-12 transform scale-150" />
-          <div className="absolute top-0 right-0 w-[40%] h-full bg-gradient-to-l from-white/5 to-transparent skew-x-[-15deg] transform translate-x-1/2" />
+          <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-blue-500/20 rounded-full blur-[120px]" />
+          <div className="absolute top-1/4 -right-20 w-96 h-96 bg-sky-400/15 rounded-full blur-[100px]" />
+          <div className="absolute bottom-0 left-1/3 w-[400px] h-[400px] bg-blue-700/10 rounded-full blur-[150px]" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-radial from-transparent via-transparent to-[#0054A6]/40" />
         </div>
 
         <div className="container mx-auto px-12 md:px-24 relative z-10 flex flex-col flex-grow">
