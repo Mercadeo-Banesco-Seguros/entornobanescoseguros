@@ -577,7 +577,7 @@ export default function LandingPage() {
               <p className="text-sm text-slate-500 font-light leading-relaxed">
                 Nuestros cursos traen claridad, no complejidad - uniendo cada concepto en un sistema adaptativo que aprende, actúa y evoluciona en tu carrera profesional.
               </p>
-              <Button className="bg-black hover:bg-black/90 text-white rounded-xl px-10 h-11 text-[10px] font-light tracking-normal">
+              <Button className="bg-[#0054A6] hover:bg-[#0054A6]/90 text-white rounded-xl px-10 h-11 text-[10px] font-light tracking-normal">
                 Explorar Más
               </Button>
             </div>
