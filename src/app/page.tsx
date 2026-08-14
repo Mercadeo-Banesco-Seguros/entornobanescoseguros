@@ -37,12 +37,34 @@ const values = [
   },
 ];
 
+const pillars = [
+  { id: '01', title: 'Ética', description: 'Mantenemos los más altos estándares de integridad en todas nuestras interacciones y decisiones.' },
+  { id: '02', title: 'Cercanía', description: 'Estamos presentes cuando más nos necesitas, brindando un trato humano y personalizado.' },
+  { id: '03', title: 'Solidez', description: 'Contamos con el respaldo y la trayectoria necesarios para garantizar tu tranquilidad a largo plazo.' },
+];
+
+const mission = [
+  { id: '01', title: 'Propósito', description: 'Nuestra misión es brindar protección y seguridad a las familias venezolanas, acompañándolas en cada paso de su vida con soluciones innovadoras y confiables.' },
+];
+
 export default function LandingPage() {
   const [mounted, setMounted] = React.useState(false);
   const [timeTheme, setTimeTheme] = React.useState<TimePeriod>('day');
   const [showFinalText, setShowFinalText] = React.useState(false);
   const [clouds, setClouds] = React.useState<CloudData[]>([]);
-  const [activeValue, setActiveValue] = React.useState(values[0]);
+  const [activeCategory, setActiveCategory] = React.useState('Nuestros Valores');
+  
+  const currentItems = React.useMemo(() => {
+    if (activeCategory === 'Nuestros Pilares') return pillars;
+    if (activeCategory === 'Nuestra Misión') return mission;
+    return values;
+  }, [activeCategory]);
+
+  const [activeItem, setActiveItem] = React.useState(currentItems[0]);
+
+  React.useEffect(() => {
+    setActiveItem(currentItems[0]);
+  }, [currentItems]);
 
   React.useEffect(() => {
     setMounted(true);
@@ -158,29 +180,43 @@ export default function LandingPage() {
         <div className={cn("absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t to-transparent pointer-events-none -z-10 transition-all duration-[3000ms]", current.bottomGradient)} />
       </section>
 
-      {/* Sección Nuestros Valores */}
+      {/* Sección Nuestros Valores / Pilares / Misión */}
       <section className="bg-white py-32 px-6 md:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           
-          {/* Columna Izquierda: Lista de Valores */}
+          {/* Columna Izquierda: Lista Dinámica */}
           <div className="space-y-6">
-            <h2 className="text-sm font-medium text-gray-400 mb-12 tracking-tight">Nuestros Valores</h2>
+            <div className="flex gap-8 mb-12">
+              {['Nuestros Valores', 'Nuestros Pilares', 'Nuestra Misión'].map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setActiveCategory(cat)}
+                  className={cn(
+                    "text-sm font-light transition-all duration-300 tracking-tight outline-none",
+                    activeCategory === cat ? "text-black font-medium" : "text-gray-400 hover:text-gray-600"
+                  )}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+            
             <div className="flex flex-col gap-4">
-              {values.map((val) => (
+              {currentItems.map((item) => (
                 <div 
-                  key={val.id}
-                  onMouseEnter={() => setActiveValue(val)}
+                  key={item.id}
+                  onMouseEnter={() => setActiveItem(item)}
                   className="group flex items-center gap-4 cursor-pointer"
                 >
                   <div className={cn(
                     "w-1.5 h-1.5 rounded-full bg-black transition-all duration-300",
-                    activeValue.id === val.id ? "opacity-100 scale-100" : "opacity-0 scale-0"
+                    activeItem.id === item.id ? "opacity-100 scale-100" : "opacity-0 scale-0"
                   )} />
                   <span className={cn(
                     "text-4xl md:text-5xl lg:text-6xl font-light tracking-tighter transition-all duration-300",
-                    activeValue.id === val.id ? "text-black translate-x-2" : "text-gray-300 group-hover:text-gray-400"
+                    activeItem.id === item.id ? "text-black translate-x-2" : "text-gray-300 group-hover:text-gray-400"
                   )}>
-                    {val.title}.
+                    {item.title}.
                   </span>
                 </div>
               ))}
@@ -195,15 +231,15 @@ export default function LandingPage() {
               
               <div className="relative z-10">
                 <span className="text-7xl font-light text-white/90 tracking-tighter tabular-nums">
-                  {activeValue.id}
+                  {activeItem.id}
                 </span>
               </div>
             </div>
 
             {/* Descripción Dinámica */}
-            <div className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-500" key={activeValue.id}>
+            <div className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-500" key={activeItem.id}>
               <p className="text-sm text-gray-500 leading-relaxed font-light">
-                {activeValue.description}
+                {activeItem.description}
               </p>
             </div>
           </div>
