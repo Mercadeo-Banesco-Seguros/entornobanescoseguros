@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from "react";
@@ -213,8 +212,10 @@ export default function LandingPage() {
                     activeItem.id === item.id ? "opacity-100 scale-100" : "opacity-0 scale-0"
                   )} />
                   <span className={cn(
-                    "text-4xl md:text-5xl lg:text-6xl font-light tracking-tighter transition-all duration-300",
-                    activeItem.id === item.id ? "text-black translate-x-2" : "text-gray-300 group-hover:text-gray-400"
+                    "font-light tracking-tighter transition-all duration-300",
+                    activeItem.id === item.id 
+                      ? "text-black translate-x-2 text-3xl md:text-4xl lg:text-5xl" 
+                      : "text-gray-300 group-hover:text-gray-400 text-2xl md:text-3xl lg:text-4xl"
                   )}>
                     {item.title}.
                   </span>
