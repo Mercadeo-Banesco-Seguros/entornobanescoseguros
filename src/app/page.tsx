@@ -298,7 +298,7 @@ export default function LandingPage() {
 
         <div className="container mx-auto px-12 md:px-24 relative z-10 flex flex-col flex-grow">
           {/* Fila de Avatares */}
-          <div className="flex justify-center items-end gap-1 md:gap-4 lg:gap-6 flex-grow pb-12">
+          <div className="flex justify-center items-end gap-1 md:gap-4 lg:gap-6 flex-grow pb-6">
             {dressCodeDays.map((item) => (
               <div 
                 key={item.day}
