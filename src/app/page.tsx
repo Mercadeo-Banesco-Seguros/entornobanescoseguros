@@ -240,13 +240,13 @@ export default function LandingPage() {
                 >
                   <div className={cn(
                     "w-1.5 h-1.5 rounded-full bg-black transition-all duration-300",
-                    activeItem.id === item.id ? "opacity-100 scale-100" : "opacity-0 scale-0"
+                    activeItem.id === item.id ? "opacity-100 scale-110" : "opacity-0 scale-0"
                   )} />
                   <span className={cn(
                     "font-light tracking-tighter transition-all duration-300",
                     activeItem.id === item.id 
-                      ? "text-black translate-x-2 text-2xl md:text-3xl lg:text-4xl" 
-                      : "text-gray-300 group-hover:text-gray-400 text-xl md:text-2xl lg:text-3xl"
+                      ? "text-black translate-x-2 text-xl md:text-2xl lg:text-3xl font-normal" 
+                      : "text-gray-300 group-hover:text-gray-400 text-lg md:text-xl lg:text-2xl"
                   )}>
                     {item.title}.
                   </span>
@@ -280,24 +280,12 @@ export default function LandingPage() {
       </section>
 
       {/* Sección Viste Seguro */}
-      <section className={cn(
-        "relative w-full py-12 overflow-hidden min-h-[600px] flex flex-col transition-colors duration-700",
-        activeGender === 'Damas' ? "bg-[#a78bfa]" : "bg-[#0054A6]"
-      )}>
+      <section className="relative w-full py-12 overflow-hidden min-h-[600px] flex flex-col transition-colors duration-700 bg-[#0054A6]">
         {/* Fondo con formas abstractas */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className={cn(
-            "absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full blur-[120px] transition-colors duration-700",
-            activeGender === 'Damas' ? "bg-purple-300/20" : "bg-blue-500/20"
-          )} />
-          <div className={cn(
-            "absolute top-1/4 -right-20 w-96 h-96 rounded-full blur-[100px] transition-colors duration-700",
-            activeGender === 'Damas' ? "bg-fuchsia-300/15" : "bg-sky-400/15"
-          )} />
-          <div className={cn(
-            "absolute bottom-0 left-1/3 w-[400px] h-[400px] rounded-full blur-[150px] transition-colors duration-700",
-            activeGender === 'Damas' ? "bg-violet-400/10" : "bg-blue-700/10"
-          )} />
+          <div className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full blur-[120px] transition-colors duration-700 bg-blue-500/20" />
+          <div className="absolute top-1/4 -right-20 w-96 h-96 rounded-full blur-[100px] transition-colors duration-700 bg-sky-400/15" />
+          <div className="absolute bottom-0 left-1/3 w-[400px] h-[400px] rounded-full blur-[150px] transition-colors duration-700 bg-blue-700/10" />
         </div>
 
         <div className="container mx-auto px-12 md:px-24 relative z-10 flex flex-col flex-grow">
@@ -341,10 +329,7 @@ export default function LandingPage() {
               </div>
               <Button 
                 variant="secondary" 
-                className={cn(
-                  "bg-white hover:bg-white/90 rounded-md px-6 font-light text-[10px] h-8 transition-colors duration-700",
-                  activeGender === 'Damas' ? "text-[#a78bfa]" : "text-[#0054A6]"
-                )}
+                className="bg-white hover:bg-white/90 rounded-md px-6 font-light text-[10px] h-8 transition-colors duration-700 text-[#0054A6]"
               >
                 Explorar Guía
               </Button>
@@ -376,7 +361,7 @@ export default function LandingPage() {
                   className={cn(
                     "px-6 py-2 rounded-md text-[10px] font-light transition-all duration-300 h-8",
                     activeGender === 'Damas' 
-                      ? "bg-white text-[#a78bfa]" 
+                      ? "bg-white text-[#0054A6]" 
                       : "bg-white/10 text-white/60 hover:text-white"
                   )}
                 >
