@@ -66,7 +66,7 @@ const dressCodeImages = {
   ],
   Damas: [
     'https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/Gemini_Generated_Image_br9lsfbr9lsfbr9l-Photoroom.png',
-    'https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/Casual%2520de%2520negocios%25202%2520DAMA-Photoroom.png',
+    'https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/Casual%20de%20negocios%202%20DAMA-Photoroom.png',
     'https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/Gemini_Generated_Image_8t6e9o8t6e9o8t6e-Photoroom.png',
     'https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/Gemini_Generated_Image_2gtngz2gtngz2gtn-Photoroom.png',
     'https://raw.githubusercontent.com/Rduque2025/web-assets-banesco-seguros/main/Gemini_Generated_Image_851tlb851tlb851t-Photoroom.png',
@@ -280,13 +280,24 @@ export default function LandingPage() {
       </section>
 
       {/* Sección Viste Seguro */}
-      <section className="relative w-full bg-[#0054A6] py-12 overflow-hidden min-h-[600px] flex flex-col">
-        {/* Fondo con formas abstractas azules */}
+      <section className={cn(
+        "relative w-full py-12 overflow-hidden min-h-[600px] flex flex-col transition-colors duration-700",
+        activeGender === 'Damas' ? "bg-[#a78bfa]" : "bg-[#0054A6]"
+      )}>
+        {/* Fondo con formas abstractas */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute -top-32 -left-32 w-[500px] h-[500px] bg-blue-500/20 rounded-full blur-[120px]" />
-          <div className="absolute top-1/4 -right-20 w-96 h-96 bg-sky-400/15 rounded-full blur-[100px]" />
-          <div className="absolute bottom-0 left-1/3 w-[400px] h-[400px] bg-blue-700/10 rounded-full blur-[150px]" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-radial from-transparent via-transparent to-[#0054A6]/40" />
+          <div className={cn(
+            "absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full blur-[120px] transition-colors duration-700",
+            activeGender === 'Damas' ? "bg-purple-300/20" : "bg-blue-500/20"
+          )} />
+          <div className={cn(
+            "absolute top-1/4 -right-20 w-96 h-96 rounded-full blur-[100px] transition-colors duration-700",
+            activeGender === 'Damas' ? "bg-fuchsia-300/15" : "bg-sky-400/15"
+          )} />
+          <div className={cn(
+            "absolute bottom-0 left-1/3 w-[400px] h-[400px] rounded-full blur-[150px] transition-colors duration-700",
+            activeGender === 'Damas' ? "bg-violet-400/10" : "bg-blue-700/10"
+          )} />
         </div>
 
         <div className="container mx-auto px-12 md:px-24 relative z-10 flex flex-col flex-grow">
@@ -328,7 +339,13 @@ export default function LandingPage() {
                 <p className="text-white/70 text-[10px] font-light tracking-tight">Viste Seguro</p>
                 <h2 className="text-white text-2xl font-light tracking-tighter">Banesco Seguros</h2>
               </div>
-              <Button variant="secondary" className="bg-white text-[#0054A6] hover:bg-white/90 rounded-md px-6 font-light text-[10px] h-8">
+              <Button 
+                variant="secondary" 
+                className={cn(
+                  "bg-white hover:bg-white/90 rounded-md px-6 font-light text-[10px] h-8 transition-colors duration-700",
+                  activeGender === 'Damas' ? "text-[#a78bfa]" : "text-[#0054A6]"
+                )}
+              >
                 Explorar Guía
               </Button>
             </div>
@@ -359,7 +376,7 @@ export default function LandingPage() {
                   className={cn(
                     "px-6 py-2 rounded-md text-[10px] font-light transition-all duration-300 h-8",
                     activeGender === 'Damas' 
-                      ? "bg-white text-[#0054A6]" 
+                      ? "bg-white text-[#a78bfa]" 
                       : "bg-white/10 text-white/60 hover:text-white"
                   )}
                 >
