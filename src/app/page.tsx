@@ -2,7 +2,7 @@
 'use client';
 
 import * as React from "react";
-import { Cloud, Sparkles } from "lucide-react";
+import { Cloud } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type TimePeriod = 'day' | 'night';
@@ -164,7 +164,7 @@ export default function LandingPage() {
           
           {/* Columna Izquierda: Lista de Valores */}
           <div className="space-y-6">
-            <h2 className="text-sm font-medium text-gray-400 mb-12 uppercase tracking-widest">Nuestros Valores</h2>
+            <h2 className="text-sm font-medium text-gray-400 mb-12 uppercase tracking-wide">Nuestros Valores</h2>
             <div className="flex flex-col gap-4">
               {values.map((val) => (
                 <div 
