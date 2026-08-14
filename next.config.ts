@@ -57,6 +57,12 @@ const nextConfig: NextConfig = {
         hostname: 'www.banescoseguros.com',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'docs.google.com',
+        port: '',
+        pathname: '/**',
       }
     ],
   },
