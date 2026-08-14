@@ -287,7 +287,7 @@ export default function LandingPage() {
       </section>
 
       {/* Sección Viste Seguro */}
-      <section className="relative w-full bg-[#0054A6] py-12 overflow-hidden min-h-[450px] flex flex-col">
+      <section className="relative w-full bg-[#0054A6] py-20 overflow-hidden min-h-[750px] flex flex-col">
         {/* Acentos diagonales de fondo */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute top-0 left-[20%] w-[1px] h-full bg-white/10 -rotate-12 transform scale-150" />
@@ -297,7 +297,7 @@ export default function LandingPage() {
 
         <div className="container mx-auto px-12 md:px-24 relative z-10 flex flex-col flex-grow">
           {/* Fila de Avatares */}
-          <div className="flex justify-center items-end gap-2 md:gap-6 lg:gap-12 flex-grow pb-10">
+          <div className="flex justify-center items-end gap-2 md:gap-8 lg:gap-16 flex-grow pb-16">
             {dressCodeDays.map((item) => (
               <div 
                 key={item.day}
@@ -305,11 +305,11 @@ export default function LandingPage() {
                 className={cn(
                   "relative transition-all duration-500 cursor-pointer group flex flex-col items-center",
                   activeDay.day === item.day 
-                    ? "scale-100 z-20 translate-y-[-5px]" 
+                    ? "scale-100 z-20 translate-y-[-10px]" 
                     : "scale-75 opacity-40 hover:opacity-100 hover:scale-100 hover:z-20"
                 )}
               >
-                <div className="relative w-16 h-32 md:w-24 h-48 lg:w-32 lg:h-64">
+                <div className="relative w-28 h-56 md:w-48 h-80 lg:w-64 lg:h-[480px]">
                   <Image 
                     src={item.image} 
                     alt={item.day} 
