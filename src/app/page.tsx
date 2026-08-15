@@ -81,7 +81,6 @@ const courses = [
     subtitle: 'Inteligencia Amplificada',
     description: 'Analiza y mitiga riesgos con herramientas de última generación en el entorno asegurador.',
     icon: Zap,
-    image: 'course-1'
   },
   { 
     id: '02', 
@@ -89,7 +88,6 @@ const courses = [
     subtitle: 'Operaciones Globales',
     description: 'Coordina tu organización a través de agentes orquestados que aseguran precisión y eficiencia.',
     icon: Globe,
-    image: 'course-2',
     featured: true
   },
   { 
@@ -98,7 +96,6 @@ const courses = [
     subtitle: 'Conectividad Total',
     description: 'Rompe las barreras operativas y fomenta la colaboración interdisciplinaria.',
     icon: LinkIcon,
-    image: 'course-3'
   },
   { 
     id: '04', 
@@ -106,7 +103,6 @@ const courses = [
     subtitle: 'Escalabilidad Segura',
     description: 'Crece de manera sostenible con visión estratégica y procesos optimizados.',
     icon: Box,
-    image: 'course-4'
   },
 ];
 
@@ -502,18 +498,18 @@ export default function LandingPage() {
               </div>
             </div>
           ) : (
-            <div className="relative w-full max-w-6xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div className="relative w-full max-w-4xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
               <button 
                 onClick={() => setShowShortcuts(false)}
-                className="absolute -top-12 md:top-0 right-0 p-2 text-white/60 hover:text-white transition-colors z-20"
+                className="absolute top-0 right-0 p-2 text-white/60 hover:text-white transition-colors z-20"
               >
                 <X className="w-6 h-6" />
               </button>
               
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-left pt-8 md:pt-0">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-4 text-left pt-8 md:pt-0">
                 <div className="space-y-4">
                   <h4 className="text-white font-bold text-[13px] tracking-tight">Capital Humano</h4>
-                  <ul className="space-y-1.5 text-white/70 text-[10px] font-light">
+                  <ul className="space-y-1.5 text-white/70 text-[9px] font-light">
                     <li className="hover:text-white cursor-pointer transition-colors">Vacaciones</li>
                     <li className="hover:text-white cursor-pointer transition-colors">Carta de Trabajo</li>
                     <li className="hover:text-white cursor-pointer transition-colors">Inquietudes</li>
@@ -523,7 +519,7 @@ export default function LandingPage() {
 
                 <div className="space-y-4">
                   <h4 className="text-white font-bold text-[13px] tracking-tight">Comercial</h4>
-                  <ul className="space-y-1.5 text-white/70 text-[10px] font-light">
+                  <ul className="space-y-1.5 text-white/70 text-[9px] font-light">
                     <li className="hover:text-white cursor-pointer transition-colors">Sistemática Comercial</li>
                     <li className="hover:text-white cursor-pointer transition-colors">Mercadeo</li>
                     <li className="hover:text-white cursor-pointer transition-colors">Comunicaciones</li>
@@ -532,7 +528,7 @@ export default function LandingPage() {
 
                 <div className="space-y-4">
                   <h4 className="text-white font-bold text-[13px] tracking-tight">Tecnología</h4>
-                  <ul className="space-y-1.5 text-white/70 text-[10px] font-light">
+                  <ul className="space-y-1.5 text-white/70 text-[9px] font-light">
                     <li className="hover:text-white cursor-pointer transition-colors">Seguridad</li>
                     <li className="hover:text-white cursor-pointer transition-colors">Actualizaciones</li>
                     <li className="hover:text-white cursor-pointer transition-colors">Solicitudes</li>
@@ -542,7 +538,7 @@ export default function LandingPage() {
 
                 <div className="space-y-4">
                   <h4 className="text-white font-bold text-[13px] tracking-tight">Suscripción</h4>
-                  <ul className="space-y-1.5 text-white/70 text-[10px] font-light">
+                  <ul className="space-y-1.5 text-white/70 text-[9px] font-light">
                     <li className="hover:text-white cursor-pointer transition-colors">Salud</li>
                     <li className="hover:text-white cursor-pointer transition-colors">Patrimonial</li>
                     <li className="hover:text-white cursor-pointer transition-colors">Automóvil</li>
@@ -574,7 +570,7 @@ export default function LandingPage() {
             </div>
             
             <div className="max-w-md space-y-6">
-              <p className="text-[10px] text-slate-500 font-light leading-relaxed">
+              <p className="text-[10px] font-light leading-relaxed text-slate-500">
                 Nuestros cursos traen claridad, no complejidad - uniendo cada concepto en un sistema adaptativo que aprende, actúa y evoluciona en tu carrera profesional.
               </p>
               <Button className="bg-[#0054A6] hover:bg-[#0054A6]/90 text-white rounded-xl px-10 h-11 text-[10px] font-light tracking-normal">
@@ -596,8 +592,8 @@ export default function LandingPage() {
                   className={cn(
                     "relative transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] cursor-pointer group rounded-[2rem] overflow-hidden border border-white/40",
                     isFeatured 
-                      ? "lg:col-span-1 lg:h-[380px] bg-[#0054A6] shadow-2xl scale-[1.02] z-20" 
-                      : "lg:col-span-1 lg:h-[320px] bg-white/50 backdrop-blur-sm shadow-xl opacity-80 hover:opacity-100"
+                      ? "lg:col-span-1 lg:h-[350px] bg-[#0054A6] shadow-2xl scale-[1.02] z-20" 
+                      : "lg:col-span-1 lg:h-[300px] bg-white/50 backdrop-blur-sm shadow-xl opacity-80 hover:opacity-100"
                   )}
                 >
                   {/* Fondo de la tarjeta seleccionada */}
@@ -631,7 +627,7 @@ export default function LandingPage() {
                             {course.subtitle}
                           </h4>
                           <h3 className={cn(
-                            "text-2xl font-bold tracking-tight transition-colors",
+                            "text-xl font-bold tracking-tight transition-colors",
                             isFeatured ? "text-white" : "text-slate-600 group-hover:text-slate-900"
                           )}>
                             {course.title}
