@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from "react";
@@ -498,7 +499,7 @@ export default function LandingPage() {
               </div>
             </div>
           ) : (
-            <div className="relative w-full max-w-4xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div className="relative w-full max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
               <button 
                 onClick={() => setShowShortcuts(false)}
                 className="absolute top-0 right-0 p-2 text-white/60 hover:text-white transition-colors z-20"
@@ -506,7 +507,7 @@ export default function LandingPage() {
                 <X className="w-6 h-6" />
               </button>
               
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-4 text-left pt-8 md:pt-0">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-x-2 gap-y-4 text-left pt-8 md:pt-0">
                 <div className="space-y-4">
                   <h4 className="text-white font-bold text-[13px] tracking-tight">Capital Humano</h4>
                   <ul className="space-y-1.5 text-white/70 text-[9px] font-light">
@@ -592,8 +593,8 @@ export default function LandingPage() {
                   className={cn(
                     "relative transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] cursor-pointer group rounded-[2rem] overflow-hidden border border-white/40",
                     isFeatured 
-                      ? "lg:col-span-1 lg:h-[350px] bg-[#0054A6] shadow-2xl scale-[1.02] z-20" 
-                      : "lg:col-span-1 lg:h-[300px] bg-white/50 backdrop-blur-sm shadow-xl opacity-80 hover:opacity-100"
+                      ? "lg:col-span-1 lg:h-[300px] bg-[#0054A6] shadow-2xl scale-[1.02] z-20" 
+                      : "lg:col-span-1 lg:h-[260px] bg-white/50 backdrop-blur-sm shadow-xl opacity-80 hover:opacity-100"
                   )}
                 >
                   {/* Fondo de la tarjeta seleccionada */}
@@ -641,7 +642,7 @@ export default function LandingPage() {
                       isFeatured ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
                     )}>
                       <p className={cn(
-                        "text-[8px] font-light leading-relaxed",
+                        "text-[10px] font-light leading-relaxed",
                         isFeatured ? "text-blue-50" : "text-slate-500"
                       )}>
                         {course.description}
