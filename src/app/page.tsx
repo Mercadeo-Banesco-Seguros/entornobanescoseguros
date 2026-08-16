@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from "react";
@@ -256,7 +255,7 @@ export default function LandingPage() {
                   className={cn(
                     "text-[10px] px-6 py-2 rounded-xl transition-all duration-300 outline-none",
                     activeCategory === cat 
-                      ? "bg-[#0054A6] text-white font-normal" 
+                      ? "bg-[#0054A6] text-white font-light" 
                       : "bg-slate-50 text-gray-400 font-light hover:bg-slate-100 hover:text-gray-600"
                   )}
                 >
@@ -662,4 +661,3 @@ export default function LandingPage() {
     </div>
   );
 }
-
