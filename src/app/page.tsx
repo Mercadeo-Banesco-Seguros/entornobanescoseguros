@@ -494,7 +494,7 @@ export default function LandingPage() {
             <div className="relative w-full max-w-lg mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
               <button 
                 onClick={() => setShowShortcuts(false)}
-                className="absolute -top-6 -right-2 p-2 text-white/60 hover:text-white transition-colors z-20"
+                className="absolute top-2 right-2 p-2 text-white/60 hover:text-white transition-colors z-20"
               >
                 <X className="w-6 h-6" />
               </button>
@@ -549,7 +549,7 @@ export default function LandingPage() {
         {/* Cuadrícula de fondo sutil */}
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '30px 30px' }} />
         
-        <div className="container mx-auto px-16 lg:px-24 relative z-10">
+        <div className="container mx-auto px-8 lg:px-12 relative z-10">
           {/* Cabecera de la sección */}
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-16 gap-8">
             <div className="space-y-4">
@@ -557,7 +557,7 @@ export default function LandingPage() {
                 <Share2 className="w-3 h-3 text-slate-600" />
                 <span className="text-[10px] font-medium text-slate-600 uppercase tracking-widest">Academia</span>
               </div>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-[0.9] text-slate-900">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight leading-[0.9] text-slate-900">
                 Hemos orquestado <br /> <span className="text-[#0054A6]">Inteligencia.</span>
               </h2>
             </div>
@@ -585,8 +585,8 @@ export default function LandingPage() {
                   className={cn(
                     "relative transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] cursor-pointer group rounded-[2rem] overflow-hidden border border-white/40",
                     isFeatured 
-                      ? "lg:h-[320px] bg-[#0054A6] shadow-2xl scale-[1.02] z-20" 
-                      : "lg:h-[280px] bg-white/50 backdrop-blur-sm shadow-xl opacity-80 hover:opacity-100"
+                      ? "lg:h-[300px] bg-[#0054A6] shadow-2xl scale-[1.02] z-20" 
+                      : "lg:h-[260px] bg-white/50 backdrop-blur-sm shadow-xl opacity-80 hover:opacity-100"
                   )}
                 >
                   {/* Fondo de la tarjeta seleccionada */}
@@ -634,7 +634,7 @@ export default function LandingPage() {
                       isFeatured ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
                     )}>
                       <p className={cn(
-                        "text-[9px] font-light leading-relaxed",
+                        "text-[10px] font-light leading-relaxed",
                         isFeatured ? "text-blue-50" : "text-slate-500"
                       )}>
                         {course.description}
