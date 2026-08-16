@@ -585,8 +585,8 @@ export default function LandingPage() {
                   className={cn(
                     "relative transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] cursor-pointer group rounded-[2rem] overflow-hidden border border-white/40",
                     isFeatured 
-                      ? "lg:h-[300px] bg-[#0054A6] shadow-2xl scale-[1.02] z-20" 
-                      : "lg:h-[260px] bg-white/50 backdrop-blur-sm shadow-xl opacity-80 hover:opacity-100"
+                      ? "lg:h-[280px] bg-[#0054A6] shadow-2xl scale-[1.02] z-20" 
+                      : "lg:h-[240px] bg-white/50 backdrop-blur-sm shadow-xl opacity-80 hover:opacity-100"
                   )}
                 >
                   {/* Fondo de la tarjeta seleccionada */}
@@ -620,7 +620,7 @@ export default function LandingPage() {
                             {course.subtitle}
                           </h4>
                           <h3 className={cn(
-                            "text-xl font-bold tracking-tight transition-colors",
+                            "text-xl font-bold tracking-tight transition-colors whitespace-nowrap",
                             isFeatured ? "text-white" : "text-slate-600 group-hover:text-slate-900"
                           )}>
                             {course.title}
@@ -634,7 +634,7 @@ export default function LandingPage() {
                       isFeatured ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
                     )}>
                       <p className={cn(
-                        "text-[10px] font-light leading-relaxed",
+                        "text-[9px] font-light leading-relaxed",
                         isFeatured ? "text-blue-50" : "text-slate-500"
                       )}>
                         {course.description}
