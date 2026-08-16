@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from "react";
-import { Cloud, X, Zap, Globe, Link as LinkIcon, Box, Share2 } from "lucide-react";
+import { Cloud, X, Share2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -80,14 +80,12 @@ const courses = [
     title: 'Gestión de Riesgos', 
     subtitle: 'Inteligencia Amplificada',
     description: 'Analiza y mitiga riesgos con herramientas de última generación en el entorno asegurador.',
-    icon: Zap,
   },
   { 
     id: '02', 
     title: 'Estrategia Comercial', 
     subtitle: 'Operaciones Globales',
     description: 'Coordina tu organización a través de agentes orquestados que aseguran precisión y eficiencia.',
-    icon: Globe,
     featured: true
   },
   { 
@@ -95,7 +93,6 @@ const courses = [
     title: 'Escalar con Claridad', 
     subtitle: 'Escalabilidad Segura',
     description: 'Crece de manera sostenible con visión estratégica y procesos optimizados.',
-    icon: Box,
   },
 ];
 
@@ -499,7 +496,7 @@ export default function LandingPage() {
                 <X className="w-6 h-6" />
               </button>
               
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-4 text-left pt-8 md:pt-0">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-4 text-left pt-8 md:pt-0">
                 <div className="space-y-4">
                   <h4 className="text-white font-bold text-[13px] tracking-tight">Capital Humano</h4>
                   <ul className="space-y-1.5 text-white/70 text-[9px] font-light">
@@ -549,7 +546,7 @@ export default function LandingPage() {
         {/* Cuadrícula de fondo sutil */}
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '30px 30px' }} />
         
-        <div className="container mx-auto px-6 lg:px-12 relative z-10">
+        <div className="container mx-auto px-6 lg:px-8 relative z-10">
           {/* Cabecera de la sección */}
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-16 gap-8">
             <div className="space-y-4">
@@ -575,7 +572,6 @@ export default function LandingPage() {
           {/* Grid de Cursos */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
             {courses.map((course) => {
-              const Icon = course.icon;
               const isFeatured = activeCourseId === course.id;
 
               return (
@@ -585,8 +581,8 @@ export default function LandingPage() {
                   className={cn(
                     "relative transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] cursor-pointer group rounded-[2rem] overflow-hidden border border-white/40",
                     isFeatured 
-                      ? "lg:h-[280px] bg-[#0054A6] shadow-2xl scale-[1.02] z-20" 
-                      : "lg:h-[240px] bg-white/50 backdrop-blur-sm shadow-xl opacity-80 hover:opacity-100"
+                      ? "lg:h-[230px] bg-[#0054A6] shadow-2xl scale-[1.02] z-20" 
+                      : "lg:h-[210px] bg-white/50 backdrop-blur-sm shadow-xl opacity-80 hover:opacity-100"
                   )}
                 >
                   {/* Fondo de la tarjeta seleccionada */}
@@ -606,12 +602,6 @@ export default function LandingPage() {
                   <div className="relative z-10 p-10 h-full flex flex-col justify-between">
                     <div className="space-y-8">
                       <div className="space-y-4">
-                        <div className={cn(
-                          "w-10 h-10 rounded-xl flex items-center justify-center transition-colors",
-                          isFeatured ? "bg-white text-[#0054A6]" : "bg-slate-100 text-slate-400 group-hover:text-slate-600"
-                        )}>
-                          <Icon className="w-5 h-5" strokeWidth={1.5} />
-                        </div>
                         <div className="space-y-2">
                           <h4 className={cn(
                             "text-xs font-light tracking-normal transition-colors",
@@ -634,7 +624,7 @@ export default function LandingPage() {
                       isFeatured ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
                     )}>
                       <p className={cn(
-                        "text-[9px] font-light leading-relaxed",
+                        "text-[10px] font-light leading-relaxed",
                         isFeatured ? "text-blue-50" : "text-slate-500"
                       )}>
                         {course.description}
