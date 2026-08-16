@@ -117,7 +117,7 @@ export default function LandingPage() {
   const [activeDayIndex, setActiveDayIndex] = React.useState(new Date().getDay() === 0 || new Date().getDay() === 6 ? 0 : new Date().getDay() - 1);
   const [activeGender, setActiveGender] = React.useState<'Caballeros' | 'Damas'>('Caballeros');
   const [activeMenuDayIndex, setActiveMenuDayIndex] = React.useState(new Date().getDay() === 0 || new Date().getDay() === 6 ? 0 : new Date().getDay() - 1);
-  const [activeMenuType, setActiveMenuType] = React.useState<'Tradicional' | 'Saludable'>('Tradicional');
+  const [activeMenuType, setActiveMenuType] = React.useState<'Clásico' | 'Dieta' | 'Ejecutivo'>('Clásico');
   const [showShortcuts, setShowShortcuts] = React.useState(false);
   const [activeCourseId, setActiveCourseId] = React.useState(courses.find(c => c.featured)?.id || courses[0].id);
   
@@ -191,8 +191,9 @@ export default function LandingPage() {
   const vacationsImage = PlaceHolderImages.find(img => img.id === 'vacations-banner');
   const consultImage = PlaceHolderImages.find(img => img.id === 'consult-days-banner');
 
-  const getMenuImageUrl = (type: 'Tradicional' | 'Saludable', index: number) => {
-    const prefix = type === 'Tradicional' ? 'menu-t-' : 'menu-s-';
+  const getMenuImageUrl = (type: 'Clásico' | 'Dieta' | 'Ejecutivo', index: number) => {
+    const prefixMap = { 'Clásico': 'menu-c-', 'Dieta': 'menu-d-', 'Ejecutivo': 'menu-e-' };
+    const prefix = prefixMap[type];
     const id = `${prefix}${index + 1}`;
     return PlaceHolderImages.find(img => img.id === id)?.imageUrl || `https://picsum.photos/seed/${id}/600/800`;
   };
@@ -721,7 +722,7 @@ export default function LandingPage() {
             {/* Izquierda: Título y Botón */}
             <div className="space-y-4 text-left">
               <div className="space-y-0">
-                <p className="text-white/70 text-[10px] font-light tracking-tight">Sabor Seguro</p>
+                <p className="text-white/70 text-[10px] font-light tracking-tight">Menú {activeMenuType}</p>
                 <h2 className="text-white text-2xl md:text-3xl font-light tracking-tighter">Banesco Seguros</h2>
               </div>
               <Button 
@@ -743,26 +744,37 @@ export default function LandingPage() {
               
               <div className="flex gap-3">
                 <button
-                  onClick={() => setActiveMenuType('Tradicional')}
+                  onClick={() => setActiveMenuType('Clásico')}
                   className={cn(
                     "px-6 py-2 rounded-xl text-[10px] font-light transition-all duration-300 h-8",
-                    activeMenuType === 'Tradicional' 
+                    activeMenuType === 'Clásico' 
                       ? "bg-white text-[#0054A6]" 
                       : "bg-white/10 text-white/60 hover:text-white"
                   )}
                 >
-                  Tradicional
+                  Clásico
                 </button>
                 <button
-                  onClick={() => setActiveMenuType('Saludable')}
+                  onClick={() => setActiveMenuType('Dieta')}
                   className={cn(
                     "px-6 py-2 rounded-xl text-[10px] font-light transition-all duration-300 h-8",
-                    activeMenuType === 'Saludable' 
+                    activeMenuType === 'Dieta' 
                       ? "bg-white text-[#0054A6]" 
                       : "bg-white/10 text-white/60 hover:text-white"
                   )}
                 >
-                  Saludable
+                  Dieta
+                </button>
+                <button
+                  onClick={() => setActiveMenuType('Ejecutivo')}
+                  className={cn(
+                    "px-6 py-2 rounded-xl text-[10px] font-light transition-all duration-300 h-8",
+                    activeMenuType === 'Ejecutivo' 
+                      ? "bg-white text-[#0054A6]" 
+                      : "bg-white/10 text-white/60 hover:text-white"
+                  )}
+                >
+                  Ejecutivo
                 </button>
               </div>
             </div>
