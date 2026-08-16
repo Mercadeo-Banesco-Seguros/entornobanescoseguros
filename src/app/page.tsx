@@ -623,7 +623,7 @@ export default function LandingPage() {
                         <div className="space-y-2">
                           <h4 className={cn(
                             "text-xs font-light tracking-normal transition-colors",
-                            isFeatured ? "text-blue-100" : "text-slate-400"
+                            isFeatured ? "text-blue-100" : "text-slate-500"
                           )}>
                             {course.subtitle}
                           </h4>
