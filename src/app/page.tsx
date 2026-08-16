@@ -92,13 +92,6 @@ const courses = [
   },
   { 
     id: '03', 
-    title: 'Eliminar Silos', 
-    subtitle: 'Conectividad Total',
-    description: 'Rompe las barreras operativas y fomenta la colaboración interdisciplinaria.',
-    icon: LinkIcon,
-  },
-  { 
-    id: '04', 
     title: 'Escalar con Claridad', 
     subtitle: 'Escalabilidad Segura',
     description: 'Crece de manera sostenible con visión estratégica y procesos optimizados.',
@@ -300,7 +293,7 @@ export default function LandingPage() {
               <div className="w-2 h-2 rounded-full bg-white/40" />
               
               <div className="relative z-10">
-                <span className="text-7xl font-light text-white/90 tracking-tighter tabular-nums">
+                <span className="text-7xl font-extralight text-white/90 tracking-tighter transition-colors tabular-nums">
                   {activeItem.id}
                 </span>
               </div>
@@ -498,15 +491,15 @@ export default function LandingPage() {
               </div>
             </div>
           ) : (
-            <div className="relative w-full max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div className="relative w-full max-w-lg mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
               <button 
                 onClick={() => setShowShortcuts(false)}
-                className="absolute top-0 right-0 p-2 text-white/60 hover:text-white transition-colors z-20"
+                className="absolute -top-6 -right-2 p-2 text-white/60 hover:text-white transition-colors z-20"
               >
                 <X className="w-6 h-6" />
               </button>
               
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-x-2 gap-y-4 text-left pt-8 md:pt-0">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-4 text-left pt-8 md:pt-0">
                 <div className="space-y-4">
                   <h4 className="text-white font-bold text-[13px] tracking-tight">Capital Humano</h4>
                   <ul className="space-y-1.5 text-white/70 text-[9px] font-light">
@@ -556,7 +549,7 @@ export default function LandingPage() {
         {/* Cuadrícula de fondo sutil */}
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '30px 30px' }} />
         
-        <div className="container mx-auto px-16 relative z-10">
+        <div className="container mx-auto px-16 lg:px-24 relative z-10">
           {/* Cabecera de la sección */}
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-16 gap-8">
             <div className="space-y-4">
@@ -580,7 +573,7 @@ export default function LandingPage() {
           </div>
 
           {/* Grid de Cursos */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-center">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
             {courses.map((course) => {
               const Icon = course.icon;
               const isFeatured = activeCourseId === course.id;
@@ -592,8 +585,8 @@ export default function LandingPage() {
                   className={cn(
                     "relative transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] cursor-pointer group rounded-[2rem] overflow-hidden border border-white/40",
                     isFeatured 
-                      ? "lg:col-span-1 lg:h-[280px] bg-[#0054A6] shadow-2xl scale-[1.02] z-20" 
-                      : "lg:col-span-1 lg:h-[240px] bg-white/50 backdrop-blur-sm shadow-xl opacity-80 hover:opacity-100"
+                      ? "lg:h-[320px] bg-[#0054A6] shadow-2xl scale-[1.02] z-20" 
+                      : "lg:h-[280px] bg-white/50 backdrop-blur-sm shadow-xl opacity-80 hover:opacity-100"
                   )}
                 >
                   {/* Fondo de la tarjeta seleccionada */}
