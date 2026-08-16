@@ -273,7 +273,7 @@ export default function LandingPage() {
                   <span className={cn(
                     "font-light tracking-tighter transition-all duration-300",
                     activeItem.id === item.id 
-                      ? "text-black text-4xl md:text-6xl lg:text-7xl font-normal translate-x-0" 
+                      ? "text-black text-3xl md:text-5xl lg:text-6xl font-normal translate-x-0" 
                       : "text-gray-300 group-hover:text-gray-400 text-lg md:text-xl lg:text-2xl"
                   )}>
                     {item.title}
@@ -488,7 +488,7 @@ export default function LandingPage() {
               </div>
             </div>
           ) : (
-            <div className="relative w-full max-w-3xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div className="relative w-full max-w-4xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
               <div className="flex justify-end mb-6">
                 <button 
                   onClick={() => setShowShortcuts(false)}
