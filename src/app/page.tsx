@@ -582,22 +582,28 @@ export default function LandingPage() {
                     "relative transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] cursor-pointer group rounded-[2rem] overflow-hidden border border-white/40",
                     isFeatured 
                       ? "lg:h-[230px] bg-[#0054A6] shadow-2xl scale-[1.02] z-20" 
-                      : "lg:h-[210px] bg-white/50 backdrop-blur-sm shadow-xl opacity-80 hover:opacity-100"
+                      : "lg:h-[210px] bg-white shadow-xl opacity-90 hover:opacity-100"
                   )}
                 >
-                  {/* Fondo de la tarjeta seleccionada */}
-                  {isFeatured && (
-                    <div className="absolute inset-0 z-0">
-                      <Image 
-                        src="https://docs.google.com/drawings/d/e/2PACX-1vSD7pB-bTLWe5lwhcuWvZ_bEoJTiPMAIhPBRLNZSEE73sMh5-z7G33Q8KlsSBNMuh1mCuCIggL7VBZl/pub?w=960&h=720&format=png" 
-                        alt={course.title} 
-                        fill 
-                        unoptimized
-                        className="object-cover transition-transform duration-1000 group-hover:scale-105 opacity-30"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-b from-[#0054A6]/40 via-[#0054A6]/70 to-[#0054A6]" />
-                    </div>
-                  )}
+                  {/* Fondo de la tarjeta */}
+                  <div className="absolute inset-0 z-0">
+                    <Image 
+                      src="https://docs.google.com/drawings/d/e/2PACX-1vSD7pB-bTLWe5lwhcuWvZ_bEoJTiPMAIhPBRLNZSEE73sMh5-z7G33Q8KlsSBNMuh1mCuCIggL7VBZl/pub?w=960&h=720&format=png" 
+                      alt={course.title} 
+                      fill 
+                      unoptimized
+                      className={cn(
+                        "object-cover transition-all duration-1000 group-hover:scale-105",
+                        isFeatured ? "opacity-30 grayscale-0" : "opacity-20 grayscale"
+                      )}
+                    />
+                    <div className={cn(
+                        "absolute inset-0 transition-opacity duration-700",
+                        isFeatured 
+                          ? "bg-gradient-to-b from-[#0054A6]/40 via-[#0054A6]/70 to-[#0054A6] opacity-100" 
+                          : "bg-slate-900/5 opacity-40"
+                    )} />
+                  </div>
 
                   <div className="relative z-10 p-10 h-full flex flex-col justify-between">
                     <div className="space-y-8">
