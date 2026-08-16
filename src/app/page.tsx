@@ -253,9 +253,9 @@ export default function LandingPage() {
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
                   className={cn(
-                    "text-[10px] px-6 py-2 rounded-full transition-all duration-300 outline-none",
+                    "text-[10px] px-6 py-2 rounded-xl transition-all duration-300 outline-none",
                     activeCategory === cat 
-                      ? "bg-[#0054A6] text-white font-normal shadow-lg shadow-blue-900/20" 
+                      ? "bg-[#0054A6] text-white font-normal" 
                       : "bg-slate-50 text-gray-400 font-light hover:bg-slate-100 hover:text-gray-600"
                   )}
                 >
