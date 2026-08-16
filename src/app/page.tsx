@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from "react";
@@ -44,10 +43,14 @@ const pillars = [
   { id: '01', title: 'Ética', description: 'Mantenemos los más altos estándares de integridad en todas nuestras interacciones y decisiones.' },
   { id: '02', title: 'Cercanía', description: 'Estamos presentes cuando más nos necesitas, brindando un trato humano y personalizado.' },
   { id: '03', title: 'Solidez', description: 'Contamos con el respaldo y la trayectoria necesarios para garantizar tu tranquilidad a largo plazo.' },
+  { id: '04', title: 'Integridad', description: 'La coherencia entre nuestras palabras y acciones es la base fundamental de nuestra cultura organizacional.' },
 ];
 
 const mission = [
-  { id: '01', title: 'Propósito', description: 'Nuestra misión es brindar protección y seguridad a las familias venezolanas, acompañándolas en cada paso de su vida con soluciones innovadoras y confiables.' },
+  { id: '01', title: 'Propósito', description: 'Nuestra misión es brindar protección y seguridad a las familias venezolanas, acompañándolas en cada paso de su vida.' },
+  { id: '02', title: 'Visión', description: 'Ser la aseguradora líder reconocida por su innovación constante, solidez financiera y profunda cercanía humana.' },
+  { id: '03', title: 'Alcance', description: 'Expandimos nuestras soluciones para cubrir cada necesidad, garantizando respaldo en cualquier momento y lugar.' },
+  { id: '04', title: 'Compromiso', description: 'Dedicamos nuestra energía a superar los desafíos del entorno, cumpliendo nuestras promesas con excelencia y rapidez.' },
 ];
 
 const dressCodeDays = [
@@ -270,10 +273,10 @@ export default function LandingPage() {
                   <span className={cn(
                     "font-light tracking-tighter transition-all duration-300",
                     activeItem.id === item.id 
-                      ? "text-black text-2xl md:text-4xl lg:text-5xl font-normal translate-x-0" 
+                      ? "text-black text-4xl md:text-6xl lg:text-7xl font-normal translate-x-0" 
                       : "text-gray-300 group-hover:text-gray-400 text-lg md:text-xl lg:text-2xl"
                   )}>
-                    {item.title}.
+                    {item.title}
                   </span>
                 </div>
               ))}
@@ -564,7 +567,7 @@ export default function LandingPage() {
                 <span className="text-[10px] font-light text-slate-600">Academia Banesco Seguros</span>
               </div>
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight leading-[0.9] text-slate-900">
-                Hemos Generado <br /> <span className="text-[#0054A6]">Educación para ti.</span>
+                Generado <br /> <span className="text-[#0054A6]">Educación para ti.</span>
               </h2>
             </div>
             
@@ -656,4 +659,3 @@ export default function LandingPage() {
     </div>
   );
 }
-
