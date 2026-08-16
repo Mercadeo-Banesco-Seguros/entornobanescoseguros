@@ -265,16 +265,12 @@ export default function LandingPage() {
                   key={item.id}
                   onMouseEnter={() => setActiveItem(item)}
                   onClick={() => setActiveItem(item)}
-                  className="group flex items-center gap-4 cursor-pointer"
+                  className="group flex items-center cursor-pointer"
                 >
-                  <div className={cn(
-                    "w-1.5 h-1.5 rounded-full bg-black transition-all duration-300",
-                    activeItem.id === item.id ? "opacity-100 scale-110" : "opacity-0 scale-0"
-                  )} />
                   <span className={cn(
                     "font-light tracking-tighter transition-all duration-300",
                     activeItem.id === item.id 
-                      ? "text-black translate-x-2 text-xl md:text-2xl lg:text-3xl font-normal" 
+                      ? "text-black text-2xl md:text-4xl lg:text-5xl font-normal translate-x-0" 
                       : "text-gray-300 group-hover:text-gray-400 text-lg md:text-xl lg:text-2xl"
                   )}>
                     {item.title}.
@@ -660,3 +656,4 @@ export default function LandingPage() {
     </div>
   );
 }
+
