@@ -459,7 +459,7 @@ export default function LandingPage() {
       </section>
 
       {/* Sección Portal de Requerimientos */}
-      <section className="relative w-full py-32 overflow-hidden flex flex-col items-center justify-center transition-colors duration-700 bg-[#0054A6]">
+      <section className="relative w-full h-[600px] overflow-hidden flex flex-col items-center justify-center transition-colors duration-700 bg-[#0054A6]">
         {/* Fondo con formas abstractas */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full blur-[150px] bg-blue-400/20 translate-x-1/2 -translate-y-1/2" />
@@ -468,7 +468,7 @@ export default function LandingPage() {
           <div className="absolute top-0 left-1/2 w-[200px] h-[200%] bg-white/5 -rotate-45 transform origin-top" />
         </div>
 
-        <div className="container mx-auto px-6 relative z-10">
+        <div className="container mx-auto px-6 relative z-10 h-full flex items-center justify-center">
           {!showShortcuts ? (
             <div className="text-center space-y-10 animate-in fade-in duration-500">
               <h2 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-tight max-w-4xl mx-auto">
@@ -488,15 +488,17 @@ export default function LandingPage() {
               </div>
             </div>
           ) : (
-            <div className="relative w-full max-w-lg mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
-              <button 
-                onClick={() => setShowShortcuts(false)}
-                className="absolute top-2 right-2 p-2 text-white/60 hover:text-white transition-colors z-20"
-              >
-                <X className="w-6 h-6" />
-              </button>
+            <div className="relative w-full max-w-3xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <div className="flex justify-end mb-6">
+                <button 
+                  onClick={() => setShowShortcuts(false)}
+                  className="p-2 text-white/60 hover:text-white transition-colors"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
               
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-4 text-left pt-8 md:pt-0">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-x-4 gap-y-6 text-left">
                 <div className="space-y-4">
                   <h4 className="text-white font-bold text-[13px] tracking-tight">Capital Humano</h4>
                   <ul className="space-y-1.5 text-white/70 text-[9px] font-light">
@@ -533,6 +535,16 @@ export default function LandingPage() {
                     <li className="hover:text-white cursor-pointer transition-colors">Patrimonial</li>
                     <li className="hover:text-white cursor-pointer transition-colors">Automóvil</li>
                     <li className="hover:text-white cursor-pointer transition-colors">Personas</li>
+                  </ul>
+                </div>
+
+                <div className="space-y-4">
+                  <h4 className="text-white font-bold text-[13px] tracking-tight">Finanzas</h4>
+                  <ul className="space-y-1.5 text-white/70 text-[9px] font-light">
+                    <li className="hover:text-white cursor-pointer transition-colors">Pagos</li>
+                    <li className="hover:text-white cursor-pointer transition-colors">Facturación</li>
+                    <li className="hover:text-white cursor-pointer transition-colors">Anticipos</li>
+                    <li className="hover:text-white cursor-pointer transition-colors">Viáticos</li>
                   </ul>
                 </div>
               </div>
