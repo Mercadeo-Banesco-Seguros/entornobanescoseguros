@@ -569,7 +569,7 @@ export default function LandingPage() {
                 <span className="text-[10px] font-light text-slate-600">Academia Banesco Seguros</span>
               </div>
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight leading-[0.9] text-slate-900">
-                Generado <br /> <span className="text-[#0054A6]">Educación para ti</span>
+                Hemos generado <br /> <span className="text-[#0054A6]">Educación para ti</span>
               </h2>
             </div>
             
