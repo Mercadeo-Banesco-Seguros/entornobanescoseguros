@@ -247,14 +247,16 @@ export default function LandingPage() {
           
           {/* Columna Izquierda: Lista Dinámica */}
           <div className="space-y-6">
-            <div className="flex gap-8 mb-12">
+            <div className="flex flex-wrap gap-4 mb-12">
               {['Nuestros Valores', 'Nuestros Pilares', 'Nuestra Misión'].map((cat) => (
                 <button
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
                   className={cn(
-                    "text-sm font-light transition-all duration-300 tracking-tight outline-none",
-                    activeCategory === cat ? "text-black font-medium" : "text-gray-400 hover:text-gray-600"
+                    "text-[10px] px-6 py-2 rounded-full transition-all duration-300 outline-none",
+                    activeCategory === cat 
+                      ? "bg-[#0054A6] text-white font-normal shadow-lg shadow-blue-900/20" 
+                      : "bg-slate-50 text-gray-400 font-light hover:bg-slate-100 hover:text-gray-600"
                   )}
                 >
                   {cat}
@@ -271,10 +273,10 @@ export default function LandingPage() {
                   className="group flex items-center cursor-pointer"
                 >
                   <span className={cn(
-                    "font-light tracking-tighter transition-all duration-300",
+                    "tracking-tighter transition-all duration-300",
                     activeItem.id === item.id 
-                      ? "text-black text-3xl md:text-5xl lg:text-6xl font-normal translate-x-0" 
-                      : "text-gray-300 group-hover:text-gray-400 text-lg md:text-xl lg:text-2xl"
+                      ? "text-black text-4xl md:text-5xl lg:text-6xl font-normal translate-x-0" 
+                      : "text-gray-300 group-hover:text-gray-400 text-lg md:text-xl lg:text-2xl font-light"
                   )}>
                     {item.title}
                   </span>
