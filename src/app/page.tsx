@@ -549,16 +549,16 @@ export default function LandingPage() {
         {/* Cuadrícula de fondo sutil */}
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '30px 30px' }} />
         
-        <div className="container mx-auto px-8 lg:px-12 relative z-10">
+        <div className="container mx-auto px-6 lg:px-12 relative z-10">
           {/* Cabecera de la sección */}
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-16 gap-8">
             <div className="space-y-4">
               <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-slate-200/50 w-fit backdrop-blur-sm border border-slate-300/30">
                 <Share2 className="w-3 h-3 text-slate-600" />
-                <span className="text-[10px] font-medium text-slate-600 uppercase tracking-widest">Academia</span>
+                <span className="text-[10px] font-light text-slate-600">Academia Banesco Seguros</span>
               </div>
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight leading-[0.9] text-slate-900">
-                Hemos orquestado <br /> <span className="text-[#0054A6]">Inteligencia.</span>
+                Educación al alcance <br /> <span className="text-[#0054A6]">para ti.</span>
               </h2>
             </div>
             
