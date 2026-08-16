@@ -30,7 +30,7 @@ const values = [
   { 
     id: '03', 
     title: 'Calidad', 
-    description: 'Buscamos la excellence en cada proceso y servicio, ofreciendo estándares superiores de atención y respaldo que definen nuestro liderazgo en el mercado.' 
+    description: 'Buscamos la excelencia en cada proceso y servicio, ofreciendo estándares superiores de atención y respaldo que definen nuestro liderazgo en el mercado.' 
   },
   { 
     id: '04', 
@@ -78,6 +78,14 @@ const dressCodeImages = {
   ]
 };
 
+const menuDays = [
+  { id: 'lunes', day: 'Lunes', style: 'Bowl Energético' },
+  { id: 'martes', day: 'Martes', style: 'Pollo al Curry' },
+  { id: 'miercoles', day: 'Miércoles', style: 'Pasta Mediterránea' },
+  { id: 'jueves', day: 'Jueves', style: 'Salmón Grillado' },
+  { id: 'viernes', day: 'Viernes', style: 'Bowl de Proteína' },
+];
+
 const courses = [
   { 
     id: '01', 
@@ -108,6 +116,8 @@ export default function LandingPage() {
   const [activeCategory, setActiveCategory] = React.useState('Nuestros Valores');
   const [activeDayIndex, setActiveDayIndex] = React.useState(new Date().getDay() === 0 || new Date().getDay() === 6 ? 0 : new Date().getDay() - 1);
   const [activeGender, setActiveGender] = React.useState<'Caballeros' | 'Damas'>('Caballeros');
+  const [activeMenuDayIndex, setActiveMenuDayIndex] = React.useState(new Date().getDay() === 0 || new Date().getDay() === 6 ? 0 : new Date().getDay() - 1);
+  const [activeMenuType, setActiveMenuType] = React.useState<'Tradicional' | 'Saludable'>('Tradicional');
   const [showShortcuts, setShowShortcuts] = React.useState(false);
   const [activeCourseId, setActiveCourseId] = React.useState(courses.find(c => c.featured)?.id || courses[0].id);
   
@@ -176,9 +186,16 @@ export default function LandingPage() {
 
   const current = themes[timeTheme];
   const activeDay = dressCodeDays[activeDayIndex];
+  const activeMenuDay = menuDays[activeMenuDayIndex];
   
   const vacationsImage = PlaceHolderImages.find(img => img.id === 'vacations-banner');
   const consultImage = PlaceHolderImages.find(img => img.id === 'consult-days-banner');
+
+  const getMenuImageUrl = (type: 'Tradicional' | 'Saludable', index: number) => {
+    const prefix = type === 'Tradicional' ? 'menu-t-' : 'menu-s-';
+    const id = `${prefix}${index + 1}`;
+    return PlaceHolderImages.find(img => img.id === id)?.imageUrl || `https://picsum.photos/seed/${id}/600/800`;
+  };
 
   return (
     <div className="relative w-full font-sans select-none overflow-x-hidden">
@@ -396,6 +413,101 @@ export default function LandingPage() {
                   )}
                 >
                   Damas
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Sección Sabor Seguro (Menú de la Semana) */}
+      <section className="relative w-full py-12 overflow-hidden min-h-[600px] flex flex-col transition-colors duration-700 bg-[#0054A6]">
+        {/* Fondo con formas abstractas (simétricas a Viste Seguro pero rotadas o espejadas) */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] rounded-full blur-[120px] transition-colors duration-700 bg-blue-500/20" />
+          <div className="absolute bottom-1/4 -left-20 w-96 h-96 rounded-full blur-[100px] transition-colors duration-700 bg-sky-400/15" />
+          <div className="absolute top-0 right-1/3 w-[400px] h-[400px] rounded-full blur-[150px] transition-colors duration-700 bg-blue-700/10" />
+        </div>
+
+        <div className="container mx-auto px-12 md:px-24 relative z-10 flex flex-col flex-grow">
+          {/* Fila de Imágenes de Menú */}
+          <div className="flex justify-center items-end gap-1 md:gap-4 lg:gap-6 flex-grow pb-6">
+            {menuDays.map((item, index) => {
+              const currentImageUrl = getMenuImageUrl(activeMenuType, index);
+              const isActive = activeMenuDayIndex === index;
+
+              return (
+                <div 
+                  key={item.day}
+                  onMouseEnter={() => setActiveMenuDayIndex(index)}
+                  className={cn(
+                    "relative transition-all duration-500 cursor-pointer group flex flex-col items-center",
+                    isActive 
+                      ? "scale-100 z-20 translate-y-[-10px]" 
+                      : "scale-75 opacity-40 hover:opacity-100 hover:scale-100 hover:z-20"
+                  )}
+                >
+                  <div className="relative w-24 h-48 md:w-36 md:h-72 lg:w-40 lg:h-80 rounded-2xl overflow-hidden border-2 border-white/20 shadow-2xl">
+                    <Image 
+                      src={currentImageUrl} 
+                      alt={item.day} 
+                      fill 
+                      className="object-cover"
+                      data-ai-hint="delicious healthy food"
+                    />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Controles Inferiores */}
+          <div className="flex flex-col md:flex-row justify-between items-end w-full gap-8 px-4 pb-4">
+            {/* Izquierda: Título y Botón */}
+            <div className="space-y-4 text-left">
+              <div className="space-y-0">
+                <p className="text-white/70 text-[10px] font-light tracking-tight">Sabor Seguro</p>
+                <h2 className="text-white text-2xl md:text-3xl font-light tracking-tighter">Banesco Seguros</h2>
+              </div>
+              <Button 
+                variant="secondary" 
+                className="bg-white hover:bg-white/90 rounded-xl px-6 font-light text-[10px] h-8 transition-colors duration-700 text-[#0054A6] border-none"
+              >
+                Ver Menú Completo
+              </Button>
+            </div>
+
+            {/* Derecha: Info Día y Categoría */}
+            <div className="flex flex-col items-end gap-6">
+              <div className="text-right">
+                <p className="text-white/80 text-[10px] font-light uppercase tracking-widest">{activeMenuDay.day}</p>
+                <h3 className="text-white text-2xl md:text-3xl font-light tracking-tighter leading-none mt-1">
+                  {activeMenuDay.style}
+                </h3>
+              </div>
+              
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setActiveMenuType('Tradicional')}
+                  className={cn(
+                    "px-6 py-2 rounded-xl text-[10px] font-light transition-all duration-300 h-8",
+                    activeMenuType === 'Tradicional' 
+                      ? "bg-white text-[#0054A6]" 
+                      : "bg-white/10 text-white/60 hover:text-white"
+                  )}
+                >
+                  Tradicional
+                </button>
+                <button
+                  onClick={() => setActiveMenuType('Saludable')}
+                  className={cn(
+                    "px-6 py-2 rounded-xl text-[10px] font-light transition-all duration-300 h-8",
+                    activeMenuType === 'Saludable' 
+                      ? "bg-white text-[#0054A6]" 
+                      : "bg-white/10 text-white/60 hover:text-white"
+                  )}
+                >
+                  Saludable
                 </button>
               </div>
             </div>

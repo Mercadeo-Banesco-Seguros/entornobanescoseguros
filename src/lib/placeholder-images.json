@@ -65,6 +65,66 @@
       "description": "Atención al Cliente",
       "imageUrl": "https://picsum.photos/seed/course4/800/600",
       "imageHint": "customer service"
+    },
+    {
+      "id": "menu-t-1",
+      "description": "Menú Tradicional Lunes",
+      "imageUrl": "https://picsum.photos/seed/food1/600/800",
+      "imageHint": "traditional pasta"
+    },
+    {
+      "id": "menu-t-2",
+      "description": "Menú Tradicional Martes",
+      "imageUrl": "https://picsum.photos/seed/food2/600/800",
+      "imageHint": "roast chicken"
+    },
+    {
+      "id": "menu-t-3",
+      "description": "Menú Tradicional Miércoles",
+      "imageUrl": "https://picsum.photos/seed/food3/600/800",
+      "imageHint": "beef steak"
+    },
+    {
+      "id": "menu-t-4",
+      "description": "Menú Tradicional Jueves",
+      "imageUrl": "https://picsum.photos/seed/food4/600/800",
+      "imageHint": "rice beans"
+    },
+    {
+      "id": "menu-t-5",
+      "description": "Menú Tradicional Viernes",
+      "imageUrl": "https://picsum.photos/seed/food5/600/800",
+      "imageHint": "special burger"
+    },
+    {
+      "id": "menu-s-1",
+      "description": "Menú Saludable Lunes",
+      "imageUrl": "https://picsum.photos/seed/salad1/600/800",
+      "imageHint": "quinoa bowl"
+    },
+    {
+      "id": "menu-s-2",
+      "description": "Menú Saludable Martes",
+      "imageUrl": "https://picsum.photos/seed/salad2/600/800",
+      "imageHint": "green salad"
+    },
+    {
+      "id": "menu-s-3",
+      "description": "Menú Saludable Miércoles",
+      "imageUrl": "https://picsum.photos/seed/salad3/600/800",
+      "imageHint": "baked fish"
+    },
+    {
+      "id": "menu-s-4",
+      "description": "Menú Saludable Jueves",
+      "imageUrl": "https://picsum.photos/seed/salad4/600/800",
+      "imageHint": "vegetable soup"
+    },
+    {
+      "id": "menu-s-5",
+      "description": "Menú Saludable Viernes",
+      "imageUrl": "https://picsum.photos/seed/salad5/600/800",
+      "imageHint": "fruit bowl"
     }
   ]
 }
