@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from "react";
@@ -289,7 +290,7 @@ export default function LandingPage() {
           <div className="flex flex-col gap-12 max-w-lg mx-auto lg:mx-0 w-full">
             {/* Tarjeta con Gradiente */}
             <div className="relative aspect-[2/1] w-full rounded-3xl overflow-hidden bg-gradient-to-br from-blue-900 via-blue-800 to-sky-600 p-8 flex flex-col justify-between">
-              <div className="w-2 h-2 rounded-full bg-white/40" />
+              <div className="w-2 h-2" />
               
               <div className="relative z-10">
                 <span className="text-7xl font-extralight text-white/90 tracking-tighter transition-colors tabular-nums">
@@ -569,7 +570,7 @@ export default function LandingPage() {
                 <span className="text-[10px] font-light text-slate-600">Academia Banesco Seguros</span>
               </div>
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight leading-[0.9] text-slate-900">
-                Generado <br /> <span className="text-[#0054A6]">Educación para ti.</span>
+                Generado <br /> <span className="text-[#0054A6]">Educación para ti</span>
               </h2>
             </div>
             
@@ -661,3 +662,4 @@ export default function LandingPage() {
     </div>
   );
 }
+
