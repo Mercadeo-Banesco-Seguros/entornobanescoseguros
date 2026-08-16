@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from "react";
@@ -50,11 +51,11 @@ const mission = [
 ];
 
 const dressCodeDays = [
-  { id: 'lunes', day: 'Lunes', style: 'Corporativo' },
-  { id: 'martes', day: 'Martes', style: 'Corporativo' },
-  { id: 'miercoles', day: 'Miércoles', style: 'Corporativo' },
-  { id: 'jueves', day: 'Jueves', style: 'Corporativo' },
-  { id: 'viernes', day: 'Viernes', style: 'Corporativo' },
+  { id: 'lunes', day: 'Lunes', style: 'Formal de Negocios' },
+  { id: 'martes', day: 'Martes', style: 'Casual de Negocios' },
+  { id: 'miercoles', day: 'Miércoles', style: 'Ejecutivo Moderno' },
+  { id: 'jueves', day: 'Jueves', style: 'Smart Casual' },
+  { id: 'viernes', day: 'Viernes', style: 'Casual Corporativo' },
 ];
 
 const dressCodeImages = {
