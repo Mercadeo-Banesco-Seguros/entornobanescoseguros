@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from "react";
@@ -737,7 +736,7 @@ export default function LandingPage() {
               <span className="text-[10px] text-white font-light tracking-tight">Red de Salud</span>
             </div>
             <div className="absolute inset-0 p-8 flex flex-col justify-end items-start gap-3">
-              <h3 className="text-white text-2xl font-normal leading-tight">Aliados Vitales</h3>
+              <h3 className="text-white text-2xl font-bold tracking-tight leading-tight">Aliados Vitales</h3>
               <p className="text-white/70 text-[10px] font-light max-w-[200px]">Encuentra proveedores de servicios médicos en nuestra red nacional.</p>
               <button className="mt-2 px-6 py-2 rounded-xl bg-[#0054A6] text-white text-[10px] font-light hover:bg-[#0054A6]/90 transition-colors">Consultar</button>
             </div>
@@ -835,4 +834,3 @@ export default function LandingPage() {
     </div>
   );
 }
-
