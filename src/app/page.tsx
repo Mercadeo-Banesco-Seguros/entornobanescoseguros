@@ -686,7 +686,7 @@ export default function LandingPage() {
                 
                 <div className="space-y-2">
                   <p className="text-white/60 text-[10px] font-light uppercase tracking-[0.2em]">Estamos aquí para ayudarte</p>
-                  <h3 className="text-white text-4xl md:text-5xl font-black tracking-tighter leading-none uppercase">
+                  <h3 className="text-white text-4xl md:text-5xl font-bold tracking-tighter leading-none">
                     Nuestra Póliza <br /> HCM
                   </h3>
                 </div>
