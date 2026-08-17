@@ -43,6 +43,18 @@
       "imageHint": "calendar check"
     },
     {
+      "id": "protocols-banner",
+      "description": "Protocolos y Procedimientos",
+      "imageUrl": "https://picsum.photos/seed/protocols/800/800",
+      "imageHint": "office documentation"
+    },
+    {
+      "id": "hcm-allies-banner",
+      "description": "Aliados Vitales",
+      "imageUrl": "https://picsum.photos/seed/hcmallies/800/800",
+      "imageHint": "medical doctors"
+    },
+    {
       "id": "course-1",
       "description": "Gestión de Riesgos",
       "imageUrl": "https://picsum.photos/seed/course1/800/600",
@@ -67,64 +79,94 @@
       "imageHint": "customer service"
     },
     {
-      "id": "menu-t-1",
-      "description": "Menú Tradicional Lunes",
-      "imageUrl": "https://picsum.photos/seed/food1/600/800",
-      "imageHint": "traditional pasta"
+      "id": "menu-c-1",
+      "description": "Menú Clásico Lunes",
+      "imageUrl": "https://picsum.photos/seed/foodc1/600/800",
+      "imageHint": "classic pasta"
     },
     {
-      "id": "menu-t-2",
-      "description": "Menú Tradicional Martes",
-      "imageUrl": "https://picsum.photos/seed/food2/600/800",
-      "imageHint": "roast chicken"
+      "id": "menu-c-2",
+      "description": "Menú Clásico Martes",
+      "imageUrl": "https://picsum.photos/seed/foodc2/600/800",
+      "imageHint": "classic chicken"
     },
     {
-      "id": "menu-t-3",
-      "description": "Menú Tradicional Miércoles",
-      "imageUrl": "https://picsum.photos/seed/food3/600/800",
-      "imageHint": "beef steak"
+      "id": "menu-c-3",
+      "description": "Menú Clásico Miércoles",
+      "imageUrl": "https://picsum.photos/seed/foodc3/600/800",
+      "imageHint": "classic beef"
     },
     {
-      "id": "menu-t-4",
-      "description": "Menú Tradicional Jueves",
-      "imageUrl": "https://picsum.photos/seed/food4/600/800",
-      "imageHint": "rice beans"
+      "id": "menu-c-4",
+      "description": "Menú Clásico Jueves",
+      "imageUrl": "https://picsum.photos/seed/foodc4/600/800",
+      "imageHint": "classic rice"
     },
     {
-      "id": "menu-t-5",
-      "description": "Menú Tradicional Viernes",
-      "imageUrl": "https://picsum.photos/seed/food5/600/800",
-      "imageHint": "special burger"
+      "id": "menu-c-5",
+      "description": "Menú Clásico Viernes",
+      "imageUrl": "https://picsum.photos/seed/foodc5/600/800",
+      "imageHint": "classic special"
     },
     {
-      "id": "menu-s-1",
-      "description": "Menú Saludable Lunes",
-      "imageUrl": "https://picsum.photos/seed/salad1/600/800",
-      "imageHint": "quinoa bowl"
+      "id": "menu-d-1",
+      "description": "Menú Dieta Lunes",
+      "imageUrl": "https://picsum.photos/seed/foodd1/600/800",
+      "imageHint": "diet salad"
     },
     {
-      "id": "menu-s-2",
-      "description": "Menú Saludable Martes",
-      "imageUrl": "https://picsum.photos/seed/salad2/600/800",
-      "imageHint": "green salad"
+      "id": "menu-d-2",
+      "description": "Menú Dieta Martes",
+      "imageUrl": "https://picsum.photos/seed/foodd2/600/800",
+      "imageHint": "diet fish"
     },
     {
-      "id": "menu-s-3",
-      "description": "Menú Saludable Miércoles",
-      "imageUrl": "https://picsum.photos/seed/salad3/600/800",
-      "imageHint": "baked fish"
+      "id": "menu-d-3",
+      "description": "Menú Dieta Miércoles",
+      "imageUrl": "https://picsum.photos/seed/foodd3/600/800",
+      "imageHint": "diet veggie"
     },
     {
-      "id": "menu-s-4",
-      "description": "Menú Saludable Jueves",
-      "imageUrl": "https://picsum.photos/seed/salad4/600/800",
-      "imageHint": "vegetable soup"
+      "id": "menu-d-4",
+      "description": "Menú Dieta Jueves",
+      "imageUrl": "https://picsum.photos/seed/foodd4/600/800",
+      "imageHint": "diet soup"
     },
     {
-      "id": "menu-s-5",
-      "description": "Menú Saludable Viernes",
-      "imageUrl": "https://picsum.photos/seed/salad5/600/800",
-      "imageHint": "fruit bowl"
+      "id": "menu-d-5",
+      "description": "Menú Dieta Viernes",
+      "imageUrl": "https://picsum.photos/seed/foodd5/600/800",
+      "imageHint": "diet fruit"
+    },
+    {
+      "id": "menu-e-1",
+      "description": "Menú Ejecutivo Lunes",
+      "imageUrl": "https://picsum.photos/seed/foode1/600/800",
+      "imageHint": "executive steak"
+    },
+    {
+      "id": "menu-e-2",
+      "description": "Menú Ejecutivo Martes",
+      "imageUrl": "https://picsum.photos/seed/foode2/600/800",
+      "imageHint": "executive salmon"
+    },
+    {
+      "id": "menu-e-3",
+      "description": "Menú Ejecutivo Miércoles",
+      "imageUrl": "https://picsum.photos/seed/foode3/600/800",
+      "imageHint": "executive gourmet"
+    },
+    {
+      "id": "menu-e-4",
+      "description": "Menú Ejecutivo Jueves",
+      "imageUrl": "https://picsum.photos/seed/foode4/600/800",
+      "imageHint": "executive special"
+    },
+    {
+      "id": "menu-e-5",
+      "description": "Menú Ejecutivo Viernes",
+      "imageUrl": "https://picsum.photos/seed/foode5/600/800",
+      "imageHint": "executive premium"
     }
   ]
 }

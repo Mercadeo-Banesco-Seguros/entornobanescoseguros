@@ -1,7 +1,8 @@
+
 'use client';
 
 import * as React from "react";
-import { Cloud, X, Share2 } from "lucide-react";
+import { Cloud, X, Share2, FileText, HeartPulse, ShieldCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -190,6 +191,8 @@ export default function LandingPage() {
   
   const vacationsImage = PlaceHolderImages.find(img => img.id === 'vacations-banner');
   const consultImage = PlaceHolderImages.find(img => img.id === 'consult-days-banner');
+  const protocolsImage = PlaceHolderImages.find(img => img.id === 'protocols-banner');
+  const alliesImage = PlaceHolderImages.find(img => img.id === 'hcm-allies-banner');
 
   const getMenuImageUrl = (type: 'Clásico' | 'Dieta' | 'Ejecutivo', index: number) => {
     const prefixMap = { 'Clásico': 'menu-c-', 'Dieta': 'menu-d-', 'Ejecutivo': 'menu-e-' };
@@ -421,158 +424,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Sección Capital Humano - Vacaciones */}
-      <section className="bg-white py-24 px-6 md:px-12 lg:px-24">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Card 1: Planifica Vacaciones */}
-          <div className="group relative aspect-[4/3] md:aspect-[16/10] rounded-[2.5rem] overflow-hidden cursor-pointer shadow-xl transition-transform duration-500 hover:scale-[1.01]">
-            {vacationsImage && (
-              <Image 
-                src={`${vacationsImage.imageUrl}&format=png`} 
-                alt="Planifica tus Próximas Vacaciones" 
-                fill 
-                unoptimized
-                className="object-cover transition-transform duration-700 group-hover:scale-110"
-                data-ai-hint={vacationsImage.imageHint}
-              />
-            )}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-            <div className="absolute inset-0 p-10 flex flex-col justify-end items-start gap-4">
-              <span className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[10px] text-white font-light tracking-tight">
-                Capital Humano
-              </span>
-              <h3 className="text-white text-3xl md:text-4xl font-bold tracking-tighter leading-tight max-w-sm">
-                Planifica tus Próximas Vacaciones
-              </h3>
-              <button className="mt-2 px-8 py-2.5 rounded-xl bg-white/20 backdrop-blur-lg border border-white/20 text-white text-[11px] font-light hover:bg-white/30 transition-colors">
-                Gestionar
-              </button>
-            </div>
-          </div>
-
-          {/* Card 2: Consultar Días Disponibles */}
-          <div className="group relative aspect-[4/3] md:aspect-[16/10] rounded-[2.5rem] overflow-hidden cursor-pointer shadow-xl transition-transform duration-500 hover:scale-[1.01]">
-            {consultImage && (
-              <Image 
-                src={`${consultImage.imageUrl}&format=png`} 
-                alt="Consultar Días Disponibles" 
-                fill 
-                unoptimized
-                className="object-cover transition-transform duration-700 group-hover:scale-110"
-                data-ai-hint={consultImage.imageHint}
-              />
-            )}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-            <div className="absolute inset-0 p-10 flex flex-col justify-end items-start gap-4">
-              <span className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[10px] text-white font-light tracking-tight">
-                Capital Humano
-              </span>
-              <h3 className="text-white text-3xl md:text-4xl font-bold tracking-tighter leading-tight max-w-sm">
-                Consultar Días Disponibles
-              </h3>
-              <button className="mt-2 px-8 py-2.5 rounded-xl bg-white/20 backdrop-blur-lg border border-white/20 text-white text-[11px] font-light hover:bg-white/30 transition-colors">
-                Consultar
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Sección Portal de Requerimientos */}
-      <section className="relative w-full h-[600px] overflow-hidden flex flex-col items-center justify-center transition-colors duration-700 bg-[#0054A6]">
-        {/* Fondo con formas abstractas */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full blur-[150px] bg-blue-400/20 translate-x-1/2 -translate-y-1/2" />
-          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full blur-[150px] bg-blue-300/10 -translate-x-1/4 translate-y-1/4" />
-          <div className="absolute top-0 left-1/4 w-[2px] h-[200%] bg-white/5 -rotate-45 transform origin-top" />
-          <div className="absolute top-0 left-1/2 w-[200px] h-[200%] bg-white/5 -rotate-45 transform origin-top" />
-        </div>
-
-        <div className="container mx-auto px-6 relative z-10 h-full flex items-center justify-center">
-          {!showShortcuts ? (
-            <div className="text-center space-y-10 animate-in fade-in duration-500">
-              <h2 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-tight max-w-4xl mx-auto">
-                Visita nuestro <br /> Portal de Requerimientos
-              </h2>
-              
-              <div className="flex justify-center gap-4">
-                <button className="px-10 py-3 rounded-xl bg-white text-[#0054A6] text-[10px] font-light hover:bg-white/90 transition-colors">
-                  Acceder
-                </button>
-                <button 
-                  onClick={() => setShowShortcuts(true)}
-                  className="px-10 py-3 rounded-xl bg-transparent border border-white/40 text-white text-[10px] font-light hover:bg-white/10 transition-colors"
-                >
-                  Atajos
-                </button>
-              </div>
-            </div>
-          ) : (
-            <div className="relative w-full max-w-4xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
-              <div className="flex justify-end mb-6">
-                <button 
-                  onClick={() => setShowShortcuts(false)}
-                  className="p-2 text-white/60 hover:text-white transition-colors"
-                >
-                  <X className="w-6 h-6" />
-                </button>
-              </div>
-              
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-x-4 gap-y-6 text-left">
-                <div className="space-y-4">
-                  <h4 className="text-white font-bold text-[13px] tracking-tight">Capital Humano</h4>
-                  <ul className="space-y-1.5 text-white/70 text-[9px] font-light">
-                    <li className="hover:text-white cursor-pointer transition-colors">Vacaciones</li>
-                    <li className="hover:text-white cursor-pointer transition-colors">Carta de Trabajo</li>
-                    <li className="hover:text-white cursor-pointer transition-colors">Inquietudes</li>
-                    <li className="hover:text-white cursor-pointer transition-colors">Solicitudes</li>
-                  </ul>
-                </div>
-
-                <div className="space-y-4">
-                  <h4 className="text-white font-bold text-[13px] tracking-tight">Comercial</h4>
-                  <ul className="space-y-1.5 text-white/70 text-[9px] font-light">
-                    <li className="hover:text-white cursor-pointer transition-colors">Sistemática Comercial</li>
-                    <li className="hover:text-white cursor-pointer transition-colors">Mercadeo</li>
-                    <li className="hover:text-white cursor-pointer transition-colors">Comunicaciones</li>
-                  </ul>
-                </div>
-
-                <div className="space-y-4">
-                  <h4 className="text-white font-bold text-[13px] tracking-tight">Tecnología</h4>
-                  <ul className="space-y-1.5 text-white/70 text-[9px] font-light">
-                    <li className="hover:text-white cursor-pointer transition-colors">Seguridad</li>
-                    <li className="hover:text-white cursor-pointer transition-colors">Actualizaciones</li>
-                    <li className="hover:text-white cursor-pointer transition-colors">Solicitudes</li>
-                    <li className="hover:text-white cursor-pointer transition-colors">Problemas</li>
-                  </ul>
-                </div>
-
-                <div className="space-y-4">
-                  <h4 className="text-white font-bold text-[13px] tracking-tight">Suscripción</h4>
-                  <ul className="space-y-1.5 text-white/70 text-[9px] font-light">
-                    <li className="hover:text-white cursor-pointer transition-colors">Salud</li>
-                    <li className="hover:text-white cursor-pointer transition-colors">Patrimonial</li>
-                    <li className="hover:text-white cursor-pointer transition-colors">Automóvil</li>
-                    <li className="hover:text-white cursor-pointer transition-colors">Personas</li>
-                  </ul>
-                </div>
-
-                <div className="space-y-4">
-                  <h4 className="text-white font-bold text-[13px] tracking-tight">Finanzas</h4>
-                  <ul className="space-y-1.5 text-white/70 text-[9px] font-light">
-                    <li className="hover:text-white cursor-pointer transition-colors">Pagos</li>
-                    <li className="hover:text-white cursor-pointer transition-colors">Facturación</li>
-                    <li className="hover:text-white cursor-pointer transition-colors">Anticipos</li>
-                    <li className="hover:text-white cursor-pointer transition-colors">Viáticos</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      </section>
-
       {/* Sección Nuestros Cursos */}
       <section className="relative w-full py-24 bg-[#F8FAFC] overflow-hidden">
         {/* Cuadrícula de fondo sutil */}
@@ -779,6 +630,265 @@ export default function LandingPage() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Sección Nuestra Póliza HCM */}
+      <section className="bg-white py-24 px-6 md:px-12 lg:px-24">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          {/* Card 1: Protocolos y Procedimientos */}
+          <div className="group relative aspect-square rounded-3xl overflow-hidden cursor-pointer shadow-lg">
+            {protocolsImage && (
+              <Image 
+                src={protocolsImage.imageUrl} 
+                alt="Protocolos y Procedimientos" 
+                fill 
+                className="object-cover transition-transform duration-700 group-hover:scale-110"
+                data-ai-hint={protocolsImage.imageHint}
+              />
+            )}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+            
+            {/* Badges y Iconos */}
+            <div className="absolute top-6 left-6 flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
+              <FileText className="w-3 h-3 text-white" />
+              <span className="text-[10px] text-white font-light tracking-tight">Documentación</span>
+            </div>
+            <div className="absolute top-6 right-6 p-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
+              <FileText className="w-3 h-3 text-white" />
+            </div>
+
+            <div className="absolute inset-0 p-8 flex flex-col justify-end items-start gap-3">
+              <h3 className="text-white text-2xl font-bold tracking-tight leading-tight">
+                Protocolos y Procedimientos
+              </h3>
+              <p className="text-white/70 text-[10px] font-light max-w-[200px]">
+                Guías detalladas para la gestión de siniestros y solicitudes.
+              </p>
+              <button className="mt-2 px-6 py-2 rounded-xl bg-[#0054A6] text-white text-[10px] font-light hover:bg-[#0054A6]/90 transition-colors">
+                Consultar
+              </button>
+            </div>
+          </div>
+
+          {/* Card 2: Central Nuestra Póliza HCM */}
+          <div className="relative aspect-square rounded-3xl overflow-hidden bg-[#003B73] flex flex-col items-center justify-center p-8 text-center shadow-xl">
+             <div className="absolute inset-0 pointer-events-none opacity-10">
+                <div className="absolute top-0 right-0 w-48 h-48 rounded-full bg-blue-400 blur-3xl -translate-y-1/2 translate-x-1/2" />
+                <div className="absolute bottom-0 left-0 w-48 h-48 rounded-full bg-blue-300 blur-3xl translate-y-1/2 -translate-x-1/2" />
+             </div>
+             
+             <div className="relative z-10 flex flex-col items-center gap-6">
+                <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center border border-white/20">
+                  <ShieldCheck className="w-8 h-8 text-white" />
+                </div>
+                
+                <div className="space-y-2">
+                  <p className="text-white/60 text-[10px] font-light uppercase tracking-[0.2em]">Estamos aquí para ayudarte</p>
+                  <h3 className="text-white text-4xl md:text-5xl font-black tracking-tighter leading-none uppercase">
+                    Nuestra Póliza <br /> HCM
+                  </h3>
+                </div>
+
+                <div className="flex gap-4 w-full justify-center">
+                  <button className="px-8 py-2.5 rounded-xl bg-white text-[#003B73] text-[10px] font-bold hover:bg-white/90 transition-colors w-24">
+                    Acceder
+                  </button>
+                  <button className="px-8 py-2.5 rounded-xl bg-transparent border border-white/30 text-white text-[10px] font-light hover:bg-white/10 transition-colors w-24">
+                    Contacto
+                  </button>
+                </div>
+             </div>
+          </div>
+
+          {/* Card 3: Aliados Vitales */}
+          <div className="group relative aspect-square rounded-3xl overflow-hidden cursor-pointer shadow-lg">
+            {alliesImage && (
+              <Image 
+                src={alliesImage.imageUrl} 
+                alt="Aliados Vitales" 
+                fill 
+                className="object-cover transition-transform duration-700 group-hover:scale-110"
+                data-ai-hint={alliesImage.imageHint}
+              />
+            )}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+
+             {/* Badges y Iconos */}
+            <div className="absolute top-6 left-6 flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
+              <HeartPulse className="w-3 h-3 text-white" />
+              <span className="text-[10px] text-white font-light tracking-tight">Red de Salud</span>
+            </div>
+            <div className="absolute top-6 right-6 p-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
+              <Share2 className="w-3 h-3 text-white rotate-90" />
+            </div>
+
+            <div className="absolute inset-0 p-8 flex flex-col justify-end items-start gap-3">
+              <h3 className="text-white text-2xl font-bold tracking-tight leading-tight">
+                ALIADOS VITALES
+              </h3>
+              <p className="text-white/70 text-[10px] font-light max-w-[200px]">
+                Encuentra proveedores de servicios médicos en nuestra red nacional.
+              </p>
+              <button className="mt-2 px-6 py-2 rounded-xl bg-[#0054A6] text-white text-[10px] font-light hover:bg-[#0054A6]/90 transition-colors">
+                Consultar
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* Sección Capital Humano - Vacaciones */}
+      <section className="bg-white py-24 px-6 md:px-12 lg:px-24">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Card 1: Planifica Vacaciones */}
+          <div className="group relative aspect-[4/3] md:aspect-[16/10] rounded-[2.5rem] overflow-hidden cursor-pointer shadow-xl transition-transform duration-500 hover:scale-[1.01]">
+            {vacationsImage && (
+              <Image 
+                src={`${vacationsImage.imageUrl}&format=png`} 
+                alt="Planifica tus Próximas Vacaciones" 
+                fill 
+                unoptimized
+                className="object-cover transition-transform duration-700 group-hover:scale-110"
+                data-ai-hint={vacationsImage.imageHint}
+              />
+            )}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+            <div className="absolute inset-0 p-10 flex flex-col justify-end items-start gap-4">
+              <span className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[10px] text-white font-light tracking-tight">
+                Capital Humano
+              </span>
+              <h3 className="text-white text-3xl md:text-4xl font-bold tracking-tighter leading-tight max-w-sm">
+                Planifica tus Próximas Vacaciones
+              </h3>
+              <button className="mt-2 px-8 py-2.5 rounded-xl bg-white/20 backdrop-blur-lg border border-white/20 text-white text-[11px] font-light hover:bg-white/30 transition-colors">
+                Gestionar
+              </button>
+            </div>
+          </div>
+
+          {/* Card 2: Consultar Días Disponibles */}
+          <div className="group relative aspect-[4/3] md:aspect-[16/10] rounded-[2.5rem] overflow-hidden cursor-pointer shadow-xl transition-transform duration-500 hover:scale-[1.01]">
+            {consultImage && (
+              <Image 
+                src={`${consultImage.imageUrl}&format=png`} 
+                alt="Consultar Días Disponibles" 
+                fill 
+                unoptimized
+                className="object-cover transition-transform duration-700 group-hover:scale-110"
+                data-ai-hint={consultImage.imageHint}
+              />
+            )}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+            <div className="absolute inset-0 p-10 flex flex-col justify-end items-start gap-4">
+              <span className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[10px] text-white font-light tracking-tight">
+                Capital Humano
+              </span>
+              <h3 className="text-white text-3xl md:text-4xl font-bold tracking-tighter leading-tight max-w-sm">
+                Consultar Días Disponibles
+              </h3>
+              <button className="mt-2 px-8 py-2.5 rounded-xl bg-white/20 backdrop-blur-lg border border-white/20 text-white text-[11px] font-light hover:bg-white/30 transition-colors">
+                Consultar
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Sección Portal de Requerimientos */}
+      <section className="relative w-full h-[600px] overflow-hidden flex flex-col items-center justify-center transition-colors duration-700 bg-[#0054A6]">
+        {/* Fondo con formas abstractas */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full blur-[150px] bg-blue-400/20 translate-x-1/2 -translate-y-1/2" />
+          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full blur-[150px] bg-blue-300/10 -translate-x-1/4 translate-y-1/4" />
+          <div className="absolute top-0 left-1/4 w-[2px] h-[200%] bg-white/5 -rotate-45 transform origin-top" />
+          <div className="absolute top-0 left-1/2 w-[200px] h-[200%] bg-white/5 -rotate-45 transform origin-top" />
+        </div>
+
+        <div className="container mx-auto px-6 relative z-10 h-full flex items-center justify-center">
+          {!showShortcuts ? (
+            <div className="text-center space-y-10 animate-in fade-in duration-500">
+              <h2 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-tight max-w-4xl mx-auto">
+                Visita nuestro <br /> Portal de Requerimientos
+              </h2>
+              
+              <div className="flex justify-center gap-4">
+                <button className="px-10 py-3 rounded-xl bg-white text-[#0054A6] text-[10px] font-light hover:bg-white/90 transition-colors">
+                  Acceder
+                </button>
+                <button 
+                  onClick={() => setShowShortcuts(true)}
+                  className="px-10 py-3 rounded-xl bg-transparent border border-white/40 text-white text-[10px] font-light hover:bg-white/10 transition-colors"
+                >
+                  Atajos
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="relative w-full max-w-4xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
+              <div className="flex justify-end mb-6">
+                <button 
+                  onClick={() => setShowShortcuts(false)}
+                  className="p-2 text-white/60 hover:text-white transition-colors"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+              
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-x-4 gap-y-6 text-left">
+                <div className="space-y-4">
+                  <h4 className="text-white font-bold text-[13px] tracking-tight">Capital Humano</h4>
+                  <ul className="space-y-1.5 text-white/70 text-[9px] font-light">
+                    <li className="hover:text-white cursor-pointer transition-colors">Vacaciones</li>
+                    <li className="hover:text-white cursor-pointer transition-colors">Carta de Trabajo</li>
+                    <li className="hover:text-white cursor-pointer transition-colors">Inquietudes</li>
+                    <li className="hover:text-white cursor-pointer transition-colors">Solicitudes</li>
+                  </ul>
+                </div>
+
+                <div className="space-y-4">
+                  <h4 className="text-white font-bold text-[13px] tracking-tight">Comercial</h4>
+                  <ul className="space-y-1.5 text-white/70 text-[9px] font-light">
+                    <li className="hover:text-white cursor-pointer transition-colors">Sistemática Comercial</li>
+                    <li className="hover:text-white cursor-pointer transition-colors">Mercadeo</li>
+                    <li className="hover:text-white cursor-pointer transition-colors">Comunicaciones</li>
+                  </ul>
+                </div>
+
+                <div className="space-y-4">
+                  <h4 className="text-white font-bold text-[13px] tracking-tight">Tecnología</h4>
+                  <ul className="space-y-1.5 text-white/70 text-[9px] font-light">
+                    <li className="hover:text-white cursor-pointer transition-colors">Seguridad</li>
+                    <li className="hover:text-white cursor-pointer transition-colors">Actualizaciones</li>
+                    <li className="hover:text-white cursor-pointer transition-colors">Solicitudes</li>
+                    <li className="hover:text-white cursor-pointer transition-colors">Problemas</li>
+                  </ul>
+                </div>
+
+                <div className="space-y-4">
+                  <h4 className="text-white font-bold text-[13px] tracking-tight">Suscripción</h4>
+                  <ul className="space-y-1.5 text-white/70 text-[9px] font-light">
+                    <li className="hover:text-white cursor-pointer transition-colors">Salud</li>
+                    <li className="hover:text-white cursor-pointer transition-colors">Patrimonial</li>
+                    <li className="hover:text-white cursor-pointer transition-colors">Automóvil</li>
+                    <li className="hover:text-white cursor-pointer transition-colors">Personas</li>
+                  </ul>
+                </div>
+
+                <div className="space-y-4">
+                  <h4 className="text-white font-bold text-[13px] tracking-tight">Finanzas</h4>
+                  <ul className="space-y-1.5 text-white/70 text-[9px] font-light">
+                    <li className="hover:text-white cursor-pointer transition-colors">Pagos</li>
+                    <li className="hover:text-white cursor-pointer transition-colors">Facturación</li>
+                    <li className="hover:text-white cursor-pointer transition-colors">Anticipos</li>
+                    <li className="hover:text-white cursor-pointer transition-colors">Viáticos</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 
