@@ -663,7 +663,7 @@ export default function LandingPage() {
           <div className="group relative aspect-square rounded-3xl overflow-hidden cursor-pointer shadow-lg">
             {protocolsImage && (
               <Image 
-                src={`${protocolsImage.imageUrl}&format=png`} 
+                src={protocolsImage.imageUrl} 
                 alt="Protocolos y Procedimientos" 
                 fill 
                 unoptimized
@@ -692,12 +692,12 @@ export default function LandingPage() {
                   <ShieldCheck className="w-8 h-8 text-white" />
                 </div>
                 <div className="space-y-2">
-                  <p className="text-white/60 text-[10px] font-light uppercase tracking-[0.2em]">Estamos aquí para ayudarte</p>
+                  <p className="text-white/60 text-[10px] font-light tracking-tight">Estamos aquí para ayudarte</p>
                   <h3 className="text-white text-4xl md:text-5xl font-bold tracking-tighter leading-none">Nuestra Póliza <br /> HCM</h3>
                 </div>
                 <div className="flex gap-4 w-full justify-center">
-                  <button className="px-8 py-2.5 rounded-xl bg-white text-[#003B73] text-[10px] font-bold hover:bg-white/90 transition-colors w-24">Acceder</button>
-                  <button className="px-8 py-2.5 rounded-xl bg-transparent border border-white/30 text-white text-[10px] font-light hover:bg-white/10 transition-colors w-24">Contacto</button>
+                  <button className="px-8 py-2.5 rounded-xl bg-white text-[#003B73] text-[10px] font-light hover:bg-white/90 transition-colors w-24 flex items-center justify-center">Acceder</button>
+                  <button className="px-8 py-2.5 rounded-xl bg-transparent border border-white/30 text-white text-[10px] font-light hover:bg-white/10 transition-colors w-24 flex items-center justify-center">Contacto</button>
                 </div>
              </div>
           </div>
@@ -705,7 +705,7 @@ export default function LandingPage() {
           <div className="group relative aspect-square rounded-3xl overflow-hidden cursor-pointer shadow-lg">
             {alliesImage && (
               <Image 
-                src={`${alliesImage.imageUrl}&format=png`} 
+                src={alliesImage.imageUrl} 
                 alt="Aliados Vitales" 
                 fill 
                 unoptimized
