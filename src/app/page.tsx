@@ -204,12 +204,9 @@ export default function LandingPage() {
   return (
     <div className="relative w-full font-sans select-none overflow-x-hidden">
       
-      {/* Sección Hero */}
+      {/* Hero Section */}
       <section className="relative h-screen w-full overflow-hidden">
-        {/* Fondo Dinámico */}
         <div className={cn("absolute inset-0 transition-all duration-[3000ms] ease-in-out -z-30", current.gradient)} />
-
-        {/* Capa de Nubes Animadas */}
         <div className="absolute inset-x-0 bottom-0 h-2/3 overflow-hidden pointer-events-none -z-20">
           {clouds.map((cloud, i) => (
             <div 
@@ -262,11 +259,9 @@ export default function LandingPage() {
         <div className={cn("absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t to-transparent pointer-events-none -z-10 transition-all duration-[3000ms]", current.bottomGradient)} />
       </section>
 
-      {/* Sección Nuestros Valores / Pilares / Misión */}
+      {/* Section Valores / Pilares / Misión */}
       <section className="bg-white py-32 px-6 md:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-          
-          {/* Columna Izquierda: Lista Dinámica */}
           <div className="space-y-6">
             <div className="flex flex-wrap gap-4 mb-12">
               {['Nuestros Valores', 'Nuestros Pilares', 'Nuestra Misión'].map((cat) => (
@@ -296,7 +291,7 @@ export default function LandingPage() {
                   <span className={cn(
                     "tracking-tighter transition-all duration-300",
                     activeItem.id === item.id 
-                      ? "text-black text-4xl md:text-5xl lg:text-6xl font-normal translate-x-0" 
+                      ? "text-black text-3xl md:text-5xl lg:text-6xl font-normal translate-x-0" 
                       : "text-gray-300 group-hover:text-gray-400 text-lg md:text-xl lg:text-2xl font-light"
                   )}>
                     {item.title}
@@ -306,33 +301,26 @@ export default function LandingPage() {
             </div>
           </div>
 
-          {/* Columna Derecha: Tarjeta Visual y Descripción */}
           <div className="flex flex-col gap-12 max-w-lg mx-auto lg:mx-0 w-full">
-            {/* Tarjeta con Gradiente */}
             <div className="relative aspect-[2/1] w-full rounded-3xl overflow-hidden bg-gradient-to-br from-blue-900 via-blue-800 to-sky-600 p-8 flex flex-col justify-between">
               <div className="w-2 h-2" />
-              
               <div className="relative z-10">
                 <span className="text-7xl font-extralight text-white/90 tracking-tighter transition-colors tabular-nums">
                   {activeItem.id}
                 </span>
               </div>
             </div>
-
-            {/* Descripción Dinámica */}
             <div className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-500" key={activeItem.id}>
               <p className="text-sm text-gray-500 leading-relaxed font-light">
                 {activeItem.description}
               </p>
             </div>
           </div>
-
         </div>
       </section>
 
-      {/* Sección Viste Seguro */}
+      {/* Viste Seguro Section */}
       <section className="relative w-full py-12 overflow-hidden min-h-[600px] flex flex-col transition-colors duration-700 bg-[#0054A6]">
-        {/* Fondo con formas abstractas */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full blur-[120px] transition-colors duration-700 bg-blue-500/20" />
           <div className="absolute top-1/4 -right-20 w-96 h-96 rounded-full blur-[100px] transition-colors duration-700 bg-sky-400/15" />
@@ -340,7 +328,6 @@ export default function LandingPage() {
         </div>
 
         <div className="container mx-auto px-12 md:px-24 relative z-10 flex flex-col flex-grow">
-          {/* Fila de Avatares */}
           <div className="flex justify-center items-end gap-1 md:gap-4 lg:gap-6 flex-grow pb-6">
             {dressCodeDays.map((item, index) => {
               const currentImageUrl = dressCodeImages[activeGender][index];
@@ -370,9 +357,7 @@ export default function LandingPage() {
             })}
           </div>
 
-          {/* Controles Inferiores */}
           <div className="flex flex-col md:flex-row justify-between items-end w-full gap-8 px-4 pb-4">
-            {/* Izquierda: Título y Botón */}
             <div className="space-y-4 text-left">
               <div className="space-y-0">
                 <p className="text-white/70 text-[10px] font-light tracking-tight">Viste Seguro</p>
@@ -386,7 +371,6 @@ export default function LandingPage() {
               </Button>
             </div>
 
-            {/* Derecha: Info Día y Género */}
             <div className="flex flex-col items-end gap-6">
               <div className="text-right">
                 <p className="text-white/80 text-[10px] font-light uppercase tracking-widest">{activeDay.day}</p>
@@ -394,43 +378,31 @@ export default function LandingPage() {
                   {activeDay.style}
                 </h3>
               </div>
-              
               <div className="flex gap-3">
-                <button
-                  onClick={() => setActiveGender('Caballeros')}
-                  className={cn(
-                    "px-6 py-2 rounded-xl text-[10px] font-light transition-all duration-300 h-8",
-                    activeGender === 'Caballeros' 
-                      ? "bg-white text-[#0054A6]" 
-                      : "bg-white/10 text-white/60 hover:text-white"
-                  )}
-                >
-                  Caballeros
-                </button>
-                <button
-                  onClick={() => setActiveGender('Damas')}
-                  className={cn(
-                    "px-6 py-2 rounded-xl text-[10px] font-light transition-all duration-300 h-8",
-                    activeGender === 'Damas' 
-                      ? "bg-white text-[#0054A6]" 
-                      : "bg-white/10 text-white/60 hover:text-white"
-                  )}
-                >
-                  Damas
-                </button>
+                {['Caballeros', 'Damas'].map((gender) => (
+                  <button
+                    key={gender}
+                    onClick={() => setActiveGender(gender as 'Caballeros' | 'Damas')}
+                    className={cn(
+                      "px-6 py-2 rounded-xl text-[10px] font-light transition-all duration-300 h-8",
+                      activeGender === gender 
+                        ? "bg-white text-[#0054A6]" 
+                        : "bg-white/10 text-white/60 hover:text-white"
+                    )}
+                  >
+                    {gender}
+                  </button>
+                ))}
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Sección Nuestros Cursos */}
+      {/* Nuestros Cursos Section */}
       <section className="relative w-full py-24 bg-[#F8FAFC] overflow-hidden">
-        {/* Cuadrícula de fondo sutil */}
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '30px 30px' }} />
-        
         <div className="container mx-auto px-6 lg:px-8 relative z-10">
-          {/* Cabecera de la sección */}
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-16 gap-8">
             <div className="space-y-4">
               <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-slate-200/50 w-fit backdrop-blur-sm border border-slate-300/30">
@@ -441,7 +413,6 @@ export default function LandingPage() {
                 Hemos generado <br /> <span className="text-[#0054A6]">Educación para ti</span>
               </h2>
             </div>
-            
             <div className="max-w-md space-y-6">
               <p className="text-[10px] font-light leading-relaxed text-slate-500">
                 Nuestros cursos traen claridad, no complejidad - uniendo cada concepto en un sistema adaptativo que aprende, actúa y evoluciona en tu carrera profesional.
@@ -452,11 +423,9 @@ export default function LandingPage() {
             </div>
           </div>
 
-          {/* Grid de Cursos */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
             {courses.map((course) => {
               const isFeatured = activeCourseId === course.id;
-
               return (
                 <div 
                   key={course.id}
@@ -468,7 +437,6 @@ export default function LandingPage() {
                       : "lg:h-[210px] bg-white shadow-xl opacity-90 hover:opacity-100"
                   )}
                 >
-                  {/* Fondo de la tarjeta */}
                   <div className="absolute inset-0 z-0">
                     <Image 
                       src="https://docs.google.com/drawings/d/e/2PACX-1vSD7pB-bTLWe5lwhcuWvZ_bEoJTiPMAIhPBRLNZSEE73sMh5-z7G33Q8KlsSBNMuh1mCuCIggL7VBZl/pub?w=960&h=720&format=png" 
@@ -527,9 +495,8 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Sección Sabor Seguro (Menú de la Semana) */}
+      {/* Sabor Seguro (Menú) Section */}
       <section className="relative w-full py-12 overflow-hidden min-h-[600px] flex flex-col transition-colors duration-700 bg-[#0054A6]">
-        {/* Fondo con formas abstractas */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] rounded-full blur-[120px] transition-colors duration-700 bg-blue-500/20" />
           <div className="absolute bottom-1/4 -left-20 w-96 h-96 rounded-full blur-[100px] transition-colors duration-700 bg-sky-400/15" />
@@ -537,7 +504,6 @@ export default function LandingPage() {
         </div>
 
         <div className="container mx-auto px-12 md:px-24 relative z-10 flex flex-col flex-grow">
-          {/* Fila de Imágenes de Menú */}
           <div className="flex justify-center items-end gap-1 md:gap-4 lg:gap-6 flex-grow pb-6">
             {menuDays.map((item, index) => {
               const currentImageUrl = getMenuImageUrl(activeMenuType, index);
@@ -560,7 +526,6 @@ export default function LandingPage() {
                       alt={item.day} 
                       fill 
                       className="object-cover"
-                      data-ai-hint="delicious healthy food"
                     />
                   </div>
                 </div>
@@ -568,9 +533,7 @@ export default function LandingPage() {
             })}
           </div>
 
-          {/* Controles Inferiores */}
           <div className="flex flex-col md:flex-row justify-between items-end w-full gap-8 px-4 pb-4">
-            {/* Izquierda: Título y Botón */}
             <div className="space-y-4 text-left">
               <div className="space-y-0">
                 <p className="text-white/70 text-[10px] font-light tracking-tight">Menú {activeMenuType}</p>
@@ -584,7 +547,6 @@ export default function LandingPage() {
               </Button>
             </div>
 
-            {/* Derecha: Info Día y Categoría */}
             <div className="flex flex-col items-end gap-6">
               <div className="text-right">
                 <p className="text-white/80 text-[10px] font-light uppercase tracking-widest">{activeMenuDay.day}</p>
@@ -592,52 +554,30 @@ export default function LandingPage() {
                   {activeMenuDay.style}
                 </h3>
               </div>
-              
               <div className="flex gap-3">
-                <button
-                  onClick={() => setActiveMenuType('Clásico')}
-                  className={cn(
-                    "px-6 py-2 rounded-xl text-[10px] font-light transition-all duration-300 h-8",
-                    activeMenuType === 'Clásico' 
-                      ? "bg-white text-[#0054A6]" 
-                      : "bg-white/10 text-white/60 hover:text-white"
-                  )}
-                >
-                  Clásico
-                </button>
-                <button
-                  onClick={() => setActiveMenuType('Dieta')}
-                  className={cn(
-                    "px-6 py-2 rounded-xl text-[10px] font-light transition-all duration-300 h-8",
-                    activeMenuType === 'Dieta' 
-                      ? "bg-white text-[#0054A6]" 
-                      : "bg-white/10 text-white/60 hover:text-white"
-                  )}
-                >
-                  Dieta
-                </button>
-                <button
-                  onClick={() => setActiveMenuType('Ejecutivo')}
-                  className={cn(
-                    "px-6 py-2 rounded-xl text-[10px] font-light transition-all duration-300 h-8",
-                    activeMenuType === 'Ejecutivo' 
-                      ? "bg-white text-[#0054A6]" 
-                      : "bg-white/10 text-white/60 hover:text-white"
-                  )}
-                >
-                  Ejecutivo
-                </button>
+                {['Clásico', 'Dieta', 'Ejecutivo'].map((type) => (
+                  <button
+                    key={type}
+                    onClick={() => setActiveMenuType(type as 'Clásico' | 'Dieta' | 'Ejecutivo')}
+                    className={cn(
+                      "px-6 py-2 rounded-xl text-[10px] font-light transition-all duration-300 h-8",
+                      activeMenuType === type 
+                        ? "bg-white text-[#0054A6]" 
+                        : "bg-white/10 text-white/60 hover:text-white"
+                    )}
+                  >
+                    {type}
+                  </button>
+                ))}
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Sección Nuestra Póliza HCM */}
+      {/* Nuestra Póliza HCM Section */}
       <section className="bg-white py-24 px-6 md:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
-          
-          {/* Card 1: Protocolos y Procedimientos */}
           <div className="group relative aspect-square rounded-3xl overflow-hidden cursor-pointer shadow-lg">
             {protocolsImage && (
               <Image 
@@ -645,64 +585,40 @@ export default function LandingPage() {
                 alt="Protocolos y Procedimientos" 
                 fill 
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
-                data-ai-hint={protocolsImage.imageHint}
               />
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-            
-            {/* Badges y Iconos */}
             <div className="absolute top-6 left-6 flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
               <FileText className="w-3 h-3 text-white" />
               <span className="text-[10px] text-white font-light tracking-tight">Documentación</span>
             </div>
-            <div className="absolute top-6 right-6 p-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
-              <FileText className="w-3 h-3 text-white" />
-            </div>
-
             <div className="absolute inset-0 p-8 flex flex-col justify-end items-start gap-3">
-              <h3 className="text-white text-2xl font-bold tracking-tight leading-tight">
-                Protocolos y Procedimientos
-              </h3>
-              <p className="text-white/70 text-[10px] font-light max-w-[200px]">
-                Guías detalladas para la gestión de siniestros y solicitudes.
-              </p>
-              <button className="mt-2 px-6 py-2 rounded-xl bg-[#0054A6] text-white text-[10px] font-light hover:bg-[#0054A6]/90 transition-colors">
-                Consultar
-              </button>
+              <h3 className="text-white text-2xl font-bold tracking-tight leading-tight">Protocolos y Procedimientos</h3>
+              <p className="text-white/70 text-[10px] font-light max-w-[200px]">Guías detalladas para la gestión de siniestros y solicitudes.</p>
+              <button className="mt-2 px-6 py-2 rounded-xl bg-[#0054A6] text-white text-[10px] font-light hover:bg-[#0054A6]/90 transition-colors">Consultar</button>
             </div>
           </div>
 
-          {/* Card 2: Central Nuestra Póliza HCM */}
           <div className="relative aspect-square rounded-3xl overflow-hidden bg-[#003B73] flex flex-col items-center justify-center p-8 text-center shadow-xl">
              <div className="absolute inset-0 pointer-events-none opacity-10">
                 <div className="absolute top-0 right-0 w-48 h-48 rounded-full bg-blue-400 blur-3xl -translate-y-1/2 translate-x-1/2" />
                 <div className="absolute bottom-0 left-0 w-48 h-48 rounded-full bg-blue-300 blur-3xl translate-y-1/2 -translate-x-1/2" />
              </div>
-             
              <div className="relative z-10 flex flex-col items-center gap-6">
                 <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center border border-white/20">
                   <ShieldCheck className="w-8 h-8 text-white" />
                 </div>
-                
                 <div className="space-y-2">
                   <p className="text-white/60 text-[10px] font-light uppercase tracking-[0.2em]">Estamos aquí para ayudarte</p>
-                  <h3 className="text-white text-4xl md:text-5xl font-bold tracking-tighter leading-none">
-                    Nuestra Póliza <br /> HCM
-                  </h3>
+                  <h3 className="text-white text-4xl md:text-5xl font-bold tracking-tighter leading-none">Nuestra Póliza <br /> HCM</h3>
                 </div>
-
                 <div className="flex gap-4 w-full justify-center">
-                  <button className="px-8 py-2.5 rounded-xl bg-white text-[#003B73] text-[10px] font-bold hover:bg-white/90 transition-colors w-24">
-                    Acceder
-                  </button>
-                  <button className="px-8 py-2.5 rounded-xl bg-transparent border border-white/30 text-white text-[10px] font-light hover:bg-white/10 transition-colors w-24">
-                    Contacto
-                  </button>
+                  <button className="px-8 py-2.5 rounded-xl bg-white text-[#003B73] text-[10px] font-bold hover:bg-white/90 transition-colors w-24">Acceder</button>
+                  <button className="px-8 py-2.5 rounded-xl bg-transparent border border-white/30 text-white text-[10px] font-light hover:bg-white/10 transition-colors w-24">Contacto</button>
                 </div>
              </div>
           </div>
 
-          {/* Card 3: Aliados Vitales */}
           <div className="group relative aspect-square rounded-3xl overflow-hidden cursor-pointer shadow-lg">
             {alliesImage && (
               <Image 
@@ -710,40 +626,25 @@ export default function LandingPage() {
                 alt="Aliados Vitales" 
                 fill 
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
-                data-ai-hint={alliesImage.imageHint}
               />
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-
-             {/* Badges y Iconos */}
             <div className="absolute top-6 left-6 flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
               <HeartPulse className="w-3 h-3 text-white" />
               <span className="text-[10px] text-white font-light tracking-tight">Red de Salud</span>
             </div>
-            <div className="absolute top-6 right-6 p-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
-              <Share2 className="w-3 h-3 text-white rotate-90" />
-            </div>
-
             <div className="absolute inset-0 p-8 flex flex-col justify-end items-start gap-3">
-              <h3 className="text-white text-2xl font-bold tracking-tight leading-tight">
-                ALIADOS VITALES
-              </h3>
-              <p className="text-white/70 text-[10px] font-light max-w-[200px]">
-                Encuentra proveedores de servicios médicos en nuestra red nacional.
-              </p>
-              <button className="mt-2 px-6 py-2 rounded-xl bg-[#0054A6] text-white text-[10px] font-light hover:bg-[#0054A6]/90 transition-colors">
-                Consultar
-              </button>
+              <h3 className="text-white text-2xl font-bold tracking-tight leading-tight">ALIADOS VITALES</h3>
+              <p className="text-white/70 text-[10px] font-light max-w-[200px]">Encuentra proveedores de servicios médicos en nuestra red nacional.</p>
+              <button className="mt-2 px-6 py-2 rounded-xl bg-[#0054A6] text-white text-[10px] font-light hover:bg-[#0054A6]/90 transition-colors">Consultar</button>
             </div>
           </div>
-
         </div>
       </section>
 
-      {/* Sección Capital Humano - Vacaciones */}
+      {/* Section Capital Humano - Vacaciones */}
       <section className="bg-white py-24 px-6 md:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Card 1: Planifica Vacaciones */}
           <div className="group relative aspect-[4/3] md:aspect-[16/10] rounded-[2.5rem] overflow-hidden cursor-pointer shadow-xl transition-transform duration-500 hover:scale-[1.01]">
             {vacationsImage && (
               <Image 
@@ -752,24 +653,16 @@ export default function LandingPage() {
                 fill 
                 unoptimized
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
-                data-ai-hint={vacationsImage.imageHint}
               />
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
             <div className="absolute inset-0 p-10 flex flex-col justify-end items-start gap-4">
-              <span className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[10px] text-white font-light tracking-tight">
-                Capital Humano
-              </span>
-              <h3 className="text-white text-3xl md:text-4xl font-bold tracking-tighter leading-tight max-w-sm">
-                Planifica tus Próximas Vacaciones
-              </h3>
-              <button className="mt-2 px-8 py-2.5 rounded-xl bg-white/20 backdrop-blur-lg border border-white/20 text-white text-[11px] font-light hover:bg-white/30 transition-colors">
-                Gestionar
-              </button>
+              <span className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[10px] text-white font-light tracking-tight">Capital Humano</span>
+              <h3 className="text-white text-3xl md:text-4xl font-bold tracking-tighter leading-tight max-w-sm">Planifica tus Próximas Vacaciones</h3>
+              <button className="mt-2 px-8 py-2.5 rounded-xl bg-white/20 backdrop-blur-lg border border-white/20 text-white text-[11px] font-light hover:bg-white/30 transition-colors">Gestionar</button>
             </div>
           </div>
 
-          {/* Card 2: Consultar Días Disponibles */}
           <div className="group relative aspect-[4/3] md:aspect-[16/10] rounded-[2.5rem] overflow-hidden cursor-pointer shadow-xl transition-transform duration-500 hover:scale-[1.01]">
             {consultImage && (
               <Image 
@@ -778,120 +671,58 @@ export default function LandingPage() {
                 fill 
                 unoptimized
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
-                data-ai-hint={consultImage.imageHint}
               />
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
             <div className="absolute inset-0 p-10 flex flex-col justify-end items-start gap-4">
-              <span className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[10px] text-white font-light tracking-tight">
-                Capital Humano
-              </span>
-              <h3 className="text-white text-3xl md:text-4xl font-bold tracking-tighter leading-tight max-w-sm">
-                Consultar Días Disponibles
-              </h3>
-              <button className="mt-2 px-8 py-2.5 rounded-xl bg-white/20 backdrop-blur-lg border border-white/20 text-white text-[11px] font-light hover:bg-white/30 transition-colors">
-                Consultar
-              </button>
+              <span className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[10px] text-white font-light tracking-tight">Capital Humano</span>
+              <h3 className="text-white text-3xl md:text-4xl font-bold tracking-tighter leading-tight max-w-sm">Consultar Días Disponibles</h3>
+              <button className="mt-2 px-8 py-2.5 rounded-xl bg-white/20 backdrop-blur-lg border border-white/20 text-white text-[11px] font-light hover:bg-white/30 transition-colors">Consultar</button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Sección Portal de Requerimientos */}
+      {/* Portal de Requerimientos Section */}
       <section className="relative w-full h-[600px] overflow-hidden flex flex-col items-center justify-center transition-colors duration-700 bg-[#0054A6]">
-        {/* Fondo con formas abstractas */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full blur-[150px] bg-blue-400/20 translate-x-1/2 -translate-y-1/2" />
           <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full blur-[150px] bg-blue-300/10 -translate-x-1/4 translate-y-1/4" />
-          <div className="absolute top-0 left-1/4 w-[2px] h-[200%] bg-white/5 -rotate-45 transform origin-top" />
-          <div className="absolute top-0 left-1/2 w-[200px] h-[200%] bg-white/5 -rotate-45 transform origin-top" />
         </div>
-
         <div className="container mx-auto px-6 relative z-10 h-full flex items-center justify-center">
           {!showShortcuts ? (
             <div className="text-center space-y-10 animate-in fade-in duration-500">
-              <h2 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-tight max-w-4xl mx-auto">
-                Visita nuestro <br /> Portal de Requerimientos
-              </h2>
-              
+              <h2 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-tight max-w-4xl mx-auto">Visita nuestro <br /> Portal de Requerimientos</h2>
               <div className="flex justify-center gap-4">
-                <button className="px-10 py-3 rounded-xl bg-white text-[#0054A6] text-[10px] font-light hover:bg-white/90 transition-colors">
-                  Acceder
-                </button>
-                <button 
-                  onClick={() => setShowShortcuts(true)}
-                  className="px-10 py-3 rounded-xl bg-transparent border border-white/40 text-white text-[10px] font-light hover:bg-white/10 transition-colors"
-                >
-                  Atajos
-                </button>
+                <button className="px-10 py-3 rounded-xl bg-white text-[#0054A6] text-[10px] font-light hover:bg-white/90 transition-colors">Acceder</button>
+                <button onClick={() => setShowShortcuts(true)} className="px-10 py-3 rounded-xl bg-transparent border border-white/40 text-white text-[10px] font-light hover:bg-white/10 transition-colors">Atajos</button>
               </div>
             </div>
           ) : (
             <div className="relative w-full max-w-4xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
               <div className="flex justify-end mb-6">
-                <button 
-                  onClick={() => setShowShortcuts(false)}
-                  className="p-2 text-white/60 hover:text-white transition-colors"
-                >
-                  <X className="w-6 h-6" />
-                </button>
+                <button onClick={() => setShowShortcuts(false)} className="p-2 text-white/60 hover:text-white transition-colors"><X className="w-6 h-6" /></button>
               </div>
-              
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-x-4 gap-y-6 text-left">
-                <div className="space-y-4">
-                  <h4 className="text-white font-bold text-[13px] tracking-tight">Capital Humano</h4>
-                  <ul className="space-y-1.5 text-white/70 text-[9px] font-light">
-                    <li className="hover:text-white cursor-pointer transition-colors">Vacaciones</li>
-                    <li className="hover:text-white cursor-pointer transition-colors">Carta de Trabajo</li>
-                    <li className="hover:text-white cursor-pointer transition-colors">Inquietudes</li>
-                    <li className="hover:text-white cursor-pointer transition-colors">Solicitudes</li>
-                  </ul>
-                </div>
-
-                <div className="space-y-4">
-                  <h4 className="text-white font-bold text-[13px] tracking-tight">Comercial</h4>
-                  <ul className="space-y-1.5 text-white/70 text-[9px] font-light">
-                    <li className="hover:text-white cursor-pointer transition-colors">Sistemática Comercial</li>
-                    <li className="hover:text-white cursor-pointer transition-colors">Mercadeo</li>
-                    <li className="hover:text-white cursor-pointer transition-colors">Comunicaciones</li>
-                  </ul>
-                </div>
-
-                <div className="space-y-4">
-                  <h4 className="text-white font-bold text-[13px] tracking-tight">Tecnología</h4>
-                  <ul className="space-y-1.5 text-white/70 text-[9px] font-light">
-                    <li className="hover:text-white cursor-pointer transition-colors">Seguridad</li>
-                    <li className="hover:text-white cursor-pointer transition-colors">Actualizaciones</li>
-                    <li className="hover:text-white cursor-pointer transition-colors">Solicitudes</li>
-                    <li className="hover:text-white cursor-pointer transition-colors">Problemas</li>
-                  </ul>
-                </div>
-
-                <div className="space-y-4">
-                  <h4 className="text-white font-bold text-[13px] tracking-tight">Suscripción</h4>
-                  <ul className="space-y-1.5 text-white/70 text-[9px] font-light">
-                    <li className="hover:text-white cursor-pointer transition-colors">Salud</li>
-                    <li className="hover:text-white cursor-pointer transition-colors">Patrimonial</li>
-                    <li className="hover:text-white cursor-pointer transition-colors">Automóvil</li>
-                    <li className="hover:text-white cursor-pointer transition-colors">Personas</li>
-                  </ul>
-                </div>
-
-                <div className="space-y-4">
-                  <h4 className="text-white font-bold text-[13px] tracking-tight">Finanzas</h4>
-                  <ul className="space-y-1.5 text-white/70 text-[9px] font-light">
-                    <li className="hover:text-white cursor-pointer transition-colors">Pagos</li>
-                    <li className="hover:text-white cursor-pointer transition-colors">Facturación</li>
-                    <li className="hover:text-white cursor-pointer transition-colors">Anticipos</li>
-                    <li className="hover:text-white cursor-pointer transition-colors">Viáticos</li>
-                  </ul>
-                </div>
+                {[
+                  { title: 'Capital Humano', links: ['Vacaciones', 'Carta de Trabajo', 'Inquietudes', 'Solicitudes'] },
+                  { title: 'Comercial', links: ['Sistemática Comercial', 'Mercadeo', 'Comunicaciones'] },
+                  { title: 'Tecnología', links: ['Seguridad', 'Actualizaciones', 'Solicitudes', 'Problemas'] },
+                  { title: 'Suscripción', links: ['Salud', 'Patrimonial', 'Automóvil', 'Personas'] },
+                  { title: 'Finanzas', links: ['Pagos', 'Facturación', 'Anticipos', 'Viáticos'] }
+                ].map((group) => (
+                  <div key={group.title} className="space-y-4">
+                    <h4 className="text-white font-bold text-[13px] tracking-tight">{group.title}</h4>
+                    <ul className="space-y-1.5 text-white/70 text-[9px] font-light">
+                      {group.links.map(link => <li key={link} className="hover:text-white cursor-pointer transition-colors">{link}</li>)}
+                    </ul>
+                  </div>
+                ))}
               </div>
             </div>
           )}
         </div>
       </section>
-
     </div>
   );
 }
