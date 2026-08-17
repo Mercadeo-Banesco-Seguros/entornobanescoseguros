@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from "react";
-import { Cloud, X, Share2, FileText, HeartPulse, ShieldCheck, AlertTriangle, Music } from "lucide-react";
+import { Cloud, X, Share2, FileText, HeartPulse, ShieldCheck, AlertTriangle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -185,7 +185,7 @@ export default function LandingPage() {
 
     return () => {
       clearInterval(interval);
-      clearTimeout(textTheme);
+      clearTimeout(textTimer);
     };
   }, []);
 
@@ -214,7 +214,6 @@ export default function LandingPage() {
   
   const vacationsImage = PlaceHolderImages.find(img => img.id === 'vacations-banner');
   const consultImage = PlaceHolderImages.find(img => img.id === 'consult-days-banner');
-  const executiveSpaceImage = PlaceHolderImages.find(img => img.id === 'executive-space-banner');
 
   const getMenuImageUrl = (type: 'Clásico' | 'Dieta' | 'Ejecutivo', index: number) => {
     const prefixMap = { 'Clásico': 'menu-c-', 'Dieta': 'menu-d-', 'Ejecutivo': 'menu-e-' };
@@ -744,17 +743,12 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 7. Espacio Ejecutivo (Full Width, Height 480px, No Filter) */}
-      <div className="relative w-screen left-1/2 -ml-[50vw] h-[480px] overflow-hidden flex flex-col items-center justify-center bg-white shadow-2xl">
-         {executiveSpaceImage && (
-           <Image 
-              src="https://docs.google.com/drawings/d/e/2PACX-1vTYIvyFWc80rsXG1CMbhGdd0rFozJgDzzgHpQIuZz5ANAHT7_PAJt-ufXPDf1cngdpZg1N1uY39-udT/pub?w=960&h=720&format=png"
-              alt="Espacio Ejecutivo"
-              fill
-              className="object-cover"
-              unoptimized
-           />
-         )}
+      {/* 7. Espacio Ejecutivo (Full Width, Height 480px) */}
+      <div className="relative w-screen left-1/2 -ml-[50vw] h-[480px] overflow-hidden flex flex-col items-center justify-center transition-colors duration-700 bg-[#0054A6] shadow-2xl">
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full blur-[150px] bg-blue-400/20 translate-x-1/2 -translate-y-1/2" />
+          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full blur-[150px] bg-blue-300/10 -translate-x-1/4 translate-y-1/4" />
+        </div>
         <div className="container mx-auto px-6 relative z-10 h-full flex items-center justify-center">
           {!showExecutiveShortcuts ? (
             <div className="text-center space-y-10 animate-in fade-in duration-500">
