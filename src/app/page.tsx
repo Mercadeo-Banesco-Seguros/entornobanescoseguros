@@ -2,7 +2,7 @@
 'use client';
 
 import * as React from "react";
-import { Cloud, X, Share2, FileText, HeartPulse, ShieldCheck, AlertTriangle } from "lucide-react";
+import { Cloud, X, Share2, FileText, HeartPulse, ShieldCheck, AlertTriangle, Music } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -85,6 +85,29 @@ const menuDays = [
   { id: 'miercoles', day: 'Miércoles', style: 'Pasta Mediterránea' },
   { id: 'jueves', day: 'Jueves', style: 'Salmón Grillado' },
   { id: 'viernes', day: 'Viernes', style: 'Bowl de Proteína' },
+];
+
+const playlists = [
+  {
+    id: 'playlist-1',
+    title: 'Clásicos en Inglés',
+    description: 'Los éxitos que marcaron una época.',
+  },
+  {
+    id: 'playlist-2',
+    title: 'Rock Suave',
+    description: 'La selección perfecta para concentrarse.',
+  },
+  {
+    id: 'playlist-3',
+    title: 'Salsa y Merengue',
+    description: 'Ritmos latinos para subir el ánimo.',
+  },
+  {
+    id: 'playlist-4',
+    title: 'Solo Éxitos Pop',
+    description: 'Las canciones más populares del momento.',
+  },
 ];
 
 const courses = [
@@ -722,19 +745,17 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 7. Espacio Ejecutivo (Full Width, Height 480px, Blue Filter) */}
+      {/* 7. Espacio Ejecutivo (Full Width, Height 480px, No Filter) */}
       <div className="relative w-screen left-1/2 -ml-[50vw] h-[480px] overflow-hidden flex flex-col items-center justify-center bg-white shadow-2xl">
          {executiveSpaceImage && (
            <Image 
-              src={`${executiveSpaceImage.imageUrl}`}
+              src="https://docs.google.com/drawings/d/e/2PACX-1vTYIvyFWc80rsXG1CMbhGdd0rFozJgDzzgHpQIuZz5ANAHT7_PAJt-ufXPDf1cngdpZg1N1uY39-udT/pub?w=960&h=720&format=png"
               alt="Espacio Ejecutivo"
               fill
               className="object-cover"
               unoptimized
            />
          )}
-         {/* Blue Filter Overlay */}
-         <div className="absolute inset-0 bg-[#0054A6]/40 z-0" />
         <div className="container mx-auto px-6 relative z-10 h-full flex items-center justify-center">
           {!showExecutiveShortcuts ? (
             <div className="text-center space-y-10 animate-in fade-in duration-500">
@@ -769,6 +790,48 @@ export default function LandingPage() {
           )}
         </div>
       </div>
+      
+      {/* 8. Nuestra Playlist Section */}
+      <section className="bg-white py-24 px-6 md:px-12 lg:px-24">
+        <div className="max-w-7xl mx-auto text-center mb-16 space-y-4">
+          <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 w-fit mx-auto border border-slate-200">
+            <span className="text-[10px] font-medium text-slate-500">Playlists</span>
+          </div>
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-slate-900">
+            Nuestra Playlist Banesco Seguros
+          </h2>
+          <p className="text-sm text-slate-500 max-w-2xl mx-auto font-light">
+            La banda sonora para un día de trabajo productivo y agradable. Haz clic en una playlist para escucharla.
+          </p>
+        </div>
+
+        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {playlists.map((playlist) => {
+            const image = PlaceHolderImages.find(img => img.id === playlist.id);
+            return (
+              <div 
+                key={playlist.id} 
+                className="group relative aspect-[5/4] rounded-3xl overflow-hidden cursor-pointer shadow-md hover:shadow-xl transition-shadow duration-300"
+              >
+                {image && (
+                  <Image 
+                    src={image.imageUrl} 
+                    alt={playlist.title} 
+                    fill 
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    data-ai-hint={image.imageHint}
+                  />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-90" />
+                <div className="absolute bottom-6 left-6 right-6">
+                  <h3 className="text-white text-lg font-bold tracking-tight mb-1">{playlist.title}</h3>
+                  <p className="text-white/70 text-[9px] font-light leading-tight">{playlist.description}</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
     </div>
   );
 }

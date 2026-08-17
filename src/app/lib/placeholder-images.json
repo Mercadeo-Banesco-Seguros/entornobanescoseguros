@@ -1,0 +1,202 @@
+{
+  "placeholderImages": [
+    {
+      "id": "world-level-1",
+      "description": "Pista de Gran Caracas",
+      "imageUrl": "https://www.banescoseguros.com/wp-content/uploads/2025/10/Gemini_Generated_Image_2j7a6k2j7a6k2j7a-Photoroom.png",
+      "imageHint": "city race track"
+    },
+    {
+      "id": "world-level-2",
+      "description": "Pista de Ctro. Occid. Los Andes",
+      "imageUrl": "https://www.banescoseguros.com/wp-content/uploads/2025/10/Gemini_Generated_Image_9n2grt9n2grt9n2g-Photoroom.png",
+      "imageHint": "mountain race track"
+    },
+    {
+      "id": "world-level-3",
+      "description": "Pista de Centro Llanos - Carabobo",
+      "imageUrl": "https://www.banescoseguros.com/wp-content/uploads/2025/10/Gemini_Generated_Image_6sbz9r6sbz9r6sbz-Photoroom.png",
+      "imageHint": "plains race track"
+    },
+    {
+      "id": "world-level-4",
+      "description": "Pista de Oriente",
+      "imageUrl": "https://www.banescoseguros.com/wp-content/uploads/2025/10/Gemini_Generated_Image_obguokobguokobgu-Photoroom.png",
+      "imageHint": "coastal race track"
+    },
+    {
+      "id": "world-level-5",
+      "description": "Pista de Zulia - Falcón",
+      "imageUrl": "https://www.banescoseguros.com/wp-content/uploads/2025/10/Gemini_Generated_Image_yexmseyexmseyexm-Photoroom.png",
+      "imageHint": "desert race track"
+    },
+    {
+      "id": "vacations-banner",
+      "description": "Planifica tus Vacaciones",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vRdCFewBPX6NhcaUZa7Y6xm09NZsmF44JcEdZ6XDwqEnEMjv0p2skH15keFX1wS6kIDqNZtGYZUwNIz/pub?format=png&w=960&h=720",
+      "imageHint": "vacation trip"
+    },
+    {
+      "id": "consult-days-banner",
+      "description": "Consultar Días Disponibles",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vTRIMtbyH681Kwd9ieGqYvqFgF-QaT8FniYRyg09hCUQuY6DH0ZKZrxlD4TkfxBdy6FsrH3u_iimdZV/pub?format=png&w=960&h=720",
+      "imageHint": "calendar check"
+    },
+    {
+      "id": "protocols-banner",
+      "description": "Protocolos y Procedimientos",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vSXJYbUG3bld6KfkVAIBMtVUmct9WH1UCMk4rAMs9agRks7EtP8lgZ1l76_myh7LdZeZDUjGaLHlDCm/pub?format=png&w=960&h=720",
+      "imageHint": "office documentation"
+    },
+    {
+      "id": "hcm-allies-banner",
+      "description": "Aliados Vitales",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vSZiKd9swEfXGrgPZGF_oY6PxPCw9KVDIlUI9GALt7AsJ-byTwIzExGCOw7EQH-heSLd9uxMVYTlXnr/pub?format=png&w=960&h=720",
+      "imageHint": "medical doctors"
+    },
+    {
+      "id": "executive-space-banner",
+      "description": "Espacio Ejecutivo",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vTYIvyFWc80rsXG1CMbhGdd0rFozJgDzzgHpQIuZz5ANAHT7_PAJt-ufXPDf1cngdpZg1N1uY39-udT/pub?w=960&h=720&format=png",
+      "imageHint": "modern office"
+    },
+    {
+      "id": "course-1",
+      "description": "Gestión de Riesgos",
+      "imageUrl": "https://picsum.photos/seed/course1/800/600",
+      "imageHint": "risk management"
+    },
+    {
+      "id": "course-2",
+      "description": "Estrategia Comercial",
+      "imageUrl": "https://picsum.photos/seed/course2/800/600",
+      "imageHint": "sales strategy"
+    },
+    {
+      "id": "course-3",
+      "description": "Tecnología en Seguros",
+      "imageUrl": "https://picsum.photos/seed/course3/800/600",
+      "imageHint": "insurance technology"
+    },
+    {
+      "id": "course-4",
+      "description": "Atención al Cliente",
+      "imageUrl": "https://picsum.photos/seed/course4/800/600",
+      "imageHint": "customer service"
+    },
+    {
+      "id": "menu-c-1",
+      "description": "Menú Clásico Lunes",
+      "imageUrl": "https://picsum.photos/seed/foodc1/600/800",
+      "imageHint": "classic pasta"
+    },
+    {
+      "id": "menu-c-2",
+      "description": "Menú Clásico Martes",
+      "imageUrl": "https://picsum.photos/seed/foodc2/600/800",
+      "imageHint": "classic chicken"
+    },
+    {
+      "id": "menu-c-3",
+      "description": "Menú Clásico Miércoles",
+      "imageUrl": "https://picsum.photos/seed/foodc3/600/800",
+      "imageHint": "classic beef"
+    },
+    {
+      "id": "menu-c-4",
+      "description": "Menú Clásico Jueves",
+      "imageUrl": "https://picsum.photos/seed/foodc4/600/800",
+      "imageHint": "classic rice"
+    },
+    {
+      "id": "menu-c-5",
+      "description": "Menú Clásico Viernes",
+      "imageUrl": "https://picsum.photos/seed/foodc5/600/800",
+      "imageHint": "classic special"
+    },
+    {
+      "id": "menu-d-1",
+      "description": "Menú Dieta Lunes",
+      "imageUrl": "https://picsum.photos/seed/foodd1/600/800",
+      "imageHint": "diet salad"
+    },
+    {
+      "id": "menu-d-2",
+      "description": "Menú Dieta Martes",
+      "imageUrl": "https://picsum.photos/seed/foodd2/600/800",
+      "imageHint": "diet fish"
+    },
+    {
+      "id": "menu-d-3",
+      "description": "Menú Dieta Miércoles",
+      "imageUrl": "https://picsum.photos/seed/foodd3/600/800",
+      "imageHint": "diet veggie"
+    },
+    {
+      "id": "menu-d-4",
+      "description": "Menú Dieta Jueves",
+      "imageUrl": "https://picsum.photos/seed/foodd4/600/800",
+      "imageHint": "diet soup"
+    },
+    {
+      "id": "menu-d-5",
+      "description": "Menú Dieta Viernes",
+      "imageUrl": "https://picsum.photos/seed/foodd5/600/800",
+      "imageHint": "diet fruit"
+    },
+    {
+      "id": "menu-e-1",
+      "description": "Menú Ejecutivo Lunes",
+      "imageUrl": "https://picsum.photos/seed/foode1/600/800",
+      "imageHint": "executive steak"
+    },
+    {
+      "id": "menu-e-2",
+      "description": "Menú Ejecutivo Martes",
+      "imageUrl": "https://picsum.photos/seed/foode2/600/800",
+      "imageHint": "executive salmon"
+    },
+    {
+      "id": "menu-e-3",
+      "description": "Menú Ejecutivo Miércoles",
+      "imageUrl": "https://picsum.photos/seed/foode3/600/800",
+      "imageHint": "executive gourmet"
+    },
+    {
+      "id": "menu-e-4",
+      "description": "Menú Ejecutivo Jueves",
+      "imageUrl": "https://picsum.photos/seed/foode4/600/800",
+      "imageHint": "executive special"
+    },
+    {
+      "id": "menu-e-5",
+      "description": "Menú Ejecutivo Viernes",
+      "imageUrl": "https://picsum.photos/seed/foode5/600/800",
+      "imageHint": "executive premium"
+    },
+    {
+      "id": "playlist-1",
+      "description": "Clásicos en Inglés",
+      "imageUrl": "https://picsum.photos/seed/music1/600/400",
+      "imageHint": "vinyl records"
+    },
+    {
+      "id": "playlist-2",
+      "description": "Rock Suave",
+      "imageUrl": "https://picsum.photos/seed/music2/600/400",
+      "imageHint": "electric guitar"
+    },
+    {
+      "id": "playlist-3",
+      "description": "Salsa y Merengue",
+      "imageUrl": "https://picsum.photos/seed/music3/600/400",
+      "imageHint": "havana street"
+    },
+    {
+      "id": "playlist-4",
+      "description": "Solo Éxitos Pop",
+      "imageUrl": "https://picsum.photos/seed/music4/600/400",
+      "imageHint": "night sky"
+    }
+  ]
+}
