@@ -55,6 +55,12 @@
       "imageHint": "medical doctors"
     },
     {
+      "id": "executive-space-banner",
+      "description": "Espacio Ejecutivo",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vTYIvyFWc80rsXG1CMbhGdd0rFozJgDzzgHpQIuZz5ANAHT7_PAJt-ufXPDf1cngdpZg1N1uY39-udT/pub?w=960&h=720&format=png",
+      "imageHint": "modern office"
+    },
+    {
       "id": "course-1",
       "description": "Gestión de Riesgos",
       "imageUrl": "https://picsum.photos/seed/course1/800/600",

@@ -120,6 +120,7 @@ export default function LandingPage() {
   const [activeMenuDayIndex, setActiveMenuDayIndex] = React.useState(new Date().getDay() === 0 || new Date().getDay() === 6 ? 0 : new Date().getDay() - 1);
   const [activeMenuType, setActiveMenuType] = React.useState<'Clásico' | 'Dieta' | 'Ejecutivo'>('Clásico');
   const [showShortcuts, setShowShortcuts] = React.useState(false);
+  const [showExecutiveShortcuts, setShowExecutiveShortcuts] = React.useState(false);
   const [activeCourseId, setActiveCourseId] = React.useState(courses.find(c => c.featured)?.id || courses[0].id);
   
   const currentItems = React.useMemo(() => {
@@ -191,6 +192,7 @@ export default function LandingPage() {
   
   const vacationsImage = PlaceHolderImages.find(img => img.id === 'vacations-banner');
   const consultImage = PlaceHolderImages.find(img => img.id === 'consult-days-banner');
+  const executiveSpaceImage = PlaceHolderImages.find(img => img.id === 'executive-space-banner');
 
   const getMenuImageUrl = (type: 'Clásico' | 'Dieta' | 'Ejecutivo', index: number) => {
     const prefixMap = { 'Clásico': 'menu-c-', 'Dieta': 'menu-d-', 'Ejecutivo': 'menu-e-' };
@@ -397,7 +399,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 3. Vacaciones y Portal de Requerimientos Section */}
+      {/* 3. Vacaciones y Consultar Días Section */}
       <section className="bg-white py-24 px-6 md:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
           <div className="group relative aspect-[4/3] md:aspect-[16/10] rounded-[2.5rem] overflow-hidden cursor-pointer shadow-xl transition-transform duration-500 hover:scale-[1.01]">
@@ -438,8 +440,8 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 3b. Portal de Requerimientos (Full Width, Height reduced by 20% to 480px) */}
-      <div className="relative w-full h-[480px] overflow-hidden flex flex-col items-center justify-center transition-colors duration-700 bg-[#0054A6] shadow-2xl">
+      {/* 3b. Portal de Requerimientos (Full Width, Height 480px) */}
+      <div className="relative w-screen left-1/2 -ml-[50vw] h-[480px] overflow-hidden flex flex-col items-center justify-center transition-colors duration-700 bg-[#0054A6] shadow-2xl">
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full blur-[150px] bg-blue-400/20 translate-x-1/2 -translate-y-1/2" />
           <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full blur-[150px] bg-blue-300/10 -translate-x-1/4 translate-y-1/4" />
@@ -479,7 +481,7 @@ export default function LandingPage() {
         </div>
       </div>
 
-      {/* 4. Academia (Nuestros Cursos) Section */}
+      {/* 4. Academia Section */}
       <section className="relative w-full py-24 bg-[#F8FAFC] overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '30px 30px' }} />
         <div className="container mx-auto px-6 lg:px-8 relative z-10">
@@ -660,7 +662,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="group relative aspect-square rounded-3xl overflow-hidden cursor-pointer shadow-lg">
             <Image 
-              src="https://docs.google.com/drawings/d/e/2PACX-1vSXJYbUG3bld6KfkVAIBMtVUmct9WH1UCMk4rAMs9agRks7EtP8lgZ1l76_myh7LdZeZDUjGaLHlDCm/pub?w=960&h=720" 
+              src="https://docs.google.com/drawings/d/e/2PACX-1vSXJYbUG3bld6KfkVAIBMtVUmct9WH1UCMk4rAMs9agRks7EtP8lgZ1l76_myh7LdZeZDUjGaLHlDCm/pub?format=png&w=960&h=720" 
               alt="Protocolos y Procedimientos" 
               fill 
               unoptimized
@@ -700,7 +702,7 @@ export default function LandingPage() {
 
           <div className="group relative aspect-square rounded-3xl overflow-hidden cursor-pointer shadow-lg">
             <Image 
-              src="https://docs.google.com/drawings/d/e/2PACX-1vSZiKd9swEfXGrgPZGF_oY6PxPCw9KVDIlUI9GALt7AsJ-byTwIzExGCOw7EQH-heSLd9uxMVYTlXnr/pub?w=960&h=720" 
+              src="https://docs.google.com/drawings/d/e/2PACX-1vSZiKd9swEfXGrgPZGF_oY6PxPCw9KVDIlUI9GALt7AsJ-byTwIzExGCOw7EQH-heSLd9uxMVYTlXnr/pub?format=png&w=960&h=720" 
               alt="Aliados Vitales" 
               fill 
               unoptimized
@@ -712,13 +714,59 @@ export default function LandingPage() {
               <span className="text-[10px] text-white font-light tracking-tight">Red de Salud</span>
             </div>
             <div className="absolute inset-0 p-8 flex flex-col justify-end items-start gap-3">
-              <h3 className="text-white text-2xl font-bold tracking-tight leading-tight">Aliados Vitales</h3>
+              <h3 className="text-white text-2xl font-normal leading-tight">Aliados Vitales</h3>
               <p className="text-white/70 text-[10px] font-light max-w-[200px]">Encuentra proveedores de servicios médicos en nuestra red nacional.</p>
               <button className="mt-2 px-6 py-2 rounded-xl bg-[#0054A6] text-white text-[10px] font-light hover:bg-[#0054A6]/90 transition-colors">Consultar</button>
             </div>
           </div>
         </div>
       </section>
+
+      {/* 7. Espacio Ejecutivo (Full Width, Height 480px, No Filter) */}
+      <div className="relative w-screen left-1/2 -ml-[50vw] h-[480px] overflow-hidden flex flex-col items-center justify-center bg-white shadow-2xl">
+         {executiveSpaceImage && (
+           <Image 
+              src={`${executiveSpaceImage.imageUrl}`}
+              alt="Espacio Ejecutivo"
+              fill
+              className="object-cover"
+              unoptimized
+           />
+         )}
+        <div className="container mx-auto px-6 relative z-10 h-full flex items-center justify-center">
+          {!showExecutiveShortcuts ? (
+            <div className="text-center space-y-10 animate-in fade-in duration-500">
+              <h2 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-tight max-w-4xl mx-auto drop-shadow-md">Visita nuestro <br /> Espacio Ejecutivo</h2>
+              <div className="flex justify-center gap-4">
+                <button className="px-10 py-3 rounded-xl bg-white text-[#0054A6] text-[10px] font-light hover:bg-white/90 transition-colors">Acceder</button>
+                <button onClick={() => setShowExecutiveShortcuts(true)} className="px-10 py-3 rounded-xl bg-transparent border border-white/40 text-white text-[10px] font-light hover:bg-white/10 transition-colors">Atajos</button>
+              </div>
+            </div>
+          ) : (
+            <div className="relative w-full max-w-4xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500 bg-black/20 p-8 rounded-3xl backdrop-blur-sm">
+              <div className="flex justify-end mb-6">
+                <button onClick={() => setShowExecutiveShortcuts(false)} className="p-2 text-white/60 hover:text-white transition-colors"><X className="w-6 h-6" /></button>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-x-4 gap-y-6 text-left">
+                {[
+                  { title: 'Presidencia', links: ['Agenda', 'Comunicados', 'Visión 2025'] },
+                  { title: 'V.P. Ejecutiva', links: ['Operaciones', 'Estrategia', 'Informes'] },
+                  { title: 'Auditoría', links: ['Normativas', 'Revisiones', 'Controles'] },
+                  { title: 'Legal', links: ['Contratos', 'Consultoría', 'Regulaciones'] },
+                  { title: 'Cumplimiento', links: ['Ética', 'Prevención', 'Políticas'] }
+                ].map((group) => (
+                  <div key={group.title} className="space-y-4">
+                    <h4 className="text-white font-bold text-[13px] tracking-tight">{group.title}</h4>
+                    <ul className="space-y-1.5 text-white/90 text-[9px] font-light">
+                      {group.links.map(link => <li key={link} className="hover:text-white cursor-pointer transition-colors">{link}</li>)}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
