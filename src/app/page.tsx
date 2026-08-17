@@ -259,7 +259,7 @@ export default function LandingPage() {
         <div className={cn("absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t to-transparent pointer-events-none -z-10 transition-all duration-[3000ms]", current.bottomGradient)} />
       </section>
 
-      {/* Section Valores / Pilares / Misión */}
+      {/* 1. Section Valores / Pilares / Misión */}
       <section className="bg-white py-32 px-6 md:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           <div className="space-y-6">
@@ -269,10 +269,10 @@ export default function LandingPage() {
                   key={cat}
                   onClick={() => setActiveCategory(cat)}
                   className={cn(
-                    "text-[10px] px-6 py-2 rounded-xl transition-all duration-300 outline-none",
+                    "text-[10px] px-6 py-2 rounded-xl transition-all duration-300 outline-none font-light",
                     activeCategory === cat 
-                      ? "bg-[#0054A6] text-white font-light" 
-                      : "bg-slate-50 text-gray-400 font-light hover:bg-slate-100 hover:text-gray-600"
+                      ? "bg-[#0054A6] text-white" 
+                      : "bg-slate-50 text-gray-400 hover:bg-slate-100 hover:text-gray-600"
                   )}
                 >
                   {cat}
@@ -291,7 +291,7 @@ export default function LandingPage() {
                   <span className={cn(
                     "tracking-tighter transition-all duration-300",
                     activeItem.id === item.id 
-                      ? "text-black text-3xl md:text-5xl lg:text-6xl font-normal translate-x-0" 
+                      ? "text-black text-3xl md:text-5xl lg:text-[3.2rem] font-normal translate-x-0" 
                       : "text-gray-300 group-hover:text-gray-400 text-lg md:text-xl lg:text-2xl font-light"
                   )}>
                     {item.title}
@@ -319,7 +319,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Viste Seguro Section */}
+      {/* 2. Viste Seguro Section */}
       <section className="relative w-full py-12 overflow-hidden min-h-[600px] flex flex-col transition-colors duration-700 bg-[#0054A6]">
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full blur-[120px] transition-colors duration-700 bg-blue-500/20" />
@@ -399,7 +399,89 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Nuestros Cursos Section */}
+      {/* 3. Vacaciones y Portal de Requerimientos Section */}
+      <section className="bg-white py-24 px-6 md:px-12 lg:px-24">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 mb-24">
+          <div className="group relative aspect-[4/3] md:aspect-[16/10] rounded-[2.5rem] overflow-hidden cursor-pointer shadow-xl transition-transform duration-500 hover:scale-[1.01]">
+            {vacationsImage && (
+              <Image 
+                src={`${vacationsImage.imageUrl}&format=png`} 
+                alt="Planifica tus Próximas Vacaciones" 
+                fill 
+                unoptimized
+                className="object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+            )}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+            <div className="absolute inset-0 p-10 flex flex-col justify-end items-start gap-4">
+              <span className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[10px] text-white font-light tracking-tight">Capital Humano</span>
+              <h3 className="text-white text-3xl md:text-4xl font-bold tracking-tighter leading-tight max-w-sm">Planifica tus Próximas Vacaciones</h3>
+              <button className="mt-2 px-8 py-2.5 rounded-xl bg-white/20 backdrop-blur-lg border border-white/20 text-white text-[11px] font-light hover:bg-white/30 transition-colors">Gestionar</button>
+            </div>
+          </div>
+
+          <div className="group relative aspect-[4/3] md:aspect-[16/10] rounded-[2.5rem] overflow-hidden cursor-pointer shadow-xl transition-transform duration-500 hover:scale-[1.01]">
+            {consultImage && (
+              <Image 
+                src={`${consultImage.imageUrl}&format=png`} 
+                alt="Consultar Días Disponibles" 
+                fill 
+                unoptimized
+                className="object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+            )}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+            <div className="absolute inset-0 p-10 flex flex-col justify-end items-start gap-4">
+              <span className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[10px] text-white font-light tracking-tight">Capital Humano</span>
+              <h3 className="text-white text-3xl md:text-4xl font-bold tracking-tighter leading-tight max-w-sm">Consultar Días Disponibles</h3>
+              <button className="mt-2 px-8 py-2.5 rounded-xl bg-white/20 backdrop-blur-lg border border-white/20 text-white text-[11px] font-light hover:bg-white/30 transition-colors">Consultar</button>
+            </div>
+          </div>
+        </div>
+
+        {/* Portal de Requerimientos (part of step 3) */}
+        <div className="relative w-full h-[600px] overflow-hidden flex flex-col items-center justify-center transition-colors duration-700 bg-[#0054A6] rounded-[3rem] shadow-2xl">
+          <div className="absolute inset-0 pointer-events-none overflow-hidden">
+            <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full blur-[150px] bg-blue-400/20 translate-x-1/2 -translate-y-1/2" />
+            <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full blur-[150px] bg-blue-300/10 -translate-x-1/4 translate-y-1/4" />
+          </div>
+          <div className="container mx-auto px-6 relative z-10 h-full flex items-center justify-center">
+            {!showShortcuts ? (
+              <div className="text-center space-y-10 animate-in fade-in duration-500">
+                <h2 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-tight max-w-4xl mx-auto">Visita nuestro <br /> Portal de Requerimientos</h2>
+                <div className="flex justify-center gap-4">
+                  <button className="px-10 py-3 rounded-xl bg-white text-[#0054A6] text-[10px] font-light hover:bg-white/90 transition-colors">Acceder</button>
+                  <button onClick={() => setShowShortcuts(true)} className="px-10 py-3 rounded-xl bg-transparent border border-white/40 text-white text-[10px] font-light hover:bg-white/10 transition-colors">Atajos</button>
+                </div>
+              </div>
+            ) : (
+              <div className="relative w-full max-w-4xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <div className="flex justify-end mb-6">
+                  <button onClick={() => setShowShortcuts(false)} className="p-2 text-white/60 hover:text-white transition-colors"><X className="w-6 h-6" /></button>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-x-4 gap-y-6 text-left">
+                  {[
+                    { title: 'Capital Humano', links: ['Vacaciones', 'Carta de Trabajo', 'Inquietudes', 'Solicitudes'] },
+                    { title: 'Comercial', links: ['Sistemática Comercial', 'Mercadeo', 'Comunicaciones'] },
+                    { title: 'Tecnología', links: ['Seguridad', 'Actualizaciones', 'Solicitudes', 'Problemas'] },
+                    { title: 'Suscripción', links: ['Salud', 'Patrimonial', 'Automóvil', 'Personas'] },
+                    { title: 'Finanzas', links: ['Pagos', 'Facturación', 'Anticipos', 'Viáticos'] }
+                  ].map((group) => (
+                    <div key={group.title} className="space-y-4">
+                      <h4 className="text-white font-bold text-[13px] tracking-tight">{group.title}</h4>
+                      <ul className="space-y-1.5 text-white/70 text-[9px] font-light">
+                        {group.links.map(link => <li key={link} className="hover:text-white cursor-pointer transition-colors">{link}</li>)}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Academia (Nuestros Cursos) Section */}
       <section className="relative w-full py-24 bg-[#F8FAFC] overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '30px 30px' }} />
         <div className="container mx-auto px-6 lg:px-8 relative z-10">
@@ -495,7 +577,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Sabor Seguro (Menú) Section */}
+      {/* 5. Sabor Seguro (Menú) Section */}
       <section className="relative w-full py-12 overflow-hidden min-h-[600px] flex flex-col transition-colors duration-700 bg-[#0054A6]">
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] rounded-full blur-[120px] transition-colors duration-700 bg-blue-500/20" />
@@ -575,7 +657,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Nuestra Póliza HCM Section */}
+      {/* 6. Póliza HCM Section */}
       <section className="bg-white py-24 px-6 md:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="group relative aspect-square rounded-3xl overflow-hidden cursor-pointer shadow-lg">
@@ -639,88 +721,6 @@ export default function LandingPage() {
               <button className="mt-2 px-6 py-2 rounded-xl bg-[#0054A6] text-white text-[10px] font-light hover:bg-[#0054A6]/90 transition-colors">Consultar</button>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Section Capital Humano - Vacaciones */}
-      <section className="bg-white py-24 px-6 md:px-12 lg:px-24">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="group relative aspect-[4/3] md:aspect-[16/10] rounded-[2.5rem] overflow-hidden cursor-pointer shadow-xl transition-transform duration-500 hover:scale-[1.01]">
-            {vacationsImage && (
-              <Image 
-                src={`${vacationsImage.imageUrl}&format=png`} 
-                alt="Planifica tus Próximas Vacaciones" 
-                fill 
-                unoptimized
-                className="object-cover transition-transform duration-700 group-hover:scale-110"
-              />
-            )}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-            <div className="absolute inset-0 p-10 flex flex-col justify-end items-start gap-4">
-              <span className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[10px] text-white font-light tracking-tight">Capital Humano</span>
-              <h3 className="text-white text-3xl md:text-4xl font-bold tracking-tighter leading-tight max-w-sm">Planifica tus Próximas Vacaciones</h3>
-              <button className="mt-2 px-8 py-2.5 rounded-xl bg-white/20 backdrop-blur-lg border border-white/20 text-white text-[11px] font-light hover:bg-white/30 transition-colors">Gestionar</button>
-            </div>
-          </div>
-
-          <div className="group relative aspect-[4/3] md:aspect-[16/10] rounded-[2.5rem] overflow-hidden cursor-pointer shadow-xl transition-transform duration-500 hover:scale-[1.01]">
-            {consultImage && (
-              <Image 
-                src={`${consultImage.imageUrl}&format=png`} 
-                alt="Consultar Días Disponibles" 
-                fill 
-                unoptimized
-                className="object-cover transition-transform duration-700 group-hover:scale-110"
-              />
-            )}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-            <div className="absolute inset-0 p-10 flex flex-col justify-end items-start gap-4">
-              <span className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[10px] text-white font-light tracking-tight">Capital Humano</span>
-              <h3 className="text-white text-3xl md:text-4xl font-bold tracking-tighter leading-tight max-w-sm">Consultar Días Disponibles</h3>
-              <button className="mt-2 px-8 py-2.5 rounded-xl bg-white/20 backdrop-blur-lg border border-white/20 text-white text-[11px] font-light hover:bg-white/30 transition-colors">Consultar</button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Portal de Requerimientos Section */}
-      <section className="relative w-full h-[600px] overflow-hidden flex flex-col items-center justify-center transition-colors duration-700 bg-[#0054A6]">
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full blur-[150px] bg-blue-400/20 translate-x-1/2 -translate-y-1/2" />
-          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full blur-[150px] bg-blue-300/10 -translate-x-1/4 translate-y-1/4" />
-        </div>
-        <div className="container mx-auto px-6 relative z-10 h-full flex items-center justify-center">
-          {!showShortcuts ? (
-            <div className="text-center space-y-10 animate-in fade-in duration-500">
-              <h2 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-tight max-w-4xl mx-auto">Visita nuestro <br /> Portal de Requerimientos</h2>
-              <div className="flex justify-center gap-4">
-                <button className="px-10 py-3 rounded-xl bg-white text-[#0054A6] text-[10px] font-light hover:bg-white/90 transition-colors">Acceder</button>
-                <button onClick={() => setShowShortcuts(true)} className="px-10 py-3 rounded-xl bg-transparent border border-white/40 text-white text-[10px] font-light hover:bg-white/10 transition-colors">Atajos</button>
-              </div>
-            </div>
-          ) : (
-            <div className="relative w-full max-w-4xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
-              <div className="flex justify-end mb-6">
-                <button onClick={() => setShowShortcuts(false)} className="p-2 text-white/60 hover:text-white transition-colors"><X className="w-6 h-6" /></button>
-              </div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-x-4 gap-y-6 text-left">
-                {[
-                  { title: 'Capital Humano', links: ['Vacaciones', 'Carta de Trabajo', 'Inquietudes', 'Solicitudes'] },
-                  { title: 'Comercial', links: ['Sistemática Comercial', 'Mercadeo', 'Comunicaciones'] },
-                  { title: 'Tecnología', links: ['Seguridad', 'Actualizaciones', 'Solicitudes', 'Problemas'] },
-                  { title: 'Suscripción', links: ['Salud', 'Patrimonial', 'Automóvil', 'Personas'] },
-                  { title: 'Finanzas', links: ['Pagos', 'Facturación', 'Anticipos', 'Viáticos'] }
-                ].map((group) => (
-                  <div key={group.title} className="space-y-4">
-                    <h4 className="text-white font-bold text-[13px] tracking-tight">{group.title}</h4>
-                    <ul className="space-y-1.5 text-white/70 text-[9px] font-light">
-                      {group.links.map(link => <li key={link} className="hover:text-white cursor-pointer transition-colors">{link}</li>)}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
       </section>
     </div>
