@@ -45,13 +45,13 @@
     {
       "id": "protocols-banner",
       "description": "Protocolos y Procedimientos",
-      "imageUrl": "https://picsum.photos/seed/protocols/800/800",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vSXJYbUG3bld6KfkVAIBMtVUmct9WH1UCMk4rAMs9agRks7EtP8lgZ1l76_myh7LdZeZDUjGaLHlDCm/pub?format=png&w=960&h=720",
       "imageHint": "office documentation"
     },
     {
       "id": "hcm-allies-banner",
       "description": "Aliados Vitales",
-      "imageUrl": "https://picsum.photos/seed/hcmallies/800/800",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vSZiKd9swEfXGrgPZGF_oY6PxPCw9KVDIlUI9GALt7AsJ-byTwIzExGCOw7EQH-heSLd9uxMVYTlXnr/pub?format=png&w=960&h=720",
       "imageHint": "medical doctors"
     },
     {
