@@ -405,7 +405,7 @@ export default function LandingPage() {
           <div className="group relative aspect-[4/3] md:aspect-[16/10] rounded-[2.5rem] overflow-hidden cursor-pointer shadow-xl transition-transform duration-500 hover:scale-[1.01]">
             {vacationsImage && (
               <Image 
-                src={`${vacationsImage.imageUrl}&format=png`} 
+                src={`${vacationsImage.imageUrl}`} 
                 alt="Planifica tus Próximas Vacaciones" 
                 fill 
                 unoptimized
@@ -423,7 +423,7 @@ export default function LandingPage() {
           <div className="group relative aspect-[4/3] md:aspect-[16/10] rounded-[2.5rem] overflow-hidden cursor-pointer shadow-xl transition-transform duration-500 hover:scale-[1.01]">
             {consultImage && (
               <Image 
-                src={`${consultImage.imageUrl}&format=png`} 
+                src={`${consultImage.imageUrl}`} 
                 alt="Consultar Días Disponibles" 
                 fill 
                 unoptimized
@@ -663,9 +663,10 @@ export default function LandingPage() {
           <div className="group relative aspect-square rounded-3xl overflow-hidden cursor-pointer shadow-lg">
             {protocolsImage && (
               <Image 
-                src={protocolsImage.imageUrl} 
+                src={`${protocolsImage.imageUrl}&format=png`} 
                 alt="Protocolos y Procedimientos" 
                 fill 
+                unoptimized
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
               />
             )}
@@ -704,9 +705,10 @@ export default function LandingPage() {
           <div className="group relative aspect-square rounded-3xl overflow-hidden cursor-pointer shadow-lg">
             {alliesImage && (
               <Image 
-                src={alliesImage.imageUrl} 
+                src={`${alliesImage.imageUrl}&format=png`} 
                 alt="Aliados Vitales" 
                 fill 
+                unoptimized
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
               />
             )}
