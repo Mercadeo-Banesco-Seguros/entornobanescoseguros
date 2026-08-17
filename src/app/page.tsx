@@ -722,7 +722,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 7. Espacio Ejecutivo (Full Width, Height 480px, No Filter) */}
+      {/* 7. Espacio Ejecutivo (Full Width, Height 480px, Blue Filter) */}
       <div className="relative w-screen left-1/2 -ml-[50vw] h-[480px] overflow-hidden flex flex-col items-center justify-center bg-white shadow-2xl">
          {executiveSpaceImage && (
            <Image 
@@ -733,6 +733,8 @@ export default function LandingPage() {
               unoptimized
            />
          )}
+         {/* Blue Filter Overlay */}
+         <div className="absolute inset-0 bg-[#0054A6]/40 z-0" />
         <div className="container mx-auto px-6 relative z-10 h-full flex items-center justify-center">
           {!showExecutiveShortcuts ? (
             <div className="text-center space-y-10 animate-in fade-in duration-500">
@@ -770,3 +772,4 @@ export default function LandingPage() {
     </div>
   );
 }
+
