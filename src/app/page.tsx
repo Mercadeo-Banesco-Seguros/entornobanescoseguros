@@ -802,26 +802,14 @@ export default function LandingPage() {
 
         <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {playlists.map((playlist) => {
-            const image = PlaceHolderImages.find(img => img.id === playlist.id);
             return (
               <div 
                 key={playlist.id} 
-                className="group relative aspect-[5/4] rounded-3xl overflow-hidden cursor-pointer shadow-md hover:shadow-xl transition-shadow duration-300"
+                className="group relative aspect-[5/4] rounded-3xl overflow-hidden cursor-pointer shadow-md hover:shadow-xl transition-shadow duration-300 bg-slate-50 p-8 flex flex-col justify-end"
               >
-                {image && (
-                  <Image 
-                    src={image.imageUrl} 
-                    alt={playlist.title} 
-                    fill 
-                    unoptimized
-                    className="object-cover transition-transform duration-500 group-hover:scale-110"
-                    data-ai-hint={image.imageHint}
-                  />
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-90" />
-                <div className="absolute bottom-6 left-6 right-6">
-                  <h3 className="text-white text-lg font-bold tracking-tight mb-1">{playlist.title}</h3>
-                  <p className="text-white/70 text-[9px] font-light leading-tight">{playlist.description}</p>
+                <div className="relative z-10">
+                  <h3 className="text-slate-900 text-lg font-bold tracking-tight mb-1">{playlist.title}</h3>
+                  <p className="text-slate-500 text-[9px] font-light leading-tight">{playlist.description}</p>
                 </div>
               </div>
             );
