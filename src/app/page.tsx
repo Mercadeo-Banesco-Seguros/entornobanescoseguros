@@ -41,7 +41,7 @@ const values = [
 ];
 
 const pillars = [
-  { id: '01', title: 'Ética', description: 'Mantenemos los más altos estándares de integridad en todas nuestras interacciones y decisiones.' },
+  { id: '01', title: 'Ética', description: 'Mantenemos los más altos estándares de integridad in todas nuestras interacciones y decisiones.' },
   { id: '02', title: 'Cercanía', description: 'Estamos presentes cuando más nos necesitas, brindando un trato humano y personalizado.' },
   { id: '03', title: 'Solidez', description: 'Contamos con el respaldo y la trayectoria necesarios para garantizar tu tranquilidad a largo plazo.' },
   { id: '04', title: 'Integridad', description: 'La coherencia entre nuestras palabras y acciones es la base fundamental de nuestra cultura organizacional.' },
@@ -813,6 +813,7 @@ export default function LandingPage() {
                     src={image.imageUrl} 
                     alt={playlist.title} 
                     fill 
+                    unoptimized
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                     data-ai-hint={image.imageHint}
                   />
@@ -835,7 +836,7 @@ export default function LandingPage() {
           <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full blur-[150px] bg-blue-300/10 -translate-x-1/4 translate-y-1/4" />
         </div>
         <div className="container mx-auto px-6 relative z-10 h-full flex items-center">
-          <div className="w-full md:w-1/2 md:pl-16 space-y-8 animate-in fade-in duration-500 text-left">
+          <div className="w-full md:w-1/2 md:pl-24 space-y-8 animate-in fade-in duration-500 text-left">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
               <span className="text-[10px] text-white font-light tracking-tight">Expedición por Nuestro ADN</span>
             </div>

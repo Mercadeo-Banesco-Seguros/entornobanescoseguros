@@ -178,25 +178,25 @@
     {
       "id": "playlist-1",
       "description": "Clásicos en Inglés",
-      "imageUrl": "https://picsum.photos/seed/music1/600/400",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vQZIj-a6y-TVdbslTSH13aLH33jeHnuPlATY2AZTdqVQh2gJ71FmZ9tCz2Do4lRYn3BY6kdhfqH5kEk/pub?format=png&w=960&h=720",
       "imageHint": "vinyl records"
     },
     {
       "id": "playlist-2",
       "description": "Rock Suave",
-      "imageUrl": "https://picsum.photos/seed/music2/600/400",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vQLAaCdFpo17uCD1cU6KbqaKU4zl8nnbm1NtVZQnlH6yDZoK1zWuBAsOU_mRQd6VzuFKK-2L3IeTe0x/pub?format=png&w=960&h=720",
       "imageHint": "electric guitar"
     },
     {
       "id": "playlist-3",
       "description": "Salsa y Merengue",
-      "imageUrl": "https://picsum.photos/seed/music3/600/400",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vR2z6aE8chAT0brCc-e_SPp0CDwBP8EPA32chTxS0dCeX0_qFM8ZwAi7Qx0bOAd-ARpXuzR-HEWOvYG/pub?format=png&w=960&h=720",
       "imageHint": "havana street"
     },
     {
       "id": "playlist-4",
       "description": "Solo Éxitos Pop",
-      "imageUrl": "https://picsum.photos/seed/music4/600/400",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vSU03DsQFakg-RUcMRbo5xZwdv7pkzNtKSgbwBvKr1XMZNcCVaFMP3PyEsjadAEyrkNj0NjRqDfDPE0/pub?format=png&w=960&h=720",
       "imageHint": "night sky"
     },
     {
