@@ -372,6 +372,7 @@ export default function LandingPage() {
                       src={currentImageUrl} 
                       alt={item.day} 
                       fill 
+                      unoptimized
                       className="object-contain"
                     />
                   </div>
@@ -630,6 +631,7 @@ export default function LandingPage() {
                       src={currentImageUrl} 
                       alt={item.day} 
                       fill 
+                      unoptimized
                       className="object-cover"
                     />
                   </div>
