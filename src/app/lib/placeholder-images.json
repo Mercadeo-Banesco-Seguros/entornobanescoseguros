@@ -1,3 +1,4 @@
+
 {
   "placeholderImages": [
     {
@@ -197,6 +198,12 @@
       "description": "Solo Éxitos Pop",
       "imageUrl": "https://picsum.photos/seed/music4/600/400",
       "imageHint": "night sky"
+    },
+    {
+      "id": "ranking-explorer",
+      "description": "Explorador del Ranking",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vSOJsJkXKwjNCF3BeltAYj_eckCR70Sn_Nsndc_dMr5y4QkSNkFBET8uzUzIioQGFmwYuJZOy0GVnaF/pub?format=png&w=960&h=720",
+      "imageHint": "explorer character"
     }
   ]
 }

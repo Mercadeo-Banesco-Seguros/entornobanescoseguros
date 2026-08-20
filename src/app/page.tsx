@@ -31,7 +31,7 @@ const values = [
   { 
     id: '03', 
     title: 'Calidad', 
-    description: 'Buscamos la excelencia en cada proceso y servicio, ofreciendo estándares superiores de atención y respaldo que definen nuestro liderazgo en el mercado.' 
+    description: 'Buscamos la excellence en cada proceso y servicio, ofreciendo estándares superiores de atención y respaldo que definen nuestro liderazgo en el mercado.' 
   },
   { 
     id: '04', 
@@ -851,6 +851,7 @@ export default function LandingPage() {
                   src={rankingImage.imageUrl}
                   alt="Explorador"
                   fill
+                  unoptimized
                   className="object-contain"
                 />
               )}
