@@ -844,15 +844,15 @@ export default function LandingPage() {
               <button className="px-10 py-3 rounded-xl bg-white text-[#0054A6] text-[10px] font-light hover:bg-white/90 transition-colors">Explorar Misiones</button>
             </div>
           </div>
-          <div className="hidden md:flex w-1/2 h-full items-center justify-end">
-            <div className="relative w-[500px] h-[400px]">
+          <div className="hidden md:flex w-1/2 h-full items-end justify-end">
+            <div className="relative w-[650px] h-[550px] -mb-12">
               {rankingImage && (
                 <Image 
                   src={rankingImage.imageUrl}
                   alt="Explorador"
                   fill
                   unoptimized
-                  className="object-contain"
+                  className="object-contain object-bottom"
                 />
               )}
             </div>
