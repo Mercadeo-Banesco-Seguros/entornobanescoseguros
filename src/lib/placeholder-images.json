@@ -61,30 +61,6 @@
       "imageHint": "modern office"
     },
     {
-      "id": "course-1",
-      "description": "Gestión de Riesgos",
-      "imageUrl": "https://picsum.photos/seed/course1/800/600",
-      "imageHint": "risk management"
-    },
-    {
-      "id": "course-2",
-      "description": "Estrategia Comercial",
-      "imageUrl": "https://picsum.photos/seed/course2/800/600",
-      "imageHint": "sales strategy"
-    },
-    {
-      "id": "course-3",
-      "description": "Tecnología en Seguros",
-      "imageUrl": "https://picsum.photos/seed/course3/800/600",
-      "imageHint": "insurance technology"
-    },
-    {
-      "id": "course-4",
-      "description": "Atención al Cliente",
-      "imageUrl": "https://picsum.photos/seed/course4/800/600",
-      "imageHint": "customer service"
-    },
-    {
       "id": "menu-c-1",
       "description": "Menú Clásico Lunes",
       "imageUrl": "https://picsum.photos/seed/foodc1/600/800",
@@ -173,6 +149,36 @@
       "description": "Menú Ejecutivo Viernes",
       "imageUrl": "https://picsum.photos/seed/foode5/600/800",
       "imageHint": "executive premium"
+    },
+    {
+      "id": "playlist-1",
+      "description": "Clásicos en Inglés",
+      "imageUrl": "https://picsum.photos/seed/music1/600/400",
+      "imageHint": "vinyl records"
+    },
+    {
+      "id": "playlist-2",
+      "description": "Rock Suave",
+      "imageUrl": "https://picsum.photos/seed/music2/600/400",
+      "imageHint": "electric guitar"
+    },
+    {
+      "id": "playlist-3",
+      "description": "Salsa y Merengue",
+      "imageUrl": "https://picsum.photos/seed/music3/600/400",
+      "imageHint": "havana street"
+    },
+    {
+      "id": "playlist-4",
+      "description": "Solo Éxitos Pop",
+      "imageUrl": "https://picsum.photos/seed/music4/600/400",
+      "imageHint": "night sky"
+    },
+    {
+      "id": "ranking-explorer",
+      "description": "Explorador del Ranking",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vSOJsJkXKwjNCF3BeltAYj_eckCR70Sn_Nsndc_dMr5y4QkSNkFBET8uzUzIioQGFmwYuJZOy0GVnaF/pub?w=960&h=720&format=png",
+      "imageHint": "explorer character"
     }
   ]
 }

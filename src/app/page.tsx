@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from "react";
@@ -214,6 +215,7 @@ export default function LandingPage() {
   
   const vacationsImage = PlaceHolderImages.find(img => img.id === 'vacations-banner');
   const consultImage = PlaceHolderImages.find(img => img.id === 'consult-days-banner');
+  const rankingImage = PlaceHolderImages.find(img => img.id === 'ranking-explorer');
 
   const getMenuImageUrl = (type: 'Clásico' | 'Dieta' | 'Ejecutivo', index: number) => {
     const prefixMap = { 'Clásico': 'menu-c-', 'Dieta': 'menu-d-', 'Ejecutivo': 'menu-e-' };
@@ -825,6 +827,37 @@ export default function LandingPage() {
           })}
         </div>
       </section>
+
+      {/* 9. Ranking Section (Full Width, Height 480px) */}
+      <div className="relative w-screen left-1/2 -ml-[50vw] h-[480px] overflow-hidden flex flex-col items-center justify-center transition-colors duration-700 bg-[#0054A6] shadow-2xl">
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full blur-[150px] bg-blue-400/20 translate-x-1/2 -translate-y-1/2" />
+          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full blur-[150px] bg-blue-300/10 -translate-x-1/4 translate-y-1/4" />
+        </div>
+        <div className="container mx-auto px-6 relative z-10 h-full flex items-center">
+          <div className="w-full md:w-1/2 space-y-8 animate-in fade-in duration-500 text-left">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
+              <span className="text-[10px] text-white font-light tracking-tight">Expedición por Nuestro ADN</span>
+            </div>
+            <h2 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-tight max-w-2xl drop-shadow-md">¿Ya conoces tu <br /> posición en el Ranking?</h2>
+            <div className="flex gap-4">
+              <button className="px-10 py-3 rounded-xl bg-white text-[#0054A6] text-[10px] font-light hover:bg-white/90 transition-colors">Explorar Misiones</button>
+            </div>
+          </div>
+          <div className="hidden md:flex w-1/2 h-full items-center justify-end">
+            <div className="relative w-[500px] h-[400px]">
+              {rankingImage && (
+                <Image 
+                  src={rankingImage.imageUrl}
+                  alt="Explorador"
+                  fill
+                  className="object-contain"
+                />
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
