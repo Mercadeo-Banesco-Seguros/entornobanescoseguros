@@ -61,117 +61,27 @@
       "imageHint": "modern office"
     },
     {
-      "id": "menu-c-1",
-      "description": "Menú Clásico Lunes",
-      "imageUrl": "https://picsum.photos/seed/foodc1/600/800",
-      "imageHint": "classic pasta"
-    },
-    {
-      "id": "menu-c-2",
-      "description": "Menú Clásico Martes",
-      "imageUrl": "https://picsum.photos/seed/foodc2/600/800",
-      "imageHint": "classic chicken"
-    },
-    {
-      "id": "menu-c-3",
-      "description": "Menú Clásico Miércoles",
-      "imageUrl": "https://picsum.photos/seed/foodc3/600/800",
-      "imageHint": "classic beef"
-    },
-    {
-      "id": "menu-c-4",
-      "description": "Menú Clásico Jueves",
-      "imageUrl": "https://picsum.photos/seed/foodc4/600/800",
-      "imageHint": "classic rice"
-    },
-    {
-      "id": "menu-c-5",
-      "description": "Menú Clásico Viernes",
-      "imageUrl": "https://picsum.photos/seed/foodc5/600/800",
-      "imageHint": "classic special"
-    },
-    {
-      "id": "menu-d-1",
-      "description": "Menú Dieta Lunes",
-      "imageUrl": "https://picsum.photos/seed/foodd1/600/800",
-      "imageHint": "diet salad"
-    },
-    {
-      "id": "menu-d-2",
-      "description": "Menú Dieta Martes",
-      "imageUrl": "https://picsum.photos/seed/foodd2/600/800",
-      "imageHint": "diet fish"
-    },
-    {
-      "id": "menu-d-3",
-      "description": "Menú Dieta Miércoles",
-      "imageUrl": "https://picsum.photos/seed/foodd3/600/800",
-      "imageHint": "diet veggie"
-    },
-    {
-      "id": "menu-d-4",
-      "description": "Menú Dieta Jueves",
-      "imageUrl": "https://picsum.photos/seed/foodd4/600/800",
-      "imageHint": "diet soup"
-    },
-    {
-      "id": "menu-d-5",
-      "description": "Menú Dieta Viernes",
-      "imageUrl": "https://picsum.photos/seed/foodd5/600/800",
-      "imageHint": "diet fruit"
-    },
-    {
-      "id": "menu-e-1",
-      "description": "Menú Ejecutivo Lunes",
-      "imageUrl": "https://picsum.photos/seed/foode1/600/800",
-      "imageHint": "executive steak"
-    },
-    {
-      "id": "menu-e-2",
-      "description": "Menú Ejecutivo Martes",
-      "imageUrl": "https://picsum.photos/seed/foode2/600/800",
-      "imageHint": "executive salmon"
-    },
-    {
-      "id": "menu-e-3",
-      "description": "Menú Ejecutivo Miércoles",
-      "imageUrl": "https://picsum.photos/seed/foode3/600/800",
-      "imageHint": "executive gourmet"
-    },
-    {
-      "id": "menu-e-4",
-      "description": "Menú Ejecutivo Jueves",
-      "imageUrl": "https://picsum.photos/seed/foode4/600/800",
-      "imageHint": "executive special"
-    },
-    {
-      "id": "menu-e-5",
-      "description": "Menú Ejecutivo Viernes",
-      "imageUrl": "https://picsum.photos/seed/foode5/600/800",
-      "imageHint": "executive premium"
-    },
-    {
       "id": "playlist-1",
       "description": "Clásicos en Inglés",
-      "imageUrl": "https://picsum.photos/seed/music1/600/400",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vQZIj-a6y-TVdbslTSH13aLH33jeHnuPlATY2AZTdqVQh2gJ71FmZ9tCz2Do4lRYn3BY6kdhfqH5kEk/pub?w=960&h=720&format=png",
       "imageHint": "vinyl records"
     },
     {
       "id": "playlist-2",
       "description": "Rock Suave",
-      "imageUrl": "https://picsum.photos/seed/music2/600/400",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vQLAaCdFpo17uCD1cU6KbqaKU4zl8nnbm1NtVZQnlH6yDZoK1zWuBAsOU_mRQd6VzuFKK-2L3IeTe0x/pub?w=960&h=720&format=png",
       "imageHint": "electric guitar"
     },
     {
       "id": "playlist-3",
       "description": "Salsa y Merengue",
-      "imageUrl": "https://picsum.photos/seed/music3/600/400",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vR2z6aE8chAT0brCc-e_SPp0CDwBP8EPA32chTxS0dCeX0_qFM8ZwAi7Qx0bOAd-ARpXuzR-HEWOvYG/pub?w=960&h=720&format=png",
       "imageHint": "havana street"
     },
     {
       "id": "playlist-4",
       "description": "Solo Éxitos Pop",
-      "imageUrl": "https://picsum.photos/seed/music4/600/400",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vSU03DsQFakg-RUcMRbo5xZwdv7pkzNtKSgbwBvKr1XMZNcCVaFMP3PyEsjadAEyrkNj0NjRqDfDPE0/pub?w=960&h=720&format=png",
       "imageHint": "night sky"
     },
     {
