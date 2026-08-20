@@ -845,7 +845,7 @@ export default function LandingPage() {
             </div>
           </div>
           <div className="hidden md:flex w-1/2 h-full items-end justify-end">
-            <div className="relative w-[650px] h-[550px] -mb-12">
+            <div className="relative w-[850px] h-[750px] -mb-24">
               {rankingImage && (
                 <Image 
                   src={rankingImage.imageUrl}
@@ -862,3 +862,4 @@ export default function LandingPage() {
     </div>
   );
 }
+
