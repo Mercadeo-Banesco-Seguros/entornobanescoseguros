@@ -836,7 +836,7 @@ export default function LandingPage() {
           <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full blur-[150px] bg-blue-300/10 -translate-x-1/4 translate-y-1/4" />
         </div>
         <div className="container mx-auto px-6 relative z-10 h-full flex items-center">
-          <div className="w-full md:w-1/2 pl-12 md:pl-32 space-y-8 animate-in fade-in duration-500 text-left">
+          <div className="w-full md:w-1/2 pl-12 md:pl-48 space-y-8 animate-in fade-in duration-500 text-left">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
               <span className="text-[10px] text-white font-light tracking-tight">Expedición por Nuestro ADN</span>
             </div>

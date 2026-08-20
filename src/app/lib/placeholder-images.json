@@ -64,31 +64,31 @@
     {
       "id": "playlist-1",
       "description": "Clásicos en Inglés",
-      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vQZIj-a6y-TVdbslTSH13aLH33jeHnuPlATY2AZTdqVQh2gJ71FmZ9tCz2Do4lRYn3BY6kdhfqH5kEk/pub?format=png",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vQZIj-a6y-TVdbslTSH13aLH33jeHnuPlATY2AZTdqVQh2gJ71FmZ9tCz2Do4lRYn3BY6kdhfqH5kEk/pub?w=960&h=720&format=png",
       "imageHint": "vinyl records"
     },
     {
       "id": "playlist-2",
       "description": "Rock Suave",
-      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vQLAaCdFpo17uCD1cU6KbqaKU4zl8nnbm1NtVZQnlH6yDZoK1zWuBAsOU_mRQd6VzuFKK-2L3IeTe0x/pub?format=png",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vQLAaCdFpo17uCD1cU6KbqaKU4zl8nnbm1NtVZQnlH6yDZoK1zWuBAsOU_mRQd6VzuFKK-2L3IeTe0x/pub?w=960&h=720&format=png",
       "imageHint": "electric guitar"
     },
     {
       "id": "playlist-3",
       "description": "Salsa y Merengue",
-      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vR2z6aE8chAT0brCc-e_SPp0CDwBP8EPA32chTxS0dCeX0_qFM8ZwAi7Qx0bOAd-ARpXuzR-HEWOvYG/pub?format=png",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vR2z6aE8chAT0brCc-e_SPp0CDwBP8EPA32chTxS0dCeX0_qFM8ZwAi7Qx0bOAd-ARpXuzR-HEWOvYG/pub?w=960&h=720&format=png",
       "imageHint": "havana street"
     },
     {
       "id": "playlist-4",
       "description": "Solo Éxitos Pop",
-      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vSU03DsQFakg-RUcMRbo5xZwdv7pkzNtKSgbwBvKr1XMZNcCVaFMP3PyEsjadAEyrkNj0NjRqDfDPE0/pub?format=png",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vSU03DsQFakg-RUcMRbo5xZwdv7pkzNtKSgbwBvKr1XMZNcCVaFMP3PyEsjadAEyrkNj0NjRqDfDPE0/pub?w=960&h=720&format=png",
       "imageHint": "night sky"
     },
     {
       "id": "ranking-explorer",
       "description": "Explorador del Ranking",
-      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vSOJsJkXKwjNCF3BeltAYj_eckCR70Sn_Nsndc_dMr5y4QkSNkFBET8uzUzIioQGFmwYuJZOy0GVnaF/pub?format=png",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vSOJsJkXKwjNCF3BeltAYj_eckCR70Sn_Nsndc_dMr5y4QkSNkFBET8uzUzIioQGFmwYuJZOy0GVnaF/pub?format=png&w=960&h=720",
       "imageHint": "explorer character"
     }
   ]
