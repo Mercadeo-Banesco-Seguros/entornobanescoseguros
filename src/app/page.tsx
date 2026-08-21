@@ -885,7 +885,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12">
           <div className="space-y-8">
             <div>
-              <h4 className="text-[#0054A6] text-[10px] font-bold tracking-widest uppercase mb-2">¿Tienes dudas?</h4>
+              <h4 className="text-[#0054A6] text-[10px] font-light tracking-normal uppercase mb-2">¿Tienes dudas?</h4>
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-slate-900">Preguntas Frecuentes</h2>
             </div>
             <div className="space-y-2">
