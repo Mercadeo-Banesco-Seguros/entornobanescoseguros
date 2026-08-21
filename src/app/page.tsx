@@ -726,7 +726,7 @@ export default function LandingPage() {
       {/* 6. Póliza HCM Section */}
       <section className="bg-white py-24 px-6 md:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="group relative aspect-square rounded-3xl overflow-hidden cursor-pointer shadow-lg">
+          <div className="group relative aspect-[3/4] rounded-3xl overflow-hidden cursor-pointer shadow-lg">
             <Image 
               src="https://docs.google.com/drawings/d/e/2PACX-1vSXJYbUG3bld6KfkVAIBMtVUmct9WH1UCMk4rAMs9agRks7EtP8lgZ1l76_myh7LdZeZDUjGaLHlDCm/pub?format=png&w=960&h=720" 
               alt="Protocolos y Procedimientos" 
@@ -746,7 +746,7 @@ export default function LandingPage() {
             </div>
           </div>
 
-          <div className="relative aspect-square rounded-3xl overflow-hidden bg-[#003B73] flex flex-col items-center justify-center p-8 text-center shadow-xl">
+          <div className="relative aspect-[3/4] rounded-3xl overflow-hidden bg-[#003B73] flex flex-col items-center justify-center p-8 text-center shadow-xl">
              <div className="absolute inset-0 pointer-events-none opacity-10">
                 <div className="absolute top-0 right-0 w-48 h-48 rounded-full bg-blue-400 blur-3xl -translate-y-1/2 translate-x-1/2" />
                 <div className="absolute bottom-0 left-0 w-48 h-48 rounded-full bg-blue-300 blur-3xl translate-y-1/2 -translate-x-1/2" />
@@ -766,7 +766,7 @@ export default function LandingPage() {
              </div>
           </div>
 
-          <div className="group relative aspect-square rounded-3xl overflow-hidden cursor-pointer shadow-lg">
+          <div className="group relative aspect-[3/4] rounded-3xl overflow-hidden cursor-pointer shadow-lg">
             <Image 
               src="https://docs.google.com/drawings/d/e/2PACX-1vSZiKd9swEfXGrgPZGF_oY6PxPCw9KVDIlUI9GALt7AsJ-byTwIzExGCOw7EQH-heSLd9uxMVYTlXnr/pub?format=png&w=960&h=720" 
               alt="Aliados Vitales" 
