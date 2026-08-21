@@ -4,6 +4,7 @@ import './globals.css';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
 import Navbar from '@/components/layout/navbar';
+import { Providers } from '@/context/providers';
 
 const poppins = Poppins({ 
   subsets: ['latin'], 
@@ -24,9 +25,11 @@ export default function RootLayout({
   return (
     <html lang="es" className="scroll-smooth">
       <body className={cn(poppins.variable, "min-h-screen bg-slate-50 font-sans antialiased")}>
-        <Navbar />
-        {children}
-        <Toaster />
+        <Providers>
+          <Navbar />
+          {children}
+          <Toaster />
+        </Providers>
       </body>
     </html>
   );

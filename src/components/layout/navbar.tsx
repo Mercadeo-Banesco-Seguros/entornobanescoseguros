@@ -1,24 +1,63 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { navLinks } from '@/lib/data';
 import { cn } from '@/lib/utils';
-import { Search, Bell, User, Plus, Mic, X, AlertTriangle } from 'lucide-react';
+import { 
+  Search, 
+  Bell, 
+  User as UserIcon, 
+  Plus, 
+  Mic, 
+  X, 
+  AlertTriangle, 
+  LogOut, 
+  Settings, 
+  UserCircle,
+  Calendar,
+  CheckCircle2,
+  Clock
+} from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useAuth } from '@/context/auth-context';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 export default function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
+  const { currentUser, logout } = useAuth();
   const [mounted, setMounted] = useState(false);
   const [isTimeExpanded, setIsTimeExpanded] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [temperature, setTemperature] = useState<string | null>(null);
   const [showIANotification, setShowIANotification] = useState(false);
   const [inputValue, setInputValue] = useState('');
+  
+  // Search state
+  const [isSearchActive, setIsSearchActive] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const triggerNotification = () => {
+  const triggerIANotification = () => {
     setShowIANotification(true);
     setTimeout(() => setShowIANotification(false), 8000);
+  };
+
+  const handleLogout = () => {
+    logout();
+    router.push('/login');
   };
 
   useEffect(() => {
@@ -58,6 +97,13 @@ export default function Navbar() {
   const day = currentTime.getDate();
   const month = currentTime.toLocaleString('es-ES', { month: 'short' });
 
+  // Mock notifications
+  const notifications = [
+    { id: 1, title: 'Nueva Misión', description: '¡La pista Gran Caracas te espera!', icon: Calendar, time: '2h ago' },
+    { id: 2, title: 'Logro Alcanzado', description: 'Has subido un 5% en tu progreso semanal.', icon: CheckCircle2, time: '5h ago' },
+    { id: 3, title: 'Recordatorio', description: 'Revisa tus objetivos de cierre de mes.', icon: Clock, time: '1d ago' },
+  ];
+
   return (
     <div className="fixed top-6 left-0 right-0 z-50 flex flex-col items-center gap-3 px-4 pointer-events-none">
       <div className="flex justify-center items-center gap-3 w-full pointer-events-auto">
@@ -95,57 +141,148 @@ export default function Navbar() {
         </div>
 
         {/* Barra de Navegación Principal */}
-        <nav className="bg-[#003B73]/90 backdrop-blur-sm rounded-full px-1 py-1 flex items-center shadow-2xl border border-white/10 max-w-fit overflow-x-auto no-scrollbar h-10">
-          <div className="flex items-center">
-            {navLinks.map((link) => {
-              const Icon = link.icon;
-              const isActive = pathname === link.href;
+        <nav className={cn(
+          "bg-[#003B73]/90 backdrop-blur-sm rounded-full px-1 py-1 flex items-center shadow-2xl border border-white/10 transition-all duration-300 h-10",
+          isSearchActive ? "w-full max-w-md" : "max-w-fit overflow-x-auto no-scrollbar"
+        )}>
+          {isSearchActive ? (
+            <div className="flex items-center w-full px-2 animate-in fade-in zoom-in-95 duration-300">
+              <Search className="w-3 h-3 text-white/60 mr-2" />
+              <input 
+                type="text"
+                autoFocus
+                placeholder="Buscar en el circuito..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={(e) => e.key === 'Escape' && setIsSearchActive(false)}
+                className="bg-transparent text-[10px] font-light text-white placeholder:text-white/40 outline-none w-full border-none focus:ring-0 p-0"
+              />
+              <button 
+                onClick={() => {
+                  setIsSearchActive(false);
+                  setSearchQuery('');
+                }}
+                className="p-1.5 text-white/60 hover:text-white transition-colors"
+              >
+                <X className="w-3 h-3" />
+              </button>
+            </div>
+          ) : (
+            <>
+              <div className="flex items-center">
+                {navLinks.map((link) => {
+                  const Icon = link.icon;
+                  const isActive = pathname === link.href;
 
-              return (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  className={cn(
-                    'flex items-center gap-1.5 px-3 h-8 rounded-full transition-all duration-200 group whitespace-nowrap',
-                    isActive 
-                      ? 'bg-white/10 text-white font-light' 
-                      : 'text-white/60 hover:text-white font-light'
-                  )}
+                  return (
+                    <Link
+                      key={link.label}
+                      href={link.href}
+                      className={cn(
+                        'flex items-center gap-1.5 px-3 h-8 rounded-full transition-all duration-200 group whitespace-nowrap',
+                        isActive 
+                          ? 'bg-white/10 text-white font-light' 
+                          : 'text-white/60 hover:text-white font-light'
+                      )}
+                    >
+                      <Icon 
+                        className={cn("w-3 h-3", isActive ? "text-white" : "text-white/60 group-hover:text-white")} 
+                        strokeWidth={isActive ? 2 : 1.5}
+                      />
+                      {isActive && (
+                        <span className="text-[9px] tracking-tight">
+                          {link.label}
+                        </span>
+                      )}
+                    </Link>
+                  );
+                })}
+              </div>
+
+              <div className="h-3 w-[1px] bg-white/10 mx-1 hidden sm:block" />
+
+              <div className="flex items-center pr-0.5">
+                {/* BUSCADOR */}
+                <button 
+                  onClick={() => setIsSearchActive(true)} 
+                  className="p-1.5 text-white/60 hover:text-white transition-colors"
                 >
-                  <Icon 
-                    className={cn("w-3 h-3", isActive ? "text-white" : "text-white/60 group-hover:text-white")} 
-                    strokeWidth={isActive ? 2 : 1.5}
-                  />
-                  {isActive && (
-                    <span className="text-[9px] tracking-tight">
-                      {link.label}
-                    </span>
-                  )}
-                </Link>
-              );
-            })}
-          </div>
+                  <Search className="w-3 h-3" strokeWidth={1.5} />
+                </button>
 
-          <div className="h-3 w-[1px] bg-white/10 mx-1 hidden sm:block" />
+                {/* NOTIFICACIONES */}
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <button className="p-1.5 text-white/60 hover:text-white transition-colors relative">
+                      <Bell className="w-3 h-3" strokeWidth={1.5} />
+                      <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-blue-500 rounded-full" />
+                    </button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-80 p-0 bg-[#003B73]/95 backdrop-blur-md border-white/10 shadow-2xl rounded-2xl overflow-hidden mt-2 mr-4">
+                    <div className="p-4 border-b border-white/10">
+                      <h4 className="text-white text-xs font-semibold">Notificaciones</h4>
+                    </div>
+                    <div className="max-h-[300px] overflow-y-auto">
+                      {notifications.map((notif) => (
+                        <div key={notif.id} className="p-4 border-b border-white/5 hover:bg-white/5 transition-colors cursor-pointer flex gap-3">
+                          <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+                            <notif.icon className="w-4 h-4 text-blue-400" />
+                          </div>
+                          <div>
+                            <p className="text-[10px] font-medium text-white">{notif.title}</p>
+                            <p className="text-[9px] text-white/60 leading-tight mt-0.5">{notif.description}</p>
+                            <span className="text-[8px] text-white/40 mt-1 block">{notif.time}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="p-3 text-center">
+                      <button className="text-[9px] text-blue-400 hover:text-blue-300 font-medium">Ver todo el historial</button>
+                    </div>
+                  </PopoverContent>
+                </Popover>
 
-          <div className="flex items-center pr-0.5">
-            <button onClick={triggerNotification} className="p-1.5 text-white/60 hover:text-white transition-colors">
-              <Search className="w-3 h-3" strokeWidth={1.5} />
-            </button>
-            <button onClick={triggerNotification} className="p-1.5 text-white/60 hover:text-white transition-colors relative">
-              <Bell className="w-3 h-3" strokeWidth={1.5} />
-              <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-blue-500 rounded-full" />
-            </button>
-            <button onClick={triggerNotification} className="p-1.5 text-white/60 hover:text-white transition-colors">
-              <User className="w-3 h-3" strokeWidth={1.5} />
-            </button>
-          </div>
+                {/* USUARIO */}
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <button className="p-1.5 text-white/60 hover:text-white transition-colors">
+                      <UserIcon className="w-3 h-3" strokeWidth={1.5} />
+                    </button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-56 bg-[#003B73]/95 backdrop-blur-md border-white/10 text-white rounded-2xl p-2 shadow-2xl mt-2 mr-4">
+                    <DropdownMenuLabel className="text-[10px] font-light text-white/60 px-2 py-1.5">
+                      {currentUser?.name || 'Piloto'}
+                    </DropdownMenuLabel>
+                    <DropdownMenuSeparator className="bg-white/10" />
+                    <DropdownMenuItem asChild className="focus:bg-white/10 focus:text-white rounded-xl cursor-pointer">
+                      <Link href="/profile" className="flex items-center gap-2">
+                        <UserCircle className="w-3.5 h-3.5" />
+                        <span className="text-[10px] font-light">Mi Perfil</span>
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem className="focus:bg-white/10 focus:text-white rounded-xl cursor-pointer flex items-center gap-2">
+                      <Settings className="w-3.5 h-3.5" />
+                      <span className="text-[10px] font-light">Configuración</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator className="bg-white/10" />
+                    <DropdownMenuItem 
+                      onClick={handleLogout}
+                      className="focus:bg-red-500/20 text-red-400 focus:text-red-300 rounded-xl cursor-pointer flex items-center gap-2"
+                    >
+                      <LogOut className="w-3.5 h-3.5" />
+                      <span className="text-[10px] font-light">Cerrar Sesión</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+            </>
+          )}
         </nav>
 
         {/* Cápsula de Chat IA */}
         <div className="bg-[#003B73]/90 backdrop-blur-sm rounded-full flex items-center shadow-2xl border border-white/10 h-10 px-1 gap-1">
           <button 
-            onClick={triggerNotification}
+            onClick={triggerIANotification}
             className="p-1.5 text-white/60 hover:text-white transition-colors"
           >
             <Plus className="w-3 h-3" strokeWidth={1.5} />
@@ -158,7 +295,7 @@ export default function Navbar() {
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
-                  triggerNotification();
+                  triggerIANotification();
                   setInputValue('');
                 }
               }}
@@ -166,13 +303,13 @@ export default function Navbar() {
             />
           </div>
           <button 
-            onClick={triggerNotification}
+            onClick={triggerIANotification}
             className="p-1.5 text-white/60 hover:text-white transition-colors"
           >
             <Mic className="w-3 h-3" strokeWidth={1.5} />
           </button>
           <div 
-            onClick={triggerNotification}
+            onClick={triggerIANotification}
             className="h-8 w-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer"
           >
              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-white">
