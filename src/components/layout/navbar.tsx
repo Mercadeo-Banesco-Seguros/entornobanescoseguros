@@ -215,29 +215,29 @@ export default function Navbar() {
                   <PopoverTrigger asChild>
                     <button className="p-1.5 text-white/60 hover:text-white transition-colors relative">
                       <Bell className="w-3 h-3" strokeWidth={1.5} />
-                      <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-blue-500 rounded-full" />
+                      <span className="absolute top-1.5 right-1.5 w-1 h-1 bg-blue-500 rounded-full" />
                     </button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-80 p-0 bg-white border-none shadow-[0_20px_50px_rgba(0,0,0,0.1)] rounded-[2rem] overflow-hidden mt-4 mr-4">
-                    <div className="p-6 border-b border-slate-50">
-                      <h4 className="text-slate-900 text-sm font-bold tracking-tight">Notificaciones</h4>
+                  <PopoverContent className="w-64 p-0 bg-white border-none shadow-[0_10px_40px_rgba(0,0,0,0.08)] rounded-[1.5rem] overflow-hidden mt-4 mr-4">
+                    <div className="p-4 border-b border-slate-50">
+                      <h4 className="text-slate-900 text-[10px] font-light tracking-tight">Notificaciones</h4>
                     </div>
-                    <div className="max-h-[300px] overflow-y-auto py-2">
+                    <div className="max-h-[250px] overflow-y-auto py-1">
                       {notifications.map((notif) => (
-                        <div key={notif.id} className="px-6 py-4 hover:bg-slate-50 transition-colors cursor-pointer flex gap-4">
-                          <div className="w-9 h-9 rounded-2xl bg-blue-50 flex items-center justify-center shrink-0">
-                            <notif.icon className="w-4 h-4 text-blue-500 stroke-[1.5]" />
+                        <div key={notif.id} className="px-4 py-3 hover:bg-slate-50 transition-colors cursor-pointer flex gap-3">
+                          <div className="w-7 h-7 rounded-xl bg-blue-50 flex items-center justify-center shrink-0">
+                            <notif.icon className="w-3.5 h-3.5 text-blue-500 stroke-[1]" />
                           </div>
                           <div className="flex flex-col">
-                            <p className="text-[11px] font-medium text-slate-900">{notif.title}</p>
-                            <p className="text-[10px] text-slate-500 leading-tight mt-0.5 font-light">{notif.description}</p>
-                            <span className="text-[9px] text-slate-400 mt-1 block font-light">{notif.time}</span>
+                            <p className="text-[9px] font-light text-slate-900 leading-tight">{notif.title}</p>
+                            <p className="text-[8px] text-slate-500 leading-tight mt-0.5 font-light">{notif.description}</p>
+                            <span className="text-[7px] text-slate-400 mt-0.5 block font-light">{notif.time}</span>
                           </div>
                         </div>
                       ))}
                     </div>
-                    <div className="p-4 text-center bg-slate-50/30">
-                      <button className="text-[10px] text-blue-600 hover:text-blue-700 font-medium tracking-tight">Ver todo el historial</button>
+                    <div className="p-3 text-center bg-slate-50/30">
+                      <button className="text-[8px] text-blue-600 hover:text-blue-700 font-light tracking-tight">Ver historial</button>
                     </div>
                   </PopoverContent>
                 </Popover>
@@ -249,40 +249,40 @@ export default function Navbar() {
                       <UserIcon className="w-3 h-3" strokeWidth={1.5} />
                     </button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-64 bg-white border-none text-slate-900 rounded-[2rem] p-6 shadow-[0_20px_50px_rgba(0,0,0,0.1)] mt-4 mr-4">
-                    <div className="px-2 pb-4 mb-4 border-b border-slate-50">
-                      <h3 className="text-sm font-bold text-slate-900 leading-tight">{currentUser?.name || 'Piloto'}</h3>
-                      <p className="text-[11px] font-light text-slate-400 mt-0.5 uppercase tracking-wider">
+                  <DropdownMenuContent className="w-48 bg-white border-none text-slate-900 rounded-[1.5rem] p-4 shadow-[0_10px_40px_rgba(0,0,0,0.08)] mt-4 mr-4">
+                    <div className="px-1 pb-3 mb-3 border-b border-slate-50">
+                      <h3 className="text-[10px] font-light text-slate-900 leading-tight">{currentUser?.name || 'Piloto'}</h3>
+                      <p className="text-[8px] font-light text-slate-400 mt-0.5 uppercase tracking-wider">
                         {currentUser?.cargo === 'ADMINISTRADOR' ? 'Administrador' : 'Asesor Integral'}
                       </p>
                     </div>
                     
-                    <div className="space-y-1">
-                      <DropdownMenuItem asChild className="focus:bg-slate-50 focus:text-slate-900 rounded-xl cursor-pointer py-2.5 px-3 border-none outline-none group">
-                        <Link href="/profile" className="flex items-center gap-3">
-                          <UserCircle className="w-4 h-4 text-slate-400 stroke-[1.2] group-hover:text-slate-600 transition-colors" />
-                          <span className="text-[12px] font-light text-slate-600">Mi Perfil</span>
+                    <div className="space-y-0.5">
+                      <DropdownMenuItem asChild className="focus:bg-slate-50 focus:text-slate-900 rounded-lg cursor-pointer py-2 px-2 border-none outline-none group">
+                        <Link href="/profile" className="flex items-center gap-2">
+                          <UserCircle className="w-3.5 h-3.5 text-slate-400 stroke-[1] group-hover:text-slate-600 transition-colors" />
+                          <span className="text-[9px] font-light text-slate-600">Mi Perfil</span>
                         </Link>
                       </DropdownMenuItem>
                       
-                      <DropdownMenuItem className="focus:bg-slate-50 focus:text-slate-900 rounded-xl cursor-pointer flex items-center gap-3 py-2.5 px-3 border-none outline-none group">
-                        <Settings className="w-4 h-4 text-slate-400 stroke-[1.2] group-hover:text-slate-600 transition-colors" />
-                        <span className="text-[12px] font-light text-slate-600">Configuración</span>
+                      <DropdownMenuItem className="focus:bg-slate-50 focus:text-slate-900 rounded-lg cursor-pointer flex items-center gap-2 py-2 px-2 border-none outline-none group">
+                        <Settings className="w-3.5 h-3.5 text-slate-400 stroke-[1] group-hover:text-slate-600 transition-colors" />
+                        <span className="text-[9px] font-light text-slate-600">Configuración</span>
                       </DropdownMenuItem>
 
-                      <DropdownMenuItem className="focus:bg-slate-50 focus:text-slate-900 rounded-xl cursor-pointer flex items-center gap-3 py-2.5 px-3 border-none outline-none group">
-                        <HelpCircle className="w-4 h-4 text-slate-400 stroke-[1.2] group-hover:text-slate-600 transition-colors" />
-                        <span className="text-[12px] font-light text-slate-600">Ayuda y Soporte</span>
+                      <DropdownMenuItem className="focus:bg-slate-50 focus:text-slate-900 rounded-lg cursor-pointer flex items-center gap-2 py-2 px-2 border-none outline-none group">
+                        <HelpCircle className="w-3.5 h-3.5 text-slate-400 stroke-[1] group-hover:text-slate-600 transition-colors" />
+                        <span className="text-[9px] font-light text-slate-600">Ayuda</span>
                       </DropdownMenuItem>
                     </div>
 
-                    <div className="mt-4 pt-4 border-t border-slate-50">
+                    <div className="mt-3 pt-3 border-t border-slate-50">
                       <DropdownMenuItem 
                         onClick={handleLogout}
-                        className="focus:bg-red-50 text-red-500 focus:text-red-600 rounded-xl cursor-pointer flex items-center gap-3 py-2.5 px-3 border-none outline-none"
+                        className="focus:bg-red-50 text-red-500 focus:text-red-600 rounded-lg cursor-pointer flex items-center gap-2 py-2 px-2 border-none outline-none"
                       >
-                        <LogOut className="w-4 h-4 stroke-[1.2]" />
-                        <span className="text-[12px] font-light">Cerrar Sesión</span>
+                        <LogOut className="w-3.5 h-3.5 stroke-[1]" />
+                        <span className="text-[9px] font-light">Cerrar Sesión</span>
                       </DropdownMenuItem>
                     </div>
                   </DropdownMenuContent>
