@@ -19,7 +19,13 @@ import {
   Calendar,
   CheckCircle2,
   Clock,
-  HelpCircle
+  HelpCircle,
+  Database,
+  Sparkles,
+  FileCheck,
+  XCircle,
+  ChevronRight,
+  Info
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/context/auth-context';
@@ -97,11 +103,19 @@ export default function Navbar() {
   const day = currentTime.getDate();
   const month = currentTime.toLocaleString('es-ES', { month: 'short' });
 
-  // Mock notifications
-  const notifications = [
-    { id: 1, title: 'Nueva Misión', description: '¡La pista Gran Caracas te espera!', icon: Calendar, time: '2h ago' },
-    { id: 2, title: 'Logro Alcanzado', description: 'Has subido un 5% en tu progreso semanal.', icon: CheckCircle2, time: '5h ago' },
-    { id: 3, title: 'Recordatorio', description: 'Revisa tus objetivos de cierre de mes.', icon: Clock, time: '1d ago' },
+  // Notifications Data
+  const notificationsData = [
+    { id: 1, title: 'Cifras actualizadas', description: 'Los tableros de producción ya reflejan el cierre de ayer.', time: 'Hace 5m', icon: Database, color: 'text-slate-400', bgColor: 'bg-slate-50' },
+    { id: 2, title: 'Nueva funcionalidad', description: 'Módulo de análisis de tubería optimizado ya disponible.', time: 'Hoy', icon: Sparkles, color: 'text-blue-400', bgColor: 'bg-blue-50' },
+    { id: 3, title: 'Póliza renovada', description: 'Corporación Polar C.A. ha renovado su póliza de Salud.', time: 'Hace 1h', icon: FileCheck, color: 'text-green-400', bgColor: 'bg-green-50' },
+  ];
+
+  // Reminders Data
+  const remindersData = [
+    { id: 1, title: 'Vencimiento Próximo', description: 'La póliza corporativa 90021345 vence en menos de 48h.', time: 'Hace 45m', icon: Clock, color: 'text-orange-400', bgColor: 'bg-orange-50' },
+    { id: 2, title: 'Cobro Fallido', description: 'Error en el cargo automático del cliente Inversiones HL.', time: 'Hace 2h', icon: XCircle, color: 'text-red-400', bgColor: 'bg-red-50' },
+    { id: 3, title: 'Siniestro Crítico', description: 'Reportado siniestro de gran magnitud en Ramo Patrimonial.', time: 'Hace 4h', icon: AlertTriangle, color: 'text-red-500', bgColor: 'bg-red-50' },
+    { id: 4, title: 'Incumplimiento SLA', description: '3 solicitudes de emisión han excedido el tiempo límite.', time: 'Ayer', icon: AlertTriangle, color: 'text-orange-500', bgColor: 'bg-orange-50' },
   ];
 
   return (
@@ -210,7 +224,7 @@ export default function Navbar() {
                   <Search className="w-3 h-3" strokeWidth={1.5} />
                 </button>
 
-                {/* NOTIFICACIONES */}
+                {/* NOTIFICACIONES Y RECORDATORIOS */}
                 <Popover>
                   <PopoverTrigger asChild>
                     <button className="p-1.5 text-white/60 hover:text-white transition-colors relative">
@@ -218,26 +232,79 @@ export default function Navbar() {
                       <span className="absolute top-1.5 right-1.5 w-1 h-1 bg-blue-500 rounded-full" />
                     </button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-64 p-0 bg-white border-none shadow-[0_10px_40px_rgba(0,0,0,0.08)] rounded-[1.5rem] overflow-hidden mt-4 mr-4">
-                    <div className="p-4 border-b border-slate-50">
-                      <h4 className="text-slate-900 text-[10px] font-light tracking-tight">Notificaciones</h4>
-                    </div>
-                    <div className="max-h-[250px] overflow-y-auto py-1">
-                      {notifications.map((notif) => (
-                        <div key={notif.id} className="px-4 py-3 hover:bg-slate-50 transition-colors cursor-pointer flex gap-3">
-                          <div className="w-7 h-7 rounded-xl bg-blue-50 flex items-center justify-center shrink-0">
-                            <notif.icon className="w-3.5 h-3.5 text-blue-500 stroke-[1]" />
+                  <PopoverContent className="w-[580px] p-8 bg-white border-none shadow-[0_20px_50px_rgba(0,0,0,0.1)] rounded-[2.5rem] overflow-hidden mt-4 mr-4 outline-none">
+                    <div className="flex gap-8">
+                      {/* Columna Notificaciones */}
+                      <div className="flex-1 space-y-5">
+                        <div className="flex justify-between items-start">
+                          <div>
+                            <h4 className="text-slate-700 text-[11px] font-normal tracking-tight">Notificaciones</h4>
+                            <p className="text-[9px] text-slate-400 font-light mt-0.5">Actividad y actualizaciones</p>
                           </div>
-                          <div className="flex flex-col">
-                            <p className="text-[9px] font-light text-slate-900 leading-tight">{notif.title}</p>
-                            <p className="text-[8px] text-slate-500 leading-tight mt-0.5 font-light">{notif.description}</p>
-                            <span className="text-[7px] text-slate-400 mt-0.5 block font-light">{notif.time}</span>
+                          <button className="text-[9px] text-slate-400 font-light hover:text-slate-600 flex items-center gap-0.5 transition-colors">
+                            Ver todas <ChevronRight className="w-2.5 h-2.5" />
+                          </button>
+                        </div>
+
+                        {/* Banner Construcción */}
+                        <div className="bg-[#EEF4FF]/50 p-4 rounded-2xl flex gap-3 items-center border border-blue-50/50">
+                          <div className="shrink-0 w-6 h-6 rounded-full bg-white flex items-center justify-center">
+                            <Info className="w-3 h-3 text-blue-500 stroke-[1.2]" />
+                          </div>
+                          <p className="text-[8.5px] text-blue-900/60 font-light leading-snug">
+                            Este módulo de notificaciones se encuentra en construcción.
+                          </p>
+                        </div>
+
+                        <div className="space-y-4 pt-1">
+                          {notificationsData.map((item) => (
+                            <div key={item.id} className="group cursor-pointer flex items-center gap-3">
+                              <div className={cn("w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-transform group-hover:scale-105", item.bgColor)}>
+                                <item.icon className={cn("w-3.5 h-3.5", item.color)} strokeWidth={1} />
+                              </div>
+                              <div className="flex-grow">
+                                <div className="flex items-center gap-1.5">
+                                  <span className="text-[9px] text-slate-700 font-normal">{item.title}</span>
+                                  <span className="text-[7px] text-slate-300 font-light">• {item.time}</span>
+                                </div>
+                                <p className="text-[8px] text-slate-400 font-light leading-tight mt-0.5">{item.description}</p>
+                              </div>
+                              <ChevronRight className="w-2.5 h-2.5 text-slate-200 group-hover:text-slate-400 transition-colors" />
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Columna Recordatorios */}
+                      <div className="flex-1 space-y-5">
+                        <div className="flex justify-between items-start">
+                          <div>
+                            <h4 className="text-slate-700 text-[11px] font-normal tracking-tight">Recordatorios</h4>
+                            <p className="text-[9px] text-slate-400 font-light mt-0.5">Riesgos y vencimientos</p>
+                          </div>
+                          <div className="w-6 h-6 rounded-full bg-red-50 flex items-center justify-center">
+                            <AlertTriangle className="w-3 h-3 text-red-400 stroke-[1.2]" />
                           </div>
                         </div>
-                      ))}
-                    </div>
-                    <div className="p-3 text-center bg-slate-50/30">
-                      <button className="text-[8px] text-blue-600 hover:text-blue-700 font-light tracking-tight">Ver historial</button>
+
+                        <div className="space-y-4 pt-1">
+                          {remindersData.map((item) => (
+                            <div key={item.id} className="group cursor-pointer flex items-center gap-3">
+                              <div className={cn("w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-transform group-hover:scale-105", item.bgColor)}>
+                                <item.icon className={cn("w-3.5 h-3.5", item.color)} strokeWidth={1} />
+                              </div>
+                              <div className="flex-grow">
+                                <div className="flex items-center gap-1.5">
+                                  <span className="text-[9px] text-slate-700 font-normal">{item.title}</span>
+                                  <span className="text-[7px] text-slate-300 font-light">• {item.time}</span>
+                                </div>
+                                <p className="text-[8px] text-slate-400 font-light leading-tight mt-0.5">{item.description}</p>
+                              </div>
+                              <ChevronRight className="w-2.5 h-2.5 text-slate-200 group-hover:text-slate-400 transition-colors" />
+                            </div>
+                          ))}
+                        </div>
+                      </div>
                     </div>
                   </PopoverContent>
                 </Popover>
@@ -249,7 +316,7 @@ export default function Navbar() {
                       <UserIcon className="w-3 h-3" strokeWidth={1.5} />
                     </button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-48 bg-white border-none text-slate-900 rounded-[1.5rem] p-4 shadow-[0_10px_40px_rgba(0,0,0,0.08)] mt-4 mr-4">
+                  <DropdownMenuContent className="w-48 bg-white border-none text-slate-900 rounded-[1.5rem] p-4 shadow-[0_10px_40px_rgba(0,0,0,0.08)] mt-4 mr-4 outline-none">
                     <div className="px-1 pb-3 mb-3 border-b border-slate-50">
                       <h3 className="text-[10px] font-light text-slate-900 leading-tight">{currentUser?.name || 'Piloto'}</h3>
                       <p className="text-[8px] font-light text-slate-400 mt-0.5 uppercase tracking-wider">
