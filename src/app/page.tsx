@@ -143,7 +143,6 @@ export default function LandingPage() {
   const [activeMenuDayIndex, setActiveMenuDayIndex] = React.useState(new Date().getDay() === 0 || new Date().getDay() === 6 ? 0 : new Date().getDay() - 1);
   const [activeMenuType, setActiveMenuType] = React.useState<'Clásico' | 'Dieta' | 'Ejecutivo'>('Clásico');
   const [showShortcuts, setShowShortcuts] = React.useState(false);
-  const [showExecutiveShortcuts, setShowExecutiveShortcuts] = React.useState(false);
   const [activeCourseId, setActiveCourseId] = React.useState(courses.find(c => c.featured)?.id || courses[0].id);
   
   const currentItems = React.useMemo(() => {
@@ -754,37 +753,12 @@ export default function LandingPage() {
           <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full blur-[150px] bg-blue-300/10 -translate-x-1/4 translate-y-1/4" />
         </div>
         <div className="container mx-auto px-6 relative z-10 h-full flex items-center justify-center">
-          {!showExecutiveShortcuts ? (
-            <div className="text-center space-y-10 animate-in fade-in duration-500">
-              <h2 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-tight max-w-4xl mx-auto drop-shadow-md">Visita nuestro <br /> Espacio Ejecutivo</h2>
-              <div className="flex justify-center gap-4">
-                <button className="px-10 py-3 rounded-xl bg-white text-[#0054A6] text-[10px] font-light hover:bg-white/90 transition-colors">Acceder</button>
-                <button onClick={() => setShowExecutiveShortcuts(true)} className="px-10 py-3 rounded-xl bg-transparent border border-white/40 text-white text-[10px] font-light hover:bg-white/10 transition-colors">Atajos</button>
-              </div>
+          <div className="text-center space-y-10 animate-in fade-in duration-500">
+            <h2 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-tight max-w-4xl mx-auto drop-shadow-md">Visita nuestro <br /> Espacio Ejecutivo</h2>
+            <div className="flex justify-center">
+              <button className="px-10 py-3 rounded-xl bg-white text-[#0054A6] text-[10px] font-light hover:bg-white/90 transition-colors">Acceder</button>
             </div>
-          ) : (
-            <div className="relative w-full max-w-4xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500 bg-black/20 p-8 rounded-3xl backdrop-blur-sm">
-              <div className="flex justify-end mb-6">
-                <button onClick={() => setShowExecutiveShortcuts(false)} className="p-2 text-white/60 hover:text-white transition-colors"><X className="w-6 h-6" /></button>
-              </div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-x-4 gap-y-6 text-left">
-                {[
-                  { title: 'Presidencia', links: ['Agenda', 'Comunicados', 'Visión 2025'] },
-                  { title: 'V.P. Ejecutiva', links: ['Operaciones', 'Estrategia', 'Informes'] },
-                  { title: 'Auditoría', links: ['Normativas', 'Revisiones', 'Controles'] },
-                  { title: 'Legal', links: ['Contratos', 'Consultoría', 'Regulaciones'] },
-                  { title: 'Cumplimiento', links: ['Ética', 'Prevención', 'Políticas'] }
-                ].map((group) => (
-                  <div key={group.title} className="space-y-4">
-                    <h4 className="text-white font-bold text-[13px] tracking-tight">{group.title}</h4>
-                    <ul className="space-y-1.5 text-white/90 text-[9px] font-light">
-                      {group.links.map(link => <li key={link} className="hover:text-white cursor-pointer transition-colors">{link}</li>)}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+          </div>
         </div>
       </div>
       
