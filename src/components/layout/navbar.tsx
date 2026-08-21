@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -17,7 +18,8 @@ import {
   UserCircle,
   Calendar,
   CheckCircle2,
-  Clock
+  Clock,
+  HelpCircle
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/context/auth-context';
@@ -25,8 +27,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
@@ -218,26 +218,26 @@ export default function Navbar() {
                       <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-blue-500 rounded-full" />
                     </button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-80 p-0 bg-white border-slate-200 shadow-xl rounded-2xl overflow-hidden mt-2 mr-4">
-                    <div className="p-4 border-b border-slate-100 bg-slate-50/50">
-                      <h4 className="text-slate-900 text-xs font-light tracking-tight">Notificaciones</h4>
+                  <PopoverContent className="w-80 p-0 bg-white border-none shadow-[0_20px_50px_rgba(0,0,0,0.1)] rounded-[2rem] overflow-hidden mt-4 mr-4">
+                    <div className="p-6 border-b border-slate-50">
+                      <h4 className="text-slate-900 text-sm font-bold tracking-tight">Notificaciones</h4>
                     </div>
-                    <div className="max-h-[300px] overflow-y-auto">
+                    <div className="max-h-[300px] overflow-y-auto py-2">
                       {notifications.map((notif) => (
-                        <div key={notif.id} className="p-4 border-b border-slate-50 hover:bg-slate-50 transition-colors cursor-pointer flex gap-3">
-                          <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center shrink-0">
-                            <notif.icon className="w-4 h-4 text-blue-500" />
+                        <div key={notif.id} className="px-6 py-4 hover:bg-slate-50 transition-colors cursor-pointer flex gap-4">
+                          <div className="w-9 h-9 rounded-2xl bg-blue-50 flex items-center justify-center shrink-0">
+                            <notif.icon className="w-4 h-4 text-blue-500 stroke-[1.5]" />
                           </div>
-                          <div>
-                            <p className="text-[10px] font-light text-slate-900">{notif.title}</p>
-                            <p className="text-[9px] text-slate-500 leading-tight mt-0.5 font-light">{notif.description}</p>
-                            <span className="text-[8px] text-slate-400 mt-1 block font-light">{notif.time}</span>
+                          <div className="flex flex-col">
+                            <p className="text-[11px] font-medium text-slate-900">{notif.title}</p>
+                            <p className="text-[10px] text-slate-500 leading-tight mt-0.5 font-light">{notif.description}</p>
+                            <span className="text-[9px] text-slate-400 mt-1 block font-light">{notif.time}</span>
                           </div>
                         </div>
                       ))}
                     </div>
-                    <div className="p-3 text-center bg-slate-50/30">
-                      <button className="text-[9px] text-blue-600 hover:text-blue-700 font-light tracking-tight">Ver todo el historial</button>
+                    <div className="p-4 text-center bg-slate-50/30">
+                      <button className="text-[10px] text-blue-600 hover:text-blue-700 font-medium tracking-tight">Ver todo el historial</button>
                     </div>
                   </PopoverContent>
                 </Popover>
@@ -249,29 +249,42 @@ export default function Navbar() {
                       <UserIcon className="w-3 h-3" strokeWidth={1.5} />
                     </button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-56 bg-white border-slate-200 text-slate-900 rounded-2xl p-2 shadow-xl mt-2 mr-4">
-                    <DropdownMenuLabel className="text-[10px] font-light text-slate-500 px-2 py-1.5">
-                      {currentUser?.name || 'Piloto'}
-                    </DropdownMenuLabel>
-                    <DropdownMenuSeparator className="bg-slate-100" />
-                    <DropdownMenuItem asChild className="focus:bg-slate-50 focus:text-slate-900 rounded-xl cursor-pointer">
-                      <Link href="/profile" className="flex items-center gap-2">
-                        <UserCircle className="w-3.5 h-3.5 text-slate-400" />
-                        <span className="text-[10px] font-light">Mi Perfil</span>
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem className="focus:bg-slate-50 focus:text-slate-900 rounded-xl cursor-pointer flex items-center gap-2">
-                      <Settings className="w-3.5 h-3.5 text-slate-400" />
-                      <span className="text-[10px] font-light">Configuración</span>
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator className="bg-slate-100" />
-                    <DropdownMenuItem 
-                      onClick={handleLogout}
-                      className="focus:bg-red-50 text-red-600 focus:text-red-700 rounded-xl cursor-pointer flex items-center gap-2"
-                    >
-                      <LogOut className="w-3.5 h-3.5" />
-                      <span className="text-[10px] font-light">Cerrar Sesión</span>
-                    </DropdownMenuItem>
+                  <DropdownMenuContent className="w-64 bg-white border-none text-slate-900 rounded-[2rem] p-6 shadow-[0_20px_50px_rgba(0,0,0,0.1)] mt-4 mr-4">
+                    <div className="px-2 pb-4 mb-4 border-b border-slate-50">
+                      <h3 className="text-sm font-bold text-slate-900 leading-tight">{currentUser?.name || 'Piloto'}</h3>
+                      <p className="text-[11px] font-light text-slate-400 mt-0.5 uppercase tracking-wider">
+                        {currentUser?.cargo === 'ADMINISTRADOR' ? 'Administrador' : 'Asesor Integral'}
+                      </p>
+                    </div>
+                    
+                    <div className="space-y-1">
+                      <DropdownMenuItem asChild className="focus:bg-slate-50 focus:text-slate-900 rounded-xl cursor-pointer py-2.5 px-3 border-none outline-none group">
+                        <Link href="/profile" className="flex items-center gap-3">
+                          <UserCircle className="w-4 h-4 text-slate-400 stroke-[1.2] group-hover:text-slate-600 transition-colors" />
+                          <span className="text-[12px] font-light text-slate-600">Mi Perfil</span>
+                        </Link>
+                      </DropdownMenuItem>
+                      
+                      <DropdownMenuItem className="focus:bg-slate-50 focus:text-slate-900 rounded-xl cursor-pointer flex items-center gap-3 py-2.5 px-3 border-none outline-none group">
+                        <Settings className="w-4 h-4 text-slate-400 stroke-[1.2] group-hover:text-slate-600 transition-colors" />
+                        <span className="text-[12px] font-light text-slate-600">Configuración</span>
+                      </DropdownMenuItem>
+
+                      <DropdownMenuItem className="focus:bg-slate-50 focus:text-slate-900 rounded-xl cursor-pointer flex items-center gap-3 py-2.5 px-3 border-none outline-none group">
+                        <HelpCircle className="w-4 h-4 text-slate-400 stroke-[1.2] group-hover:text-slate-600 transition-colors" />
+                        <span className="text-[12px] font-light text-slate-600">Ayuda y Soporte</span>
+                      </DropdownMenuItem>
+                    </div>
+
+                    <div className="mt-4 pt-4 border-t border-slate-50">
+                      <DropdownMenuItem 
+                        onClick={handleLogout}
+                        className="focus:bg-red-50 text-red-500 focus:text-red-600 rounded-xl cursor-pointer flex items-center gap-3 py-2.5 px-3 border-none outline-none"
+                      >
+                        <LogOut className="w-4 h-4 stroke-[1.2]" />
+                        <span className="text-[12px] font-light">Cerrar Sesión</span>
+                      </DropdownMenuItem>
+                    </div>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
