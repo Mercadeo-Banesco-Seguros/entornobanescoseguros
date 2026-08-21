@@ -16,10 +16,7 @@ import {
   LogOut, 
   Settings, 
   UserCircle,
-  Calendar,
-  CheckCircle2,
   Clock,
-  HelpCircle,
   Database,
   Sparkles,
   FileCheck,
@@ -232,78 +229,76 @@ export default function Navbar() {
                       <span className="absolute top-1.5 right-1.5 w-1 h-1 bg-blue-500 rounded-full" />
                     </button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-[580px] p-8 bg-white border-none shadow-[0_20px_50px_rgba(0,0,0,0.1)] rounded-[2.5rem] overflow-hidden mt-4 mr-4 outline-none">
-                    <div className="flex gap-8">
-                      {/* Columna Notificaciones */}
-                      <div className="flex-1 space-y-5">
-                        <div className="flex justify-between items-start">
-                          <div>
-                            <h4 className="text-slate-700 text-[11px] font-normal tracking-tight">Notificaciones</h4>
-                            <p className="text-[9px] text-slate-400 font-light mt-0.5">Actividad y actualizaciones</p>
-                          </div>
-                          <button className="text-[9px] text-slate-400 font-light hover:text-slate-600 flex items-center gap-0.5 transition-colors">
-                            Ver todas <ChevronRight className="w-2.5 h-2.5" />
-                          </button>
+                  <PopoverContent className="w-auto p-0 bg-transparent border-none shadow-none flex gap-4 mt-4 mr-4 outline-none">
+                    {/* Tarjeta Notificaciones */}
+                    <div className="w-[280px] p-8 bg-white border-none shadow-[0_20px_50px_rgba(0,0,0,0.1)] rounded-[2.5rem] overflow-hidden space-y-5">
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <h4 className="text-slate-700 text-[11px] font-normal tracking-tight">Notificaciones</h4>
+                          <p className="text-[9px] text-slate-400 font-light mt-0.5">Actividad y actualizaciones</p>
                         </div>
+                        <button className="text-[9px] text-slate-400 font-light hover:text-slate-600 flex items-center gap-0.5 transition-colors">
+                          Ver todas <ChevronRight className="w-2.5 h-2.5" />
+                        </button>
+                      </div>
 
-                        {/* Banner Construcción */}
-                        <div className="bg-[#EEF4FF]/50 p-4 rounded-2xl flex gap-3 items-center border border-blue-50/50">
-                          <div className="shrink-0 w-6 h-6 rounded-full bg-white flex items-center justify-center">
-                            <Info className="w-3 h-3 text-blue-500 stroke-[1.2]" />
-                          </div>
-                          <p className="text-[8.5px] text-blue-900/60 font-light leading-snug">
-                            Este módulo de notificaciones se encuentra en construcción.
-                          </p>
+                      {/* Banner Construcción */}
+                      <div className="bg-[#EEF4FF]/50 p-4 rounded-2xl flex gap-3 items-center border border-blue-50/50">
+                        <div className="shrink-0 w-6 h-6 rounded-full bg-white flex items-center justify-center">
+                          <Info className="w-3 h-3 text-blue-500 stroke-[1.2]" />
                         </div>
+                        <p className="text-[8.5px] text-blue-900/60 font-light leading-snug">
+                          Este módulo de notificaciones se encuentra en construcción.
+                        </p>
+                      </div>
 
-                        <div className="space-y-4 pt-1">
-                          {notificationsData.map((item) => (
-                            <div key={item.id} className="group cursor-pointer flex items-center gap-3">
-                              <div className={cn("w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-transform group-hover:scale-105", item.bgColor)}>
-                                <item.icon className={cn("w-3.5 h-3.5", item.color)} strokeWidth={1} />
-                              </div>
-                              <div className="flex-grow">
-                                <div className="flex items-center gap-1.5">
-                                  <span className="text-[9px] text-slate-700 font-normal">{item.title}</span>
-                                  <span className="text-[7px] text-slate-300 font-light">• {item.time}</span>
-                                </div>
-                                <p className="text-[8px] text-slate-400 font-light leading-tight mt-0.5">{item.description}</p>
-                              </div>
-                              <ChevronRight className="w-2.5 h-2.5 text-slate-200 group-hover:text-slate-400 transition-colors" />
+                      <div className="space-y-4 pt-1">
+                        {notificationsData.map((item) => (
+                          <div key={item.id} className="group cursor-pointer flex items-center gap-3">
+                            <div className={cn("w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-transform group-hover:scale-105", item.bgColor)}>
+                              <item.icon className={cn("w-3.5 h-3.5", item.color)} strokeWidth={1} />
                             </div>
-                          ))}
+                            <div className="flex-grow">
+                              <div className="flex items-center gap-1.5">
+                                <span className="text-[9px] text-slate-700 font-normal">{item.title}</span>
+                                <span className="text-[7px] text-slate-300 font-light">• {item.time}</span>
+                              </div>
+                              <p className="text-[8px] text-slate-400 font-light leading-tight mt-0.5">{item.description}</p>
+                            </div>
+                            <ChevronRight className="w-2.5 h-2.5 text-slate-200 group-hover:text-slate-400 transition-colors" />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Tarjeta Recordatorios */}
+                    <div className="w-[280px] p-8 bg-white border-none shadow-[0_20px_50px_rgba(0,0,0,0.1)] rounded-[2.5rem] overflow-hidden space-y-5">
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <h4 className="text-slate-700 text-[11px] font-normal tracking-tight">Recordatorios</h4>
+                          <p className="text-[9px] text-slate-400 font-light mt-0.5">Riesgos y vencimientos</p>
+                        </div>
+                        <div className="w-6 h-6 rounded-full bg-red-50 flex items-center justify-center">
+                          <AlertTriangle className="w-3 h-3 text-red-400 stroke-[1.2]" />
                         </div>
                       </div>
 
-                      {/* Columna Recordatorios */}
-                      <div className="flex-1 space-y-5">
-                        <div className="flex justify-between items-start">
-                          <div>
-                            <h4 className="text-slate-700 text-[11px] font-normal tracking-tight">Recordatorios</h4>
-                            <p className="text-[9px] text-slate-400 font-light mt-0.5">Riesgos y vencimientos</p>
-                          </div>
-                          <div className="w-6 h-6 rounded-full bg-red-50 flex items-center justify-center">
-                            <AlertTriangle className="w-3 h-3 text-red-400 stroke-[1.2]" />
-                          </div>
-                        </div>
-
-                        <div className="space-y-4 pt-1">
-                          {remindersData.map((item) => (
-                            <div key={item.id} className="group cursor-pointer flex items-center gap-3">
-                              <div className={cn("w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-transform group-hover:scale-105", item.bgColor)}>
-                                <item.icon className={cn("w-3.5 h-3.5", item.color)} strokeWidth={1} />
-                              </div>
-                              <div className="flex-grow">
-                                <div className="flex items-center gap-1.5">
-                                  <span className="text-[9px] text-slate-700 font-normal">{item.title}</span>
-                                  <span className="text-[7px] text-slate-300 font-light">• {item.time}</span>
-                                </div>
-                                <p className="text-[8px] text-slate-400 font-light leading-tight mt-0.5">{item.description}</p>
-                              </div>
-                              <ChevronRight className="w-2.5 h-2.5 text-slate-200 group-hover:text-slate-400 transition-colors" />
+                      <div className="space-y-4 pt-1">
+                        {remindersData.map((item) => (
+                          <div key={item.id} className="group cursor-pointer flex items-center gap-3">
+                            <div className={cn("w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-transform group-hover:scale-105", item.bgColor)}>
+                              <item.icon className={cn("w-3.5 h-3.5", item.color)} strokeWidth={1} />
                             </div>
-                          ))}
-                        </div>
+                            <div className="flex-grow">
+                              <div className="flex items-center gap-1.5">
+                                <span className="text-[9px] text-slate-700 font-normal">{item.title}</span>
+                                <span className="text-[7px] text-slate-300 font-light">• {item.time}</span>
+                              </div>
+                              <p className="text-[8px] text-slate-400 font-light leading-tight mt-0.5">{item.description}</p>
+                            </div>
+                            <ChevronRight className="w-2.5 h-2.5 text-slate-200 group-hover:text-slate-400 transition-colors" />
+                          </div>
+                        ))}
                       </div>
                     </div>
                   </PopoverContent>
@@ -338,7 +333,7 @@ export default function Navbar() {
                       </DropdownMenuItem>
 
                       <DropdownMenuItem className="focus:bg-slate-50 focus:text-slate-900 rounded-lg cursor-pointer flex items-center gap-2 py-2 px-2 border-none outline-none group">
-                        <HelpCircle className="w-3.5 h-3.5 text-slate-400 stroke-[1] group-hover:text-slate-600 transition-colors" />
+                        <Info className="w-3.5 h-3.5 text-slate-400 stroke-[1] group-hover:text-slate-600 transition-colors" />
                         <span className="text-[9px] font-light text-slate-600">Ayuda</span>
                       </DropdownMenuItem>
                     </div>
