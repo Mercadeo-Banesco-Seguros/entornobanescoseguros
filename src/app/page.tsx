@@ -2,11 +2,17 @@
 'use client';
 
 import * as React from "react";
-import { Cloud, X, Share2, FileText, HeartPulse, ShieldCheck, AlertTriangle } from "lucide-react";
+import { Cloud, X, Share2, FileText, HeartPulse, ShieldCheck, AlertTriangle, Home, User, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 type TimePeriod = 'day' | 'night';
 
@@ -132,6 +138,41 @@ const courses = [
   },
 ];
 
+const faqCategories = [
+  { id: 'general', title: 'General', icon: Home },
+  { id: 'soporte', title: 'Soporte', icon: User },
+  { id: 'otros', title: 'Otros', icon: Settings },
+];
+
+const faqData: Record<string, { question: string; answer: string }[]> = {
+  general: [
+    { 
+      question: '¿Cómo puedo consultar la cobertura de mi póliza HCM?', 
+      answer: 'Puedes consultar todos los detalles de tu póliza, incluyendo coberturas, red de clínicas y estatus de reembolsos, accediendo a la sección \'Póliza HCM\' desde el menú de Accesos Rápidos en esta misma página.' 
+    },
+    { 
+      question: '¿Cuál es el procedimiento para solicitar vacaciones?', 
+      answer: 'Puedes gestionarlas directamente a través del portal de Capital Humano, seleccionando las fechas en el calendario de planificación disponible.' 
+    },
+    { 
+      question: '¿Dónde puedo ver el menú del comedor de esta semana?', 
+      answer: 'El menú está actualizado diariamente en la sección \'Sabor Seguro\' de este portal corporativo.' 
+    },
+  ],
+  soporte: [
+    { 
+      question: '¿Cómo reporto un problema técnico con mi equipo?', 
+      answer: 'Debe ingresar al Portal de Requerimientos y abrir un ticket en la categoría de Tecnología.' 
+    },
+  ],
+  otros: [
+    { 
+      question: '¿Hay convenios con gimnasios?', 
+      answer: 'Sí, contamos con alianzas estratégicas para tu bienestar. Consulta los detalles en el área de Capital Humano.' 
+    },
+  ]
+};
+
 export default function LandingPage() {
   const [mounted, setMounted] = React.useState(false);
   const [timeTheme, setTimeTheme] = React.useState<TimePeriod>('day');
@@ -144,6 +185,7 @@ export default function LandingPage() {
   const [activeMenuType, setActiveMenuType] = React.useState<'Clásico' | 'Dieta' | 'Ejecutivo'>('Clásico');
   const [showShortcuts, setShowShortcuts] = React.useState(false);
   const [activeCourseId, setActiveCourseId] = React.useState(courses.find(c => c.featured)?.id || courses[0].id);
+  const [activeFaqCategory, setActiveFaqCategory] = React.useState('general');
   
   const currentItems = React.useMemo(() => {
     if (activeCategory === 'Nuestros Pilares') return pillars;
@@ -786,7 +828,7 @@ export default function LandingPage() {
               >
                 {playlistImage && (
                   <Image 
-                    src={playlistImage.imageUrl} 
+                    src={`${playlistImage.imageUrl}&format=png`} 
                     alt={playlist.title} 
                     fill 
                     unoptimized 
@@ -815,7 +857,7 @@ export default function LandingPage() {
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
               <span className="text-[10px] text-white font-light tracking-tight">Expedición por Nuestro ADN</span>
             </div>
-            <h2 className="text-white text-2xl md:text-3xl lg:text-4xl font-bold tracking-tighter leading-tight max-w-md drop-shadow-md">¿Ya conoces tu <br /> posición en el Ranking?</h2>
+            <h2 className="text-white text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter leading-tight max-w-md drop-shadow-md">¿Ya conoces tu <br /> posición en el Ranking?</h2>
             <div className="flex gap-4">
               <button className="px-10 py-3 rounded-xl bg-white text-[#0054A6] text-[10px] font-light hover:bg-white/90 transition-colors">Explorar Misiones</button>
             </div>
@@ -824,7 +866,7 @@ export default function LandingPage() {
             <div className="relative w-[900px] h-[800px]">
               {rankingImage && (
                 <Image 
-                  src={rankingImage.imageUrl}
+                  src={`${rankingImage.imageUrl}&format=png`}
                   alt="Explorador"
                   fill
                   unoptimized
@@ -835,6 +877,55 @@ export default function LandingPage() {
           </div>
         </div>
       </div>
+
+      {/* 10. FAQ Section */}
+      <section className="bg-[#F8FAFC] py-24 px-6 md:px-12 lg:px-24">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12">
+          <div className="space-y-8">
+            <div>
+              <h4 className="text-[#0054A6] text-[10px] font-bold tracking-widest uppercase mb-2">¿Tienes dudas?</h4>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-slate-900">Preguntas Frecuentes</h2>
+            </div>
+            <div className="space-y-2">
+              {faqCategories.map((cat) => (
+                <button
+                  key={cat.id}
+                  onClick={() => setActiveFaqCategory(cat.id)}
+                  className={cn(
+                    "w-full flex items-center gap-3 px-6 py-3 rounded-xl transition-all duration-300 text-[11px] font-light",
+                    activeFaqCategory === cat.id 
+                      ? "bg-[#0054A6] text-white shadow-lg" 
+                      : "bg-white text-slate-500 hover:bg-slate-50 border border-slate-100"
+                  )}
+                >
+                  <cat.icon className="w-3.5 h-3.5" />
+                  {cat.title}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="lg:col-span-2">
+            <Accordion type="single" collapsible className="space-y-4">
+              {faqData[activeFaqCategory].map((item, idx) => (
+                <AccordionItem 
+                  key={idx} 
+                  value={`item-${idx}`} 
+                  className="bg-white rounded-2xl border border-slate-100 px-6 shadow-sm overflow-hidden"
+                >
+                  <AccordionTrigger className="text-[12px] font-bold text-slate-700 hover:no-underline py-5 text-left">
+                    {item.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-[11px] font-light text-slate-500 leading-relaxed pb-6">
+                    {item.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
+
