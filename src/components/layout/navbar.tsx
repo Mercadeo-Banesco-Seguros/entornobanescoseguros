@@ -218,26 +218,26 @@ export default function Navbar() {
                       <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-blue-500 rounded-full" />
                     </button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-80 p-0 bg-[#003B73]/95 backdrop-blur-md border-white/10 shadow-2xl rounded-2xl overflow-hidden mt-2 mr-4">
-                    <div className="p-4 border-b border-white/10">
-                      <h4 className="text-white text-xs font-semibold">Notificaciones</h4>
+                  <PopoverContent className="w-80 p-0 bg-white border-slate-200 shadow-xl rounded-2xl overflow-hidden mt-2 mr-4">
+                    <div className="p-4 border-b border-slate-100 bg-slate-50/50">
+                      <h4 className="text-slate-900 text-xs font-light tracking-tight">Notificaciones</h4>
                     </div>
                     <div className="max-h-[300px] overflow-y-auto">
                       {notifications.map((notif) => (
-                        <div key={notif.id} className="p-4 border-b border-white/5 hover:bg-white/5 transition-colors cursor-pointer flex gap-3">
-                          <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center shrink-0">
-                            <notif.icon className="w-4 h-4 text-blue-400" />
+                        <div key={notif.id} className="p-4 border-b border-slate-50 hover:bg-slate-50 transition-colors cursor-pointer flex gap-3">
+                          <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center shrink-0">
+                            <notif.icon className="w-4 h-4 text-blue-500" />
                           </div>
                           <div>
-                            <p className="text-[10px] font-medium text-white">{notif.title}</p>
-                            <p className="text-[9px] text-white/60 leading-tight mt-0.5">{notif.description}</p>
-                            <span className="text-[8px] text-white/40 mt-1 block">{notif.time}</span>
+                            <p className="text-[10px] font-light text-slate-900">{notif.title}</p>
+                            <p className="text-[9px] text-slate-500 leading-tight mt-0.5 font-light">{notif.description}</p>
+                            <span className="text-[8px] text-slate-400 mt-1 block font-light">{notif.time}</span>
                           </div>
                         </div>
                       ))}
                     </div>
-                    <div className="p-3 text-center">
-                      <button className="text-[9px] text-blue-400 hover:text-blue-300 font-medium">Ver todo el historial</button>
+                    <div className="p-3 text-center bg-slate-50/30">
+                      <button className="text-[9px] text-blue-600 hover:text-blue-700 font-light tracking-tight">Ver todo el historial</button>
                     </div>
                   </PopoverContent>
                 </Popover>
@@ -249,25 +249,25 @@ export default function Navbar() {
                       <UserIcon className="w-3 h-3" strokeWidth={1.5} />
                     </button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-56 bg-[#003B73]/95 backdrop-blur-md border-white/10 text-white rounded-2xl p-2 shadow-2xl mt-2 mr-4">
-                    <DropdownMenuLabel className="text-[10px] font-light text-white/60 px-2 py-1.5">
+                  <DropdownMenuContent className="w-56 bg-white border-slate-200 text-slate-900 rounded-2xl p-2 shadow-xl mt-2 mr-4">
+                    <DropdownMenuLabel className="text-[10px] font-light text-slate-500 px-2 py-1.5">
                       {currentUser?.name || 'Piloto'}
                     </DropdownMenuLabel>
-                    <DropdownMenuSeparator className="bg-white/10" />
-                    <DropdownMenuItem asChild className="focus:bg-white/10 focus:text-white rounded-xl cursor-pointer">
+                    <DropdownMenuSeparator className="bg-slate-100" />
+                    <DropdownMenuItem asChild className="focus:bg-slate-50 focus:text-slate-900 rounded-xl cursor-pointer">
                       <Link href="/profile" className="flex items-center gap-2">
-                        <UserCircle className="w-3.5 h-3.5" />
+                        <UserCircle className="w-3.5 h-3.5 text-slate-400" />
                         <span className="text-[10px] font-light">Mi Perfil</span>
                       </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem className="focus:bg-white/10 focus:text-white rounded-xl cursor-pointer flex items-center gap-2">
-                      <Settings className="w-3.5 h-3.5" />
+                    <DropdownMenuItem className="focus:bg-slate-50 focus:text-slate-900 rounded-xl cursor-pointer flex items-center gap-2">
+                      <Settings className="w-3.5 h-3.5 text-slate-400" />
                       <span className="text-[10px] font-light">Configuración</span>
                     </DropdownMenuItem>
-                    <DropdownMenuSeparator className="bg-white/10" />
+                    <DropdownMenuSeparator className="bg-slate-100" />
                     <DropdownMenuItem 
                       onClick={handleLogout}
-                      className="focus:bg-red-500/20 text-red-400 focus:text-red-300 rounded-xl cursor-pointer flex items-center gap-2"
+                      className="focus:bg-red-50 text-red-600 focus:text-red-700 rounded-xl cursor-pointer flex items-center gap-2"
                     >
                       <LogOut className="w-3.5 h-3.5" />
                       <span className="text-[10px] font-light">Cerrar Sesión</span>
