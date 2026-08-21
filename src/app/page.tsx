@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from "react";
@@ -852,11 +853,13 @@ export default function LandingPage() {
           <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full blur-[150px] bg-blue-300/10 -translate-x-1/4 translate-y-1/4" />
         </div>
         <div className="container mx-auto px-6 relative z-10 h-full flex items-center">
-          <div className="w-full md:w-1/2 pl-24 md:pl-64 space-y-8 animate-in fade-in duration-500 text-left">
+          <div className="w-full md:w-1/2 pl-16 md:pl-32 space-y-8 animate-in fade-in duration-500 text-left">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
               <span className="text-[10px] text-white font-light tracking-tight">Expedición por Nuestro ADN</span>
             </div>
-            <h2 className="text-white text-2xl md:text-3xl lg:text-4xl font-bold tracking-tighter leading-tight max-w-md drop-shadow-md">¿Ya conoces tu <br /> posición en el Ranking?</h2>
+            <h2 className="text-white text-2xl md:text-3xl lg:text-4xl font-bold tracking-tighter leading-tight max-w-md drop-shadow-md">
+              ¿Ya conoces tu <br /> posición en el Ranking?
+            </h2>
             <div className="flex gap-4">
               <button className="px-10 py-3 rounded-xl bg-white text-[#0054A6] text-[10px] font-light hover:bg-white/90 transition-colors">Explorar Misiones</button>
             </div>
@@ -894,7 +897,7 @@ export default function LandingPage() {
                     "w-full flex items-center gap-3 px-6 py-3 rounded-xl transition-all duration-300 text-[11px] font-light border border-slate-100",
                     activeFaqCategory === cat.id 
                       ? "bg-[#0054A6] text-white" 
-                      : "bg-white text-slate-500 hover:bg-slate-50"
+                      : "bg-white text-slate-500 hover:bg-slate-50 shadow-none"
                   )}
                 >
                   <cat.icon className="w-3.5 h-3.5" />
@@ -910,7 +913,7 @@ export default function LandingPage() {
                 <AccordionItem 
                   key={idx} 
                   value={`item-${idx}`} 
-                  className="bg-white rounded-2xl border border-slate-100 px-6 overflow-hidden"
+                  className="bg-white rounded-2xl border border-slate-100 px-6 overflow-hidden shadow-none"
                 >
                   <AccordionTrigger className="text-[12px] font-normal text-slate-700 hover:no-underline py-5 text-left">
                     {item.question}
