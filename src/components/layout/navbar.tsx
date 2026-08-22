@@ -311,8 +311,8 @@ export default function Navbar() {
                       <UserIcon className="w-3 h-3" strokeWidth={1.5} />
                     </button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-48 bg-white border-none text-slate-900 rounded-[1.5rem] p-4 shadow-[0_10px_40px_rgba(0,0,0,0.08)] mt-4 mr-4 outline-none">
-                    <div className="px-1 pb-3 mb-3 border-b border-slate-50">
+                  <DropdownMenuContent className="w-44 bg-white border-none text-slate-900 rounded-[1.5rem] p-2.5 shadow-[0_10px_40px_rgba(0,0,0,0.08)] mt-4 mr-4 outline-none">
+                    <div className="px-1 pb-1.5 mb-1.5 border-b border-slate-50">
                       <h3 className="text-[10px] font-light text-slate-900 leading-tight">{currentUser?.name || 'Piloto'}</h3>
                       <p className="text-[8px] font-light text-slate-400 mt-0.5 uppercase tracking-wider">
                         {currentUser?.cargo === 'ADMINISTRADOR' ? 'Administrador' : 'Asesor Integral'}
@@ -320,28 +320,28 @@ export default function Navbar() {
                     </div>
                     
                     <div className="space-y-0.5">
-                      <DropdownMenuItem asChild className="focus:bg-slate-50 focus:text-slate-900 rounded-lg cursor-pointer py-2 px-2 border-none outline-none group">
+                      <DropdownMenuItem asChild className="focus:bg-slate-50 focus:text-slate-900 rounded-lg cursor-pointer py-1 px-2 border-none outline-none group">
                         <Link href="/profile" className="flex items-center gap-2">
                           <UserCircle className="w-3.5 h-3.5 text-slate-400 stroke-[1] group-hover:text-slate-600 transition-colors" />
                           <span className="text-[9px] font-light text-slate-600">Mi Perfil</span>
                         </Link>
                       </DropdownMenuItem>
                       
-                      <DropdownMenuItem className="focus:bg-slate-50 focus:text-slate-900 rounded-lg cursor-pointer flex items-center gap-2 py-2 px-2 border-none outline-none group">
+                      <DropdownMenuItem className="focus:bg-slate-50 focus:text-slate-900 rounded-lg cursor-pointer flex items-center gap-2 py-1 px-2 border-none outline-none group">
                         <Settings className="w-3.5 h-3.5 text-slate-400 stroke-[1] group-hover:text-slate-600 transition-colors" />
                         <span className="text-[9px] font-light text-slate-600">Configuración</span>
                       </DropdownMenuItem>
 
-                      <DropdownMenuItem className="focus:bg-slate-50 focus:text-slate-900 rounded-lg cursor-pointer flex items-center gap-2 py-2 px-2 border-none outline-none group">
+                      <DropdownMenuItem className="focus:bg-slate-50 focus:text-slate-900 rounded-lg cursor-pointer flex items-center gap-2 py-1 px-2 border-none outline-none group">
                         <Info className="w-3.5 h-3.5 text-slate-400 stroke-[1] group-hover:text-slate-600 transition-colors" />
                         <span className="text-[9px] font-light text-slate-600">Ayuda</span>
                       </DropdownMenuItem>
                     </div>
 
-                    <div className="mt-3 pt-3 border-t border-slate-50">
+                    <div className="mt-1.5 pt-1.5 border-t border-slate-50">
                       <DropdownMenuItem 
                         onClick={handleLogout}
-                        className="focus:bg-red-50 text-red-500 focus:text-red-600 rounded-lg cursor-pointer flex items-center gap-2 py-2 px-2 border-none outline-none"
+                        className="focus:bg-red-50 text-red-500 focus:text-red-600 rounded-lg cursor-pointer flex items-center gap-2 py-1 px-2 border-none outline-none"
                       >
                         <LogOut className="w-3.5 h-3.5 stroke-[1]" />
                         <span className="text-[9px] font-light">Cerrar Sesión</span>
