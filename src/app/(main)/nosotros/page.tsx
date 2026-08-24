@@ -1,6 +1,8 @@
 'use client';
 
 import * as React from 'react';
+import { useAuth } from '@/context/auth-context';
+import { cn } from '@/lib/utils';
 import {
   Carousel,
   CarouselContent,
@@ -73,7 +75,46 @@ const historyItems = [
   }
 ];
 
+function ComplianceGrid({ percentage, label, description }: { percentage: number, label: string, description: string }) {
+  const filledCount = Math.min(100, Math.max(0, Math.round(percentage)));
+  
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center py-12">
+      <div className="space-y-4">
+        <span className="text-[#0054A6] text-7xl md:text-8xl font-bold tracking-tighter">
+          {filledCount}%
+        </span>
+        <div className="pl-1 border-l-2 border-[#0054A6] space-y-1">
+          <h4 className="text-slate-900 text-lg font-bold tracking-tight">{label}</h4>
+          <p className="text-slate-500 text-[10px] md:text-[11px] font-light leading-snug max-w-[200px]">
+            {description}
+          </p>
+        </div>
+      </div>
+      
+      <div className="space-y-4">
+        <div className="grid grid-cols-10 gap-1.5 w-fit">
+          {[...Array(100)].map((_, i) => (
+            <div 
+              key={i} 
+              className={cn(
+                "w-3.5 h-3.5 md:w-5 md:h-5 rounded-[4px] transition-colors duration-1000",
+                i < filledCount ? "bg-[#0054A6]" : "bg-slate-100"
+              )}
+            />
+          ))}
+        </div>
+        <p className="text-slate-400 text-[9px] font-light flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-[#0054A6]" />
+          1 cuadrado = 1% de cumplimiento de meta
+        </p>
+      </div>
+    </div>
+  );
+}
+
 export default function NosotrosPage() {
+  const { currentUser } = useAuth();
   const [api, setApi] = React.useState<CarouselApi>();
   const [progress, setProgress] = React.useState(0);
 
@@ -91,6 +132,9 @@ export default function NosotrosPage() {
       api.off('scroll', onScroll);
     };
   }, [api]);
+
+  const susProgress = currentUser?.prog_sus || 0;
+  const cobProgress = currentUser?.prog_cob || 0;
 
   return (
     <div className="flex flex-col w-full min-h-screen">
@@ -113,7 +157,7 @@ export default function NosotrosPage() {
       </section>
 
       {/* 2. Nuestra Trayectoria en Cifras */}
-      <section className="bg-white py-24 px-8 md:px-16 lg:px-24">
+      <section className="bg-white pt-24 pb-12 px-8 md:px-16 lg:px-24 border-b border-slate-50">
         <div className="container mx-auto">
           <div className="space-y-4 mb-20">
             <span className="text-[#0054A6] text-[11px] font-bold tracking-tight uppercase">Resultados</span>
@@ -155,11 +199,36 @@ export default function NosotrosPage() {
         </div>
       </section>
 
+      {/* 2b. Sección de Cumplimiento (Grids Visuales) */}
+      <section className="bg-white py-12 px-8 md:px-16 lg:px-24">
+        <div className="container mx-auto">
+          <div className="space-y-4 mb-8">
+            <span className="text-[#0054A6] text-[11px] font-bold tracking-tight uppercase">Producción</span>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-slate-900">Cumplimiento De Metas</h2>
+            <p className="text-slate-500 text-[10px] md:text-[12px] font-light leading-relaxed max-w-2xl">
+              Visualiza tu avance en los indicadores clave del circuito. Cada bloque representa un paso más hacia la meta final.
+            </p>
+          </div>
+
+          <div className="divide-y divide-slate-100">
+            <ComplianceGrid 
+              percentage={susProgress} 
+              label="Suscrito" 
+              description="Representa el porcentaje de pólizas nuevas suscritas en el periodo actual." 
+            />
+            <ComplianceGrid 
+              percentage={cobProgress} 
+              label="Cobrado" 
+              description="Indica el nivel de recaudación efectiva sobre las pólizas suscritas." 
+            />
+          </div>
+        </div>
+      </section>
+
       {/* 3. Historia - Un Viaje a Través del Tiempo */}
       <section 
         className="relative w-screen left-1/2 -ml-[50vw] py-10 transition-colors duration-700 ease-out text-white overflow-hidden"
         style={{
-          // De #1155cc (17, 85, 204) a #1A61AB (26, 97, 171)
           backgroundColor: `rgb(${Math.round(17 + (26 - 17) * progress)}, ${Math.round(85 + (97 - 85) * progress)}, ${Math.round(204 + (171 - 204) * progress)})`,
           backgroundImage: `linear-gradient(to bottom right, rgba(17, 85, 204, ${1 - progress}), rgba(26, 97, 171, ${progress}))`
         }}
@@ -222,10 +291,9 @@ export default function NosotrosPage() {
         </div>
       </section>
 
-      {/* Contenido adicional centrado */}
       <div className="container mx-auto px-6 py-24">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          {/* Secciones futuras de la página nosotros */}
+          {/* Secciones futuras */}
         </div>
       </div>
     </div>
