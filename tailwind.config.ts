@@ -12,6 +12,9 @@ export default {
       fontFamily: {
         sans: ['var(--font-sans)', 'sans-serif'],
       },
+      gridTemplateColumns: {
+        '20': 'repeat(20, minmax(0, 1fr))',
+      },
       colors: {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',

@@ -145,7 +145,7 @@ export default function NosotrosPage() {
             <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-tight">
               Nuestra Visión Para El 2026
             </h1>
-            <p className="text-[9px] md:text-[10px] lg:text-[11px] font-light leading-relaxed max-w-xl text-white/90 tracking-tight">
+            <p className="text-[11px] md:text-[13px] lg:text-[14px] font-light leading-relaxed max-w-xl text-white/90 tracking-tight">
               Convertirnos en una compañía con foco en el negocio masivo, con un modelo sostenible de crecimiento rentable. Desarrollando productos de bajo costo dirigidos a la población venezolana que actualmente no tiene acceso a seguros, pero cuenta con ingresos para invertir en su protección básica.
             </p>
           </div>
@@ -195,7 +195,7 @@ export default function NosotrosPage() {
         </div>
       </section>
 
-      {/* 3. Historia - Un Viaje a Través del Tiempo con degradado solicitado */}
+      {/* 3. Historia - Un Viaje a Través del Tiempo */}
       <section 
         className="relative w-screen left-1/2 -ml-[50vw] py-10 transition-colors duration-700 ease-out text-white overflow-hidden"
         style={{
@@ -261,7 +261,7 @@ export default function NosotrosPage() {
         </div>
       </section>
 
-      {/* 4. Sección de Cumplimiento (Grids Visuales) - AHORA EN PARALELO 20x5 */}
+      {/* 4. Sección de Cumplimiento (Grids Visuales) */}
       <section className="bg-white py-20 px-8 md:px-16 lg:px-24">
         <div className="container mx-auto">
           <div className="space-y-4 mb-12">
@@ -274,12 +274,12 @@ export default function NosotrosPage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             <ComplianceGrid 
-              percentage={susProgress} 
+              percentage={57} 
               label="Suscrito" 
               description="Representa el porcentaje de pólizas nuevas suscritas en el periodo actual." 
             />
             <ComplianceGrid 
-              percentage={cobProgress} 
+              percentage={47} 
               label="Cobrado" 
               description="Indica el nivel de recaudación efectiva sobre las pólizas suscritas en el mercado actual." 
             />
@@ -289,7 +289,7 @@ export default function NosotrosPage() {
 
       <div className="container mx-auto px-6 py-24">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          {/* Secciones futuras */}
+          {/* Espacio para contenido adicional */}
         </div>
       </div>
     </div>
