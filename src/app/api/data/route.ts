@@ -1,4 +1,3 @@
-
 import { NextResponse } from 'next/server';
 
 // Pega la URL de implementación de tu Google Apps Script aquí.
@@ -14,26 +13,29 @@ async function handleRequest(request: Request) {
 
   let requestPayload: any;
   try {
-      requestPayload = await request.json();
+      if (request.method === 'POST') {
+        requestPayload = await request.json();
+      } else {
+        const { searchParams } = new URL(request.url);
+        const params: any = {};
+        searchParams.forEach((value, key) => {
+          params[key] = value;
+        });
+        requestPayload = params;
+      }
   } catch (e) {
-      // Si el cuerpo está vacío o no es JSON, usa los parámetros de la URL para GET
-      const { searchParams } = new URL(request.url);
-      const params: any = {};
-      searchParams.forEach((value, key) => {
-        params[key] = value;
-      });
-      requestPayload = params;
+      requestPayload = {};
   }
 
   if (!requestPayload || !requestPayload.action) {
-    return NextResponse.json({ message: 'La acción no fue especificada.' }, { status: 400 });
+    return NextResponse.json({ message: 'La acción no fue especificada.', error: true }, { status: 400 });
   }
 
   try {
     const response = await fetch(appsScriptUrl, {
-      method: 'POST', // Siempre usamos POST para hablar con el script
+      method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'text/plain;charset=utf-8', // Recomendado para evitar problemas de preflight con Apps Script
       },
       body: JSON.stringify(requestPayload),
       cache: 'no-store',
@@ -43,9 +45,8 @@ async function handleRequest(request: Request) {
     const responseText = await response.text();
 
     if (!response.ok) {
-      console.error('Error desde Apps Script (Respuesta no OK):', responseText);
       return NextResponse.json(
-        { message: 'Error al contactar el servicio de datos.', details: responseText },
+        { message: 'Error al contactar el servicio de datos.', details: responseText, error: true },
         { status: response.status }
       );
     }
@@ -53,23 +54,19 @@ async function handleRequest(request: Request) {
     try {
       const data = JSON.parse(responseText);
       if (data.error) {
-        // El script devolvió un error JSON, lo cual es bueno. Lo reenviamos.
-        return NextResponse.json({ message: data.message || 'Error del script de Google.' }, { status: 400 });
+        return NextResponse.json({ message: data.message || 'Error del script de Google.', error: true }, { status: 400 });
       }
       return NextResponse.json(data);
     } catch(e) {
-      // Esto se activa si la respuesta NO es JSON (probablemente una página de error de Google).
-      console.error('Error al parsear la respuesta JSON de Apps Script. Contenido recibido:', responseText);
       return NextResponse.json(
-        { message: 'La respuesta del servicio de datos no es un JSON válido. Revisa los logs del servidor.', details: responseText },
+        { message: 'La respuesta del servicio no es un JSON válido.', details: responseText.substring(0, 200), error: true },
         { status: 500 }
       );
     }
 
   } catch (error: any) {
-    console.error('Error crítico al contactar con el proxy de Apps Script:', error);
     return NextResponse.json(
-      { message: 'Error interno del servidor al procesar la petición.', error: error.message },
+      { message: 'Error interno al procesar la petición.', error: true, details: error.message },
       { status: 500 }
     );
   }

@@ -51,16 +51,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const contentType = response.headers.get("content-type");
-      if (!contentType || !contentType.includes("application/json")) {
-        throw new Error("Oops! El servidor no devolvió JSON.");
+        console.warn(`Fetch users warning: HTTP ${response.status}`);
+        return;
       }
 
       const data = await response.json();
-      if (data.error) throw new Error(data.message);
+      if (data.error) {
+        console.warn('Fetch users API error:', data.message);
+        return;
+      }
       
       const allUsers = (data.users || [])
         .map((u: any) => ({
@@ -97,8 +96,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       });
 
     } catch (err: any) {
-      setError("Error cargando los datos: " + err.message);
-      console.error(err);
+      console.error("Silent error in fetchUsers:", err.message);
     }
   }, []);
 
@@ -118,7 +116,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const checkUserSession = async () => {
       setLoading(true);
-      setError(null);
       await loadInitialData();
       setLoading(false);
     };
@@ -135,15 +132,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             body: JSON.stringify({ action: 'login', username, password }),
         });
 
-        if (!response.ok) throw new Error("Error de conexión con el servidor.");
-        
-        const contentType = response.headers.get("content-type");
-        if (!contentType || !contentType.includes("application/json")) {
-          throw new Error("El servidor devolvió una respuesta inválida.");
-        }
-
         const data = await response.json();
-        if (data.error || !data.user) {
+        if (!response.ok || data.error) {
             throw new Error(data.message || 'Credenciales incorrectas');
         }
         
