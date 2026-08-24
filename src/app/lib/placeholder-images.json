@@ -90,6 +90,12 @@
       "description": "Explorador del Ranking",
       "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vSOJsJkXKwjNCF3BeltAYj_eckCR70Sn_Nsndc_dMr5y4QkSNkFBET8uzUzIioQGFmwYuJZOy0GVnaF/pub?format=png&w=960&h=720",
       "imageHint": "explorer character"
+    },
+    {
+      "id": "nosotros-hero",
+      "description": "Edificios corporativos visión 2026",
+      "imageUrl": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop",
+      "imageHint": "modern skyscrapers"
     }
   ]
 }
