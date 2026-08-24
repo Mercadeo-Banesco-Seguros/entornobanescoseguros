@@ -105,7 +105,7 @@ export default function NosotrosPage() {
             <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-tight">
               Nuestra Visión Para El 2026
             </h1>
-            <p className="text-[11px] md:text-[13px] lg:text-[14px] font-light leading-relaxed max-w-xl text-white/90 tracking-tight">
+            <p className="text-[9px] md:text-[10px] lg:text-[11px] font-light leading-relaxed max-w-xl text-white/90 tracking-tight">
               Convertirnos en una compañía con foco en el negocio masivo, con un modelo sostenible de crecimiento rentable. Desarrollando productos de bajo costo dirigidos a la población venezolana que actualmente no tiene acceso a seguros, pero cuenta con ingresos para invertir en su protección básica.
             </p>
           </div>
