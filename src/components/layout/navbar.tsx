@@ -13,15 +13,13 @@ import {
   X, 
   AlertTriangle, 
   LogOut, 
-  Settings, 
   UserCircle,
   Clock,
   Database,
   Sparkles,
   FileCheck,
   XCircle,
-  ChevronRight,
-  Info
+  ChevronRight
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/context/auth-context';
@@ -47,7 +45,6 @@ export default function Navbar() {
   const [showIANotification, setShowIANotification] = useState(false);
   const [inputValue, setInputValue] = useState('');
   
-  // Search state
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -63,11 +60,9 @@ export default function Navbar() {
 
   useEffect(() => {
     setMounted(true);
-    
     const timer = setInterval(() => {
       setCurrentTime(new Date());
     }, 60000);
-
     return () => clearInterval(timer);
   }, []);
 
@@ -82,14 +77,12 @@ export default function Navbar() {
   const day = currentTime.getDate();
   const month = currentTime.toLocaleString('es-ES', { month: 'short' });
 
-  // Notifications Data
   const notificationsData = [
     { id: 1, title: 'Cifras actualizadas', description: 'Los tableros de producción ya reflejan el cierre de ayer.', time: 'Hace 5m', icon: Database, color: 'text-slate-400', bgColor: 'bg-slate-50' },
     { id: 2, title: 'Nueva funcionalidad', description: 'Módulo de análisis de tubería optimizado ya disponible.', time: 'Hoy', icon: Sparkles, color: 'text-blue-400', bgColor: 'bg-blue-50' },
     { id: 3, title: 'Póliza renovada', description: 'Corporación Polar C.A. ha renovado su póliza de Salud.', time: 'Hace 1h', icon: FileCheck, color: 'text-green-400', bgColor: 'bg-green-50' },
   ];
 
-  // Reminders Data
   const remindersData = [
     { id: 1, title: 'Vencimiento Próximo', description: 'La póliza corporativa 90021345 vence en menos de 48h.', time: 'Hace 45m', icon: Clock, color: 'text-orange-400', bgColor: 'bg-orange-50' },
     { id: 2, title: 'Cobro Fallido', description: 'Error en el cargo automático del cliente Inversiones HL.', time: 'Hace 2h', icon: XCircle, color: 'text-red-400', bgColor: 'bg-red-50' },
@@ -100,7 +93,6 @@ export default function Navbar() {
     <div className="fixed top-6 left-0 right-0 z-50 flex flex-col items-center gap-3 px-4 pointer-events-none">
       <div className="flex justify-center items-center gap-3 w-full pointer-events-auto">
         
-        {/* Cápsula de Tiempo Independiente */}
         <div 
           onClick={() => setIsTimeExpanded(!isTimeExpanded)}
           className={cn(
@@ -128,7 +120,6 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Barra de Navegación Principal */}
         <nav className={cn(
           "bg-[#003B73]/90 backdrop-blur-sm rounded-xl px-1 py-1 flex items-center shadow-2xl border border-white/10 transition-all duration-300 h-10",
           isSearchActive ? "w-full max-w-md" : "max-w-fit overflow-x-auto no-scrollbar"
@@ -205,7 +196,7 @@ export default function Navbar() {
                     </button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0 bg-transparent border-none shadow-none flex gap-4 mt-4 mr-4 outline-none">
-                    <div className="w-[280px] p-5 bg-white border-none shadow-[0_20px_50px_rgba(0,0,0,0.1)] rounded-2xl overflow-hidden space-y-4">
+                    <div className="w-[280px] p-5 bg-white border-none shadow-[0_20px_50px_rgba(0,0,0,0.1)] rounded-xl overflow-hidden space-y-4">
                       <div className="flex justify-between items-start">
                         <div>
                           <h4 className="text-slate-700 text-[11px] font-light tracking-tight">Notificaciones</h4>
@@ -234,7 +225,7 @@ export default function Navbar() {
                       </div>
                     </div>
 
-                    <div className="w-[280px] p-5 bg-white border-none shadow-[0_20px_50px_rgba(0,0,0,0.1)] rounded-2xl overflow-hidden space-y-4">
+                    <div className="w-[280px] p-5 bg-white border-none shadow-[0_20px_50px_rgba(0,0,0,0.1)] rounded-xl overflow-hidden space-y-4">
                       <div className="flex justify-between items-start">
                         <div>
                           <h4 className="text-slate-700 text-[11px] font-light tracking-tight">Recordatorios</h4>
@@ -304,7 +295,6 @@ export default function Navbar() {
           )}
         </nav>
 
-        {/* Cápsula de Chat IA */}
         <div className="bg-[#003B73]/90 backdrop-blur-sm rounded-full flex items-center shadow-2xl border border-white/10 h-10 px-1 gap-1">
           <button 
             onClick={triggerIANotification}
@@ -330,10 +320,9 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Notificación de IA */}
       {showIANotification && (
         <div className="animate-in fade-in slide-in-from-top-4 duration-500 absolute top-20 left-1/2 -translate-x-1/2 w-full max-w-2xl px-4 pointer-events-auto">
-          <div className="bg-red-100/90 backdrop-blur-md py-3 px-6 rounded-2xl border border-red-200/50 flex items-center gap-4">
+          <div className="bg-red-100/90 backdrop-blur-md py-3 px-6 rounded-xl border border-red-200/50 flex items-center gap-4">
             <AlertTriangle className="w-5 h-5 text-red-600 shrink-0" strokeWidth={1.5} />
             <div className="flex-grow">
               <p className="text-[10px] font-light text-red-900 leading-tight tracking-tight">

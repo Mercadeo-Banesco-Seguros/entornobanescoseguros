@@ -15,7 +15,6 @@ type AuthContextType = {
   loading: boolean;
   error: string | null;
   login: (username: string, password: string) => Promise<void>;
-  register: (name: string, email: string, password: string, vicepresidencia: string, cargo: string) => Promise<void>;
   logout: () => void;
   fetchUsers: () => Promise<void>;
   vicepresidencias: string[];
@@ -36,8 +35,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const prizes = staticPrizes;
   const prizeCategories = staticPrizeCategories;
 
-  // Carga local de usuarios desde mockData
   const fetchUsers = useCallback(async () => {
+    // Operación puramente local con datos estáticos
     const allVps = Array.from(new Set(mockUsers.map(u => u.vicepresidencia).filter(Boolean)));
     setVicepresidencias(['Todas', ...allVps as string[]]);
     setUsers(mockUsers);
@@ -45,7 +44,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   useEffect(() => {
-    const loadSession = () => {
+    const checkSession = () => {
       const userJson = localStorage.getItem('currentUser');
       if (userJson) {
         try {
@@ -57,14 +56,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       fetchUsers();
       setLoading(false);
     };
-    loadSession();
+    checkSession();
   }, [fetchUsers]);
   
   const login = async (username: string, password: string) => {
     setLoading(true);
     setError(null);
     
-    // Autenticación simulada local
     return new Promise<void>((resolve, reject) => {
       setTimeout(() => {
         const user = mockUsers.find(u => 
@@ -79,14 +77,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           resolve();
         } else {
           setLoading(false);
-          setError('Usuario no encontrado en el registro local.');
-          reject(new Error('Usuario no encontrado'));
+          setError('Credenciales incorrectas o usuario no encontrado.');
+          reject(new Error('Auth failed'));
         }
-      }, 300);
+      }, 500);
     });
   };
-
-  const register = async () => Promise.resolve();
   
   const logout = () => {
     setCurrentUser(null);
@@ -105,7 +101,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     loading,
     error,
     login,
-    register,
     logout,
     fetchUsers,
     vicepresidencias,

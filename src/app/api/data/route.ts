@@ -1,5 +1,5 @@
-// Ruta desactivada por solicitud del usuario.
-// El sistema opera actualmente en modo local estático.
+// Esta ruta ha sido eliminada por solicitud del usuario.
+// La aplicación ahora funciona exclusivamente con datos locales.
 
 export async function GET() {
   return new Response('API deshabilitada.', { status: 410 });
