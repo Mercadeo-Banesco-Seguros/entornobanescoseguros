@@ -1,12 +1,14 @@
 
 'use client';
 
+import * as React from 'react';
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  type CarouselApi,
 } from "@/components/ui/carousel"
 
 const historyItems = [
@@ -43,6 +45,25 @@ const historyItems = [
 ];
 
 export default function NosotrosPage() {
+  const [api, setApi] = React.useState<CarouselApi>();
+  const [progress, setProgress] = React.useState(0);
+
+  React.useEffect(() => {
+    if (!api) return;
+
+    const onScroll = () => {
+      // Obtenemos el progreso real del scroll (0 a 1)
+      setProgress(api.scrollSnapList().length > 0 ? api.scrollProgress() : 0);
+    };
+
+    api.on('scroll', onScroll);
+    onScroll();
+
+    return () => {
+      api.off('scroll', onScroll);
+    };
+  }, [api]);
+
   return (
     <div className="flex flex-col w-full min-h-screen">
       {/* Hero Section - Nuestra Visión 2026 */}
@@ -75,7 +96,6 @@ export default function NosotrosPage() {
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-0">
-            {/* Stat 1 */}
             <div className="lg:pr-12 lg:border-r border-slate-200">
               <span className="text-[#0054A6] text-4xl md:text-5xl font-bold tracking-tighter">+32</span>
               <p className="text-slate-500 text-[9px] md:text-[11px] font-light mt-4 leading-snug">
@@ -83,7 +103,6 @@ export default function NosotrosPage() {
               </p>
             </div>
             
-            {/* Stat 2 */}
             <div className="lg:px-12 lg:border-r border-slate-200">
               <span className="text-[#0054A6] text-4xl md:text-5xl font-bold tracking-tighter">+200k</span>
               <p className="text-slate-500 text-[9px] md:text-[11px] font-light mt-4 leading-snug">
@@ -91,7 +110,6 @@ export default function NosotrosPage() {
               </p>
             </div>
             
-            {/* Stat 3 */}
             <div className="lg:px-12 lg:border-r border-slate-200">
               <span className="text-[#0054A6] text-4xl md:text-5xl font-bold tracking-tighter">+100</span>
               <p className="text-slate-500 text-[9px] md:text-[11px] font-light mt-4 leading-snug">
@@ -99,7 +117,6 @@ export default function NosotrosPage() {
               </p>
             </div>
             
-            {/* Stat 4 */}
             <div className="lg:pl-12">
               <span className="text-[#0054A6] text-4xl md:text-5xl font-bold tracking-tighter">+200</span>
               <p className="text-slate-500 text-[9px] md:text-[11px] font-light mt-4 leading-snug">
@@ -111,24 +128,33 @@ export default function NosotrosPage() {
       </section>
 
       {/* 3. Historia - Un Viaje a Través del Tiempo */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] py-16 bg-gradient-to-br from-sky-400 via-blue-400 to-blue-500 text-white overflow-hidden">
+      <section 
+        className="relative w-screen left-1/2 -ml-[50vw] py-10 transition-colors duration-700 ease-out text-white overflow-hidden"
+        style={{
+          // Transición de color de azul claro a azul principal (#0054A6)
+          backgroundColor: `rgb(${Math.round(56 + (0 - 56) * progress)}, ${Math.round(189 + (84 - 189) * progress)}, ${Math.round(248 + (166 - 248) * progress)})`,
+          // También podemos usar un gradiente que se oscurece
+          backgroundImage: `linear-gradient(to bottom right, rgba(56, 189, 248, ${1 - progress}), rgba(0, 84, 166, ${progress}))`
+        }}
+      >
         <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-30">
           <div className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full blur-[150px] bg-white/20" />
           <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full blur-[150px] bg-sky-200/20" />
         </div>
         
         <div className="relative z-10 container mx-auto px-8 md:px-16 lg:px-24">
-          <div className="text-center space-y-4 mb-12">
-            <span className="text-white/70 text-[10px] font-light tracking-widest uppercase">Historia De Banesco Seguros</span>
-            <h2 className="text-3xl md:text-5xl font-light tracking-tighter leading-none">
+          <div className="text-center space-y-2 mb-8">
+            <span className="text-white/70 text-[9px] font-light tracking-widest uppercase">Historia De Banesco Seguros</span>
+            <h2 className="text-xl md:text-3xl font-light tracking-tighter leading-none">
               Un Viaje A Través Del Tiempo
             </h2>
-            <p className="text-white/70 text-[10px] md:text-[12px] font-light leading-relaxed max-w-3xl mx-auto tracking-tight">
+            <p className="text-white/70 text-[9px] md:text-[11px] font-light leading-relaxed max-w-2xl mx-auto tracking-tight">
               Desde nuestra fundación hasta hoy, hemos evolucionado para adaptarnos a los nuevos tiempos, manteniendo siempre nuestro compromiso con la excelencia y la innovación.
             </p>
           </div>
 
           <Carousel
+            setApi={setApi}
             opts={{
               align: "start",
               loop: false,
@@ -136,11 +162,11 @@ export default function NosotrosPage() {
             className="w-full"
           >
             <CarouselContent className="-ml-0">
-              {historyItems.map((item, index) => (
+              {historyItems.map((item) => (
                 <CarouselItem key={item.id} className="pl-0 basis-full sm:basis-1/2 lg:basis-1/3">
-                  <div className="relative flex flex-col gap-6 h-full py-4 px-8 border-l border-white/20 group">
-                    <div className="flex items-center gap-4">
-                      <span className="text-4xl md:text-5xl font-black text-white/30 tracking-tighter leading-none transition-colors group-hover:text-white/40">
+                  <div className="relative flex flex-col gap-4 h-full py-4 px-6 border-l border-white/20 group">
+                    <div className="flex items-center gap-3">
+                      <span className="text-3xl md:text-4xl font-black text-white/30 tracking-tighter leading-none transition-colors group-hover:text-white/40">
                         {item.id}
                       </span>
                       <div className="px-3 py-1 rounded-full bg-white/20 text-[8px] font-bold tracking-widest border border-white/10 uppercase">
@@ -148,11 +174,11 @@ export default function NosotrosPage() {
                       </div>
                     </div>
                     
-                    <div className="space-y-3">
-                      <h3 className="text-lg md:text-xl font-bold tracking-tighter leading-tight max-w-[180px]">
+                    <div className="space-y-2">
+                      <h3 className="text-base md:text-lg font-bold tracking-tighter leading-tight max-w-[180px]">
                         {item.title}
                       </h3>
-                      <p className="text-white/70 text-[10px] md:text-[11px] font-light leading-relaxed tracking-tight max-w-[280px]">
+                      <p className="text-white/70 text-[9px] md:text-[10px] font-light leading-relaxed tracking-tight max-w-[280px]">
                         {item.description}
                       </p>
                     </div>
@@ -161,9 +187,9 @@ export default function NosotrosPage() {
               ))}
             </CarouselContent>
             
-            <div className="flex justify-center mt-12 gap-4">
-              <CarouselPrevious className="static translate-y-0 bg-transparent border-white/30 text-white hover:bg-white/20 hover:text-white w-10 h-10" />
-              <CarouselNext className="static translate-y-0 bg-transparent border-white/30 text-white hover:bg-white/20 hover:text-white w-10 h-10" />
+            <div className="flex justify-center mt-8 gap-4">
+              <CarouselPrevious className="static translate-y-0 bg-transparent border-white/30 text-white hover:bg-white/20 hover:text-white w-8 h-8" />
+              <CarouselNext className="static translate-y-0 bg-transparent border-white/30 text-white hover:bg-white/20 hover:text-white w-8 h-8" />
             </div>
           </Carousel>
         </div>
@@ -178,3 +204,4 @@ export default function NosotrosPage() {
     </div>
   );
 }
+
