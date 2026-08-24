@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from 'react';
@@ -94,12 +93,12 @@ function ComplianceGrid({ percentage, label, description }: { percentage: number
       </div>
       
       <div className="space-y-3">
-        <div className="grid grid-cols-10 gap-1 md:gap-1.5 w-fit">
+        <div className="grid grid-cols-20 gap-1 md:gap-1.5 w-fit">
           {[...Array(100)].map((_, i) => (
             <div 
               key={i} 
               className={cn(
-                "w-3 h-3 md:w-4 md:h-4 rounded-[3px] transition-colors duration-1000",
+                "w-2.5 h-2.5 md:w-3.5 md:h-3.5 rounded-[2px] transition-colors duration-1000",
                 i < filledCount ? "bg-[#0054A6]" : "bg-slate-100"
               )}
             />
@@ -262,7 +261,7 @@ export default function NosotrosPage() {
         </div>
       </section>
 
-      {/* 4. Sección de Cumplimiento (Grids Visuales) - AHORA EN PARALELO */}
+      {/* 4. Sección de Cumplimiento (Grids Visuales) - AHORA EN PARALELO 20x5 */}
       <section className="bg-white py-20 px-8 md:px-16 lg:px-24">
         <div className="container mx-auto">
           <div className="space-y-4 mb-12">
