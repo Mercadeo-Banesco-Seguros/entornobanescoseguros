@@ -19,7 +19,7 @@ function toTitleCase(str: string): string {
 }
 
 export default function CarEvolution({ currentUser }: CarEvolutionProps) {
-  const isAdministrator = currentUser.cargo === 'ADMINISTRATOR';
+  const isAdministrator = currentUser.cargo === 'ADMINISTRADOR';
   const userCategory = toTitleCase(currentUser.avatar);
 
   const categoryOrder: { [key: string]: number } = { 'Base': 0, 'Bronce': 1, 'Plata': 2, 'Oro': 3 };
@@ -45,7 +45,7 @@ export default function CarEvolution({ currentUser }: CarEvolutionProps) {
     const currentProgress = currentUser.progreso || 0;
     return {
         progress: currentProgress,
-        text: `Llevas un ${currentProgress.toFixed(2)}% de logro.`
+        text: `Nivel de logro institucional: ${currentProgress.toFixed(2)}%`
     };
   }, [currentUser.progreso]);
 

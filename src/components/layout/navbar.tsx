@@ -79,14 +79,14 @@ export default function Navbar() {
 
   const notificationsData = [
     { id: 1, title: 'Cifras actualizadas', description: 'Los tableros de producción ya reflejan el cierre de ayer.', time: 'Hace 5m', icon: Database, color: 'text-slate-400', bgColor: 'bg-slate-50' },
-    { id: 2, title: 'Nueva funcionalidad', description: 'Módulo de análisis de tubería optimizado ya disponible.', time: 'Hoy', icon: Sparkles, color: 'text-blue-400', bgColor: 'bg-blue-50' },
-    { id: 3, title: 'Póliza renovada', description: 'Corporación Polar C.A. ha renovado su póliza de Salud.', time: 'Hace 1h', icon: FileCheck, color: 'text-green-400', bgColor: 'bg-green-50' },
+    { id: 2, title: 'Nueva funcionalidad', description: 'Módulo de análisis de gestión optimizado ya disponible.', time: 'Hoy', icon: Sparkles, color: 'text-blue-400', bgColor: 'bg-blue-50' },
+    { id: 3, title: 'Póliza renovada', description: 'Gestión de cartera actualizada recientemente.', time: 'Hace 1h', icon: FileCheck, color: 'text-green-400', bgColor: 'bg-green-50' },
   ];
 
   const remindersData = [
-    { id: 1, title: 'Vencimiento Próximo', description: 'La póliza corporativa 90021345 vence en menos de 48h.', time: 'Hace 45m', icon: Clock, color: 'text-orange-400', bgColor: 'bg-orange-50' },
-    { id: 2, title: 'Cobro Fallido', description: 'Error en el cargo automático del cliente Inversiones HL.', time: 'Hace 2h', icon: XCircle, color: 'text-red-400', bgColor: 'bg-red-50' },
-    { id: 3, title: 'Siniestro Crítico', description: 'Reportado siniestro de gran magnitud en Ramo Patrimonial.', time: 'Hace 4h', icon: AlertTriangle, color: 'text-red-500', bgColor: 'bg-red-50' },
+    { id: 1, title: 'Vencimiento Próximo', description: 'Revisión de metas programada para las próximas 48h.', time: 'Hace 45m', icon: Clock, color: 'text-orange-400', bgColor: 'bg-orange-50' },
+    { id: 2, title: 'Gestión Pendiente', description: 'Actualización requerida en el módulo de finanzas.', time: 'Hace 2h', icon: XCircle, color: 'text-red-400', bgColor: 'bg-red-50' },
+    { id: 3, title: 'Aviso Importante', description: 'Comunicado oficial de la dirección general.', time: 'Hace 4h', icon: AlertTriangle, color: 'text-red-500', bgColor: 'bg-red-50' },
   ];
 
   return (
@@ -130,7 +130,7 @@ export default function Navbar() {
               <input 
                 type="text"
                 autoFocus
-                placeholder="Buscar en el circuito..."
+                placeholder="Buscar en el portal..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyDown={(e) => e.key === 'Escape' && setIsSearchActive(false)}
@@ -229,7 +229,7 @@ export default function Navbar() {
                       <div className="flex justify-between items-start">
                         <div>
                           <h4 className="text-slate-700 text-[11px] font-light tracking-tight">Recordatorios</h4>
-                          <p className="text-[9px] text-slate-400 font-light mt-0.5">Riesgos y vencimientos</p>
+                          <p className="text-[9px] text-slate-400 font-light mt-0.5">Gestión institucional</p>
                         </div>
                         <div className="w-6 h-6 rounded-full bg-red-50 flex items-center justify-center">
                           <AlertTriangle className="w-3 h-3 text-red-400 stroke-[1]" />
@@ -264,9 +264,9 @@ export default function Navbar() {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent className="w-44 bg-white border-none text-slate-900 rounded-xl p-2.5 shadow-[0_10px_40px_rgba(0,0,0,0.08)] mt-4 mr-4 outline-none">
                     <div className="px-1 pb-1.5 mb-1.5 border-b border-slate-50">
-                      <h3 className="text-[10px] font-light text-slate-900 leading-tight">{currentUser?.name || 'Piloto'}</h3>
+                      <h3 className="text-[10px] font-light text-slate-900 leading-tight">{currentUser?.name || 'Colaborador'}</h3>
                       <p className="text-[8px] font-light text-slate-400 mt-0.5 uppercase tracking-wider">
-                        {currentUser?.cargo === 'ADMINISTRADOR' ? 'Administrador' : 'Asesor Integral'}
+                        {currentUser?.cargo === 'ADMINISTRADOR' ? 'Administrador' : 'Gestión Institucional'}
                       </p>
                     </div>
                     
@@ -305,7 +305,7 @@ export default function Navbar() {
           <div className="px-3 flex items-center">
             <input 
               type="text"
-              placeholder="Hola Piloto..."
+              placeholder="Buscar..."
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               className="bg-transparent text-[9px] font-light text-white placeholder:text-white/60 tracking-tight outline-none w-16 border-none focus:ring-0 p-0"

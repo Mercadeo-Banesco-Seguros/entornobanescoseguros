@@ -13,8 +13,8 @@ export default function ProfilePage() {
     return (
       <div className="space-y-8">
         <header>
-          <h1 className="text-4xl font-bold text-foreground">Mi Perfil de Piloto</h1>
-          <p className="text-muted text-lg mt-1">Tu progreso y estadísticas en el circuito.</p>
+          <h1 className="text-4xl font-bold text-foreground">Mi Perfil Institucional</h1>
+          <p className="text-muted text-lg mt-1">Tu progreso y estadísticas profesionales.</p>
         </header>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <Card className="md:col-span-1 flex flex-col items-center justify-center p-6 border-0 shadow-none">
@@ -26,7 +26,7 @@ export default function ProfilePage() {
             <Card className="border-0 shadow-none">
               <CardHeader>
                 <CardTitle>Estadísticas</CardTitle>
-                <CardDescription>Tu resumen de progreso en la carrera.</CardDescription>
+                <CardDescription>Resumen de tu desempeño laboral.</CardDescription>
               </CardHeader>
               <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Skeleton className="h-24 w-full" />
@@ -51,8 +51,8 @@ export default function ProfilePage() {
   return (
     <div className="space-y-8">
       <header>
-        <h1 className="text-4xl font-bold text-foreground">Mi Perfil de Piloto</h1>
-        <p className="text-muted text-lg mt-1">Tu progreso y estadísticas en el circuito.</p>
+        <h1 className="text-4xl font-bold text-foreground">Mi Perfil Institucional</h1>
+        <p className="text-muted text-lg mt-1">Tu progreso y estadísticas profesionales.</p>
       </header>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
@@ -68,7 +68,7 @@ export default function ProfilePage() {
                     {currentLevel.worldName}
                 </span>
                 <span className="bg-primary text-primary-foreground font-bold text-sm px-4 py-1 rounded-full">
-                    {currentUser.avatar}
+                    Nivel {currentUser.avatar}
                 </span>
             </div>
           )}
@@ -77,16 +77,16 @@ export default function ProfilePage() {
         <div className="md:col-span-2">
             <Card className="border-0 shadow-none">
                 <CardHeader>
-                    <CardTitle>Estadísticas de Carrera</CardTitle>
-                    <CardDescription>Tu resumen de progreso total.</CardDescription>
+                    <CardTitle>Resumen de Gestión</CardTitle>
+                    <CardDescription>Estadísticas de tu rendimiento actual.</CardDescription>
                 </CardHeader>
                 <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <Card className="p-4 bg-secondary/50 border-0 shadow-none">
-                    <p className="text-sm font-semibold text-muted-foreground">Objetivos Completados</p>
+                    <p className="text-sm font-semibold text-muted-foreground">Objetivos Alcanzados</p>
                     <p className="text-3xl font-bold text-primary">{completedTasksCount}</p>
                   </Card>
                   <Card className="p-4 bg-secondary/50 border-0 shadow-none">
-                    <p className="text-sm font-semibold text-muted-foreground">Puntos Totales</p>
+                    <p className="text-sm font-semibold text-muted-foreground">Puntos Institucionales</p>
                     <p className="text-3xl font-bold text-primary">{totalXp.toLocaleString()}</p>
                   </Card>
                 </CardContent>

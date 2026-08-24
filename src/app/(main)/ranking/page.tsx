@@ -56,8 +56,8 @@ export default function RankingPage() {
     return (
       <div className="space-y-8">
         <header>
-          <h1 className="text-4xl font-bold text-foreground">Clasificación de Pilotos</h1>
-          <p className="text-muted text-lg mt-1">Mira tu posición y la de tus compañeros en el circuito.</p>
+          <h1 className="text-4xl font-bold text-foreground">Ranking Institucional</h1>
+          <p className="text-muted text-lg mt-1">Consulta tu progreso y el de tus colegas en la organización.</p>
         </header>
         <Card>
           <CardContent className="p-6">
@@ -83,7 +83,7 @@ export default function RankingPage() {
   }
 
   if (error) {
-    return <div className="text-destructive text-center">Error al cargar la clasificación: {error}</div>
+    return <div className="text-destructive text-center">Error al cargar el ranking: {error}</div>
   }
   
   const categoryOrder: { [key: string]: number } = { 'Oro': 3, 'Plata': 2, 'Bronce': 1, 'Base': 0 };
@@ -96,7 +96,6 @@ export default function RankingPage() {
       return levelB - levelA; // Sort by level first (descending)
     }
     
-    // If levels are the same, sort by progress (descending)
     return (b.progreso || 0) - (a.progreso || 0);
   });
 
@@ -108,8 +107,8 @@ export default function RankingPage() {
     <div className="space-y-8">
       <header className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-4xl font-bold text-foreground">Clasificación de Pilotos</h1>
-          <p className="text-muted text-lg mt-1">Mira tu posición y la de tus compañeros en el circuito.</p>
+          <h1 className="text-4xl font-bold text-foreground">Ranking Institucional</h1>
+          <p className="text-muted text-lg mt-1">Consulta tu progreso y el de tus colegas en la organización.</p>
         </div>
         {me.cargo === 'ADMINISTRADOR' && (
           <div className="w-full sm:w-64">
@@ -159,7 +158,7 @@ export default function RankingPage() {
                 <>
                   <div className="text-center">
                     <span className="text-2xl font-bold">{(me.progreso || 0).toFixed(2)}%</span>
-                    <p className="text-xs font-normal text-primary-foreground/80">Total</p>
+                    <p className="text-xs font-normal text-primary-foreground/80">Gestión Total</p>
                   </div>
                    <div className="text-center">
                     <span className="text-2xl font-bold">{(me.prog_pol || 0).toFixed(2)}%</span>
@@ -206,7 +205,7 @@ export default function RankingPage() {
                     </TableCell>
                     <TableCell className="text-right w-auto">
                       <div className="flex justify-end items-center gap-4">
-                        <div className="text-center" title="Logro Total">
+                        <div className="text-center" title="Gestión Total">
                             <span className="font-bold">{(user.progreso || 0).toFixed(2)}%</span>
                             <p className="text-xs text-muted-foreground">Total</p>
                         </div>

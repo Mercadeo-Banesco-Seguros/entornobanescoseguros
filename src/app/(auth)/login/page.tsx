@@ -43,7 +43,7 @@ export default function LoginPage() {
     setLoading(true);
     try {
       await login(values.username, values.cedula);
-      router.push('/inicio');
+      router.push('/dashboard');
     } catch (error: any) {
       toast({
         variant: "destructive",
@@ -62,7 +62,7 @@ export default function LoginPage() {
           <CardHeader>
             <CardTitle className="text-2xl">Iniciar Sesión</CardTitle>
             <CardDescription>
-              Introduce tus credenciales para entrar al circuito.
+              Introduce tus credenciales para acceder al portal corporativo.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -73,7 +73,7 @@ export default function LoginPage() {
                   name="username"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Usuario Rol Enlace</FormLabel>
+                      <FormLabel>Usuario Institucional</FormLabel>
                       <FormControl>
                         <Input placeholder="tu.usuario" {...field} />
                       </FormControl>
@@ -95,7 +95,7 @@ export default function LoginPage() {
                   )}
                 />
                 <Button type="submit" className="w-full" disabled={loading}>
-                  {loading ? 'Iniciando Sesión...' : 'Entrar a la Carrera'}
+                  {loading ? 'Iniciando Sesión...' : 'Entrar al Portal'}
                 </Button>
               </form>
             </Form>
@@ -105,10 +105,10 @@ export default function LoginPage() {
        <div className="hidden lg:block relative p-12">
         <Image
           src="https://www.banescoseguros.com/wp-content/uploads/2025/11/portadaVF.png"
-          alt="Imagen de un auto de carreras"
+          alt="Portal Corporativo"
           layout="fill"
           className="object-contain"
-          data-ai-hint="race car"
+          data-ai-hint="corporate building"
         />
       </div>
     </div>

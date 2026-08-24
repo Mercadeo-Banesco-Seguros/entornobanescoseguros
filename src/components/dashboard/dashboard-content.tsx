@@ -37,12 +37,12 @@ export default function DashboardContent() {
   }
 
   if (!currentUser || !users) {
-    return <div>Piloto no encontrado o no autorizado.</div>;
+    return <div>Usuario no encontrado o no autorizado.</div>;
   }
 
   const userLevel = levels.find(l => l.id === currentUser.level);
   if (!userLevel) {
-    return <div>Error: Pista del piloto no encontrada.</div>;
+    return <div>Error: Etapa del colaborador no encontrada.</div>;
   }
 
   return (
@@ -62,7 +62,7 @@ export default function DashboardContent() {
             <CardHeader className="p-0">
               <CardTitle className="text-3xl font-black uppercase tracking-tight">Recursos Estratégicos</CardTitle>
               <CardDescription>
-                Aquí encontrarás todo el material de apoyo que necesitas para dominar cada tramo del circuito. Accede a manuales de productos, guías de venta, y herramientas exclusivas para optimizar tu estrategia y acelerar hacia la victoria.
+                Aquí encontrarás todo el material de apoyo que necesitas para optimizar tu gestión. Accede a manuales de procesos, guías corporativas y herramientas exclusivas para potenciar tu desempeño profesional.
               </CardDescription>
             </CardHeader>
             <div className="pt-6">

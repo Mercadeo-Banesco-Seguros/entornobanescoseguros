@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from "react";
@@ -303,7 +302,7 @@ export default function LandingPage() {
                   : "opacity-100 scale-100 blur-none"
               )}
             >
-              Bienvenido al Entorno <br /> Banesco Seguros
+              Bienvenido a tu Portal <br /> Corporativo
             </h1>
 
             <h1 
@@ -425,7 +424,7 @@ export default function LandingPage() {
           <div className="flex flex-col md:flex-row justify-between items-end w-full gap-8 px-4 pb-4">
             <div className="space-y-4 text-left">
               <div className="space-y-0">
-                <p className="text-white/70 text-[10px] font-light tracking-tight">Viste Seguro</p>
+                <p className="text-white/70 text-[10px] font-light tracking-tight">Estilo Corporativo</p>
                 <h2 className="text-white text-2xl md:text-3xl font-light tracking-tighter">Banesco Seguros</h2>
               </div>
               <Button 
@@ -811,7 +810,7 @@ export default function LandingPage() {
             <span className="text-[10px] font-medium text-slate-500">Playlists</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-slate-900">
-            Nuestra Playlist Banesco Seguros
+            Nuestra Playlist Corporativa
           </h2>
           <p className="text-sm text-slate-500 max-w-2xl mx-auto font-light">
             La banda sonora para un día de trabajo productivo y agradable. Haz clic en una playlist para escucharla.
@@ -858,10 +857,10 @@ export default function LandingPage() {
               <span className="text-[10px] text-white font-light tracking-tight">Expedición por Nuestro ADN</span>
             </div>
             <h2 className="text-white text-2xl md:text-3xl lg:text-4xl font-bold tracking-tighter leading-tight max-w-md drop-shadow-md">
-              ¿Ya conoces tu <br /> posición en el Ranking?
+              ¿Ya conoces tu <br /> progreso institucional?
             </h2>
             <div className="flex gap-4">
-              <button className="px-10 py-3 rounded-xl bg-white text-[#0054A6] text-[10px] font-light hover:bg-white/90 transition-colors">Explorar Misiones</button>
+              <button className="px-10 py-3 rounded-xl bg-white text-[#0054A6] text-[10px] font-light hover:bg-white/90 transition-colors">Explorar Gestión</button>
             </div>
           </div>
           <div className="hidden md:flex w-1/2 h-full items-end justify-end">
@@ -869,7 +868,7 @@ export default function LandingPage() {
               {rankingImage && (
                 <Image 
                   src={`${rankingImage.imageUrl}&format=png`}
-                  alt="Explorador"
+                  alt="Colaborador"
                   fill
                   unoptimized
                   className="object-contain object-bottom"
