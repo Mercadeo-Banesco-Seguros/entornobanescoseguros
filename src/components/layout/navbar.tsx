@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from 'next/link';
@@ -231,7 +230,7 @@ export default function Navbar() {
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0 bg-transparent border-none shadow-none flex gap-4 mt-4 mr-4 outline-none">
                     {/* Tarjeta Notificaciones */}
-                    <div className="w-[280px] p-8 bg-white border-none shadow-[0_20px_50px_rgba(0,0,0,0.1)] rounded-[2.5rem] overflow-hidden space-y-5">
+                    <div className="w-[280px] p-8 bg-white border-none shadow-[0_20px_50px_rgba(0,0,0,0.1)] rounded-2xl overflow-hidden space-y-5">
                       <div className="flex justify-between items-start">
                         <div>
                           <h4 className="text-slate-700 text-[11px] font-normal tracking-tight">Notificaciones</h4>
@@ -272,7 +271,7 @@ export default function Navbar() {
                     </div>
 
                     {/* Tarjeta Recordatorios */}
-                    <div className="w-[280px] p-8 bg-white border-none shadow-[0_20px_50px_rgba(0,0,0,0.1)] rounded-[2.5rem] overflow-hidden space-y-5">
+                    <div className="w-[280px] p-8 bg-white border-none shadow-[0_20px_50px_rgba(0,0,0,0.1)] rounded-2xl overflow-hidden space-y-5">
                       <div className="flex justify-between items-start">
                         <div>
                           <h4 className="text-slate-700 text-[11px] font-normal tracking-tight">Recordatorios</h4>
@@ -311,7 +310,7 @@ export default function Navbar() {
                       <UserIcon className="w-3 h-3" strokeWidth={1.5} />
                     </button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-44 bg-white border-none text-slate-900 rounded-[1.5rem] p-2.5 shadow-[0_10px_40px_rgba(0,0,0,0.08)] mt-4 mr-4 outline-none">
+                  <DropdownMenuContent className="w-44 bg-white border-none text-slate-900 rounded-xl p-2.5 shadow-[0_10px_40px_rgba(0,0,0,0.08)] mt-4 mr-4 outline-none">
                     <div className="px-1 pb-1.5 mb-1.5 border-b border-slate-50">
                       <h3 className="text-[10px] font-light text-slate-900 leading-tight">{currentUser?.name || 'Piloto'}</h3>
                       <p className="text-[8px] font-light text-slate-400 mt-0.5 uppercase tracking-wider">
