@@ -4,6 +4,8 @@ import React, { createContext, useContext, useState, useEffect, ReactNode, useMe
 import type { User, Task, Avatar, Level, Prize, PrizeCategory } from '@/lib/types';
 import { tasks as staticTasks, levels as staticLevels, avatars as staticAvatars, prizes as staticPrizes, prizeCategories as staticPrizeCategories } from '@/lib/data';
 
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyFlj39v2_OzLc0-mEg2MuSXjXwkzWSjHluWEexjXK7OL-rLHZjXbnLFmesV0NX9C_8ig/exec';
+
 type AuthContextType = {
   currentUser: User | null;
   users: User[];
@@ -25,7 +27,8 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 function toTitleCase(str: string): string {
   if (!str) return 'Base';
-  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  const clean = str.toLowerCase().trim();
+  return clean.charAt(0).toUpperCase() + clean.slice(1);
 }
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
@@ -43,23 +46,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const fetchUsers = useCallback(async () => {
     try {
-      const response = await fetch('/api/data', {
+      const response = await fetch(APPS_SCRIPT_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify({ action: 'getData' }),
-        cache: 'no-store',
       });
 
-      if (!response.ok) {
-        console.warn(`Fetch users warning: HTTP ${response.status}`);
-        return;
-      }
+      if (!response.ok) return;
 
       const data = await response.json();
-      if (data.error) {
-        console.warn('Fetch users API error:', data.message);
-        return;
-      }
+      if (data.error) return;
       
       const allUsers = (data.users || [])
         .map((u: any) => ({
@@ -71,7 +67,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           progreso: u.progreso || 0, 
           vicepresidencia: u.vicepresidencia || '',
           posicion: u.posicion || 0,
-          cargo: u.cargo || '',
+          cargo: (u.cargo || '').toUpperCase(),
           prog_pol: u.prog_pol || 0,
           prog_sus: u.prog_sus || 0,
           prog_cob: u.prog_cob || 0,
@@ -95,8 +91,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         return prevUser;
       });
 
-    } catch (err: any) {
-      console.error("Silent error in fetchUsers:", err.message);
+    } catch (err) {
+      // Silent error for periodic background fetches
     }
   }, []);
 
@@ -126,9 +122,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setLoading(true);
     setError(null);
     try {
-        const response = await fetch('/api/data', {
+        const response = await fetch(APPS_SCRIPT_URL, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
             body: JSON.stringify({ action: 'login', username, password }),
         });
 
@@ -146,7 +142,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             progreso: data.user.progreso || 0,
             vicepresidencia: data.user.vicepresidencia || '',
             posicion: data.user.posicion || 0,
-            cargo: data.user.cargo || '',
+            cargo: (data.user.cargo || '').toUpperCase(),
             prog_pol: data.user.prog_pol || 0,
             prog_sus: data.user.prog_sus || 0,
             prog_cob: data.user.prog_cob || 0,
