@@ -77,7 +77,7 @@ export default function NosotrosPage() {
             <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-tight">
               Nuestra Visión Para El 2026
             </h1>
-            <p className="text-[14px] md:text-[16px] lg:text-[18px] font-light leading-relaxed max-w-xl text-white/90 tracking-tight">
+            <p className="text-[11px] md:text-[13px] lg:text-[14px] font-light leading-relaxed max-w-xl text-white/90 tracking-tight">
               Convertirnos en una compañía con foco en el negocio masivo, con un modelo sostenible de crecimiento rentable. Desarrollando productos de bajo costo dirigidos a la población venezolana que actualmente no tiene acceso a seguros, pero cuenta con ingresos para invertir en su protección básica.
             </p>
           </div>
@@ -131,9 +131,7 @@ export default function NosotrosPage() {
       <section 
         className="relative w-screen left-1/2 -ml-[50vw] py-10 transition-colors duration-700 ease-out text-white overflow-hidden"
         style={{
-          // Transición de color de azul claro a azul principal (#0054A6)
           backgroundColor: `rgb(${Math.round(56 + (0 - 56) * progress)}, ${Math.round(189 + (84 - 189) * progress)}, ${Math.round(248 + (166 - 248) * progress)})`,
-          // También podemos usar un gradiente que se oscurece
           backgroundImage: `linear-gradient(to bottom right, rgba(56, 189, 248, ${1 - progress}), rgba(0, 84, 166, ${progress}))`
         }}
       >
@@ -204,4 +202,3 @@ export default function NosotrosPage() {
     </div>
   );
 }
-
