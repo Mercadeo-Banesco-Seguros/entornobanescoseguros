@@ -111,11 +111,11 @@ export default function NosotrosPage() {
       </section>
 
       {/* 3. Historia - Un Viaje a Través del Tiempo */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] py-24 bg-[#003B73] text-white overflow-hidden">
+      <section className="relative w-screen left-1/2 -ml-[50vw] py-24 bg-gradient-to-br from-[#003B73] via-[#002D54] to-[#001A3D] text-white overflow-hidden">
         <div className="relative z-10 container mx-auto px-8 md:px-16 lg:px-24">
           <div className="text-center space-y-6 mb-24">
             <span className="text-white/60 text-[12px] font-light tracking-widest uppercase">Historia de Banesco Seguros</span>
-            <h2 className="text-4xl md:text-6xl font-black tracking-tighter leading-none">Un Viaje a Través del Tiempo</h2>
+            <h2 className="text-4xl md:text-6xl font-light tracking-tighter leading-none">Un Viaje a Través del Tiempo</h2>
             <p className="text-white/60 text-[12px] md:text-[14px] font-light leading-relaxed max-w-3xl mx-auto tracking-tight">
               Desde nuestra fundación hasta hoy, hemos evolucionado para adaptarnos a los nuevos tiempos, manteniendo siempre nuestro compromiso con la excelencia y la innovación.
             </p>
