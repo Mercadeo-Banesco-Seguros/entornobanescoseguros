@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from 'react';
@@ -52,7 +51,6 @@ export default function NosotrosPage() {
     if (!api) return;
 
     const onScroll = () => {
-      // Obtenemos el progreso real del scroll (0 a 1)
       setProgress(api.scrollSnapList().length > 0 ? api.scrollProgress() : 0);
     };
 
@@ -167,7 +165,7 @@ export default function NosotrosPage() {
                       <span className="text-3xl md:text-4xl font-black text-white/30 tracking-tighter leading-none transition-colors group-hover:text-white/40">
                         {item.id}
                       </span>
-                      <div className="px-3 py-1 rounded-full bg-white/20 text-[8px] font-bold tracking-widest border border-white/10 uppercase">
+                      <div className="px-3 py-1 rounded-full bg-white/20 text-[8px] font-light border border-white/10 uppercase">
                         {item.year}
                       </div>
                     </div>
