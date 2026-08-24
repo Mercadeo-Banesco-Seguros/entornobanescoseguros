@@ -17,11 +17,11 @@ async function handleRequest(request: Request) {
         requestPayload = await request.json();
       } else {
         const { searchParams } = new URL(request.url);
-        const params: any = {};
+        const queryParams: any = {};
         searchParams.forEach((value, key) => {
-          params[key] = value;
+          queryParams[key] = value;
         });
-        requestPayload = params;
+        requestPayload = queryParams;
       }
   } catch (e) {
       requestPayload = {};
@@ -72,11 +72,14 @@ async function handleRequest(request: Request) {
   }
 }
 
-export async function GET(request: Request) {
+export async function GET(request: Request, props: { params: Promise<any> }) {
+  // En Next.js 15, params debe ser esperado si se declara en la firma
+  await props.params;
   return handleRequest(request);
 }
 
-export async function POST(request: Request) {
+export async function POST(request: Request, props: { params: Promise<any> }) {
+  await props.params;
   return handleRequest(request);
 }
 
