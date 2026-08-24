@@ -105,10 +105,6 @@ function ComplianceGrid({ percentage, label, description }: { percentage: number
             />
           ))}
         </div>
-        <p className="text-slate-400 text-[8px] font-light flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#0054A6]" />
-          1 bloque = 1% de cumplimiento
-        </p>
       </div>
     </div>
   );
@@ -204,8 +200,8 @@ export default function NosotrosPage() {
       <section 
         className="relative w-screen left-1/2 -ml-[50vw] py-10 transition-colors duration-700 ease-out text-white overflow-hidden"
         style={{
-          backgroundColor: `rgb(${Math.round(17 + (13 - 17) * progress)}, ${Math.round(85 + (70 - 85) * progress)}, ${Math.round(204 + (120 - 204) * progress)})`,
-          backgroundImage: `linear-gradient(to bottom right, #1155cc, #0d4678)`
+          backgroundColor: `rgb(${Math.round(17 + (26 - 17) * progress)}, ${Math.round(85 + (97 - 85) * progress)}, ${Math.round(204 + (171 - 204) * progress)})`,
+          backgroundImage: `linear-gradient(to bottom right, #1155cc, #1A61AB)`
         }}
       >
         <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-30">
