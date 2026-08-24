@@ -121,7 +121,7 @@ export default function Navbar() {
         </div>
 
         <nav className={cn(
-          "bg-[#003B73]/90 backdrop-blur-sm rounded-xl px-1 py-1 flex items-center shadow-2xl border border-white/10 transition-all duration-300 h-10",
+          "bg-[#003B73]/90 backdrop-blur-sm rounded-full px-1 py-1 flex items-center shadow-2xl border border-white/10 transition-all duration-300 h-10",
           isSearchActive ? "w-full max-w-md" : "max-w-fit overflow-x-auto no-scrollbar"
         )}>
           {isSearchActive ? (

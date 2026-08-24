@@ -1,4 +1,3 @@
-
 'use client';
 
 import Image from 'next/image';
@@ -10,19 +9,19 @@ export default function NosotrosPage() {
   return (
     <div className="flex flex-col w-full">
       {/* Hero Section - Nuestra Visión 2026 */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] -mt-32 pt-32 min-h-[500px] md:min-h-[550px] overflow-hidden flex items-center bg-slate-900">
+      <section className="relative w-screen left-1/2 -ml-[50vw] -mt-32 pt-32 min-h-[500px] md:min-h-[550px] overflow-hidden flex items-center bg-[#0054A6]">
         {heroImage && (
           <div className="absolute inset-0 z-0">
             <Image
               src={heroImage.imageUrl}
               alt="Nuestra Visión para el 2026"
               fill
-              className="object-cover opacity-60"
+              className="object-cover opacity-80"
               priority
               data-ai-hint={heroImage.imageHint}
             />
             {/* Capas de superposición para legibilidad del texto */}
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/40 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#0054A6]/60 via-[#0054A6]/20 to-transparent" />
           </div>
         )}
         
