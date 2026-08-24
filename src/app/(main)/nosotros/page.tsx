@@ -133,8 +133,9 @@ export default function NosotrosPage() {
     };
   }, [api]);
 
-  const susProgress = currentUser?.prog_sus || 0;
-  const cobProgress = currentUser?.prog_cob || 0;
+  // Usando los valores específicos solicitados: Suscrito 57% y Cobrado 47%
+  const susProgress = 57;
+  const cobProgress = 47;
 
   return (
     <div className="flex flex-col w-full min-h-screen">
@@ -195,32 +196,6 @@ export default function NosotrosPage() {
                 Empleados comprometidos con nuestra misión y valores.
               </p>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 2b. Sección de Cumplimiento (Grids Visuales) */}
-      <section className="bg-white py-12 px-8 md:px-16 lg:px-24">
-        <div className="container mx-auto">
-          <div className="space-y-4 mb-8">
-            <span className="text-[#0054A6] text-[11px] font-bold tracking-tight uppercase">Producción</span>
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-slate-900">Cumplimiento De Metas</h2>
-            <p className="text-slate-500 text-[10px] md:text-[12px] font-light leading-relaxed max-w-2xl">
-              Visualiza tu avance en los indicadores clave del circuito. Cada bloque representa un paso más hacia la meta final.
-            </p>
-          </div>
-
-          <div className="divide-y divide-slate-100">
-            <ComplianceGrid 
-              percentage={susProgress} 
-              label="Suscrito" 
-              description="Representa el porcentaje de pólizas nuevas suscritas en el periodo actual." 
-            />
-            <ComplianceGrid 
-              percentage={cobProgress} 
-              label="Cobrado" 
-              description="Indica el nivel de recaudación efectiva sobre las pólizas suscritas." 
-            />
           </div>
         </div>
       </section>
@@ -288,6 +263,32 @@ export default function NosotrosPage() {
               <CarouselNext className="static translate-y-0 bg-transparent border-white/30 text-white hover:bg-white/20 hover:text-white w-8 h-8" />
             </div>
           </Carousel>
+        </div>
+      </section>
+
+      {/* 4. Sección de Cumplimiento (Grids Visuales) - AHORA DEBAJO DE HISTORIA */}
+      <section className="bg-white py-12 px-8 md:px-16 lg:px-24">
+        <div className="container mx-auto">
+          <div className="space-y-4 mb-8">
+            <span className="text-[#0054A6] text-[11px] font-bold tracking-tight uppercase">Producción</span>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-slate-900">Cumplimiento De Metas</h2>
+            <p className="text-slate-500 text-[10px] md:text-[12px] font-light leading-relaxed max-w-2xl">
+              Visualiza tu avance en los indicadores clave del circuito. Cada bloque representa un paso más hacia la meta final.
+            </p>
+          </div>
+
+          <div className="divide-y divide-slate-100">
+            <ComplianceGrid 
+              percentage={susProgress} 
+              label="Suscrito" 
+              description="Representa el porcentaje de pólizas nuevas suscritas en el periodo actual." 
+            />
+            <ComplianceGrid 
+              percentage={cobProgress} 
+              label="Cobrado" 
+              description="Indica el nivel de recaudación efectiva sobre las pólizas suscritas." 
+            />
+          </div>
         </div>
       </section>
 
