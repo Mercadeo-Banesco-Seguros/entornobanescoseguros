@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -79,34 +80,34 @@ function ComplianceGrid({ percentage, label, description }: { percentage: number
   const filledCount = Math.min(100, Math.max(0, Math.round(percentage)));
   
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center py-12">
+    <div className="flex flex-col gap-6 py-8">
       <div className="space-y-4">
-        <span className="text-[#0054A6] text-7xl md:text-8xl font-bold tracking-tighter">
+        <span className="text-[#0054A6] text-6xl md:text-7xl font-bold tracking-tighter">
           {filledCount}%
         </span>
         <div className="pl-1 border-l-2 border-[#0054A6] space-y-1">
           <h4 className="text-slate-900 text-lg font-bold tracking-tight">{label}</h4>
-          <p className="text-slate-500 text-[10px] md:text-[11px] font-light leading-snug max-w-[200px]">
+          <p className="text-slate-500 text-[10px] md:text-[11px] font-light leading-snug max-w-[280px]">
             {description}
           </p>
         </div>
       </div>
       
-      <div className="space-y-4">
-        <div className="grid grid-cols-10 gap-1.5 w-fit">
+      <div className="space-y-3">
+        <div className="grid grid-cols-10 gap-1 md:gap-1.5 w-fit">
           {[...Array(100)].map((_, i) => (
             <div 
               key={i} 
               className={cn(
-                "w-3.5 h-3.5 md:w-5 md:h-5 rounded-[4px] transition-colors duration-1000",
+                "w-3 h-3 md:w-4 md:h-4 rounded-[3px] transition-colors duration-1000",
                 i < filledCount ? "bg-[#0054A6]" : "bg-slate-100"
               )}
             />
           ))}
         </div>
-        <p className="text-slate-400 text-[9px] font-light flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-[#0054A6]" />
-          1 cuadrado = 1% de cumplimiento de meta
+        <p className="text-slate-400 text-[8px] font-light flex items-center gap-2">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#0054A6]" />
+          1 bloque = 1% de cumplimiento
         </p>
       </div>
     </div>
@@ -133,7 +134,6 @@ export default function NosotrosPage() {
     };
   }, [api]);
 
-  // Usando los valores específicos solicitados: Suscrito 57% y Cobrado 47%
   const susProgress = 57;
   const cobProgress = 47;
 
@@ -200,12 +200,12 @@ export default function NosotrosPage() {
         </div>
       </section>
 
-      {/* 3. Historia - Un Viaje a Través del Tiempo */}
+      {/* 3. Historia - Un Viaje a Través del Tiempo con degradado solicitado */}
       <section 
         className="relative w-screen left-1/2 -ml-[50vw] py-10 transition-colors duration-700 ease-out text-white overflow-hidden"
         style={{
-          backgroundColor: `rgb(${Math.round(17 + (26 - 17) * progress)}, ${Math.round(85 + (97 - 85) * progress)}, ${Math.round(204 + (171 - 204) * progress)})`,
-          backgroundImage: `linear-gradient(to bottom right, rgba(17, 85, 204, ${1 - progress}), rgba(26, 97, 171, ${progress}))`
+          backgroundColor: `rgb(${Math.round(17 + (13 - 17) * progress)}, ${Math.round(85 + (70 - 85) * progress)}, ${Math.round(204 + (120 - 204) * progress)})`,
+          backgroundImage: `linear-gradient(to bottom right, #1155cc, #0d4678)`
         }}
       >
         <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-30">
@@ -266,10 +266,10 @@ export default function NosotrosPage() {
         </div>
       </section>
 
-      {/* 4. Sección de Cumplimiento (Grids Visuales) - AHORA DEBAJO DE HISTORIA */}
-      <section className="bg-white py-12 px-8 md:px-16 lg:px-24">
+      {/* 4. Sección de Cumplimiento (Grids Visuales) - AHORA EN PARALELO */}
+      <section className="bg-white py-20 px-8 md:px-16 lg:px-24">
         <div className="container mx-auto">
-          <div className="space-y-4 mb-8">
+          <div className="space-y-4 mb-12">
             <span className="text-[#0054A6] text-[11px] font-bold tracking-tight uppercase">Producción</span>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-slate-900">Cumplimiento De Metas</h2>
             <p className="text-slate-500 text-[10px] md:text-[12px] font-light leading-relaxed max-w-2xl">
@@ -277,7 +277,7 @@ export default function NosotrosPage() {
             </p>
           </div>
 
-          <div className="divide-y divide-slate-100">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             <ComplianceGrid 
               percentage={susProgress} 
               label="Suscrito" 
@@ -286,7 +286,7 @@ export default function NosotrosPage() {
             <ComplianceGrid 
               percentage={cobProgress} 
               label="Cobrado" 
-              description="Indica el nivel de recaudación efectiva sobre las pólizas suscritas." 
+              description="Indica el nivel de recaudación efectiva sobre las pólizas suscritas en el mercado actual." 
             />
           </div>
         </div>
