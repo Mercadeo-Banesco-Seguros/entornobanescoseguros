@@ -44,7 +44,6 @@ export default function Navbar() {
   const [mounted, setMounted] = useState(false);
   const [isTimeExpanded, setIsTimeExpanded] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [temperature, setTemperature] = useState<string | null>(null);
   const [showIANotification, setShowIANotification] = useState(false);
   const [inputValue, setInputValue] = useState('');
   
@@ -69,22 +68,6 @@ export default function Navbar() {
       setCurrentTime(new Date());
     }, 60000);
 
-    const fetchWeather = async () => {
-      try {
-        const response = await fetch('https://wttr.in/Caracas?format=%t');
-        const data = await response.text();
-        if (data) {
-          const cleanTemp = data.trim().replace('+', '');
-          const match = cleanTemp.match(/(\d+°C)/);
-          setTemperature(match ? match[1] : cleanTemp.substring(0, 5));
-        }
-      } catch (error) {
-        console.error("Error fetching weather:", error);
-      }
-    };
-
-    fetchWeather();
-    
     return () => clearInterval(timer);
   }, []);
 
@@ -140,10 +123,6 @@ export default function Navbar() {
                     CARACAS
                   </span>
                 </div>
-                <div className="h-3 w-[1px] bg-white/10 mx-0.5" />
-                <span className="text-[8px] text-white font-light">
-                  {temperature || '--°C'}
-                </span>
               </div>
             )}
           </div>
@@ -151,7 +130,7 @@ export default function Navbar() {
 
         {/* Barra de Navegación Principal */}
         <nav className={cn(
-          "bg-[#003B73]/90 backdrop-blur-sm rounded-full px-1 py-1 flex items-center shadow-2xl border border-white/10 transition-all duration-300 h-10",
+          "bg-[#003B73]/90 backdrop-blur-sm rounded-xl px-1 py-1 flex items-center shadow-2xl border border-white/10 transition-all duration-300 h-10",
           isSearchActive ? "w-full max-w-md" : "max-w-fit overflow-x-auto no-scrollbar"
         )}>
           {isSearchActive ? (
@@ -226,7 +205,6 @@ export default function Navbar() {
                     </button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0 bg-transparent border-none shadow-none flex gap-4 mt-4 mr-4 outline-none">
-                    {/* Tarjeta Notificaciones */}
                     <div className="w-[280px] p-5 bg-white border-none shadow-[0_20px_50px_rgba(0,0,0,0.1)] rounded-2xl overflow-hidden space-y-4">
                       <div className="flex justify-between items-start">
                         <div>
@@ -236,15 +214,6 @@ export default function Navbar() {
                         <button className="text-[9px] text-slate-400 font-light hover:text-slate-600 flex items-center gap-0.5 transition-colors">
                           Ver todas <ChevronRight className="w-2.5 h-2.5" />
                         </button>
-                      </div>
-
-                      <div className="bg-[#EEF4FF]/50 p-4 rounded-xl flex gap-3 items-center border border-blue-50/50">
-                        <div className="shrink-0 w-6 h-6 rounded-full bg-white flex items-center justify-center">
-                          <Info className="w-3 h-3 text-blue-500 stroke-[1]" />
-                        </div>
-                        <p className="text-[8.5px] text-blue-900/60 font-light leading-snug">
-                          Módulo en construcción.
-                        </p>
                       </div>
 
                       <div className="space-y-4 pt-1">
@@ -265,7 +234,6 @@ export default function Navbar() {
                       </div>
                     </div>
 
-                    {/* Tarjeta Recordatorios */}
                     <div className="w-[280px] p-5 bg-white border-none shadow-[0_20px_50px_rgba(0,0,0,0.1)] rounded-2xl overflow-hidden space-y-4">
                       <div className="flex justify-between items-start">
                         <div>
@@ -318,16 +286,6 @@ export default function Navbar() {
                           <span className="text-[9px] font-light text-slate-600">Mi Perfil</span>
                         </Link>
                       </DropdownMenuItem>
-                      
-                      <DropdownMenuItem className="focus:bg-slate-50 focus:text-slate-900 rounded-lg cursor-pointer flex items-center gap-2 py-1 px-2 border-none outline-none group">
-                        <Settings className="w-3.5 h-3.5 text-slate-400 stroke-[1] group-hover:text-slate-600 transition-colors" />
-                        <span className="text-[9px] font-light text-slate-600">Configuración</span>
-                      </DropdownMenuItem>
-
-                      <DropdownMenuItem className="focus:bg-slate-50 focus:text-slate-900 rounded-lg cursor-pointer flex items-center gap-2 py-1 px-2 border-none outline-none group">
-                        <Info className="w-3.5 h-3.5 text-slate-400 stroke-[1] group-hover:text-slate-600 transition-colors" />
-                        <span className="text-[9px] font-light text-slate-600">Ayuda</span>
-                      </DropdownMenuItem>
                     </div>
 
                     <div className="mt-1.5 pt-1.5 border-t border-slate-50">
@@ -357,15 +315,9 @@ export default function Navbar() {
           <div className="px-3 flex items-center">
             <input 
               type="text"
-              placeholder="Hola Usuario..."
+              placeholder="Hola Piloto..."
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  triggerIANotification();
-                  setInputValue('');
-                }
-              }}
               className="bg-transparent text-[9px] font-light text-white placeholder:text-white/60 tracking-tight outline-none w-16 border-none focus:ring-0 p-0"
             />
           </div>
@@ -375,18 +327,6 @@ export default function Navbar() {
           >
             <Mic className="w-3 h-3" strokeWidth={1.5} />
           </button>
-          <div 
-            onClick={triggerIANotification}
-            className="h-8 w-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors cursor-pointer"
-          >
-             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-white">
-                <rect x="3" y="10" width="1.5" height="4" rx="0.75" fill="currentColor" />
-                <rect x="7.5" y="7" width="1.5" height="10" rx="0.75" fill="currentColor" />
-                <rect x="12" y="4" width="1.5" height="16" rx="0.75" fill="currentColor" />
-                <rect x="16.5" y="7" width="1.5" height="10" rx="0.75" fill="currentColor" />
-                <rect x="21" y="10" width="1.5" height="4" rx="0.75" fill="currentColor" />
-             </svg>
-          </div>
         </div>
       </div>
 
@@ -395,13 +335,11 @@ export default function Navbar() {
         <div className="animate-in fade-in slide-in-from-top-4 duration-500 absolute top-20 left-1/2 -translate-x-1/2 w-full max-w-2xl px-4 pointer-events-auto">
           <div className="bg-red-100/90 backdrop-blur-md py-3 px-6 rounded-2xl border border-red-200/50 flex items-center gap-4">
             <AlertTriangle className="w-5 h-5 text-red-600 shrink-0" strokeWidth={1.5} />
-            
             <div className="flex-grow">
               <p className="text-[10px] font-light text-red-900 leading-tight tracking-tight">
-                Las funcionalidades de inteligencia artificial se encuentran en fase de implementación y estarán disponibles próximamente.
+                El asistente virtual se encuentra fuera de servicio temporalmente.
               </p>
             </div>
-
             <button 
               onClick={() => setShowIANotification(false)}
               className="p-1 text-red-600/60 hover:text-red-600 transition-colors"

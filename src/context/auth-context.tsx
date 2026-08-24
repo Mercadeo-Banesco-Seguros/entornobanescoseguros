@@ -36,8 +36,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const prizes = staticPrizes;
   const prizeCategories = staticPrizeCategories;
 
+  // Carga local de usuarios desde mockData
   const fetchUsers = useCallback(async () => {
-    // Ya no se conecta a nada externo. Solo actualiza las VPs desde los datos locales.
     const allVps = Array.from(new Set(mockUsers.map(u => u.vicepresidencia).filter(Boolean)));
     setVicepresidencias(['Todas', ...allVps as string[]]);
     setUsers(mockUsers);
@@ -64,7 +64,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setLoading(true);
     setError(null);
     
-    // Simulación de login local sin conexión
+    // Autenticación simulada local
     return new Promise<void>((resolve, reject) => {
       setTimeout(() => {
         const user = mockUsers.find(u => 
@@ -82,7 +82,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           setError('Usuario no encontrado en el registro local.');
           reject(new Error('Usuario no encontrado'));
         }
-      }, 500);
+      }, 300);
     });
   };
 
