@@ -4,7 +4,7 @@ export default function NosotrosPage() {
   return (
     <div className="flex flex-col w-full min-h-screen">
       {/* Hero Section - Nuestra Visión 2026 */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] -mt-32 pt-32 min-h-[350px] md:min-h-[400px] overflow-hidden flex items-center bg-gradient-to-br from-[#0054A6] via-[#003B73] to-[#002D54]">
+      <section className="relative w-screen left-1/2 -ml-[50vw] -mt-32 pt-32 min-h-[500px] md:min-h-[600px] overflow-hidden flex items-center bg-gradient-to-br from-[#0054A6] via-[#003B73] to-[#002D54]">
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full blur-[120px] bg-blue-400/20" />
           <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full blur-[120px] bg-sky-300/10" />
