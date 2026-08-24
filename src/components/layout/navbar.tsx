@@ -111,7 +111,6 @@ export default function Navbar() {
     { id: 1, title: 'Vencimiento Próximo', description: 'La póliza corporativa 90021345 vence en menos de 48h.', time: 'Hace 45m', icon: Clock, color: 'text-orange-400', bgColor: 'bg-orange-50' },
     { id: 2, title: 'Cobro Fallido', description: 'Error en el cargo automático del cliente Inversiones HL.', time: 'Hace 2h', icon: XCircle, color: 'text-red-400', bgColor: 'bg-red-50' },
     { id: 3, title: 'Siniestro Crítico', description: 'Reportado siniestro de gran magnitud en Ramo Patrimonial.', time: 'Hace 4h', icon: AlertTriangle, color: 'text-red-500', bgColor: 'bg-red-50' },
-    { id: 4, title: 'Incumplimiento SLA', description: '3 solicitudes de emisión han excedido el tiempo límite.', time: 'Ayer', icon: AlertTriangle, color: 'text-orange-500', bgColor: 'bg-orange-50' },
   ];
 
   return (
@@ -212,7 +211,6 @@ export default function Navbar() {
               <div className="h-3 w-[1px] bg-white/10 mx-1 hidden sm:block" />
 
               <div className="flex items-center pr-0.5">
-                {/* BUSCADOR */}
                 <button 
                   onClick={() => setIsSearchActive(true)} 
                   className="p-1.5 text-white/60 hover:text-white transition-colors"
@@ -220,7 +218,6 @@ export default function Navbar() {
                   <Search className="w-3 h-3" strokeWidth={1.5} />
                 </button>
 
-                {/* NOTIFICACIONES Y RECORDATORIOS */}
                 <Popover>
                   <PopoverTrigger asChild>
                     <button className="p-1.5 text-white/60 hover:text-white transition-colors relative">
@@ -233,7 +230,7 @@ export default function Navbar() {
                     <div className="w-[280px] p-5 bg-white border-none shadow-[0_20px_50px_rgba(0,0,0,0.1)] rounded-2xl overflow-hidden space-y-4">
                       <div className="flex justify-between items-start">
                         <div>
-                          <h4 className="text-slate-700 text-[11px] font-normal tracking-tight">Notificaciones</h4>
+                          <h4 className="text-slate-700 text-[11px] font-light tracking-tight">Notificaciones</h4>
                           <p className="text-[9px] text-slate-400 font-light mt-0.5">Actividad y actualizaciones</p>
                         </div>
                         <button className="text-[9px] text-slate-400 font-light hover:text-slate-600 flex items-center gap-0.5 transition-colors">
@@ -241,13 +238,12 @@ export default function Navbar() {
                         </button>
                       </div>
 
-                      {/* Banner Construcción */}
                       <div className="bg-[#EEF4FF]/50 p-4 rounded-xl flex gap-3 items-center border border-blue-50/50">
                         <div className="shrink-0 w-6 h-6 rounded-full bg-white flex items-center justify-center">
-                          <Info className="w-3 h-3 text-blue-500 stroke-[1.2]" />
+                          <Info className="w-3 h-3 text-blue-500 stroke-[1]" />
                         </div>
                         <p className="text-[8.5px] text-blue-900/60 font-light leading-snug">
-                          Este módulo de notificaciones se encuentra en construcción.
+                          Módulo en construcción.
                         </p>
                       </div>
 
@@ -259,12 +255,11 @@ export default function Navbar() {
                             </div>
                             <div className="flex-grow">
                               <div className="flex items-center gap-1.5">
-                                <span className="text-[9px] text-slate-700 font-normal">{item.title}</span>
+                                <span className="text-[9px] text-slate-700 font-light">{item.title}</span>
                                 <span className="text-[7px] text-slate-300 font-light">• {item.time}</span>
                               </div>
                               <p className="text-[8px] text-slate-400 font-light leading-tight mt-0.5">{item.description}</p>
                             </div>
-                            <ChevronRight className="w-2.5 h-2.5 text-slate-200 group-hover:text-slate-400 transition-colors" />
                           </div>
                         ))}
                       </div>
@@ -274,11 +269,11 @@ export default function Navbar() {
                     <div className="w-[280px] p-5 bg-white border-none shadow-[0_20px_50px_rgba(0,0,0,0.1)] rounded-2xl overflow-hidden space-y-4">
                       <div className="flex justify-between items-start">
                         <div>
-                          <h4 className="text-slate-700 text-[11px] font-normal tracking-tight">Recordatorios</h4>
+                          <h4 className="text-slate-700 text-[11px] font-light tracking-tight">Recordatorios</h4>
                           <p className="text-[9px] text-slate-400 font-light mt-0.5">Riesgos y vencimientos</p>
                         </div>
                         <div className="w-6 h-6 rounded-full bg-red-50 flex items-center justify-center">
-                          <AlertTriangle className="w-3 h-3 text-red-400 stroke-[1.2]" />
+                          <AlertTriangle className="w-3 h-3 text-red-400 stroke-[1]" />
                         </div>
                       </div>
 
@@ -290,12 +285,11 @@ export default function Navbar() {
                             </div>
                             <div className="flex-grow">
                               <div className="flex items-center gap-1.5">
-                                <span className="text-[9px] text-slate-700 font-normal">{item.title}</span>
+                                <span className="text-[9px] text-slate-700 font-light">{item.title}</span>
                                 <span className="text-[7px] text-slate-300 font-light">• {item.time}</span>
                               </div>
                               <p className="text-[8px] text-slate-400 font-light leading-tight mt-0.5">{item.description}</p>
                             </div>
-                            <ChevronRight className="w-2.5 h-2.5 text-slate-200 group-hover:text-slate-400 transition-colors" />
                           </div>
                         ))}
                       </div>
@@ -303,7 +297,6 @@ export default function Navbar() {
                   </PopoverContent>
                 </Popover>
 
-                {/* USUARIO */}
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                     <button className="p-1.5 text-white/60 hover:text-white transition-colors">

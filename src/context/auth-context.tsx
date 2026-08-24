@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, ReactNode, useMemo, useCallback } from 'react';
@@ -36,7 +35,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [error, setError] = useState<string | null>(null);
   const [vicepresidencias, setVicepresidencias] = useState<string[]>(['Todas']);
 
-  // Datos estáticos que ya no dependen de la lógica de niveles compleja
   const tasks = staticTasks.map(t => ({...t, status: 'pending'}) as Task);
   const levels = staticLevels;
   const avatars = staticAvatars;
@@ -51,6 +49,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         body: JSON.stringify({ action: 'getData' }),
         cache: 'no-store',
       });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        throw new Error("Oops! El servidor no devolvió JSON.");
+      }
+
       const data = await response.json();
       if (data.error) throw new Error(data.message);
       
@@ -58,7 +66,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         .map((u: any) => ({
           id: u.id,
           name: u.name,
-          level: 1, // Nivel estático
+          level: 1,
           xp: u.xp || 0,
           avatar: toTitleCase(u.avatar),
           progreso: u.progreso || 0, 
@@ -73,7 +81,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
       setUsers(allUsers);
       
-      // Calculate and set vicepresidencias here, after users are fetched
       const competingUsers = allUsers.filter((user: User) => user.cargo !== 'ADMINISTRADOR');
       const allVps = competingUsers.map(user => user.vicepresidencia).filter(Boolean);
       setVicepresidencias(['Todas', ...Array.from(new Set(allVps))]);
@@ -90,7 +97,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       });
 
     } catch (err: any) {
-      setError("Error cargando los datos de la clasificación: " + err.message);
+      setError("Error cargando los datos: " + err.message);
       console.error(err);
     }
   }, []);
@@ -103,7 +110,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             setCurrentUser(user);
             await fetchUsers();
         } catch (e) {
-            console.error("Failed to parse user from localStorage", e);
             localStorage.removeItem('currentUser');
         }
     }
@@ -129,15 +135,22 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             body: JSON.stringify({ action: 'login', username, password }),
         });
 
+        if (!response.ok) throw new Error("Error de conexión con el servidor.");
+        
+        const contentType = response.headers.get("content-type");
+        if (!contentType || !contentType.includes("application/json")) {
+          throw new Error("El servidor devolvió una respuesta inválida.");
+        }
+
         const data = await response.json();
         if (data.error || !data.user) {
-            throw new Error(data.message || 'Credenciales inválidas');
+            throw new Error(data.message || 'Credenciales incorrectas');
         }
         
         const user: User = {
             id: data.user.id,
             name: data.user.name,
-            level: 1, // Nivel estático
+            level: 1,
             xp: data.user.xp || 0,
             avatar: toTitleCase(data.user.avatar),
             progreso: data.user.progreso || 0,
@@ -160,18 +173,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  // La función de registro ya no es necesaria y se puede dejar vacía o eliminar.
-  const register = async () => {
-    console.warn("La función de registro no está implementada en esta versión.");
-    return Promise.resolve();
-  };
+  const register = async () => Promise.resolve();
   
   const logout = () => {
     setCurrentUser(null);
     localStorage.removeItem('currentUser');
     setUsers([]);
     setError(null);
-    setVicepresidencias(['Todas']);
   };
 
   const value = useMemo(() => ({
@@ -189,7 +197,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     logout,
     fetchUsers,
     vicepresidencias,
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }), [currentUser, users, loading, error, fetchUsers, vicepresidencias]);
 
   return (

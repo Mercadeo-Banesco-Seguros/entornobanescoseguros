@@ -6,7 +6,10 @@ import {
   GraduationCap, 
   Video, 
   Mail, 
-  Library 
+  Library,
+  Trophy,
+  LayoutDashboard,
+  Users
 } from 'lucide-react';
 import type { NavLink, Task, Level, Avatar, Prize, PrizeCategory, CarEvolution } from './types';
 

@@ -73,9 +73,9 @@ export default function PrizeModal({ prize, onClose }: PrizeModalProps) {
     <Dialog open={true} onOpenChange={onClose}>
         <DialogContent className="sm:max-w-[625px] bg-white text-slate-900 border-slate-200 p-10 overflow-hidden flex flex-col justify-between min-h-[580px] shadow-2xl">
             <DialogHeader className="space-y-4">
-                <DialogTitle className="text-6xl font-black tracking-tighter text-slate-900 uppercase">{details?.title}</DialogTitle>
+                <DialogTitle className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-slate-900 uppercase">{details?.title}</DialogTitle>
                 <DialogDescription asChild>
-                    <div className="text-slate-500 text-base font-light leading-relaxed">
+                    <div className="text-slate-500 text-[11px] md:text-[13px] font-light leading-relaxed">
                         {details?.description}
                     </div>
                 </DialogDescription>
