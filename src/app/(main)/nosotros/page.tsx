@@ -159,9 +159,9 @@ export default function NosotrosPage() {
       <section 
         className="relative w-screen left-1/2 -ml-[50vw] py-10 transition-colors duration-700 ease-out text-white overflow-hidden"
         style={{
-          // De #1155cc (17, 85, 204) a #0d4678 (13, 70, 120)
-          backgroundColor: `rgb(${Math.round(17 + (13 - 17) * progress)}, ${Math.round(85 + (70 - 85) * progress)}, ${Math.round(204 + (120 - 204) * progress)})`,
-          backgroundImage: `linear-gradient(to bottom right, rgba(17, 85, 204, ${1 - progress}), rgba(13, 70, 120, ${progress}))`
+          // De #1155cc (17, 85, 204) a #1A61AB (26, 97, 171)
+          backgroundColor: `rgb(${Math.round(17 + (26 - 17) * progress)}, ${Math.round(85 + (97 - 85) * progress)}, ${Math.round(204 + (171 - 204) * progress)})`,
+          backgroundImage: `linear-gradient(to bottom right, rgba(17, 85, 204, ${1 - progress}), rgba(26, 97, 171, ${progress}))`
         }}
       >
         <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-30">
