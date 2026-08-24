@@ -9,25 +9,25 @@ export default function NosotrosPage() {
   return (
     <div className="flex flex-col w-full">
       {/* Hero Section - Nuestra Visión 2026 */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] -mt-32 pt-32 min-h-[500px] md:min-h-[550px] overflow-hidden flex items-center bg-[#0054A6]">
+      <section className="relative w-screen left-1/2 -ml-[50vw] -mt-32 pt-32 min-h-[500px] md:min-h-[550px] overflow-hidden flex items-center bg-transparent">
         {heroImage && (
           <div className="absolute inset-0 z-0">
             <Image
               src={heroImage.imageUrl}
               alt="Nuestra Visión para el 2026"
               fill
-              className="object-cover opacity-80"
+              className="object-cover"
               priority
               data-ai-hint={heroImage.imageHint}
             />
-            {/* Capas de superposición para legibilidad del texto */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#0054A6]/60 via-[#0054A6]/20 to-transparent" />
+            {/* Capas de superposición para legibilidad del texto con degradado suave */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-transparent" />
           </div>
         )}
         
         <div className="relative z-10 container mx-auto px-8 md:px-16 lg:px-24 text-white">
           <div className="max-w-3xl space-y-4">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-tight">
               Nuestra Visión para el 2026
             </h1>
             <p className="text-[10px] md:text-[11px] lg:text-[12px] font-light leading-relaxed max-w-2xl text-white/90 tracking-tight">
@@ -41,7 +41,7 @@ export default function NosotrosPage() {
       {/* Contenido adicional centrado */}
       <div className="container mx-auto px-6 py-24">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          {/* Espacio para futuras secciones como Misión, Valores, etc. */}
+          {/* Espacio para futuras secciones */}
         </div>
       </div>
     </div>
