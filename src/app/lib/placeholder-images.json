@@ -90,12 +90,6 @@
       "description": "Explorador del Ranking",
       "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vSOJsJkXKwjNCF3BeltAYj_eckCR70Sn_Nsndc_dMr5y4QkSNkFBET8uzUzIioQGFmwYuJZOy0GVnaF/pub?format=png&w=960&h=720",
       "imageHint": "explorer character"
-    },
-    {
-      "id": "nosotros-hero",
-      "description": "Nuestra Visión 2026",
-      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vSi3akQYTh5MiGUHdqGn9dCN53xmPdHkgey4FEp1j3nYkWnr7f4CskZDQOpRcC8QA0dZIXbgvf1UlIr/pub?w=960&h=720",
-      "imageHint": "vision background"
     }
   ]
 }
