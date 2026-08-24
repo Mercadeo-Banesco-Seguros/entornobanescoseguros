@@ -1,4 +1,3 @@
-
 'use client';
 
 import Image from 'next/image';
@@ -28,7 +27,7 @@ export default function NosotrosPage() {
         
         <div className="relative z-10 container mx-auto px-8 md:px-16 lg:px-24 text-white">
           <div className="max-w-3xl space-y-6 md:space-y-10">
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-[0.85] md:leading-[0.9] drop-shadow-xl uppercase">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight uppercase">
               Nuestra Visión <br className="hidden md:block" /> para el 2026
             </h1>
             <p className="text-[12px] md:text-sm lg:text-base font-light leading-relaxed max-w-2xl text-white/90 tracking-tight">
