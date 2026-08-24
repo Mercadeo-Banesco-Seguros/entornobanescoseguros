@@ -54,7 +54,7 @@ export default function NosotrosPage() {
         <div className="relative z-10 container mx-auto px-8 md:px-16 lg:px-24 text-white">
           <div className="max-w-3xl space-y-6">
             <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-tight">
-              Nuestra Visión para el 2026
+              Nuestra Visión Para El 2026
             </h1>
             <p className="text-[14px] md:text-[16px] lg:text-[18px] font-light leading-relaxed max-w-xl text-white/90 tracking-tight">
               Convertirnos en una compañía con foco en el negocio masivo, con un modelo sostenible de crecimiento rentable. Desarrollando productos de bajo costo dirigidos a la población venezolana que actualmente no tiene acceso a seguros, pero cuenta con ingresos para invertir en su protección básica.
@@ -68,7 +68,7 @@ export default function NosotrosPage() {
         <div className="container mx-auto">
           <div className="space-y-4 mb-20">
             <span className="text-[#0054A6] text-[11px] font-bold tracking-tight uppercase">Resultados</span>
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-slate-900">Nuestra Trayectoria en Cifras</h2>
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-slate-900">Nuestra Trayectoria En Cifras</h2>
             <p className="text-slate-500 text-[10px] md:text-[12px] font-light leading-relaxed max-w-2xl mt-6">
               Con más de tres décadas en el mercado, hemos consolidado una trayectoria de solidez, crecimiento y confianza. Nuestros números reflejan el compromiso con nuestros clientes, aliados y colaboradores, impulsando el bienestar en Venezuela.
             </p>
@@ -111,12 +111,19 @@ export default function NosotrosPage() {
       </section>
 
       {/* 3. Historia - Un Viaje a Través del Tiempo */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] py-24 bg-gradient-to-br from-[#003B73] via-[#002D54] to-[#001A3D] text-white overflow-hidden">
+      <section className="relative w-screen left-1/2 -ml-[50vw] py-24 bg-gradient-to-br from-sky-400 via-blue-400 to-blue-500 text-white overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-30">
+          <div className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full blur-[150px] bg-white/20" />
+          <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full blur-[150px] bg-sky-200/20" />
+        </div>
+        
         <div className="relative z-10 container mx-auto px-8 md:px-16 lg:px-24">
           <div className="text-center space-y-6 mb-24">
-            <span className="text-white/60 text-[12px] font-light tracking-widest uppercase">Historia de Banesco Seguros</span>
-            <h2 className="text-4xl md:text-6xl font-light tracking-tighter leading-none">Un Viaje a Través del Tiempo</h2>
-            <p className="text-white/60 text-[12px] md:text-[14px] font-light leading-relaxed max-w-3xl mx-auto tracking-tight">
+            <span className="text-white/70 text-[12px] font-light tracking-widest uppercase">Historia De Banesco Seguros</span>
+            <h2 className="text-4xl md:text-6xl font-light tracking-tighter leading-none">
+              Un Viaje A Través Del Tiempo
+            </h2>
+            <p className="text-white/70 text-[12px] md:text-[14px] font-light leading-relaxed max-w-3xl mx-auto tracking-tight">
               Desde nuestra fundación hasta hoy, hemos evolucionado para adaptarnos a los nuevos tiempos, manteniendo siempre nuestro compromiso con la excelencia y la innovación.
             </p>
           </div>
@@ -131,12 +138,12 @@ export default function NosotrosPage() {
             <CarouselContent className="-ml-0">
               {historyItems.map((item, index) => (
                 <CarouselItem key={item.id} className="pl-0 basis-full sm:basis-1/2 lg:basis-1/3">
-                  <div className="relative flex flex-col gap-8 h-full py-4 px-8 border-l border-white/10 group">
+                  <div className="relative flex flex-col gap-8 h-full py-4 px-8 border-l border-white/20 group">
                     <div className="flex items-center gap-4">
-                      <span className="text-5xl md:text-6xl font-black text-white/20 tracking-tighter leading-none transition-colors group-hover:text-white/30">
+                      <span className="text-5xl md:text-6xl font-black text-white/30 tracking-tighter leading-none transition-colors group-hover:text-white/40">
                         {item.id}
                       </span>
-                      <div className="px-3 py-1 rounded-full bg-white/10 text-[9px] font-bold tracking-widest border border-white/10 uppercase">
+                      <div className="px-3 py-1 rounded-full bg-white/20 text-[9px] font-bold tracking-widest border border-white/10 uppercase">
                         {item.year}
                       </div>
                     </div>
@@ -145,7 +152,7 @@ export default function NosotrosPage() {
                       <h3 className="text-xl md:text-2xl font-bold tracking-tighter leading-tight max-w-[200px]">
                         {item.title}
                       </h3>
-                      <p className="text-white/50 text-[11px] md:text-[12px] font-light leading-relaxed tracking-tight max-w-[280px]">
+                      <p className="text-white/70 text-[11px] md:text-[12px] font-light leading-relaxed tracking-tight max-w-[280px]">
                         {item.description}
                       </p>
                     </div>
@@ -155,8 +162,8 @@ export default function NosotrosPage() {
             </CarouselContent>
             
             <div className="flex justify-center mt-20 gap-4">
-              <CarouselPrevious className="static translate-y-0 bg-transparent border-white/20 text-white hover:bg-white/10 hover:text-white w-12 h-12" />
-              <CarouselNext className="static translate-y-0 bg-transparent border-white/20 text-white hover:bg-white/10 hover:text-white w-12 h-12" />
+              <CarouselPrevious className="static translate-y-0 bg-transparent border-white/30 text-white hover:bg-white/20 hover:text-white w-12 h-12" />
+              <CarouselNext className="static translate-y-0 bg-transparent border-white/30 text-white hover:bg-white/20 hover:text-white w-12 h-12" />
             </div>
           </Carousel>
         </div>
