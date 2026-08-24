@@ -31,15 +31,45 @@ const historyItems = [
   },
   {
     id: '04',
-    year: '2012-2016',
-    title: 'Expansión Masiva',
-    description: 'Consolidación del modelo de negocio masivo, llevando protección básica a una mayor parte de la población venezolana a través de nuevos canales.'
+    year: '2007',
+    title: 'Consolidación en el Top 10',
+    description: 'Gracias a su crecimiento sostenido, la compañía se afianzó de manera constante entre las 10 principales aseguradoras de Venezuela por el volumen de primas cobradas.'
   },
   {
     id: '05',
-    year: '2020-Actualidad',
-    title: 'Innovación y Transformación',
-    description: 'Adaptación a las nuevas realidades digitales y fortalecimiento de la sostenibilidad operativa para los desafíos del futuro.'
+    year: '2008',
+    title: 'Expansión Regional a Panamá',
+    description: 'Siguiendo la estrategia de internacionalización del grupo, se estableció Banesco Seguros en Panamá, siendo su primer paso para diversificar sus mercados fuera de Venezuela.'
+  },
+  {
+    id: '06',
+    year: '2009',
+    title: 'Posicionamiento Histórico',
+    description: 'La empresa alcanzó una posición de liderazgo importante, ubicándose como la sexta aseguradora más grande del mercado venezolano.'
+  },
+  {
+    id: '07',
+    year: '2013',
+    title: 'Expansión a República Dominicana',
+    description: 'La compañía continuó su crecimiento internacional con el inicio de operaciones en República Dominicana, ampliando su alcance en el Caribe.'
+  },
+  {
+    id: '08',
+    year: '2014',
+    title: 'Lanzamiento de Servicios Digitales',
+    description: 'Se implementaron plataformas como Banesco Seguros Online, permitiendo a los clientes realizar autogestión de trámites, consultas y reportes de siniestros de manera más eficiente.'
+  },
+  {
+    id: '09',
+    year: '2020-Presente',
+    title: 'Enfoque en Optimización Tecnológica',
+    description: 'Se ha puesto énfasis en la modernización de la infraestructura tecnológica, la automatización de procesos internos y la búsqueda de eficiencias operativas para mejorar la atención y reducir costos.'
+  },
+  {
+    id: '10',
+    year: '2020-Presente',
+    title: 'Adaptación a Nuevas Tendencias',
+    description: 'La compañía ha trabajado en ajustar y desarrollar su oferta de productos para cubrir nuevos riesgos asociados al contexto actual, como la necesidad de mayor cobertura de salud y ciberseguridad.'
   }
 ];
 
@@ -129,8 +159,9 @@ export default function NosotrosPage() {
       <section 
         className="relative w-screen left-1/2 -ml-[50vw] py-10 transition-colors duration-700 ease-out text-white overflow-hidden"
         style={{
-          backgroundColor: `rgb(${Math.round(56 + (0 - 56) * progress)}, ${Math.round(189 + (84 - 189) * progress)}, ${Math.round(248 + (166 - 248) * progress)})`,
-          backgroundImage: `linear-gradient(to bottom right, rgba(56, 189, 248, ${1 - progress}), rgba(0, 84, 166, ${progress}))`
+          // Iniciamos con un azul más oscuro (Sky 700: 3, 105, 161) para mejor legibilidad
+          backgroundColor: `rgb(${Math.round(3 + (0 - 3) * progress)}, ${Math.round(105 + (84 - 105) * progress)}, ${Math.round(161 + (166 - 161) * progress)})`,
+          backgroundImage: `linear-gradient(to bottom right, rgba(3, 105, 161, ${1 - progress}), rgba(0, 84, 166, ${progress}))`
         }}
       >
         <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-30">
@@ -165,7 +196,7 @@ export default function NosotrosPage() {
                       <span className="text-3xl md:text-4xl font-black text-white/30 tracking-tighter leading-none transition-colors group-hover:text-white/40">
                         {item.id}
                       </span>
-                      <div className="px-3 py-1 rounded-full bg-white/20 text-[8px] font-light border border-white/10 uppercase">
+                      <div className="px-3 py-1 rounded-full bg-white/20 text-[8px] font-light border border-white/10 uppercase tracking-normal">
                         {item.year}
                       </div>
                     </div>
@@ -200,3 +231,4 @@ export default function NosotrosPage() {
     </div>
   );
 }
+
