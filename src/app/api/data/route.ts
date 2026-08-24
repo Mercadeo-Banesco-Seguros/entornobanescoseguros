@@ -1,10 +1,10 @@
 // Esta ruta de API ha sido eliminada por solicitud del usuario.
-// Las peticiones ahora se realizan directamente desde el cliente al Apps Script.
+// El sistema funciona ahora de manera 100% local con datos estáticos.
 
 export async function GET() {
-  return new Response('API eliminada. Use conexión directa.', { status: 410 });
+  return new Response('API deshabilitada. Sistema local activado.', { status: 410 });
 }
 
 export async function POST() {
-  return new Response('API eliminada. Use conexión directa.', { status: 410 });
+  return new Response('API deshabilitada. Sistema local activado.', { status: 410 });
 }

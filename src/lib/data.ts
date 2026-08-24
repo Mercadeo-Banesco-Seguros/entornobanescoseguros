@@ -6,12 +6,9 @@ import {
   GraduationCap, 
   Video, 
   Mail, 
-  Library,
-  Trophy,
-  LayoutDashboard,
-  Users
+  Library
 } from 'lucide-react';
-import type { NavLink, Task, Level, Avatar, Prize, PrizeCategory, CarEvolution } from './types';
+import type { NavLink, Task, Level, Avatar, Prize, PrizeCategory, CarEvolution, User } from './types';
 
 export const navLinks: (NavLink & { icon: any })[] = [
     { href: '/', label: 'Home', icon: Home },
@@ -22,6 +19,61 @@ export const navLinks: (NavLink & { icon: any })[] = [
     { href: '/multimedia', label: 'Multimedia', icon: Video },
     { href: '/requerimientos', label: 'Requerimientos', icon: Mail },
     { href: '/biblioteca', label: 'Biblioteca', icon: Library },
+];
+
+export const mockUsers: User[] = [
+  { 
+    id: "admin", 
+    name: "Administrador Banesco", 
+    level: 1, 
+    xp: 10000, 
+    avatar: "Oro", 
+    cargo: "ADMINISTRADOR", 
+    vicepresidencia: "Sede Principal",
+    progreso: 100,
+    prog_pol: 100,
+    prog_sus: 100,
+    prog_cob: 100
+  },
+  { 
+    id: "piloto1", 
+    name: "Juan Pérez", 
+    level: 1, 
+    xp: 2500, 
+    avatar: "Plata", 
+    cargo: "ASESOR INTEGRAL", 
+    vicepresidencia: "VP. Comercial Gran Caracas",
+    progreso: 65.4,
+    prog_pol: 70,
+    prog_sus: 60,
+    prog_cob: 66
+  },
+  { 
+    id: "piloto2", 
+    name: "María Rodríguez", 
+    level: 1, 
+    xp: 4800, 
+    avatar: "Oro", 
+    cargo: "ASESOR INTEGRAL", 
+    vicepresidencia: "VP. Comercial Oriente",
+    progreso: 88.2,
+    prog_pol: 90,
+    prog_sus: 85,
+    prog_cob: 89
+  },
+  { 
+    id: "piloto3", 
+    name: "Carlos Gómez", 
+    level: 1, 
+    xp: 1200, 
+    avatar: "Bronce", 
+    cargo: "ASESOR INTEGRAL", 
+    vicepresidencia: "VP. Comercial Zulia - Falcón",
+    progreso: 42.1,
+    prog_pol: 40,
+    prog_sus: 45,
+    prog_cob: 41
+  }
 ];
 
 export const tasks: Task[] = [
