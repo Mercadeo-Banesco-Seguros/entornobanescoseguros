@@ -111,19 +111,19 @@ export default function NosotrosPage() {
       </section>
 
       {/* 3. Historia - Un Viaje a Través del Tiempo */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] py-24 bg-gradient-to-br from-sky-400 via-blue-400 to-blue-500 text-white overflow-hidden">
+      <section className="relative w-screen left-1/2 -ml-[50vw] py-16 bg-gradient-to-br from-sky-400 via-blue-400 to-blue-500 text-white overflow-hidden">
         <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-30">
           <div className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full blur-[150px] bg-white/20" />
           <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full blur-[150px] bg-sky-200/20" />
         </div>
         
         <div className="relative z-10 container mx-auto px-8 md:px-16 lg:px-24">
-          <div className="text-center space-y-6 mb-24">
-            <span className="text-white/70 text-[12px] font-light tracking-widest uppercase">Historia De Banesco Seguros</span>
-            <h2 className="text-4xl md:text-6xl font-light tracking-tighter leading-none">
+          <div className="text-center space-y-4 mb-12">
+            <span className="text-white/70 text-[10px] font-light tracking-widest uppercase">Historia De Banesco Seguros</span>
+            <h2 className="text-3xl md:text-5xl font-light tracking-tighter leading-none">
               Un Viaje A Través Del Tiempo
             </h2>
-            <p className="text-white/70 text-[12px] md:text-[14px] font-light leading-relaxed max-w-3xl mx-auto tracking-tight">
+            <p className="text-white/70 text-[10px] md:text-[12px] font-light leading-relaxed max-w-3xl mx-auto tracking-tight">
               Desde nuestra fundación hasta hoy, hemos evolucionado para adaptarnos a los nuevos tiempos, manteniendo siempre nuestro compromiso con la excelencia y la innovación.
             </p>
           </div>
@@ -138,21 +138,21 @@ export default function NosotrosPage() {
             <CarouselContent className="-ml-0">
               {historyItems.map((item, index) => (
                 <CarouselItem key={item.id} className="pl-0 basis-full sm:basis-1/2 lg:basis-1/3">
-                  <div className="relative flex flex-col gap-8 h-full py-4 px-8 border-l border-white/20 group">
+                  <div className="relative flex flex-col gap-6 h-full py-4 px-8 border-l border-white/20 group">
                     <div className="flex items-center gap-4">
-                      <span className="text-5xl md:text-6xl font-black text-white/30 tracking-tighter leading-none transition-colors group-hover:text-white/40">
+                      <span className="text-4xl md:text-5xl font-black text-white/30 tracking-tighter leading-none transition-colors group-hover:text-white/40">
                         {item.id}
                       </span>
-                      <div className="px-3 py-1 rounded-full bg-white/20 text-[9px] font-bold tracking-widest border border-white/10 uppercase">
+                      <div className="px-3 py-1 rounded-full bg-white/20 text-[8px] font-bold tracking-widest border border-white/10 uppercase">
                         {item.year}
                       </div>
                     </div>
                     
-                    <div className="space-y-4">
-                      <h3 className="text-xl md:text-2xl font-bold tracking-tighter leading-tight max-w-[200px]">
+                    <div className="space-y-3">
+                      <h3 className="text-lg md:text-xl font-bold tracking-tighter leading-tight max-w-[180px]">
                         {item.title}
                       </h3>
-                      <p className="text-white/70 text-[11px] md:text-[12px] font-light leading-relaxed tracking-tight max-w-[280px]">
+                      <p className="text-white/70 text-[10px] md:text-[11px] font-light leading-relaxed tracking-tight max-w-[280px]">
                         {item.description}
                       </p>
                     </div>
@@ -161,9 +161,9 @@ export default function NosotrosPage() {
               ))}
             </CarouselContent>
             
-            <div className="flex justify-center mt-20 gap-4">
-              <CarouselPrevious className="static translate-y-0 bg-transparent border-white/30 text-white hover:bg-white/20 hover:text-white w-12 h-12" />
-              <CarouselNext className="static translate-y-0 bg-transparent border-white/30 text-white hover:bg-white/20 hover:text-white w-12 h-12" />
+            <div className="flex justify-center mt-12 gap-4">
+              <CarouselPrevious className="static translate-y-0 bg-transparent border-white/30 text-white hover:bg-white/20 hover:text-white w-10 h-10" />
+              <CarouselNext className="static translate-y-0 bg-transparent border-white/30 text-white hover:bg-white/20 hover:text-white w-10 h-10" />
             </div>
           </Carousel>
         </div>
