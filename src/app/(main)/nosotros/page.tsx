@@ -159,9 +159,9 @@ export default function NosotrosPage() {
       <section 
         className="relative w-screen left-1/2 -ml-[50vw] py-10 transition-colors duration-700 ease-out text-white overflow-hidden"
         style={{
-          // Iniciamos con un azul más oscuro (Sky 700: 3, 105, 161) para mejor legibilidad
-          backgroundColor: `rgb(${Math.round(3 + (0 - 3) * progress)}, ${Math.round(105 + (84 - 105) * progress)}, ${Math.round(161 + (166 - 161) * progress)})`,
-          backgroundImage: `linear-gradient(to bottom right, rgba(3, 105, 161, ${1 - progress}), rgba(0, 84, 166, ${progress}))`
+          // Iniciamos con un azul marino (rgb(0, 59, 115)) y terminamos en uno muy oscuro (rgb(0, 26, 61))
+          backgroundColor: `rgb(${Math.round(0 + (0 - 0) * progress)}, ${Math.round(59 + (26 - 59) * progress)}, ${Math.round(115 + (61 - 115) * progress)})`,
+          backgroundImage: `linear-gradient(to bottom right, rgba(0, 59, 115, ${1 - progress}), rgba(0, 26, 61, ${progress}))`
         }}
       >
         <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-30">
@@ -231,4 +231,3 @@ export default function NosotrosPage() {
     </div>
   );
 }
-
