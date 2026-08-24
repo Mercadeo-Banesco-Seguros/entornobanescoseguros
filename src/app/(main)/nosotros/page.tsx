@@ -202,7 +202,7 @@ export default function NosotrosPage() {
                     </div>
                     
                     <div className="space-y-2">
-                      <h3 className="text-base md:text-lg font-bold tracking-tighter leading-tight max-w-[180px]">
+                      <h3 className="text-base md:text-lg font-bold tracking-tighter leading-tight max-w-[220px]">
                         {item.title}
                       </h3>
                       <p className="text-white/70 text-[9px] md:text-[10px] font-light leading-relaxed tracking-tight max-w-[280px]">
