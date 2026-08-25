@@ -363,7 +363,7 @@ export default function NosotrosPage() {
                 Estas personas trabajan para hacer nuestro producto el mejor.
               </p>
             </div>
-            <button className="bg-white text-[#003B73] px-6 py-2.5 rounded-xl text-[11px] font-medium hover:bg-slate-100 transition-colors">
+            <button className="bg-white text-[#003B73] px-6 py-2.5 rounded-xl text-[11px] font-light hover:bg-slate-100 transition-colors">
               Ver todo el equipo
             </button>
           </div>
