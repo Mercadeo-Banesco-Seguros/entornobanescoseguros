@@ -366,8 +366,8 @@ export default function NosotrosPage() {
             {teamMembers.map((member, idx) => {
               const placeholder = PlaceHolderImages.find(img => img.id === member.imageId);
               return (
-                <div key={idx} className="flex flex-col gap-4 group bg-slate-50/50 rounded-[2.5rem] p-6 h-full transition-all duration-500 hover:bg-white hover:shadow-xl border border-transparent hover:border-slate-100">
-                  <div className="relative aspect-square w-full rounded-[2rem] overflow-hidden bg-slate-200 transition-transform duration-500 group-hover:scale-[1.02]">
+                <div key={idx} className="flex flex-col gap-4 group bg-slate-50/50 rounded-[2.5rem] p-6 h-full transition-all duration-500 hover:bg-white border border-transparent hover:border-slate-100">
+                  <div className="relative aspect-square w-full rounded-[2rem] overflow-hidden bg-slate-200">
                     {placeholder && (
                       <Image 
                         src={placeholder.imageUrl}
