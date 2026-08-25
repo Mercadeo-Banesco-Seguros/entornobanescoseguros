@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -11,6 +12,9 @@ import {
   CarouselPrevious,
   type CarouselApi,
 } from "@/components/ui/carousel"
+import Image from 'next/image';
+import { Plus } from 'lucide-react';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 const historyItems = [
   {
@@ -75,6 +79,24 @@ const historyItems = [
   }
 ];
 
+const teamMembers = [
+  {
+    name: 'Ramon Eduardo Gonzalez Alvarez',
+    role: 'Gerente General',
+    imageId: 'team-ramon'
+  },
+  {
+    name: 'Martha Zulay Gomez Gutierrez',
+    role: 'Gerente Comercial',
+    imageId: 'team-martha'
+  },
+  {
+    name: 'Mallaury Brando Martinez',
+    role: 'Lider de Finanzas',
+    imageId: 'team-mallaury'
+  }
+];
+
 function Counter({ end, suffix = "", duration = 4000 }: { end: number; suffix?: string; duration?: number }) {
   const [count, setCount] = React.useState(0);
 
@@ -95,8 +117,6 @@ function Counter({ end, suffix = "", duration = 4000 }: { end: number; suffix?: 
 }
 
 function ComplianceGrid({ value, label, description, isPercentage = true }: { value: number, label: string, description: string, isPercentage?: boolean }) {
-  // Para el ranking (no porcentaje), calculamos el progreso hacia el #1 basándonos en 40 aseguradoras totales
-  // Si posición es 1, filledCount es 100. Si posición es 40, filledCount es mínimo.
   const filledCount = isPercentage 
     ? Math.min(100, Math.max(0, Math.round(value))) 
     : Math.round(((40 - value + 1) / 40) * 100);
@@ -108,8 +128,8 @@ function ComplianceGrid({ value, label, description, isPercentage = true }: { va
           {value}{isPercentage ? '%' : ''}
         </span>
         <div className="pl-4 border-l-2 border-[#0054A6] space-y-0.5">
-          <h4 className="text-slate-900 text-sm font-light tracking-tighter">{label}</h4>
-          <p className="text-slate-500 text-[9px] font-light leading-snug max-w-[220px]">
+          <h4 className="text-slate-900 text-[10px] md:text-[11px] font-light tracking-tighter uppercase">{label}</h4>
+          <p className="text-slate-500 text-[8px] md:text-[9px] font-light leading-snug max-w-[220px]">
             {description}
           </p>
         </div>
@@ -161,11 +181,11 @@ export default function NosotrosPage() {
           <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full blur-[120px] bg-sky-300/10" />
         </div>
         <div className="relative z-10 container mx-auto px-8 md:px-16 lg:px-24 text-white text-right">
-          <div className="max-w-3xl space-y-6 ml-auto">
+          <div className="max-w-3xl space-y-6 ml-auto flex flex-col items-end">
             <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-tight">
               Nuestra Visión Para El 2026
             </h1>
-            <p className="text-[9px] md:text-[10px] lg:text-[11px] font-light leading-relaxed max-w-lg text-white/90 tracking-tight ml-auto">
+            <p className="text-[9px] md:text-[10px] lg:text-[11px] font-light leading-relaxed max-w-lg text-white/90 tracking-tight text-right">
               Convertirnos en una compañía con foco en el negocio masivo, con un modelo sostenible de crecimiento rentable. Desarrollando productos de bajo costo dirigidos a la población venezolana que actualmente no tiene acceso a seguros, pero cuenta con ingresos para invertir en su protección básica.
             </p>
           </div>
@@ -173,7 +193,7 @@ export default function NosotrosPage() {
       </section>
 
       {/* 2. Nuestra Trayectoria en Cifras - Full Width Row */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] bg-white pt-24 pb-12 px-8 md:px-16 lg:px-24 border-b border-slate-50">
+      <section className="relative w-screen left-1/2 -ml-[50vw] bg-white pt-24 pb-12 px-8 md:px-16 lg:px-24 border-b border-slate-50 overflow-hidden">
         <div className="w-full">
           <div className="space-y-4 mb-20 px-4">
             <span className="text-[#0054A6] text-[11px] font-light tracking-tight uppercase">Resultados</span>
@@ -184,38 +204,38 @@ export default function NosotrosPage() {
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 w-full border-t border-slate-100">
-            <div className="py-12 px-8 border-b sm:border-b-0 sm:border-r border-slate-100 flex flex-col items-center sm:items-start text-center sm:text-left transition-colors hover:bg-slate-50/50">
+            <div className="py-12 px-8 border-b sm:border-b-0 xl:border-r border-slate-100 flex flex-col items-center sm:items-start text-center sm:text-left transition-colors hover:bg-slate-50/50 group">
               <span className="text-[#0054A6] text-4xl md:text-5xl font-bold tracking-tighter">
                 +<Counter end={32} />
               </span>
-              <p className="text-slate-500 text-[9px] md:text-[11px] font-light mt-4 leading-snug">
+              <p className="text-slate-500 text-[9px] md:text-[11px] font-light mt-4 leading-snug max-w-[150px]">
                 Años de servicio continuo y confianza.
               </p>
             </div>
             
-            <div className="py-12 px-8 border-b sm:border-b-0 md:border-r border-slate-100 flex flex-col items-center sm:items-start text-center sm:text-left transition-colors hover:bg-slate-50/50">
+            <div className="py-12 px-8 border-b sm:border-b-0 lg:border-r border-slate-100 flex flex-col items-center sm:items-start text-center sm:text-left transition-colors hover:bg-slate-50/50">
               <span className="text-[#0054A6] text-4xl md:text-5xl font-bold tracking-tighter">
                 +<Counter end={200} suffix="k" />
               </span>
-              <p className="text-slate-500 text-[9px] md:text-[11px] font-light mt-4 leading-snug">
+              <p className="text-slate-500 text-[9px] md:text-[11px] font-light mt-4 leading-snug max-w-[150px]">
                 Clientes que han depositado su confianza en nosotros.
               </p>
             </div>
             
-            <div className="py-12 px-8 border-b md:border-b-0 sm:border-r border-slate-100 flex flex-col items-center sm:items-start text-center sm:text-left transition-colors hover:bg-slate-50/50">
+            <div className="py-12 px-8 border-b md:border-b-0 xl:border-r border-slate-100 flex flex-col items-center sm:items-start text-center sm:text-left transition-colors hover:bg-slate-50/50">
               <span className="text-[#0054A6] text-4xl md:text-5xl font-bold tracking-tighter">
                 +<Counter end={100} />
               </span>
-              <p className="text-slate-500 text-[9px] md:text-[11px] font-light mt-4 leading-snug">
+              <p className="text-slate-500 text-[9px] md:text-[11px] font-light mt-4 leading-snug max-w-[150px]">
                 Clínicas afiliadas a nuestra red a nivel nacional.
               </p>
             </div>
 
-            <div className="py-12 px-8 border-b md:border-b-0 md:border-r border-slate-100 flex flex-col items-center sm:items-start text-center sm:text-left transition-colors hover:bg-slate-50/50">
+            <div className="py-12 px-8 border-b md:border-b-0 lg:border-r border-slate-100 flex flex-col items-center sm:items-start text-center sm:text-left transition-colors hover:bg-slate-50/50">
               <span className="text-[#0054A6] text-4xl md:text-5xl font-bold tracking-tighter">
                 +<Counter end={50} />
               </span>
-              <p className="text-slate-500 text-[9px] md:text-[11px] font-light mt-4 leading-snug">
+              <p className="text-slate-500 text-[9px] md:text-[11px] font-light mt-4 leading-snug max-w-[150px]">
                 Talleres afiliados comprometidos con la excelencia.
               </p>
             </div>
@@ -224,7 +244,7 @@ export default function NosotrosPage() {
               <span className="text-[#0054A6] text-4xl md:text-5xl font-bold tracking-tighter">
                 +<Counter end={200} />
               </span>
-              <p className="text-slate-500 text-[9px] md:text-[11px] font-light mt-4 leading-snug">
+              <p className="text-slate-500 text-[9px] md:text-[11px] font-light mt-4 leading-snug max-w-[150px]">
                 Empleados comprometidos con nuestra misión y valores.
               </p>
             </div>
@@ -299,7 +319,7 @@ export default function NosotrosPage() {
       </section>
 
       {/* 4. Sección de Cumplimiento (Grids Visuales) - Full Width */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-20 px-8 md:px-16 lg:px-24">
+      <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-20 px-8 md:px-16 lg:px-24 border-b border-slate-50">
         <div className="w-full">
           <div className="space-y-4 mb-12 px-4">
             <span className="text-[#0054A6] text-[11px] font-light tracking-tight uppercase">Producción</span>
@@ -309,7 +329,7 @@ export default function NosotrosPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 px-4 w-full">
             <ComplianceGrid 
               value={57} 
               label="Suscrito" 
@@ -326,6 +346,61 @@ export default function NosotrosPage() {
               description="El ranking se calcula en función de las primas cobradas en el mercado."
               isPercentage={false}
             />
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Sección: Nuestro fantástico equipo */}
+      <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-24 px-8 md:px-16 lg:px-24">
+        <div className="w-full flex flex-col md:flex-row gap-6">
+          {/* Card Principal */}
+          <div className="md:w-1/4 bg-[#003B73] rounded-[2.5rem] p-10 flex flex-col justify-between items-start min-h-[400px]">
+            <div className="space-y-4">
+              <h2 className="text-white text-3xl md:text-4xl font-bold tracking-tighter leading-tight">
+                Nuestro fantástico equipo
+              </h2>
+              <p className="text-white/80 text-[11px] font-light leading-relaxed max-w-[200px]">
+                Estas personas trabajan para hacer nuestro producto el mejor.
+              </p>
+            </div>
+            <button className="bg-white text-[#003B73] px-6 py-2.5 rounded-xl text-[11px] font-medium hover:bg-slate-100 transition-colors">
+              Ver todo el equipo
+            </button>
+          </div>
+
+          {/* Cards de Miembros */}
+          <div className="md:w-3/4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {teamMembers.map((member, idx) => {
+              const placeholder = PlaceHolderImages.find(img => img.id === member.imageId);
+              return (
+                <div key={idx} className="flex flex-col gap-4 group">
+                  <div className="relative aspect-square w-full rounded-[2rem] overflow-hidden bg-slate-50 transition-transform duration-500 group-hover:scale-[1.02]">
+                    {placeholder && (
+                      <Image 
+                        src={placeholder.imageUrl}
+                        alt={member.name}
+                        fill
+                        className="object-cover"
+                        data-ai-hint={placeholder.imageHint}
+                      />
+                    )}
+                  </div>
+                  <div className="flex justify-between items-end px-2">
+                    <div className="space-y-0.5">
+                      <h4 className="text-slate-900 text-sm md:text-base font-bold tracking-tight leading-tight">
+                        {member.name}
+                      </h4>
+                      <p className="text-slate-500 text-[10px] md:text-[11px] font-light">
+                        {member.role}
+                      </p>
+                    </div>
+                    <button className="text-slate-300 hover:text-[#0054A6] transition-colors">
+                      <Plus className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
