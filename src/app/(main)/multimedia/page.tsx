@@ -6,7 +6,7 @@ export default function MultimediaPage() {
   const imageUrl = "https://docs.google.com/drawings/d/e/2PACX-1vQDYWrs3tS3au8IfBhDzA21ZZBPGR4XCdiRMcDUXeI1ZSCGaVmrWNBMHj10NXVuFV7WEn5hOQOfERx2/pub?w=960&h=720";
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[60vh] py-20 bg-white animate-in fade-in duration-1000">
+    <div className="flex flex-col items-center justify-center min-h-[60vh] py-20 bg-slate-50 animate-in fade-in duration-1000">
       <div className="relative w-full max-w-lg aspect-[4/3] mb-12">
         <Image
           src={imageUrl}
