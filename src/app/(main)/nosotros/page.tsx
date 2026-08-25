@@ -95,7 +95,11 @@ function Counter({ end, suffix = "", duration = 4000 }: { end: number; suffix?: 
 }
 
 function ComplianceGrid({ value, label, description, isPercentage = true }: { value: number, label: string, description: string, isPercentage?: boolean }) {
-  const filledCount = isPercentage ? Math.min(100, Math.max(0, Math.round(value))) : value;
+  // Para el ranking (no porcentaje), calculamos el progreso hacia el #1 basándonos en 40 aseguradoras totales
+  // Si posición es 1, filledCount es 100. Si posición es 40, filledCount es mínimo.
+  const filledCount = isPercentage 
+    ? Math.min(100, Math.max(0, Math.round(value))) 
+    : Math.round(((40 - value + 1) / 40) * 100);
   
   return (
     <div className="flex flex-col gap-6 py-8">
