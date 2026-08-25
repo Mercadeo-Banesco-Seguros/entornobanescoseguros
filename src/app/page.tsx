@@ -857,7 +857,7 @@ export default function LandingPage() {
               <span className="text-[10px] text-white font-light tracking-tight">Expedición por Nuestro ADN</span>
             </div>
             <h2 className="text-white text-2xl md:text-3xl lg:text-4xl font-bold tracking-tighter leading-tight max-w-md drop-shadow-md">
-              ¿Ya conoces tu <br /> progreso institucional?
+              ¿Ya conoces tu <br /> lugar en el ranking?
             </h2>
             <div className="flex gap-4">
               <button className="px-10 py-3 rounded-xl bg-white text-[#0054A6] text-[10px] font-light hover:bg-white/90 transition-colors">Explorar Gestión</button>
