@@ -108,21 +108,21 @@ export default function CalendarioPage() {
             </h1>
             <p className="text-slate-400 text-xs font-light tracking-tight">Gestión de tiempos e hitos institucionales.</p>
           </div>
-          <div className="flex bg-white rounded-full shadow-sm border border-slate-100 p-1 h-9">
+          <div className="flex items-center h-9">
             <button 
               onClick={prevMonth}
-              className="px-3 hover:bg-slate-50 rounded-full transition-colors text-slate-400"
+              className="px-2 hover:text-slate-600 transition-colors text-slate-400"
             >
               <ChevronLeft className="w-3.5 h-3.5" />
             </button>
-            <div className="px-6 flex items-center justify-center min-w-[110px]">
-              <span className="text-[9px] font-bold text-slate-700 tracking-tight">
+            <div className="px-4 flex items-center justify-center min-w-[90px]">
+              <span className="text-[10px] font-light text-slate-700 tracking-tight">
                 {months[viewMonth]}
               </span>
             </div>
             <button 
               onClick={nextMonth}
-              className="px-3 hover:bg-slate-50 rounded-full transition-colors text-slate-400"
+              className="px-2 hover:text-slate-600 transition-colors text-slate-400"
             >
               <ChevronRight className="w-3.5 h-3.5" />
             </button>
