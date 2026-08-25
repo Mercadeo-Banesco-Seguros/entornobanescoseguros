@@ -142,9 +142,8 @@ function ComplianceGrid({ value, label, description, isPercentage = true }: { va
   }, [value]);
 
   const animationProgress = value > 0 ? animatedValue / value : 0;
-  const targetFilledCount = 100;
   
-  const filledCount = Math.round(animationProgress * value);
+  const filledCount = Math.round(animationProgress * 100);
   
   return (
     <div className="flex flex-col gap-6 py-8">
@@ -380,8 +379,8 @@ export default function NosotrosPage() {
                     )}
                   </div>
                   <div className="flex flex-col flex-grow justify-between gap-4 mt-2">
-                    <div className="space-y-1 px-2">
-                      <h4 className="text-slate-900 text-[13px] md:text-sm font-normal tracking-tighter leading-tight">
+                    <div className="space-y-1 px-2 overflow-hidden">
+                      <h4 className="text-slate-900 text-[12px] sm:text-[13px] md:text-sm font-normal tracking-tighter leading-tight whitespace-nowrap">
                         {member.name}
                       </h4>
                       <p className="text-slate-500 text-[10px] md:text-[11px] font-light">
