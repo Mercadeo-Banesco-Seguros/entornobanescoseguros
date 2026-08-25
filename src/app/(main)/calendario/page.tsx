@@ -101,7 +101,7 @@ export default function CalendarioPage() {
   return (
     <div className="relative w-screen left-1/2 -ml-[50vw] px-6 md:px-12 lg:px-16 animate-in fade-in duration-700">
       <div className="max-w-[1800px] mx-auto space-y-8">
-        <header className="flex items-end justify-between border-b border-slate-200 pb-8">
+        <header className="flex items-end justify-between pb-8">
           <div className="space-y-0.5">
             <h1 className="text-3xl font-black text-slate-800 tracking-tighter uppercase">
               {months[viewMonth]} {viewYear}
@@ -131,7 +131,7 @@ export default function CalendarioPage() {
 
         <div className="mb-8">
           {/* Cabecera de días - Integrado en el fondo */}
-          <div className="grid grid-cols-7 border-b border-slate-200">
+          <div className="grid grid-cols-7">
             {dayNames.map(name => (
               <div key={name} className="py-4 text-center">
                 <span className="text-[10px] font-light text-slate-400">
