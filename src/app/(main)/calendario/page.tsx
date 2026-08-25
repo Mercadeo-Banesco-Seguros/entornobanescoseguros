@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from 'react';
@@ -179,7 +178,7 @@ export default function CalendarioPage() {
                       <div 
                         key={eventIdx}
                         className={cn(
-                          "flex items-center gap-1.5 px-2 py-1.5 rounded-full text-[8px] font-semibold leading-none truncate max-w-full shadow-sm border border-transparent",
+                          "flex items-center gap-1.5 px-2 py-1.5 rounded-full text-[8px] font-light leading-none truncate max-w-full shadow-sm border border-transparent",
                           event.type === 'payment' && "bg-[#8abaff] text-white",
                           event.type === 'allowance' && "bg-[#6c63ff] text-white",
                           event.type === 'birthday' && "bg-pink-100 text-pink-500 border-pink-200",
