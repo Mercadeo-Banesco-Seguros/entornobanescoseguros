@@ -103,7 +103,7 @@ export default function CalendarioPage() {
       <div className="max-w-[1800px] mx-auto space-y-8">
         <header className="flex items-end justify-between pb-8">
           <div className="space-y-0.5">
-            <h1 className="text-3xl font-black text-slate-800 tracking-tighter uppercase">
+            <h1 className="text-3xl font-black text-slate-800 tracking-tighter">
               {months[viewMonth]} {viewYear}
             </h1>
             <p className="text-slate-400 text-xs font-light tracking-tight">Gestión de tiempos e hitos institucionales.</p>
@@ -116,7 +116,7 @@ export default function CalendarioPage() {
               <ChevronLeft className="w-3.5 h-3.5" />
             </button>
             <div className="px-6 flex items-center justify-center min-w-[110px]">
-              <span className="text-[9px] font-bold text-slate-700 uppercase tracking-widest">
+              <span className="text-[9px] font-bold text-slate-700 tracking-tight">
                 {months[viewMonth]}
               </span>
             </div>
