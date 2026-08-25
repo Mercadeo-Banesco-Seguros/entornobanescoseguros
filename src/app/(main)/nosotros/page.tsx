@@ -387,7 +387,7 @@ export default function NosotrosPage() {
                   </div>
                   <div className="flex justify-between items-end px-2">
                     <div className="space-y-0.5">
-                      <h4 className="text-slate-900 text-sm md:text-base font-bold tracking-tight leading-tight">
+                      <h4 className="text-slate-900 text-sm md:text-base font-normal tracking-tighter leading-tight">
                         {member.name}
                       </h4>
                       <p className="text-slate-500 text-[10px] md:text-[11px] font-light">
