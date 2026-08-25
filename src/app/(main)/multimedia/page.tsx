@@ -21,9 +21,9 @@ export default function MultimediaPage() {
         />
       </div>
       <div className="text-center space-y-2">
-        <h2 className="text-[9px] font-light text-slate-400 uppercase tracking-[0.4em]">Próximamente</h2>
+        <h2 className="text-[9px] font-light text-slate-400 uppercase tracking-widest">Próximamente</h2>
         <p className="text-slate-400 font-light text-[11px] tracking-tight max-w-[240px] mx-auto leading-relaxed">
-          Esta sección está en construcción. Muy pronto compartiremos contenido exclusivo contigo.
+          Esta sección está en construcción. <br /> Muy pronto compartiremos contenido exclusivo contigo.
         </p>
       </div>
     </div>
