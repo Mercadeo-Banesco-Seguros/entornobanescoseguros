@@ -174,7 +174,7 @@ export default function NosotrosPage() {
 
   return (
     <div className="flex flex-col w-full min-h-screen">
-      {/* Hero Section - Nuestra Visión 2026 */}
+      {/* 1. Hero Section - Nuestra Visión 2026 */}
       <section className="relative w-screen left-1/2 -ml-[50vw] -mt-32 pt-32 min-h-[500px] md:min-h-[600px] overflow-hidden flex items-center bg-gradient-to-br from-[#0054A6] via-[#003B73] to-[#002D54]">
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full blur-[120px] bg-blue-400/20" />
@@ -318,39 +318,7 @@ export default function NosotrosPage() {
         </div>
       </section>
 
-      {/* 4. Sección de Cumplimiento (Grids Visuales) - Full Width */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-20 px-8 md:px-16 lg:px-24 border-b border-slate-50">
-        <div className="w-full">
-          <div className="space-y-4 mb-12 px-4">
-            <span className="text-[#0054A6] text-[11px] font-light tracking-tight uppercase">Producción</span>
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-slate-900">Cumplimiento De Metas</h2>
-            <p className="text-slate-500 text-[10px] md:text-[12px] font-light leading-relaxed max-w-2xl mt-6">
-              Visualiza tu avance en los indicadores clave de gestión. Cada bloque representa un paso más hacia el cumplimiento total.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 px-4 w-full">
-            <ComplianceGrid 
-              value={57} 
-              label="Suscrito" 
-              description="Representa el porcentaje de pólizas nuevas suscritas en el periodo actual." 
-            />
-            <ComplianceGrid 
-              value={47} 
-              label="Cobrado" 
-              description="Indica el nivel de recaudación efectiva sobre las pólizas suscritas." 
-            />
-            <ComplianceGrid 
-              value={13} 
-              label="Ranking" 
-              description="El ranking se calcula en función de las primas cobradas en el mercado."
-              isPercentage={false}
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* 5. Sección: Nuestro fantástico equipo */}
+      {/* 4. Sección: Nuestro fantástico equipo */}
       <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-24 px-8 md:px-16 lg:px-24">
         <div className="w-full flex flex-col md:flex-row gap-6">
           {/* Card Principal */}
@@ -405,6 +373,38 @@ export default function NosotrosPage() {
         </div>
       </section>
 
+      {/* 5. Sección de Cumplimiento (Grids Visuales) - Full Width */}
+      <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-20 px-8 md:px-16 lg:px-24 border-b border-slate-50">
+        <div className="w-full">
+          <div className="space-y-4 mb-12 px-4">
+            <span className="text-[#0054A6] text-[11px] font-light tracking-tight uppercase">Producción</span>
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-slate-900">Cumplimiento De Metas</h2>
+            <p className="text-slate-500 text-[10px] md:text-[12px] font-light leading-relaxed max-w-2xl mt-6">
+              Visualiza tu avance en los indicadores clave de gestión. Cada bloque representa un paso más hacia el cumplimiento total.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 px-4 w-full">
+            <ComplianceGrid 
+              value={57} 
+              label="Suscrito" 
+              description="Representa el porcentaje de pólizas nuevas suscritas en el periodo actual." 
+            />
+            <ComplianceGrid 
+              value={47} 
+              label="Cobrado" 
+              description="Indica el nivel de recaudación efectiva sobre las pólizas suscritas." 
+            />
+            <ComplianceGrid 
+              value={13} 
+              label="Ranking" 
+              description="El ranking se calcula en función de las primas cobradas en el mercado."
+              isPercentage={false}
+            />
+          </div>
+        </div>
+      </section>
+
       <div className="container mx-auto px-6 py-24">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {/* Espacio para contenido adicional */}
@@ -413,3 +413,4 @@ export default function NosotrosPage() {
     </div>
   );
 }
+
