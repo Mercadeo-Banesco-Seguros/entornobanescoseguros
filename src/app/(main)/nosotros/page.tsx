@@ -125,15 +125,31 @@ function Counter({ end, suffix = "", duration = 4000 }: { end: number; suffix?: 
 }
 
 function ComplianceGrid({ value, label, description, isPercentage = true }: { value: number, label: string, description: string, isPercentage?: boolean }) {
+  const [animatedValue, setAnimatedValue] = React.useState(0);
+
+  React.useEffect(() => {
+    let startTimestamp: number | null = null;
+    const duration = 2500;
+    const step = (timestamp: number) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      setAnimatedValue(progress * value);
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      }
+    };
+    window.requestAnimationFrame(step);
+  }, [value]);
+
   const filledCount = isPercentage 
-    ? Math.min(100, Math.max(0, Math.round(value))) 
-    : Math.round(((40 - value + 1) / 40) * 100);
+    ? Math.min(100, Math.max(0, Math.round(animatedValue))) 
+    : Math.round(((40 - animatedValue + 1) / 40) * 100);
   
   return (
     <div className="flex flex-col gap-6 py-8">
       <div className="flex flex-row items-center gap-5">
         <span className="text-white text-6xl md:text-7xl font-bold tracking-tighter shrink-0">
-          {value}{isPercentage ? '%' : ''}
+          {Math.round(animatedValue)}{isPercentage ? '%' : ''}
         </span>
         <div className="pl-4 border-l-2 border-white/30 space-y-0.5">
           <h4 className="text-white text-[10px] md:text-[11px] font-light tracking-tighter uppercase">{label}</h4>
@@ -149,9 +165,10 @@ function ComplianceGrid({ value, label, description, isPercentage = true }: { va
             <div 
               key={i} 
               className={cn(
-                "w-2.5 h-2.5 md:w-3.5 md:h-3.5 rounded-[2px] transition-colors duration-1000",
+                "w-2.5 h-2.5 md:w-3.5 md:h-3.5 rounded-[2px] transition-colors duration-500",
                 i < filledCount ? "bg-white" : "bg-white/10"
               )}
+              style={{ transitionDelay: `${i * 10}ms` }}
             />
           ))}
         </div>
