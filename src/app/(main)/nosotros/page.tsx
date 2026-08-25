@@ -425,17 +425,17 @@ export default function NosotrosPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-16 max-w-4xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-8 gap-y-16 max-w-6xl mx-auto">
             {corporateApps.map((app, i) => (
               <div key={i} className="flex flex-col items-center gap-6 group cursor-pointer">
                 <div className={cn(
-                  "w-24 h-24 md:w-32 md:h-32 rounded-[2.2rem] flex items-center justify-center transition-all duration-500 shadow-2xl border border-slate-100/50 group-hover:scale-105 group-hover:-translate-y-2",
+                  "w-24 h-24 md:w-32 md:h-32 rounded-[2.2rem] flex items-center justify-center transition-all duration-500 border border-slate-100/50 group-hover:scale-105 group-hover:-translate-y-2",
                   app.bgColor
                 )}>
                   <app.icon className={cn("w-8 h-8 md:w-10 md:h-10 transition-transform duration-500 group-hover:scale-110", app.iconColor)} strokeWidth={1.5} />
                 </div>
                 <div className="text-center space-y-1">
-                  <span className="text-[9px] md:text-[11px] font-light text-slate-700 uppercase tracking-tighter leading-tight block max-w-[140px]">
+                  <span className="text-[9px] md:text-[11px] font-light text-slate-700 tracking-tighter leading-tight block max-w-[140px]">
                     {app.name}
                   </span>
                   <div className="w-1 h-1 bg-blue-500 rounded-full mx-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
