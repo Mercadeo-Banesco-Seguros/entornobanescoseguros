@@ -12,7 +12,7 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel"
 import Image from 'next/image';
-import { Plus, BarChart3, PieChart, TrendingUp, MessageSquare, LayoutGrid, FolderKanban } from 'lucide-react';
+import { Plus, Network, PieChart, TrendingUp, MessageSquare, LayoutGrid, FolderKanban } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 const historyItems = [
@@ -97,7 +97,7 @@ const teamMembers = [
 ];
 
 const corporateApps = [
-  { name: 'Inteligencia Comercial', icon: BarChart3, bgColor: 'bg-[#0054A6]', iconColor: 'text-white' },
+  { name: 'Inteligencia Comercial', icon: Network, bgColor: 'bg-[#0054A6]', iconColor: 'text-white' },
   { name: 'Site Actuarial', icon: PieChart, bgColor: 'bg-slate-800', iconColor: 'text-white' },
   { name: 'Sistemática Comercial', icon: TrendingUp, bgColor: 'bg-[#003B73]', iconColor: 'text-white' },
   { name: 'Portal de Peticiones', icon: MessageSquare, bgColor: 'bg-black', iconColor: 'text-white' },
