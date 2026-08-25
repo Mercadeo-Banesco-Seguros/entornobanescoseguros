@@ -41,10 +41,10 @@ export default function CurrentWorld({ currentUser, levels, users }: CurrentWorl
     return vicepresidenciaMessages[displayVpKey];
   }, [displayVpKey]);
 
-  const welcomeMessage = vpDetails?.message || "Bienvenido al Circuito Banesco. Mensaje no disponible para tu vicepresidencia.";
+  const welcomeMessage = vpDetails?.message || "Bienvenido al Portal Banesco. Mensaje no disponible para tu vicepresidencia.";
   const worldImageId = vpDetails?.worldImageId;
   const worldImage = PlaceHolderImages.find(p => p.id === worldImageId);
-  const worldName = vpDetails?.name || currentUser.vicepresidencia || "Pista General";
+  const worldName = vpDetails?.name || currentUser.vicepresidencia || "Sede General";
 
   // Vista para Asesores Integrales (no administradores)
   if (!isAdministrator) {

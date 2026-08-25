@@ -305,10 +305,10 @@ export default function Navbar() {
           <div className="px-3 flex items-center">
             <input 
               type="text"
-              placeholder="Buscar..."
+              placeholder="Habla con Baneskin"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
-              className="bg-transparent text-[9px] font-light text-white placeholder:text-white/60 tracking-tight outline-none w-16 border-none focus:ring-0 p-0"
+              className="bg-transparent text-[9px] font-light text-white placeholder:text-white/60 tracking-tight outline-none w-28 border-none focus:ring-0 p-0"
             />
           </div>
           <button 

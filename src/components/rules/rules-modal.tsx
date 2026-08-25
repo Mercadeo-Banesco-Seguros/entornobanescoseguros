@@ -8,16 +8,16 @@ type RulesModalProps = {
 };
 
 const rules = [
-    'Periodo del concurso desde el 1 de Noviembre hasta el 30 de diciembre de 2025.',
-    'Son válidas para participar, todas las pólizas estructuradas nuevas, suscritas y cobradas dentro del periodo del concurso.',
+    'Periodo de gestión desde el 1 de Noviembre hasta el 30 de diciembre de 2025.',
+    'Son válidas para participar, todas las pólizas estructuradas nuevas, suscritas y cobradas dentro del periodo establecido.',
     'Las pólizas deben estar cobradas (en caso de fraccionamiento, la primera cuota) para ser contadas en el incentivo.',
-    'Para participar debes mínimo suscribir 2.300$ y cobrar 200$ mensuales o alcanzar en total, mínimo 7.000$ y cobrar 800$ al cierre del concurso, el 19 de diciembre.',
-    'Para subir de categoría debes cumplir con la cantidad de pólizas, prima suscrita y cobrada indicada por categoría.',
-    'Serán descontadas del inventario las pólizas que sean suscritas y anuladas dentro del periodo del concurso, por lo que debes estar atento a tu progreso semanal.',
+    'Para participar debes mínimo suscribir 2.300$ y cobrar 200$ mensuales o alcanzar en total, mínimo 7.000$ y cobrar 800$ al cierre del periodo, el 19 de diciembre.',
+    'Para subir de categoría profesional debes cumplir con la cantidad de pólizas, prima suscrita y cobrada indicada por categoría.',
+    'Serán descontadas del inventario las pólizas que sean suscritas y anuladas dentro del periodo, por lo que debes estar atento a tu progreso semanal.',
     'Las pólizas estructuradas son: RCV, Banesco Familia Segura de Servicio Funerario, Accidentes Personales, Indemnización Diaria por Hospitalización y Protección por Cáncer.',
     'Ganarán por cada Vicepresidencia, los 2 Asesores integrales de cada categoría que tengan el mayor cumplimiento en prima cobrada y suscrita.',
-    'Para desbloquear el premio logrado en el concurso debes cumplir con el 80% del TIV.',
-    'Los premios serán entregados en enero de 2026.',
+    'Para desbloquear el reconocimiento logrado debes cumplir con el 80% del TIV.',
+    'Los incentivos serán entregados en enero de 2026.',
 ];
 
 export default function RulesModal({ onClose }: RulesModalProps) {
@@ -25,9 +25,9 @@ export default function RulesModal({ onClose }: RulesModalProps) {
     <Dialog open={true} onOpenChange={onClose}>
         <DialogContent className="sm:max-w-[625px]">
             <DialogHeader>
-                <DialogTitle className="text-2xl font-bold">Reglas de Participación</DialogTitle>
+                <DialogTitle className="text-2xl font-bold">Lineamientos de Gestión</DialogTitle>
                 <DialogDescription>
-                    Asegúrate de cumplir con todos los requisitos para ser el próximo campeón del circuito.
+                    Asegúrate de cumplir con todos los requisitos para alcanzar los objetivos institucionales.
                 </DialogDescription>
             </DialogHeader>
             <div className="mt-4 space-y-4 max-h-[60vh] overflow-y-auto">
