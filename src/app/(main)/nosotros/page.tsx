@@ -75,6 +75,25 @@ const historyItems = [
   }
 ];
 
+function Counter({ end, suffix = "", duration = 4000 }: { end: number; suffix?: string; duration?: number }) {
+  const [count, setCount] = React.useState(0);
+
+  React.useEffect(() => {
+    let startTimestamp: number | null = null;
+    const step = (timestamp: number) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      setCount(Math.floor(progress * end));
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      }
+    };
+    window.requestAnimationFrame(step);
+  }, [end, duration]);
+
+  return <>{count}{suffix}</>;
+}
+
 function ComplianceGrid({ percentage, label, description }: { percentage: number, label: string, description: string }) {
   const filledCount = Math.min(100, Math.max(0, Math.round(percentage)));
   
@@ -150,40 +169,66 @@ export default function NosotrosPage() {
       </section>
 
       {/* 2. Nuestra Trayectoria en Cifras */}
-      <section className="bg-white pt-24 pb-12 px-8 md:px-16 lg:px-24 border-b border-slate-50">
-        <div className="container mx-auto">
+      <section className="bg-white pt-24 pb-12 px-6 md:px-12 lg:px-20 border-b border-slate-50">
+        <div className="container-fluid mx-auto max-w-[1600px]">
           <div className="space-y-4 mb-20">
             <span className="text-[#0054A6] text-[11px] font-bold tracking-tight uppercase">Resultados</span>
             <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-slate-900">Nuestra Trayectoria En Cifras</h2>
-            <p className="text-slate-500 text-[10px] md:text-[12px] font-light leading-relaxed max-w-2xl mt-6">
+            <p className="text-slate-500 text-[10px] md:text-[12px] font-light leading-relaxed max-w-3xl mt-6">
               Con más de tres décadas en el mercado, hemos consolidado una trayectoria de solidez, crecimiento y confianza. Nuestros números reflejan el compromiso con nuestros clientes, aliados y colaboradores, impulsando el bienestar en Venezuela.
             </p>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-0">
-            <div className="lg:pr-12 lg:border-r border-slate-200">
-              <span className="text-[#0054A6] text-4xl md:text-5xl font-bold tracking-tighter">+32</span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-12 lg:gap-8">
+            <div className="xl:pr-8 xl:border-r border-slate-200">
+              <span className="text-[#0054A6] text-4xl md:text-5xl font-bold tracking-tighter">
+                +<Counter end={32} />
+              </span>
               <p className="text-slate-500 text-[9px] md:text-[11px] font-light mt-4 leading-snug">
                 Años de servicio continuo y confianza.
               </p>
             </div>
             
-            <div className="lg:px-12 lg:border-r border-slate-200">
-              <span className="text-[#0054A6] text-4xl md:text-5xl font-bold tracking-tighter">+200k</span>
+            <div className="xl:px-8 xl:border-r border-slate-200">
+              <span className="text-[#0054A6] text-4xl md:text-5xl font-bold tracking-tighter">
+                +<Counter end={200} suffix="k" />
+              </span>
               <p className="text-slate-500 text-[9px] md:text-[11px] font-light mt-4 leading-snug">
                 Clientes que han depositado su confianza en nosotros.
               </p>
             </div>
             
-            <div className="lg:px-12 lg:border-r border-slate-200">
-              <span className="text-[#0054A6] text-4xl md:text-5xl font-bold tracking-tighter">+100</span>
+            <div className="xl:px-8 xl:border-r border-slate-200">
+              <span className="text-[#0054A6] text-4xl md:text-5xl font-bold tracking-tighter">
+                +<Counter end={100} />
+              </span>
               <p className="text-slate-500 text-[9px] md:text-[11px] font-light mt-4 leading-snug">
                 Clínicas afiliadas a nuestra red a nivel nacional.
               </p>
             </div>
+
+            <div className="xl:px-8 xl:border-r border-slate-200">
+              <span className="text-[#0054A6] text-4xl md:text-5xl font-bold tracking-tighter">
+                +<Counter end={50} />
+              </span>
+              <p className="text-slate-500 text-[9px] md:text-[11px] font-light mt-4 leading-snug">
+                Talleres afiliados comprometidos con la excelencia.
+              </p>
+            </div>
+
+            <div className="xl:px-8 xl:border-r border-slate-200">
+              <span className="text-[#0054A6] text-4xl md:text-5xl font-bold tracking-tighter">
+                +<Counter end={250} />
+              </span>
+              <p className="text-slate-500 text-[9px] md:text-[11px] font-light mt-4 leading-snug">
+                Colectivos de salud a empresas a nivel nacional.
+              </p>
+            </div>
             
-            <div className="lg:pl-12">
-              <span className="text-[#0054A6] text-4xl md:text-5xl font-bold tracking-tighter">+200</span>
+            <div className="xl:pl-8">
+              <span className="text-[#0054A6] text-4xl md:text-5xl font-bold tracking-tighter">
+                +<Counter end={200} />
+              </span>
               <p className="text-slate-500 text-[9px] md:text-[11px] font-light mt-4 leading-snug">
                 Empleados comprometidos con nuestra misión y valores.
               </p>
