@@ -80,17 +80,17 @@ const historyItems = [
 
 const teamMembers = [
   {
-    name: 'Ramon Eduardo Gonzalez Alvarez',
+    name: 'Ramon Gonzalez',
     role: 'Gerente General',
     imageId: 'team-ramon'
   },
   {
-    name: 'Martha Zulay Gomez Gutierrez',
+    name: 'Martha Gomez',
     role: 'Gerente Comercial',
     imageId: 'team-martha'
   },
   {
-    name: 'Mallaury Brando Martinez',
+    name: 'Mallaury Martinez',
     role: 'Lider de Finanzas',
     imageId: 'team-mallaury'
   }
