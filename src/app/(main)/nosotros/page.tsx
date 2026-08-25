@@ -13,7 +13,7 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel"
 import Image from 'next/image';
-import { Plus } from 'lucide-react';
+import { Plus, BarChart3, PieChart, TrendingUp, MessageSquare, LayoutGrid, FolderKanban } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 const historyItems = [
@@ -95,6 +95,15 @@ const teamMembers = [
     role: 'Lider de Finanzas',
     imageId: 'team-mallaury'
   }
+];
+
+const corporateApps = [
+  { name: 'Inteligencia Comercial', icon: BarChart3, bgColor: 'bg-white', iconColor: 'text-[#0054A6]' },
+  { name: 'Site Actuarial', icon: PieChart, bgColor: 'bg-slate-50', iconColor: 'text-slate-600' },
+  { name: 'Sistemática Comercial', icon: TrendingUp, bgColor: 'bg-blue-50', iconColor: 'text-[#0054A6]' },
+  { name: 'Portal de Peticiones', icon: MessageSquare, bgColor: 'bg-slate-900', iconColor: 'text-white' },
+  { name: 'Site Operaciones', icon: LayoutGrid, bgColor: 'bg-slate-100', iconColor: 'text-slate-800' },
+  { name: 'Site de Proyectos', icon: FolderKanban, bgColor: 'bg-[#003B73]', iconColor: 'text-white' },
 ];
 
 function Counter({ end, suffix = "", duration = 4000 }: { end: number; suffix?: string; duration?: number }) {
@@ -401,6 +410,38 @@ export default function NosotrosPage() {
               description="El ranking se calcula en función de las primas cobradas en el mercado."
               isPercentage={false}
             />
+          </div>
+        </div>
+      </section>
+
+      {/* 6. Sección: Nuestro Ecosistema Digital (Tienda de Apps) */}
+      <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-32 px-8 md:px-16 lg:px-24 overflow-hidden">
+        <div className="w-full max-w-7xl mx-auto">
+          <div className="text-center space-y-4 mb-20">
+            <span className="text-[#0054A6] text-[11px] font-light tracking-tight uppercase">Ecosistema</span>
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-slate-900 leading-none">Nuestras Soluciones Digitales</h2>
+            <p className="text-slate-500 text-[10px] md:text-[12px] font-light leading-relaxed max-w-2xl mx-auto mt-6">
+              Accede a nuestro conjunto de herramientas diseñadas para potenciar tu productividad y facilitar la gestión estratégica en cada área de la organización.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-16 max-w-4xl mx-auto">
+            {corporateApps.map((app, i) => (
+              <div key={i} className="flex flex-col items-center gap-6 group cursor-pointer">
+                <div className={cn(
+                  "w-24 h-24 md:w-32 md:h-32 rounded-[2.2rem] flex items-center justify-center transition-all duration-500 shadow-2xl border border-slate-100/50 group-hover:scale-105 group-hover:-translate-y-2",
+                  app.bgColor
+                )}>
+                  <app.icon className={cn("w-8 h-8 md:w-10 md:h-10 transition-transform duration-500 group-hover:scale-110", app.iconColor)} strokeWidth={1.5} />
+                </div>
+                <div className="text-center space-y-1">
+                  <span className="text-[9px] md:text-[11px] font-light text-slate-700 uppercase tracking-tighter leading-tight block max-w-[140px]">
+                    {app.name}
+                  </span>
+                  <div className="w-1 h-1 bg-blue-500 rounded-full mx-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
