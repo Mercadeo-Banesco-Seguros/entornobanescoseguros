@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from 'react';
@@ -102,7 +101,7 @@ const corporateApps = [
   { name: 'Site Actuarial', icon: PieChart, bgColor: 'bg-slate-800', iconColor: 'text-white' },
   { name: 'Sistemática Comercial', icon: TrendingUp, bgColor: 'bg-[#003B73]', iconColor: 'text-white' },
   { name: 'Portal de Peticiones', icon: MessageSquare, bgColor: 'bg-black', iconColor: 'text-white' },
-  { name: 'Site Operaciones', icon: LayoutGrid, bgColor: 'bg-slate-100', iconColor: 'text-slate-700' },
+  { name: 'Site Operaciones', icon: LayoutGrid, bgColor: 'bg-sky-400', iconColor: 'text-white' },
   { name: 'Site de Proyectos', icon: FolderKanban, bgColor: 'bg-[#002D54]', iconColor: 'text-white' },
 ];
 
