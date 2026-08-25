@@ -12,7 +12,7 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel"
 import Image from 'next/image';
-import { Plus, Network, PieChart, TrendingUp, MessageSquare, LayoutGrid, FolderKanban } from 'lucide-react';
+import { Plus, Network, PieChart, TrendingUp, MessageSquare, LayoutGrid, FolderKanban, Mail, Phone } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 const historyItems = [
@@ -142,11 +142,9 @@ function ComplianceGrid({ value, label, description, isPercentage = true }: { va
   }, [value]);
 
   const animationProgress = value > 0 ? animatedValue / value : 0;
-  const targetFilledCount = isPercentage 
-    ? value 
-    : Math.round(((40 - value + 1) / 40) * 100);
+  const targetFilledCount = 100;
   
-  const filledCount = Math.round(animationProgress * targetFilledCount);
+  const filledCount = Math.round(animationProgress * value);
   
   return (
     <div className="flex flex-col gap-6 py-8">
@@ -369,8 +367,8 @@ export default function NosotrosPage() {
             {teamMembers.map((member, idx) => {
               const placeholder = PlaceHolderImages.find(img => img.id === member.imageId);
               return (
-                <div key={idx} className="flex flex-col gap-4 group">
-                  <div className="relative aspect-square w-full rounded-[2rem] overflow-hidden bg-slate-50 transition-transform duration-500 group-hover:scale-[1.02]">
+                <div key={idx} className="flex flex-col gap-4 group bg-slate-50/50 rounded-[2.5rem] p-6 h-full transition-all duration-500 hover:bg-white hover:shadow-xl border border-transparent hover:border-slate-100">
+                  <div className="relative aspect-square w-full rounded-[2rem] overflow-hidden bg-slate-200 transition-transform duration-500 group-hover:scale-[1.02]">
                     {placeholder && (
                       <Image 
                         src={placeholder.imageUrl}
@@ -381,8 +379,8 @@ export default function NosotrosPage() {
                       />
                     )}
                   </div>
-                  <div className="flex justify-between items-end px-2">
-                    <div className="space-y-0.5">
+                  <div className="flex flex-col flex-grow justify-between gap-4 mt-2">
+                    <div className="space-y-1 px-2">
                       <h4 className="text-slate-900 text-[13px] md:text-sm font-normal tracking-tighter leading-tight">
                         {member.name}
                       </h4>
@@ -390,9 +388,19 @@ export default function NosotrosPage() {
                         {member.role}
                       </p>
                     </div>
-                    <button className="text-slate-300 hover:text-[#0054A6] transition-colors">
-                      <Plus className="w-4 h-4" />
-                    </button>
+                    <div className="flex items-center gap-3 px-2 pb-2">
+                      <button className="text-slate-400 hover:text-[#0054A6] transition-colors p-2 rounded-lg bg-white shadow-sm border border-slate-100">
+                        <Mail className="w-3.5 h-3.5" strokeWidth={1.5} />
+                      </button>
+                      <button className="text-slate-400 hover:text-[#0054A6] transition-colors p-2 rounded-lg bg-white shadow-sm border border-slate-100">
+                        <Phone className="w-3.5 h-3.5" strokeWidth={1.5} />
+                      </button>
+                      <div className="ml-auto">
+                        <button className="text-slate-300 hover:text-[#0054A6] transition-colors">
+                          <Plus className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               );
