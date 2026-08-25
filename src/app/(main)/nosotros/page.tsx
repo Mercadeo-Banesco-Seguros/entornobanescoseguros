@@ -104,8 +104,8 @@ function ComplianceGrid({ value, label, description, isPercentage = true }: { va
           {value}{isPercentage ? '%' : ''}
         </span>
         <div className="pl-4 border-l-2 border-[#0054A6] space-y-0.5">
-          <h4 className="text-slate-900 text-lg font-light tracking-tight">{label}</h4>
-          <p className="text-slate-500 text-[10px] md:text-[11px] font-light leading-snug max-w-[220px]">
+          <h4 className="text-slate-900 text-sm font-light tracking-tighter">{label}</h4>
+          <p className="text-slate-500 text-[9px] font-light leading-snug max-w-[220px]">
             {description}
           </p>
         </div>
@@ -319,7 +319,7 @@ export default function NosotrosPage() {
             <ComplianceGrid 
               value={13} 
               label="Ranking" 
-              description="Hay que tener 100% en cobrado para ser top 10"
+              description="El ranking se calcula en función de las primas cobradas en el mercado."
               isPercentage={false}
             />
           </div>
