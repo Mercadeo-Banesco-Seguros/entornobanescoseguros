@@ -169,7 +169,7 @@ export default function NosotrosPage() {
       </section>
 
       {/* 2. Nuestra Trayectoria en Cifras - Full Width Row */}
-      <section className="bg-white pt-24 pb-12 px-6 md:px-12 lg:px-16 border-b border-slate-50 w-full">
+      <section className="relative w-screen left-1/2 -ml-[50vw] bg-white pt-24 pb-12 px-8 md:px-16 lg:px-24 border-b border-slate-50">
         <div className="w-full">
           <div className="space-y-4 mb-20 px-4">
             <span className="text-[#0054A6] text-[11px] font-bold tracking-tight uppercase">Resultados</span>
@@ -179,7 +179,7 @@ export default function NosotrosPage() {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 w-full border-t border-slate-100">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 w-full border-t border-slate-100">
             <div className="py-12 px-8 border-b sm:border-b-0 sm:border-r border-slate-100 flex flex-col items-center sm:items-start text-center sm:text-left transition-colors hover:bg-slate-50/50">
               <span className="text-[#0054A6] text-4xl md:text-5xl font-bold tracking-tighter">
                 +<Counter end={32} />
