@@ -101,41 +101,41 @@ export default function CalendarioPage() {
 
   return (
     <div className="relative w-screen left-1/2 -ml-[50vw] px-6 md:px-12 lg:px-16 animate-in fade-in duration-700">
-      <div className="max-w-[1800px] mx-auto space-y-12">
-        <header className="flex items-end justify-between border-b border-slate-200 pb-12">
-          <div className="space-y-1">
-            <h1 className="text-5xl font-black text-slate-800 tracking-tighter uppercase">
+      <div className="max-w-[1800px] mx-auto space-y-8">
+        <header className="flex items-end justify-between border-b border-slate-200 pb-8">
+          <div className="space-y-0.5">
+            <h1 className="text-3xl font-black text-slate-800 tracking-tighter uppercase">
               {months[viewMonth]} {viewYear}
             </h1>
-            <p className="text-slate-400 text-sm font-light tracking-tight">Gestión de tiempos e hitos institucionales.</p>
+            <p className="text-slate-400 text-xs font-light tracking-tight">Gestión de tiempos e hitos institucionales.</p>
           </div>
-          <div className="flex bg-white rounded-full shadow-sm border border-slate-100 p-1.5 h-12">
+          <div className="flex bg-white rounded-full shadow-sm border border-slate-100 p-1 h-9">
             <button 
               onClick={prevMonth}
-              className="px-4 hover:bg-slate-50 rounded-full transition-colors text-slate-400"
+              className="px-3 hover:bg-slate-50 rounded-full transition-colors text-slate-400"
             >
-              <ChevronLeft className="w-4 h-4" />
+              <ChevronLeft className="w-3.5 h-3.5" />
             </button>
-            <div className="px-8 flex items-center justify-center min-w-[140px]">
-              <span className="text-[11px] font-bold text-slate-700 uppercase tracking-widest">
+            <div className="px-6 flex items-center justify-center min-w-[110px]">
+              <span className="text-[9px] font-bold text-slate-700 uppercase tracking-widest">
                 {months[viewMonth]}
               </span>
             </div>
             <button 
               onClick={nextMonth}
-              className="px-4 hover:bg-slate-50 rounded-full transition-colors text-slate-400"
+              className="px-3 hover:bg-slate-50 rounded-full transition-colors text-slate-400"
             >
-              <ChevronRight className="w-4 h-4" />
+              <ChevronRight className="w-3.5 h-3.5" />
             </button>
           </div>
         </header>
 
-        <div className="mb-12">
+        <div className="mb-8">
           {/* Cabecera de días - Integrado en el fondo */}
           <div className="grid grid-cols-7 border-b border-slate-200">
             {dayNames.map(name => (
-              <div key={name} className="py-6 text-center">
-                <span className="text-[13px] font-light text-slate-400">
+              <div key={name} className="py-4 text-center">
+                <span className="text-[10px] font-light text-slate-400">
                   {name}
                 </span>
               </div>
@@ -156,37 +156,37 @@ export default function CalendarioPage() {
                 <div 
                   key={idx} 
                   className={cn(
-                    "min-h-[180px] p-6 border-r border-b border-slate-100 transition-all hover:bg-white relative group",
+                    "min-h-[126px] p-4 border-r border-b border-slate-100 transition-all hover:bg-white relative group",
                     !date.isCurrentMonth ? "bg-slate-50/40" : "bg-transparent"
                   )}
                 >
-                  <div className="flex items-center gap-3 mb-6">
+                  <div className="flex items-center gap-2 mb-4">
                     <span className={cn(
-                      "text-xl font-bold tracking-tighter",
+                      "text-base font-bold tracking-tighter",
                       date.isCurrentMonth ? "text-slate-800" : "text-slate-300"
                     )}>
                       {date.day < 10 ? `0${date.day}` : date.day}
                     </span>
                     {isToday && (
-                      <span className="px-3 py-1 rounded-full bg-[#0054A6] text-white text-[9px] font-bold uppercase tracking-widest shadow-lg shadow-blue-500/20">
+                      <span className="px-2 py-0.5 rounded-full bg-[#0054A6] text-white text-[7px] font-bold uppercase tracking-widest shadow-lg shadow-blue-500/20">
                         Hoy
                       </span>
                     )}
                   </div>
 
-                  <div className="space-y-2.5">
+                  <div className="space-y-1.5">
                     {dateEvents.map((event, eventIdx) => (
                       <div 
                         key={eventIdx}
                         className={cn(
-                          "flex items-center gap-2 px-3 py-2 rounded-full text-[10px] font-semibold leading-none truncate max-w-full shadow-sm border border-transparent",
+                          "flex items-center gap-1.5 px-2 py-1.5 rounded-full text-[8px] font-semibold leading-none truncate max-w-full shadow-sm border border-transparent",
                           event.type === 'payment' && "bg-[#8abaff] text-white",
                           event.type === 'allowance' && "bg-[#6c63ff] text-white",
                           event.type === 'birthday' && "bg-pink-100 text-pink-500 border-pink-200",
                           event.type === 'holiday' && "bg-purple-100 text-purple-400 border-purple-200"
                         )}
                       >
-                        {event.type === 'birthday' && <Cake className="w-3.5 h-3.5 shrink-0" />}
+                        {event.type === 'birthday' && <Cake className="w-2.5 h-2.5 shrink-0" />}
                         <span className="truncate">{event.title}</span>
                       </div>
                     ))}
