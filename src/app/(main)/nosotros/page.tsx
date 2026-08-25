@@ -94,18 +94,18 @@ function Counter({ end, suffix = "", duration = 4000 }: { end: number; suffix?: 
   return <>{count}{suffix}</>;
 }
 
-function ComplianceGrid({ percentage, label, description }: { percentage: number, label: string, description: string }) {
-  const filledCount = Math.min(100, Math.max(0, Math.round(percentage)));
+function ComplianceGrid({ value, label, description, isPercentage = true }: { value: number, label: string, description: string, isPercentage?: boolean }) {
+  const filledCount = isPercentage ? Math.min(100, Math.max(0, Math.round(value))) : value;
   
   return (
     <div className="flex flex-col gap-6 py-8">
-      <div className="space-y-4">
-        <span className="text-[#0054A6] text-6xl md:text-7xl font-bold tracking-tighter">
-          {filledCount}%
+      <div className="flex flex-row items-center gap-5">
+        <span className="text-[#0054A6] text-6xl md:text-7xl font-bold tracking-tighter shrink-0">
+          {value}{isPercentage ? '%' : ''}
         </span>
-        <div className="pl-1 border-l-2 border-[#0054A6] space-y-1">
-          <h4 className="text-slate-900 text-lg font-bold tracking-tight">{label}</h4>
-          <p className="text-slate-500 text-[10px] md:text-[11px] font-light leading-snug max-w-[280px]">
+        <div className="pl-4 border-l-2 border-[#0054A6] space-y-0.5">
+          <h4 className="text-slate-900 text-lg font-light tracking-tight">{label}</h4>
+          <p className="text-slate-500 text-[10px] md:text-[11px] font-light leading-snug max-w-[220px]">
             {description}
           </p>
         </div>
@@ -294,27 +294,33 @@ export default function NosotrosPage() {
         </div>
       </section>
 
-      {/* 4. Sección de Cumplimiento (Grids Visuales) */}
-      <section className="bg-white py-20 px-8 md:px-16 lg:px-24">
-        <div className="container mx-auto">
-          <div className="space-y-4 mb-12">
+      {/* 4. Sección de Cumplimiento (Grids Visuales) - Full Width */}
+      <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-20 px-8 md:px-16 lg:px-24">
+        <div className="w-full">
+          <div className="space-y-4 mb-12 px-4">
             <span className="text-[#0054A6] text-[11px] font-bold tracking-tight uppercase">Producción</span>
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-slate-900">Cumplimiento De Metas</h2>
-            <p className="text-slate-500 text-[10px] md:text-[12px] font-light leading-relaxed max-w-2xl">
-              Visualiza tu avance en los indicadores clave. Cada bloque representa un paso más hacia la meta final.
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-slate-900">Cumplimiento De Metas</h2>
+            <p className="text-slate-500 text-[10px] md:text-[12px] font-light leading-relaxed max-w-2xl mt-6">
+              Visualiza tu avance en los indicadores clave de gestión. Cada bloque representa un paso más hacia el cumplimiento total.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 px-4">
             <ComplianceGrid 
-              percentage={57} 
+              value={57} 
               label="Suscrito" 
               description="Representa el porcentaje de pólizas nuevas suscritas en el periodo actual." 
             />
             <ComplianceGrid 
-              percentage={47} 
+              value={47} 
               label="Cobrado" 
-              description="Indica el nivel de recaudación efectiva sobre las pólizas suscritas en el mercado actual." 
+              description="Indica el nivel de recaudación efectiva sobre las pólizas suscritas." 
+            />
+            <ComplianceGrid 
+              value={13} 
+              label="Ranking" 
+              description="Hay que tener 100% en cobrado para ser top 10"
+              isPercentage={false}
             />
           </div>
         </div>
