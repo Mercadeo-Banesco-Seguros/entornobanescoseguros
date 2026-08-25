@@ -124,12 +124,12 @@ function ComplianceGrid({ value, label, description, isPercentage = true }: { va
   return (
     <div className="flex flex-col gap-6 py-8">
       <div className="flex flex-row items-center gap-5">
-        <span className="text-[#0054A6] text-6xl md:text-7xl font-bold tracking-tighter shrink-0">
+        <span className="text-white text-6xl md:text-7xl font-bold tracking-tighter shrink-0">
           {value}{isPercentage ? '%' : ''}
         </span>
-        <div className="pl-4 border-l-2 border-[#0054A6] space-y-0.5">
-          <h4 className="text-slate-900 text-[10px] md:text-[11px] font-light tracking-tighter uppercase">{label}</h4>
-          <p className="text-slate-500 text-[8px] md:text-[9px] font-light leading-snug max-w-[220px]">
+        <div className="pl-4 border-l-2 border-white/30 space-y-0.5">
+          <h4 className="text-white text-[10px] md:text-[11px] font-light tracking-tighter uppercase">{label}</h4>
+          <p className="text-white/70 text-[8px] md:text-[9px] font-light leading-snug max-w-[220px]">
             {description}
           </p>
         </div>
@@ -142,7 +142,7 @@ function ComplianceGrid({ value, label, description, isPercentage = true }: { va
               key={i} 
               className={cn(
                 "w-2.5 h-2.5 md:w-3.5 md:h-3.5 rounded-[2px] transition-colors duration-1000",
-                i < filledCount ? "bg-[#0054A6]" : "bg-slate-100"
+                i < filledCount ? "bg-white" : "bg-white/10"
               )}
             />
           ))}
@@ -373,13 +373,13 @@ export default function NosotrosPage() {
         </div>
       </section>
 
-      {/* 5. Sección de Cumplimiento (Grids Visuales) - Full Width */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-20 px-8 md:px-16 lg:px-24 border-b border-slate-50">
+      {/* 5. Sección de Cumplimiento (Grids Visuales) - Full Width Azul */}
+      <section className="relative w-screen left-1/2 -ml-[50vw] bg-[#0054A6] py-20 px-8 md:px-16 lg:px-24 shadow-2xl">
         <div className="w-full">
           <div className="space-y-4 mb-12 px-4">
-            <span className="text-[#0054A6] text-[11px] font-light tracking-tight uppercase">Producción</span>
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-slate-900">Cumplimiento De Metas</h2>
-            <p className="text-slate-500 text-[10px] md:text-[12px] font-light leading-relaxed max-w-2xl mt-6">
+            <span className="text-white/60 text-[11px] font-light tracking-tight uppercase">Producción</span>
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-white">Cumplimiento De Metas</h2>
+            <p className="text-white/80 text-[10px] md:text-[12px] font-light leading-relaxed max-w-2xl mt-6">
               Visualiza tu avance en los indicadores clave de gestión. Cada bloque representa un paso más hacia el cumplimiento total.
             </p>
           </div>
@@ -413,4 +413,3 @@ export default function NosotrosPage() {
     </div>
   );
 }
-
