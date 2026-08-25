@@ -42,6 +42,7 @@ export default function Navbar() {
   const [mounted, setMounted] = useState(false);
   const [isTimeExpanded, setIsTimeExpanded] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [temperature, setTemperature] = useState<number | null>(null);
   const [showIANotification, setShowIANotification] = useState(false);
   const [inputValue, setInputValue] = useState('');
   
@@ -60,10 +61,32 @@ export default function Navbar() {
 
   useEffect(() => {
     setMounted(true);
+    
+    // Reloj
     const timer = setInterval(() => {
       setCurrentTime(new Date());
     }, 60000);
-    return () => clearInterval(timer);
+
+    // Clima (Caracas)
+    const fetchWeather = async () => {
+      try {
+        const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=10.488&longitude=-66.879&current_weather=true');
+        const data = await response.json();
+        if (data.current_weather) {
+          setTemperature(Math.round(data.current_weather.temperature));
+        }
+      } catch (error) {
+        console.error('Error fetching weather:', error);
+      }
+    };
+
+    fetchWeather();
+    const weatherTimer = setInterval(fetchWeather, 600000); // Cada 10 min
+
+    return () => {
+      clearInterval(timer);
+      clearInterval(weatherTimer);
+    };
   }, []);
 
   if (!mounted) return null;
@@ -112,7 +135,7 @@ export default function Navbar() {
                     {day} {month}
                   </span>
                   <span className="text-[8px] text-white font-light uppercase">
-                    CARACAS
+                    CARACAS {temperature !== null ? `• ${temperature}°C` : ''}
                   </span>
                 </div>
               </div>
