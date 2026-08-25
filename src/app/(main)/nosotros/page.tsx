@@ -176,7 +176,7 @@ export default function NosotrosPage() {
       <section className="relative w-screen left-1/2 -ml-[50vw] bg-white pt-24 pb-12 px-8 md:px-16 lg:px-24 border-b border-slate-50">
         <div className="w-full">
           <div className="space-y-4 mb-20 px-4">
-            <span className="text-[#0054A6] text-[11px] font-bold tracking-tight uppercase">Resultados</span>
+            <span className="text-[#0054A6] text-[11px] font-light tracking-tight uppercase">Resultados</span>
             <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-slate-900">Nuestra Trayectoria En Cifras</h2>
             <p className="text-slate-500 text-[10px] md:text-[12px] font-light leading-relaxed max-w-3xl mt-6">
               Con más de tres décadas en el mercado, hemos consolidado una trayectoria de solidez, crecimiento y confianza. Nuestros números reflejan el compromiso con nuestros clientes, aliados y colaboradores, impulsando el bienestar en Venezuela.
@@ -302,7 +302,7 @@ export default function NosotrosPage() {
       <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-20 px-8 md:px-16 lg:px-24">
         <div className="w-full">
           <div className="space-y-4 mb-12 px-4">
-            <span className="text-[#0054A6] text-[11px] font-bold tracking-tight uppercase">Producción</span>
+            <span className="text-[#0054A6] text-[11px] font-light tracking-tight uppercase">Producción</span>
             <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-slate-900">Cumplimiento De Metas</h2>
             <p className="text-slate-500 text-[10px] md:text-[12px] font-light leading-relaxed max-w-2xl mt-6">
               Visualiza tu avance en los indicadores clave de gestión. Cada bloque representa un paso más hacia el cumplimiento total.
