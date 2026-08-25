@@ -431,7 +431,7 @@ export default function NosotrosPage() {
                   "w-24 h-24 md:w-32 md:h-32 rounded-[2.2rem] flex items-center justify-center transition-all duration-500 border border-slate-100/50 group-hover:scale-105 group-hover:-translate-y-2",
                   app.bgColor
                 )}>
-                  <app.icon className={cn("w-8 h-8 md:w-10 md:h-10 transition-transform duration-500 group-hover:scale-110", app.iconColor)} strokeWidth={1.5} />
+                  <app.icon className={cn("w-8 h-8 md:w-10 md:h-10 transition-transform duration-500 group-hover:scale-110", app.iconColor)} strokeWidth={1} />
                 </div>
                 <div className="text-center space-y-1">
                   <span className="text-[9px] md:text-[11px] font-light text-slate-700 tracking-tighter leading-tight block max-w-[140px]">
