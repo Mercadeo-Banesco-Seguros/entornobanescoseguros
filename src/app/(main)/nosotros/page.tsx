@@ -168,10 +168,10 @@ export default function NosotrosPage() {
         </div>
       </section>
 
-      {/* 2. Nuestra Trayectoria en Cifras */}
-      <section className="bg-white pt-24 pb-12 px-6 md:px-12 lg:px-20 border-b border-slate-50">
-        <div className="container-fluid mx-auto max-w-[1600px]">
-          <div className="space-y-4 mb-20">
+      {/* 2. Nuestra Trayectoria en Cifras - Full Width Row */}
+      <section className="bg-white pt-24 pb-12 px-6 md:px-12 lg:px-16 border-b border-slate-50 w-full">
+        <div className="w-full">
+          <div className="space-y-4 mb-20 px-4">
             <span className="text-[#0054A6] text-[11px] font-bold tracking-tight uppercase">Resultados</span>
             <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-slate-900">Nuestra Trayectoria En Cifras</h2>
             <p className="text-slate-500 text-[10px] md:text-[12px] font-light leading-relaxed max-w-3xl mt-6">
@@ -179,8 +179,8 @@ export default function NosotrosPage() {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-12 lg:gap-8">
-            <div className="xl:pr-8 xl:border-r border-slate-200">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 w-full border-t border-slate-100">
+            <div className="py-12 px-8 border-b sm:border-b-0 sm:border-r border-slate-100 flex flex-col items-center sm:items-start text-center sm:text-left transition-colors hover:bg-slate-50/50">
               <span className="text-[#0054A6] text-4xl md:text-5xl font-bold tracking-tighter">
                 +<Counter end={32} />
               </span>
@@ -189,7 +189,7 @@ export default function NosotrosPage() {
               </p>
             </div>
             
-            <div className="xl:px-8 xl:border-r border-slate-200">
+            <div className="py-12 px-8 border-b sm:border-b-0 md:border-r border-slate-100 flex flex-col items-center sm:items-start text-center sm:text-left transition-colors hover:bg-slate-50/50">
               <span className="text-[#0054A6] text-4xl md:text-5xl font-bold tracking-tighter">
                 +<Counter end={200} suffix="k" />
               </span>
@@ -198,7 +198,7 @@ export default function NosotrosPage() {
               </p>
             </div>
             
-            <div className="xl:px-8 xl:border-r border-slate-200">
+            <div className="py-12 px-8 border-b md:border-b-0 sm:border-r border-slate-100 flex flex-col items-center sm:items-start text-center sm:text-left transition-colors hover:bg-slate-50/50">
               <span className="text-[#0054A6] text-4xl md:text-5xl font-bold tracking-tighter">
                 +<Counter end={100} />
               </span>
@@ -207,7 +207,7 @@ export default function NosotrosPage() {
               </p>
             </div>
 
-            <div className="xl:px-8 xl:border-r border-slate-200">
+            <div className="py-12 px-8 border-b md:border-b-0 md:border-r border-slate-100 flex flex-col items-center sm:items-start text-center sm:text-left transition-colors hover:bg-slate-50/50">
               <span className="text-[#0054A6] text-4xl md:text-5xl font-bold tracking-tighter">
                 +<Counter end={50} />
               </span>
@@ -216,7 +216,7 @@ export default function NosotrosPage() {
               </p>
             </div>
 
-            <div className="xl:px-8 xl:border-r border-slate-200">
+            <div className="py-12 px-8 border-b xl:border-b-0 sm:border-r border-slate-100 flex flex-col items-center sm:items-start text-center sm:text-left transition-colors hover:bg-slate-50/50">
               <span className="text-[#0054A6] text-4xl md:text-5xl font-bold tracking-tighter">
                 +<Counter end={250} />
               </span>
@@ -225,7 +225,7 @@ export default function NosotrosPage() {
               </p>
             </div>
             
-            <div className="xl:pl-8">
+            <div className="py-12 px-8 flex flex-col items-center sm:items-start text-center sm:text-left transition-colors hover:bg-slate-50/50">
               <span className="text-[#0054A6] text-4xl md:text-5xl font-bold tracking-tighter">
                 +<Counter end={200} />
               </span>
