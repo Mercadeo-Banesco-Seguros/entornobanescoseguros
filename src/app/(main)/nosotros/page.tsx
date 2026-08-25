@@ -98,12 +98,12 @@ const teamMembers = [
 ];
 
 const corporateApps = [
-  { name: 'Inteligencia Comercial', icon: BarChart3, bgColor: 'bg-white', iconColor: 'text-[#0054A6]' },
-  { name: 'Site Actuarial', icon: PieChart, bgColor: 'bg-slate-50', iconColor: 'text-slate-600' },
-  { name: 'Sistemática Comercial', icon: TrendingUp, bgColor: 'bg-blue-50', iconColor: 'text-[#0054A6]' },
-  { name: 'Portal de Peticiones', icon: MessageSquare, bgColor: 'bg-slate-900', iconColor: 'text-white' },
-  { name: 'Site Operaciones', icon: LayoutGrid, bgColor: 'bg-slate-100', iconColor: 'text-slate-800' },
-  { name: 'Site de Proyectos', icon: FolderKanban, bgColor: 'bg-[#003B73]', iconColor: 'text-white' },
+  { name: 'Inteligencia Comercial', icon: BarChart3, bgColor: 'bg-[#0054A6]', iconColor: 'text-white' },
+  { name: 'Site Actuarial', icon: PieChart, bgColor: 'bg-slate-800', iconColor: 'text-white' },
+  { name: 'Sistemática Comercial', icon: TrendingUp, bgColor: 'bg-[#003B73]', iconColor: 'text-white' },
+  { name: 'Portal de Peticiones', icon: MessageSquare, bgColor: 'bg-black', iconColor: 'text-white' },
+  { name: 'Site Operaciones', icon: LayoutGrid, bgColor: 'bg-slate-100', iconColor: 'text-slate-700' },
+  { name: 'Site de Proyectos', icon: FolderKanban, bgColor: 'bg-[#002D54]', iconColor: 'text-white' },
 ];
 
 function Counter({ end, suffix = "", duration = 4000 }: { end: number; suffix?: string; duration?: number }) {
