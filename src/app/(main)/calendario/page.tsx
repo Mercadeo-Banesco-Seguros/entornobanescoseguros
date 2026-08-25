@@ -109,23 +109,23 @@ export default function CalendarioPage() {
             </h1>
             <p className="text-slate-400 text-sm font-light tracking-tight">Gestión de tiempos e hitos institucionales.</p>
           </div>
-          <div className="flex bg-white rounded-2xl shadow-sm border border-slate-100 p-1.5">
+          <div className="flex bg-white rounded-full shadow-sm border border-slate-100 p-1.5 h-12">
             <button 
               onClick={prevMonth}
-              className="p-2.5 hover:bg-slate-50 rounded-xl transition-colors text-slate-400"
+              className="px-4 hover:bg-slate-50 rounded-full transition-colors text-slate-400"
             >
-              <ChevronLeft className="w-5 h-5" />
+              <ChevronLeft className="w-4 h-4" />
             </button>
-            <div className="px-6 flex items-center justify-center min-w-[120px]">
-              <span className="text-[12px] font-bold text-slate-700 uppercase tracking-widest">
+            <div className="px-8 flex items-center justify-center min-w-[140px]">
+              <span className="text-[11px] font-bold text-slate-700 uppercase tracking-widest">
                 {months[viewMonth]}
               </span>
             </div>
             <button 
               onClick={nextMonth}
-              className="p-2.5 hover:bg-slate-50 rounded-xl transition-colors text-slate-400"
+              className="px-4 hover:bg-slate-50 rounded-full transition-colors text-slate-400"
             >
-              <ChevronRight className="w-5 h-5" />
+              <ChevronRight className="w-4 h-4" />
             </button>
           </div>
         </header>
@@ -135,7 +135,7 @@ export default function CalendarioPage() {
           <div className="grid grid-cols-7 border-b border-slate-200">
             {dayNames.map(name => (
               <div key={name} className="py-6 text-center">
-                <span className="text-[11px] font-bold text-slate-400 uppercase tracking-[0.2em]">
+                <span className="text-[13px] font-light text-slate-400">
                   {name}
                 </span>
               </div>
