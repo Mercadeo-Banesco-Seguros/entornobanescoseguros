@@ -179,7 +179,7 @@ export default function NosotrosPage() {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 w-full border-t border-slate-100">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 w-full border-t border-slate-100">
             <div className="py-12 px-8 border-b sm:border-b-0 sm:border-r border-slate-100 flex flex-col items-center sm:items-start text-center sm:text-left transition-colors hover:bg-slate-50/50">
               <span className="text-[#0054A6] text-4xl md:text-5xl font-bold tracking-tighter">
                 +<Counter end={32} />
@@ -213,15 +213,6 @@ export default function NosotrosPage() {
               </span>
               <p className="text-slate-500 text-[9px] md:text-[11px] font-light mt-4 leading-snug">
                 Talleres afiliados comprometidos con la excelencia.
-              </p>
-            </div>
-
-            <div className="py-12 px-8 border-b xl:border-b-0 sm:border-r border-slate-100 flex flex-col items-center sm:items-start text-center sm:text-left transition-colors hover:bg-slate-50/50">
-              <span className="text-[#0054A6] text-4xl md:text-5xl font-bold tracking-tighter">
-                +<Counter end={250} />
-              </span>
-              <p className="text-slate-500 text-[9px] md:text-[11px] font-light mt-4 leading-snug">
-                Colectivos de salud a empresas a nivel nacional.
               </p>
             </div>
             
