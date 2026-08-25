@@ -38,7 +38,7 @@ const events: CalendarEvent[] = [
   { date: '2026-08-26', title: 'Ticket de Alimentación', type: 'allowance' },
 ];
 
-const dayNames = ['LU', 'MA', 'MI', 'JU', 'VI', 'SÁ', 'DO'];
+const dayNames = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 const months = [
   'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
   'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
@@ -101,13 +101,13 @@ export default function CalendarioPage() {
 
   return (
     <div className="relative w-screen left-1/2 -ml-[50vw] px-6 md:px-12 lg:px-16 animate-in fade-in duration-700">
-      <div className="max-w-[1800px] mx-auto space-y-8">
-        <header className="flex items-center justify-between">
+      <div className="max-w-[1800px] mx-auto space-y-12">
+        <header className="flex items-end justify-between border-b border-slate-200 pb-12">
           <div className="space-y-1">
-            <h1 className="text-3xl font-bold text-slate-800 tracking-tighter">
+            <h1 className="text-5xl font-black text-slate-800 tracking-tighter uppercase">
               {months[viewMonth]} {viewYear}
             </h1>
-            <p className="text-slate-400 text-xs font-light tracking-tight">Gestión de tiempos y eventos institucionales.</p>
+            <p className="text-slate-400 text-sm font-light tracking-tight">Gestión de tiempos e hitos institucionales.</p>
           </div>
           <div className="flex bg-white rounded-2xl shadow-sm border border-slate-100 p-1.5">
             <button 
@@ -116,9 +116,9 @@ export default function CalendarioPage() {
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
-            <div className="px-6 flex items-center justify-center min-w-[100px]">
-              <span className="text-[11px] font-bold text-slate-700 uppercase tracking-widest">
-                {months[viewMonth].substring(0, 3)}
+            <div className="px-6 flex items-center justify-center min-w-[120px]">
+              <span className="text-[12px] font-bold text-slate-700 uppercase tracking-widest">
+                {months[viewMonth]}
               </span>
             </div>
             <button 
@@ -130,20 +130,20 @@ export default function CalendarioPage() {
           </div>
         </header>
 
-        <div className="bg-white rounded-[3rem] border border-slate-100 shadow-2xl overflow-hidden mb-12">
-          {/* Cabecera de días */}
-          <div className="grid grid-cols-7 border-b border-slate-50 bg-slate-50/30">
+        <div className="mb-12">
+          {/* Cabecera de días - Integrado en el fondo */}
+          <div className="grid grid-cols-7 border-b border-slate-200">
             {dayNames.map(name => (
-              <div key={name} className="py-8 text-center border-r border-slate-50 last:border-r-0">
-                <span className="text-[11px] font-bold text-slate-400 tracking-[0.25em]">
+              <div key={name} className="py-6 text-center">
+                <span className="text-[11px] font-bold text-slate-400 uppercase tracking-[0.2em]">
                   {name}
                 </span>
               </div>
             ))}
           </div>
 
-          {/* Cuadrícula del calendario */}
-          <div className="grid grid-cols-7">
+          {/* Cuadrícula del calendario - Sin contenedor tipo card */}
+          <div className="grid grid-cols-7 border-l border-slate-100">
             {calendarDays.map((date, idx) => {
               const isToday = today && 
                             date.day === today.getDate() && 
@@ -156,14 +156,13 @@ export default function CalendarioPage() {
                 <div 
                   key={idx} 
                   className={cn(
-                    "min-h-[160px] p-5 border-r border-b border-slate-50 transition-all hover:bg-slate-50/50 relative group",
-                    (idx + 1) % 7 === 0 && "border-r-0",
-                    !date.isCurrentMonth && "bg-slate-50/20"
+                    "min-h-[180px] p-6 border-r border-b border-slate-100 transition-all hover:bg-white relative group",
+                    !date.isCurrentMonth ? "bg-slate-50/40" : "bg-transparent"
                   )}
                 >
-                  <div className="flex items-center gap-3 mb-4">
+                  <div className="flex items-center gap-3 mb-6">
                     <span className={cn(
-                      "text-base font-bold tracking-tighter",
+                      "text-xl font-bold tracking-tighter",
                       date.isCurrentMonth ? "text-slate-800" : "text-slate-300"
                     )}>
                       {date.day < 10 ? `0${date.day}` : date.day}
@@ -175,19 +174,19 @@ export default function CalendarioPage() {
                     )}
                   </div>
 
-                  <div className="space-y-2">
+                  <div className="space-y-2.5">
                     {dateEvents.map((event, eventIdx) => (
                       <div 
                         key={eventIdx}
                         className={cn(
-                          "flex items-center gap-2 px-3 py-1.5 rounded-full text-[9px] font-semibold leading-none truncate max-w-full shadow-sm",
+                          "flex items-center gap-2 px-3 py-2 rounded-full text-[10px] font-semibold leading-none truncate max-w-full shadow-sm border border-transparent",
                           event.type === 'payment' && "bg-[#8abaff] text-white",
                           event.type === 'allowance' && "bg-[#6c63ff] text-white",
-                          event.type === 'birthday' && "bg-pink-100 text-pink-500",
-                          event.type === 'holiday' && "bg-purple-100 text-purple-400"
+                          event.type === 'birthday' && "bg-pink-100 text-pink-500 border-pink-200",
+                          event.type === 'holiday' && "bg-purple-100 text-purple-400 border-purple-200"
                         )}
                       >
-                        {event.type === 'birthday' && <Cake className="w-3 h-3 shrink-0" />}
+                        {event.type === 'birthday' && <Cake className="w-3.5 h-3.5 shrink-0" />}
                         <span className="truncate">{event.title}</span>
                       </div>
                     ))}
