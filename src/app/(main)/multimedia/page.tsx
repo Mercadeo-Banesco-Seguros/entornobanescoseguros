@@ -9,7 +9,7 @@ export default function MultimediaPage() {
 
   return (
     <div className="flex flex-col items-center justify-start pt-0 pb-10 bg-slate-50 animate-in fade-in duration-1000">
-      <div className="relative w-full max-w-[280px] aspect-[4/3] mb-6">
+      <div className="relative w-full max-w-[320px] aspect-square mb-6">
         <Image
           src={imageUrl}
           alt="Sección en construcción"
@@ -21,7 +21,7 @@ export default function MultimediaPage() {
         />
       </div>
       <div className="text-center space-y-2">
-        <h2 className="text-[9px] font-light text-slate-400 uppercase tracking-widest">Próximamente</h2>
+        <h2 className="text-[9px] font-light text-slate-400 uppercase tracking-normal">Próximamente</h2>
         <p className="text-slate-400 font-light text-[11px] tracking-tight max-w-[240px] mx-auto leading-relaxed">
           Esta sección está en construcción. <br /> Muy pronto compartiremos contenido exclusivo contigo.
         </p>
