@@ -9,7 +9,7 @@ export default function MultimediaPage() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[60vh] pt-2 pb-10 bg-transparent animate-in fade-in duration-1000">
-      <div className="flex flex-col md:flex-row items-center justify-center gap-12 max-w-5xl w-full">
+      <div className="flex flex-col md:flex-row items-center justify-center gap-6 max-w-4xl w-full">
         {/* Imagen */}
         <div className="relative w-full max-w-[320px] aspect-[4/3] shrink-0">
           <Image
