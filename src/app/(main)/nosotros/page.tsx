@@ -107,8 +107,30 @@ const corporateApps = [
 
 function Counter({ end, suffix = "", duration = 4000 }: { end: number; suffix?: string; duration?: number }) {
   const [count, setCount] = React.useState(0);
+  const [isVisible, setIsVisible] = React.useState(false);
+  const containerRef = React.useRef<HTMLSpanElement>(null);
 
   React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  React.useEffect(() => {
+    if (!isVisible) return;
+
     let startTimestamp: number | null = null;
     const step = (timestamp: number) => {
       if (!startTimestamp) startTimestamp = timestamp;
@@ -119,15 +141,37 @@ function Counter({ end, suffix = "", duration = 4000 }: { end: number; suffix?: 
       }
     };
     window.requestAnimationFrame(step);
-  }, [end, duration]);
+  }, [end, duration, isVisible]);
 
-  return <>{count}{suffix}</>;
+  return <span ref={containerRef}>{count}{suffix}</span>;
 }
 
 function ComplianceGrid({ value, label, description, isPercentage = true }: { value: number, label: string, description: string, isPercentage?: boolean }) {
   const [animatedValue, setAnimatedValue] = React.useState(0);
+  const [isVisible, setIsVisible] = React.useState(false);
+  const containerRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(entry.target);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  React.useEffect(() => {
+    if (!isVisible) return;
+
     let startTimestamp: number | null = null;
     const duration = 2500;
     const step = (timestamp: number) => {
@@ -139,14 +183,14 @@ function ComplianceGrid({ value, label, description, isPercentage = true }: { va
       }
     };
     window.requestAnimationFrame(step);
-  }, [value]);
+  }, [value, isVisible]);
 
   const animationProgress = value > 0 ? animatedValue / value : 0;
   
   const filledCount = Math.round(animationProgress * 100);
   
   return (
-    <div className="flex flex-col gap-6 py-8">
+    <div ref={containerRef} className="flex flex-col gap-6 py-8">
       <div className="flex flex-row items-center gap-5">
         <span className="text-white text-6xl md:text-7xl font-bold tracking-tighter shrink-0">
           {Math.round(animatedValue)}{isPercentage ? '%' : ''}
