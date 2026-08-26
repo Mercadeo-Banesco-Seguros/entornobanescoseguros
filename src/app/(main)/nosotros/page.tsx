@@ -185,9 +185,7 @@ function ComplianceGrid({ value, label, description, isPercentage = true }: { va
     window.requestAnimationFrame(step);
   }, [value, isVisible]);
 
-  const animationProgress = value > 0 ? animatedValue / value : 0;
-  
-  const filledCount = Math.round(animationProgress * 100);
+  const filledCount = Math.round(animatedValue);
   
   return (
     <div ref={containerRef} className="flex flex-col gap-6 py-8">
