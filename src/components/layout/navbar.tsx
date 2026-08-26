@@ -328,7 +328,7 @@ export default function Navbar() {
           <div className="px-3 flex items-center">
             <input 
               type="text"
-              placeholder="Habla con Baneskin"
+              placeholder="Habla con Segurito"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               className="bg-transparent text-[9px] font-light text-white placeholder:text-white/60 tracking-tight outline-none w-28 border-none focus:ring-0 p-0"
