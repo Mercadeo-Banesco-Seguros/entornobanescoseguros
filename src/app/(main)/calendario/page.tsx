@@ -150,7 +150,6 @@ export default function CalendarioPage() {
         </header>
 
         <div className="mb-8">
-          {/* Cabecera de días - Integrado en el fondo */}
           <div className="grid grid-cols-7">
             {dayNames.map(name => (
               <div key={name} className="py-4 text-center">
@@ -161,7 +160,6 @@ export default function CalendarioPage() {
             ))}
           </div>
 
-          {/* Cuadrícula del calendario - Sin contenedor tipo card */}
           <div className="grid grid-cols-7 border-l border-slate-100">
             {calendarDays.map((date, idx) => {
               const isToday = today && 
@@ -219,45 +217,45 @@ export default function CalendarioPage() {
       </div>
 
       <Dialog open={!!selectedDay} onOpenChange={(open) => !open && setSelectedDay(null)}>
-        <DialogContent className="sm:max-w-[425px]">
-          <DialogHeader>
-            <DialogTitle className="text-xl font-bold tracking-tight">
+        <DialogContent className="sm:max-w-[400px] p-8">
+          <DialogHeader className="mb-6">
+            <DialogTitle className="text-lg font-bold tracking-tight text-slate-800">
               {selectedDay && `${selectedDay.day} de ${months[selectedDay.month % 12]} ${selectedDay.year}`}
             </DialogTitle>
-            <DialogDescription className="text-xs font-light">
-              Eventos y recordatorios institucionales para este día.
+            <DialogDescription className="text-[10px] font-light text-slate-400 mt-1">
+              Eventos y recordatorios institucionales.
             </DialogDescription>
           </DialogHeader>
-          <div className="space-y-3 mt-4">
+          <div className="space-y-2 mt-2">
             {selectedDay?.events.length === 0 ? (
-              <div className="py-8 text-center space-y-2">
-                <CalendarDays className="w-8 h-8 text-slate-200 mx-auto" />
-                <p className="text-slate-400 text-xs font-light italic">No hay eventos programados para esta fecha.</p>
+              <div className="py-10 text-center space-y-2">
+                <CalendarDays className="w-6 h-6 text-slate-200 mx-auto" strokeWidth={1} />
+                <p className="text-slate-400 text-[10px] font-light italic">Sin eventos programados.</p>
               </div>
             ) : (
               selectedDay?.events.map((event, idx) => (
                 <div 
                   key={idx}
                   className={cn(
-                    "flex items-center gap-3 p-3 rounded-xl border border-transparent transition-all",
-                    event.type === 'payment' && "bg-blue-50/50 border-blue-100",
-                    event.type === 'allowance' && "bg-indigo-50/50 border-indigo-100",
-                    event.type === 'birthday' && "bg-pink-50/50 border-pink-100",
-                    event.type === 'holiday' && "bg-purple-50/50 border-purple-100"
+                    "flex items-center gap-2.5 p-2 rounded-lg border border-transparent transition-all",
+                    event.type === 'payment' && "bg-blue-50/40 border-blue-100/50",
+                    event.type === 'allowance' && "bg-indigo-50/40 border-indigo-100/50",
+                    event.type === 'birthday' && "bg-pink-50/40 border-pink-100/50",
+                    event.type === 'holiday' && "bg-purple-50/40 border-purple-100/50"
                   )}
                 >
                   <div className={cn(
-                    "w-8 h-8 rounded-full flex items-center justify-center shrink-0",
+                    "w-6 h-6 rounded-full flex items-center justify-center shrink-0",
                     event.type === 'payment' && "bg-blue-100 text-blue-500",
                     event.type === 'allowance' && "bg-indigo-100 text-indigo-500",
                     event.type === 'birthday' && "bg-pink-100 text-pink-500",
                     event.type === 'holiday' && "bg-purple-100 text-purple-500"
                   )}>
-                    {event.type === 'birthday' ? <Cake className="w-4 h-4" /> : <CalendarDays className="w-4 h-4" />}
+                    {event.type === 'birthday' ? <Cake className="w-3 h-3" /> : <CalendarDays className="w-3 h-3" />}
                   </div>
                   <div>
-                    <h4 className="text-sm font-semibold text-slate-800 leading-none">{event.title}</h4>
-                    <p className="text-[10px] text-slate-400 font-light mt-1 uppercase tracking-wider">
+                    <h4 className="text-[12px] font-medium text-slate-800 leading-tight">{event.title}</h4>
+                    <p className="text-[8px] text-slate-400 font-light mt-0.5 uppercase tracking-wide">
                       {event.type === 'payment' ? 'Pago' : event.type === 'birthday' ? 'Cumpleaños' : event.type === 'holiday' ? 'Feriado' : 'Asignación'}
                     </p>
                   </div>
