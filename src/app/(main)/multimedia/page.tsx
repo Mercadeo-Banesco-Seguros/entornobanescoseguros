@@ -28,7 +28,7 @@ export default function MultimediaPage() {
           <h2 className="text-[10px] font-normal text-slate-400 uppercase tracking-normal">
             Próximamente
           </h2>
-          <p className="text-slate-400 font-light text-[11px] tracking-tight max-w-[260px] leading-relaxed">
+          <p className="text-slate-400 font-light text-[11px] tracking-tight max-w-[340px] leading-relaxed">
             Esta sección está en construcción. <br /> 
             Muy pronto compartiremos contenido exclusivo contigo.
           </p>
