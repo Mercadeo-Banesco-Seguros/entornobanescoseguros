@@ -1,8 +1,15 @@
 'use client';
 
 import * as React from 'react';
-import { ChevronLeft, ChevronRight, Cake } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Cake, CalendarDays } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 
 type EventType = 'payment' | 'birthday' | 'holiday' | 'allowance';
 
@@ -28,7 +35,7 @@ const events: CalendarEvent[] = [
   { date: '2026-08-12', title: '1era Quincena', type: 'payment' },
   { date: '2026-08-12', title: 'Cumpleaños de Ana Martinez', type: 'birthday' },
   { date: '2026-08-12', title: 'Cumpleaños de Ramon Gonz...', type: 'birthday' },
-  { date: '2026-08-15', title: 'Asunción de la Virgen (Feriado...', type: 'holiday' },
+  { date: '2026-08-15', title: 'Asunción de la Virgen (Feriado...)', type: 'holiday' },
   { date: '2026-08-17', title: 'Complemento Alimentación', type: 'allowance' },
   { date: '2026-08-18', title: 'Cumpleaños de Liliana More...', type: 'birthday' },
   { date: '2026-08-21', title: 'Cumpleaños de Indira Farias', type: 'birthday' },
@@ -43,9 +50,17 @@ const months = [
   'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
 ];
 
+interface SelectedDayData {
+  day: number;
+  month: number;
+  year: number;
+  events: CalendarEvent[];
+}
+
 export default function CalendarioPage() {
   const [currentDate, setCurrentDate] = React.useState(new Date(2026, 7, 1)); // Agosto 2026
   const [today, setToday] = React.useState<Date | null>(null);
+  const [selectedDay, setSelectedDay] = React.useState<SelectedDayData | null>(null);
 
   React.useEffect(() => {
     setToday(new Date(2026, 7, 25)); // Fijado para diseño
@@ -96,6 +111,11 @@ export default function CalendarioPage() {
   const getEventsForDate = (day: number, month: number, year: number) => {
     const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
     return events.filter(e => e.date === dateStr);
+  };
+
+  const handleDayClick = (day: number, month: number, year: number) => {
+    const dayEvents = getEventsForDate(day, month, year);
+    setSelectedDay({ day, month, year, events: dayEvents });
   };
 
   return (
@@ -154,8 +174,9 @@ export default function CalendarioPage() {
               return (
                 <div 
                   key={idx} 
+                  onClick={() => handleDayClick(date.day, date.month, date.year)}
                   className={cn(
-                    "min-h-[126px] p-4 border-r border-b border-slate-100 transition-all hover:bg-white relative group",
+                    "min-h-[126px] p-4 border-r border-b border-slate-100 transition-all hover:bg-white relative group cursor-pointer",
                     !date.isCurrentMonth ? "bg-slate-50/40" : "bg-transparent"
                   )}
                 >
@@ -196,6 +217,56 @@ export default function CalendarioPage() {
           </div>
         </div>
       </div>
+
+      <Dialog open={!!selectedDay} onOpenChange={(open) => !open && setSelectedDay(null)}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-bold tracking-tight">
+              {selectedDay && `${selectedDay.day} de ${months[selectedDay.month % 12]} ${selectedDay.year}`}
+            </DialogTitle>
+            <DialogDescription className="text-xs font-light">
+              Eventos y recordatorios institucionales para este día.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-3 mt-4">
+            {selectedDay?.events.length === 0 ? (
+              <div className="py-8 text-center space-y-2">
+                <CalendarDays className="w-8 h-8 text-slate-200 mx-auto" />
+                <p className="text-slate-400 text-xs font-light italic">No hay eventos programados para esta fecha.</p>
+              </div>
+            ) : (
+              selectedDay?.events.map((event, idx) => (
+                <div 
+                  key={idx}
+                  className={cn(
+                    "flex items-center gap-3 p-3 rounded-xl border border-transparent transition-all",
+                    event.type === 'payment' && "bg-blue-50/50 border-blue-100",
+                    event.type === 'allowance' && "bg-indigo-50/50 border-indigo-100",
+                    event.type === 'birthday' && "bg-pink-50/50 border-pink-100",
+                    event.type === 'holiday' && "bg-purple-50/50 border-purple-100"
+                  )}
+                >
+                  <div className={cn(
+                    "w-8 h-8 rounded-full flex items-center justify-center shrink-0",
+                    event.type === 'payment' && "bg-blue-100 text-blue-500",
+                    event.type === 'allowance' && "bg-indigo-100 text-indigo-500",
+                    event.type === 'birthday' && "bg-pink-100 text-pink-500",
+                    event.type === 'holiday' && "bg-purple-100 text-purple-500"
+                  )}>
+                    {event.type === 'birthday' ? <Cake className="w-4 h-4" /> : <CalendarDays className="w-4 h-4" />}
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-semibold text-slate-800 leading-none">{event.title}</h4>
+                    <p className="text-[10px] text-slate-400 font-light mt-1 uppercase tracking-wider">
+                      {event.type === 'payment' ? 'Pago' : event.type === 'birthday' ? 'Cumpleaños' : event.type === 'holiday' ? 'Feriado' : 'Asignación'}
+                    </p>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
