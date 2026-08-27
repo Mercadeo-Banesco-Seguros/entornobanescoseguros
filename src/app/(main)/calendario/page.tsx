@@ -217,7 +217,7 @@ export default function CalendarioPage() {
       </div>
 
       <Dialog open={!!selectedDay} onOpenChange={(open) => !open && setSelectedDay(null)}>
-        <DialogContent className="sm:max-w-[400px] p-8">
+        <DialogContent className="sm:max-w-[600px] p-8">
           <DialogHeader className="mb-6">
             <DialogTitle className="text-lg font-bold tracking-tight text-slate-800">
               {selectedDay && `${selectedDay.day} de ${months[selectedDay.month % 12]} ${selectedDay.year}`}
