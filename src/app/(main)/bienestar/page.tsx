@@ -215,7 +215,7 @@ export default function BienestarPage() {
       </section>
 
       {/* Nueva Sección: Feriados y eventos */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] bg-slate-50 py-16 px-6 overflow-hidden border-t border-slate-100">
+      <section className="relative w-screen left-1/2 -ml-[50vw] bg-slate-50 py-16 px-12 md:px-24 lg:px-32 overflow-hidden border-t border-slate-100">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
             <div className="space-y-2">
