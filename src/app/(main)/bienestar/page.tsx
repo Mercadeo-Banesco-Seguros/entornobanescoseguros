@@ -134,7 +134,7 @@ export default function BienestarPage() {
                         : "scale-90 opacity-40 hover:opacity-100 hover:scale-105 hover:z-20"
                     )}
                   >
-                    <div className="relative w-32 h-64 md:w-48 md:h-80 lg:w-56 lg:h-96 rounded-3xl overflow-hidden border-2 border-slate-100 shadow-xl bg-slate-50">
+                    <div className="relative w-32 h-48 md:w-48 md:h-64 lg:w-56 lg:h-80 rounded-3xl overflow-hidden border-2 border-slate-100 shadow-xl bg-slate-50">
                       {activityImage && (
                         <Image 
                           src={activityImage.imageUrl} 
