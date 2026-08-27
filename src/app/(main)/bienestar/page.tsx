@@ -34,11 +34,11 @@ export default function BienestarPage() {
 
   React.useEffect(() => {
     setMounted(true);
-    const timer = setTimeout(() => {
-      setCurrentStateIndex(1);
+    const timer = setInterval(() => {
+      setCurrentStateIndex((prev) => (prev === 0 ? 1 : 0));
     }, 10000);
 
-    return () => clearTimeout(timer);
+    return () => clearInterval(timer);
   }, []);
 
   const currentState = wellnessStates[currentStateIndex];
