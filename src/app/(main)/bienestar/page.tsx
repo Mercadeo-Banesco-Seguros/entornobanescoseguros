@@ -329,7 +329,7 @@ export default function BienestarPage() {
               </p>
             </div>
             <Link href="/calendario">
-              <button className="group flex items-center gap-2 bg-[#0054A6] text-white text-[11px] font-medium transition-all px-6 py-2.5 rounded-xl hover:bg-[#0054A6]/90 shadow-sm active:scale-95">
+              <button className="group flex items-center gap-2 bg-[#0054A6] text-white text-[11px] font-light transition-all px-6 py-2.5 rounded-xl hover:bg-[#0054A6]/90 shadow-sm active:scale-95">
                 Ver Calendario Completo <ChevronRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
               </button>
             </Link>
