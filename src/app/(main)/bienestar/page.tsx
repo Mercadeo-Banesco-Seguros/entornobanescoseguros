@@ -50,14 +50,14 @@ export default function BienestarPage() {
           {/* Text Content */}
           <div 
             key={`text-${currentStateIndex}`}
-            className="w-full md:w-1/2 pl-16 md:pl-32 space-y-4 animate-in fade-in slide-in-from-left-4 duration-1000 text-left"
+            className="w-full md:w-1/2 pl-16 md:pl-48 space-y-4 animate-in fade-in slide-in-from-left-4 duration-1000 text-left"
           >
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
               <span className="text-[9px] text-white font-light tracking-tight">
                 {currentState.tag}
               </span>
             </div>
-            <h2 className="text-white text-xl md:text-2xl font-bold tracking-tighter leading-tight max-w-sm drop-shadow-md">
+            <h2 className="text-white text-3xl md:text-5xl font-bold tracking-tighter leading-tight max-w-md drop-shadow-md">
               {currentState.title}
             </h2>
             <div className="flex gap-4">
@@ -68,7 +68,7 @@ export default function BienestarPage() {
           </div>
 
           {/* Image Content */}
-          <div className="hidden md:flex w-1/2 h-full items-end justify-end pt-4">
+          <div className="hidden md:flex w-1/2 h-full items-end justify-start pt-4">
             <div 
               key={`image-${currentStateIndex}`}
               className="relative w-[450px] h-[320px] animate-in fade-in zoom-in-95 duration-1000"
