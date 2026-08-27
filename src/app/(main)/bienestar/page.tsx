@@ -58,7 +58,7 @@ export default function BienestarPage() {
                 {currentState.tag}
               </span>
             </div>
-            <h2 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-[0.95] max-w-md drop-shadow-md">
+            <h2 className="text-white text-2xl md:text-3xl lg:text-4xl font-bold tracking-tighter leading-tight max-w-md drop-shadow-md">
               {currentState.title}
             </h2>
             <div className="flex gap-4">
