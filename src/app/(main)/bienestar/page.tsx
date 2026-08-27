@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from 'react';
@@ -105,20 +104,20 @@ export default function BienestarPage() {
         </div>
       </section>
 
-      {/* Nueva Sección: Tu bienestar nos importa */}
-      <section className="bg-white py-24 px-6 md:px-12 lg:px-24">
-        <div className="max-w-7xl mx-auto flex flex-col items-center">
-          <div className="text-center space-y-4 mb-20">
+      {/* Nueva Sección: Tu bienestar nos importa - Altura Reducida y Full Width */}
+      <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-12 px-6 overflow-hidden border-t border-slate-50">
+        <div className="w-full flex flex-col items-center">
+          <div className="text-center space-y-2 mb-10">
             <span className="text-[#0054A6] text-[11px] font-light tracking-tight uppercase">Actividades</span>
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-slate-900 leading-none">Tu bienestar nos importa</h2>
-            <p className="text-slate-500 text-[10px] md:text-[12px] font-light leading-relaxed max-w-2xl mx-auto mt-6">
-              Explora las diferentes dimensiones de salud que hemos preparado para ti. Interactúa con las tarjetas para conocer más sobre cada pilar de bienestar.
+            <h2 className="text-2xl md:text-4xl font-bold tracking-tighter text-slate-900 leading-none">Tu bienestar nos importa</h2>
+            <p className="text-slate-500 text-[9px] md:text-[11px] font-light leading-relaxed max-w-2xl mx-auto mt-2">
+              Explora las diferentes dimensiones de salud que hemos preparado para ti. Interactúa con las tarjetas.
             </p>
           </div>
 
           {/* Grid de Tarjetas (Estilo Menú con Fondo Blanco) */}
-          <div className="w-full flex flex-col gap-12">
-            <div className="flex justify-center items-end gap-1 md:gap-4 lg:gap-6 flex-grow pb-12">
+          <div className="w-full flex flex-col gap-8 max-w-[1800px] mx-auto">
+            <div className="flex justify-center items-end gap-1 md:gap-4 lg:gap-6 flex-grow pb-6">
               {wellnessActivities.map((item, index) => {
                 const activityImage = PlaceHolderImages.find(img => img.id === item.id);
                 const isActive = activeActivityIndex === index;
@@ -134,7 +133,7 @@ export default function BienestarPage() {
                         : "scale-90 opacity-40 hover:opacity-100 hover:scale-105 hover:z-20"
                     )}
                   >
-                    <div className="relative w-32 h-48 md:w-48 md:h-64 lg:w-56 lg:h-80 rounded-3xl overflow-hidden border-2 border-slate-100 shadow-xl bg-slate-50">
+                    <div className="relative w-28 h-40 md:w-44 md:h-56 lg:w-52 lg:h-72 rounded-3xl overflow-hidden border border-slate-100 shadow-xl bg-slate-50">
                       {activityImage && (
                         <Image 
                           src={activityImage.imageUrl} 
@@ -157,23 +156,23 @@ export default function BienestarPage() {
             </div>
 
             {/* Información de la Actividad Seleccionada */}
-            <div className="flex flex-col md:flex-row justify-between items-end w-full gap-8 px-4 border-t border-slate-100 pt-10">
-              <div className="space-y-4 text-left">
+            <div className="flex flex-col md:flex-row justify-between items-end w-full gap-4 px-12 border-t border-slate-100 pt-6">
+              <div className="space-y-3 text-left">
                 <div className="space-y-0">
-                  <p className="text-slate-400 text-[10px] font-light tracking-tight">Bienestar 360°</p>
-                  <h2 className="text-slate-900 text-2xl md:text-3xl font-light tracking-tighter">Banesco Seguros</h2>
+                  <p className="text-slate-400 text-[9px] font-light tracking-tight uppercase">Bienestar 360°</p>
+                  <h2 className="text-slate-900 text-xl md:text-2xl font-light tracking-tighter">Banesco Seguros</h2>
                 </div>
                 <button 
-                  className="bg-[#0054A6] hover:bg-[#0054A6]/90 text-white rounded-xl px-8 py-2.5 font-light text-[10px] transition-colors"
+                  className="bg-[#0054A6] hover:bg-[#0054A6]/90 text-white rounded-xl px-6 py-2 font-light text-[9px] transition-colors"
                 >
-                  Conocer Más Detalles
+                  Conocer Detalles
                 </button>
               </div>
 
-              <div className="flex flex-col items-end gap-2">
+              <div className="flex flex-col items-end gap-1">
                 <div className="text-right">
-                  <p className="text-slate-400 text-[10px] font-light uppercase tracking-widest">{activeActivity.day}</p>
-                  <h3 className="text-[#0054A6] text-2xl md:text-3xl font-bold tracking-tighter leading-none mt-1">
+                  <p className="text-slate-400 text-[9px] font-light uppercase tracking-widest">{activeActivity.day}</p>
+                  <h3 className="text-[#0054A6] text-xl md:text-2xl font-bold tracking-tighter leading-none mt-1">
                     {activeActivity.style}
                   </h3>
                 </div>
