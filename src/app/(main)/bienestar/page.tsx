@@ -38,12 +38,12 @@ export default function BienestarPage() {
 
   return (
     <div className="flex flex-col w-full min-h-screen">
-      {/* Dynamic Hero Section - Gradient background added */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] -mt-32 pt-32 h-[480px] overflow-hidden flex flex-col items-center justify-start transition-colors duration-700 bg-gradient-to-br from-[#0054A6] to-[#0072CE] shadow-2xl">
+      {/* Dynamic Hero Section - Gradient background made significantly lighter */}
+      <section className="relative w-screen left-1/2 -ml-[50vw] -mt-32 pt-32 h-[480px] overflow-hidden flex flex-col items-center justify-start transition-colors duration-700 bg-gradient-to-br from-[#0061C1] via-[#0072CE] to-[#38BDF8] shadow-2xl">
         {/* Background Gradients */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full blur-[150px] bg-blue-400/20 translate-x-1/2 -translate-y-1/2" />
-          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full blur-[150px] bg-blue-300/10 -translate-x-1/4 translate-y-1/4" />
+          <div className="absolute top-0 right-0 w-[1000px] h-[1000px] rounded-full blur-[150px] bg-sky-400/20 translate-x-1/2 -translate-y-1/2" />
+          <div className="absolute bottom-0 left-0 w-[800px] h-[800px] rounded-full blur-[150px] bg-white/10 -translate-x-1/4 translate-y-1/4" />
         </div>
 
         <div className="container mx-auto px-6 relative z-10 h-full flex items-center">
