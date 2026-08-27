@@ -123,7 +123,7 @@ export default function CalendarioPage() {
       <div className="max-w-[1800px] mx-auto space-y-8">
         <header className="flex items-end justify-between pb-8">
           <div className="space-y-0.5">
-            <h1 className="text-3xl font-black text-slate-800 tracking-tighter">
+            <h1 className="text-3xl font-light text-slate-800 tracking-tighter">
               {months[viewMonth]} {viewYear}
             </h1>
             <p className="text-slate-400 text-xs font-light tracking-tight">Gestión de tiempos e hitos institucionales.</p>
