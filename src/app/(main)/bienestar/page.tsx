@@ -74,11 +74,17 @@ export default function BienestarPage() {
   const [mounted, setMounted] = React.useState(false);
   const [currentStateIndex, setCurrentStateIndex] = React.useState(0);
   const [activeActivityIndex, setActiveActivityIndex] = React.useState(0);
-  const [activeMenuDayIndex, setActiveMenuDayIndex] = React.useState(new Date().getDay() === 0 || new Date().getDay() === 6 ? 0 : new Date().getDay() - 1);
+  const [activeMenuDayIndex, setActiveMenuDayIndex] = React.useState(0);
   const [activeMenuType, setActiveMenuType] = React.useState<'Clásico' | 'Dieta' | 'Ejecutivo'>('Clásico');
 
   React.useEffect(() => {
     setMounted(true);
+    
+    // Evitar error de hidratación ajustando el día después del montaje
+    const today = new Date().getDay();
+    const initialDayIndex = today === 0 || today === 6 ? 0 : today - 1;
+    setActiveMenuDayIndex(initialDayIndex);
+
     const timer = setInterval(() => {
       setCurrentStateIndex((prev) => (prev === 0 ? 1 : 0));
     }, 10000);
@@ -102,7 +108,7 @@ export default function BienestarPage() {
 
   return (
     <div className="flex flex-col w-full min-h-screen">
-      {/* Dynamic Hero Section */}
+      {/* 1. Dynamic Hero Section */}
       <section className="relative w-screen left-1/2 -ml-[50vw] -mt-32 pt-32 h-[528px] overflow-hidden flex flex-col items-center justify-start transition-colors duration-700 bg-gradient-to-br from-[#0061C1] via-[#0072CE] to-[#38BDF8] shadow-2xl">
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute top-0 right-0 w-[1000px] h-[1000px] rounded-full blur-[150px] bg-sky-400/20 translate-x-1/2 -translate-y-1/2" />
@@ -119,7 +125,7 @@ export default function BienestarPage() {
                 {currentState.tag}
               </span>
             </div>
-            <h2 className="text-white text-2xl md:text-3xl lg:text-4xl font-bold tracking-tighter heavyweight leading-tight max-w-md drop-shadow-md">
+            <h2 className="text-white text-2xl md:text-3xl lg:text-4xl font-bold tracking-tighter leading-tight max-w-md drop-shadow-md">
               {currentState.title}
             </h2>
             <div className="flex gap-4">
@@ -155,7 +161,7 @@ export default function BienestarPage() {
         </div>
       </section>
 
-      {/* Sección: Tu bienestar nos importa */}
+      {/* 2. Sección: Tu bienestar nos importa */}
       <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-8 px-6 overflow-hidden">
         <div className="w-full flex flex-col items-center">
           <div className="text-center space-y-2 mb-6">
@@ -230,47 +236,7 @@ export default function BienestarPage() {
         </div>
       </section>
 
-      {/* Sección: Feriados y eventos */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] bg-slate-50 py-16 px-12 md:px-24 lg:px-32 overflow-hidden border-t border-slate-100">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
-            <div className="space-y-2">
-              <span className="text-[#0054A6] text-[11px] font-light tracking-tight uppercase">Calendario</span>
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-slate-900 leading-none">Feriados y eventos</h2>
-              <p className="text-slate-500 text-[11px] font-light leading-relaxed max-w-xl mt-2">
-                Mantente al día con las fechas más importantes de nuestra organización. Planifica tu tiempo y celebra con nosotros.
-              </p>
-            </div>
-            <Link href="/calendario">
-              <button className="group flex items-center gap-2 bg-[#0054A6] text-white text-[11px] font-medium transition-all px-6 py-2.5 rounded-xl hover:bg-[#0054A6]/90 shadow-sm active:scale-95">
-                Ver Calendario Completo <ChevronRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-              </button>
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {upcomingEvents.map((event) => (
-              <div key={event.id} className="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 flex items-center gap-5 group hover:shadow-md transition-shadow">
-                <div className={cn("w-16 h-20 rounded-2xl flex flex-col items-center justify-center shrink-0 border border-slate-50 shadow-inner", event.bgColor)}>
-                  <span className={cn("text-xl font-bold leading-none tracking-tighter", event.color)}>{event.date}</span>
-                  <span className={cn("text-[9px] font-medium mt-1 uppercase", event.color)}>{event.month}</span>
-                </div>
-                <div className="flex-grow space-y-1">
-                  <div className="flex items-center gap-1.5">
-                    <event.icon className={cn("w-3.5 h-3.5", event.color)} strokeWidth={1.5} />
-                    <span className="text-slate-400 text-[9px] font-light uppercase tracking-wider">{event.type}</span>
-                  </div>
-                  <h4 className="text-slate-800 text-sm font-semibold tracking-tight leading-tight group-hover:text-[#0054A6] transition-colors">
-                    {event.title}
-                  </h4>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Sabor Seguro (Menú) Section - Duplicada de Inicio */}
+      {/* 3. Sabor Seguro (Menú) Section - Colocada entre actividades y eventos */}
       <section className="relative w-screen left-1/2 -ml-[50vw] py-12 overflow-hidden min-h-[600px] flex flex-col transition-colors duration-700 bg-[#0054A6]">
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] rounded-full blur-[120px] transition-colors duration-700 bg-blue-500/20" />
@@ -347,6 +313,46 @@ export default function BienestarPage() {
                 ))}
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Sección: Feriados y eventos - Ahora al final */}
+      <section className="relative w-screen left-1/2 -ml-[50vw] bg-slate-50 py-16 px-12 md:px-24 lg:px-32 overflow-hidden border-t border-slate-100">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
+            <div className="space-y-2">
+              <span className="text-[#0054A6] text-[11px] font-light tracking-tight uppercase">Calendario</span>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-slate-900 leading-none">Feriados y eventos</h2>
+              <p className="text-slate-500 text-[11px] font-light leading-relaxed max-w-xl mt-2">
+                Mantente al día con las fechas más importantes de nuestra organización. Planifica tu tiempo y celebra con nosotros.
+              </p>
+            </div>
+            <Link href="/calendario">
+              <button className="group flex items-center gap-2 bg-[#0054A6] text-white text-[11px] font-medium transition-all px-6 py-2.5 rounded-xl hover:bg-[#0054A6]/90 shadow-sm active:scale-95">
+                Ver Calendario Completo <ChevronRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+              </button>
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {upcomingEvents.map((event) => (
+              <div key={event.id} className="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 flex items-center gap-5 group hover:shadow-md transition-shadow">
+                <div className={cn("w-16 h-20 rounded-2xl flex flex-col items-center justify-center shrink-0 border border-slate-50 shadow-inner", event.bgColor)}>
+                  <span className={cn("text-xl font-bold leading-none tracking-tighter", event.color)}>{event.date}</span>
+                  <span className={cn("text-[9px] font-medium mt-1 uppercase", event.color)}>{event.month}</span>
+                </div>
+                <div className="flex-grow space-y-1">
+                  <div className="flex items-center gap-1.5">
+                    <event.icon className={cn("w-3.5 h-3.5", event.color)} strokeWidth={1.5} />
+                    <span className="text-slate-400 text-[9px] font-light uppercase tracking-wider">{event.type}</span>
+                  </div>
+                  <h4 className="text-slate-800 text-sm font-semibold tracking-tight leading-tight group-hover:text-[#0054A6] transition-colors">
+                    {event.title}
+                  </h4>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
