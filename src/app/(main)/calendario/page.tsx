@@ -123,7 +123,7 @@ export default function CalendarioPage() {
       <div className="max-w-[1800px] mx-auto space-y-8">
         <header className="flex items-end justify-between pb-8">
           <div className="space-y-0.5">
-            <h1 className="text-3xl font-semibold text-slate-800 tracking-tighter">
+            <h1 className="text-3xl font-semibold text-slate-800 tracking-[-0.1em]">
               {months[viewMonth]} {viewYear}
             </h1>
             <p className="text-slate-400 text-xs font-light tracking-tight">Gestión de tiempos e hitos institucionales.</p>
@@ -237,7 +237,7 @@ export default function CalendarioPage() {
                 <div 
                   key={idx}
                   className={cn(
-                    "flex items-center gap-2.5 p-2 rounded-lg border border-transparent transition-all",
+                    "flex items-center gap-2 p-2 rounded-lg border border-transparent transition-all",
                     event.type === 'payment' && "bg-blue-50/40 border-blue-100/50",
                     event.type === 'allowance' && "bg-indigo-50/40 border-indigo-100/50",
                     event.type === 'birthday' && "bg-pink-50/40 border-pink-100/50",
@@ -253,8 +253,8 @@ export default function CalendarioPage() {
                   )}>
                     {event.type === 'birthday' ? <Cake className="w-3 h-3" /> : <CalendarDays className="w-3 h-3" />}
                   </div>
-                  <div>
-                    <h4 className="text-[12px] font-medium text-slate-800 leading-tight">{event.title}</h4>
+                  <div className="flex-grow">
+                    <h4 className="text-[11px] font-medium text-slate-800 leading-tight">{event.title}</h4>
                     <p className="text-[8px] text-slate-400 font-light mt-0.5 uppercase tracking-wide">
                       {event.type === 'payment' ? 'Pago' : event.type === 'birthday' ? 'Cumpleaños' : event.type === 'holiday' ? 'Feriado' : 'Asignación'}
                     </p>
