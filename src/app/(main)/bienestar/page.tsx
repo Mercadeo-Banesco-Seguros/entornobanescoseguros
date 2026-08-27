@@ -38,8 +38,8 @@ export default function BienestarPage() {
 
   return (
     <div className="flex flex-col w-full min-h-screen">
-      {/* Dynamic Hero Section - Adjusted style to match requested "Expedición" aesthetic */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] -mt-32 pt-32 h-[480px] overflow-hidden flex flex-col items-center justify-start transition-colors duration-700 bg-[#0054A6] shadow-2xl">
+      {/* Dynamic Hero Section - Gradient background added */}
+      <section className="relative w-screen left-1/2 -ml-[50vw] -mt-32 pt-32 h-[480px] overflow-hidden flex flex-col items-center justify-start transition-colors duration-700 bg-gradient-to-br from-[#0054A6] to-[#0072CE] shadow-2xl">
         {/* Background Gradients */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full blur-[150px] bg-blue-400/20 translate-x-1/2 -translate-y-1/2" />
