@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -34,6 +35,12 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import {
+  Dialog,
+  DialogContent,
+} from "@/components/ui/dialog";
+import Image from 'next/image';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -43,15 +50,14 @@ export default function Navbar() {
   const [isTimeExpanded, setIsTimeExpanded] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [temperature, setTemperature] = useState<number | null>(null);
-  const [showIANotification, setShowIANotification] = useState(false);
+  const [showAIModal, setShowAIModal] = useState(false);
   const [inputValue, setInputValue] = useState('');
   
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const triggerIANotification = () => {
-    setShowIANotification(true);
-    setTimeout(() => setShowIANotification(false), 8000);
+  const triggerAIModal = () => {
+    setShowAIModal(true);
   };
 
   const handleLogout = () => {
@@ -111,6 +117,8 @@ export default function Navbar() {
     { id: 2, title: 'Gestión Pendiente', description: 'Actualización requerida en el módulo de finanzas.', time: 'Hace 2h', icon: XCircle, color: 'text-red-400', bgColor: 'bg-red-50' },
     { id: 3, title: 'Aviso Importante', description: 'Comunicado oficial de la dirección general.', time: 'Hace 4h', icon: AlertTriangle, color: 'text-red-500', bgColor: 'bg-red-50' },
   ];
+
+  const aiPlaceholder = PlaceHolderImages.find(img => img.id === 'segurito-ai-status');
 
   return (
     <div className="fixed top-6 left-0 right-0 z-50 flex flex-col items-center gap-3 px-4 pointer-events-none">
@@ -320,7 +328,7 @@ export default function Navbar() {
 
         <div className="bg-[#003B73]/90 backdrop-blur-sm rounded-full flex items-center shadow-2xl border border-white/10 h-10 px-1 gap-1">
           <button 
-            onClick={triggerIANotification}
+            onClick={triggerAIModal}
             className="p-1.5 text-white/60 hover:text-white transition-colors"
           >
             <Plus className="w-3 h-3" strokeWidth={1.5} />
@@ -331,11 +339,12 @@ export default function Navbar() {
               placeholder="Habla con Segurito"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
-              className="bg-transparent text-[9px] font-light text-white placeholder:text-white/60 tracking-tight outline-none w-28 border-none focus:ring-0 p-0"
+              onClick={triggerAIModal}
+              className="bg-transparent text-[9px] font-light text-white placeholder:text-white/60 tracking-tight outline-none w-28 border-none focus:ring-0 p-0 cursor-pointer"
             />
           </div>
           <button 
-            onClick={triggerIANotification}
+            onClick={triggerAIModal}
             className="p-1.5 text-white/60 hover:text-white transition-colors"
           >
             <Mic className="w-3 h-3" strokeWidth={1.5} />
@@ -343,24 +352,36 @@ export default function Navbar() {
         </div>
       </div>
 
-      {showIANotification && (
-        <div className="animate-in fade-in slide-in-from-top-4 duration-500 absolute top-20 left-1/2 -translate-x-1/2 w-full max-w-2xl px-4 pointer-events-auto">
-          <div className="bg-red-100/90 backdrop-blur-md py-3 px-6 rounded-xl border border-red-200/50 flex items-center gap-4">
-            <AlertTriangle className="w-5 h-5 text-red-600 shrink-0" strokeWidth={1.5} />
-            <div className="flex-grow">
-              <p className="text-[10px] font-light text-red-900 leading-tight tracking-tight">
-                El asistente virtual se encuentra fuera de servicio temporalmente.
+      <Dialog open={showAIModal} onOpenChange={setShowAIModal}>
+        <DialogContent className="sm:max-w-[500px] p-0 overflow-hidden bg-white border-none shadow-2xl rounded-3xl">
+          <div className="flex flex-col items-center text-center p-8">
+            <div className="relative w-full aspect-[4/3] mb-6">
+              <Image 
+                src={aiPlaceholder?.imageUrl || "https://docs.google.com/drawings/d/e/2PACX-1vSBtI8YJ80xUbACa1RDn_iid3x1LG9Zyox5h55zON4vV3xBJn6K3QHU31FE7aUr4985cmCkoX_6rJhz/pub?w=960&h=720"}
+                alt="Segurito AI"
+                fill
+                className="object-contain"
+                data-ai-hint={aiPlaceholder?.imageHint || "robot assistant"}
+              />
+            </div>
+            <div className="space-y-3">
+              <h2 className="text-2xl font-bold text-slate-800 tracking-tighter">Segurito</h2>
+              <p className="text-slate-500 font-light text-[11px] leading-relaxed max-w-[280px] mx-auto">
+                Las funciones de inteligencia artificial aún no están disponibles. 
+                Estamos trabajando para integrar a Segurito en tu flujo de trabajo diario muy pronto.
               </p>
             </div>
-            <button 
-              onClick={() => setShowIANotification(false)}
-              className="p-1 text-red-600/60 hover:text-red-600 transition-colors"
-            >
-              <X className="w-4 h-4" strokeWidth={1.5} />
-            </button>
+            <div className="mt-8 w-full">
+              <button 
+                onClick={() => setShowAIModal(false)}
+                className="w-full bg-[#003B73] text-white text-[10px] font-light px-8 py-3 rounded-xl hover:bg-[#003B73]/90 transition-colors uppercase tracking-widest"
+              >
+                Entendido
+              </button>
+            </div>
           </div>
-        </div>
-      )}
+        </DialogContent>
+      </Dialog>
 
     </div>
   );

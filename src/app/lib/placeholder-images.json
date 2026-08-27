@@ -114,6 +114,12 @@
       "description": "Multimedia en construcción",
       "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vQDYWrs3tS3au8IfBhDzA21ZZBPGR4XCdiRMcDUXeI1ZSCGaVmrWNBMHj10NXVuFV7WEn5hOQOfERx2/pub?w=960&h=720",
       "imageHint": "construction cat"
+    },
+    {
+      "id": "segurito-ai-status",
+      "description": "Segurito IA Próximamente",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vSBtI8YJ80xUbACa1RDn_iid3x1LG9Zyox5h55zON4vV3xBJn6K3QHU31FE7aUr4985cmCkoX_6rJhz/pub?w=960&h=720",
+      "imageHint": "robot assistant"
     }
   ]
 }
