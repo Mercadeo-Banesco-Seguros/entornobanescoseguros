@@ -38,8 +38,8 @@ export default function BienestarPage() {
 
   return (
     <div className="flex flex-col w-full min-h-screen">
-      {/* Dynamic Hero Section - Extra Compact Height */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] -mt-32 pt-28 min-h-[300px] overflow-hidden flex flex-col items-center justify-center transition-colors duration-700 bg-[#0054A6] shadow-2xl">
+      {/* Dynamic Hero Section - Adjusted Height downwards */}
+      <section className="relative w-screen left-1/2 -ml-[50vw] -mt-32 pt-28 min-h-[360px] pb-12 overflow-hidden flex flex-col items-center justify-start transition-colors duration-700 bg-[#0054A6] shadow-2xl">
         {/* Background Gradients */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full blur-[120px] bg-blue-400/20 translate-x-1/2 -translate-y-1/2" />
