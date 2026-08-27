@@ -74,7 +74,7 @@ export default function BienestarPage() {
               className={cn(
                 "relative transition-all duration-1000 ease-in-out",
                 currentStateIndex === 0 
-                  ? "w-[750px] h-[650px] translate-y-8 scale-105" 
+                  ? "w-[650px] h-[550px] translate-y-4 scale-100" 
                   : "w-[800px] h-[700px] translate-y-10"
               )}
             >
