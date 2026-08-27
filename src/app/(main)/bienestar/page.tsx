@@ -4,8 +4,9 @@ import * as React from 'react';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
-import { CalendarDays, Gift, CreditCard, ChevronRight, MapPin } from 'lucide-react';
+import { CalendarDays, Gift, CreditCard, ChevronRight, Utensils } from 'lucide-react';
 import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 const wellnessStates = [
   {
@@ -61,10 +62,20 @@ const upcomingEvents = [
   },
 ];
 
+const menuDays = [
+  { id: 'lunes', day: 'Lunes', style: 'Bowl Energético' },
+  { id: 'martes', day: 'Martes', style: 'Pollo al Curry' },
+  { id: 'miercoles', day: 'Miércoles', style: 'Pasta Mediterránea' },
+  { id: 'jueves', day: 'Jueves', style: 'Salmón Grillado' },
+  { id: 'viernes', day: 'Viernes', style: 'Bowl de Proteína' },
+];
+
 export default function BienestarPage() {
   const [mounted, setMounted] = React.useState(false);
   const [currentStateIndex, setCurrentStateIndex] = React.useState(0);
   const [activeActivityIndex, setActiveActivityIndex] = React.useState(0);
+  const [activeMenuDayIndex, setActiveMenuDayIndex] = React.useState(new Date().getDay() === 0 || new Date().getDay() === 6 ? 0 : new Date().getDay() - 1);
+  const [activeMenuType, setActiveMenuType] = React.useState<'Clásico' | 'Dieta' | 'Ejecutivo'>('Clásico');
 
   React.useEffect(() => {
     setMounted(true);
@@ -78,6 +89,14 @@ export default function BienestarPage() {
   const currentState = wellnessStates[currentStateIndex];
   const heroImage = PlaceHolderImages.find(img => img.id === currentState.imageId);
   const activeActivity = wellnessActivities[activeActivityIndex];
+  const activeMenuDay = menuDays[activeMenuDayIndex];
+
+  const getMenuImageUrl = (type: 'Clásico' | 'Dieta' | 'Ejecutivo', index: number) => {
+    const prefixMap = { 'Clásico': 'menu-c-', 'Dieta': 'menu-d-', 'Ejecutivo': 'menu-e-' };
+    const prefix = prefixMap[type];
+    const id = `${prefix}${index + 1}`;
+    return PlaceHolderImages.find(img => img.id === id)?.imageUrl || `https://picsum.photos/seed/${id}/600/800`;
+  };
 
   if (!mounted) return null;
 
@@ -85,14 +104,12 @@ export default function BienestarPage() {
     <div className="flex flex-col w-full min-h-screen">
       {/* Dynamic Hero Section */}
       <section className="relative w-screen left-1/2 -ml-[50vw] -mt-32 pt-32 h-[528px] overflow-hidden flex flex-col items-center justify-start transition-colors duration-700 bg-gradient-to-br from-[#0061C1] via-[#0072CE] to-[#38BDF8] shadow-2xl">
-        {/* Background Gradients */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute top-0 right-0 w-[1000px] h-[1000px] rounded-full blur-[150px] bg-sky-400/20 translate-x-1/2 -translate-y-1/2" />
           <div className="absolute bottom-0 left-0 w-[800px] h-[800px] rounded-full blur-[150px] bg-white/10 -translate-x-1/4 translate-y-1/4" />
         </div>
 
         <div className="container mx-auto px-6 relative z-10 h-full flex items-center">
-          {/* Text Content */}
           <div 
             key={`text-${currentStateIndex}`}
             className="w-full md:w-1/2 pl-16 md:pl-32 space-y-6 animate-in fade-in slide-in-from-left-4 duration-1000 text-left"
@@ -112,7 +129,6 @@ export default function BienestarPage() {
             </div>
           </div>
 
-          {/* Image Content */}
           <div className="hidden md:flex w-1/2 h-full items-end justify-end">
             <div 
               key={`image-${currentStateIndex}`}
@@ -214,7 +230,7 @@ export default function BienestarPage() {
         </div>
       </section>
 
-      {/* Nueva Sección: Feriados y eventos */}
+      {/* Sección: Feriados y eventos */}
       <section className="relative w-screen left-1/2 -ml-[50vw] bg-slate-50 py-16 px-12 md:px-24 lg:px-32 overflow-hidden border-t border-slate-100">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
@@ -250,6 +266,87 @@ export default function BienestarPage() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Sabor Seguro (Menú) Section - Duplicada de Inicio */}
+      <section className="relative w-screen left-1/2 -ml-[50vw] py-12 overflow-hidden min-h-[600px] flex flex-col transition-colors duration-700 bg-[#0054A6]">
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] rounded-full blur-[120px] transition-colors duration-700 bg-blue-500/20" />
+          <div className="absolute bottom-1/4 -left-20 w-96 h-96 rounded-full blur-[100px] transition-colors duration-700 bg-sky-400/15" />
+          <div className="absolute top-0 right-1/3 w-[400px] h-[400px] rounded-full blur-[150px] transition-colors duration-700 bg-blue-700/10" />
+        </div>
+
+        <div className="container mx-auto px-12 md:px-24 relative z-10 flex flex-col flex-grow">
+          <div className="flex justify-center items-end gap-1 md:gap-4 lg:gap-6 flex-grow pb-6">
+            {menuDays.map((item, index) => {
+              const currentImageUrl = getMenuImageUrl(activeMenuType, index);
+              const isActive = activeMenuDayIndex === index;
+
+              return (
+                <div 
+                  key={item.day}
+                  onMouseEnter={() => setActiveMenuDayIndex(index)}
+                  className={cn(
+                    "relative transition-all duration-500 cursor-pointer group flex flex-col items-center",
+                    isActive 
+                      ? "scale-100 z-20 translate-y-[-10px]" 
+                      : "scale-75 opacity-40 hover:opacity-100 hover:scale-100 hover:z-20"
+                  )}
+                >
+                  <div className="relative w-24 h-48 md:w-36 md:h-72 lg:w-40 lg:h-80 rounded-2xl overflow-hidden border-2 border-white/20 shadow-2xl">
+                    <Image 
+                      src={currentImageUrl} 
+                      alt={item.day} 
+                      fill 
+                      unoptimized
+                      className="object-cover"
+                    />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="flex flex-col md:flex-row justify-between items-end w-full gap-8 px-4 pb-4">
+            <div className="space-y-4 text-left">
+              <div className="space-y-0">
+                <p className="text-white/70 text-[10px] font-light tracking-tight">Menú {activeMenuType}</p>
+                <h2 className="text-white text-2xl md:text-3xl font-light tracking-tighter">Banesco Seguros</h2>
+              </div>
+              <Button 
+                variant="secondary" 
+                className="bg-white hover:bg-white/90 rounded-xl px-6 font-light text-[10px] h-8 transition-colors duration-700 text-[#0054A6] border-none"
+              >
+                Ver Menú Completo
+              </Button>
+            </div>
+
+            <div className="flex flex-col items-end gap-6">
+              <div className="text-right">
+                <p className="text-white/80 text-[10px] font-light uppercase tracking-widest">{activeMenuDay.day}</p>
+                <h3 className="text-white text-2xl md:text-3xl font-light tracking-tighter leading-none mt-1">
+                  {activeMenuDay.style}
+                </h3>
+              </div>
+              <div className="flex gap-3">
+                {['Clásico', 'Dieta', 'Ejecutivo'].map((type) => (
+                  <button
+                    key={type}
+                    onClick={() => setActiveMenuType(type as 'Clásico' | 'Dieta' | 'Ejecutivo')}
+                    className={cn(
+                      "px-6 py-2 rounded-xl text-[10px] font-light transition-all duration-300 h-8",
+                      activeMenuType === type 
+                        ? "bg-white text-[#0054A6]" 
+                        : "bg-white/10 text-white/60 hover:text-white"
+                    )}
+                  >
+                    {type}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
