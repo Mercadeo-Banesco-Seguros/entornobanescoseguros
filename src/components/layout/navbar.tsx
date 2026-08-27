@@ -353,25 +353,26 @@ export default function Navbar() {
       </div>
 
       <Dialog open={showAIModal} onOpenChange={setShowAIModal}>
-        <DialogContent className="sm:max-w-[500px] p-0 overflow-hidden bg-white border-none shadow-2xl rounded-3xl">
-          <div className="flex flex-col items-center text-center p-8">
-            <div className="relative w-full aspect-[4/3] mb-6">
+        <DialogContent className="sm:max-w-[600px] p-0 overflow-hidden bg-white border-none shadow-2xl rounded-3xl">
+          <div className="flex flex-col md:flex-row items-center p-8 gap-8">
+            <div className="relative w-full md:w-1/2 aspect-square">
               <Image 
-                src={aiPlaceholder?.imageUrl || "https://docs.google.com/drawings/d/e/2PACX-1vSBtI8YJ80xUbACa1RDn_iid3x1LG9Zyox5h55zON4vV3xBJn6K3QHU31FE7aUr4985cmCkoX_6rJhz/pub?w=960&h=720"}
-                alt="Segurito AI"
+                src={aiPlaceholder?.imageUrl || "https://docs.google.com/drawings/d/e/2PACX-1vSBtI8YJ80xUbACa1RDn_iid3x1LG9Zyox5h55zON4vV3xBJn6K3QHU31FE7aUr4985cmCkoX_6rJhz/pub?w=960&h=720&format=png"}
+                alt="Segurito IA"
                 fill
                 className="object-contain"
+                unoptimized
                 data-ai-hint={aiPlaceholder?.imageHint || "robot assistant"}
               />
             </div>
-            <div className="space-y-3">
-              <h2 className="text-2xl font-bold text-slate-800 tracking-tighter">Segurito</h2>
-              <p className="text-slate-500 font-light text-[11px] leading-relaxed max-w-[280px] mx-auto">
-                Las funciones de inteligencia artificial aún no están disponibles. 
-                Estamos trabajando para integrar a Segurito en tu flujo de trabajo diario muy pronto.
-              </p>
-            </div>
-            <div className="mt-8 w-full">
+            <div className="w-full md:w-1/2 space-y-6 text-left">
+              <div className="space-y-2">
+                <h2 className="text-3xl font-bold text-slate-800 tracking-tighter">Segurito</h2>
+                <p className="text-slate-500 font-light text-[11px] leading-relaxed">
+                  Las funciones de inteligencia artificial aún no están disponibles. 
+                  Estamos trabajando para integrar a Segurito en tu flujo de trabajo diario muy pronto.
+                </p>
+              </div>
               <button 
                 onClick={() => setShowAIModal(false)}
                 className="w-full bg-[#003B73] text-white text-[10px] font-light px-8 py-3 rounded-xl hover:bg-[#003B73]/90 transition-colors uppercase tracking-widest"
