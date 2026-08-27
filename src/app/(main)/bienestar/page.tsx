@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from 'react';
@@ -39,8 +38,8 @@ export default function BienestarPage() {
 
   return (
     <div className="flex flex-col w-full min-h-screen">
-      {/* Dynamic Hero Section - Adjusted to overlay navbar */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] -mt-32 pt-32 min-h-[520px] overflow-hidden flex flex-col items-center justify-center transition-colors duration-700 bg-[#0054A6] shadow-2xl">
+      {/* Dynamic Hero Section - Compact Height to match other sections */}
+      <section className="relative w-screen left-1/2 -ml-[50vw] -mt-32 pt-32 min-h-[480px] overflow-hidden flex flex-col items-center justify-center transition-colors duration-700 bg-[#0054A6] shadow-2xl">
         {/* Background Gradients */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full blur-[150px] bg-blue-400/20 translate-x-1/2 -translate-y-1/2" />
@@ -51,7 +50,7 @@ export default function BienestarPage() {
           {/* Text Content */}
           <div 
             key={`text-${currentStateIndex}`}
-            className="w-full md:w-1/2 pl-16 md:pl-32 space-y-8 animate-in fade-in slide-in-from-left-4 duration-1000 text-left"
+            className="w-full md:w-1/2 pl-16 md:pl-32 space-y-6 animate-in fade-in slide-in-from-left-4 duration-1000 text-left"
           >
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
               <span className="text-[10px] text-white font-light tracking-tight">
@@ -72,7 +71,7 @@ export default function BienestarPage() {
           <div className="hidden md:flex w-1/2 h-full items-end justify-end pt-12">
             <div 
               key={`image-${currentStateIndex}`}
-              className="relative w-[900px] h-[800px] animate-in fade-in zoom-in-95 duration-1000"
+              className="relative w-[700px] h-[600px] animate-in fade-in zoom-in-95 duration-1000"
             >
               {heroImage && (
                 <Image 
