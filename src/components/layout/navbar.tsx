@@ -375,7 +375,7 @@ export default function Navbar() {
               </div>
               <button 
                 onClick={() => setShowAIModal(false)}
-                className="w-full bg-[#003B73] text-white text-[10px] font-light px-8 py-3 rounded-xl hover:bg-[#003B73]/90 transition-colors uppercase tracking-widest"
+                className="w-full bg-[#003B73] text-white text-[10px] font-light px-8 py-3 rounded-xl hover:bg-[#003B73]/90 transition-colors tracking-normal"
               >
                 Entendido
               </button>
