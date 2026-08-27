@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from 'react';
@@ -75,7 +74,7 @@ export default function BienestarPage() {
               className={cn(
                 "relative transition-all duration-1000 ease-in-out",
                 currentStateIndex === 0 
-                  ? "w-[900px] h-[800px] translate-y-32 scale-110" 
+                  ? "w-[900px] h-[800px] translate-y-12 scale-110" 
                   : "w-[800px] h-[700px] translate-y-10"
               )}
             >
