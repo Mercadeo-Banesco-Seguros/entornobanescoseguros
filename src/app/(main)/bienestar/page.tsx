@@ -20,9 +20,11 @@ const wellnessStates = [
 ];
 
 export default function BienestarPage() {
+  const [mounted, setMounted] = React.useState(false);
   const [currentStateIndex, setCurrentStateIndex] = React.useState(0);
 
   React.useEffect(() => {
+    setMounted(true);
     const timer = setTimeout(() => {
       setCurrentStateIndex(1);
     }, 10000);
@@ -32,6 +34,8 @@ export default function BienestarPage() {
 
   const currentState = wellnessStates[currentStateIndex];
   const heroImage = PlaceHolderImages.find(img => img.id === currentState.imageId);
+
+  if (!mounted) return null;
 
   return (
     <div className="flex flex-col w-full min-h-screen">
