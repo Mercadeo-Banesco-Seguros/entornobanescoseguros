@@ -120,6 +120,18 @@
       "description": "Segurito IA Próximamente",
       "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vSBtI8YJ80xUbACa1RDn_iid3x1LG9Zyox5h55zON4vV3xBJn6K3QHU31FE7aUr4985cmCkoX_6rJhz/pub?w=960&h=720&format=png",
       "imageHint": "robot assistant"
+    },
+    {
+      "id": "wellness-hero-1",
+      "description": "Bienestar Potencial",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vSml8cCPN0OwXrRZpBeWyItXmJjmo1AvyEMHP0kyCFvd8lH4BK1uSjEwNAh-zz1Nl_oUFcrB9FbHabX/pub?w=960&h=720&format=png",
+      "imageHint": "wellness potential"
+    },
+    {
+      "id": "wellness-hero-2",
+      "description": "Bienestar Integral",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vROb5Y5XzYtidmDcBe4nHtzjkNYmBEBm_GKxjVMRQngtTYkHl_dwuWkVVSE6MZB7-k9nZjEs6zinf3J/pub?w=960&h=720&format=png",
+      "imageHint": "wellness integral"
     }
   ]
 }
