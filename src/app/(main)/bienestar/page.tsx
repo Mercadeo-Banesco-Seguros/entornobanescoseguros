@@ -105,19 +105,19 @@ export default function BienestarPage() {
       </section>
 
       {/* Nueva Sección: Tu bienestar nos importa - Altura Reducida y Full Width */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-12 px-6 overflow-hidden border-t border-slate-50">
+      <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-8 px-6 overflow-hidden border-t border-slate-50">
         <div className="w-full flex flex-col items-center">
-          <div className="text-center space-y-2 mb-10">
+          <div className="text-center space-y-2 mb-6">
             <span className="text-[#0054A6] text-[11px] font-light tracking-tight uppercase">Actividades</span>
-            <h2 className="text-2xl md:text-4xl font-bold tracking-tighter text-slate-900 leading-none">Tu bienestar nos importa</h2>
-            <p className="text-slate-500 text-[9px] md:text-[11px] font-light leading-relaxed max-w-2xl mx-auto mt-2">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tighter text-slate-900 leading-none">Tu bienestar nos importa</h2>
+            <p className="text-slate-500 text-[9px] md:text-[10px] font-light leading-relaxed max-w-2xl mx-auto mt-1">
               Explora las diferentes dimensiones de salud que hemos preparado para ti. Interactúa con las tarjetas.
             </p>
           </div>
 
           {/* Grid de Tarjetas (Estilo Menú con Fondo Blanco) */}
-          <div className="w-full flex flex-col gap-8 max-w-[1800px] mx-auto">
-            <div className="flex justify-center items-end gap-1 md:gap-4 lg:gap-6 flex-grow pb-6">
+          <div className="w-full flex flex-col gap-4 max-w-[1800px] mx-auto">
+            <div className="flex justify-center items-end gap-1 md:gap-4 lg:gap-6 flex-grow pb-4">
               {wellnessActivities.map((item, index) => {
                 const activityImage = PlaceHolderImages.find(img => img.id === item.id);
                 const isActive = activeActivityIndex === index;
@@ -129,11 +129,11 @@ export default function BienestarPage() {
                     className={cn(
                       "relative transition-all duration-500 cursor-pointer group flex flex-col items-center",
                       isActive 
-                        ? "scale-105 z-20 translate-y-[-10px]" 
+                        ? "scale-105 z-20 translate-y-[-5px]" 
                         : "scale-90 opacity-40 hover:opacity-100 hover:scale-105 hover:z-20"
                     )}
                   >
-                    <div className="relative w-28 h-40 md:w-44 md:h-56 lg:w-52 lg:h-72 rounded-3xl overflow-hidden border border-slate-100 shadow-xl bg-slate-50">
+                    <div className="relative w-28 h-36 md:w-40 md:h-48 lg:w-48 lg:h-64 rounded-3xl overflow-hidden border border-slate-100 shadow-lg bg-slate-50">
                       {activityImage && (
                         <Image 
                           src={activityImage.imageUrl} 
@@ -156,14 +156,14 @@ export default function BienestarPage() {
             </div>
 
             {/* Información de la Actividad Seleccionada */}
-            <div className="flex flex-col md:flex-row justify-between items-end w-full gap-4 px-12 border-t border-slate-100 pt-6">
-              <div className="space-y-3 text-left">
+            <div className="flex flex-col md:flex-row justify-between items-end w-full gap-4 px-12 border-t border-slate-100 pt-4">
+              <div className="space-y-2 text-left">
                 <div className="space-y-0">
                   <p className="text-slate-400 text-[9px] font-light tracking-tight uppercase">Bienestar 360°</p>
-                  <h2 className="text-slate-900 text-xl md:text-2xl font-light tracking-tighter">Banesco Seguros</h2>
+                  <h2 className="text-slate-900 text-lg md:text-xl font-light tracking-tighter">Banesco Seguros</h2>
                 </div>
                 <button 
-                  className="bg-[#0054A6] hover:bg-[#0054A6]/90 text-white rounded-xl px-6 py-2 font-light text-[9px] transition-colors"
+                  className="bg-[#0054A6] hover:bg-[#0054A6]/90 text-white rounded-xl px-6 py-1.5 font-light text-[9px] transition-colors"
                 >
                   Conocer Detalles
                 </button>
