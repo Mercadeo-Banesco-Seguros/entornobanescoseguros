@@ -38,40 +38,40 @@ export default function BienestarPage() {
 
   return (
     <div className="flex flex-col w-full min-h-screen">
-      {/* Dynamic Hero Section - Compact Height to match other sections */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] -mt-32 pt-32 min-h-[480px] overflow-hidden flex flex-col items-center justify-center transition-colors duration-700 bg-[#0054A6] shadow-2xl">
+      {/* Dynamic Hero Section - Extra Compact Height */}
+      <section className="relative w-screen left-1/2 -ml-[50vw] -mt-32 pt-28 min-h-[300px] overflow-hidden flex flex-col items-center justify-center transition-colors duration-700 bg-[#0054A6] shadow-2xl">
         {/* Background Gradients */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full blur-[150px] bg-blue-400/20 translate-x-1/2 -translate-y-1/2" />
-          <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full blur-[150px] bg-blue-300/10 -translate-x-1/4 translate-y-1/4" />
+          <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full blur-[120px] bg-blue-400/20 translate-x-1/2 -translate-y-1/2" />
+          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full blur-[120px] bg-blue-300/10 -translate-x-1/4 translate-y-1/4" />
         </div>
 
         <div className="container mx-auto px-6 relative z-10 h-full flex items-center">
           {/* Text Content */}
           <div 
             key={`text-${currentStateIndex}`}
-            className="w-full md:w-1/2 pl-16 md:pl-32 space-y-6 animate-in fade-in slide-in-from-left-4 duration-1000 text-left"
+            className="w-full md:w-1/2 pl-16 md:pl-32 space-y-4 animate-in fade-in slide-in-from-left-4 duration-1000 text-left"
           >
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
-              <span className="text-[10px] text-white font-light tracking-tight">
+              <span className="text-[9px] text-white font-light tracking-tight">
                 {currentState.tag}
               </span>
             </div>
-            <h2 className="text-white text-2xl md:text-3xl lg:text-4xl font-bold tracking-tighter leading-tight max-w-md drop-shadow-md">
+            <h2 className="text-white text-xl md:text-2xl font-bold tracking-tighter leading-tight max-w-sm drop-shadow-md">
               {currentState.title}
             </h2>
             <div className="flex gap-4">
-              <button className="px-10 py-3 rounded-xl bg-white text-[#0054A6] text-[10px] font-light hover:bg-white/90 transition-colors">
+              <button className="px-8 py-2 rounded-xl bg-white text-[#0054A6] text-[9px] font-light hover:bg-white/90 transition-colors">
                 Ver Más
               </button>
             </div>
           </div>
 
           {/* Image Content */}
-          <div className="hidden md:flex w-1/2 h-full items-end justify-end pt-12">
+          <div className="hidden md:flex w-1/2 h-full items-end justify-end pt-4">
             <div 
               key={`image-${currentStateIndex}`}
-              className="relative w-[700px] h-[600px] animate-in fade-in zoom-in-95 duration-1000"
+              className="relative w-[450px] h-[320px] animate-in fade-in zoom-in-95 duration-1000"
             >
               {heroImage && (
                 <Image 
@@ -90,7 +90,7 @@ export default function BienestarPage() {
       </section>
 
       {/* Additional Content */}
-      <section className="bg-white py-24 px-6 md:px-12 lg:px-24">
+      <section className="bg-white py-20 px-6 md:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto">
           <div className="text-center space-y-4 mb-16">
             <span className="text-[#0054A6] text-[11px] font-light tracking-tight uppercase">Beneficios</span>
