@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -18,9 +19,18 @@ const wellnessStates = [
   }
 ];
 
+const wellnessActivities = [
+  { id: 'wellness-yoga', day: 'Salud Física', style: 'Yoga y Flexibilidad' },
+  { id: 'wellness-nutrition', day: 'Alimentación', style: 'Nutrición Balanceada' },
+  { id: 'wellness-mindfulness', day: 'Salud Mental', style: 'Mindfulness' },
+  { id: 'wellness-fitness', day: 'Energía', style: 'Actividad Física' },
+  { id: 'wellness-ergonomics', day: 'Confort', style: 'Ergonomía Laboral' },
+];
+
 export default function BienestarPage() {
   const [mounted, setMounted] = React.useState(false);
   const [currentStateIndex, setCurrentStateIndex] = React.useState(0);
+  const [activeActivityIndex, setActiveActivityIndex] = React.useState(0);
 
   React.useEffect(() => {
     setMounted(true);
@@ -33,12 +43,13 @@ export default function BienestarPage() {
 
   const currentState = wellnessStates[currentStateIndex];
   const heroImage = PlaceHolderImages.find(img => img.id === currentState.imageId);
+  const activeActivity = wellnessActivities[activeActivityIndex];
 
   if (!mounted) return null;
 
   return (
     <div className="flex flex-col w-full min-h-screen">
-      {/* Dynamic Hero Section - Gradient background made significantly lighter */}
+      {/* Dynamic Hero Section - Sin Modificaciones */}
       <section className="relative w-screen left-1/2 -ml-[50vw] -mt-32 pt-32 h-[480px] overflow-hidden flex flex-col items-center justify-start transition-colors duration-700 bg-gradient-to-br from-[#0061C1] via-[#0072CE] to-[#38BDF8] shadow-2xl">
         {/* Background Gradients */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -94,15 +105,80 @@ export default function BienestarPage() {
         </div>
       </section>
 
-      {/* Additional Content */}
+      {/* Nueva Sección: Tu bienestar nos importa */}
       <section className="bg-white py-24 px-6 md:px-12 lg:px-24">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-7xl mx-auto flex flex-col items-center">
           <div className="text-center space-y-4 mb-20">
-            <span className="text-[#0054A6] text-[11px] font-light tracking-tight uppercase">Beneficios</span>
+            <span className="text-[#0054A6] text-[11px] font-light tracking-tight uppercase">Actividades</span>
             <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-slate-900 leading-none">Tu bienestar nos importa</h2>
             <p className="text-slate-500 text-[10px] md:text-[12px] font-light leading-relaxed max-w-2xl mx-auto mt-6">
-              Explora todos los recursos y beneficios que tenemos diseñados especialmente para acompañarte en tu día a día, potenciando tu equilibrio personal y profesional.
+              Explora las diferentes dimensiones de salud que hemos preparado para ti. Interactúa con las tarjetas para conocer más sobre cada pilar de bienestar.
             </p>
+          </div>
+
+          {/* Grid de Tarjetas (Estilo Menú con Fondo Blanco) */}
+          <div className="w-full flex flex-col gap-12">
+            <div className="flex justify-center items-end gap-1 md:gap-4 lg:gap-6 flex-grow pb-12">
+              {wellnessActivities.map((item, index) => {
+                const activityImage = PlaceHolderImages.find(img => img.id === item.id);
+                const isActive = activeActivityIndex === index;
+
+                return (
+                  <div 
+                    key={item.id}
+                    onMouseEnter={() => setActiveActivityIndex(index)}
+                    className={cn(
+                      "relative transition-all duration-500 cursor-pointer group flex flex-col items-center",
+                      isActive 
+                        ? "scale-105 z-20 translate-y-[-10px]" 
+                        : "scale-90 opacity-40 hover:opacity-100 hover:scale-105 hover:z-20"
+                    )}
+                  >
+                    <div className="relative w-32 h-64 md:w-48 md:h-80 lg:w-56 lg:h-96 rounded-3xl overflow-hidden border-2 border-slate-100 shadow-xl bg-slate-50">
+                      {activityImage && (
+                        <Image 
+                          src={activityImage.imageUrl} 
+                          alt={item.style} 
+                          fill 
+                          unoptimized
+                          className="object-cover"
+                          data-ai-hint={activityImage.imageHint}
+                        />
+                      )}
+                      {/* Overlay sutil para las tarjetas no activas */}
+                      <div className={cn(
+                        "absolute inset-0 transition-opacity duration-500",
+                        isActive ? "bg-black/10" : "bg-white/40"
+                      )} />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Información de la Actividad Seleccionada */}
+            <div className="flex flex-col md:flex-row justify-between items-end w-full gap-8 px-4 border-t border-slate-100 pt-10">
+              <div className="space-y-4 text-left">
+                <div className="space-y-0">
+                  <p className="text-slate-400 text-[10px] font-light tracking-tight">Bienestar 360°</p>
+                  <h2 className="text-slate-900 text-2xl md:text-3xl font-light tracking-tighter">Banesco Seguros</h2>
+                </div>
+                <button 
+                  className="bg-[#0054A6] hover:bg-[#0054A6]/90 text-white rounded-xl px-8 py-2.5 font-light text-[10px] transition-colors"
+                >
+                  Conocer Más Detalles
+                </button>
+              </div>
+
+              <div className="flex flex-col items-end gap-2">
+                <div className="text-right">
+                  <p className="text-slate-400 text-[10px] font-light uppercase tracking-widest">{activeActivity.day}</p>
+                  <h3 className="text-[#0054A6] text-2xl md:text-3xl font-bold tracking-tighter leading-none mt-1">
+                    {activeActivity.style}
+                  </h3>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

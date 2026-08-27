@@ -108,6 +108,36 @@
       "description": "Segurito IA Próximamente",
       "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vSml8cCPN0OwXrRZpBeWyItXmJjmo1AvyEMHP0kyCFvd8lH4BK1uSjEwNAh-zz1Nl_oUFcrB9FbHabX/pub?w=960&h=720&format=png",
       "imageHint": "explorer character"
+    },
+    {
+      "id": "wellness-yoga",
+      "description": "Yoga y Flexibilidad",
+      "imageUrl": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=600&h=800",
+      "imageHint": "yoga pose"
+    },
+    {
+      "id": "wellness-nutrition",
+      "description": "Nutrición Balanceada",
+      "imageUrl": "https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=600&h=800",
+      "imageHint": "healthy food"
+    },
+    {
+      "id": "wellness-mindfulness",
+      "description": "Mindfulness",
+      "imageUrl": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=600&h=800",
+      "imageHint": "meditation peace"
+    },
+    {
+      "id": "wellness-fitness",
+      "description": "Actividad Física",
+      "imageUrl": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=600&h=800",
+      "imageHint": "gym workout"
+    },
+    {
+      "id": "wellness-ergonomics",
+      "description": "Ergonomía Laboral",
+      "imageUrl": "https://images.unsplash.com/photo-1527689368864-3a821dbccc34?auto=format&fit=crop&w=600&h=800",
+      "imageHint": "office ergonomics"
     }
   ]
 }
