@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from 'react';
@@ -68,7 +67,7 @@ export default function BienestarPage() {
                 {currentState.tag}
               </span>
             </div>
-            <h2 className="text-white text-2xl md:text-3xl lg:text-4xl font-bold tracking-tighter leading-tight max-w-md drop-shadow-md">
+            <h2 className="text-white text-2xl md:text-3xl lg:text-4xl font-bold tracking-tighter heavyweight leading-tight max-w-md drop-shadow-md">
               {currentState.title}
             </h2>
             <div className="flex gap-4">
@@ -106,7 +105,7 @@ export default function BienestarPage() {
       </section>
 
       {/* Nueva Sección: Tu bienestar nos importa - Altura Reducida y Full Width */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-8 px-6 overflow-hidden border-t border-slate-50">
+      <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-8 px-6 overflow-hidden">
         <div className="w-full flex flex-col items-center">
           <div className="text-center space-y-2 mb-6">
             <span className="text-[#0054A6] text-[11px] font-light tracking-tight uppercase">Actividades</span>
@@ -157,7 +156,7 @@ export default function BienestarPage() {
             </div>
 
             {/* Información de la Actividad Seleccionada */}
-            <div className="flex flex-col md:flex-row justify-between items-end w-full gap-4 px-12 border-t border-slate-100 pt-4">
+            <div className="flex flex-col md:flex-row justify-between items-end w-full gap-4 px-12 pt-4">
               <div className="space-y-2 text-left">
                 <div className="space-y-0">
                   <p className="text-slate-400 text-[9px] font-light tracking-tight uppercase">Bienestar 360°</p>
