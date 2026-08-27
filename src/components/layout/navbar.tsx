@@ -353,7 +353,7 @@ export default function Navbar() {
       </div>
 
       <Dialog open={showAIModal} onOpenChange={setShowAIModal}>
-        <DialogContent className="sm:max-w-[600px] p-0 overflow-hidden bg-white border-none shadow-2xl rounded-[2.5rem]">
+        <DialogContent className="sm:max-w-[600px] p-0 overflow-hidden bg-white border-none shadow-2xl rounded-[3.5rem]">
           <div className="flex flex-col md:flex-row items-center p-8 gap-8">
             <div className="relative w-full md:w-1/2 aspect-square">
               <Image 
