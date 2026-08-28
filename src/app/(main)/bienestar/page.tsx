@@ -186,7 +186,7 @@ export default function BienestarPage() {
 
                 return (
                   <div 
-                    key={item.id}
+                    key={item.id} 
                     onMouseEnter={() => setActiveActivityIndex(index)}
                     className={cn(
                       "relative transition-all duration-500 cursor-pointer group flex flex-col items-center",
@@ -346,12 +346,12 @@ export default function BienestarPage() {
               <div 
                 key={event.id} 
                 className={cn(
-                  "bg-white rounded-3xl p-6 shadow-sm border border-slate-100 flex items-center gap-5 group hover:shadow-2xl transition-all duration-300 cursor-pointer",
+                  "bg-white rounded-3xl p-6 border border-slate-100 flex items-center gap-5 group transition-all duration-300 cursor-pointer",
                   event.hoverBg
                 )}
               >
                 <div className={cn(
-                  "w-16 h-20 rounded-2xl flex flex-col items-center justify-center shrink-0 border border-slate-50 shadow-inner transition-colors duration-300", 
+                  "w-16 h-20 rounded-2xl flex flex-col items-center justify-center shrink-0 border border-slate-50 transition-colors duration-300", 
                   event.bgColor,
                   "group-hover:bg-white/20 group-hover:border-white/30"
                 )}>
