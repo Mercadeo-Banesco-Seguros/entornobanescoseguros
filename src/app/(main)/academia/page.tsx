@@ -15,7 +15,7 @@ const academiaHeroStates = [
   },
   {
     tag: "Valores Institucionales",
-    title: "Comprometidos con el código de ética",
+    title: "Compromiso con el Código de Ética",
     imageId: "academia-hero-2",
   },
   {
