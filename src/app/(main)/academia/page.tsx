@@ -256,7 +256,7 @@ export default function AcademiaPage() {
         </div>
       </section>
 
-      {/* 3. Programas Especializados */}
+      {/* 3. Visita Nuestra Academia Banesco Seguros */}
       <section className="relative w-screen left-1/2 -ml-[50vw] bg-slate-50 py-24 px-8 md:px-16 lg:px-24 border-t border-slate-100">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-16 gap-8">
@@ -266,7 +266,7 @@ export default function AcademiaPage() {
                 <span className="text-[10px] font-light text-slate-600">Academia Banesco Seguros</span>
               </div>
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight leading-[0.9] text-slate-900">
-                Programas <br /> <span className="text-[#0054A6]">Especializados</span>
+                Visita Nuestra <br /> <span className="text-[#0054A6]">Academia Banesco Seguros</span>
               </h2>
             </div>
             <div className="max-w-md space-y-6 text-right">
