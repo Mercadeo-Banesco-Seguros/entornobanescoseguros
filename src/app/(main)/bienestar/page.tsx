@@ -38,7 +38,8 @@ const upcomingEvents = [
     type: 'Feriado Nacional', 
     icon: CalendarDays, 
     color: 'text-purple-500', 
-    bgColor: 'bg-purple-50' 
+    bgColor: 'bg-purple-50',
+    hoverBg: 'hover:bg-purple-50/80'
   },
   { 
     id: 2, 
@@ -48,7 +49,8 @@ const upcomingEvents = [
     type: 'Pago Programado', 
     icon: CreditCard, 
     color: 'text-blue-500', 
-    bgColor: 'bg-blue-50' 
+    bgColor: 'bg-blue-50',
+    hoverBg: 'hover:bg-blue-50/80'
   },
   { 
     id: 3, 
@@ -58,7 +60,8 @@ const upcomingEvents = [
     type: 'Evento Especial', 
     icon: Gift, 
     color: 'text-pink-500', 
-    bgColor: 'bg-pink-50' 
+    bgColor: 'bg-pink-50',
+    hoverBg: 'hover:bg-pink-50/80'
   },
 ];
 
@@ -337,7 +340,13 @@ export default function BienestarPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {upcomingEvents.map((event) => (
-              <div key={event.id} className="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 flex items-center gap-5 group hover:shadow-md transition-shadow">
+              <div 
+                key={event.id} 
+                className={cn(
+                  "bg-white rounded-3xl p-6 shadow-sm border border-slate-100 flex items-center gap-5 group hover:shadow-md transition-all duration-300 cursor-pointer",
+                  event.hoverBg
+                )}
+              >
                 <div className={cn("w-16 h-20 rounded-2xl flex flex-col items-center justify-center shrink-0 border border-slate-50 shadow-inner", event.bgColor)}>
                   <span className={cn("text-xl font-bold leading-none tracking-tighter", event.color)}>{event.date}</span>
                   <span className={cn("text-[9px] font-medium mt-1 uppercase", event.color)}>{event.month}</span>
