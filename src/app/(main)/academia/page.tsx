@@ -131,20 +131,20 @@ export default function AcademiaPage() {
       </section>
 
       {/* 2b. Impacto de la Formación Corporativa */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] bg-[#003B73] py-24 px-8 md:px-16 lg:px-24 text-white overflow-hidden">
+      <section className="relative w-screen left-1/2 -ml-[50vw] bg-[#003B73] py-16 px-8 md:px-16 lg:px-24 text-white overflow-hidden">
         <div className="absolute inset-0 pointer-events-none opacity-10">
           <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-white blur-[120px] -translate-y-1/2 translate-x-1/2" />
         </div>
 
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="text-center space-y-4 mb-20">
+          <div className="text-center space-y-4 mb-12">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
               <span className="text-[8px] text-white font-light">Estadísticas Clave</span>
             </div>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight">El Impacto de la Formación Corporativa</h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-x-16 gap-y-20">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-x-16 gap-y-12">
             {/* Fila 1 */}
             <div className="flex gap-6 items-start">
               <div className="shrink-0 w-24 h-20 relative">
