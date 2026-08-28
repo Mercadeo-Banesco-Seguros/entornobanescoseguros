@@ -32,6 +32,54 @@ const categories = [
   { id: 'liderazgo', label: 'Liderazgo', icon: GraduationCap },
 ];
 
+function Counter({ end, duration = 5000, suffix = "", prefix = "" }: { end: number, duration?: number, suffix?: string, prefix?: string }) {
+  const [count, setCount] = React.useState(0);
+
+  React.useEffect(() => {
+    let startTimestamp: number | null = null;
+    const step = (timestamp: number) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      setCount(Math.floor(progress * end));
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      }
+    };
+    window.requestAnimationFrame(step);
+  }, [end, duration]);
+
+  return <>{prefix}{count}{suffix}</>;
+}
+
+function AnimatedCircle({ progress, duration = 5000 }: { progress: number, duration?: number }) {
+  const [offset, setOffset] = React.useState(251.2);
+  const radius = 40;
+  const circumference = 2 * Math.PI * radius;
+
+  React.useEffect(() => {
+    let startTimestamp: number | null = null;
+    const targetOffset = circumference - (progress / 100) * circumference;
+    
+    const step = (timestamp: number) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const timeProgress = Math.min((timestamp - startTimestamp) / duration, 1);
+      const currentOffset = 251.2 - (timeProgress * (251.2 - targetOffset));
+      setOffset(currentOffset);
+      if (timeProgress < 1) {
+        window.requestAnimationFrame(step);
+      }
+    };
+    window.requestAnimationFrame(step);
+  }, [progress, duration, circumference]);
+
+  return (
+    <svg viewBox="0 0 100 100" className="w-full h-full">
+      <circle cx="50" cy="50" r="40" stroke="rgba(255,255,255,0.1)" strokeWidth="8" fill="none" />
+      <circle cx="50" cy="50" r="40" stroke="white" strokeWidth="8" fill="none" strokeDasharray="251.2" strokeDashoffset={offset} transform="rotate(-90 50 50)" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 export default function AcademiaPage() {
   const [mounted, setMounted] = React.useState(false);
   const [currentStateIndex, setCurrentStateIndex] = React.useState(0);
@@ -149,12 +197,12 @@ export default function AcademiaPage() {
             <div className="flex gap-6 items-start">
               <div className="shrink-0 w-24 h-20 relative">
                 <svg viewBox="0 0 100 80" className="w-full h-full fill-none stroke-white" strokeWidth="2">
-                  <path d="M10 70 L30 65 L50 45 L70 50 L90 10" />
+                  <path d="M10 70 L30 65 L50 45 L70 50 L90 10" className="animate-in fade-in duration-1000" />
                 </svg>
               </div>
               <div className="space-y-2">
                 <div className="flex items-baseline gap-2">
-                  <span className="text-4xl font-black tracking-tighter">250%</span>
+                  <span className="text-4xl font-bold tracking-tighter"><Counter end={250} suffix="%" /></span>
                   <span className="text-[13px] font-medium text-white/90">Crecimiento</span>
                 </div>
                 <p className="text-[10px] font-light leading-relaxed text-white/60 max-w-[220px]">
@@ -165,14 +213,11 @@ export default function AcademiaPage() {
 
             <div className="flex gap-6 items-start">
               <div className="shrink-0 w-20 h-20 relative">
-                <svg viewBox="0 0 100 100" className="w-full h-full">
-                  <circle cx="50" cy="50" r="40" stroke="rgba(255,255,255,0.1)" strokeWidth="8" fill="none" />
-                  <circle cx="50" cy="50" r="40" stroke="white" strokeWidth="8" fill="none" strokeDasharray="251.2" strokeDashoffset="20" transform="rotate(-90 50 50)" />
-                </svg>
+                <AnimatedCircle progress={92} />
               </div>
               <div className="space-y-2">
                 <div className="flex items-baseline gap-2">
-                  <span className="text-4xl font-black tracking-tighter">92%</span>
+                  <span className="text-4xl font-bold tracking-tighter"><Counter end={92} suffix="%" /></span>
                   <span className="text-[13px] font-medium text-white/90">Satisfacción</span>
                 </div>
                 <p className="text-[10px] font-light leading-relaxed text-white/60 max-w-[220px]">
@@ -183,14 +228,11 @@ export default function AcademiaPage() {
 
             <div className="flex gap-6 items-start">
               <div className="shrink-0 w-20 h-20 relative">
-                <svg viewBox="0 0 100 100" className="w-full h-full">
-                  <circle cx="50" cy="50" r="40" stroke="rgba(255,255,255,0.1)" strokeWidth="8" fill="none" />
-                  <circle cx="50" cy="50" r="40" stroke="white" strokeWidth="8" fill="none" strokeDasharray="251.2" strokeDashoffset="25" transform="rotate(-90 50 50)" />
-                </svg>
+                <AnimatedCircle progress={90} />
               </div>
               <div className="space-y-2">
                 <div className="flex items-baseline gap-2">
-                  <span className="text-4xl font-black tracking-tighter">90%</span>
+                  <span className="text-4xl font-bold tracking-tighter"><Counter end={90} suffix="%" /></span>
                   <span className="text-[13px] font-medium text-white/90">Adopción</span>
                 </div>
                 <p className="text-[10px] font-light leading-relaxed text-white/60 max-w-[220px]">
@@ -208,7 +250,7 @@ export default function AcademiaPage() {
               </div>
               <div className="space-y-2">
                 <div className="flex items-baseline gap-2">
-                  <span className="text-4xl font-black tracking-tighter">218%</span>
+                  <span className="text-4xl font-bold tracking-tighter"><Counter end={218} suffix="%" /></span>
                   <span className="text-[13px] font-medium text-white/90">Ingresos</span>
                 </div>
                 <p className="text-[10px] font-light leading-relaxed text-white/60 max-w-[220px]">
@@ -219,14 +261,11 @@ export default function AcademiaPage() {
 
             <div className="flex gap-6 items-start">
               <div className="shrink-0 w-20 h-20 relative">
-                <svg viewBox="0 0 100 100" className="w-full h-full">
-                  <circle cx="50" cy="50" r="40" stroke="rgba(255,255,255,0.1)" strokeWidth="8" fill="none" />
-                  <circle cx="50" cy="50" r="40" stroke="white" strokeWidth="8" fill="none" strokeDasharray="251.2" strokeDashoffset="100" transform="rotate(-90 50 50)" />
-                </svg>
+                <AnimatedCircle progress={75} />
               </div>
               <div className="space-y-2">
                 <div className="flex items-baseline gap-2">
-                  <span className="text-4xl font-black tracking-tighter">+45M</span>
+                  <span className="text-4xl font-bold tracking-tighter"><Counter end={45} prefix="+" suffix="M" /></span>
                   <span className="text-[13px] font-medium text-white/90">Empleos</span>
                 </div>
                 <p className="text-[10px] font-light leading-relaxed text-white/60 max-w-[220px]">
@@ -237,14 +276,11 @@ export default function AcademiaPage() {
 
             <div className="flex gap-6 items-start">
               <div className="shrink-0 w-20 h-20 relative">
-                <svg viewBox="0 0 100 100" className="w-full h-full">
-                  <circle cx="50" cy="50" r="40" stroke="rgba(255,255,255,0.1)" strokeWidth="8" fill="none" />
-                  <circle cx="50" cy="50" r="40" stroke="white" strokeWidth="8" fill="none" strokeDasharray="251.2" strokeDashoffset="50" transform="rotate(-90 50 50)" />
-                </svg>
+                <AnimatedCircle progress={80} />
               </div>
               <div className="space-y-2">
                 <div className="flex items-baseline gap-2">
-                  <span className="text-4xl font-black tracking-tighter">80%</span>
+                  <span className="text-4xl font-bold tracking-tighter"><Counter end={80} suffix="%" /></span>
                   <span className="text-[13px] font-medium text-white/90">Liderazgo</span>
                 </div>
                 <p className="text-[10px] font-light leading-relaxed text-white/60 max-w-[220px]">
