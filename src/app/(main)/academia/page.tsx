@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
 import { BookOpen, GraduationCap, Award, Search, Share2, PlayCircle } from 'lucide-react';
-import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
 const academiaHeroStates = [
