@@ -281,18 +281,21 @@ export default function AcademiaPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { id: '01', title: 'Gestión de Riesgos', subtitle: 'Nivel Avanzado', img: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=600&h=400' },
-              { id: '02', title: 'Estrategia Comercial', subtitle: 'Liderazgo de Ventas', img: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&h=400' },
-              { id: '03', title: 'Atención al Cliente', subtitle: 'Excelencia en Servicio', img: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=600&h=400' },
+              { id: '01', title: 'Gestión de Riesgos', subtitle: 'Nivel Avanzado', bg: 'bg-[#0054A6]' },
+              { id: '02', title: 'Estrategia Comercial', subtitle: 'Liderazgo de Ventas', bg: 'bg-[#003B73]' },
+              { id: '03', title: 'Atención al Cliente', subtitle: 'Excelencia en Servicio', bg: 'bg-[#002D54]' },
             ].map((course) => (
-              <div key={course.id} className="group relative aspect-video rounded-3xl overflow-hidden cursor-pointer shadow-sm hover:shadow-xl transition-all duration-500">
-                <Image src={course.img} alt={course.title} fill className="object-cover group-hover:scale-110 transition-transform duration-700" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                <div className="absolute inset-0 p-8 flex flex-col justify-end">
-                   <span className="text-[8px] font-light text-white/60 uppercase tracking-widest mb-1">{course.subtitle}</span>
-                   <h3 className="text-xl font-bold text-white tracking-tight">{course.title}</h3>
-                   <div className="mt-4 flex items-center gap-2 text-white text-[9px] font-light opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <PlayCircle className="w-4 h-4" />
+              <div key={course.id} className={cn(
+                "group relative aspect-video rounded-[2.5rem] overflow-hidden cursor-pointer transition-all duration-500 hover:scale-[1.02] shadow-sm",
+                course.bg
+              )}>
+                <div className="absolute inset-0 p-10 flex flex-col justify-end">
+                   <span className="text-[9px] font-light text-white/60 uppercase tracking-tight mb-2">{course.subtitle}</span>
+                   <h3 className="text-2xl font-bold text-white tracking-tighter leading-none">{course.title}</h3>
+                   <div className="mt-6 flex items-center gap-2 text-white text-[10px] font-light opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                      <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
+                        <PlayCircle className="w-4 h-4" />
+                      </div>
                       Continuar Aprendiendo
                    </div>
                 </div>
