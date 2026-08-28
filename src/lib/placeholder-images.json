@@ -107,6 +107,54 @@
       "description": "Segurito IA Próximamente",
       "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vSBtI8YJ80xUbACa1RDn_iid3x1LG9Zyox5h55zON4vV3xBJn6K3QHU31FE7aUr4985cmCkoX_6rJhz/pub?format=png&w=960&h=720",
       "imageHint": "robot assistant"
+    },
+    {
+      "id": "wellness-yoga",
+      "description": "Yoga y Flexibilidad",
+      "imageUrl": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=600&h=800",
+      "imageHint": "yoga pose"
+    },
+    {
+      "id": "wellness-nutrition",
+      "description": "Nutrición Balanceada",
+      "imageUrl": "https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=600&h=800",
+      "imageHint": "healthy food"
+    },
+    {
+      "id": "wellness-mindfulness",
+      "description": "Mindfulness",
+      "imageUrl": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=600&h=800",
+      "imageHint": "meditation peace"
+    },
+    {
+      "id": "wellness-fitness",
+      "description": "Actividad Física",
+      "imageUrl": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=600&h=800",
+      "imageHint": "gym workout"
+    },
+    {
+      "id": "wellness-ergonomics",
+      "description": "Ergonomía Laboral",
+      "imageUrl": "https://images.unsplash.com/photo-1527689368864-3a821dbccc34?auto=format&fit=crop&w=600&h=800",
+      "imageHint": "office ergonomics"
+    },
+    {
+      "id": "academia-hero-1",
+      "description": "Sangre Azul Academia",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vR7WNrPe8Aznmo4abuO5LF8mgqIaUnFqQyeLUZH3nnfsm3Gz6n2QEyGy0Pxi3njWPy5qsV9fDf998OH/pub?format=png&w=960&h=720",
+      "imageHint": "corporate culture"
+    },
+    {
+      "id": "academia-hero-2",
+      "description": "Ética Academia",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vR_WaX2Xbhmzu4fy6sfKHFzoVdKrRgmWpsVQlWGIg_eHR456gB4pqlnSSJmYXEgl3XUIPI57RebCmAO/pub?format=png&w=960&h=720",
+      "imageHint": "professional ethics"
+    },
+    {
+      "id": "academia-hero-3",
+      "description": "Productos Academia",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vSoJ6sIoq43g1msRRV51LJvw1Z3oOLV8E2AtDlICDv3IhYtid1ii6oakMvbVQYt_9u_qjjw78xFSSeF/pub?format=png&w=960&h=720",
+      "imageHint": "business growth"
     }
   ]
 }

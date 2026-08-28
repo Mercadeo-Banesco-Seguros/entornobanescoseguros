@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from 'react';
@@ -54,7 +53,7 @@ export default function AcademiaPage() {
 
   return (
     <div className="flex flex-col w-full min-h-screen">
-      {/* 1. Dynamic Hero Section */}
+      {/* 1. Dynamic Hero Section - Exact Layout from Bienestar */}
       <section className="relative w-screen left-1/2 -ml-[50vw] -mt-32 pt-32 h-[528px] overflow-hidden flex flex-col items-center justify-start transition-colors duration-700 bg-gradient-to-br from-[#0054A6] via-[#003B73] to-[#002D54] shadow-2xl">
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute top-0 left-0 w-[1000px] h-[1000px] rounded-full blur-[150px] bg-blue-400/20 -translate-x-1/2 -translate-y-1/2" />
@@ -84,7 +83,12 @@ export default function AcademiaPage() {
           <div className="hidden md:flex w-1/2 h-full items-end justify-end">
             <div 
               key={`image-${currentStateIndex}`}
-              className="relative w-[700px] h-[500px] transition-all duration-1000 ease-in-out"
+              className={cn(
+                "relative transition-all duration-1000 ease-in-out",
+                currentStateIndex === 0 
+                  ? "w-[650px] h-[550px] translate-y-4 scale-100" 
+                  : "w-[800px] h-[700px] translate-y-10"
+              )}
             >
               {heroImage && (
                 <Image 
