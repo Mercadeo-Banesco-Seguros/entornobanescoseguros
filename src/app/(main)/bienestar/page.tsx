@@ -39,7 +39,8 @@ const upcomingEvents = [
     icon: CalendarDays, 
     color: 'text-purple-500', 
     bgColor: 'bg-purple-50',
-    hoverBg: 'hover:bg-purple-50/80'
+    hoverBg: 'hover:bg-purple-500',
+    iconColor: 'text-purple-500'
   },
   { 
     id: 2, 
@@ -50,7 +51,8 @@ const upcomingEvents = [
     icon: CreditCard, 
     color: 'text-blue-500', 
     bgColor: 'bg-blue-50',
-    hoverBg: 'hover:bg-blue-50/80'
+    hoverBg: 'hover:bg-blue-500',
+    iconColor: 'text-blue-500'
   },
   { 
     id: 3, 
@@ -61,7 +63,8 @@ const upcomingEvents = [
     icon: Gift, 
     color: 'text-pink-500', 
     bgColor: 'bg-pink-50',
-    hoverBg: 'hover:bg-pink-50/80'
+    hoverBg: 'hover:bg-pink-500',
+    iconColor: 'text-pink-500'
   },
 ];
 
@@ -343,20 +346,24 @@ export default function BienestarPage() {
               <div 
                 key={event.id} 
                 className={cn(
-                  "bg-white rounded-3xl p-6 shadow-sm border border-slate-100 flex items-center gap-5 group hover:shadow-md transition-all duration-300 cursor-pointer",
+                  "bg-white rounded-3xl p-6 shadow-sm border border-slate-100 flex items-center gap-5 group hover:shadow-2xl transition-all duration-300 cursor-pointer",
                   event.hoverBg
                 )}
               >
-                <div className={cn("w-16 h-20 rounded-2xl flex flex-col items-center justify-center shrink-0 border border-slate-50 shadow-inner", event.bgColor)}>
-                  <span className={cn("text-xl font-bold leading-none tracking-tighter", event.color)}>{event.date}</span>
-                  <span className={cn("text-[9px] font-medium mt-1 uppercase", event.color)}>{event.month}</span>
+                <div className={cn(
+                  "w-16 h-20 rounded-2xl flex flex-col items-center justify-center shrink-0 border border-slate-50 shadow-inner transition-colors duration-300", 
+                  event.bgColor,
+                  "group-hover:bg-white/20 group-hover:border-white/30"
+                )}>
+                  <span className={cn("text-xl font-bold leading-none tracking-tighter transition-colors duration-300", event.color, "group-hover:text-white")}>{event.date}</span>
+                  <span className={cn("text-[9px] font-medium mt-1 uppercase transition-colors duration-300", event.color, "group-hover:text-white")}>{event.month}</span>
                 </div>
                 <div className="flex-grow space-y-1">
                   <div className="flex items-center gap-1.5">
-                    <event.icon className={cn("w-3.5 h-3.5", event.color)} strokeWidth={1.5} />
-                    <span className="text-slate-400 text-[9px] font-light uppercase tracking-wider">{event.type}</span>
+                    <event.icon className={cn("w-3.5 h-3.5 transition-colors duration-300", event.color, "group-hover:text-white")} strokeWidth={1.5} />
+                    <span className="text-slate-400 text-[9px] font-light uppercase tracking-wider transition-colors duration-300 group-hover:text-white/80">{event.type}</span>
                   </div>
-                  <h4 className="text-slate-800 text-sm font-semibold tracking-tight leading-tight group-hover:text-[#0054A6] transition-colors">
+                  <h4 className="text-slate-800 text-sm font-semibold tracking-tight leading-tight transition-colors duration-300 group-hover:text-white">
                     {event.title}
                   </h4>
                 </div>
