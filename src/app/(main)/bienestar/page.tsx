@@ -195,7 +195,7 @@ export default function BienestarPage() {
                         : "scale-90 opacity-40 hover:opacity-100 hover:scale-105 hover:z-20"
                     )}
                   >
-                    <div className="relative w-28 h-36 md:w-40 md:h-48 lg:w-48 lg:h-64 rounded-3xl overflow-hidden border border-slate-100 shadow-lg bg-slate-50">
+                    <div className="relative w-28 h-36 md:w-40 md:h-48 lg:w-48 lg:h-64 rounded-3xl overflow-hidden border border-slate-100 bg-slate-50 shadow-none">
                       {activityImage && (
                         <Image 
                           src={activityImage.imageUrl} 
@@ -335,7 +335,7 @@ export default function BienestarPage() {
               </p>
             </div>
             <Link href="/calendario">
-              <button className="group flex items-center gap-2 bg-[#0054A6] text-white text-[11px] font-light transition-all px-6 py-2.5 rounded-xl hover:bg-[#0054A6]/90 shadow-sm active:scale-95">
+              <button className="group flex items-center gap-2 bg-[#0054A6] text-white text-[11px] font-light transition-all px-6 py-2.5 rounded-xl hover:bg-[#0054A6]/90 shadow-none active:scale-95">
                 Ver Calendario Completo <ChevronRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
               </button>
             </Link>
@@ -346,7 +346,7 @@ export default function BienestarPage() {
               <div 
                 key={event.id} 
                 className={cn(
-                  "bg-white rounded-3xl p-6 border border-slate-100 flex items-center gap-5 group transition-all duration-300 cursor-pointer",
+                  "bg-white rounded-3xl p-6 border border-slate-100 flex items-center gap-5 group transition-all duration-300 cursor-pointer shadow-none",
                   event.hoverBg
                 )}
               >
@@ -361,7 +361,7 @@ export default function BienestarPage() {
                 <div className="flex-grow space-y-1">
                   <div className="flex items-center gap-1.5">
                     <event.icon className={cn("w-3.5 h-3.5 transition-colors duration-300", event.color, "group-hover:text-white")} strokeWidth={1.5} />
-                    <span className="text-slate-400 text-[9px] font-light uppercase tracking-wider transition-colors duration-300 group-hover:text-white/80">{event.type}</span>
+                    <span className="text-slate-400 text-[9px] font-normal transition-colors duration-300 group-hover:text-white/80">{event.type}</span>
                   </div>
                   <h4 className="text-slate-800 text-sm font-semibold tracking-tight leading-tight transition-colors duration-300 group-hover:text-white">
                     {event.title}
