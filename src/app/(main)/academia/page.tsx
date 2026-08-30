@@ -190,7 +190,7 @@ export default function AcademiaPage() {
             </h2>
             <div className="flex gap-4">
               <button className="px-10 py-3 rounded-xl bg-white text-[#0054A6] text-[10px] font-light hover:bg-white/90 transition-colors">
-                Comenzar Formación
+                Más Información
               </button>
             </div>
           </div>
