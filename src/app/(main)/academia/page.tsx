@@ -5,7 +5,7 @@ import * as React from 'react';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
-import { BookOpen, GraduationCap, Award, Search, Share2, PlayCircle } from 'lucide-react';
+import { PlayCircle, Share2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const academiaHeroStates = [
@@ -128,29 +128,29 @@ export default function AcademiaPage() {
         </div>
       </section>
 
-      {/* 2. Categorías de Aprendizaje - New Minimalist Insight Design */}
+      {/* 2. Categorías de Aprendizaje - Innovación y Temas Futuros */}
       <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-32 px-8 md:px-16 lg:px-24 overflow-hidden border-b border-slate-50">
         {/* Top Info Labels */}
         <div className="absolute top-10 left-8 md:left-16 lg:left-24">
           <span className="text-[9px] text-slate-400 font-normal tracking-[0.2em] uppercase">Academia Banesco Seguros</span>
         </div>
         <div className="absolute top-10 right-8 md:right-16 lg:right-24">
-          <span className="text-[9px] text-slate-400 font-normal tracking-[0.2em] uppercase">Reporte de Formación 2026</span>
+          <span className="text-[9px] text-slate-400 font-normal tracking-[0.2em] uppercase">Tendencias de Educación 2026</span>
         </div>
 
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-20">
           {/* Left Column */}
           <div className="w-full lg:w-[22%] space-y-12 order-2 lg:order-1">
             <div className="space-y-4">
-              <h3 className="text-2xl font-normal tracking-tight text-slate-900 leading-tight">Cultura Institucional</h3>
+              <h3 className="text-2xl font-normal tracking-tight text-slate-900 leading-tight">IA Generativa</h3>
               <p className="text-slate-500 text-[13px] font-light leading-relaxed">
-                Los colaboradores que dominan nuestra cultura y valores son <span className="bg-yellow-100 px-1 font-medium text-slate-900 italic">+60% más efectivos</span> en su gestión diaria.
+                La adopción de IA en procesos diarios incrementa la <span className="bg-yellow-100 px-1 font-medium text-slate-900 italic">productividad operativa en un 40%</span>.
               </p>
             </div>
             <div className="space-y-4">
-              <h3 className="text-2xl font-normal tracking-tight text-slate-900 leading-tight">Liderazgo Consciente</h3>
+              <h3 className="text-2xl font-normal tracking-tight text-slate-900 leading-tight">Agilidad Corporativa</h3>
               <p className="text-slate-500 text-[13px] font-light leading-relaxed">
-                El desarrollo de habilidades de liderazgo incrementa la <span className="bg-yellow-100 px-1 font-medium text-slate-900 italic">retención de talento</span> y la satisfacción del equipo.
+                Implementar marcos de trabajo ágiles permite una <span className="bg-yellow-100 px-1 font-medium text-slate-900 italic">respuesta al mercado 2x más rápida</span>.
               </p>
             </div>
           </div>
@@ -172,8 +172,8 @@ export default function AcademiaPage() {
               ))}
             </svg>
             <div className="relative z-10 text-center px-6 md:px-12">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-normal tracking-tighter text-slate-900 leading-[1.1] max-w-md mx-auto">
-                La formación constante potencia el talento individual y fortalece los resultados de todo el equipo.
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-normal tracking-tighter text-slate-900 leading-[1.1] max-w-[280px] mx-auto">
+                Aprender para Innovar
               </h2>
             </div>
           </div>
@@ -181,15 +181,15 @@ export default function AcademiaPage() {
           {/* Right Column */}
           <div className="w-full lg:w-[22%] space-y-12 order-3">
              <div className="space-y-4">
-              <h3 className="text-2xl font-normal tracking-tight text-slate-900 leading-tight">Excelencia Comercial</h3>
+              <h3 className="text-2xl font-normal tracking-tight text-slate-900 leading-tight">Micro-learning</h3>
               <p className="text-slate-500 text-[13px] font-light leading-relaxed">
-                El dominio de nuestros productos aumenta un <span className="bg-yellow-100 px-1 font-medium text-slate-900 italic">+45% la probabilidad</span> de alcanzar tus metas comerciales.
+                El consumo de contenidos breves y específicos mejora la <span className="bg-yellow-100 px-1 font-medium text-slate-900 italic">retención de conocimientos en un 80%</span>.
               </p>
             </div>
             <div className="space-y-4">
-              <h3 className="text-2xl font-normal tracking-tight text-slate-900 leading-tight">Estrategia de Ventas</h3>
+              <h3 className="text-2xl font-normal tracking-tight text-slate-900 leading-tight">Habilidades Blandas</h3>
               <p className="text-slate-500 text-[13px] font-light leading-relaxed">
-                Aplicar técnicas de venta consultiva mejora la <span className="bg-yellow-100 px-1 font-medium text-slate-900 italic">experiencia del cliente</span> y la rentabilidad de la cartera.
+                El desarrollo de empatía y comunicación es el <span className="bg-yellow-100 px-1 font-medium text-slate-900 italic">diferenciador clave</span> en la era digital.
               </p>
             </div>
           </div>
@@ -198,18 +198,18 @@ export default function AcademiaPage() {
         {/* Bottom Metadata */}
         <div className="mt-32 max-w-4xl border-t border-slate-100 pt-8">
           <p className="text-[10px] text-slate-400 font-light leading-relaxed uppercase tracking-tight max-w-2xl">
-            * Datos basados en el análisis de desempeño institucional del ciclo 2024-2025. La formación se considera un eje transversal para el cumplimiento de los objetivos estratégicos de Banesco Seguros y el fortalecimiento de la Sangre Azul.
+            * Análisis prospectivo de habilidades requeridas para el ecosistema asegurador venezolano. La formación en tecnologías emergentes es el pilar de nuestra transformación digital.
           </p>
         </div>
       </section>
 
       {/* 2b. Impacto de la Formación Corporativa */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] bg-gradient-to-br from-[#004285] via-[#0054A6] to-[#0061C1] py-24 px-8 md:px-16 lg:px-24 text-white overflow-hidden">
+      <section className="relative w-screen left-1/2 -ml-[50vw] bg-gradient-to-br from-[#004285] via-[#0054A6] to-[#0061C1] py-20 px-8 md:px-16 lg:px-24 text-white overflow-hidden">
         <ConcentricArcs />
 
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="flex flex-col space-y-6 mb-24 max-w-2xl">
-            <span className="text-white/60 text-[11px] font-light tracking-normal">Formación Institucional</span>
+          <div className="flex flex-col space-y-4 mb-20 max-w-2xl text-left">
+            <span className="text-white/60 text-[11px] font-light tracking-normal">Estadísticas Clave</span>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-[0.95]">
               El Impacto de la <br /> Formación Corporativa
             </h2>
@@ -309,3 +309,4 @@ export default function AcademiaPage() {
     </div>
   );
 }
+
