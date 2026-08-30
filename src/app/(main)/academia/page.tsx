@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -51,32 +52,17 @@ function Counter({ end, duration = 5000, suffix = "", prefix = "" }: { end: numb
   return <>{prefix}{count}{suffix}</>;
 }
 
-function AnimatedCircle({ progress, duration = 5000 }: { progress: number, duration?: number }) {
-  const [offset, setOffset] = React.useState(251.2);
-  const radius = 40;
-  const circumference = 2 * Math.PI * radius;
-
-  React.useEffect(() => {
-    let startTimestamp: number | null = null;
-    const targetOffset = circumference - (progress / 100) * circumference;
-    
-    const step = (timestamp: number) => {
-      if (!startTimestamp) startTimestamp = timestamp;
-      const timeProgress = Math.min((timestamp - startTimestamp) / duration, 1);
-      const currentOffset = 251.2 - (timeProgress * (251.2 - targetOffset));
-      setOffset(currentOffset);
-      if (timeProgress < 1) {
-        window.requestAnimationFrame(step);
-      }
-    };
-    window.requestAnimationFrame(step);
-  }, [progress, duration, circumference]);
-
+function ConcentricArcs() {
   return (
-    <svg viewBox="0 0 100 100" className="w-full h-full">
-      <circle cx="50" cy="50" r="40" stroke="rgba(255,255,255,0.1)" strokeWidth="8" fill="none" />
-      <circle cx="50" cy="50" r="40" stroke="white" strokeWidth="8" fill="none" strokeDasharray="251.2" strokeDashoffset={offset} transform="rotate(-90 50 50)" strokeLinecap="round" />
-    </svg>
+    <div className="absolute right-[-10%] top-[-20%] w-[120%] h-[140%] pointer-events-none opacity-20 hidden lg:block overflow-hidden">
+      <svg viewBox="0 0 1000 1000" className="w-full h-full text-white fill-none" stroke="currentColor" strokeWidth="1.5">
+        <circle cx="800" cy="400" r="150" strokeDasharray="4 4" />
+        <circle cx="800" cy="400" r="250" />
+        <circle cx="800" cy="400" r="350" strokeWidth="0.5" opacity="0.5" />
+        <circle cx="800" cy="400" r="450" />
+        <circle cx="800" cy="400" r="550" strokeDasharray="8 8" opacity="0.3" />
+      </svg>
+    </div>
   );
 }
 
@@ -178,116 +164,64 @@ export default function AcademiaPage() {
         </div>
       </section>
 
-      {/* 2b. Impacto de la Formación Corporativa */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] bg-gradient-to-br from-[#003B73] via-[#004285] to-[#0054A6] py-16 px-8 md:px-16 lg:px-24 text-white overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none opacity-10">
-          <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-white blur-[120px] -translate-y-1/2 translate-x-1/2" />
-        </div>
+      {/* 2b. Impacto de la Formación Corporativa - Minimalist Redesign */}
+      <section className="relative w-screen left-1/2 -ml-[50vw] bg-gradient-to-br from-[#004285] via-[#0054A6] to-[#0061C1] py-24 px-8 md:px-16 lg:px-24 text-white overflow-hidden">
+        <ConcentricArcs />
 
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="text-center space-y-4 mb-12">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
-              <span className="text-[8px] text-white font-light">Estadísticas Clave</span>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tighter">El Impacto de la Formación Corporativa</h2>
+          <div className="flex flex-col space-y-6 mb-24 max-w-2xl">
+            <span className="text-white/60 text-[11px] font-light tracking-normal">Formación Institucional</span>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-[0.95]">
+              El Impacto de la <br /> Formación Corporativa
+            </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-x-16 gap-y-12">
-            {/* Fila 1 */}
-            <div className="flex gap-6 items-start">
-              <div className="shrink-0 w-24 h-20 relative">
-                <svg viewBox="0 0 100 80" className="w-full h-full fill-none stroke-white" strokeWidth="2">
-                  <path d="M10 70 L30 65 L50 45 L70 50 L90 10" className="animate-in fade-in duration-1000" />
-                </svg>
-              </div>
-              <div className="space-y-2">
-                <div className="flex items-baseline gap-2">
-                  <span className="text-4xl font-bold tracking-tighter"><Counter end={250} suffix="%" /></span>
-                  <span className="text-[13px] font-medium text-white/90">Crecimiento</span>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-12 gap-y-16">
+            {[
+              { 
+                value: 250, 
+                suffix: "%", 
+                label: "Crecimiento Proyectado", 
+                desc: "Incremento estimado del e-learning corporativo para el cierre del ciclo 2026.",
+                source: "Statista Research"
+              },
+              { 
+                value: 92, 
+                suffix: "%", 
+                label: "Satisfacción Interna", 
+                desc: "Porcentaje de colaboradores que valoran positivamente los planes de carrera.",
+                source: "Feedback Interno"
+              },
+              { 
+                value: 90, 
+                suffix: "%", 
+                label: "Adopción Digital", 
+                desc: "Empresas líderes que utilizan formación online como eje de capacitación.",
+                source: "Digital Learning Hub"
+              },
+              { 
+                value: 218, 
+                suffix: "%", 
+                label: "Rendimiento Operativo", 
+                desc: "Aumento de ingresos por empleado en organizaciones con formación integral.",
+                source: "World Economic Forum"
+              }
+            ].map((stat, idx) => (
+              <div key={idx} className="flex flex-col space-y-6 border-l border-white/10 pl-8 group">
+                <span className="text-5xl font-bold tracking-tighter">
+                  <Counter end={stat.value} suffix={stat.suffix} />
+                </span>
+                <div className="space-y-3">
+                   <h4 className="text-[12px] font-medium tracking-tight text-white/90">{stat.label}</h4>
+                   <p className="text-[10px] font-light text-white/60 leading-relaxed max-w-[200px]">
+                      {stat.desc}
+                   </p>
                 </div>
-                <p className="text-[10px] font-light leading-relaxed text-white/60 max-w-[220px]">
-                  El e-learning corporativo crecerá &gt;250% para 2026 y puede mejorar la productividad hasta un 25%.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex gap-6 items-start">
-              <div className="shrink-0 w-20 h-20 relative">
-                <AnimatedCircle progress={92} />
-              </div>
-              <div className="space-y-2">
-                <div className="flex items-baseline gap-2">
-                  <span className="text-4xl font-bold tracking-tighter"><Counter end={92} suffix="%" /></span>
-                  <span className="text-[13px] font-medium text-white/90">Satisfacción</span>
+                <div className="pt-4 border-t border-white/5 mt-auto">
+                   <span className="text-[8px] text-white/40 uppercase tracking-widest font-light">Fuente: {stat.source}</span>
                 </div>
-                <p className="text-[10px] font-light leading-relaxed text-white/60 max-w-[220px]">
-                  de los empleados valora los programas de formación bien planificados.
-                </p>
               </div>
-            </div>
-
-            <div className="flex gap-6 items-start">
-              <div className="shrink-0 w-20 h-20 relative">
-                <AnimatedCircle progress={90} />
-              </div>
-              <div className="space-y-2">
-                <div className="flex items-baseline gap-2">
-                  <span className="text-4xl font-bold tracking-tighter"><Counter end={90} suffix="%" /></span>
-                  <span className="text-[13px] font-medium text-white/90">Adopción</span>
-                </div>
-                <p className="text-[10px] font-light leading-relaxed text-white/60 max-w-[220px]">
-                  de las empresas usan formación online como herramienta clave de capacitación.
-                </p>
-              </div>
-            </div>
-
-            {/* Fila 2 */}
-            <div className="flex gap-6 items-start">
-              <div className="shrink-0 w-24 h-20 relative">
-                <svg viewBox="0 0 100 80" className="w-full h-full fill-none stroke-white" strokeWidth="2">
-                   <path d="M10 70 Q 30 70, 50 50 T 90 20" />
-                </svg>
-              </div>
-              <div className="space-y-2">
-                <div className="flex items-baseline gap-2">
-                  <span className="text-4xl font-bold tracking-tighter"><Counter end={218} suffix="%" /></span>
-                  <span className="text-[13px] font-medium text-white/90">Ingresos</span>
-                </div>
-                <p className="text-[10px] font-light leading-relaxed text-white/60 max-w-[220px]">
-                  Las empresas con formación integral tienen un 218% más de ingresos por empleado.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex gap-6 items-start">
-              <div className="shrink-0 w-20 h-20 relative">
-                <AnimatedCircle progress={75} />
-              </div>
-              <div className="space-y-2">
-                <div className="flex items-baseline gap-2">
-                  <span className="text-4xl font-bold tracking-tighter"><Counter end={45} prefix="+" suffix="M" /></span>
-                  <span className="text-[13px] font-medium text-white/90">Empleos</span>
-                </div>
-                <p className="text-[10px] font-light leading-relaxed text-white/60 max-w-[220px]">
-                  La formación crea 130M de empleos vs. 85M perdidos por automatización.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex gap-6 items-start">
-              <div className="shrink-0 w-20 h-20 relative">
-                <AnimatedCircle progress={80} />
-              </div>
-              <div className="space-y-2">
-                <div className="flex items-baseline gap-2">
-                  <span className="text-4xl font-bold tracking-tighter"><Counter end={80} suffix="%" /></span>
-                  <span className="text-[13px] font-medium text-white/90">Liderazgo</span>
-                </div>
-                <p className="text-[10px] font-light leading-relaxed text-white/60 max-w-[220px]">
-                  de las empresas invierte en programas de desarrollo de liderazgo para 2025.
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
