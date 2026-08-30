@@ -4,7 +4,7 @@ import * as React from 'react';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
-import { PlayCircle, Share2, ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
+import { PlayCircle, Share2, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const academiaHeroStates = [
@@ -405,7 +405,6 @@ export default function AcademiaPage() {
               <div className="flex flex-col h-full overflow-hidden">
                 <div className="flex justify-between items-center mb-6 shrink-0">
                   <h3 className="text-lg font-bold tracking-tight text-slate-900">Actualidad</h3>
-                  <button className="text-[10px] text-slate-400 font-light hover:text-slate-600 transition-colors underline underline-offset-4 decoration-slate-200">Ver todas</button>
                 </div>
                 
                 <div className="flex-grow overflow-y-auto no-scrollbar space-y-6 pr-2">
