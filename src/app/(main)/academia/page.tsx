@@ -346,7 +346,7 @@ export default function AcademiaPage() {
                 <div className="absolute inset-0 p-10 flex flex-col justify-end">
                    <span className="text-[9px] font-light text-white/60 uppercase tracking-tight mb-2">{course.subtitle}</span>
                    <h3 className="text-2xl font-bold text-white tracking-tighter leading-none">{course.title}</h3>
-                   <div className="mt-6 flex items-center gap-2 text-white text-[10px] font-light opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+                   <div className="mt-6 flex items-center gap-2 text-white text-[10px] font-light transition-all duration-300">
                       <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
                         <PlayCircle className="w-4 h-4" />
                       </div>
