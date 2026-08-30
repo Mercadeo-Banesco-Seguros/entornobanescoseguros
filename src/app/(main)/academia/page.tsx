@@ -182,29 +182,25 @@ export default function AcademiaPage() {
                 value: 250, 
                 suffix: "%", 
                 label: "Crecimiento Proyectado", 
-                desc: "Incremento estimado del e-learning corporativo para el cierre del ciclo 2026.",
-                source: "Statista Research"
+                desc: "Incremento estimado del e-learning corporativo para el cierre del ciclo 2026."
               },
               { 
                 value: 92, 
                 suffix: "%", 
                 label: "Satisfacción Interna", 
-                desc: "Porcentaje de colaboradores que valoran positivamente los planes de carrera.",
-                source: "Feedback Interno"
+                desc: "Porcentaje de colaboradores que valoran positivamente los planes de carrera."
               },
               { 
                 value: 90, 
                 suffix: "%", 
                 label: "Adopción Digital", 
-                desc: "Empresas líderes que utilizan formación online como eje de capacitación.",
-                source: "Digital Learning Hub"
+                desc: "Empresas líderes que utilizan formación online como eje de capacitación."
               },
               { 
                 value: 218, 
                 suffix: "%", 
                 label: "Rendimiento Operativo", 
-                desc: "Aumento de ingresos por empleado en organizaciones con formación integral.",
-                source: "World Economic Forum"
+                desc: "Aumento de ingresos por empleado en organizaciones con formación integral."
               }
             ].map((stat, idx) => (
               <div key={idx} className="flex flex-col space-y-6 border-l border-white/10 pl-8 group">
@@ -216,9 +212,6 @@ export default function AcademiaPage() {
                    <p className="text-[10px] font-light text-white/60 leading-relaxed max-w-[200px]">
                       {stat.desc}
                    </p>
-                </div>
-                <div className="pt-4 border-t border-white/5 mt-auto">
-                   <span className="text-[8px] text-white/40 uppercase tracking-widest font-light">Fuente: {stat.source}</span>
                 </div>
               </div>
             ))}
