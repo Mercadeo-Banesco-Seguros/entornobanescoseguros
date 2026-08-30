@@ -151,7 +151,6 @@ function ConcentricArcs() {
 export default function AcademiaPage() {
   const [mounted, setMounted] = React.useState(false);
   const [currentStateIndex, setCurrentStateIndex] = React.useState(0);
-  const [generalNews, setGeneralNews] = React.useState<NewsItem[]>([]);
   const [categorizedNews, setCategorizedNews] = React.useState<NewsItem[]>([]);
   const [loadingNews, setLoadingNews] = React.useState(true);
 
@@ -163,50 +162,31 @@ export default function AcademiaPage() {
         const response = await fetch(apiUrl);
         const data = await response.json();
         if (data.status === 'ok' && data.items.length > 0) {
-          const item = data.items[0];
-          return {
+          return data.items.slice(0, 5).map((item: any) => ({
             ...item,
             categoryLabel: config.label,
             categoryImage: config.imageUrl
-          };
+          }));
         }
       } catch (e) {
         console.error(`Error fetching ${config.label}:`, e);
       }
-      return null;
+      return [];
     };
 
     const results = await Promise.all(CATEGORIES_CONFIG.map(config => fetchTopic(config)));
-    return results.filter(item => item !== null) as NewsItem[];
+    const flatResults = results.flat() as NewsItem[];
+    // Sort by date descending
+    return flatResults.sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime());
   }, []);
 
-  const fetchNews = React.useCallback(async () => {
+  const loadData = React.useCallback(async () => {
     setLoadingNews(true);
     try {
-      const feedUrl = encodeURIComponent('https://news.google.com/rss?hl=es-419&gl=US&ceid=US:es-419');
-      const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${feedUrl}`;
-      const response = await fetch(apiUrl);
-      const data = await response.json();
-      
-      let processedGeneral: NewsItem[] = [];
-      if (data.status === 'ok') {
-        processedGeneral = data.items.map((item: any) => {
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(item.description, 'text/html');
-          const hiddenImg = doc.querySelector('img');
-          return {
-            ...item,
-            thumbnail: hiddenImg ? hiddenImg.src : item.thumbnail
-          };
-        });
-      }
-
-      const categorized = await fetchCategorizedNews();
-      
-      setGeneralNews(processedGeneral);
-      setCategorizedNews(categorized);
+      const allNews = await fetchCategorizedNews();
+      setCategorizedNews(allNews);
     } catch (error) {
-      console.error('Error fetching news:', error);
+      console.error('Error loading news data:', error);
     } finally {
       setLoadingNews(false);
     }
@@ -214,22 +194,22 @@ export default function AcademiaPage() {
 
   React.useEffect(() => {
     setMounted(true);
-    fetchNews();
+    loadData();
     
     const heroTimer = setInterval(() => {
       setCurrentStateIndex((prev) => (prev + 1) % academiaHeroStates.length);
     }, 10000);
 
     return () => clearInterval(heroTimer);
-  }, [fetchNews]);
+  }, [loadData]);
 
   const currentState = academiaHeroStates[currentStateIndex];
   const heroImage = PlaceHolderImages.find(img => img.id === currentState.imageId);
 
   if (!mounted) return null;
 
-  const featuredPost = generalNews[0];
-  const latestPosts = generalNews.slice(1);
+  const featuredPost = categorizedNews[0];
+  const latestPosts = categorizedNews.slice(1);
 
   const formatDate = (dateStr: string) => {
     const d = new Date(dateStr);
@@ -381,7 +361,7 @@ export default function AcademiaPage() {
         </div>
       </section>
 
-      {/* 2c. Noticias e Insights - Redesigned */}
+      {/* 2c. Noticias e Insights - Redesigned con Altura Sincronizada y Fondo Azul */}
       <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-32 px-8 md:px-16 lg:px-24">
         <div className="max-w-7xl mx-auto">
           {loadingNews ? (
@@ -391,7 +371,7 @@ export default function AcademiaPage() {
             </div>
           ) : (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 h-[500px]">
-              {/* Left: Featured Post */}
+              {/* Left: Featured Post - Fondo Azul con Degradado */}
               {featuredPost && (
                 <a 
                   href={featuredPost.link} 
@@ -399,25 +379,21 @@ export default function AcademiaPage() {
                   rel="noopener" 
                   className="lg:col-span-2 group cursor-pointer block h-full"
                 >
-                  <div className="relative h-full rounded-[2.5rem] overflow-hidden bg-slate-100 shadow-sm">
-                    <Image 
-                      src={featuredPost.thumbnail || PlaceHolderImages.find(img => img.id === 'news-featured')?.imageUrl || "https://picsum.photos/seed/news/1200/800"}
-                      alt={featuredPost.title}
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
-                      unoptimized
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                  <div className="relative h-full rounded-[2.5rem] overflow-hidden bg-gradient-to-br from-[#0054A6] via-[#003B73] to-[#002D54] shadow-sm flex flex-col justify-end p-10">
+                    <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-30">
+                      <div className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full blur-[120px] bg-blue-400/20" />
+                      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full blur-[120px] bg-sky-300/10" />
+                    </div>
                     
-                    <div className="absolute bottom-0 left-0 right-0 p-10 bg-white/10 backdrop-blur-md border-t border-white/10">
-                      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/30 mb-4">
-                        <div className="w-1.5 h-1.5 rounded-full bg-white" />
-                        <span className="text-[9px] text-white font-light tracking-tight">Destacado</span>
+                    <div className="relative z-10 space-y-6">
+                      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/30">
+                        <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                        <span className="text-[9px] text-white font-light tracking-tight">Post Destacado • {featuredPost.categoryLabel}</span>
                       </div>
-                      <h3 className="text-white text-2xl md:text-3xl font-bold tracking-tighter leading-tight max-w-2xl line-clamp-2">
+                      <h3 className="text-white text-2xl md:text-3xl lg:text-4xl font-bold tracking-tighter leading-tight max-w-2xl line-clamp-3">
                         {featuredPost.title}
                       </h3>
-                      <div className="flex items-center gap-2 mt-4">
+                      <div className="flex items-center gap-2">
                         <p className="text-white/60 text-[10px] font-light">
                           {formatDate(featuredPost.pubDate)} • {featuredPost.author || 'Actualidad'} • 5 min read
                         </p>
@@ -427,7 +403,7 @@ export default function AcademiaPage() {
                 </a>
               )}
 
-              {/* Right: Latest posts scrollable list */}
+              {/* Right: Latest posts scrollable list - Altura sincronizada */}
               <div className="flex flex-col h-full overflow-hidden">
                 <div className="flex justify-between items-center mb-6 shrink-0">
                   <h3 className="text-lg font-bold tracking-tight text-slate-900">Latest post</h3>
@@ -435,36 +411,34 @@ export default function AcademiaPage() {
                 </div>
                 
                 <div className="flex-grow overflow-y-auto no-scrollbar space-y-6 pr-2">
-                  {latestPosts.map((post, idx) => {
-                    const category = categorizedNews.find(c => post.title.toLowerCase().includes(c.categoryLabel?.toLowerCase() || ''));
-                    return (
-                      <a 
-                        key={idx} 
-                        href={post.link} 
-                        target="_blank" 
-                        rel="noopener" 
-                        className="flex gap-4 group cursor-pointer"
-                      >
-                        <div className="relative w-20 h-20 rounded-2xl overflow-hidden bg-slate-50 shrink-0 border border-slate-100">
-                          <Image 
-                            src={post.thumbnail || category?.categoryImage || `https://picsum.photos/seed/${idx}/200/200`} 
-                            alt={post.title}
-                            fill
-                            className="object-cover transition-transform duration-500 group-hover:scale-110"
-                            unoptimized
-                          />
-                        </div>
-                        <div className="flex flex-col justify-center space-y-1.5 py-1">
-                          <h4 className="text-[12px] font-medium text-slate-800 leading-snug group-hover:text-[#0054A6] transition-colors line-clamp-2 tracking-tight">
-                            {post.title}
-                          </h4>
-                          <p className="text-[9px] text-slate-400 font-light flex items-center gap-1.5">
-                            {formatDate(post.pubDate)} <span className="text-slate-200">•</span> 10 min read
-                          </p>
-                        </div>
-                      </a>
-                    );
-                  })}
+                  {latestPosts.map((post, idx) => (
+                    <a 
+                      key={idx} 
+                      href={post.link} 
+                      target="_blank" 
+                      rel="noopener" 
+                      className="flex gap-4 group cursor-pointer"
+                    >
+                      <div className="relative w-20 h-20 rounded-2xl overflow-hidden bg-slate-50 shrink-0 border border-slate-100">
+                        <Image 
+                          src={post.categoryImage || `https://picsum.photos/seed/${idx}/200/200`} 
+                          alt={post.categoryLabel || 'Noticia'}
+                          fill
+                          className="object-cover transition-transform duration-500 group-hover:scale-110"
+                          unoptimized
+                        />
+                      </div>
+                      <div className="flex flex-col justify-center space-y-1.5 py-1">
+                        <span className="text-[8px] font-medium text-[#0054A6] uppercase tracking-widest">{post.categoryLabel}</span>
+                        <h4 className="text-[11px] font-medium text-slate-800 leading-snug group-hover:text-[#0054A6] transition-colors line-clamp-2 tracking-tight">
+                          {post.title}
+                        </h4>
+                        <p className="text-[9px] text-slate-400 font-light flex items-center gap-1.5">
+                          {formatDate(post.pubDate)} <span className="text-slate-200">•</span> 10 min read
+                        </p>
+                      </div>
+                    </a>
+                  ))}
                 </div>
               </div>
             </div>
