@@ -210,7 +210,28 @@ export default function AcademiaPage() {
         </div>
       </section>
 
-      {/* 2. Categorías de Aprendizaje - Innovación */}
+      {/* 2. Aprendizaje Interactivo Section - REUBICADA ANTES DE INNOVACIÓN */}
+      <section className="relative w-screen left-1/2 -ml-[50vw] h-[400px] overflow-hidden flex items-center justify-center">
+        {/* Soft Blurred Background Blobs */}
+        <div className="absolute inset-0 bg-white">
+          <div className="absolute top-[-10%] left-[-5%] w-[60%] h-[70%] rounded-full bg-cyan-100/60 blur-[120px] animate-pulse" />
+          <div className="absolute bottom-[-10%] right-[-5%] w-[60%] h-[70%] rounded-full bg-yellow-100/60 blur-[120px] animate-pulse" style={{ animationDelay: '2s' }} />
+          <div className="absolute top-[20%] right-[15%] w-[40%] h-[50%] rounded-full bg-blue-50/40 blur-[100px]" />
+        </div>
+
+        <div className="relative z-10 text-center space-y-8 px-6 max-w-4xl mx-auto">
+          <h2 key={interactiveTitle} className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tighter text-slate-800 animate-in fade-in duration-1000">
+            {interactiveTitle}
+          </h2>
+          <div className="flex justify-center animate-in fade-in slide-in-from-bottom-2 duration-1000 delay-500">
+            <button className="px-12 py-3 rounded-full bg-white/40 backdrop-blur-md border border-slate-200 text-slate-600 text-[11px] font-light tracking-wide hover:bg-white/60 transition-all duration-300">
+              Explorar
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. Categorías de Aprendizaje - Innovación */}
       <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-16 px-8 md:px-16 lg:px-24 overflow-hidden border-b border-slate-50">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-20">
           <div className="w-full lg:w-[22%] space-y-12 order-2 lg:order-1">
@@ -267,28 +288,7 @@ export default function AcademiaPage() {
         </div>
       </section>
 
-      {/* NEW: Aprendizaje Interactivo Section */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] h-[400px] overflow-hidden flex items-center justify-center">
-        {/* Soft Blurred Background Blobs */}
-        <div className="absolute inset-0 bg-white">
-          <div className="absolute top-[-10%] left-[-5%] w-[60%] h-[70%] rounded-full bg-cyan-100/60 blur-[120px] animate-pulse" />
-          <div className="absolute bottom-[-10%] right-[-5%] w-[60%] h-[70%] rounded-full bg-yellow-100/60 blur-[120px] animate-pulse" style={{ animationDelay: '2s' }} />
-          <div className="absolute top-[20%] right-[15%] w-[40%] h-[50%] rounded-full bg-blue-50/40 blur-[100px]" />
-        </div>
-
-        <div className="relative z-10 text-center space-y-8 px-6 max-w-4xl mx-auto">
-          <h2 key={interactiveTitle} className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tighter text-slate-800 animate-in fade-in duration-1000">
-            {interactiveTitle}
-          </h2>
-          <div className="flex justify-center animate-in fade-in slide-in-from-bottom-2 duration-1000 delay-500">
-            <button className="px-12 py-3 rounded-full bg-white/40 backdrop-blur-md border border-slate-200 text-slate-600 text-[11px] font-light tracking-wide hover:bg-white/60 transition-all duration-300">
-              Explorar
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* 2b. Impacto de la Formación Corporativa - No Arcs */}
+      {/* 4. Impacto de la Formación Corporativa - No Arcs */}
       <section className="relative w-screen left-1/2 -ml-[50vw] bg-gradient-to-br from-[#004285] via-[#0054A6] to-[#0061C1] py-20 px-8 md:px-16 lg:px-24 text-white overflow-hidden">
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="flex flex-col space-y-4 mb-20 max-w-2xl text-left">
@@ -323,7 +323,7 @@ export default function AcademiaPage() {
         </div>
       </section>
 
-      {/* 3. Visita Nuestra Academia Banesco Seguros */}
+      {/* 5. Visita Nuestra Academia Banesco Seguros */}
       <section className="relative w-screen left-1/2 -ml-[50vw] bg-slate-50 py-24 px-8 md:px-16 lg:px-24 border-t border-slate-100">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-16 gap-8">
@@ -372,7 +372,7 @@ export default function AcademiaPage() {
         </div>
       </section>
 
-      {/* 2c. Noticias e Insights - FINAL SECTION */}
+      {/* 6. Noticias e Insights - FINAL SECTION */}
       <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-32 px-8 md:px-16 lg:px-24">
         <div className="max-w-7xl mx-auto">
           {loadingNews ? (
