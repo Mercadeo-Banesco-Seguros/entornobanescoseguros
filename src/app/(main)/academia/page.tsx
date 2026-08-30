@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from 'react';
@@ -406,7 +405,7 @@ export default function AcademiaPage() {
               {/* Right: Latest posts scrollable list - Altura sincronizada */}
               <div className="flex flex-col h-full overflow-hidden">
                 <div className="flex justify-between items-center mb-6 shrink-0">
-                  <h3 className="text-lg font-bold tracking-tight text-slate-900">Latest post</h3>
+                  <h3 className="text-lg font-bold tracking-tight text-slate-900">Actualidad</h3>
                   <button className="text-[10px] text-slate-400 font-light hover:text-slate-600 transition-colors underline underline-offset-4 decoration-slate-200">Ver todas</button>
                 </div>
                 
