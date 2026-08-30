@@ -85,54 +85,6 @@ function Counter({ end, duration = 5000, suffix = "", prefix = "" }: { end: numb
   return <>{prefix}{count}{suffix}</>;
 }
 
-function ProgressCircle({ value, duration = 5000 }: { value: number, duration?: number }) {
-  const [progress, setProgress] = React.useState(0);
-  const radius = 18;
-  const circumference = 2 * Math.PI * radius;
-
-  React.useEffect(() => {
-    let startTimestamp: number | null = null;
-    const step = (timestamp: number) => {
-      if (!startTimestamp) startTimestamp = timestamp;
-      const elapsed = timestamp - startTimestamp;
-      const progressValue = Math.min(elapsed / duration, 1);
-      setProgress(progressValue * value);
-      if (elapsed < duration) {
-        window.requestAnimationFrame(step);
-      }
-    };
-    window.requestAnimationFrame(step);
-  }, [value, duration]);
-
-  const offset = circumference - (Math.min(progress, 100) / 100) * circumference;
-
-  return (
-    <svg className="w-12 h-12 -rotate-90">
-      <circle
-        cx="24"
-        cy="24"
-        r={radius}
-        stroke="currentColor"
-        strokeWidth="2.5"
-        fill="transparent"
-        className="text-white/10"
-      />
-      <circle
-        cx="24"
-        cy="24"
-        r={radius}
-        stroke="currentColor"
-        strokeWidth="2.5"
-        fill="transparent"
-        strokeDasharray={circumference}
-        style={{ strokeDashoffset: offset }}
-        className="text-white transition-all duration-75 ease-linear"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
 function ConcentricArcs() {
   return (
     <div className="absolute right-[-10%] top-[-20%] w-[120%] h-[140%] pointer-events-none opacity-20 hidden lg:block overflow-hidden">
@@ -175,7 +127,6 @@ export default function AcademiaPage() {
 
     const results = await Promise.all(CATEGORIES_CONFIG.map(config => fetchTopic(config)));
     const flatResults = results.flat() as NewsItem[];
-    // Sort by date descending
     return flatResults.sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime());
   }, []);
 
@@ -346,7 +297,6 @@ export default function AcademiaPage() {
                   <span className="text-5xl font-bold tracking-tighter">
                     <Counter end={stat.value} suffix={stat.suffix} />
                   </span>
-                  <ProgressCircle value={stat.value} />
                 </div>
                 <div className="space-y-3">
                    <h4 className="text-[12px] font-medium tracking-tight text-white/90">{stat.label}</h4>
