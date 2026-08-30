@@ -25,6 +25,13 @@ const academiaHeroStates = [
   }
 ];
 
+const latestCategories = [
+  { label: 'Finanzas', imageUrl: 'https://docs.google.com/drawings/d/e/2PACX-1vTxjoPqb80l0nbk1nJ9NcDh8j7VYcNKE4AjBso3D5j_LxC-TfeH-HnlCdtXwFtJREAu2oiX7KIiEU6J/pub?w=960&h=720' },
+  { label: 'Deportes', imageUrl: 'https://docs.google.com/drawings/d/e/2PACX-1vQOxUKTZenuFPuJCgFGscopDpUtCJUyqXhrtktqGjjC2N7pm8SNa1yv4hk14aQiUo9fjl2DAfyIfjCW/pub?w=960&h=720' },
+  { label: 'Cultura', imageUrl: 'https://docs.google.com/drawings/d/e/2PACX-1vR4LH5nCaUHFMm9FWOKRKEVHm_t_VMIEyneZEm2xYcSbdIpk7LTb3jc3GGens-Wu9iEGofBPfhjr22D/pub?w=960&h=720' },
+  { label: 'Tecnología', imageUrl: 'https://docs.google.com/drawings/d/e/2PACX-1vR_IXWOoXk7W3pneAtVDb9AacyP6g7RdVymUbMXCql7nXrhqLUZcOdVj1HyDSpHat2i8_NmmcX9BCjD/pub?w=960&h=720' }
+];
+
 interface NewsItem {
   title: string;
   pubDate: string;
@@ -83,7 +90,6 @@ export default function AcademiaPage() {
       const response = await fetch(apiUrl);
       const data = await response.json();
       if (data.status === 'ok') {
-        // Procesar noticias para extraer imágenes ocultas de la descripción
         const processedItems = data.items.map((item: NewsItem) => {
           const parser = new DOMParser();
           const doc = parser.parseFromString(item.description, 'text/html');
@@ -118,9 +124,8 @@ export default function AcademiaPage() {
 
   if (!mounted) return null;
 
-  // Distribución de noticias
   const featuredPost = news[0];
-  const latestPosts = news.slice(1, 5);
+  const latestPostsList = news.slice(1, 5);
   const bottomPosts = news.slice(5, 8);
 
   const formatDate = (dateStr: string) => {
@@ -178,7 +183,7 @@ export default function AcademiaPage() {
         </div>
       </section>
 
-      {/* 2. Categorías de Aprendizaje - Innovación y Temas Futuros */}
+      {/* 2. Categorías de Aprendizaje - Innovación */}
       <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-32 px-8 md:px-16 lg:px-24 overflow-hidden border-b border-slate-50">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-20">
           <div className="w-full lg:w-[22%] space-y-12 order-2 lg:order-1">
@@ -318,27 +323,31 @@ export default function AcademiaPage() {
                     <button className="text-[10px] text-slate-400 font-light hover:text-slate-600 transition-colors">Ver todas</button>
                   </div>
                   <div className="space-y-6">
-                    {latestPosts.map((post, idx) => (
-                      <a key={idx} href={post.link} target="_blank" rel="noopener" className="flex gap-4 group cursor-pointer border-b border-slate-50 pb-4 last:border-0">
-                        <div className="relative w-20 h-20 rounded-2xl overflow-hidden bg-slate-50 shrink-0">
-                          <Image 
-                            src={post.thumbnail || PlaceHolderImages.find(img => img.id === `news-${idx + 1}`)?.imageUrl || `https://picsum.photos/seed/side-${idx}/300/300`}
-                            alt={post.title}
-                            fill
-                            className="object-cover transition-transform duration-500 group-hover:scale-110"
-                            unoptimized
-                          />
-                        </div>
-                        <div className="flex flex-col justify-center space-y-1">
-                          <h4 className="text-[12px] font-medium text-slate-800 leading-tight group-hover:text-[#0054A6] transition-colors line-clamp-2">
-                            {post.title}
-                          </h4>
-                          <p className="text-[9px] text-slate-400 font-light">
-                            {formatDate(post.pubDate)}
-                          </p>
-                        </div>
-                      </a>
-                    ))}
+                    {latestPostsList.map((post, idx) => {
+                      const category = latestCategories[idx % latestCategories.length];
+                      return (
+                        <a key={idx} href={post.link} target="_blank" rel="noopener" className="flex gap-4 group cursor-pointer border-b border-slate-50 pb-4 last:border-0">
+                          <div className="relative w-20 h-20 rounded-2xl overflow-hidden bg-slate-50 shrink-0">
+                            <Image 
+                              src={category.imageUrl} 
+                              alt={post.title}
+                              fill
+                              className="object-cover transition-transform duration-500 group-hover:scale-110"
+                              unoptimized
+                            />
+                          </div>
+                          <div className="flex flex-col justify-center space-y-1">
+                            <span className="text-[7px] text-[#0054A6] font-bold uppercase tracking-widest leading-none mb-1">{category.label}</span>
+                            <h4 className="text-[12px] font-medium text-slate-800 leading-tight group-hover:text-[#0054A6] transition-colors line-clamp-2">
+                              {post.title}
+                            </h4>
+                            <p className="text-[9px] text-slate-400 font-light">
+                              {formatDate(post.pubDate)}
+                            </p>
+                          </div>
+                        </a>
+                      );
+                    })}
                   </div>
                 </div>
               </div>
