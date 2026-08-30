@@ -202,8 +202,8 @@ export default function AcademiaPage() {
         </div>
       </section>
 
-      {/* 2. Categorías de Aprendizaje - Innovación */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-32 px-8 md:px-16 lg:px-24 overflow-hidden border-b border-slate-50">
+      {/* 2. Categorías de Aprendizaje - Innovación (Reduced Height) */}
+      <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-16 px-8 md:px-16 lg:px-24 overflow-hidden border-b border-slate-50">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-20">
           <div className="w-full lg:w-[22%] space-y-12 order-2 lg:order-1">
             <div className="space-y-4">
@@ -221,7 +221,7 @@ export default function AcademiaPage() {
           </div>
 
           <div className="relative w-full lg:w-[45%] aspect-square flex items-center justify-center order-1 lg:order-2">
-            <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full text-slate-200">
+            <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full text-slate-100">
               {Array.from({ length: 120 }).map((_, i) => (
                 <line
                   key={i}
@@ -259,7 +259,7 @@ export default function AcademiaPage() {
         </div>
       </section>
 
-      {/* 2b. Impacto de la Formación Corporativa */}
+      {/* 2b. Impacto de la Formación Corporativa - No Arcs */}
       <section className="relative w-screen left-1/2 -ml-[50vw] bg-gradient-to-br from-[#004285] via-[#0054A6] to-[#0061C1] py-20 px-8 md:px-16 lg:px-24 text-white overflow-hidden">
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="flex flex-col space-y-4 mb-20 max-w-2xl text-left">
@@ -330,7 +330,7 @@ export default function AcademiaPage() {
                 <div className="absolute inset-0 p-10 flex flex-col justify-end">
                    <span className="text-[9px] font-light text-white/60 uppercase tracking-tight mb-2">{course.subtitle}</span>
                    <h3 className="text-2xl font-bold text-white tracking-tighter leading-none">{course.title}</h3>
-                   <div className="mt-6 flex items-center gap-2 text-white text-[10px] font-light transition-all duration-300">
+                   <div className="mt-6 flex items-center gap-2 text-white text-[10px] font-light">
                       <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
                         <PlayCircle className="w-4 h-4" />
                       </div>
@@ -343,7 +343,7 @@ export default function AcademiaPage() {
         </div>
       </section>
 
-      {/* 2c. Noticias e Insights - Redesigned con Altura Sincronizada y Fondo Azul - ÚLTIMA SECCIÓN */}
+      {/* 2c. Noticias e Insights - FINAL SECTION */}
       <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-32 px-8 md:px-16 lg:px-24">
         <div className="max-w-7xl mx-auto">
           {loadingNews ? (
@@ -353,7 +353,7 @@ export default function AcademiaPage() {
             </div>
           ) : (
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 h-[400px]">
-              {/* Left: Featured Post - Fondo Azul con Degradado */}
+              {/* Left: Featured Post - Blue Gradient */}
               {featuredPost && (
                 <a 
                   href={featuredPost.link} 
@@ -377,7 +377,7 @@ export default function AcademiaPage() {
                       </h3>
                       <div className="flex items-center gap-2">
                         <p className="text-white/60 text-[10px] font-light">
-                          {formatDate(featuredPost.pubDate)} • {featuredPost.author || 'Actualidad'} • 5 min read
+                          {formatDate(featuredPost.pubDate)} • Actualidad • 5 min read
                         </p>
                       </div>
                     </div>
@@ -385,7 +385,7 @@ export default function AcademiaPage() {
                 </a>
               )}
 
-              {/* Right: Latest posts scrollable list - Altura sincronizada */}
+              {/* Right: Latest posts scrollable list */}
               <div className="flex flex-col h-full overflow-hidden">
                 <div className="flex justify-between items-center mb-6 shrink-0">
                   <h3 className="text-lg font-bold tracking-tight text-slate-900">Actualidad</h3>
