@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -228,6 +229,7 @@ export default function AcademiaPage() {
   if (!mounted) return null;
 
   const featuredPost = generalNews[0];
+  const latestPosts = generalNews.slice(1);
 
   const formatDate = (dateStr: string) => {
     const d = new Date(dateStr);
@@ -379,79 +381,93 @@ export default function AcademiaPage() {
         </div>
       </section>
 
-      {/* 2c. Noticias e Insights */}
+      {/* 2c. Noticias e Insights - Redesigned */}
       <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-32 px-8 md:px-16 lg:px-24">
-        <div className="max-w-7xl mx-auto space-y-24">
-          
+        <div className="max-w-7xl mx-auto">
           {loadingNews ? (
             <div className="w-full flex flex-col items-center justify-center py-20 gap-4">
               <Loader2 className="w-8 h-8 text-[#0054A6] animate-spin" />
               <p className="text-slate-400 font-light text-xs">Cargando noticias institucionales...</p>
             </div>
           ) : (
-            <>
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-                {featuredPost && (
-                  <a href={featuredPost.link} target="_blank" rel="noopener" className="lg:col-span-2 group cursor-pointer block">
-                    <div className="relative aspect-[16/9] rounded-[2.5rem] overflow-hidden bg-slate-100 mb-8">
-                      <Image 
-                        src={featuredPost.thumbnail || PlaceHolderImages.find(img => img.id === 'news-featured')?.imageUrl || "https://picsum.photos/seed/news/1200/800"}
-                        alt={featuredPost.title}
-                        fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-105"
-                        unoptimized
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                      <div className="absolute bottom-8 left-8 right-8">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/30 mb-4">
-                          <div className="w-1.5 h-1.5 rounded-full bg-white" />
-                          <span className="text-[9px] text-white font-light tracking-tight">Destacado</span>
-                        </div>
-                        <h3 className="text-white text-2xl md:text-3xl font-bold tracking-tighter leading-tight max-w-2xl">
-                          {featuredPost.title}
-                        </h3>
-                        <p className="text-white/60 text-[10px] font-light mt-4">
-                          {formatDate(featuredPost.pubDate)} • {featuredPost.author || 'Actualidad'}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 h-[500px]">
+              {/* Left: Featured Post */}
+              {featuredPost && (
+                <a 
+                  href={featuredPost.link} 
+                  target="_blank" 
+                  rel="noopener" 
+                  className="lg:col-span-2 group cursor-pointer block h-full"
+                >
+                  <div className="relative h-full rounded-[2.5rem] overflow-hidden bg-slate-100 shadow-sm">
+                    <Image 
+                      src={featuredPost.thumbnail || PlaceHolderImages.find(img => img.id === 'news-featured')?.imageUrl || "https://picsum.photos/seed/news/1200/800"}
+                      alt={featuredPost.title}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      unoptimized
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                    
+                    <div className="absolute bottom-0 left-0 right-0 p-10 bg-white/10 backdrop-blur-md border-t border-white/10">
+                      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/30 mb-4">
+                        <div className="w-1.5 h-1.5 rounded-full bg-white" />
+                        <span className="text-[9px] text-white font-light tracking-tight">Destacado</span>
+                      </div>
+                      <h3 className="text-white text-2xl md:text-3xl font-bold tracking-tighter leading-tight max-w-2xl line-clamp-2">
+                        {featuredPost.title}
+                      </h3>
+                      <div className="flex items-center gap-2 mt-4">
+                        <p className="text-white/60 text-[10px] font-light">
+                          {formatDate(featuredPost.pubDate)} • {featuredPost.author || 'Actualidad'} • 5 min read
                         </p>
                       </div>
                     </div>
-                  </a>
-                )}
+                  </div>
+                </a>
+              )}
 
-                <div className="space-y-8">
-                  <div className="flex justify-between items-end">
-                    <h3 className="text-lg font-bold tracking-tight text-slate-900 leading-none">Últimas Publicaciones</h3>
-                    <button className="text-[10px] text-slate-400 font-light hover:text-slate-600 transition-colors">Ver todas</button>
-                  </div>
-                  <div className="space-y-6">
-                    {categorizedNews.map((post, idx) => {
-                      return (
-                        <a key={idx} href={post.link} target="_blank" rel="noopener" className="flex gap-4 group cursor-pointer border-b border-slate-50 pb-4 last:border-0">
-                          <div className="relative w-20 h-20 rounded-2xl overflow-hidden bg-slate-50 shrink-0">
-                            <Image 
-                              src={post.categoryImage || ''} 
-                              alt={post.title}
-                              fill
-                              className="object-cover transition-transform duration-500 group-hover:scale-110"
-                              unoptimized
-                            />
-                          </div>
-                          <div className="flex flex-col justify-center space-y-1">
-                            <span className="text-[7px] text-[#0054A6] font-bold uppercase tracking-widest leading-none mb-1">{post.categoryLabel}</span>
-                            <h4 className="text-[12px] font-medium text-slate-800 leading-tight group-hover:text-[#0054A6] transition-colors line-clamp-2">
-                              {post.title}
-                            </h4>
-                            <p className="text-[9px] text-slate-400 font-light">
-                              {formatDate(post.pubDate)}
-                            </p>
-                          </div>
-                        </a>
-                      );
-                    })}
-                  </div>
+              {/* Right: Latest posts scrollable list */}
+              <div className="flex flex-col h-full overflow-hidden">
+                <div className="flex justify-between items-center mb-6 shrink-0">
+                  <h3 className="text-lg font-bold tracking-tight text-slate-900">Latest post</h3>
+                  <button className="text-[10px] text-slate-400 font-light hover:text-slate-600 transition-colors underline underline-offset-4 decoration-slate-200">Ver todas</button>
+                </div>
+                
+                <div className="flex-grow overflow-y-auto no-scrollbar space-y-6 pr-2">
+                  {latestPosts.map((post, idx) => {
+                    const category = categorizedNews.find(c => post.title.toLowerCase().includes(c.categoryLabel?.toLowerCase() || ''));
+                    return (
+                      <a 
+                        key={idx} 
+                        href={post.link} 
+                        target="_blank" 
+                        rel="noopener" 
+                        className="flex gap-4 group cursor-pointer"
+                      >
+                        <div className="relative w-20 h-20 rounded-2xl overflow-hidden bg-slate-50 shrink-0 border border-slate-100">
+                          <Image 
+                            src={post.thumbnail || category?.categoryImage || `https://picsum.photos/seed/${idx}/200/200`} 
+                            alt={post.title}
+                            fill
+                            className="object-cover transition-transform duration-500 group-hover:scale-110"
+                            unoptimized
+                          />
+                        </div>
+                        <div className="flex flex-col justify-center space-y-1.5 py-1">
+                          <h4 className="text-[12px] font-medium text-slate-800 leading-snug group-hover:text-[#0054A6] transition-colors line-clamp-2 tracking-tight">
+                            {post.title}
+                          </h4>
+                          <p className="text-[9px] text-slate-400 font-light flex items-center gap-1.5">
+                            {formatDate(post.pubDate)} <span className="text-slate-200">•</span> 10 min read
+                          </p>
+                        </div>
+                      </a>
+                    );
+                  })}
                 </div>
               </div>
-            </>
+            </div>
           )}
         </div>
       </section>
