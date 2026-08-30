@@ -130,25 +130,17 @@ export default function AcademiaPage() {
 
       {/* 2. Categorías de Aprendizaje - Innovación y Temas Futuros */}
       <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-32 px-8 md:px-16 lg:px-24 overflow-hidden border-b border-slate-50">
-        {/* Top Info Labels */}
-        <div className="absolute top-10 left-8 md:left-16 lg:left-24">
-          <span className="text-[9px] text-slate-400 font-normal tracking-tighter uppercase">Academia Banesco Seguros</span>
-        </div>
-        <div className="absolute top-10 right-8 md:right-16 lg:right-24">
-          <span className="text-[9px] text-slate-400 font-normal tracking-tighter uppercase">Tendencias de Educación 2026</span>
-        </div>
-
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-20">
           {/* Left Column */}
           <div className="w-full lg:w-[22%] space-y-12 order-2 lg:order-1">
             <div className="space-y-4">
-              <h3 className="text-2xl font-normal tracking-tighter text-slate-900 leading-tight">IA Generativa</h3>
+              <h3 className="text-2xl font-light tracking-tighter text-slate-900 leading-tight">IA Generativa</h3>
               <p className="text-slate-500 text-[13px] font-light leading-relaxed tracking-tighter">
                 La adopción de IA en procesos diarios incrementa la <span className="bg-blue-50 px-1 font-light text-slate-900">productividad operativa en un 40%</span>.
               </p>
             </div>
             <div className="space-y-4">
-              <h3 className="text-2xl font-normal tracking-tighter text-slate-900 leading-tight">Agilidad Corporativa</h3>
+              <h3 className="text-2xl font-light tracking-tighter text-slate-900 leading-tight">Agilidad Corporativa</h3>
               <p className="text-slate-500 text-[13px] font-light leading-relaxed tracking-tighter">
                 Implementar marcos de trabajo ágiles permite una <span className="bg-blue-50 px-1 font-light text-slate-900">respuesta al mercado 2x más rápida</span>.
               </p>
@@ -172,7 +164,7 @@ export default function AcademiaPage() {
               ))}
             </svg>
             <div className="relative z-10 text-center px-6 md:px-12">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-normal tracking-tighter text-slate-900 leading-[1.1] max-w-[280px] mx-auto">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tighter text-slate-900 leading-[1.1] max-w-[280px] mx-auto">
                 Aprender para Innovar
               </h2>
             </div>
@@ -181,13 +173,13 @@ export default function AcademiaPage() {
           {/* Right Column */}
           <div className="w-full lg:w-[22%] space-y-12 order-3">
              <div className="space-y-4">
-              <h3 className="text-2xl font-normal tracking-tighter text-slate-900 leading-tight">Micro-learning</h3>
+              <h3 className="text-2xl font-light tracking-tighter text-slate-900 leading-tight">Micro-learning</h3>
               <p className="text-slate-500 text-[13px] font-light leading-relaxed tracking-tighter">
                 El consumo de contenidos breves y específicos mejora la <span className="bg-blue-50 px-1 font-light text-slate-900">retención de conocimientos en un 80%</span>.
               </p>
             </div>
             <div className="space-y-4">
-              <h3 className="text-2xl font-normal tracking-tighter text-slate-900 leading-tight">Habilidades Blandas</h3>
+              <h3 className="text-2xl font-light tracking-tighter text-slate-900 leading-tight">Habilidades Blandas</h3>
               <p className="text-slate-500 text-[13px] font-light leading-relaxed tracking-tighter">
                 El desarrollo de empatía y comunicación es el <span className="bg-blue-50 px-1 font-light text-slate-900">diferenciador clave</span> en la era digital.
               </p>
