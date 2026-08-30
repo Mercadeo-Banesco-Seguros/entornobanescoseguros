@@ -202,7 +202,7 @@ export default function AcademiaPage() {
         </div>
       </section>
 
-      {/* 2. Categorías de Aprendizaje - Innovación (Reduced Height) */}
+      {/* 2. Categorías de Aprendizaje - Innovación (Reduced Height & Tracking) */}
       <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-16 px-8 md:px-16 lg:px-24 overflow-hidden border-b border-slate-50">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-20">
           <div className="w-full lg:w-[22%] space-y-12 order-2 lg:order-1">
