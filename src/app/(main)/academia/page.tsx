@@ -1,11 +1,10 @@
-
 'use client';
 
 import * as React from 'react';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
-import { PlayCircle, Share2, ChevronLeft, ChevronRight } from 'lucide-react';
+import { PlayCircle, Share2, ChevronLeft, ChevronRight, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const academiaHeroStates = [
@@ -26,18 +25,16 @@ const academiaHeroStates = [
   }
 ];
 
-const latestPosts = [
-  { id: 1, title: 'IA Generativa: El nuevo aliado del sector seguros', date: 'Feb 10', readTime: '5 min read', imageId: 'news-1' },
-  { id: 2, title: 'Tips para optimizar tu gestión con micro-learning', date: 'Feb 08', readTime: '3 min read', imageId: 'news-2' },
-  { id: 3, title: 'La importancia de las habilidades blandas hoy', date: 'Feb 05', readTime: '8 min read', imageId: 'news-3' },
-  { id: 4, title: 'Estrategias de agilidad en entornos corporativos', date: 'Feb 01', readTime: '4 min read', imageId: 'news-4' },
-];
-
-const bottomPosts = [
-  { id: 1, category: 'Cultura', title: 'Nuestra gente hace la diferencia', description: 'Exploramos cómo el talento humano impulsa la transformación digital en nuestra organización.', date: 'Ene 28', readTime: '6 min read', imageId: 'news-bottom-1' },
-  { id: 2, category: 'Estrategia', title: 'Liderazgo que inspira confianza', description: 'Claves para desarrollar equipos de alto rendimiento basados en valores institucionales.', date: 'Ene 25', readTime: '7 min read', imageId: 'news-bottom-2' },
-  { id: 3, category: 'Bienestar', title: 'Equilibrio vida-trabajo', description: 'Iniciativas de bienestar que maximizan el potencial y la satisfacción de nuestros colaboradores.', date: 'Ene 20', readTime: '5 min read', imageId: 'news-bottom-3' },
-];
+interface NewsItem {
+  title: string;
+  pubDate: string;
+  link: string;
+  guid: string;
+  author: string;
+  thumbnail: string;
+  description: string;
+  content: string;
+}
 
 function Counter({ end, duration = 5000, suffix = "", prefix = "" }: { end: number, duration?: number, suffix?: string, prefix?: string }) {
   const [count, setCount] = React.useState(0);
@@ -75,21 +72,51 @@ function ConcentricArcs() {
 export default function AcademiaPage() {
   const [mounted, setMounted] = React.useState(false);
   const [currentStateIndex, setCurrentStateIndex] = React.useState(0);
+  const [news, setNews] = React.useState<NewsItem[]>([]);
+  const [loadingNews, setLoadingNews] = React.useState(true);
+
+  const fetchNews = React.useCallback(async () => {
+    setLoadingNews(true);
+    try {
+      const feedUrl = encodeURIComponent('https://news.google.com/rss?hl=es-419&gl=US&ceid=US:es-419');
+      const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${feedUrl}`;
+      const response = await fetch(apiUrl);
+      const data = await response.json();
+      if (data.status === 'ok') {
+        setNews(data.items);
+      }
+    } catch (error) {
+      console.error('Error fetching news:', error);
+    } finally {
+      setLoadingNews(false);
+    }
+  }, []);
 
   React.useEffect(() => {
     setMounted(true);
+    fetchNews();
     
-    const timer = setInterval(() => {
+    const heroTimer = setInterval(() => {
       setCurrentStateIndex((prev) => (prev + 1) % academiaHeroStates.length);
     }, 10000);
 
-    return () => clearInterval(timer);
-  }, []);
+    return () => clearInterval(heroTimer);
+  }, [fetchNews]);
 
   const currentState = academiaHeroStates[currentStateIndex];
   const heroImage = PlaceHolderImages.find(img => img.id === currentState.imageId);
 
   if (!mounted) return null;
+
+  // Distribución de noticias
+  const featuredPost = news[0];
+  const latestPosts = news.slice(1, 5);
+  const bottomPosts = news.slice(5, 8);
+
+  const formatDate = (dateStr: string) => {
+    const d = new Date(dateStr);
+    return d.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
+  };
 
   return (
     <div className="flex flex-col w-full min-h-screen">
@@ -144,7 +171,6 @@ export default function AcademiaPage() {
       {/* 2. Categorías de Aprendizaje - Innovación y Temas Futuros */}
       <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-32 px-8 md:px-16 lg:px-24 overflow-hidden border-b border-slate-50">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-20">
-          {/* Left Column */}
           <div className="w-full lg:w-[22%] space-y-12 order-2 lg:order-1">
             <div className="space-y-4">
               <h3 className="text-2xl font-light tracking-tighter text-slate-900 leading-tight">IA Generativa</h3>
@@ -160,7 +186,6 @@ export default function AcademiaPage() {
             </div>
           </div>
 
-          {/* Center Circle Content */}
           <div className="relative w-full lg:w-[45%] aspect-square flex items-center justify-center order-1 lg:order-2">
             <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full text-slate-200">
               {Array.from({ length: 120 }).map((_, i) => (
@@ -183,7 +208,6 @@ export default function AcademiaPage() {
             </div>
           </div>
 
-          {/* Right Column */}
           <div className="w-full lg:w-[22%] space-y-12 order-3">
              <div className="space-y-4">
               <h3 className="text-2xl font-light tracking-tighter text-slate-900 leading-tight">Micro-learning</h3>
@@ -215,30 +239,10 @@ export default function AcademiaPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-12 gap-y-16">
             {[
-              { 
-                value: 250, 
-                suffix: "%", 
-                label: "Crecimiento Proyectado", 
-                desc: "Incremento estimado del e-learning corporativo para el cierre del ciclo 2026."
-              },
-              { 
-                value: 92, 
-                suffix: "%", 
-                label: "Satisfacción Interna", 
-                desc: "Porcentaje de colaboradores que valoran positivamente los planes de carrera."
-              },
-              { 
-                value: 90, 
-                suffix: "%", 
-                label: "Adopción Digital", 
-                desc: "Empresas líderes que utilizan formación online como eje de capacitación."
-              },
-              { 
-                value: 218, 
-                suffix: "%", 
-                label: "Rendimiento Operativo", 
-                desc: "Aumento de ingresos por empleado en organizaciones con formación integral."
-              }
+              { value: 250, suffix: "%", label: "Crecimiento Proyectado", desc: "Incremento estimado del e-learning corporativo para el cierre del ciclo 2026." },
+              { value: 92, suffix: "%", label: "Satisfacción Interna", desc: "Porcentaje de colaboradores que valoran positivamente los planes de carrera." },
+              { value: 90, suffix: "%", label: "Adopción Digital", desc: "Empresas líderes que utilizan formación online como eje de capacitación." },
+              { value: 218, suffix: "%", label: "Rendimiento Operativo", desc: "Aumento de ingresos por empleado en organizaciones con formación integral." }
             ].map((stat, idx) => (
               <div key={idx} className="flex flex-col space-y-6 border-l border-white/10 pl-8 group">
                 <span className="text-5xl font-bold tracking-tighter">
@@ -256,130 +260,126 @@ export default function AcademiaPage() {
         </div>
       </section>
 
-      {/* 2c. Noticias e Insights (Nueva Sección) */}
+      {/* 2c. Noticias e Insights */}
       <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-32 px-8 md:px-16 lg:px-24">
         <div className="max-w-7xl mx-auto space-y-24">
           
-          {/* Top Row: Featured + Side List */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-            {/* Featured Post */}
-            <div className="lg:col-span-2 group cursor-pointer">
-              <div className="relative aspect-[16/9] rounded-[2.5rem] overflow-hidden bg-slate-100 mb-8">
-                {PlaceHolderImages.find(img => img.id === 'news-featured') && (
-                  <Image 
-                    src={PlaceHolderImages.find(img => img.id === 'news-featured')!.imageUrl}
-                    alt="Noticia Destacada"
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    unoptimized
-                    data-ai-hint="futuristic office"
-                  />
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                <div className="absolute bottom-8 left-8 right-8">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/30 mb-4">
-                    <div className="w-1.5 h-1.5 rounded-full bg-white" />
-                    <span className="text-[9px] text-white font-light tracking-tight">Destacado</span>
-                  </div>
-                  <h3 className="text-white text-2xl md:text-3xl font-bold tracking-tighter leading-tight max-w-2xl">
-                    Impulsando la colaboración en equipos híbridos: Un cambio de paradigma para el flujo de trabajo moderno.
-                  </h3>
-                  <p className="text-white/60 text-[10px] font-light mt-4">
-                    Feb 10 • 10 min read
-                  </p>
-                </div>
-              </div>
+          {loadingNews ? (
+            <div className="w-full flex flex-col items-center justify-center py-20 gap-4">
+              <Loader2 className="w-8 h-8 text-[#0054A6] animate-spin" />
+              <p className="text-slate-400 font-light text-xs">Cargando noticias institucionales...</p>
             </div>
+          ) : (
+            <>
+              {/* Top Row: Featured + Side List */}
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                {/* Featured Post */}
+                {featuredPost && (
+                  <a href={featuredPost.link} target="_blank" rel="noopener" className="lg:col-span-2 group cursor-pointer block">
+                    <div className="relative aspect-[16/9] rounded-[2.5rem] overflow-hidden bg-slate-100 mb-8">
+                      <Image 
+                        src={featuredPost.thumbnail || PlaceHolderImages.find(img => img.id === 'news-featured')?.imageUrl || "https://picsum.photos/seed/news/1200/800"}
+                        alt={featuredPost.title}
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                        unoptimized
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                      <div className="absolute bottom-8 left-8 right-8">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/30 mb-4">
+                          <div className="w-1.5 h-1.5 rounded-full bg-white" />
+                          <span className="text-[9px] text-white font-light tracking-tight">Destacado</span>
+                        </div>
+                        <h3 className="text-white text-2xl md:text-3xl font-bold tracking-tighter leading-tight max-w-2xl">
+                          {featuredPost.title}
+                        </h3>
+                        <p className="text-white/60 text-[10px] font-light mt-4">
+                          {formatDate(featuredPost.pubDate)} • {featuredPost.author || 'Actualidad'}
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                )}
 
-            {/* Side List: Latest Posts */}
-            <div className="space-y-8">
-              <div className="flex justify-between items-end">
-                <h3 className="text-lg font-bold tracking-tight text-slate-900 leading-none">Últimas Publicaciones</h3>
-                <button className="text-[10px] text-slate-400 font-light hover:text-slate-600 transition-colors">Ver todas</button>
-              </div>
-              <div className="space-y-6">
-                {latestPosts.map((post) => {
-                  const image = PlaceHolderImages.find(img => img.id === post.imageId);
-                  return (
-                    <div key={post.id} className="flex gap-4 group cursor-pointer">
-                      <div className="relative w-20 h-20 rounded-2xl overflow-hidden bg-slate-50 shrink-0">
-                        {image && (
+                {/* Side List: Latest Posts */}
+                <div className="space-y-8">
+                  <div className="flex justify-between items-end">
+                    <h3 className="text-lg font-bold tracking-tight text-slate-900 leading-none">Últimas Publicaciones</h3>
+                    <button className="text-[10px] text-slate-400 font-light hover:text-slate-600 transition-colors">Ver todas</button>
+                  </div>
+                  <div className="space-y-6">
+                    {latestPosts.map((post, idx) => (
+                      <a key={idx} href={post.link} target="_blank" rel="noopener" className="flex gap-4 group cursor-pointer border-b border-slate-50 pb-4 last:border-0">
+                        <div className="relative w-20 h-20 rounded-2xl overflow-hidden bg-slate-50 shrink-0">
                           <Image 
-                            src={image.imageUrl}
+                            src={post.thumbnail || PlaceHolderImages.find(img => img.id === `news-${idx + 1}`)?.imageUrl || `https://picsum.photos/seed/side-${idx}/300/300`}
                             alt={post.title}
                             fill
                             className="object-cover transition-transform duration-500 group-hover:scale-110"
                             unoptimized
-                            data-ai-hint="news icon"
                           />
-                        )}
-                      </div>
-                      <div className="flex flex-col justify-center space-y-1">
-                        <h4 className="text-[12px] font-medium text-slate-800 leading-tight group-hover:text-[#0054A6] transition-colors">
-                          {post.title}
-                        </h4>
-                        <p className="text-[9px] text-slate-400 font-light">
-                          {post.date} • {post.readTime}
-                        </p>
-                      </div>
-                    </div>
-                  );
-                })}
+                        </div>
+                        <div className="flex flex-col justify-center space-y-1">
+                          <h4 className="text-[12px] font-medium text-slate-800 leading-tight group-hover:text-[#0054A6] transition-colors line-clamp-2">
+                            {post.title}
+                          </h4>
+                          <p className="text-[9px] text-slate-400 font-light">
+                            {formatDate(post.pubDate)}
+                          </p>
+                        </div>
+                      </a>
+                    ))}
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
 
-          {/* Bottom Row: Noticias de Interés Grid */}
-          <div className="space-y-12">
-            <div className="flex justify-between items-center">
-              <h3 className="text-xl font-bold tracking-tighter text-slate-900">Noticias de Interés</h3>
-              <div className="flex gap-2">
-                <button className="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 hover:bg-slate-50 transition-colors">
-                  <ChevronLeft className="w-4 h-4" />
-                </button>
-                <button className="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 hover:bg-slate-50 transition-colors">
-                  <ChevronRight className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
+              {/* Bottom Row: Noticias de Interés Grid */}
+              <div className="space-y-12">
+                <div className="flex justify-between items-center">
+                  <h3 className="text-xl font-bold tracking-tighter text-slate-900">Noticias de Interés</h3>
+                  <div className="flex gap-2">
+                    <button className="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 hover:bg-slate-50 transition-colors">
+                      <ChevronLeft className="w-4 h-4" />
+                    </button>
+                    <button className="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 hover:bg-slate-50 transition-colors">
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {bottomPosts.map((post) => {
-                const image = PlaceHolderImages.find(img => img.id === post.imageId);
-                return (
-                  <div key={post.id} className="group space-y-6 cursor-pointer">
-                    <div className="relative aspect-[16/10] rounded-[2rem] overflow-hidden bg-slate-100">
-                      {image && (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  {bottomPosts.map((post, idx) => (
+                    <a key={idx} href={post.link} target="_blank" rel="noopener" className="group space-y-6 cursor-pointer block">
+                      <div className="relative aspect-[16/10] rounded-[2rem] overflow-hidden bg-slate-100">
                         <Image 
-                          src={image.imageUrl}
+                          src={post.thumbnail || PlaceHolderImages.find(img => img.id === `news-bottom-${idx + 1}`)?.imageUrl || `https://picsum.photos/seed/grid-${idx}/800/500`}
                           alt={post.title}
                           fill
                           className="object-cover transition-transform duration-700 group-hover:scale-105"
                           unoptimized
-                          data-ai-hint="grid news"
                         />
-                      )}
-                    </div>
-                    <div className="space-y-3 px-2">
-                      <div className="flex items-center gap-2">
-                         <div className="w-1.5 h-1.5 rounded-full bg-[#0054A6]" />
-                         <span className="text-[10px] text-slate-400 font-light tracking-tight">{post.category}</span>
                       </div>
-                      <h4 className="text-lg font-bold text-slate-800 tracking-tight leading-tight group-hover:text-[#0054A6] transition-colors">
-                        {post.title}
-                      </h4>
-                      <p className="text-[11px] text-slate-500 font-light leading-relaxed line-clamp-2">
-                        {post.description}
-                      </p>
-                      <p className="text-[9px] text-slate-400 font-light pt-2">
-                        {post.date} • {post.readTime}
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
+                      <div className="space-y-3 px-2">
+                        <div className="flex items-center gap-2">
+                           <div className="w-1.5 h-1.5 rounded-full bg-[#0054A6]" />
+                           <span className="text-[10px] text-slate-400 font-light tracking-tight">{post.author || 'Gestión'}</span>
+                        </div>
+                        <h4 className="text-lg font-bold text-slate-800 tracking-tight leading-tight group-hover:text-[#0054A6] transition-colors line-clamp-2">
+                          {post.title}
+                        </h4>
+                        <p className="text-[11px] text-slate-500 font-light leading-relaxed line-clamp-2">
+                          {post.description?.replace(/<[^>]*>?/gm, '') || 'Accede a la nota completa para conocer todos los detalles de esta actualización informativa.'}
+                        </p>
+                        <p className="text-[9px] text-slate-400 font-light pt-2">
+                          {formatDate(post.pubDate)}
+                        </p>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </section>
 
