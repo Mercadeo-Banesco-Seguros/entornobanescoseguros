@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -318,6 +319,12 @@ export default function AcademiaPage() {
       {/* 5. Noticias e Insights - FINAL SECTION */}
       <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-32 px-8 md:px-16 lg:px-24">
         <div className="max-w-7xl mx-auto">
+          {/* Header de la sección de noticias */}
+          <div className="flex flex-col space-y-4 mb-16">
+            <span className="text-[#0054A6] text-[11px] font-light tracking-tight uppercase">Actualidad Institucional</span>
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-slate-900">Últimas Noticias</h2>
+          </div>
+
           {loadingNews ? (
             <div className="w-full flex flex-col items-center justify-center py-20 gap-4">
               <Loader2 className="w-8 h-8 text-[#0054A6] animate-spin" />
