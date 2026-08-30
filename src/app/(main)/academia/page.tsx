@@ -25,11 +25,27 @@ const academiaHeroStates = [
   }
 ];
 
-const latestCategories = [
-  { label: 'Finanzas', imageUrl: 'https://docs.google.com/drawings/d/e/2PACX-1vTxjoPqb80l0nbk1nJ9NcDh8j7VYcNKE4AjBso3D5j_LxC-TfeH-HnlCdtXwFtJREAu2oiX7KIiEU6J/pub?w=960&h=720' },
-  { label: 'Deportes', imageUrl: 'https://docs.google.com/drawings/d/e/2PACX-1vQOxUKTZenuFPuJCgFGscopDpUtCJUyqXhrtktqGjjC2N7pm8SNa1yv4hk14aQiUo9fjl2DAfyIfjCW/pub?w=960&h=720' },
-  { label: 'Cultura', imageUrl: 'https://docs.google.com/drawings/d/e/2PACX-1vR4LH5nCaUHFMm9FWOKRKEVHm_t_VMIEyneZEm2xYcSbdIpk7LTb3jc3GGens-Wu9iEGofBPfhjr22D/pub?w=960&h=720' },
-  { label: 'Tecnología', imageUrl: 'https://docs.google.com/drawings/d/e/2PACX-1vR_IXWOoXk7W3pneAtVDb9AacyP6g7RdVymUbMXCql7nXrhqLUZcOdVj1HyDSpHat2i8_NmmcX9BCjD/pub?w=960&h=720' }
+const CATEGORIES_CONFIG = [
+  { 
+    label: 'Finanzas', 
+    topic: 'BUSINESS', 
+    imageUrl: 'https://docs.google.com/drawings/d/e/2PACX-1vTxjoPqb80l0nbk1nJ9NcDh8j7VYcNKE4AjBso3D5j_LxC-TfeH-HnlCdtXwFtJREAu2oiX7KIiEU6J/pub?w=960&h=720' 
+  },
+  { 
+    label: 'Deportes', 
+    topic: 'SPORTS', 
+    imageUrl: 'https://docs.google.com/drawings/d/e/2PACX-1vQOxUKTZenuFPuJCgFGscopDpUtCJUyqXhrtktqGjjC2N7pm8SNa1yv4hk14aQiUo9fjl2DAfyIfjCW/pub?w=960&h=720' 
+  },
+  { 
+    label: 'Cultura', 
+    topic: 'ENTERTAINMENT', 
+    imageUrl: 'https://docs.google.com/drawings/d/e/2PACX-1vR4LH5nCaUHFMm9FWOKRKEVHm_t_VMIEyneZEm2xYcSbdIpk7LTb3jc3GGens-Wu9iEGofBPfhjr22D/pub?w=960&h=720' 
+  },
+  { 
+    label: 'Tecnología', 
+    topic: 'TECHNOLOGY', 
+    imageUrl: 'https://docs.google.com/drawings/d/e/2PACX-1vR_IXWOoXk7W3pneAtVDb9AacyP6g7RdVymUbMXCql7nXrhqLUZcOdVj1HyDSpHat2i8_NmmcX9BCjD/pub?w=960&h=720' 
+  }
 ];
 
 interface NewsItem {
@@ -41,6 +57,8 @@ interface NewsItem {
   thumbnail: string;
   description: string;
   content: string;
+  categoryLabel?: string;
+  categoryImage?: string;
 }
 
 function Counter({ end, duration = 5000, suffix = "", prefix = "" }: { end: number, duration?: number, suffix?: string, prefix?: string }) {
@@ -79,18 +97,47 @@ function ConcentricArcs() {
 export default function AcademiaPage() {
   const [mounted, setMounted] = React.useState(false);
   const [currentStateIndex, setCurrentStateIndex] = React.useState(0);
-  const [news, setNews] = React.useState<NewsItem[]>([]);
+  const [generalNews, setGeneralNews] = React.useState<NewsItem[]>([]);
+  const [categorizedNews, setCategorizedNews] = React.useState<NewsItem[]>([]);
   const [loadingNews, setLoadingNews] = React.useState(true);
+
+  const fetchCategorizedNews = React.useCallback(async () => {
+    const fetchTopic = async (config: typeof CATEGORIES_CONFIG[0]) => {
+      try {
+        const feedUrl = encodeURIComponent(`https://news.google.com/rss/headlines/section/topic/${config.topic}?hl=es-419&gl=US&ceid=US:es-419`);
+        const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${feedUrl}`;
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        if (data.status === 'ok' && data.items.length > 0) {
+          const item = data.items[0];
+          return {
+            ...item,
+            categoryLabel: config.label,
+            categoryImage: config.imageUrl
+          };
+        }
+      } catch (e) {
+        console.error(`Error fetching ${config.label}:`, e);
+      }
+      return null;
+    };
+
+    const results = await Promise.all(CATEGORIES_CONFIG.map(config => fetchTopic(config)));
+    return results.filter(item => item !== null) as NewsItem[];
+  }, []);
 
   const fetchNews = React.useCallback(async () => {
     setLoadingNews(true);
     try {
+      // 1. Fetch General News
       const feedUrl = encodeURIComponent('https://news.google.com/rss?hl=es-419&gl=US&ceid=US:es-419');
       const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${feedUrl}`;
       const response = await fetch(apiUrl);
       const data = await response.json();
+      
+      let processedGeneral: NewsItem[] = [];
       if (data.status === 'ok') {
-        const processedItems = data.items.map((item: NewsItem) => {
+        processedGeneral = data.items.map((item: any) => {
           const parser = new DOMParser();
           const doc = parser.parseFromString(item.description, 'text/html');
           const hiddenImg = doc.querySelector('img');
@@ -99,14 +146,19 @@ export default function AcademiaPage() {
             thumbnail: hiddenImg ? hiddenImg.src : item.thumbnail
           };
         });
-        setNews(processedItems);
       }
+
+      // 2. Fetch specific categories for the sidebar
+      const categorized = await fetchCategorizedNews();
+      
+      setGeneralNews(processedGeneral);
+      setCategorizedNews(categorized);
     } catch (error) {
       console.error('Error fetching news:', error);
     } finally {
       setLoadingNews(false);
     }
-  }, []);
+  }, [fetchCategorizedNews]);
 
   React.useEffect(() => {
     setMounted(true);
@@ -124,9 +176,8 @@ export default function AcademiaPage() {
 
   if (!mounted) return null;
 
-  const featuredPost = news[0];
-  const latestPostsList = news.slice(1, 5);
-  const bottomPosts = news.slice(5, 8);
+  const featuredPost = generalNews[0];
+  const bottomPosts = generalNews.slice(1, 4);
 
   const formatDate = (dateStr: string) => {
     const d = new Date(dateStr);
@@ -316,20 +367,19 @@ export default function AcademiaPage() {
                   </a>
                 )}
 
-                {/* Side List: Latest Posts */}
+                {/* Side List: Latest Posts (Categorized) */}
                 <div className="space-y-8">
                   <div className="flex justify-between items-end">
                     <h3 className="text-lg font-bold tracking-tight text-slate-900 leading-none">Últimas Publicaciones</h3>
                     <button className="text-[10px] text-slate-400 font-light hover:text-slate-600 transition-colors">Ver todas</button>
                   </div>
                   <div className="space-y-6">
-                    {latestPostsList.map((post, idx) => {
-                      const category = latestCategories[idx % latestCategories.length];
+                    {categorizedNews.map((post, idx) => {
                       return (
                         <a key={idx} href={post.link} target="_blank" rel="noopener" className="flex gap-4 group cursor-pointer border-b border-slate-50 pb-4 last:border-0">
                           <div className="relative w-20 h-20 rounded-2xl overflow-hidden bg-slate-50 shrink-0">
                             <Image 
-                              src={category.imageUrl} 
+                              src={post.categoryImage || ''} 
                               alt={post.title}
                               fill
                               className="object-cover transition-transform duration-500 group-hover:scale-110"
@@ -337,7 +387,7 @@ export default function AcademiaPage() {
                             />
                           </div>
                           <div className="flex flex-col justify-center space-y-1">
-                            <span className="text-[7px] text-[#0054A6] font-bold uppercase tracking-widest leading-none mb-1">{category.label}</span>
+                            <span className="text-[7px] text-[#0054A6] font-bold uppercase tracking-widest leading-none mb-1">{post.categoryLabel}</span>
                             <h4 className="text-[12px] font-medium text-slate-800 leading-tight group-hover:text-[#0054A6] transition-colors line-clamp-2">
                               {post.title}
                             </h4>
