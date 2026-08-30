@@ -90,6 +90,7 @@ export default function AcademiaPage() {
   const [currentStateIndex, setCurrentStateIndex] = React.useState(0);
   const [categorizedNews, setCategorizedNews] = React.useState<NewsItem[]>([]);
   const [loadingNews, setLoadingNews] = React.useState(true);
+  const [interactiveTitle, setInteractiveTitle] = React.useState("Aprendizaje Interactivo");
 
   const fetchCategorizedNews = React.useCallback(async () => {
     const fetchTopic = async (config: typeof CATEGORIES_CONFIG[0]) => {
@@ -136,7 +137,14 @@ export default function AcademiaPage() {
       setCurrentStateIndex((prev) => (prev + 1) % academiaHeroStates.length);
     }, 10000);
 
-    return () => clearInterval(heroTimer);
+    const textTimer = setTimeout(() => {
+      setInteractiveTitle("Academia Banesco Seguros");
+    }, 10000);
+
+    return () => {
+      clearInterval(heroTimer);
+      clearTimeout(textTimer);
+    };
   }, [loadData]);
 
   const currentState = academiaHeroStates[currentStateIndex];
@@ -202,7 +210,7 @@ export default function AcademiaPage() {
         </div>
       </section>
 
-      {/* 2. Categorías de Aprendizaje - Innovación (Reduced Height & Tracking) */}
+      {/* 2. Categorías de Aprendizaje - Innovación */}
       <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-16 px-8 md:px-16 lg:px-24 overflow-hidden border-b border-slate-50">
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-20">
           <div className="w-full lg:w-[22%] space-y-12 order-2 lg:order-1">
@@ -255,6 +263,27 @@ export default function AcademiaPage() {
                 Despliega modelos de aprendizaje automático avanzados para optimizar la <span className="bg-blue-50 px-1 font-light text-slate-900">predicción de riesgos</span>.
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* NEW: Aprendizaje Interactivo Section */}
+      <section className="relative w-screen left-1/2 -ml-[50vw] h-[400px] overflow-hidden flex items-center justify-center">
+        {/* Soft Blurred Background Blobs */}
+        <div className="absolute inset-0 bg-white">
+          <div className="absolute top-[-10%] left-[-5%] w-[60%] h-[70%] rounded-full bg-cyan-100/60 blur-[120px] animate-pulse" />
+          <div className="absolute bottom-[-10%] right-[-5%] w-[60%] h-[70%] rounded-full bg-yellow-100/60 blur-[120px] animate-pulse" style={{ animationDelay: '2s' }} />
+          <div className="absolute top-[20%] right-[15%] w-[40%] h-[50%] rounded-full bg-blue-50/40 blur-[100px]" />
+        </div>
+
+        <div className="relative z-10 text-center space-y-8 px-6 max-w-4xl mx-auto">
+          <h2 key={interactiveTitle} className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tighter text-slate-800 animate-in fade-in duration-1000">
+            {interactiveTitle}
+          </h2>
+          <div className="flex justify-center animate-in fade-in slide-in-from-bottom-2 duration-1000 delay-500">
+            <button className="px-12 py-3 rounded-full bg-white/40 backdrop-blur-md border border-slate-200 text-slate-600 text-[11px] font-light tracking-wide hover:bg-white/60 transition-all duration-300">
+              Explorar
+            </button>
           </div>
         </div>
       </section>
