@@ -45,6 +45,11 @@ const CATEGORIES_CONFIG = [
     label: 'Tecnología', 
     topic: 'TECHNOLOGY', 
     imageUrl: 'https://docs.google.com/drawings/d/e/2PACX-1vR_IXWOoXk7W3pneAtVDb9AacyP6g7RdVymUbMXCql7nXrhqLUZcOdVj1HyDSpHat2i8_NmmcX9BCjD/pub?w=960&h=720' 
+  },
+  { 
+    label: 'Ciencia', 
+    topic: 'SCIENCE', 
+    imageUrl: 'https://docs.google.com/drawings/d/e/2PACX-1vR_8U1hdhmrPZka3Vo2pX4ZvGDsW7ib9Mqnk2icA_gv8hWk5xKXco2p4udVn3BNovO6EFsAM1sRtN2c/pub?w=960&h=720' 
   }
 ];
 
@@ -78,6 +83,54 @@ function Counter({ end, duration = 5000, suffix = "", prefix = "" }: { end: numb
   }, [end, duration]);
 
   return <>{prefix}{count}{suffix}</>;
+}
+
+function ProgressCircle({ value, duration = 5000 }: { value: number, duration?: number }) {
+  const [progress, setProgress] = React.useState(0);
+  const radius = 18;
+  const circumference = 2 * Math.PI * radius;
+
+  React.useEffect(() => {
+    let startTimestamp: number | null = null;
+    const step = (timestamp: number) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const elapsed = timestamp - startTimestamp;
+      const progressValue = Math.min(elapsed / duration, 1);
+      setProgress(progressValue * value);
+      if (elapsed < duration) {
+        window.requestAnimationFrame(step);
+      }
+    };
+    window.requestAnimationFrame(step);
+  }, [value, duration]);
+
+  const offset = circumference - (Math.min(progress, 100) / 100) * circumference;
+
+  return (
+    <svg className="w-12 h-12 -rotate-90">
+      <circle
+        cx="24"
+        cy="24"
+        r={radius}
+        stroke="currentColor"
+        strokeWidth="2.5"
+        fill="transparent"
+        className="text-white/10"
+      />
+      <circle
+        cx="24"
+        cy="24"
+        r={radius}
+        stroke="currentColor"
+        strokeWidth="2.5"
+        fill="transparent"
+        strokeDasharray={circumference}
+        style={{ strokeDashoffset: offset }}
+        className="text-white transition-all duration-75 ease-linear"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
 }
 
 function ConcentricArcs() {
@@ -129,7 +182,6 @@ export default function AcademiaPage() {
   const fetchNews = React.useCallback(async () => {
     setLoadingNews(true);
     try {
-      // 1. Fetch General News
       const feedUrl = encodeURIComponent('https://news.google.com/rss?hl=es-419&gl=US&ceid=US:es-419');
       const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${feedUrl}`;
       const response = await fetch(apiUrl);
@@ -148,7 +200,6 @@ export default function AcademiaPage() {
         });
       }
 
-      // 2. Fetch specific categories for the sidebar
       const categorized = await fetchCategorizedNews();
       
       setGeneralNews(processedGeneral);
@@ -311,9 +362,12 @@ export default function AcademiaPage() {
               { value: 218, suffix: "%", label: "Rendimiento Operativo", desc: "Aumento de ingresos por empleado en organizaciones con formación integral." }
             ].map((stat, idx) => (
               <div key={idx} className="flex flex-col space-y-6 border-l border-white/10 pl-8 group">
-                <span className="text-5xl font-bold tracking-tighter">
-                  <Counter end={stat.value} suffix={stat.suffix} />
-                </span>
+                <div className="flex items-center gap-4">
+                  <span className="text-5xl font-bold tracking-tighter">
+                    <Counter end={stat.value} suffix={stat.suffix} />
+                  </span>
+                  <ProgressCircle value={stat.value} />
+                </div>
                 <div className="space-y-3">
                    <h4 className="text-[12px] font-medium tracking-tight text-white/90">{stat.label}</h4>
                    <p className="text-[10px] font-light text-white/60 leading-relaxed max-w-[200px]">
@@ -337,9 +391,7 @@ export default function AcademiaPage() {
             </div>
           ) : (
             <>
-              {/* Top Row: Featured + Side List */}
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-                {/* Featured Post */}
                 {featuredPost && (
                   <a href={featuredPost.link} target="_blank" rel="noopener" className="lg:col-span-2 group cursor-pointer block">
                     <div className="relative aspect-[16/9] rounded-[2.5rem] overflow-hidden bg-slate-100 mb-8">
@@ -367,7 +419,6 @@ export default function AcademiaPage() {
                   </a>
                 )}
 
-                {/* Side List: Latest Posts (Categorized) */}
                 <div className="space-y-8">
                   <div className="flex justify-between items-end">
                     <h3 className="text-lg font-bold tracking-tight text-slate-900 leading-none">Últimas Publicaciones</h3>
@@ -402,7 +453,6 @@ export default function AcademiaPage() {
                 </div>
               </div>
 
-              {/* Bottom Row: Noticias de Interés Grid */}
               <div className="space-y-12">
                 <div className="flex justify-between items-center">
                   <h3 className="text-xl font-bold tracking-tighter text-slate-900">Noticias de Interés</h3>
