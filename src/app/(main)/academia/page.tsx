@@ -85,20 +85,6 @@ function Counter({ end, duration = 5000, suffix = "", prefix = "" }: { end: numb
   return <>{prefix}{count}{suffix}</>;
 }
 
-function ConcentricArcs() {
-  return (
-    <div className="absolute right-[-10%] top-[-20%] w-[120%] h-[140%] pointer-events-none opacity-20 hidden lg:block overflow-hidden">
-      <svg viewBox="0 0 1000 1000" className="w-full h-full text-white fill-none" stroke="currentColor" strokeWidth="1.5">
-        <circle cx="800" cy="400" r="150" strokeDasharray="4 4" />
-        <circle cx="800" cy="400" r="250" />
-        <circle cx="800" cy="400" r="350" strokeWidth="0.5" opacity="0.5" />
-        <circle cx="800" cy="400" r="450" />
-        <circle cx="800" cy="400" r="550" strokeDasharray="8 8" opacity="0.3" />
-      </svg>
-    </div>
-  );
-}
-
 export default function AcademiaPage() {
   const [mounted, setMounted] = React.useState(false);
   const [currentStateIndex, setCurrentStateIndex] = React.useState(0);
@@ -275,8 +261,6 @@ export default function AcademiaPage() {
 
       {/* 2b. Impacto de la Formación Corporativa */}
       <section className="relative w-screen left-1/2 -ml-[50vw] bg-gradient-to-br from-[#004285] via-[#0054A6] to-[#0061C1] py-20 px-8 md:px-16 lg:px-24 text-white overflow-hidden">
-        <ConcentricArcs />
-
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="flex flex-col space-y-4 mb-20 max-w-2xl text-left">
             <span className="text-white/60 text-[11px] font-light tracking-normal">Estadísticas Clave</span>
