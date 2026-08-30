@@ -83,7 +83,17 @@ export default function AcademiaPage() {
       const response = await fetch(apiUrl);
       const data = await response.json();
       if (data.status === 'ok') {
-        setNews(data.items);
+        // Procesar noticias para extraer imágenes ocultas de la descripción
+        const processedItems = data.items.map((item: NewsItem) => {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(item.description, 'text/html');
+          const hiddenImg = doc.querySelector('img');
+          return {
+            ...item,
+            thumbnail: hiddenImg ? hiddenImg.src : item.thumbnail
+          };
+        });
+        setNews(processedItems);
       }
     } catch (error) {
       console.error('Error fetching news:', error);
