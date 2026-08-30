@@ -210,7 +210,7 @@ export default function AcademiaPage() {
         </div>
       </section>
 
-      {/* 2. Aprendizaje Interactivo Section - REUBICADA ANTES DE INNOVACIÓN */}
+      {/* 2. Aprendizaje Interactivo Section */}
       <section className="relative w-screen left-1/2 -ml-[50vw] h-[400px] overflow-hidden flex items-center justify-center">
         {/* Soft Blurred Background Blobs */}
         <div className="absolute inset-0 bg-white">
@@ -231,64 +231,7 @@ export default function AcademiaPage() {
         </div>
       </section>
 
-      {/* 3. Categorías de Aprendizaje - Innovación */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-16 px-8 md:px-16 lg:px-24 overflow-hidden border-b border-slate-50">
-        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-20">
-          <div className="w-full lg:w-[22%] space-y-12 order-2 lg:order-1">
-            <div className="space-y-4">
-              <h3 className="text-2xl font-light tracking-tighter text-slate-900 leading-tight">Google Notebooks</h3>
-              <p className="text-slate-500 text-[13px] font-light leading-relaxed tracking-tighter">
-                Potencia el análisis de datos interactivo con entornos de computación en la <span className="bg-blue-50 px-1 font-light text-slate-900">nube altamente escalables</span>.
-              </p>
-            </div>
-            <div className="space-y-4">
-              <h3 className="text-2xl font-light tracking-tighter text-slate-900 leading-tight">Google Fabric</h3>
-              <p className="text-slate-500 text-[13px] font-light leading-relaxed tracking-tighter">
-                Unifica la gestión de datos corporativos mediante una arquitectura de <span className="bg-blue-50 px-1 font-light text-slate-900">malla de datos inteligente</span>.
-              </p>
-            </div>
-          </div>
-
-          <div className="relative w-full lg:w-[45%] aspect-square flex items-center justify-center order-1 lg:order-2">
-            <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full text-slate-100">
-              {Array.from({ length: 120 }).map((_, i) => (
-                <line
-                  key={i}
-                  x1="50"
-                  y1="2"
-                  x2="50"
-                  y2="12"
-                  stroke="currentColor"
-                  strokeWidth="0.4"
-                  transform={`rotate(${(i * 360) / 120} 50 50)`}
-                />
-              ))}
-            </svg>
-            <div className="relative z-10 text-center px-6 md:px-12">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-light tracking-tighter text-slate-900 leading-[1.1] max-w-[280px] mx-auto">
-                Aprender para Innovar
-              </h2>
-            </div>
-          </div>
-
-          <div className="w-full lg:w-[22%] space-y-12 order-3">
-             <div className="space-y-4">
-              <h3 className="text-2xl font-light tracking-tighter text-slate-900 leading-tight">Cloud Analytics</h3>
-              <p className="text-slate-500 text-[13px] font-light leading-relaxed tracking-tighter">
-                Transforma grandes volúmenes de información en decisiones estratégicas con <span className="bg-blue-50 px-1 font-light text-slate-900">analítica en tiempo real</span>.
-              </p>
-            </div>
-            <div className="space-y-4">
-              <h3 className="text-2xl font-light tracking-tighter text-slate-900 leading-tight">Vertex AI</h3>
-              <p className="text-slate-500 text-[13px] font-light leading-relaxed tracking-tighter">
-                Despliega modelos de aprendizaje automático avanzados para optimizar la <span className="bg-blue-50 px-1 font-light text-slate-900">predicción de riesgos</span>.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. Impacto de la Formación Corporativa - No Arcs */}
+      {/* 3. Impacto de la Formación Corporativa - No Arcs */}
       <section className="relative w-screen left-1/2 -ml-[50vw] bg-gradient-to-br from-[#004285] via-[#0054A6] to-[#0061C1] py-20 px-8 md:px-16 lg:px-24 text-white overflow-hidden">
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="flex flex-col space-y-4 mb-20 max-w-2xl text-left">
@@ -323,7 +266,7 @@ export default function AcademiaPage() {
         </div>
       </section>
 
-      {/* 5. Visita Nuestra Academia Banesco Seguros */}
+      {/* 4. Visita Nuestra Academia Banesco Seguros */}
       <section className="relative w-screen left-1/2 -ml-[50vw] bg-slate-50 py-24 px-8 md:px-16 lg:px-24 border-t border-slate-100">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-16 gap-8">
@@ -372,7 +315,7 @@ export default function AcademiaPage() {
         </div>
       </section>
 
-      {/* 6. Noticias e Insights - FINAL SECTION */}
+      {/* 5. Noticias e Insights - FINAL SECTION */}
       <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-32 px-8 md:px-16 lg:px-24">
         <div className="max-w-7xl mx-auto">
           {loadingNews ? (
