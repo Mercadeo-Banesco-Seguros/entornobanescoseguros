@@ -26,13 +26,6 @@ const academiaHeroStates = [
   }
 ];
 
-const categories = [
-  { id: 'cultura', label: 'Cultura Corporativa', icon: Award },
-  { id: 'productos', label: 'Nuestros Productos', icon: BookOpen },
-  { id: 'ventas', label: 'Técnicas de Venta', icon: Search },
-  { id: 'liderazgo', label: 'Liderazgo', icon: GraduationCap },
-];
-
 function Counter({ end, duration = 5000, suffix = "", prefix = "" }: { end: number, duration?: number, suffix?: string, prefix?: string }) {
   const [count, setCount] = React.useState(0);
 
@@ -135,36 +128,82 @@ export default function AcademiaPage() {
         </div>
       </section>
 
-      {/* 2. Categorías de Aprendizaje */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-20 px-8 md:px-16 lg:px-24">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+      {/* 2. Categorías de Aprendizaje - New Minimalist Insight Design */}
+      <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-32 px-8 md:px-16 lg:px-24 overflow-hidden border-b border-slate-50">
+        {/* Top Info Labels */}
+        <div className="absolute top-10 left-8 md:left-16 lg:left-24">
+          <span className="text-[9px] text-slate-400 font-normal tracking-[0.2em] uppercase">Academia Banesco Seguros</span>
+        </div>
+        <div className="absolute top-10 right-8 md:right-16 lg:right-24">
+          <span className="text-[9px] text-slate-400 font-normal tracking-[0.2em] uppercase">Reporte de Formación 2026</span>
+        </div>
+
+        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-20">
+          {/* Left Column */}
+          <div className="w-full lg:w-[22%] space-y-12 order-2 lg:order-1">
             <div className="space-y-4">
-              <span className="text-[#0054A6] text-[11px] font-light tracking-tight uppercase">Explorar</span>
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-slate-900 leading-none">Categorías de Aprendizaje</h2>
-              <p className="text-slate-500 text-[11px] font-light leading-relaxed max-w-xl mt-4">
-                Domina cada área de nuestra organización con contenido especializado y herramientas de vanguardia.
+              <h3 className="text-2xl font-normal tracking-tight text-slate-900 leading-tight">Cultura Institucional</h3>
+              <p className="text-slate-500 text-[13px] font-light leading-relaxed">
+                Los colaboradores que dominan nuestra cultura y valores son <span className="bg-yellow-100 px-1 font-medium text-slate-900 italic">+60% más efectivos</span> en su gestión diaria.
+              </p>
+            </div>
+            <div className="space-y-4">
+              <h3 className="text-2xl font-normal tracking-tight text-slate-900 leading-tight">Liderazgo Consciente</h3>
+              <p className="text-slate-500 text-[13px] font-light leading-relaxed">
+                El desarrollo de habilidades de liderazgo incrementa la <span className="bg-yellow-100 px-1 font-medium text-slate-900 italic">retención de talento</span> y la satisfacción del equipo.
               </p>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {categories.map((cat) => (
-              <div key={cat.id} className="group p-8 rounded-[2.5rem] bg-slate-50 hover:bg-[#0054A6] transition-all duration-500 cursor-pointer border border-slate-100 hover:border-transparent">
-                <div className="w-14 h-14 rounded-2xl bg-white flex items-center justify-center mb-8 shadow-sm group-hover:bg-white/10 group-hover:shadow-none transition-colors">
-                  <cat.icon className="w-6 h-6 text-[#0054A6] group-hover:text-white transition-colors" strokeWidth={1.5} />
-                </div>
-                <h3 className="text-lg font-bold tracking-tight text-slate-900 group-hover:text-white transition-colors mb-2">{cat.label}</h3>
-                <p className="text-[10px] font-light text-slate-400 group-hover:text-white/60 transition-colors leading-relaxed">
-                  Accede a materiales exclusivos y certificaciones oficiales.
-                </p>
-              </div>
-            ))}
+          {/* Center Circle Content */}
+          <div className="relative w-full lg:w-[45%] aspect-square flex items-center justify-center order-1 lg:order-2">
+            <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full text-slate-200">
+              {Array.from({ length: 120 }).map((_, i) => (
+                <line
+                  key={i}
+                  x1="50"
+                  y1="2"
+                  x2="50"
+                  y2="12"
+                  stroke="currentColor"
+                  strokeWidth="0.4"
+                  transform={`rotate(${(i * 360) / 120} 50 50)`}
+                />
+              ))}
+            </svg>
+            <div className="relative z-10 text-center px-6 md:px-12">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-normal tracking-tighter text-slate-900 leading-[1.1] max-w-md mx-auto">
+                La formación constante potencia el talento individual y fortalece los resultados de todo el equipo.
+              </h2>
+            </div>
           </div>
+
+          {/* Right Column */}
+          <div className="w-full lg:w-[22%] space-y-12 order-3">
+             <div className="space-y-4">
+              <h3 className="text-2xl font-normal tracking-tight text-slate-900 leading-tight">Excelencia Comercial</h3>
+              <p className="text-slate-500 text-[13px] font-light leading-relaxed">
+                El dominio de nuestros productos aumenta un <span className="bg-yellow-100 px-1 font-medium text-slate-900 italic">+45% la probabilidad</span> de alcanzar tus metas comerciales.
+              </p>
+            </div>
+            <div className="space-y-4">
+              <h3 className="text-2xl font-normal tracking-tight text-slate-900 leading-tight">Estrategia de Ventas</h3>
+              <p className="text-slate-500 text-[13px] font-light leading-relaxed">
+                Aplicar técnicas de venta consultiva mejora la <span className="bg-yellow-100 px-1 font-medium text-slate-900 italic">experiencia del cliente</span> y la rentabilidad de la cartera.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Metadata */}
+        <div className="mt-32 max-w-4xl border-t border-slate-100 pt-8">
+          <p className="text-[10px] text-slate-400 font-light leading-relaxed uppercase tracking-tight max-w-2xl">
+            * Datos basados en el análisis de desempeño institucional del ciclo 2024-2025. La formación se considera un eje transversal para el cumplimiento de los objetivos estratégicos de Banesco Seguros y el fortalecimiento de la Sangre Azul.
+          </p>
         </div>
       </section>
 
-      {/* 2b. Impacto de la Formación Corporativa - Minimalist Redesign */}
+      {/* 2b. Impacto de la Formación Corporativa */}
       <section className="relative w-screen left-1/2 -ml-[50vw] bg-gradient-to-br from-[#004285] via-[#0054A6] to-[#0061C1] py-24 px-8 md:px-16 lg:px-24 text-white overflow-hidden">
         <ConcentricArcs />
 
