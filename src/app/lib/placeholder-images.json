@@ -107,7 +107,7 @@
       "id": "segurito-ai-status",
       "description": "Segurito IA Próximamente",
       "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vSml8cCPN0OwXrRZpBeWyItXmJjmo1AvyEMHP0kyCFvd8lH4BK1uSjEwNAh-zz1Nl_oUFcrB9FbHabX/pub?w=960&h=720&format=png",
-      "imageHint": "explorer character"
+      "imageHint": "robot assistant"
     },
     {
       "id": "wellness-yoga",
@@ -156,6 +156,54 @@
       "description": "Productos Academia",
       "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vSoJ6sIoq43g1msRRV51LJvw1Z3oOLV8E2AtDlICDv3IhYtid1ii6oakMvbVQYt_9u_qjjw78xFSSeF/pub?format=png&w=960&h=720",
       "imageHint": "business growth"
+    },
+    {
+      "id": "news-featured",
+      "description": "Noticia Destacada",
+      "imageUrl": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&h=800",
+      "imageHint": "futuristic technology"
+    },
+    {
+      "id": "news-1",
+      "description": "Noticia 1",
+      "imageUrl": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=300&h=300",
+      "imageHint": "security tech"
+    },
+    {
+      "id": "news-2",
+      "description": "Noticia 2",
+      "imageUrl": "https://images.unsplash.com/photo-1551288049-bbbda536339a?auto=format&fit=crop&w=300&h=300",
+      "imageHint": "data analysis"
+    },
+    {
+      "id": "news-3",
+      "description": "Noticia 3",
+      "imageUrl": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=300&h=300",
+      "imageHint": "team meeting"
+    },
+    {
+      "id": "news-4",
+      "description": "Noticia 4",
+      "imageUrl": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=300&h=300",
+      "imageHint": "modern workspace"
+    },
+    {
+      "id": "news-bottom-1",
+      "description": "Noticia Grid 1",
+      "imageUrl": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&h=500",
+      "imageHint": "happy team"
+    },
+    {
+      "id": "news-bottom-2",
+      "description": "Noticia Grid 2",
+      "imageUrl": "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&h=500",
+      "imageHint": "leadership talk"
+    },
+    {
+      "id": "news-bottom-3",
+      "description": "Noticia Grid 3",
+      "imageUrl": "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&h=500",
+      "imageHint": "professional woman"
     }
   ]
 }

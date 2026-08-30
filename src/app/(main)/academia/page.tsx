@@ -1,10 +1,11 @@
+
 'use client';
 
 import * as React from 'react';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
-import { PlayCircle, Share2 } from 'lucide-react';
+import { PlayCircle, Share2, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const academiaHeroStates = [
@@ -23,6 +24,19 @@ const academiaHeroStates = [
     title: "Conoce Nuestros Productos",
     imageId: "academia-hero-3",
   }
+];
+
+const latestPosts = [
+  { id: 1, title: 'IA Generativa: El nuevo aliado del sector seguros', date: 'Feb 10', readTime: '5 min read', imageId: 'news-1' },
+  { id: 2, title: 'Tips para optimizar tu gestión con micro-learning', date: 'Feb 08', readTime: '3 min read', imageId: 'news-2' },
+  { id: 3, title: 'La importancia de las habilidades blandas hoy', date: 'Feb 05', readTime: '8 min read', imageId: 'news-3' },
+  { id: 4, title: 'Estrategias de agilidad en entornos corporativos', date: 'Feb 01', readTime: '4 min read', imageId: 'news-4' },
+];
+
+const bottomPosts = [
+  { id: 1, category: 'Cultura', title: 'Nuestra gente hace la diferencia', description: 'Exploramos cómo el talento humano impulsa la transformación digital en nuestra organización.', date: 'Ene 28', readTime: '6 min read', imageId: 'news-bottom-1' },
+  { id: 2, category: 'Estrategia', title: 'Liderazgo que inspira confianza', description: 'Claves para desarrollar equipos de alto rendimiento basados en valores institucionales.', date: 'Ene 25', readTime: '7 min read', imageId: 'news-bottom-2' },
+  { id: 3, category: 'Bienestar', title: 'Equilibrio vida-trabajo', description: 'Iniciativas de bienestar que maximizan el potencial y la satisfacción de nuestros colaboradores.', date: 'Ene 20', readTime: '5 min read', imageId: 'news-bottom-3' },
 ];
 
 function Counter({ end, duration = 5000, suffix = "", prefix = "" }: { end: number, duration?: number, suffix?: string, prefix?: string }) {
@@ -238,6 +252,133 @@ export default function AcademiaPage() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 2c. Noticias e Insights (Nueva Sección) */}
+      <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-32 px-8 md:px-16 lg:px-24">
+        <div className="max-w-7xl mx-auto space-y-24">
+          
+          {/* Top Row: Featured + Side List */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            {/* Featured Post */}
+            <div className="lg:col-span-2 group cursor-pointer">
+              <div className="relative aspect-[16/9] rounded-[2.5rem] overflow-hidden bg-slate-100 mb-8">
+                {PlaceHolderImages.find(img => img.id === 'news-featured') && (
+                  <Image 
+                    src={PlaceHolderImages.find(img => img.id === 'news-featured')!.imageUrl}
+                    alt="Noticia Destacada"
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    unoptimized
+                    data-ai-hint="futuristic office"
+                  />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                <div className="absolute bottom-8 left-8 right-8">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/30 mb-4">
+                    <div className="w-1.5 h-1.5 rounded-full bg-white" />
+                    <span className="text-[9px] text-white font-light tracking-tight">Destacado</span>
+                  </div>
+                  <h3 className="text-white text-2xl md:text-3xl font-bold tracking-tighter leading-tight max-w-2xl">
+                    Impulsando la colaboración en equipos híbridos: Un cambio de paradigma para el flujo de trabajo moderno.
+                  </h3>
+                  <p className="text-white/60 text-[10px] font-light mt-4">
+                    Feb 10 • 10 min read
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Side List: Latest Posts */}
+            <div className="space-y-8">
+              <div className="flex justify-between items-end">
+                <h3 className="text-lg font-bold tracking-tight text-slate-900 leading-none">Últimas Publicaciones</h3>
+                <button className="text-[10px] text-slate-400 font-light hover:text-slate-600 transition-colors">Ver todas</button>
+              </div>
+              <div className="space-y-6">
+                {latestPosts.map((post) => {
+                  const image = PlaceHolderImages.find(img => img.id === post.imageId);
+                  return (
+                    <div key={post.id} className="flex gap-4 group cursor-pointer">
+                      <div className="relative w-20 h-20 rounded-2xl overflow-hidden bg-slate-50 shrink-0">
+                        {image && (
+                          <Image 
+                            src={image.imageUrl}
+                            alt={post.title}
+                            fill
+                            className="object-cover transition-transform duration-500 group-hover:scale-110"
+                            unoptimized
+                            data-ai-hint="news icon"
+                          />
+                        )}
+                      </div>
+                      <div className="flex flex-col justify-center space-y-1">
+                        <h4 className="text-[12px] font-medium text-slate-800 leading-tight group-hover:text-[#0054A6] transition-colors">
+                          {post.title}
+                        </h4>
+                        <p className="text-[9px] text-slate-400 font-light">
+                          {post.date} • {post.readTime}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Row: Noticias de Interés Grid */}
+          <div className="space-y-12">
+            <div className="flex justify-between items-center">
+              <h3 className="text-xl font-bold tracking-tighter text-slate-900">Noticias de Interés</h3>
+              <div className="flex gap-2">
+                <button className="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 hover:bg-slate-50 transition-colors">
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+                <button className="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 hover:bg-slate-50 transition-colors">
+                  <ChevronRight className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {bottomPosts.map((post) => {
+                const image = PlaceHolderImages.find(img => img.id === post.imageId);
+                return (
+                  <div key={post.id} className="group space-y-6 cursor-pointer">
+                    <div className="relative aspect-[16/10] rounded-[2rem] overflow-hidden bg-slate-100">
+                      {image && (
+                        <Image 
+                          src={image.imageUrl}
+                          alt={post.title}
+                          fill
+                          className="object-cover transition-transform duration-700 group-hover:scale-105"
+                          unoptimized
+                          data-ai-hint="grid news"
+                        />
+                      )}
+                    </div>
+                    <div className="space-y-3 px-2">
+                      <div className="flex items-center gap-2">
+                         <div className="w-1.5 h-1.5 rounded-full bg-[#0054A6]" />
+                         <span className="text-[10px] text-slate-400 font-light tracking-tight">{post.category}</span>
+                      </div>
+                      <h4 className="text-lg font-bold text-slate-800 tracking-tight leading-tight group-hover:text-[#0054A6] transition-colors">
+                        {post.title}
+                      </h4>
+                      <p className="text-[11px] text-slate-500 font-light leading-relaxed line-clamp-2">
+                        {post.description}
+                      </p>
+                      <p className="text-[9px] text-slate-400 font-light pt-2">
+                        {post.date} • {post.readTime}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>
