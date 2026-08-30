@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 const academiaHeroStates = [
   {
     tag: "Cultura Institucional",
-    title: "Sangre Azul Banesco Seguros",
+    title: "Identidad Banesco Seguros",
     imageId: "academia-hero-1",
   },
   {
