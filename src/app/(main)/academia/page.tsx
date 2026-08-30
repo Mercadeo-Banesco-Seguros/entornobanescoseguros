@@ -369,7 +369,7 @@ export default function AcademiaPage() {
               <p className="text-slate-400 font-light text-xs">Cargando noticias institucionales...</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 h-[500px]">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 h-[400px]">
               {/* Left: Featured Post - Fondo Azul con Degradado */}
               {featuredPost && (
                 <a 
