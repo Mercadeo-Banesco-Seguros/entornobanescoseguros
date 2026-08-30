@@ -228,7 +228,6 @@ export default function AcademiaPage() {
   if (!mounted) return null;
 
   const featuredPost = generalNews[0];
-  const bottomPosts = generalNews.slice(1, 4);
 
   const formatDate = (dateStr: string) => {
     const d = new Date(dateStr);
@@ -450,51 +449,6 @@ export default function AcademiaPage() {
                       );
                     })}
                   </div>
-                </div>
-              </div>
-
-              <div className="space-y-12">
-                <div className="flex justify-between items-center">
-                  <h3 className="text-xl font-bold tracking-tighter text-slate-900">Noticias de Interés</h3>
-                  <div className="flex gap-2">
-                    <button className="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 hover:bg-slate-50 transition-colors">
-                      <ChevronLeft className="w-4 h-4" />
-                    </button>
-                    <button className="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 hover:bg-slate-50 transition-colors">
-                      <ChevronRight className="w-4 h-4" />
-                    </button>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                  {bottomPosts.map((post, idx) => (
-                    <a key={idx} href={post.link} target="_blank" rel="noopener" className="group space-y-6 cursor-pointer block">
-                      <div className="relative aspect-[16/10] rounded-[2rem] overflow-hidden bg-slate-100">
-                        <Image 
-                          src={post.thumbnail || PlaceHolderImages.find(img => img.id === `news-bottom-${idx + 1}`)?.imageUrl || `https://picsum.photos/seed/grid-${idx}/800/500`}
-                          alt={post.title}
-                          fill
-                          className="object-cover transition-transform duration-700 group-hover:scale-105"
-                          unoptimized
-                        />
-                      </div>
-                      <div className="space-y-3 px-2">
-                        <div className="flex items-center gap-2">
-                           <div className="w-1.5 h-1.5 rounded-full bg-[#0054A6]" />
-                           <span className="text-[10px] text-slate-400 font-light tracking-tight">{post.author || 'Gestión'}</span>
-                        </div>
-                        <h4 className="text-lg font-bold text-slate-800 tracking-tight leading-tight group-hover:text-[#0054A6] transition-colors line-clamp-2">
-                          {post.title}
-                        </h4>
-                        <p className="text-[11px] text-slate-500 font-light leading-relaxed line-clamp-2">
-                          {post.description?.replace(/<[^>]*>?/gm, '') || 'Accede a la nota completa para conocer todos los detalles de esta actualización informativa.'}
-                        </p>
-                        <p className="text-[9px] text-slate-400 font-light pt-2">
-                          {formatDate(post.pubDate)}
-                        </p>
-                      </div>
-                    </a>
-                  ))}
                 </div>
               </div>
             </>
