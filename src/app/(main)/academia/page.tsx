@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from 'react';
@@ -185,13 +184,6 @@ export default function AcademiaPage() {
               </p>
             </div>
           </div>
-        </div>
-
-        {/* Bottom Metadata */}
-        <div className="mt-32 max-w-4xl border-t border-slate-100 pt-8">
-          <p className="text-[10px] text-slate-400 font-light leading-relaxed uppercase tracking-tighter max-w-2xl">
-            * Análisis prospectivo de habilidades requeridas para el ecosistema asegurador venezolano. La formación en tecnologías emergentes es el pilar de nuestra transformación digital.
-          </p>
         </div>
       </section>
 
