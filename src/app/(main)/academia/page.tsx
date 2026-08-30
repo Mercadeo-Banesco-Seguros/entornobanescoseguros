@@ -207,15 +207,15 @@ export default function AcademiaPage() {
         <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-20">
           <div className="w-full lg:w-[22%] space-y-12 order-2 lg:order-1">
             <div className="space-y-4">
-              <h3 className="text-2xl font-light tracking-tighter text-slate-900 leading-tight">IA Generativa</h3>
+              <h3 className="text-2xl font-light tracking-tighter text-slate-900 leading-tight">Google Notebooks</h3>
               <p className="text-slate-500 text-[13px] font-light leading-relaxed tracking-tighter">
-                La adopción de IA en procesos diarios incrementa la <span className="bg-blue-50 px-1 font-light text-slate-900">productividad operativa en un 40%</span>.
+                Potencia el análisis de datos interactivo con entornos de computación en la <span className="bg-blue-50 px-1 font-light text-slate-900">nube altamente escalables</span>.
               </p>
             </div>
             <div className="space-y-4">
-              <h3 className="text-2xl font-light tracking-tighter text-slate-900 leading-tight">Agilidad Corporativa</h3>
+              <h3 className="text-2xl font-light tracking-tighter text-slate-900 leading-tight">Google Fabric</h3>
               <p className="text-slate-500 text-[13px] font-light leading-relaxed tracking-tighter">
-                Implementar marcos de trabajo ágiles permite una <span className="bg-blue-50 px-1 font-light text-slate-900">respuesta al mercado 2x más rápida</span>.
+                Unifica la gestión de datos corporativos mediante una arquitectura de <span className="bg-blue-50 px-1 font-light text-slate-900">malla de datos inteligente</span>.
               </p>
             </div>
           </div>
@@ -236,7 +236,7 @@ export default function AcademiaPage() {
               ))}
             </svg>
             <div className="relative z-10 text-center px-6 md:px-12">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tighter text-slate-900 leading-[1.1] max-w-[280px] mx-auto">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-light tracking-tighter text-slate-900 leading-[1.1] max-w-[280px] mx-auto">
                 Aprender para Innovar
               </h2>
             </div>
@@ -244,15 +244,15 @@ export default function AcademiaPage() {
 
           <div className="w-full lg:w-[22%] space-y-12 order-3">
              <div className="space-y-4">
-              <h3 className="text-2xl font-light tracking-tighter text-slate-900 leading-tight">Micro-learning</h3>
+              <h3 className="text-2xl font-light tracking-tighter text-slate-900 leading-tight">Cloud Analytics</h3>
               <p className="text-slate-500 text-[13px] font-light leading-relaxed tracking-tighter">
-                El consumo de contenidos breves y específicos mejora la <span className="bg-blue-50 px-1 font-light text-slate-900">retención de conocimientos en un 80%</span>.
+                Transforma grandes volúmenes de información en decisiones estratégicas con <span className="bg-blue-50 px-1 font-light text-slate-900">analítica en tiempo real</span>.
               </p>
             </div>
             <div className="space-y-4">
-              <h3 className="text-2xl font-light tracking-tighter text-slate-900 leading-tight">Habilidades Blandas</h3>
+              <h3 className="text-2xl font-light tracking-tighter text-slate-900 leading-tight">Vertex AI</h3>
               <p className="text-slate-500 text-[13px] font-light leading-relaxed tracking-tighter">
-                El desarrollo de empatía y comunicación es el <span className="bg-blue-50 px-1 font-light text-slate-900">diferenciador clave</span> en la era digital.
+                Despliega modelos de aprendizaje automático avanzados para optimizar la <span className="bg-blue-50 px-1 font-light text-slate-900">predicción de riesgos</span>.
               </p>
             </div>
           </div>
