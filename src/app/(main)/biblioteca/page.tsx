@@ -17,19 +17,19 @@ const categories = [
 
 const libraryFeatures = [
   {
-    title: 'Identificación precisa y codificación',
+    title: 'Identificación precisa y codificación sistemática',
     description: 'Estandarización de códigos en todos los archivos y garantía de acceso a versiones recientes aprobadas, manteniendo las anteriores como registro histórico.',
   },
   {
-    title: 'Búsqueda rápida',
+    title: 'Búsqueda rápida de archivos y documentos',
     description: 'Buscador integrado que permite localizar ágilmente documentos específicos según la gerencia o unidad de negocio.',
   },
   {
-    title: 'Control total del estatus',
+    title: 'Control total del estatus y vigencia documental',
     description: 'Visualización del estado de cada documento por colores: verde (vigente y listo para uso oficial), amarillo (por actualizar o renovar pronto) y azul (en proceso de modificación o edición).',
   },
   {
-    title: 'Alertas preventivas',
+    title: 'Alertas preventivas y notificaciones de renovación',
     description: 'Bot de notificaciones que envía correos automáticos al dueño del proceso para recordar la renovación o actualización oportuna.',
   },
 ];
@@ -117,10 +117,10 @@ export default function BibliotecaPage() {
                 key={activeFeatureIndex} 
                 className="space-y-10 animate-in fade-in slide-in-from-right-4 duration-700"
               >
-                <h2 className="text-3xl md:text-4xl font-medium tracking-tighter text-white leading-tight min-h-[80px]">
+                <h2 className="text-3xl md:text-4xl font-medium tracking-tighter text-white leading-tight min-h-[100px] max-w-md">
                   {activeFeature.title}
                 </h2>
-                <p className="text-white/70 text-sm md:text-base font-light leading-relaxed max-w-md tracking-tight min-h-[100px]">
+                <p className="text-white/70 text-[10px] md:text-xs font-light leading-relaxed max-w-xs tracking-tight min-h-[80px]">
                   {activeFeature.description}
                 </p>
               </div>
