@@ -122,21 +122,24 @@ export default function MultimediaPage() {
       <div className="flex w-full gap-12 py-10">
         
         {/* 1. Sidebar de Categorías */}
-        <aside className="w-64 shrink-0 flex flex-col gap-2">
+        <aside className="w-64 shrink-0 flex flex-col gap-1">
           {sidebarCategories.map((cat) => (
             <button
               key={cat.id}
               onClick={() => setActiveCategory(cat.id)}
               className={cn(
-                "flex items-center justify-between px-5 py-3 rounded-2xl transition-all duration-300 group",
+                "flex items-center justify-between px-5 py-3 rounded-2xl transition-all duration-300 group border border-transparent",
                 activeCategory === cat.id 
-                  ? "bg-[#003B73] text-white shadow-lg" 
+                  ? "bg-[#003B73] text-white" 
                   : "text-slate-400 hover:bg-slate-100/50 hover:text-slate-600"
               )}
             >
               <div className="flex items-center gap-4">
-                <cat.icon className={cn("w-4 h-4", activeCategory === cat.id ? "text-white" : "text-slate-400 group-hover:text-slate-500")} strokeWidth={1.5} />
-                <span className="text-[12px] font-medium tracking-tight">{cat.label}</span>
+                <cat.icon 
+                  className={cn("w-4 h-4", activeCategory === cat.id ? "text-white" : "text-slate-400 group-hover:text-slate-500")} 
+                  strokeWidth={1} 
+                />
+                <span className="text-[12px] font-light tracking-tight">{cat.label}</span>
               </div>
               {activeCategory === cat.id && <ChevronRight className="w-3.5 h-3.5 text-white/60" />}
             </button>
@@ -154,9 +157,9 @@ export default function MultimediaPage() {
                   key={filter.id}
                   onClick={() => setActiveFilter(filter.id)}
                   className={cn(
-                    "px-6 py-2 rounded-full text-[11px] font-medium transition-all duration-300",
+                    "px-6 py-2 rounded-full text-[11px] font-light transition-all duration-300",
                     activeFilter === filter.id 
-                      ? "bg-[#003B73] text-white shadow-md" 
+                      ? "bg-[#003B73] text-white" 
                       : "text-slate-400 hover:text-slate-600 hover:bg-slate-100"
                   )}
                 >
@@ -165,9 +168,9 @@ export default function MultimediaPage() {
               ))}
             </div>
             <div className="flex items-center gap-5 text-slate-300">
-              <button className="hover:text-slate-500 transition-colors"><Search className="w-4 h-4" /></button>
-              <button className="hover:text-slate-500 transition-colors"><Mail className="w-4 h-4" /></button>
-              <button className="hover:text-slate-500 transition-colors"><Download className="w-4 h-4" /></button>
+              <button className="hover:text-slate-500 transition-colors"><Search className="w-4 h-4" strokeWidth={1} /></button>
+              <button className="hover:text-slate-500 transition-colors"><Mail className="w-4 h-4" strokeWidth={1} /></button>
+              <button className="hover:text-slate-500 transition-colors"><Download className="w-4 h-4" strokeWidth={1} /></button>
             </div>
           </div>
 
@@ -183,7 +186,7 @@ export default function MultimediaPage() {
                 >
                   <CardContent className="p-10 flex flex-col items-center text-center gap-8 bg-white h-full relative">
                     <div className="space-y-3">
-                      <div className={cn("px-4 py-1 rounded-full text-[9px] text-white font-medium mx-auto w-fit", card.tagColor)}>
+                      <div className={cn("px-4 py-1 rounded-full text-[9px] text-white font-light mx-auto w-fit", card.tagColor)}>
                         {card.tag}
                       </div>
                       <h3 className="text-3xl font-bold tracking-tighter text-slate-800">{card.title}</h3>
