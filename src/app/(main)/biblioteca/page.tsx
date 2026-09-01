@@ -60,24 +60,30 @@ export default function BibliotecaPage() {
         </div>
       </section>
 
-      {/* 2. Secondary Strategy Section */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] py-32 bg-white border-y border-slate-50">
-        <div className="container mx-auto px-8 md:px-16 lg:px-24">
+      {/* 2. Secondary Strategy Section - BLUE BACKGROUND */}
+      <section className="relative w-screen left-1/2 -ml-[50vw] py-32 bg-[#0054A6] text-white overflow-hidden">
+        {/* Background Subtle Blobs for depth */}
+        <div className="absolute inset-0 pointer-events-none opacity-20">
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-blue-400 blur-[120px]" />
+          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-sky-300 blur-[100px]" />
+        </div>
+
+        <div className="container mx-auto px-8 md:px-16 lg:px-24 relative z-10">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-32">
             {/* Left: Minimalist Graphic */}
             <div className="w-full lg:w-1/2 flex justify-center">
               <div className="relative w-72 h-72 flex items-center justify-center">
-                <div className="absolute inset-0 border-[0.5px] border-slate-200 rounded-[3.5rem] rotate-12" />
-                <div className="absolute inset-0 border-[0.5px] border-slate-200 rounded-[3.5rem] -rotate-6" />
-                <div className="relative z-10 w-40 h-40 bg-white border border-slate-100 rounded-full flex items-center justify-center shadow-xl shadow-slate-100">
-                  <div className="w-16 h-16 rounded-2xl border border-cyan-100 flex items-center justify-center">
-                    <div className="w-8 h-8 border-b-[3px] border-r-[3px] border-cyan-400 rounded-sm" />
+                <div className="absolute inset-0 border-[0.5px] border-white/20 rounded-[3.5rem] rotate-12" />
+                <div className="absolute inset-0 border-[0.5px] border-white/20 rounded-[3.5rem] -rotate-6" />
+                <div className="relative z-10 w-40 h-40 bg-white/10 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center shadow-2xl">
+                  <div className="w-16 h-16 rounded-2xl border border-white/20 flex items-center justify-center">
+                    <div className="w-8 h-8 border-b-[3px] border-r-[3px] border-sky-400 rounded-sm" />
                   </div>
                 </div>
                 {/* Dots grid decoration */}
                 <div className="absolute -top-4 -right-4 grid grid-cols-4 gap-2 opacity-30">
                   {[...Array(16)].map((_, i) => (
-                    <div key={i} className="w-1.5 h-1.5 rounded-full bg-slate-400" />
+                    <div key={i} className="w-1.5 h-1.5 rounded-full bg-white" />
                   ))}
                 </div>
               </div>
@@ -85,21 +91,21 @@ export default function BibliotecaPage() {
 
             {/* Right: Text Content */}
             <div className="w-full lg:w-1/2 space-y-10">
-              <h2 className="text-3xl md:text-4xl font-light tracking-tighter text-slate-900 leading-tight">
+              <h2 className="text-3xl md:text-4xl font-medium tracking-tighter text-white leading-tight">
                 Educar y Empoderar a <br /> nuestro equipo humano
               </h2>
-              <p className="text-slate-500 text-sm md:text-base font-light leading-relaxed max-w-md tracking-tight">
+              <p className="text-white/70 text-sm md:text-base font-light leading-relaxed max-w-md tracking-tight">
                 Brindamos las herramientas y el conocimiento necesario para que cada colaborador pueda gestionar procesos con excelencia operativa y una clara visión estratégica.
               </p>
               
               <div className="flex items-center gap-3 pt-6">
-                <div className="w-2.5 h-2.5 rounded-full border border-slate-300" />
-                <div className="w-2.5 h-2.5 rounded-full bg-slate-800" />
-                <div className="w-2.5 h-2.5 rounded-full border border-slate-300" />
-                <div className="w-2.5 h-2.5 rounded-full border border-slate-300" />
+                <div className="w-2.5 h-2.5 rounded-full border border-white/30" />
+                <div className="w-2.5 h-2.5 rounded-full bg-white" />
+                <div className="w-2.5 h-2.5 rounded-full border border-white/30" />
+                <div className="w-2.5 h-2.5 rounded-full border border-white/30" />
               </div>
 
-              <button className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.2em] text-slate-900 group pt-4">
+              <button className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.2em] text-white group pt-4 transition-colors hover:text-white/80">
                 <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" strokeWidth={3} />
                 Conoce nuestros programas
               </button>
