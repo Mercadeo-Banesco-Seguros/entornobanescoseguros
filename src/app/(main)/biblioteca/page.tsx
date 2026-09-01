@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from 'react';
@@ -47,6 +46,13 @@ export default function BibliotecaPage() {
 
   React.useEffect(() => {
     setMounted(true);
+    
+    // Ciclo automático cada 5 segundos
+    const timer = setInterval(() => {
+      setActiveFeatureIndex((prev) => (prev + 1) % libraryFeatures.length);
+    }, 5000);
+
+    return () => clearInterval(timer);
   }, []);
 
   if (!mounted) return null;
