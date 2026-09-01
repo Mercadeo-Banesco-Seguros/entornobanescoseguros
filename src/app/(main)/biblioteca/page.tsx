@@ -27,12 +27,12 @@ export default function BibliotecaPage() {
   return (
     <div className="flex flex-col w-full min-h-screen bg-white">
       {/* 1. Hero Section - Full Width & Immersive */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] -mt-32 pt-48 pb-20 overflow-hidden flex items-center min-h-[60vh] bg-gradient-to-b from-white to-blue-50/50">
+      <section className="relative w-screen left-1/2 -ml-[50vw] -mt-32 pt-48 pb-20 overflow-hidden flex items-center min-h-[60vh] bg-gradient-to-br from-blue-50/80 via-white to-blue-50/40">
         {/* Atmospheric Background Blobs - Full Bleed */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-[5%] left-[-15%] w-[800px] h-[800px] rounded-full bg-yellow-100/30 blur-[140px]" />
-          <div className="absolute top-[15%] right-[-10%] w-[900px] h-[900px] rounded-full bg-orange-100/20 blur-[160px]" />
-          <div className="absolute bottom-[-15%] left-[20%] w-[600px] h-[600px] rounded-full bg-blue-50/50 blur-[120px]" />
+          <div className="absolute top-[5%] left-[-15%] w-[800px] h-[800px] rounded-full bg-yellow-100/20 blur-[140px]" />
+          <div className="absolute top-[15%] right-[-10%] w-[900px] h-[900px] rounded-full bg-orange-100/10 blur-[160px]" />
+          <div className="absolute bottom-[-15%] left-[20%] w-[600px] h-[600px] rounded-full bg-blue-100/40 blur-[120px]" />
         </div>
 
         <div className="container mx-auto px-8 md:px-16 lg:px-24 relative z-10">
