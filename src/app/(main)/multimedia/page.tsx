@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from 'react';
@@ -157,10 +156,10 @@ export default function MultimediaPage() {
                   key={filter.id}
                   onClick={() => setActiveFilter(filter.id)}
                   className={cn(
-                    "px-6 py-2 rounded-full text-[11px] font-light transition-all duration-300",
+                    "px-5 py-3 rounded-2xl text-[12px] font-light transition-all duration-300 border border-transparent",
                     activeFilter === filter.id 
                       ? "bg-[#003B73] text-white" 
-                      : "text-slate-400 hover:text-slate-600 hover:bg-slate-100"
+                      : "text-slate-400 hover:text-slate-600 hover:bg-slate-100/50"
                   )}
                 >
                   {filter.label}
