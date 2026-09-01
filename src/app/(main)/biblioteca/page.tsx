@@ -27,7 +27,7 @@ export default function BibliotecaPage() {
   return (
     <div className="flex flex-col w-full min-h-screen bg-white">
       {/* 1. Hero Section - Full Width & Immersive */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] -mt-32 pt-56 pb-32 overflow-hidden flex items-center min-h-[85vh] bg-white">
+      <section className="relative w-screen left-1/2 -ml-[50vw] -mt-32 pt-56 pb-32 overflow-hidden flex items-center min-h-[80vh] bg-white">
         {/* Atmospheric Background Blobs - Full Bleed */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-[5%] left-[-15%] w-[800px] h-[800px] rounded-full bg-yellow-100/40 blur-[140px]" />
@@ -36,7 +36,7 @@ export default function BibliotecaPage() {
         </div>
 
         <div className="container mx-auto px-8 md:px-16 lg:px-24 relative z-10">
-          <div className="max-w-5xl space-y-16">
+          <div className="max-w-4xl space-y-12">
             <div className="space-y-6">
               <div className="flex items-center gap-4 animate-in fade-in slide-in-from-bottom-2 duration-700">
                 <span className="text-[10px] font-medium uppercase tracking-[0.2em] text-slate-400">
@@ -47,13 +47,13 @@ export default function BibliotecaPage() {
                   Actualización 2025
                 </span>
               </div>
-              <h1 className="text-6xl md:text-8xl lg:text-[7rem] font-medium tracking-tighter text-slate-900 leading-[0.85] animate-in fade-in slide-in-from-bottom-4 duration-1000">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tighter text-slate-900 leading-[1] animate-in fade-in slide-in-from-bottom-4 duration-1000">
                 Biblioteca de <br /> Gestión Documental
               </h1>
             </div>
             
-            <div className="max-w-lg space-y-8 animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-300">
-              <p className="text-slate-500 text-base md:text-lg font-light leading-relaxed tracking-tight">
+            <div className="max-w-md space-y-8 animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-300">
+              <p className="text-slate-500 text-sm md:text-base font-light leading-relaxed tracking-tight">
                 La central de inteligencia operativa de Banesco Seguros. Un espacio colaborativo diseñado para la consulta, formación y estandarización de nuestros procesos críticos.
               </p>
               <div className="pt-4">
@@ -67,7 +67,7 @@ export default function BibliotecaPage() {
       </section>
 
       {/* 2. Secondary Strategy Section */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] py-40 bg-white border-y border-slate-50">
+      <section className="relative w-screen left-1/2 -ml-[50vw] py-32 bg-white border-y border-slate-50">
         <div className="container mx-auto px-8 md:px-16 lg:px-24">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-32">
             {/* Left: Minimalist Graphic */}
@@ -91,10 +91,10 @@ export default function BibliotecaPage() {
 
             {/* Right: Text Content */}
             <div className="w-full lg:w-1/2 space-y-10">
-              <h2 className="text-4xl md:text-5xl font-light tracking-tighter text-slate-900 leading-tight">
+              <h2 className="text-3xl md:text-4xl font-light tracking-tighter text-slate-900 leading-tight">
                 Educar y Empoderar a <br /> nuestro equipo humano
               </h2>
-              <p className="text-slate-500 text-lg font-light leading-relaxed max-w-md tracking-tight">
+              <p className="text-slate-500 text-sm md:text-base font-light leading-relaxed max-w-md tracking-tight">
                 Brindamos las herramientas y el conocimiento necesario para que cada colaborador pueda gestionar procesos con excelencia operativa y una clara visión estratégica.
               </p>
               
@@ -115,13 +115,13 @@ export default function BibliotecaPage() {
       </section>
 
       {/* 3. Directory Section */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] py-40 bg-white">
+      <section className="relative w-screen left-1/2 -ml-[50vw] py-32 bg-white">
         <div className="container mx-auto px-8 md:px-16 lg:px-24">
           <div className="flex flex-col lg:flex-row justify-between gap-16 mb-28">
-            <h2 className="text-2xl md:text-3xl font-light tracking-tighter text-slate-900 shrink-0">
+            <h2 className="text-xl md:text-2xl font-light tracking-tighter text-slate-900 shrink-0">
               Directorio de Procesos
             </h2>
-            <p className="text-slate-500 text-base font-light leading-relaxed max-w-xl tracking-tight">
+            <p className="text-slate-500 text-sm font-light leading-relaxed max-w-xl tracking-tight">
               Explora nuestra red de conocimiento institucional. Cada documento ha sido validado por la Unidad de Procesos para asegurar la máxima eficiencia en tu gestión diaria.
             </p>
           </div>
