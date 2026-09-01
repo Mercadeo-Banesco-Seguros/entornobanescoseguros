@@ -158,52 +158,28 @@
       "imageHint": "business growth"
     },
     {
-      "id": "news-featured",
-      "description": "Noticia Destacada",
-      "imageUrl": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&h=800",
-      "imageHint": "futuristic technology"
+      "id": "library-benefit-1",
+      "description": "Identificación y Codificación",
+      "imageUrl": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&h=600",
+      "imageHint": "digital code"
     },
     {
-      "id": "news-1",
-      "description": "Noticia 1",
-      "imageUrl": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=300&h=300",
-      "imageHint": "security tech"
+      "id": "library-benefit-2",
+      "description": "Búsqueda Rápida",
+      "imageUrl": "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&h=600",
+      "imageHint": "magnifying glass"
     },
     {
-      "id": "news-2",
-      "description": "Noticia 2",
-      "imageUrl": "https://images.unsplash.com/photo-1551288049-bbbda536339a?auto=format&fit=crop&w=300&h=300",
-      "imageHint": "data analysis"
+      "id": "library-benefit-3",
+      "description": "Control de Estatus",
+      "imageUrl": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&h=600",
+      "imageHint": "status dashboard"
     },
     {
-      "id": "news-3",
-      "description": "Noticia 3",
-      "imageUrl": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=300&h=300",
-      "imageHint": "team meeting"
-    },
-    {
-      "id": "news-4",
-      "description": "Noticia 4",
-      "imageUrl": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=300&h=300",
-      "imageHint": "modern workspace"
-    },
-    {
-      "id": "news-bottom-1",
-      "description": "Noticia Grid 1",
-      "imageUrl": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&h=500",
-      "imageHint": "happy team"
-    },
-    {
-      "id": "news-bottom-2",
-      "description": "Noticia Grid 2",
-      "imageUrl": "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&h=500",
-      "imageHint": "leadership talk"
-    },
-    {
-      "id": "news-bottom-3",
-      "description": "Noticia Grid 3",
-      "imageUrl": "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&h=500",
-      "imageHint": "professional woman"
+      "id": "library-benefit-4",
+      "description": "Alertas Preventivas",
+      "imageUrl": "https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&w=800&h=600",
+      "imageHint": "notification bell"
     }
   ]
 }

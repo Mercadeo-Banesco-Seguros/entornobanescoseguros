@@ -1,6 +1,9 @@
+
 'use client';
 
 import * as React from 'react';
+import Image from 'next/image';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
 import { ChevronRight, FileText, Search, Plus } from 'lucide-react';
 
@@ -17,20 +20,24 @@ const categories = [
 
 const libraryFeatures = [
   {
-    title: 'Identificación precisa y codificación sistemática',
+    title: 'Identificación precisa y \n codificación sistemática',
     description: 'Estandarización de códigos en todos los archivos y garantía de acceso a versiones recientes aprobadas, manteniendo las anteriores como registro histórico.',
+    imageId: 'library-benefit-1'
   },
   {
-    title: 'Búsqueda rápida de archivos y documentos',
+    title: 'Búsqueda rápida de \n archivos y documentos',
     description: 'Buscador integrado que permite localizar ágilmente documentos específicos según la gerencia o unidad de negocio.',
+    imageId: 'library-benefit-2'
   },
   {
-    title: 'Control total del estatus y vigencia documental',
+    title: 'Control total del \n estatus y vigencia',
     description: 'Visualización del estado de cada documento por colores: verde (vigente y listo para uso oficial), amarillo (por actualizar o renovar pronto) y azul (en proceso de modificación o edición).',
+    imageId: 'library-benefit-3'
   },
   {
-    title: 'Alertas preventivas y notificaciones de renovación',
+    title: 'Alertas preventivas y \n notificaciones de renovación',
     description: 'Bot de notificaciones que envía correos automáticos al dueño del proceso para recordar la renovación o actualización oportuna.',
+    imageId: 'library-benefit-4'
   },
 ];
 
@@ -92,16 +99,32 @@ export default function BibliotecaPage() {
 
         <div className="container mx-auto px-8 md:px-16 lg:px-24 relative z-10">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-32">
-            {/* Left: Minimalist Graphic */}
+            {/* Left: Interactive Image */}
             <div className="w-full lg:w-1/2 flex justify-center">
-              <div className="relative w-72 h-72 flex items-center justify-center">
+              <div className="relative w-72 h-72 md:w-96 md:h-96 flex items-center justify-center">
                 <div className="absolute inset-0 border-[0.5px] border-white/20 rounded-[3.5rem] rotate-12" />
                 <div className="absolute inset-0 border-[0.5px] border-white/20 rounded-[3.5rem] -rotate-6" />
-                <div className="relative z-10 w-40 h-40 bg-white/10 backdrop-blur-md border border-white/20 rounded-full flex items-center justify-center shadow-2xl">
-                  <div className="w-16 h-16 rounded-2xl border border-white/20 flex items-center justify-center">
-                    <div className="w-8 h-8 border-b-[3px] border-r-[3px] border-sky-400 rounded-sm" />
-                  </div>
+                
+                <div 
+                  key={activeFeatureIndex}
+                  className="relative z-10 w-full h-full bg-white/10 backdrop-blur-md border border-white/20 rounded-[3rem] overflow-hidden shadow-2xl animate-in fade-in zoom-in-95 duration-700"
+                >
+                  {(() => {
+                    const img = PlaceHolderImages.find(i => i.id === activeFeature.imageId);
+                    return img ? (
+                      <Image 
+                        src={img.imageUrl}
+                        alt={activeFeature.title}
+                        fill
+                        className="object-cover"
+                        data-ai-hint={img.imageHint}
+                        unoptimized
+                      />
+                    ) : null;
+                  })()}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0054A6]/60 via-transparent to-transparent" />
                 </div>
+
                 {/* Dots grid decoration */}
                 <div className="absolute -top-4 -right-4 grid grid-cols-4 gap-2 opacity-30">
                   {[...Array(16)].map((_, i) => (
@@ -117,7 +140,7 @@ export default function BibliotecaPage() {
                 key={activeFeatureIndex} 
                 className="space-y-10 animate-in fade-in slide-in-from-right-4 duration-700"
               >
-                <h2 className="text-3xl md:text-4xl font-medium tracking-tighter text-white leading-tight min-h-[100px] max-w-md">
+                <h2 className="text-3xl md:text-4xl font-medium tracking-tighter text-white leading-tight min-h-[100px] max-w-md whitespace-pre-line">
                   {activeFeature.title}
                 </h2>
                 <p className="text-white/70 text-[10px] md:text-xs font-light leading-relaxed max-w-xs tracking-tight min-h-[80px]">
