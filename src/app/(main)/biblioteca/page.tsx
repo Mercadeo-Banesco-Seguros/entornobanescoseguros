@@ -17,20 +17,20 @@ const categories = [
 
 const libraryFeatures = [
   {
-    title: 'Educar y Empoderar a nuestro equipo humano',
-    description: 'Brindamos las herramientas y el conocimiento necesario para que cada colaborador pueda gestionar procesos con excelencia operativa y una clara visión estratégica.',
+    title: 'Identificación precisa y codificación',
+    description: 'Estandarización de códigos en todos los archivos y garantía de acceso a versiones recientes aprobadas, manteniendo las anteriores como registro histórico.',
   },
   {
-    title: 'Estandarización de Procesos Críticos',
-    description: 'Aseguramos la uniformidad y calidad en la ejecución de tareas mediante manuales validados por la Unidad de Procesos para mitigar riesgos operativos.',
+    title: 'Búsqueda rápida',
+    description: 'Buscador integrado que permite localizar ágilmente documentos específicos según la gerencia o unidad de negocio.',
   },
   {
-    title: 'Central de Inteligencia Operativa',
-    description: 'Un ecosistema digital diseñado para la consulta rápida de protocolos, guías de atención y normativas técnicas que rigen nuestro negocio.',
+    title: 'Control total del estatus',
+    description: 'Visualización del estado de cada documento por colores: verde (vigente y listo para uso oficial), amarillo (por actualizar o renovar pronto) y azul (en proceso de modificación o edición).',
   },
   {
-    title: 'Gestión del Conocimiento Institucional',
-    description: 'Salvaguardamos el capital intelectual de Banesco Seguros, facilitando la formación continua y el acceso democratizado a la información oficial.',
+    title: 'Alertas preventivas',
+    description: 'Bot de notificaciones que envía correos automáticos al dueño del proceso para recordar la renovación o actualización oportuna.',
   },
 ];
 
@@ -49,7 +49,7 @@ export default function BibliotecaPage() {
   return (
     <div className="flex flex-col w-full min-h-screen bg-white">
       {/* 1. Hero Section - Full Width & Immersive */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] -mt-32 pt-48 pb-20 overflow-hidden flex items-center min-h-[60vh] bg-gradient-to-br from-blue-50/80 via-white to-blue-50/40">
+      <section className="relative w-screen left-1/2 -ml-[50vw] -mt-32 pt-48 pb-20 overflow-hidden flex items-center min-h-[50vh] bg-gradient-to-br from-blue-50/80 via-white to-blue-50/40">
         {/* Atmospheric Background Blobs - Full Bleed */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-[5%] left-[-15%] w-[800px] h-[800px] rounded-full bg-yellow-100/20 blur-[140px]" />
@@ -65,13 +65,13 @@ export default function BibliotecaPage() {
                   Desarrollado por La Unidad de Procesos
                 </span>
               </div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tighter text-slate-900 leading-[1] animate-in fade-in slide-in-from-bottom-4 duration-1000">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tighter text-slate-900 leading-[1] animate-in fade-in slide-in-from-bottom-4 duration-1000">
                 Biblioteca de <br /> Gestión Documental
               </h1>
             </div>
             
             <div className="flex flex-col md:flex-row items-start md:items-center gap-10 animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-300">
-              <p className="text-slate-500 text-[11px] font-light leading-relaxed tracking-tight max-w-sm">
+              <p className="text-slate-500 text-[10px] font-light leading-relaxed tracking-tight max-w-sm">
                 La central de inteligencia operativa de Banesco Seguros. Un espacio colaborativo diseñado para la consulta, formación y estandarización de nuestros procesos críticos.
               </p>
               <button className="px-12 py-3 rounded-full bg-[#0054A6] text-white text-[11px] font-light tracking-wide hover:bg-[#0054A6]/90 transition-all duration-300 shadow-sm shrink-0">
