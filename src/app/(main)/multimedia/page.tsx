@@ -173,34 +173,32 @@ export default function MultimediaPage() {
             </div>
           </div>
 
-          {/* Grid de Tarjetas Multimedia */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* Grid de Tarjetas Multimedia - Redondez y altura reducidas */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {multimediaCards.map((card) => {
               const imageAsset = PlaceHolderImages.find(img => img.id === card.imageId);
               
               return (
                 <Card 
                   key={card.id} 
-                  className="border-none shadow-[0_10px_40px_rgba(0,0,0,0.04)] rounded-[2.5rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:shadow-[0_20px_60px_rgba(0,0,0,0.08)] hover:-translate-y-1"
+                  className="border-none shadow-[0_4px_20px_rgba(0,0,0,0.03)] rounded-[1.5rem] overflow-hidden group cursor-pointer transition-all duration-500 hover:shadow-[0_15px_40px_rgba(0,0,0,0.06)] hover:-translate-y-1"
                 >
-                  <CardContent className="p-10 flex flex-col items-center text-center gap-8 bg-white h-full relative">
-                    <div className="space-y-3">
-                      <div className={cn("px-4 py-1 rounded-full text-[9px] text-white font-light mx-auto w-fit", card.tagColor)}>
+                  <CardContent className="p-6 flex flex-col items-center text-center gap-4 bg-white h-full relative">
+                    <div className="space-y-2">
+                      <div className={cn("px-4 py-0.5 rounded-full text-[8px] text-white font-light mx-auto w-fit", card.tagColor)}>
                         {card.tag}
                       </div>
-                      <h3 className="text-3xl font-bold tracking-tighter text-slate-800">{card.title}</h3>
+                      <h3 className="text-2xl font-bold tracking-tighter text-slate-800">{card.title}</h3>
                     </div>
                     
-                    <div className="relative w-40 h-40 flex items-center justify-center transition-transform duration-700 group-hover:scale-110">
-                      {/* Icono de Respaldo en lugar de imagen para asegurar el estilo 3D */}
+                    <div className="relative w-28 h-28 flex items-center justify-center transition-transform duration-700 group-hover:scale-110">
                       <card.icon 
-                        className={cn("w-24 h-24 stroke-[1px] opacity-20 absolute", card.color)} 
+                        className={cn("w-16 h-16 stroke-[1px] opacity-10 absolute", card.color)} 
                       />
-                      <div className={cn("w-20 h-20 rounded-3xl blur-2xl opacity-20 absolute", card.tagColor)} />
+                      <div className={cn("w-14 h-14 rounded-2xl blur-xl opacity-15 absolute", card.tagColor)} />
                       
-                      {/* El diseño de la imagen sugiere un elemento central fuerte */}
                       <div className="relative z-10">
-                        <card.icon className={cn("w-24 h-24 stroke-[0.5px]", card.color)} />
+                        <card.icon className={cn("w-16 h-16 stroke-[0.5px]", card.color)} />
                       </div>
                     </div>
                   </CardContent>
