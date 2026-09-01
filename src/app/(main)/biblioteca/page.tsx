@@ -57,12 +57,9 @@ export default function BibliotecaPage() {
                 La central de inteligencia operativa de Banesco Seguros. Un espacio colaborativo diseñado para la consulta, formación y estandarización de nuestros procesos críticos.
               </p>
               <div className="pt-4">
-                <div className="inline-flex flex-col gap-1">
-                  <p className="text-[11px] font-bold uppercase tracking-widest text-slate-900">
-                    Impulsado por la Unidad de Procesos
-                  </p>
-                  <div className="h-0.5 w-full bg-slate-900" />
-                </div>
+                <button className="px-14 py-3 rounded-full bg-white/40 backdrop-blur-md border border-slate-200 text-slate-600 text-[11px] font-light tracking-wide hover:bg-white/60 transition-all duration-300 shadow-sm">
+                  Explorar
+                </button>
               </div>
             </div>
           </div>
