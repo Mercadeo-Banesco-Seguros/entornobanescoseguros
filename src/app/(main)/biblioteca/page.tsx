@@ -15,14 +15,36 @@ const categories = [
   { name: 'Estatutos Institucionales', area: 'Gobierno Corporativo' },
 ];
 
+const libraryFeatures = [
+  {
+    title: 'Educar y Empoderar a nuestro equipo humano',
+    description: 'Brindamos las herramientas y el conocimiento necesario para que cada colaborador pueda gestionar procesos con excelencia operativa y una clara visión estratégica.',
+  },
+  {
+    title: 'Estandarización de Procesos Críticos',
+    description: 'Aseguramos la uniformidad y calidad en la ejecución de tareas mediante manuales validados por la Unidad de Procesos para mitigar riesgos operativos.',
+  },
+  {
+    title: 'Central de Inteligencia Operativa',
+    description: 'Un ecosistema digital diseñado para la consulta rápida de protocolos, guías de atención y normativas técnicas que rigen nuestro negocio.',
+  },
+  {
+    title: 'Gestión del Conocimiento Institucional',
+    description: 'Salvaguardamos el capital intelectual de Banesco Seguros, facilitando la formación continua y el acceso democratizado a la información oficial.',
+  },
+];
+
 export default function BibliotecaPage() {
   const [mounted, setMounted] = React.useState(false);
+  const [activeFeatureIndex, setActiveFeatureIndex] = React.useState(0);
 
   React.useEffect(() => {
     setMounted(true);
   }, []);
 
   if (!mounted) return null;
+
+  const activeFeature = libraryFeatures[activeFeatureIndex];
 
   return (
     <div className="flex flex-col w-full min-h-screen bg-white">
@@ -60,8 +82,8 @@ export default function BibliotecaPage() {
         </div>
       </section>
 
-      {/* 2. Secondary Strategy Section - BLUE BACKGROUND */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] py-32 bg-[#0054A6] text-white overflow-hidden">
+      {/* 2. Secondary Strategy Section - BLUE BACKGROUND INTERACTIVE */}
+      <section className="relative w-screen left-1/2 -ml-[50vw] py-32 bg-[#0054A6] text-white overflow-hidden transition-colors duration-700">
         {/* Background Subtle Blobs for depth */}
         <div className="absolute inset-0 pointer-events-none opacity-20">
           <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-blue-400 blur-[120px]" />
@@ -89,20 +111,34 @@ export default function BibliotecaPage() {
               </div>
             </div>
 
-            {/* Right: Text Content */}
+            {/* Right: Text Content with Interactivity */}
             <div className="w-full lg:w-1/2 space-y-10">
-              <h2 className="text-3xl md:text-4xl font-medium tracking-tighter text-white leading-tight">
-                Educar y Empoderar a <br /> nuestro equipo humano
-              </h2>
-              <p className="text-white/70 text-sm md:text-base font-light leading-relaxed max-w-md tracking-tight">
-                Brindamos las herramientas y el conocimiento necesario para que cada colaborador pueda gestionar procesos con excelencia operativa y una clara visión estratégica.
-              </p>
+              <div 
+                key={activeFeatureIndex} 
+                className="space-y-10 animate-in fade-in slide-in-from-right-4 duration-700"
+              >
+                <h2 className="text-3xl md:text-4xl font-medium tracking-tighter text-white leading-tight min-h-[80px]">
+                  {activeFeature.title}
+                </h2>
+                <p className="text-white/70 text-sm md:text-base font-light leading-relaxed max-w-md tracking-tight min-h-[100px]">
+                  {activeFeature.description}
+                </p>
+              </div>
               
               <div className="flex items-center gap-3 pt-6">
-                <div className="w-2.5 h-2.5 rounded-full border border-white/30" />
-                <div className="w-2.5 h-2.5 rounded-full bg-white" />
-                <div className="w-2.5 h-2.5 rounded-full border border-white/30" />
-                <div className="w-2.5 h-2.5 rounded-full border border-white/30" />
+                {libraryFeatures.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setActiveFeatureIndex(idx)}
+                    className={cn(
+                      "w-2.5 h-2.5 rounded-full transition-all duration-300 outline-none",
+                      activeFeatureIndex === idx 
+                        ? "bg-white scale-110 shadow-[0_0_10px_rgba(255,255,255,0.5)]" 
+                        : "border border-white/30 hover:border-white/60"
+                    )}
+                    aria-label={`Ver funcionalidad ${idx + 1}`}
+                  />
+                ))}
               </div>
             </div>
           </div>
