@@ -104,11 +104,6 @@ export default function BibliotecaPage() {
                 <div className="w-2.5 h-2.5 rounded-full border border-white/30" />
                 <div className="w-2.5 h-2.5 rounded-full border border-white/30" />
               </div>
-
-              <button className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.2em] text-white group pt-4 transition-colors hover:text-white/80">
-                <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" strokeWidth={3} />
-                Conoce nuestros programas
-              </button>
             </div>
           </div>
         </div>
