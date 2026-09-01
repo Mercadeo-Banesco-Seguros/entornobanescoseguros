@@ -120,8 +120,8 @@ export default function MultimediaPage() {
     <div className="flex flex-col w-full min-h-screen animate-in fade-in duration-700">
       <div className="flex w-full gap-12 py-10">
         
-        {/* 1. Sidebar de Categorías */}
-        <aside className="w-64 shrink-0 flex flex-col gap-1">
+        {/* 1. Sidebar de Categorías - Ancho reducido un 20% de w-64 a w-52 */}
+        <aside className="w-52 shrink-0 flex flex-col gap-1">
           {sidebarCategories.map((cat) => (
             <button
               key={cat.id}
@@ -173,7 +173,7 @@ export default function MultimediaPage() {
             </div>
           </div>
 
-          {/* Grid de Tarjetas Multimedia - Redondez y altura reducidas */}
+          {/* Grid de Tarjetas Multimedia */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {multimediaCards.map((card) => {
               const imageAsset = PlaceHolderImages.find(img => img.id === card.imageId);
