@@ -94,19 +94,19 @@
     {
       "id": "wellness-hero-1",
       "description": "Bienestar Potencial",
-      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vSml8cCPN0OwXrRZpBeWyItXmJjmo1AvyEMHP0kyCFvd8lH4BK1uSjEwNAh-zz1Nl_oUFcrB9FbHabX/pub?format=png&w=960&h=720&format=png",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vSml8cCPN0OwXrRZpBeWyItXmJjmo1AvyEMHP0kyCFvd8lH4BK1uSjEwNAh-zz1Nl_oUFcrB9FbHabX/pub?format=png&w=960&h=720",
       "imageHint": "wellness potential"
     },
     {
       "id": "wellness-hero-2",
       "description": "Bienestar Integral",
-      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vROb5Y5XzYtidmDcBe4nHtzjkNYmBEBm_GKxjVMRQngtTYkHl_dwuWkVVSE6MZB7-k9nZjEs6zinf3J/pub?format=png&w=960&h=720&format=png",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vROb5Y5XzYtidmDcBe4nHtzjkNYmBEBm_GKxjVMRQngtTYkHl_dwuWkVVSE6MZB7-k9nZjEs6zinf3J/pub?format=png&w=960&h=720",
       "imageHint": "wellness integral"
     },
     {
       "id": "segurito-ai-status",
       "description": "Segurito IA Próximamente",
-      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vSml8cCPN0OwXrRZpBeWyItXmJjmo1AvyEMHP0kyCFvd8lH4BK1uSjEwNAh-zz1Nl_oUFcrB9FbHabX/pub?w=960&h=720&format=png",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vSBtI8YJ80xUbACa1RDn_iid3x1LG9Zyox5h55zON4vV3xBJn6K3QHU31FE7aUr4985cmCkoX_6rJhz/pub?format=png&w=960&h=720",
       "imageHint": "robot assistant"
     },
     {
@@ -180,6 +180,42 @@
       "description": "Alertas Preventivas",
       "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vSd-uGEdO2G8E8_-MMHjBPnjLbah8Che1bhdQ_sHSCxifjruN11pvweeoQWuS_XssEr3jrwKoLVgjx-/pub?w=960&h=720",
       "imageHint": "notification bell"
+    },
+    {
+      "id": "multimedia-corp",
+      "description": "Corporativo Icon",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vS_D6f1gS3OaX-zP-_h_L4S1o-o9J3v-Y8lG-z6v7I-h-P9z-_j_L4S1o-o9J3v-Y8lG-z6v7I-h-P9z/pub?w=400&h=400",
+      "imageHint": "3d folder"
+    },
+    {
+      "id": "multimedia-prod",
+      "description": "Productos Icon",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vS_D6f1gS3OaX-zP-_h_L4S1o-o9J3v-Y8lG-z6v7I-h-P9z-_j_L4S1o-o9J3v-Y8lG-z6v7I-h-P9z/pub?w=400&h=400",
+      "imageHint": "3d magnifying glass"
+    },
+    {
+      "id": "multimedia-brand",
+      "description": "Marca Icon",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vS_D6f1gS3OaX-zP-_h_L4S1o-o9J3v-Y8lG-z6v7I-h-P9z-_j_L4S1o-o9J3v-Y8lG-z6v7I-h-P9z/pub?w=400&h=400",
+      "imageHint": "3d verified"
+    },
+    {
+      "id": "multimedia-finance",
+      "description": "Finanzas Icon",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vS_D6f1gS3OaX-zP-_h_L4S1o-o9J3v-Y8lG-z6v7I-h-P9z-_j_L4S1o-o9J3v-Y8lG-z6v7I-h-P9z/pub?w=400&h=400",
+      "imageHint": "3d money"
+    },
+    {
+      "id": "multimedia-sales",
+      "description": "Comercial Icon",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vS_D6f1gS3OaX-zP-_h_L4S1o-o9J3v-Y8lG-z6v7I-h-P9z-_j_L4S1o-o9J3v-Y8lG-z6v7I-h-P9z/pub?w=400&h=400",
+      "imageHint": "3d bag"
+    },
+    {
+      "id": "multimedia-dev",
+      "description": "Desarrollo Icon",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vS_D6f1gS3OaX-zP-_h_L4S1o-o9J3v-Y8lG-z6v7I-h-P9z-_j_L4S1o-o9J3v-Y8lG-z6v7I-h-P9z/pub?w=400&h=400",
+      "imageHint": "3d plus"
     }
   ]
 }
