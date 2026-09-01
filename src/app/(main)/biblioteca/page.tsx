@@ -49,7 +49,7 @@ export default function BibliotecaPage() {
             </div>
             
             <div className="max-w-md space-y-8 animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-300">
-              <p className="text-slate-500 text-sm md:text-base font-light leading-relaxed tracking-tight">
+              <p className="text-slate-500 text-[11px] font-light leading-relaxed tracking-tight">
                 La central de inteligencia operativa de Banesco Seguros. Un espacio colaborativo diseñado para la consulta, formación y estandarización de nuestros procesos críticos.
               </p>
               <div className="pt-4">
