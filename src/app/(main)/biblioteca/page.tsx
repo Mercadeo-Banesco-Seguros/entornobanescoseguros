@@ -39,12 +39,8 @@ export default function BibliotecaPage() {
           <div className="max-w-4xl space-y-12">
             <div className="space-y-6">
               <div className="flex items-center gap-4 animate-in fade-in slide-in-from-bottom-2 duration-700">
-                <span className="text-[10px] font-medium uppercase tracking-[0.2em] text-slate-400">
-                  Gestión del Conocimiento
-                </span>
-                <div className="h-px w-12 bg-slate-200" />
-                <span className="text-[10px] font-medium uppercase tracking-[0.2em] text-slate-900">
-                  Actualización 2025
+                <span className="text-[10px] font-normal text-slate-400 tracking-tight">
+                  Desarrollado por La Unidad de Procesos
                 </span>
               </div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tighter text-slate-900 leading-[1] animate-in fade-in slide-in-from-bottom-4 duration-1000">
