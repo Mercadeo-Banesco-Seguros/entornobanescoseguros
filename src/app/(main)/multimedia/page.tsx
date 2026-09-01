@@ -138,7 +138,7 @@ export default function MultimediaPage() {
                   className={cn("w-4 h-4", activeCategory === cat.id ? "text-white" : "text-slate-400 group-hover:text-slate-500")} 
                   strokeWidth={1} 
                 />
-                <span className="text-[12px] font-light tracking-tight">{cat.label}</span>
+                <span className="text-[10px] font-light tracking-tight">{cat.label}</span>
               </div>
               {activeCategory === cat.id && <ChevronRight className="w-3.5 h-3.5 text-white/60" />}
             </button>
@@ -156,7 +156,7 @@ export default function MultimediaPage() {
                   key={filter.id}
                   onClick={() => setActiveFilter(filter.id)}
                   className={cn(
-                    "px-5 py-3 rounded-2xl text-[12px] font-light transition-all duration-300 border border-transparent",
+                    "px-5 py-3 rounded-2xl text-[10px] font-light transition-all duration-300 border border-transparent",
                     activeFilter === filter.id 
                       ? "bg-[#003B73] text-white" 
                       : "text-slate-400 hover:text-slate-600 hover:bg-slate-100/50"
