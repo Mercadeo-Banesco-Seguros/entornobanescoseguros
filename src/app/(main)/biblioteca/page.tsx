@@ -27,16 +27,16 @@ export default function BibliotecaPage() {
   return (
     <div className="flex flex-col w-full min-h-screen bg-white">
       {/* 1. Hero Section - Full Width & Immersive */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] -mt-32 pt-56 pb-32 overflow-hidden flex items-center min-h-[80vh] bg-white">
+      <section className="relative w-screen left-1/2 -ml-[50vw] -mt-32 pt-48 pb-20 overflow-hidden flex items-center min-h-[60vh] bg-gradient-to-b from-white to-blue-50/50">
         {/* Atmospheric Background Blobs - Full Bleed */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-[5%] left-[-15%] w-[800px] h-[800px] rounded-full bg-yellow-100/40 blur-[140px]" />
-          <div className="absolute top-[15%] right-[-10%] w-[900px] h-[900px] rounded-full bg-orange-100/30 blur-[160px]" />
-          <div className="absolute bottom-[-15%] left-[20%] w-[600px] h-[600px] rounded-full bg-blue-50/60 blur-[120px]" />
+          <div className="absolute top-[5%] left-[-15%] w-[800px] h-[800px] rounded-full bg-yellow-100/30 blur-[140px]" />
+          <div className="absolute top-[15%] right-[-10%] w-[900px] h-[900px] rounded-full bg-orange-100/20 blur-[160px]" />
+          <div className="absolute bottom-[-15%] left-[20%] w-[600px] h-[600px] rounded-full bg-blue-50/50 blur-[120px]" />
         </div>
 
         <div className="container mx-auto px-8 md:px-16 lg:px-24 relative z-10">
-          <div className="max-w-4xl space-y-12">
+          <div className="max-w-5xl space-y-12">
             <div className="space-y-6">
               <div className="flex items-center gap-4 animate-in fade-in slide-in-from-bottom-2 duration-700">
                 <span className="text-[10px] font-normal text-slate-400 tracking-tight">
@@ -48,15 +48,13 @@ export default function BibliotecaPage() {
               </h1>
             </div>
             
-            <div className="max-w-md space-y-8 animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-300">
-              <p className="text-slate-500 text-[11px] font-light leading-relaxed tracking-tight">
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-10 animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-300">
+              <p className="text-slate-500 text-[11px] font-light leading-relaxed tracking-tight max-w-sm">
                 La central de inteligencia operativa de Banesco Seguros. Un espacio colaborativo diseñado para la consulta, formación y estandarización de nuestros procesos críticos.
               </p>
-              <div className="pt-4">
-                <button className="px-14 py-3 rounded-full bg-white/40 backdrop-blur-md border border-slate-200 text-slate-600 text-[11px] font-light tracking-wide hover:bg-white/60 transition-all duration-300 shadow-sm">
-                  Explorar
-                </button>
-              </div>
+              <button className="px-12 py-3 rounded-full bg-[#0054A6] text-white text-[11px] font-light tracking-wide hover:bg-[#0054A6]/90 transition-all duration-300 shadow-sm shrink-0">
+                Explorar
+              </button>
             </div>
           </div>
         </div>
