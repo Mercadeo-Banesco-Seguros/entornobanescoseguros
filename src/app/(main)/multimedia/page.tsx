@@ -166,10 +166,10 @@ export default function MultimediaPage() {
                 </button>
               ))}
             </div>
-            <div className="flex items-center gap-5 text-slate-300">
-              <button className="hover:text-slate-500 transition-colors"><Search className="w-4 h-4" strokeWidth={1} /></button>
-              <button className="hover:text-slate-500 transition-colors"><Mail className="w-4 h-4" strokeWidth={1} /></button>
-              <button className="hover:text-slate-500 transition-colors"><Download className="w-4 h-4" strokeWidth={1} /></button>
+            <div className="flex items-center gap-5 text-slate-400">
+              <button className="hover:text-slate-600 transition-colors"><Search className="w-4 h-4" strokeWidth={1} /></button>
+              <button className="hover:text-slate-600 transition-colors"><Mail className="w-4 h-4" strokeWidth={1} /></button>
+              <button className="hover:text-slate-600 transition-colors"><Download className="w-4 h-4" strokeWidth={1} /></button>
             </div>
           </div>
 
