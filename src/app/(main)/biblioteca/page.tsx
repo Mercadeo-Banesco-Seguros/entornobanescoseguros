@@ -84,7 +84,7 @@ export default function BibliotecaPage() {
       </section>
 
       {/* 2. Secondary Strategy Section - BLUE BACKGROUND INTERACTIVE */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] py-24 bg-gradient-to-br from-[#0054A6] via-[#003B73] to-[#002D54] text-white overflow-hidden transition-colors duration-700">
+      <section className="relative w-screen left-1/2 -ml-[50vw] py-16 bg-gradient-to-br from-[#0054A6] via-[#003B73] to-[#002D54] text-white overflow-hidden transition-colors duration-700">
         {/* Background Subtle Blobs for depth */}
         <div className="absolute inset-0 pointer-events-none opacity-20">
           <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-blue-400 blur-[120px]" />
