@@ -101,13 +101,10 @@ export default function BibliotecaPage() {
           <div className="flex flex-col lg:flex-row items-center justify-between gap-32">
             {/* Left: Interactive Image */}
             <div className="w-full lg:w-1/2 flex justify-center">
-              <div className="relative w-72 h-72 md:w-96 md:h-96 flex items-center justify-center">
-                <div className="absolute inset-0 border-[0.5px] border-white/20 rounded-[3.5rem] rotate-12" />
-                <div className="absolute inset-0 border-[0.5px] border-white/20 rounded-[3.5rem] -rotate-6" />
-                
+              <div className="relative w-72 h-72 md:w-96 md:h-96">
                 <div 
                   key={activeFeatureIndex}
-                  className="relative z-10 w-full h-full bg-white/10 backdrop-blur-md border border-white/20 rounded-[3rem] overflow-hidden shadow-2xl animate-in fade-in zoom-in-95 duration-700"
+                  className="relative w-full h-full rounded-[3rem] overflow-hidden shadow-2xl animate-in fade-in zoom-in-95 duration-700"
                 >
                   {(() => {
                     const img = PlaceHolderImages.find(i => i.id === activeFeature.imageId);
@@ -122,14 +119,6 @@ export default function BibliotecaPage() {
                       />
                     ) : null;
                   })()}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0054A6]/60 via-transparent to-transparent" />
-                </div>
-
-                {/* Dots grid decoration */}
-                <div className="absolute -top-4 -right-4 grid grid-cols-4 gap-2 opacity-30">
-                  {[...Array(16)].map((_, i) => (
-                    <div key={i} className="w-1.5 h-1.5 rounded-full bg-white" />
-                  ))}
                 </div>
               </div>
             </div>
