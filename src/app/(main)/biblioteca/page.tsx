@@ -26,36 +26,43 @@ export default function BibliotecaPage() {
 
   return (
     <div className="flex flex-col w-full min-h-screen bg-white">
-      {/* 1. Hero Section - Soft Blurred Blobs */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] -mt-32 pt-48 pb-32 overflow-hidden flex items-center min-h-[70vh]">
-        {/* Atmospheric Background Blobs */}
+      {/* 1. Hero Section - Full Width & Immersive */}
+      <section className="relative w-screen left-1/2 -ml-[50vw] -mt-32 pt-56 pb-32 overflow-hidden flex items-center min-h-[85vh] bg-white">
+        {/* Atmospheric Background Blobs - Full Bleed */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-[10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-yellow-100/40 blur-[120px]" />
-          <div className="absolute top-[20%] right-[-5%] w-[600px] h-[600px] rounded-full bg-orange-100/30 blur-[140px]" />
-          <div className="absolute bottom-[-10%] left-[20%] w-[400px] h-[400px] rounded-full bg-blue-50/50 blur-[100px]" />
+          <div className="absolute top-[5%] left-[-15%] w-[800px] h-[800px] rounded-full bg-yellow-100/40 blur-[140px]" />
+          <div className="absolute top-[15%] right-[-10%] w-[900px] h-[900px] rounded-full bg-orange-100/30 blur-[160px]" />
+          <div className="absolute bottom-[-15%] left-[20%] w-[600px] h-[600px] rounded-full bg-blue-50/60 blur-[120px]" />
         </div>
 
         <div className="container mx-auto px-8 md:px-16 lg:px-24 relative z-10">
-          <div className="max-w-4xl space-y-12">
-            <div className="space-y-4">
+          <div className="max-w-5xl space-y-16">
+            <div className="space-y-6">
               <div className="flex items-center gap-4 animate-in fade-in slide-in-from-bottom-2 duration-700">
-                <span className="text-[10px] font-medium uppercase tracking-widest text-slate-900">
-                  Novedad: Manuales 2025 Actualizados
+                <span className="text-[10px] font-medium uppercase tracking-[0.2em] text-slate-400">
+                  Gestión del Conocimiento
+                </span>
+                <div className="h-px w-12 bg-slate-200" />
+                <span className="text-[10px] font-medium uppercase tracking-[0.2em] text-slate-900">
+                  Actualización 2025
                 </span>
               </div>
-              <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-medium tracking-tighter text-slate-900 leading-[0.95] animate-in fade-in slide-in-from-bottom-4 duration-1000">
+              <h1 className="text-6xl md:text-8xl lg:text-[7rem] font-medium tracking-tighter text-slate-900 leading-[0.85] animate-in fade-in slide-in-from-bottom-4 duration-1000">
                 Biblioteca de <br /> Gestión Documental
               </h1>
             </div>
             
-            <div className="max-w-md space-y-6 animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-300">
-              <p className="text-slate-500 text-sm md:text-base font-light leading-relaxed tracking-tight">
-                La central de inteligencia operativa de Banesco Seguros. Un espacio colaborativo para la consulta, formación y estandarización de nuestros procesos.
+            <div className="max-w-lg space-y-8 animate-in fade-in slide-in-from-bottom-6 duration-1000 delay-300">
+              <p className="text-slate-500 text-base md:text-lg font-light leading-relaxed tracking-tight">
+                La central de inteligencia operativa de Banesco Seguros. Un espacio colaborativo diseñado para la consulta, formación y estandarización de nuestros procesos críticos.
               </p>
               <div className="pt-4">
-                <p className="text-[11px] font-medium uppercase tracking-tighter text-slate-400">
-                  Impulsado por la Unidad de Procesos
-                </p>
+                <div className="inline-flex flex-col gap-1">
+                  <p className="text-[11px] font-bold uppercase tracking-widest text-slate-900">
+                    Impulsado por la Unidad de Procesos
+                  </p>
+                  <div className="h-0.5 w-full bg-slate-900" />
+                </div>
               </div>
             </div>
           </div>
@@ -63,21 +70,21 @@ export default function BibliotecaPage() {
       </section>
 
       {/* 2. Secondary Strategy Section */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] py-32 bg-white border-y border-slate-50">
+      <section className="relative w-screen left-1/2 -ml-[50vw] py-40 bg-white border-y border-slate-50">
         <div className="container mx-auto px-8 md:px-16 lg:px-24">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-24">
-            {/* Left: Minimalist Icon/Graphic */}
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-32">
+            {/* Left: Minimalist Graphic */}
             <div className="w-full lg:w-1/2 flex justify-center">
-              <div className="relative w-64 h-64 flex items-center justify-center">
-                <div className="absolute inset-0 border-[0.5px] border-slate-200 rounded-[3rem] rotate-12" />
-                <div className="absolute inset-0 border-[0.5px] border-slate-200 rounded-[3rem] -rotate-6" />
-                <div className="relative z-10 w-32 h-32 bg-white border border-slate-100 rounded-full flex items-center justify-center shadow-sm">
-                  <div className="w-12 h-12 rounded-xl border border-cyan-200 flex items-center justify-center">
-                    <div className="w-6 h-6 border-b-2 border-r-2 border-cyan-400 rounded-sm" />
+              <div className="relative w-72 h-72 flex items-center justify-center">
+                <div className="absolute inset-0 border-[0.5px] border-slate-200 rounded-[3.5rem] rotate-12" />
+                <div className="absolute inset-0 border-[0.5px] border-slate-200 rounded-[3.5rem] -rotate-6" />
+                <div className="relative z-10 w-40 h-40 bg-white border border-slate-100 rounded-full flex items-center justify-center shadow-xl shadow-slate-100">
+                  <div className="w-16 h-16 rounded-2xl border border-cyan-100 flex items-center justify-center">
+                    <div className="w-8 h-8 border-b-[3px] border-r-[3px] border-cyan-400 rounded-sm" />
                   </div>
                 </div>
-                {/* Dots grid like the reference */}
-                <div className="absolute top-0 right-0 grid grid-cols-4 gap-2 opacity-20">
+                {/* Dots grid decoration */}
+                <div className="absolute -top-4 -right-4 grid grid-cols-4 gap-2 opacity-30">
                   {[...Array(16)].map((_, i) => (
                     <div key={i} className="w-1.5 h-1.5 rounded-full bg-slate-400" />
                   ))}
@@ -86,23 +93,23 @@ export default function BibliotecaPage() {
             </div>
 
             {/* Right: Text Content */}
-            <div className="w-full lg:w-1/2 space-y-8">
-              <h2 className="text-3xl md:text-4xl font-light tracking-tighter text-slate-900 leading-tight">
+            <div className="w-full lg:w-1/2 space-y-10">
+              <h2 className="text-4xl md:text-5xl font-light tracking-tighter text-slate-900 leading-tight">
                 Educar y Empoderar a <br /> nuestro equipo humano
               </h2>
-              <p className="text-slate-500 text-[13px] font-light leading-relaxed max-w-sm tracking-tight">
-                Brindamos las herramientas y el conocimiento necesario para que cada colaborador pueda gestionar procesos con excelencia y visión estratégica.
+              <p className="text-slate-500 text-lg font-light leading-relaxed max-w-md tracking-tight">
+                Brindamos las herramientas y el conocimiento necesario para que cada colaborador pueda gestionar procesos con excelencia operativa y una clara visión estratégica.
               </p>
               
-              <div className="flex items-center gap-2 pt-4">
-                <div className="w-2 h-2 rounded-full border border-slate-300" />
-                <div className="w-2 h-2 rounded-full bg-slate-800" />
-                <div className="w-2 h-2 rounded-full border border-slate-300" />
-                <div className="w-2 h-2 rounded-full border border-slate-300" />
+              <div className="flex items-center gap-3 pt-6">
+                <div className="w-2.5 h-2.5 rounded-full border border-slate-300" />
+                <div className="w-2.5 h-2.5 rounded-full bg-slate-800" />
+                <div className="w-2.5 h-2.5 rounded-full border border-slate-300" />
+                <div className="w-2.5 h-2.5 rounded-full border border-slate-300" />
               </div>
 
-              <button className="flex items-center gap-2 text-[10px] font-medium uppercase tracking-widest text-slate-900 group">
-                <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              <button className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.2em] text-slate-900 group pt-4">
+                <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" strokeWidth={3} />
                 Conoce nuestros programas
               </button>
             </div>
@@ -110,15 +117,15 @@ export default function BibliotecaPage() {
         </div>
       </section>
 
-      {/* 3. Directory Section (Inspired by Advisors list) */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] py-32 bg-white">
+      {/* 3. Directory Section */}
+      <section className="relative w-screen left-1/2 -ml-[50vw] py-40 bg-white">
         <div className="container mx-auto px-8 md:px-16 lg:px-24">
-          <div className="flex flex-col lg:flex-row justify-between gap-16 mb-24">
-            <h2 className="text-xl md:text-2xl font-light tracking-tighter text-slate-900 shrink-0">
+          <div className="flex flex-col lg:flex-row justify-between gap-16 mb-28">
+            <h2 className="text-2xl md:text-3xl font-light tracking-tighter text-slate-900 shrink-0">
               Directorio de Procesos
             </h2>
-            <p className="text-slate-500 text-[13px] font-light leading-relaxed max-w-xl tracking-tight">
-              Explora nuestra red de conocimiento institucional. Cada documento ha sido validado por la Unidad de Procesos para asegurar la eficiencia en tu gestión diaria.
+            <p className="text-slate-500 text-base font-light leading-relaxed max-w-xl tracking-tight">
+              Explora nuestra red de conocimiento institucional. Cada documento ha sido validado por la Unidad de Procesos para asegurar la máxima eficiencia en tu gestión diaria.
             </p>
           </div>
 
@@ -126,27 +133,27 @@ export default function BibliotecaPage() {
             {categories.map((item, idx) => (
               <div 
                 key={idx} 
-                className="group py-10 px-8 border-b border-slate-100 flex items-center justify-between transition-colors hover:bg-slate-50/50 cursor-pointer"
+                className="group py-12 px-10 border-b border-slate-100 flex items-center justify-between transition-all hover:bg-slate-50/50 cursor-pointer"
               >
-                <div className="space-y-1">
-                  <h4 className="text-[13px] font-normal tracking-tighter text-slate-900 group-hover:text-[#0054A6] transition-colors">
+                <div className="space-y-2">
+                  <h4 className="text-base font-normal tracking-tight text-slate-900 group-hover:text-[#0054A6] transition-colors">
                     {item.name}
                   </h4>
-                  <p className="text-[10px] font-light text-slate-400">
+                  <p className="text-[11px] font-light text-slate-400 uppercase tracking-widest">
                     {item.area}
                   </p>
                 </div>
-                <div className="opacity-0 group-hover:opacity-100 transition-opacity">
-                  <Plus className="w-4 h-4 text-slate-300" strokeWidth={1} />
+                <div className="opacity-0 group-hover:opacity-100 transition-all translate-x-2 group-hover:translate-x-0">
+                  <Plus className="w-5 h-5 text-slate-300" strokeWidth={1.5} />
                 </div>
               </div>
             ))}
           </div>
 
           {/* Search CTA */}
-          <div className="mt-20 flex justify-center">
-            <button className="px-12 py-4 rounded-full border border-slate-100 bg-slate-50/30 text-[11px] font-light tracking-widest text-slate-500 hover:bg-white hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-500 flex items-center gap-3">
-              <Search className="w-3.5 h-3.5" />
+          <div className="mt-24 flex justify-center">
+            <button className="px-14 py-5 rounded-full border border-slate-100 bg-slate-50/30 text-[11px] font-bold tracking-[0.25em] text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-2xl hover:shadow-slate-200/50 transition-all duration-500 flex items-center gap-4 group">
+              <Search className="w-4 h-4 transition-transform group-hover:scale-110" />
               BUSCAR DOCUMENTOS ESPECÍFICOS
             </button>
           </div>
@@ -154,7 +161,7 @@ export default function BibliotecaPage() {
       </section>
 
       {/* Footer Space padding */}
-      <div className="py-20" />
+      <div className="py-24" />
     </div>
   );
 }
