@@ -4,18 +4,6 @@ import * as React from 'react';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
-import { ChevronRight, FileText, Search, Plus } from 'lucide-react';
-
-const categories = [
-  { name: 'Manuales de Suscripción', area: 'Operaciones' },
-  { name: 'Protocolos de Siniestros', area: 'Salud / Patrimoniales' },
-  { name: 'Guías de Atención', area: 'Comercial' },
-  { name: 'Políticas de Riesgo', area: 'Actuarial' },
-  { name: 'Procedimientos Internos', area: 'Unidad de Procesos' },
-  { name: 'Formatos Estándar', area: 'Administración' },
-  { name: 'Documentación Legal', area: 'Legal' },
-  { name: 'Estatutos Institucionales', area: 'Gobierno Corporativo' },
-];
 
 const libraryFeatures = [
   {
@@ -159,49 +147,6 @@ export default function BibliotecaPage() {
                 ))}
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. Directory Section */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] py-32 bg-white">
-        <div className="container mx-auto px-8 md:px-16 lg:px-24">
-          <div className="flex flex-col lg:flex-row justify-between gap-16 mb-28">
-            <h2 className="text-xl md:text-2xl font-light tracking-tighter text-slate-900 shrink-0">
-              Directorio de Procesos
-            </h2>
-            <p className="text-slate-500 text-sm font-light leading-relaxed max-w-xl tracking-tight">
-              Explora nuestra red de conocimiento institucional. Cada documento ha sido validado por la Unidad de Procesos para asegurar la máxima eficiencia en tu gestión diaria.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full border-t border-slate-100">
-            {categories.map((item, idx) => (
-              <div 
-                key={idx} 
-                className="group py-12 px-10 border-b border-slate-100 flex items-center justify-between transition-all hover:bg-slate-50/50 cursor-pointer"
-              >
-                <div className="space-y-2">
-                  <h4 className="text-base font-normal tracking-tight text-slate-900 group-hover:text-[#0054A6] transition-colors">
-                    {item.name}
-                  </h4>
-                  <p className="text-[11px] font-light text-slate-400 uppercase tracking-widest">
-                    {item.area}
-                  </p>
-                </div>
-                <div className="opacity-0 group-hover:opacity-100 transition-all translate-x-2 group-hover:translate-x-0">
-                  <Plus className="w-5 h-5 text-slate-300" strokeWidth={1.5} />
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Search CTA */}
-          <div className="mt-24 flex justify-center">
-            <button className="px-14 py-5 rounded-full border border-slate-100 bg-slate-50/30 text-[11px] font-bold tracking-[0.25em] text-slate-500 hover:bg-white hover:text-slate-900 hover:shadow-2xl hover:shadow-slate-200/50 transition-all duration-500 flex items-center gap-4 group">
-              <Search className="w-4 h-4 transition-transform group-hover:scale-110" />
-              BUSCAR DOCUMENTOS ESPECÍFICOS
-            </button>
           </div>
         </div>
       </section>
