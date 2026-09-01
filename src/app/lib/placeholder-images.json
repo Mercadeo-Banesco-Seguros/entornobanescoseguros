@@ -94,13 +94,13 @@
     {
       "id": "wellness-hero-1",
       "description": "Bienestar Potencial",
-      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vSml8cCPN0OwXrRZpBeWyItXmJjmo1AvyEMHP0kyCFvd8lH4BK1uSjEwNAh-zz1Nl_oUFcrB9FbHabX/pub?w=960&h=720&format=png",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vSml8cCPN0OwXrRZpBeWyItXmJjmo1AvyEMHP0kyCFvd8lH4BK1uSjEwNAh-zz1Nl_oUFcrB9FbHabX/pub?format=png&w=960&h=720&format=png",
       "imageHint": "wellness potential"
     },
     {
       "id": "wellness-hero-2",
       "description": "Bienestar Integral",
-      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vROb5Y5XzYtidmDcBe4nHtzjkNYmBEBm_GKxjVMRQngtTYkHl_dwuWkVVSE6MZB7-k9nZjEs6zinf3J/pub?w=960&h=720&format=png",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vROb5Y5XzYtidmDcBe4nHtzjkNYmBEBm_GKxjVMRQngtTYkHl_dwuWkVVSE6MZB7-k9nZjEs6zinf3J/pub?format=png&w=960&h=720&format=png",
       "imageHint": "wellness integral"
     },
     {
@@ -160,25 +160,25 @@
     {
       "id": "library-benefit-1",
       "description": "Identificación y Codificación",
-      "imageUrl": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=800&h=600",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vRX2UKsqFhv5zi-z14wk_Nuk9HeVRY2SAmB75sPolWjumABE5ZfR7rDtYk_IRTr19622u8FAzKTXvw9/pub?w=960&h=720",
       "imageHint": "digital code"
     },
     {
       "id": "library-benefit-2",
       "description": "Búsqueda Rápida",
-      "imageUrl": "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&h=600",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vQqoCwcZffY5bGqAf8FG2k0g-gjP2egHJ7tKJOeQ1PO_lUamPcKHKUxb1lhb37Q4uLOo2vfLK-2NTAK/pub?w=960&h=720",
       "imageHint": "magnifying glass"
     },
     {
       "id": "library-benefit-3",
       "description": "Control de Estatus",
-      "imageUrl": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&h=600",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vQKFmRbYokNFz097cmsby4MXLKR6MN9R5q4IJNkR_BFyM2alCNAr_A_MSxqKJxshMjzJ9dsx-soTBUD/pub?w=960&h=720",
       "imageHint": "status dashboard"
     },
     {
       "id": "library-benefit-4",
       "description": "Alertas Preventivas",
-      "imageUrl": "https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&w=800&h=600",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vSd-uGEdO2G8E8_-MMHjBPnjLbah8Che1bhdQ_sHSCxifjruN11pvweeoQWuS_XssEr3jrwKoLVgjx-/pub?w=960&h=720",
       "imageHint": "notification bell"
     }
   ]
