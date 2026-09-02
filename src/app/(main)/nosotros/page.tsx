@@ -148,6 +148,7 @@ function Counter({ end, suffix = "", duration = 4000 }: { end: number; suffix?: 
 
 function ComplianceGrid({ value, label, description, isPercentage = true }: { value: number, label: string, description: string, isPercentage?: boolean }) {
   const [animatedValue, setAnimatedValue] = React.useState(0);
+  const [animatedFilledCount, setAnimatedFilledCount] = React.useState(0);
   const [isVisible, setIsVisible] = React.useState(false);
   const containerRef = React.useRef<HTMLDivElement>(null);
 
@@ -174,24 +175,33 @@ function ComplianceGrid({ value, label, description, isPercentage = true }: { va
 
     let startTimestamp: number | null = null;
     const duration = 2500;
+    
+    // Si es Ranking (isPercentage = false), asumimos 100 aseguradoras.
+    // Estar en el puesto 13 significa que superamos a 87 (100 - 13).
+    const targetFilled = isPercentage ? value : (100 - value);
+
     const step = (timestamp: number) => {
       if (!startTimestamp) startTimestamp = timestamp;
       const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      
       setAnimatedValue(progress * value);
+      setAnimatedFilledCount(progress * targetFilled);
+      
       if (progress < 1) {
         window.requestAnimationFrame(step);
       }
     };
     window.requestAnimationFrame(step);
-  }, [value, isVisible]);
+  }, [value, isVisible, isPercentage]);
 
-  const filledCount = Math.round(animatedValue);
+  const displayValue = Math.round(animatedValue);
+  const filledCount = Math.round(animatedFilledCount);
   
   return (
     <div ref={containerRef} className="flex flex-col gap-6 py-8">
       <div className="flex flex-row items-center gap-5">
         <span className="text-white text-6xl md:text-7xl font-bold tracking-tighter shrink-0">
-          {Math.round(animatedValue)}{isPercentage ? '%' : ''}
+          {displayValue}{isPercentage ? '%' : ''}
         </span>
         <div className="pl-4 border-l-2 border-white/30 space-y-0.5">
           <h4 className="text-white text-[10px] md:text-[11px] font-light tracking-tighter uppercase">{label}</h4>
