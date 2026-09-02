@@ -66,10 +66,32 @@ interface NewsItem {
   categoryImage?: string;
 }
 
-function Counter({ end, duration = 5000, suffix = "", prefix = "" }: { end: number, duration?: number, suffix?: string, prefix?: string }) {
+function Counter({ end, duration = 4000, suffix = "", prefix = "" }: { end: number, duration?: number, suffix?: string, prefix?: string }) {
   const [count, setCount] = React.useState(0);
+  const [isVisible, setIsVisible] = React.useState(false);
+  const containerRef = React.useRef<HTMLSpanElement>(null);
 
   React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  React.useEffect(() => {
+    if (!isVisible) return;
+
     let startTimestamp: number | null = null;
     const step = (timestamp: number) => {
       if (!startTimestamp) startTimestamp = timestamp;
@@ -80,9 +102,9 @@ function Counter({ end, duration = 5000, suffix = "", prefix = "" }: { end: numb
       }
     };
     window.requestAnimationFrame(step);
-  }, [end, duration]);
+  }, [end, duration, isVisible]);
 
-  return <>{prefix}{count}{suffix}</>;
+  return <span ref={containerRef}>{prefix}{count}{suffix}</span>;
 }
 
 export default function AcademiaPage() {
@@ -251,7 +273,7 @@ export default function AcademiaPage() {
               <div key={idx} className="flex flex-col space-y-6 border-l border-white/10 pl-8 group">
                 <div className="flex items-center gap-4">
                   <span className="text-5xl font-bold tracking-tighter">
-                    <Counter end={stat.value} suffix={stat.suffix} />
+                    <Counter end={stat.value} suffix={stat.suffix} duration={4000} />
                   </span>
                 </div>
                 <div className="space-y-3">
