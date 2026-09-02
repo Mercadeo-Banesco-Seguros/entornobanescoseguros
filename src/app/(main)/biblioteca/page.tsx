@@ -47,7 +47,7 @@ export default function BibliotecaPage() {
   if (!mounted) return null;
 
   const activeFeature = libraryFeatures[activeFeatureIndex];
-  const libraryHeroImage = PlaceHolderImages.find(img => img.id === 'library-hero');
+  const libraryHeroUrl = "https://docs.google.com/drawings/d/e/2PACX-1vS8ReFA5gsC_kmGOO1U5zueFTWvRBbBEJcAJKVDzoTjwwbES0U-ivdnmPHscTt_JtB8yiHUub4F1iQI/pub?w=960&h=720";
 
   return (
     <div className="flex flex-col w-full min-h-screen bg-white">
@@ -84,20 +84,19 @@ export default function BibliotecaPage() {
               </div>
             </div>
 
-            <div className="hidden md:flex justify-center items-center animate-in fade-in zoom-in-95 duration-1000 delay-500">
-              {libraryHeroImage && (
-                <div className="relative w-full aspect-square max-w-[500px]">
-                  <Image 
-                    src={libraryHeroImage.imageUrl}
-                    alt="Biblioteca de Gestión Documental"
-                    fill
-                    className="object-contain"
-                    priority
-                    unoptimized
-                    data-ai-hint={libraryHeroImage.imageHint}
-                  />
-                </div>
-              )}
+            {/* Columna de la Imagen - Llena el espacio derecho */}
+            <div className="hidden md:flex justify-end items-center animate-in fade-in zoom-in-95 duration-1000 delay-500">
+              <div className="relative w-full aspect-video md:aspect-square max-w-[600px]">
+                <Image 
+                  src={libraryHeroUrl}
+                  alt="Biblioteca de Gestión Documental"
+                  fill
+                  className="object-contain"
+                  priority
+                  unoptimized
+                  data-ai-hint="document management"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -176,3 +175,4 @@ export default function BibliotecaPage() {
     </div>
   );
 }
+
