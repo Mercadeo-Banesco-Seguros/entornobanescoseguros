@@ -51,7 +51,7 @@ export default function BibliotecaPage() {
   return (
     <div className="flex flex-col w-full min-h-screen bg-white">
       {/* 1. Hero Section - Full Width & Immersive & Compact */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] -mt-32 pt-32 pb-0 overflow-hidden flex items-center min-h-[30vh] bg-gradient-to-br from-blue-50/80 via-white to-blue-50/40">
+      <section className="relative w-screen left-1/2 -ml-[50vw] -mt-32 pt-24 pb-0 overflow-hidden flex items-center min-h-[30vh] bg-gradient-to-br from-blue-50/80 via-white to-blue-50/40">
         {/* Atmospheric Background Blobs - Full Bleed */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-[5%] left-[-15%] w-[800px] h-[800px] rounded-full bg-yellow-100/20 blur-[140px]" />
