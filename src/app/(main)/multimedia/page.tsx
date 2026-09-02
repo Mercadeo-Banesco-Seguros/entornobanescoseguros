@@ -119,8 +119,8 @@ export default function MultimediaPage() {
     <div className="flex flex-col w-full min-h-screen animate-in fade-in duration-700">
       <div className="flex w-full gap-12 pb-10">
         
-        {/* 1. Sidebar de Categorías - Ancho w-52, texto ultra reducido a 9px */}
-        <aside className="w-52 shrink-0 flex flex-col gap-1">
+        {/* 1. Sidebar de Categorías - Estático con sticky */}
+        <aside className="w-52 shrink-0 flex flex-col gap-1 sticky top-40 self-start">
           {sidebarCategories.map((cat) => (
             <button
               key={cat.id}
