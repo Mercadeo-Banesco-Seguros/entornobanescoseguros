@@ -60,8 +60,8 @@ export default function BibliotecaPage() {
         </div>
 
         <div className="container mx-auto px-8 md:px-16 lg:px-24 relative z-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-end">
-            <div className="space-y-6 pb-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div className="space-y-6">
               <div className="space-y-2">
                 <div className="flex items-center gap-4 animate-in fade-in slide-in-from-bottom-2 duration-700">
                   <span className="text-[10px] font-normal text-slate-400 tracking-tight">
@@ -84,7 +84,7 @@ export default function BibliotecaPage() {
             </div>
 
             {/* Columna de la Imagen - Llena el espacio derecho y se asienta en el fondo */}
-            <div className="hidden md:flex justify-end items-end animate-in fade-in zoom-in-95 duration-1000 delay-500">
+            <div className="hidden md:flex justify-end items-end self-end animate-in fade-in zoom-in-95 duration-1000 delay-500">
               <div className="relative w-full aspect-video md:aspect-square max-w-[450px]">
                 <Image 
                   src={libraryHeroUrl}
