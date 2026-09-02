@@ -182,40 +182,10 @@
       "imageHint": "notification bell"
     },
     {
-      "id": "multimedia-corp",
-      "description": "Corporativo Icon",
-      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vS_D6f1gS3OaX-zP-_h_L4S1o-o9J3v-Y8lG-z6v7I-h-P9z-_j_L4S1o-o9J3v-Y8lG-z6v7I-h-P9z/pub?w=400&h=400",
-      "imageHint": "3d folder"
-    },
-    {
-      "id": "multimedia-prod",
-      "description": "Productos Icon",
-      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vS_D6f1gS3OaX-zP-_h_L4S1o-o9J3v-Y8lG-z6v7I-h-P9z-_j_L4S1o-o9J3v-Y8lG-z6v7I-h-P9z/pub?w=400&h=400",
-      "imageHint": "3d magnifying glass"
-    },
-    {
-      "id": "multimedia-brand",
-      "description": "Marca Icon",
-      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vS_D6f1gS3OaX-zP-_h_L4S1o-o9J3v-Y8lG-z6v7I-h-P9z-_j_L4S1o-o9J3v-Y8lG-z6v7I-h-P9z/pub?w=400&h=400",
-      "imageHint": "3d verified"
-    },
-    {
-      "id": "multimedia-finance",
-      "description": "Finanzas Icon",
-      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vS_D6f1gS3OaX-zP-_h_L4S1o-o9J3v-Y8lG-z6v7I-h-P9z-_j_L4S1o-o9J3v-Y8lG-z6v7I-h-P9z/pub?w=400&h=400",
-      "imageHint": "3d money"
-    },
-    {
-      "id": "multimedia-sales",
-      "description": "Comercial Icon",
-      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vS_D6f1gS3OaX-zP-_h_L4S1o-o9J3v-Y8lG-z6v7I-h-P9z-_j_L4S1o-o9J3v-Y8lG-z6v7I-h-P9z/pub?w=400&h=400",
-      "imageHint": "3d bag"
-    },
-    {
-      "id": "multimedia-dev",
-      "description": "Desarrollo Icon",
-      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vS_D6f1gS3OaX-zP-_h_L4S1o-o9J3v-Y8lG-z6v7I-h-P9z-_j_L4S1o-o9J3v-Y8lG-z6v7I-h-P9z/pub?w=400&h=400",
-      "imageHint": "3d plus"
+      "id": "library-hero",
+      "description": "Biblioteca de Gestión Documental Hero",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vS8ReFA5gsC_kmGOO1U5zueFTWvRBbBEJcAJKVDzoTjwwbES0U-ivdnmPHscTt_JtB8yiHUub4F1iQI/pub?w=960&h=720",
+      "imageHint": "document management"
     }
   ]
 }
