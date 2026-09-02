@@ -51,7 +51,7 @@ export default function BibliotecaPage() {
   return (
     <div className="flex flex-col w-full min-h-screen bg-white">
       {/* 1. Hero Section - Full Width & Immersive */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] -mt-32 pt-40 pb-0 overflow-hidden flex items-center min-h-[50vh] bg-gradient-to-br from-blue-50/80 via-white to-blue-50/40">
+      <section className="relative w-screen left-1/2 -ml-[50vw] -mt-32 pt-36 pb-0 overflow-hidden flex items-center min-h-[40vh] bg-gradient-to-br from-blue-50/80 via-white to-blue-50/40">
         {/* Atmospheric Background Blobs - Full Bleed */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-[5%] left-[-15%] w-[800px] h-[800px] rounded-full bg-yellow-100/20 blur-[140px]" />
@@ -61,8 +61,8 @@ export default function BibliotecaPage() {
 
         <div className="container mx-auto px-8 md:px-16 lg:px-24 relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-end">
-            <div className="space-y-12 pb-12">
-              <div className="space-y-6">
+            <div className="space-y-10 pb-10">
+              <div className="space-y-4">
                 <div className="flex items-center gap-4 animate-in fade-in slide-in-from-bottom-2 duration-700">
                   <span className="text-[10px] font-normal text-slate-400 tracking-tight">
                     Desarrollado por La Unidad de Procesos
@@ -85,7 +85,7 @@ export default function BibliotecaPage() {
 
             {/* Columna de la Imagen - Llena el espacio derecho y se asienta en el fondo */}
             <div className="hidden md:flex justify-end items-end animate-in fade-in zoom-in-95 duration-1000 delay-500">
-              <div className="relative w-full aspect-video md:aspect-square max-w-[600px]">
+              <div className="relative w-full aspect-video md:aspect-square max-w-[500px]">
                 <Image 
                   src={libraryHeroUrl}
                   alt="Biblioteca de Gestión Documental"
