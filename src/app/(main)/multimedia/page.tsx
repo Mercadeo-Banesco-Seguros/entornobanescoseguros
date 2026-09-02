@@ -24,7 +24,6 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 const sidebarCategories = [
@@ -120,43 +119,43 @@ export default function MultimediaPage() {
     <div className="flex flex-col w-full min-h-screen animate-in fade-in duration-700">
       <div className="flex w-full gap-12 py-10">
         
-        {/* 1. Sidebar de Categorías - Ancho reducido un 20% de w-64 a w-52 */}
+        {/* 1. Sidebar de Categorías - Ancho w-52, texto ultra reducido a 9px */}
         <aside className="w-52 shrink-0 flex flex-col gap-1">
           {sidebarCategories.map((cat) => (
             <button
               key={cat.id}
               onClick={() => setActiveCategory(cat.id)}
               className={cn(
-                "flex items-center justify-between px-5 py-3 rounded-2xl transition-all duration-300 group border border-transparent",
+                "flex items-center justify-between px-4 py-2.5 rounded-2xl transition-all duration-300 group border border-transparent",
                 activeCategory === cat.id 
                   ? "bg-[#003B73] text-white" 
                   : "text-slate-400 hover:bg-slate-100/50 hover:text-slate-600"
               )}
             >
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3">
                 <cat.icon 
-                  className={cn("w-4 h-4", activeCategory === cat.id ? "text-white" : "text-slate-400 group-hover:text-slate-500")} 
+                  className={cn("w-3.5 h-3.5", activeCategory === cat.id ? "text-white" : "text-slate-400 group-hover:text-slate-500")} 
                   strokeWidth={1} 
                 />
-                <span className="text-[10px] font-light tracking-tight">{cat.label}</span>
+                <span className="text-[9px] font-light tracking-tight uppercase">{cat.label}</span>
               </div>
-              {activeCategory === cat.id && <ChevronRight className="w-3.5 h-3.5 text-white/60" />}
+              {activeCategory === cat.id && <ChevronRight className="w-3 h-3 text-white/60" />}
             </button>
           ))}
         </aside>
 
         {/* 2. Área Principal de Contenido */}
-        <main className="flex-grow space-y-12">
+        <main className="flex-grow space-y-10">
           
-          {/* Header con Filtros y Acciones */}
+          {/* Header con Filtros y Acciones - Texto reducido a 9px */}
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
               {topFilters.map((filter) => (
                 <button
                   key={filter.id}
                   onClick={() => setActiveFilter(filter.id)}
                   className={cn(
-                    "px-5 py-3 rounded-2xl text-[10px] font-light transition-all duration-300 border border-transparent",
+                    "px-4 py-2.5 rounded-2xl text-[9px] font-light transition-all duration-300 border border-transparent uppercase tracking-wider",
                     activeFilter === filter.id 
                       ? "bg-[#003B73] text-white" 
                       : "text-slate-400 hover:text-slate-600 hover:bg-slate-100/50"
@@ -176,8 +175,6 @@ export default function MultimediaPage() {
           {/* Grid de Tarjetas Multimedia */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {multimediaCards.map((card) => {
-              const imageAsset = PlaceHolderImages.find(img => img.id === card.imageId);
-              
               return (
                 <Card 
                   key={card.id} 
@@ -188,17 +185,17 @@ export default function MultimediaPage() {
                       <div className={cn("px-4 py-0.5 rounded-full text-[8px] text-white font-light mx-auto w-fit", card.tagColor)}>
                         {card.tag}
                       </div>
-                      <h3 className="text-2xl font-bold tracking-tighter text-slate-800">{card.title}</h3>
+                      <h3 className="text-xl font-bold tracking-tighter text-slate-800">{card.title}</h3>
                     </div>
                     
-                    <div className="relative w-28 h-28 flex items-center justify-center transition-transform duration-700 group-hover:scale-110">
+                    <div className="relative w-24 h-24 flex items-center justify-center transition-transform duration-700 group-hover:scale-110">
                       <card.icon 
-                        className={cn("w-16 h-16 stroke-[1px] opacity-10 absolute", card.color)} 
+                        className={cn("w-14 h-14 stroke-[1px] opacity-10 absolute", card.color)} 
                       />
-                      <div className={cn("w-14 h-14 rounded-2xl blur-xl opacity-15 absolute", card.tagColor)} />
+                      <div className={cn("w-12 h-12 rounded-2xl blur-xl opacity-15 absolute", card.tagColor)} />
                       
                       <div className="relative z-10">
-                        <card.icon className={cn("w-16 h-16 stroke-[0.5px]", card.color)} />
+                        <card.icon className={cn("w-14 h-14 stroke-[0.5px]", card.color)} />
                       </div>
                     </div>
                   </CardContent>
