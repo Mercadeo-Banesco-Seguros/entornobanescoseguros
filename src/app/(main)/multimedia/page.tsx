@@ -24,10 +24,9 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Card, CardContent } from '@/components/ui/card';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 const sidebarCategories = [
-  { id: 'todos', label: 'Todos', icon: LayoutGrid, active: true },
+  { id: 'todos', label: 'Todos', icon: LayoutGrid },
   { id: 'destacados', label: 'Destacados', icon: Star },
   { id: 'aplicaciones', label: 'Aplicaciones', icon: Layout },
   { id: 'documentos', label: 'Documentos', icon: FileText },
@@ -40,7 +39,7 @@ const sidebarCategories = [
 ];
 
 const topFilters = [
-  { id: 'todos', label: 'Todos', active: true },
+  { id: 'todos', label: 'Todos' },
   { id: 'automovil', label: 'Automóvil' },
   { id: 'personas', label: 'Personas' },
   { id: 'patrimoniales', label: 'Patrimoniales' },
@@ -55,7 +54,6 @@ const multimediaCards = [
     icon: Folder, 
     color: 'text-blue-500', 
     tagColor: 'bg-blue-600',
-    imageId: 'multimedia-corp'
   },
   { 
     id: 'prod', 
@@ -64,7 +62,6 @@ const multimediaCards = [
     icon: Search, 
     color: 'text-slate-700', 
     tagColor: 'bg-sky-500',
-    imageId: 'multimedia-prod'
   },
   { 
     id: 'brand', 
@@ -73,7 +70,6 @@ const multimediaCards = [
     icon: BadgeCheck, 
     color: 'text-blue-400', 
     tagColor: 'bg-cyan-500',
-    imageId: 'multimedia-brand'
   },
   { 
     id: 'finance', 
@@ -82,7 +78,6 @@ const multimediaCards = [
     icon: Coins, 
     color: 'text-green-500', 
     tagColor: 'bg-blue-600',
-    imageId: 'multimedia-finance'
   },
   { 
     id: 'sales', 
@@ -91,7 +86,6 @@ const multimediaCards = [
     icon: ShoppingBag, 
     color: 'text-purple-400', 
     tagColor: 'bg-blue-500',
-    imageId: 'multimedia-sales'
   },
   { 
     id: 'dev', 
@@ -100,7 +94,6 @@ const multimediaCards = [
     icon: Plus, 
     color: 'text-blue-600', 
     tagColor: 'bg-indigo-600',
-    imageId: 'multimedia-dev'
   },
 ];
 
@@ -147,7 +140,7 @@ export default function MultimediaPage() {
         {/* 2. Área Principal de Contenido */}
         <main className="flex-grow space-y-10">
           
-          {/* Header con Filtros y Acciones - Texto reducido a 9px */}
+          {/* Header con Filtros y Acciones */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               {topFilters.map((filter) => (
