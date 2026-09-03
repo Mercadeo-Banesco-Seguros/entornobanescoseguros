@@ -186,7 +186,7 @@ export default function CalendarioPage() {
                       {date.day < 10 ? `0${date.day}` : date.day}
                     </span>
                     {isToday && (
-                      <span className="px-2 py-0.5 rounded-full bg-[#0054A6] text-white text-[7px] font-light uppercase tracking-widest">
+                      <span className="px-2 py-0.5 rounded-full bg-[#0054A6] text-white text-[7px] font-light">
                         Hoy
                       </span>
                     )}
