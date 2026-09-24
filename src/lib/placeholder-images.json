@@ -147,7 +147,7 @@
     {
       "id": "academia-hero-2",
       "description": "Ética Academia",
-      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vR_WaX2Xbhmzu4fy6sfKHFzoVdKrRgmWpsVQlWGIg_eHR456gB4pqlnSSJmYXEgl3XUIPI57RebCmAO/pub?format=png&w=960&h=720",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1v_WaX2Xbhmzu4fy6sfKHFzoVdKrRgmWpsVQlWGIg_eHR456gB4pqlnSSJmYXEgl3XUIPI57RebCmAO/pub?format=png&w=960&h=720",
       "imageHint": "professional ethics"
     },
     {
@@ -183,13 +183,13 @@
     {
       "id": "security-policies",
       "description": "Consulta Nuestras Políticas de Seguridad",
-      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vTG3tOoAEuclwqsEYfX4Zfs4RO7p3GjrM6afIa1kCwSb41tnzsmUjeyRYoDE-G3Igv2dqIMQv9T57Jb/pub?format=png&w=960&h=720",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vTG3tOoAEuclwqsEYfX4Zfs4RO7p3GjrM6afIa1kCwSb41tnzsmUjeyRYoDE-G3Igv2dqIMQv9T57Jb/pub?w=960&h=720&format=png",
       "imageHint": "security shield"
     },
     {
       "id": "security-dev",
       "description": "Desarrolla con Seguridad",
-      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vQzh85kJcZgzcobKkQ_WVTQlUp_u8EMd-_04wq1hPp97qSnDFPccBJyFEYNaKzKd9cXuMAsbeN9orx8/pub?format=png&w=960&h=720",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vQzh85kJcZgzcobKkQ_WVTQlUp_u8EMd-_04wq1hPp97qSnDFPccBJyFEYNaKzKd9cXuMAsbeN9orx8/pub?w=960&h=720&format=png",
       "imageHint": "secure coding"
     }
   ]
