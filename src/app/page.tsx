@@ -383,7 +383,7 @@ export default function LandingPage() {
       </section>
 
       {/* 2. Viste Seguro Section */}
-      <section className="relative w-full py-12 overflow-hidden min-h-[600px] flex flex-col transition-colors duration-700 bg-[#0054A6]">
+      <section className="relative w-full py-16 overflow-hidden min-h-[700px] flex flex-col transition-colors duration-700 bg-[#0054A6]">
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full blur-[120px] transition-colors duration-700 bg-blue-500/20" />
           <div className="absolute top-1/4 -right-20 w-96 h-96 rounded-full blur-[100px] transition-colors duration-700 bg-sky-400/15" />
@@ -391,7 +391,7 @@ export default function LandingPage() {
         </div>
 
         <div className="container mx-auto px-12 md:px-24 relative z-10 flex flex-col flex-grow">
-          <div className="flex justify-center items-end gap-1 md:gap-4 lg:gap-6 flex-grow pb-6">
+          <div className="flex justify-center items-end gap-1 md:gap-4 lg:gap-6 flex-grow pb-10">
             {dressCodeDays.map((item, index) => {
               const currentImageUrl = dressCodeImages[activeGender][index];
               const isActive = activeDayIndex === index;
@@ -407,7 +407,7 @@ export default function LandingPage() {
                       : "scale-75 opacity-40 hover:opacity-100 hover:scale-100 hover:z-20"
                   )}
                 >
-                  <div className="relative w-24 h-48 md:w-36 md:h-72 lg:w-40 lg:h-80">
+                  <div className="relative w-24 h-56 md:w-36 md:h-80 lg:w-44 lg:h-[420px]">
                     <Image 
                       src={currentImageUrl} 
                       alt={item.day} 
@@ -479,7 +479,7 @@ export default function LandingPage() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
             <div className="absolute inset-0 p-10 flex flex-col justify-end items-start gap-4">
               <span className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[10px] text-white font-light tracking-tight">Capital Humano</span>
-              <h3 className="text-white text-3xl md:text-4xl font-bold tracking-tighter leading-tight max-w-sm">Planifica tus Próximas Vacaciones</h3>
+              <h3 className="text-white text-3xl md:text-4xl font-bold tracking-tighter leading-tight max-sm">Planifica tus Próximas Vacaciones</h3>
               <button className="mt-2 px-8 py-2.5 rounded-xl bg-white/20 backdrop-blur-lg border border-white/20 text-white text-[11px] font-light hover:bg-white/30 transition-colors">Gestionar</button>
             </div>
           </div>
@@ -497,7 +497,7 @@ export default function LandingPage() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
             <div className="absolute inset-0 p-10 flex flex-col justify-end items-start gap-4">
               <span className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[10px] text-white font-light tracking-tight">Capital Humano</span>
-              <h3 className="text-white text-3xl md:text-4xl font-bold tracking-tighter leading-tight max-w-sm">Consultar Días Disponibles</h3>
+              <h3 className="text-white text-3xl md:text-4xl font-bold tracking-tighter leading-tight max-sm">Consultar Días Disponibles</h3>
               <button className="mt-2 px-8 py-2.5 rounded-xl bg-white/20 backdrop-blur-lg border border-white/20 text-white text-[11px] font-light hover:bg-white/30 transition-colors">Consultar</button>
             </div>
           </div>
@@ -642,7 +642,7 @@ export default function LandingPage() {
       </section>
 
       {/* 5. Sabor Seguro (Menú) Section */}
-      <section className="relative w-full py-12 overflow-hidden min-h-[600px] flex flex-col transition-colors duration-700 bg-[#0054A6]">
+      <section className="relative w-full py-16 overflow-hidden min-h-[700px] flex flex-col transition-colors duration-700 bg-[#0054A6]">
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] rounded-full blur-[120px] transition-colors duration-700 bg-blue-500/20" />
           <div className="absolute bottom-1/4 -left-20 w-96 h-96 rounded-full blur-[100px] transition-colors duration-700 bg-sky-400/15" />
@@ -650,7 +650,7 @@ export default function LandingPage() {
         </div>
 
         <div className="container mx-auto px-12 md:px-24 relative z-10 flex flex-col flex-grow">
-          <div className="flex justify-center items-end gap-1 md:gap-4 lg:gap-6 flex-grow pb-6">
+          <div className="flex justify-center items-end gap-1 md:gap-4 lg:gap-6 flex-grow pb-10">
             {menuDays.map((item, index) => {
               const currentImageUrl = getMenuImageUrl(activeMenuType, index);
               const isActive = activeMenuDayIndex === index;
@@ -666,7 +666,7 @@ export default function LandingPage() {
                       : "scale-75 opacity-40 hover:opacity-100 hover:scale-100 hover:z-20"
                   )}
                 >
-                  <div className="relative w-24 h-48 md:w-36 md:h-72 lg:w-40 lg:h-80 rounded-2xl overflow-hidden border-2 border-white/20 shadow-2xl">
+                  <div className="relative w-24 h-56 md:w-36 md:h-80 lg:w-44 lg:h-[420px] rounded-2xl overflow-hidden border-2 border-white/20 shadow-2xl">
                     <Image 
                       src={currentImageUrl} 
                       alt={item.day} 

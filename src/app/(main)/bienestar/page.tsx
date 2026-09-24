@@ -168,18 +168,18 @@ export default function BienestarPage() {
       </section>
 
       {/* 2. Sección: Tu bienestar nos importa */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-8 px-6 overflow-hidden">
+      <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-16 px-6 overflow-hidden">
         <div className="w-full flex flex-col items-center">
-          <div className="text-center space-y-2 mb-6">
+          <div className="text-center space-y-2 mb-12">
             <span className="text-[#0054A6] text-[11px] font-light tracking-tight uppercase">Actividades</span>
-            <h2 className="text-2xl md:text-3xl font-bold tracking-tighter text-slate-900 leading-none">Tu bienestar nos importa</h2>
-            <p className="text-slate-500 text-[9px] md:text-[10px] font-light leading-relaxed max-w-2xl mx-auto mt-1">
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-slate-900 leading-none">Tu bienestar nos importa</h2>
+            <p className="text-slate-500 text-[9px] md:text-[11px] font-light leading-relaxed max-w-2xl mx-auto mt-2">
               Explora las diferentes dimensiones de salud que hemos preparado para ti. Interactúa con las tarjetas.
             </p>
           </div>
 
           <div className="w-full flex flex-col gap-4 max-w-[1800px] mx-auto">
-            <div className="flex justify-center items-end gap-1 md:gap-4 lg:gap-6 flex-grow pb-4">
+            <div className="flex justify-center items-end gap-1 md:gap-4 lg:gap-6 flex-grow pb-8">
               {wellnessActivities.map((item, index) => {
                 const activityImage = PlaceHolderImages.find(img => img.id === item.id);
                 const isActive = activeActivityIndex === index;
@@ -195,7 +195,7 @@ export default function BienestarPage() {
                         : "scale-90 opacity-40 hover:opacity-100 hover:scale-105 hover:z-20"
                     )}
                   >
-                    <div className="relative w-28 h-36 md:w-40 md:h-48 lg:w-48 lg:h-64 rounded-3xl overflow-hidden border border-slate-100 bg-slate-50 shadow-none">
+                    <div className="relative w-28 h-48 md:w-40 md:h-64 lg:w-48 lg:h-80 rounded-3xl overflow-hidden border border-slate-100 bg-slate-50 shadow-none">
                       {activityImage && (
                         <Image 
                           src={activityImage.imageUrl} 
@@ -242,8 +242,8 @@ export default function BienestarPage() {
         </div>
       </section>
 
-      {/* 3. Sabor Seguro (Menú) Section - Colocada entre actividades y eventos */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] py-12 overflow-hidden min-h-[600px] flex flex-col transition-colors duration-700 bg-[#0054A6]">
+      {/* 3. Sabor Seguro (Menú) Section */}
+      <section className="relative w-screen left-1/2 -ml-[50vw] py-16 overflow-hidden min-h-[700px] flex flex-col transition-colors duration-700 bg-[#0054A6]">
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] rounded-full blur-[120px] transition-colors duration-700 bg-blue-500/20" />
           <div className="absolute bottom-1/4 -left-20 w-96 h-96 rounded-full blur-[100px] transition-colors duration-700 bg-sky-400/15" />
@@ -251,7 +251,7 @@ export default function BienestarPage() {
         </div>
 
         <div className="container mx-auto px-12 md:px-24 relative z-10 flex flex-col flex-grow">
-          <div className="flex justify-center items-end gap-1 md:gap-4 lg:gap-6 flex-grow pb-6">
+          <div className="flex justify-center items-end gap-1 md:gap-4 lg:gap-6 flex-grow pb-10">
             {menuDays.map((item, index) => {
               const currentImageUrl = getMenuImageUrl(activeMenuType, index);
               const isActive = activeMenuDayIndex === index;
@@ -267,7 +267,7 @@ export default function BienestarPage() {
                       : "scale-75 opacity-40 hover:opacity-100 hover:scale-100 hover:z-20"
                   )}
                 >
-                  <div className="relative w-24 h-48 md:w-36 md:h-72 lg:w-40 lg:h-80 rounded-2xl overflow-hidden border-2 border-white/20 shadow-2xl">
+                  <div className="relative w-24 h-56 md:w-36 md:h-80 lg:w-44 lg:h-[420px] rounded-2xl overflow-hidden border-2 border-white/20 shadow-2xl">
                     <Image 
                       src={currentImageUrl} 
                       alt={item.day} 
