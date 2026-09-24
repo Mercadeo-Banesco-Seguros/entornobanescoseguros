@@ -333,7 +333,7 @@ export default function AcademiaPage() {
 
             <div 
               key={`sec-image-${activeSecurityIndex}`}
-              className="relative aspect-video md:aspect-square max-w-[450px] justify-self-end animate-in fade-in zoom-in-95 duration-1000"
+              className="relative aspect-video md:aspect-square w-full max-w-[500px] justify-self-center md:justify-self-end animate-in fade-in zoom-in-95 duration-1000"
             >
               {(() => {
                 const img = PlaceHolderImages.find(i => i.id === securityStates[activeSecurityIndex].imageId);
@@ -344,9 +344,14 @@ export default function AcademiaPage() {
                     fill
                     className="object-contain"
                     unoptimized
+                    priority
                     data-ai-hint={img.imageHint}
                   />
-                ) : null;
+                ) : (
+                  <div className="w-full h-full bg-slate-200 rounded-2xl flex items-center justify-center text-slate-400 text-xs font-light italic">
+                    Cargando recurso de seguridad...
+                  </div>
+                );
               })()}
             </div>
           </div>
