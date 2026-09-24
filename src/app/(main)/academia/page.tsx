@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -49,6 +50,19 @@ const CATEGORIES_CONFIG = [
     label: 'Ciencia', 
     topic: 'SCIENCE', 
     imageUrl: 'https://docs.google.com/drawings/d/e/2PACX-1vR_8U1hdhmrPZka3Vo2pX4ZvGDsW7ib9Mqnk2icA_gv8hWk5xKXco2p4udVn3BNovO6EFsAM1sRtN2c/pub?w=960&h=720' 
+  }
+];
+
+const securityStates = [
+  {
+    title: "Consulta Nuestras Políticas de Seguridad",
+    imageId: "security-policies",
+    tag: "Seguridad de la Información"
+  },
+  {
+    title: "Desarrolla con Seguridad",
+    imageId: "security-dev",
+    tag: "Cultura de Prevención"
   }
 ];
 
@@ -109,6 +123,7 @@ function Counter({ end, duration = 4000, suffix = "", prefix = "" }: { end: numb
 export default function AcademiaPage() {
   const [mounted, setMounted] = React.useState(false);
   const [currentStateIndex, setCurrentStateIndex] = React.useState(0);
+  const [activeSecurityIndex, setActiveSecurityIndex] = React.useState(0);
   const [categorizedNews, setCategorizedNews] = React.useState<NewsItem[]>([]);
   const [loadingNews, setLoadingNews] = React.useState(true);
   const [interactiveTitle, setInteractiveTitle] = React.useState("Aprendizaje Interactivo");
@@ -162,8 +177,13 @@ export default function AcademiaPage() {
       setInteractiveTitle("Academia Banesco Seguros");
     }, 10000);
 
+    const securityTimer = setInterval(() => {
+      setActiveSecurityIndex((prev) => (prev + 1) % securityStates.length);
+    }, 6000);
+
     return () => {
       clearInterval(heroTimer);
+      clearInterval(securityTimer);
       clearTimeout(textTimer);
     };
   }, [loadData]);
@@ -283,6 +303,52 @@ export default function AcademiaPage() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Sección Interactiva de Seguridad */}
+      <section className="relative w-screen left-1/2 -ml-[50vw] bg-slate-50 py-24 overflow-hidden border-y border-slate-100">
+        <div className="container mx-auto px-8 md:px-16 lg:px-24 relative z-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div 
+              key={`sec-text-${activeSecurityIndex}`}
+              className="space-y-6 animate-in fade-in slide-in-from-left-4 duration-1000"
+            >
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0054A6]/10 border border-[#0054A6]/20">
+                <span className="text-[#0054A6] text-[10px] font-light tracking-tight uppercase">
+                  {securityStates[activeSecurityIndex].tag}
+                </span>
+              </div>
+              <h2 className="text-4xl md:text-5xl font-bold tracking-tighter text-slate-900 leading-tight max-w-md">
+                {securityStates[activeSecurityIndex].title}
+              </h2>
+              <p className="text-slate-500 text-[10px] md:text-[11px] font-light leading-relaxed max-w-sm tracking-tight">
+                Garantizar la integridad de nuestra infraestructura y el cumplimiento de los estándares normativos es fundamental para nuestra excelencia operativa.
+              </p>
+              <button className="px-10 py-2.5 rounded-full bg-[#0054A6] text-white text-[11px] font-light tracking-wide hover:bg-[#0054A6]/90 transition-all duration-300 shadow-sm">
+                Próximamente
+              </button>
+            </div>
+
+            <div 
+              key={`sec-image-${activeSecurityIndex}`}
+              className="relative aspect-video md:aspect-square max-w-[450px] justify-self-end animate-in fade-in zoom-in-95 duration-1000"
+            >
+              {(() => {
+                const img = PlaceHolderImages.find(i => i.id === securityStates[activeSecurityIndex].imageId);
+                return img ? (
+                  <Image 
+                    src={img.imageUrl}
+                    alt={securityStates[activeSecurityIndex].title}
+                    fill
+                    className="object-contain"
+                    unoptimized
+                    data-ai-hint={img.imageHint}
+                  />
+                ) : null;
+              })()}
+            </div>
           </div>
         </div>
       </section>

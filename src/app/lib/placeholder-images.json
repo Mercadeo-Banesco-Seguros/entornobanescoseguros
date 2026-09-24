@@ -182,10 +182,16 @@
       "imageHint": "notification bell"
     },
     {
-      "id": "library-hero",
-      "description": "Biblioteca de Gestión Documental Hero",
-      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vS8ReFA5gsC_kmGOO1U5zueFTWvRBbBEJcAJKVDzoTjwwbES0U-ivdnmPHscTt_JtB8yiHUub4F1iQI/pub?w=960&h=720",
-      "imageHint": "document management"
+      "id": "security-policies",
+      "description": "Consulta Nuestras Políticas de Seguridad",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vTG3tOoAEuclwqsEYfX4Zfs4RO7p3GjrM6afIa1kCwSb41tnzsmUjeyRYoDE-G3Igv2dqIMQv9T57Jb/pub?w=960&h=720",
+      "imageHint": "security shield"
+    },
+    {
+      "id": "security-dev",
+      "description": "Desarrolla con Seguridad",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vQzh85kJcZgzcobKkQ_WVTQlUp_u8EMd-_04wq1hPp97qSnDFPccBJyFEYNaKzKd9cXuMAsbeN9orx8/pub?w=960&h=720",
+      "imageHint": "secure coding"
     }
   ]
 }
