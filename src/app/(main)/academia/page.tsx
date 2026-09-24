@@ -247,7 +247,7 @@ export default function AcademiaPage() {
           </h2>
           <div className="flex justify-center animate-in fade-in slide-in-from-bottom-2 duration-1000 delay-500">
             <button className="px-12 py-3 rounded-full bg-white/40 backdrop-blur-md border border-slate-200 text-slate-600 text-[11px] font-light tracking-wide hover:bg-white/60 transition-all duration-300">
-              Explorar
+              Próximamente
             </button>
           </div>
         </div>
