@@ -159,26 +159,38 @@
     {
       "id": "library-benefit-1",
       "description": "Identificación y Codificación",
-      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vRX2UKsqFhv5zi-z14wk_Nuk9HeVRY2SAmB75sPolWjumABE5ZfR7rDtYk_IRTr19622u8FAzKTXvw9/pub?w=960&h=720",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vRX2UKsqFhv5zi-z14wk_Nuk9HeVRY2SAmB75sPolWjumABE5ZfR7rDtYk_IRTr19622u8FAzKTXvw9/pub?format=png&w=960&h=720",
       "imageHint": "digital code"
     },
     {
       "id": "library-benefit-2",
       "description": "Búsqueda Rápida",
-      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vQqoCwcZffY5bGqAf8FG2k0g-gjP2egHJ7tKJOeQ1PO_lUamPcKHKUxb1lhb37Q4uLOo2vfLK-2NTAK/pub?w=960&h=720",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vQqoCwcZffY5bGqAf8FG2k0g-gjP2egHJ7tKJOeQ1PO_lUamPcKHKUxb1lhb37Q4uLOo2vfLK-2NTAK/pub?format=png&w=960&h=720",
       "imageHint": "magnifying glass"
     },
     {
       "id": "library-benefit-3",
       "description": "Control de Estatus",
-      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vQKFmRbYokNFz097cmsby4MXLKR6MN9R5q4IJNkR_BFyM2alCNAr_A_MSxqKJxshMjzJ9dsx-soTBUD/pub?w=960&h=720",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vQKFmRbYokNFz097cmsby4MXLKR6MN9R5q4IJNkR_BFyM2alCNAr_A_MSxqKJxshMjzJ9dsx-soTBUD/pub?format=png&w=960&h=720",
       "imageHint": "status dashboard"
     },
     {
       "id": "library-benefit-4",
       "description": "Alertas Preventivas",
-      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vSd-uGEdO2G8E8_-MMHjBPnjLbah8Che1bhdQ_sHSCxifjruN11pvweeoQWuS_XssEr3jrwKoLVgjx-/pub?w=960&h=720",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vSd-uGEdO2G8E8_-MMHjBPnjLbah8Che1bhdQ_sHSCxifjruN11pvweeoQWuS_XssEr3jrwKoLVgjx-/pub?format=png&w=960&h=720",
       "imageHint": "notification bell"
+    },
+    {
+      "id": "security-policies",
+      "description": "Consulta Nuestras Políticas de Seguridad",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vTG3tOoAEuclwqsEYfX4Zfs4RO7p3GjrM6afIa1kCwSb41tnzsmUjeyRYoDE-G3Igv2dqIMQv9T57Jb/pub?format=png&w=960&h=720",
+      "imageHint": "security shield"
+    },
+    {
+      "id": "security-dev",
+      "description": "Desarrolla con Seguridad",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vQzh85kJcZgzcobKkQ_WVTQlUp_u8EMd-_04wq1hPp97qSnDFPccBJyFEYNaKzKd9cXuMAsbeN9orx8/pub?format=png&w=960&h=720",
+      "imageHint": "secure coding"
     }
   ]
 }
