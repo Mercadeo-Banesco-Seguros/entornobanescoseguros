@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from 'react';
@@ -32,24 +31,9 @@ const CATEGORIES_CONFIG = [
     imageUrl: 'https://docs.google.com/drawings/d/e/2PACX-1vTxjoPqb80l0nbk1nJ9NcDh8j7VYcNKE4AjBso3D5j_LxC-TfeH-HnlCdtXwFtJREAu2oiX7KIiEU6J/pub?w=960&h=720' 
   },
   { 
-    label: 'Deportes', 
-    topic: 'SPORTS', 
-    imageUrl: 'https://docs.google.com/drawings/d/e/2PACX-1vQOxUKTZenuFPuJCgFGscopDpUtCJUyqXhrtktqGjjC2N7pm8SNa1yv4hk14aQiUo9fjl2DAfyIfjCW/pub?w=960&h=720' 
-  },
-  { 
-    label: 'Cultura', 
-    topic: 'ENTERTAINMENT', 
-    imageUrl: 'https://docs.google.com/drawings/d/e/2PACX-1vR4LH5nCaUHFMm9FWOKRKEVHm_t_VMIEyneZEm2xYcSbdIpk7LTb3jc3GGens-Wu9iEGofBPfhjr22D/pub?w=960&h=720' 
-  },
-  { 
     label: 'Tecnología', 
     topic: 'TECHNOLOGY', 
     imageUrl: 'https://docs.google.com/drawings/d/e/2PACX-1vR_IXWOoXk7W3pneAtVDb9AacyP6g7RdVymUbMXCql7nXrhqLUZcOdVj1HyDSpHat2i8_NmmcX9BCjD/pub?w=960&h=720' 
-  },
-  { 
-    label: 'Ciencia', 
-    topic: 'SCIENCE', 
-    imageUrl: 'https://docs.google.com/drawings/d/e/2PACX-1vR_8U1hdhmrPZka3Vo2pX4ZvGDsW7ib9Mqnk2icA_gv8hWk5xKXco2p4udVn3BNovO6EFsAM1sRtN2c/pub?w=960&h=720' 
   }
 ];
 
@@ -136,7 +120,7 @@ export default function AcademiaPage() {
         const response = await fetch(apiUrl);
         const data = await response.json();
         if (data.status === 'ok' && data.items.length > 0) {
-          return data.items.slice(0, 5).map((item: any) => ({
+          return data.items.slice(0, 8).map((item: any) => ({
             ...item,
             categoryLabel: config.label,
             categoryImage: config.imageUrl
@@ -272,7 +256,7 @@ export default function AcademiaPage() {
         </div>
       </section>
 
-      {/* 3. Impacto de la Formación Corporativa - No Arcs */}
+      {/* 3. Impacto de la Formación Corporativa */}
       <section className="relative w-screen left-1/2 -ml-[50vw] bg-gradient-to-br from-[#004285] via-[#0054A6] to-[#0061C1] py-20 px-8 md:px-16 lg:px-24 text-white overflow-hidden">
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="flex flex-col space-y-4 mb-20 max-w-2xl text-left">
@@ -339,7 +323,7 @@ export default function AcademiaPage() {
                 const img = PlaceHolderImages.find(i => i.id === securityStates[activeSecurityIndex].imageId);
                 return img ? (
                   <Image 
-                    src={img.imageUrl}
+                    src={`${img.imageUrl}&format=png`}
                     alt={securityStates[activeSecurityIndex].title}
                     fill
                     className="object-contain"
@@ -358,23 +342,23 @@ export default function AcademiaPage() {
         </div>
       </section>
 
-      {/* 5. Noticias e Insights - FINAL SECTION */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-32 px-8 md:px-16 lg:px-24">
+      {/* 5. Noticias y Novedades - BLUE BACKGROUND */}
+      <section className="relative w-screen left-1/2 -ml-[50vw] bg-[#003B73] py-32 px-8 md:px-16 lg:px-24 text-white">
         <div className="max-w-7xl mx-auto">
           {/* Header de la sección de noticias */}
           <div className="flex flex-col space-y-4 mb-16">
-            <span className="text-[#0054A6] text-[11px] font-light tracking-tight uppercase">Actualidad Institucional</span>
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-slate-900">Últimas Noticias</h2>
+            <span className="text-white/60 text-[11px] font-light tracking-tight uppercase">Actualidad Institucional</span>
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-white">Noticias y Novedades</h2>
           </div>
 
           {loadingNews ? (
             <div className="w-full flex flex-col items-center justify-center py-20 gap-4">
-              <Loader2 className="w-8 h-8 text-[#0054A6] animate-spin" />
-              <p className="text-slate-400 font-light text-xs">Cargando noticias institucionales...</p>
+              <Loader2 className="w-8 h-8 text-white/40 animate-spin" />
+              <p className="text-white/40 font-light text-xs">Cargando noticias y novedades...</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 h-[400px]">
-              {/* Left: Featured Post - Blue Gradient */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 h-[500px]">
+              {/* Left: Featured Post - Immersive card */}
               {featuredPost && (
                 <a 
                   href={featuredPost.link} 
@@ -382,7 +366,7 @@ export default function AcademiaPage() {
                   rel="noopener" 
                   className="lg:col-span-2 group cursor-pointer block h-full"
                 >
-                  <div className="relative h-full rounded-[2.5rem] overflow-hidden bg-gradient-to-br from-[#0054A6] via-[#003B73] to-[#002D54] shadow-sm flex flex-col justify-end p-10">
+                  <div className="relative h-full rounded-[2.5rem] overflow-hidden bg-white/5 border border-white/10 backdrop-blur-sm shadow-sm flex flex-col justify-end p-10">
                     <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-30">
                       <div className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full blur-[120px] bg-blue-400/20" />
                       <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full blur-[120px] bg-sky-300/10" />
@@ -409,7 +393,7 @@ export default function AcademiaPage() {
               {/* Right: Latest posts scrollable list */}
               <div className="flex flex-col h-full overflow-hidden">
                 <div className="flex justify-between items-center mb-6 shrink-0">
-                  <h3 className="text-lg font-bold tracking-tight text-slate-900">Actualidad</h3>
+                  <h3 className="text-lg font-bold tracking-tight text-white">Últimas</h3>
                 </div>
                 
                 <div className="flex-grow overflow-y-auto no-scrollbar space-y-6 pr-2">
@@ -421,7 +405,7 @@ export default function AcademiaPage() {
                       rel="noopener" 
                       className="flex gap-4 group cursor-pointer"
                     >
-                      <div className="relative w-20 h-20 rounded-2xl overflow-hidden bg-slate-50 shrink-0 border border-slate-100">
+                      <div className="relative w-20 h-20 rounded-2xl overflow-hidden bg-white/5 shrink-0 border border-white/10">
                         <Image 
                           src={post.categoryImage || `https://picsum.photos/seed/${idx}/200/200`} 
                           alt={post.categoryLabel || 'Noticia'}
@@ -431,12 +415,12 @@ export default function AcademiaPage() {
                         />
                       </div>
                       <div className="flex flex-col justify-center space-y-1.5 py-1">
-                        <span className="text-[8px] font-medium text-[#0054A6] uppercase tracking-widest">{post.categoryLabel}</span>
-                        <h4 className="text-[11px] font-medium text-slate-800 leading-snug group-hover:text-[#0054A6] transition-colors line-clamp-2 tracking-tight">
+                        <span className="text-[8px] font-medium text-sky-400 uppercase tracking-widest">{post.categoryLabel}</span>
+                        <h4 className="text-[11px] font-medium text-white leading-snug group-hover:text-sky-300 transition-colors line-clamp-2 tracking-tight">
                           {post.title}
                         </h4>
-                        <p className="text-[9px] text-slate-400 font-light flex items-center gap-1.5">
-                          {formatDate(post.pubDate)} <span className="text-slate-200">•</span> 10 min read
+                        <p className="text-[9px] text-white/40 font-light flex items-center gap-1.5">
+                          {formatDate(post.pubDate)} <span className="text-white/10">•</span> 10 min read
                         </p>
                       </div>
                     </a>
