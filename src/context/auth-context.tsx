@@ -9,12 +9,15 @@ import type { User } from '@/lib/types';
  * Gestiona el estado del usuario, el inicio de sesión y la protección de rutas.
  */
 
-const APPS_SCRIPT_URL = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL || 'https://script.google.com/a/macros/banescoseguros.com/s/AKfycbwj5d3nQsxIurkHs3Hnk8JQ4Z_cgx50BIl2MCumpWe-Hw-X0RndwdWTVjmnINuJiJya7A/exec';
+// Fallback por si la variable de entorno no está configurada
+const FALLBACK_URL = "https://script.google.com/macros/s/XXXXX/exec";
 
 const api = {
   async login(email: string, password: string): Promise<{ success: boolean; message: string; user?: any }> {
+    const scriptUrl = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL || FALLBACK_URL;
+    
     try {
-      const response = await fetch(APPS_SCRIPT_URL, {
+      const response = await fetch(scriptUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify({ action: 'login', email, password }),
@@ -24,17 +27,36 @@ const api = {
       return JSON.parse(text);
     } catch (error) {
       console.error("Auth API Error:", error);
-      return { success: false, message: "Error de conexión con el servidor. Por favor, asegúrate de haber autorizado el script de Google en tu navegador." };
+      return { success: false, message: "Error de conexión con el servidor. Verifica tu sesión de Google en el navegador." };
     }
   },
+
+  async getData(): Promise<{ users: any[]; cargos: string[] }> {
+    const scriptUrl = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL || FALLBACK_URL;
+    try {
+      const response = await fetch(scriptUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ action: 'getData' }),
+      });
+      const text = await response.text();
+      return JSON.parse(text);
+    } catch (error) {
+      console.error("Data API Error:", error);
+      return { users: [], cargos: [] };
+    }
+  }
 };
 
 interface AuthContextType {
   isAuthenticated: boolean;
   isLoading: boolean;
   currentUser: User | null;
+  users: User[];
+  cargos: string[];
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
+  fetchData: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -43,21 +65,32 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [users, setUsers] = useState<User[]>([]);
+  const [cargos, setCargos] = useState<string[]>([]);
   const router = useRouter();
 
+  const fetchData = async () => {
+    const data = await api.getData();
+    setUsers(data.users || []);
+    setCargos(data.cargos || []);
+  };
+
   useEffect(() => {
-    // Comprobar si hay una sesión guardada en sessionStorage
-    const savedUser = sessionStorage.getItem('currentUser');
-    if (savedUser) {
-      try {
-        const user = JSON.parse(savedUser);
-        setIsAuthenticated(true);
-        setCurrentUser(user);
-      } catch (e) {
-        sessionStorage.removeItem('currentUser');
+    const checkSession = async () => {
+      const savedUser = sessionStorage.getItem('currentUser');
+      if (savedUser) {
+        try {
+          const user = JSON.parse(savedUser);
+          setIsAuthenticated(true);
+          setCurrentUser(user);
+          await fetchData();
+        } catch (e) {
+          sessionStorage.removeItem('currentUser');
+        }
       }
-    }
-    setIsLoading(false);
+      setIsLoading(false);
+    };
+    checkSession();
   }, []);
 
   const login = async (email: string, password: string) => {
@@ -67,6 +100,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setIsAuthenticated(true);
       setCurrentUser(user);
       sessionStorage.setItem('currentUser', JSON.stringify(user));
+      await fetchData();
       router.push('/');
     } else {
       throw new Error(response.message || "Credenciales incorrectas.");
@@ -77,12 +111,20 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setIsAuthenticated(false);
     setCurrentUser(null);
     sessionStorage.removeItem('currentUser');
-    document.cookie = "auth_session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     router.push('/login');
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, isLoading, currentUser, login, logout }}>
+    <AuthContext.Provider value={{ 
+      isAuthenticated, 
+      isLoading, 
+      currentUser, 
+      users, 
+      cargos, 
+      login, 
+      logout,
+      fetchData 
+    }}>
       {children}
     </AuthContext.Provider>
   );
@@ -111,7 +153,7 @@ export const AuthGuard = ({ children }: { children: ReactNode }) => {
       <div className="flex items-center justify-center min-h-screen bg-white">
         <div className="flex flex-col items-center space-y-4">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#003B73]"></div>
-            <p className="text-slate-400 text-xs font-light tracking-tight">Verificando credenciales...</p>
+            <p className="text-slate-400 text-xs font-light tracking-tight">Verificando sesión institucional...</p>
         </div>
       </div>
     );
