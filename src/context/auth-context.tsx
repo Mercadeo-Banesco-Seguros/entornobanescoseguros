@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import type { User } from '@/lib/types';
 
@@ -9,32 +9,42 @@ import type { User } from '@/lib/types';
  * Gestiona el estado del usuario, el inicio de sesión y la protección de rutas.
  */
 
-// Fallback por si la variable de entorno no está configurada
-const FALLBACK_URL = "https://script.google.com/macros/s/XXXXX/exec";
+// La URL se lee de la variable de entorno NEXT_PUBLIC_APPS_SCRIPT_URL
+// Si no está en el .env, asegúrate de pegarla aquí como respaldo.
+const APPS_SCRIPT_URL = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL || "https://script.google.com/a/macros/banescoseguros.com/s/AKfycbx7YA81S83c17AiVgVtB8ikpC9SRCUJbQVW2W3LPP6-98qXWb5Hbh52stvgYy0wv8dsbw/exec";
 
 const api = {
-  async login(email: string, password: string): Promise<{ success: boolean; message: string; user?: any }> {
-    const scriptUrl = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL || FALLBACK_URL;
+  async login(email: string, password: string): Promise<{ success: boolean; message: string; user?: User }> {
+    if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes("TU_URL")) {
+      return { success: false, message: "Error: URL de Apps Script no configurada." };
+    }
     
     try {
-      const response = await fetch(scriptUrl, {
+      // Usamos una petición POST simple para evitar el Preflight de CORS que Google bloquea 
+      // en scripts restringidos a una organización.
+      const response = await fetch(APPS_SCRIPT_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify({ action: 'login', email, password }),
       });
       
       const text = await response.text();
-      return JSON.parse(text);
+      try {
+        return JSON.parse(text);
+      } catch (e) {
+        console.error("Respuesta no válida del script:", text);
+        return { success: false, message: "Error en la respuesta del servidor. Verifica que tu sesión de Google esté activa en este navegador." };
+      }
     } catch (error) {
-      console.error("Auth API Error:", error);
-      return { success: false, message: "Error de conexión con el servidor. Verifica tu sesión de Google en el navegador." };
+      console.error("Fetch Error:", error);
+      return { success: false, message: "Error de conexión con la base de datos institucional." };
     }
   },
 
-  async getData(): Promise<{ users: any[]; cargos: string[] }> {
-    const scriptUrl = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL || FALLBACK_URL;
+  async getData(): Promise<{ users: User[]; cargos: string[] }> {
+    if (!APPS_SCRIPT_URL) return { users: [], cargos: [] };
     try {
-      const response = await fetch(scriptUrl, {
+      const response = await fetch(APPS_SCRIPT_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify({ action: 'getData' }),
@@ -42,7 +52,7 @@ const api = {
       const text = await response.text();
       return JSON.parse(text);
     } catch (error) {
-      console.error("Data API Error:", error);
+      console.error("Data Fetch Error:", error);
       return { users: [], cargos: [] };
     }
   }
@@ -56,7 +66,7 @@ interface AuthContextType {
   cargos: string[];
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
-  fetchData: () => Promise<void>;
+  fetchUsers: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -69,11 +79,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [cargos, setCargos] = useState<string[]>([]);
   const router = useRouter();
 
-  const fetchData = async () => {
+  const fetchUsers = useCallback(async () => {
     const data = await api.getData();
-    setUsers(data.users || []);
-    setCargos(data.cargos || []);
-  };
+    if (data.users) setUsers(data.users);
+    if (data.cargos) setCargos(data.cargos);
+  }, []);
 
   useEffect(() => {
     const checkSession = async () => {
@@ -83,7 +93,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           const user = JSON.parse(savedUser);
           setIsAuthenticated(true);
           setCurrentUser(user);
-          await fetchData();
+          await fetchUsers();
         } catch (e) {
           sessionStorage.removeItem('currentUser');
         }
@@ -91,16 +101,20 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setIsLoading(false);
     };
     checkSession();
-  }, []);
+  }, [fetchUsers]);
 
   const login = async (email: string, password: string) => {
     const response = await api.login(email, password);
     if (response.success && response.user) {
-      const user = response.user as User;
+      // Guardamos la sesión en el cliente
       setIsAuthenticated(true);
-      setCurrentUser(user);
-      sessionStorage.setItem('currentUser', JSON.stringify(user));
-      await fetchData();
+      setCurrentUser(response.user);
+      sessionStorage.setItem('currentUser', JSON.stringify(response.user));
+      
+      // Creamos la cookie para que el middleware permita el acceso a las rutas protegidas
+      document.cookie = `auth_session=true; path=/; max-age=86400; SameSite=Lax`;
+      
+      await fetchUsers();
       router.push('/');
     } else {
       throw new Error(response.message || "Credenciales incorrectas.");
@@ -108,6 +122,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const logout = () => {
+    // Limpiamos sesión y cookies
+    document.cookie = "auth_session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
     setIsAuthenticated(false);
     setCurrentUser(null);
     sessionStorage.removeItem('currentUser');
@@ -123,7 +139,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       cargos, 
       login, 
       logout,
-      fetchData 
+      fetchUsers 
     }}>
       {children}
     </AuthContext.Provider>
