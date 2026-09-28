@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
@@ -6,48 +7,46 @@ import type { User } from '@/lib/types';
 
 /**
  * @fileOverview Contexto de autenticación institucional.
- * Gestiona la comunicación con Google Apps Script y la protección de rutas.
+ * Gestiona el estado del usuario, el inicio de sesión y la protección de rutas.
  */
 
-// La URL se lee de la variable de entorno configurada en el despliegue
-const APPS_SCRIPT_URL = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL || "TU_URL_AQUI";
+const APPS_SCRIPT_URL = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL || "";
 
 const api = {
-  async login(email: string, password: string): Promise<{ success: boolean; message: string; user?: User }> {
-    if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes("TU_URL")) {
+  async login(email: string, password: string): Promise<{ success: boolean; message: string; user?: any }> {
+    if (!APPS_SCRIPT_URL) {
       return { success: false, message: "Error: URL de Apps Script no configurada." };
     }
     
     try {
-      // CRÍTICO: Eliminamos la propiedad 'headers' por completo.
-      // Al enviar el body sin especificar un Content-Type, el navegador lo trata como 'text/plain'.
-      // Esto convierte la petición en una "Simple Request", evitando el Preflight de CORS que Google bloquea.
+      // Enviamos como texto plano para que el navegador lo trate como una "Simple Request".
+      // NO incluimos 'credentials' porque Google Apps Script no soporta Access-Control-Allow-Credentials.
       const response = await fetch(APPS_SCRIPT_URL, {
         method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify({ action: 'login', email, password }),
-        credentials: 'include', // Indispensable para enviar las cookies de sesión de la organización
       });
       
       const text = await response.text();
       try {
         return JSON.parse(text);
       } catch (e) {
-        console.error("Respuesta no válida del script:", text);
-        return { success: false, message: "Respuesta inesperada del servidor institucional." };
+        console.error("Respuesta no JSON:", text);
+        return { success: false, message: "El servidor institucional no respondió correctamente. Asegúrate de haber desplegado el script." };
       }
     } catch (error) {
       console.error("Fetch Error:", error);
-      return { success: false, message: "Error de conexión. Abre la URL del script en otra pestaña para activar la sesión de tu organización y recarga esta página." };
+      return { success: false, message: "Error de conexión. Abre la URL del script en otra pestaña para activar tu sesión y recarga esta página." };
     }
   },
 
-  async getData(): Promise<{ users: User[]; cargos: string[] }> {
+  async getData(): Promise<{ users: any[]; cargos: string[] }> {
     if (!APPS_SCRIPT_URL) return { users: [], cargos: [] };
     try {
       const response = await fetch(APPS_SCRIPT_URL, {
         method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify({ action: 'getData' }),
-        credentials: 'include',
       });
       const text = await response.text();
       return JSON.parse(text);
@@ -106,11 +105,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const login = async (email: string, password: string) => {
     const response = await api.login(email, password);
     if (response.success && response.user) {
+      const userData = response.user;
       setIsAuthenticated(true);
-      setCurrentUser(response.user);
-      sessionStorage.setItem('currentUser', JSON.stringify(response.user));
+      setCurrentUser(userData);
+      sessionStorage.setItem('currentUser', JSON.stringify(userData));
       
-      // Cookie para persistencia en el middleware
+      // Cookie de sesión para el middleware
       document.cookie = `auth_session=true; path=/; max-age=86400; SameSite=Lax`;
       
       await fetchUsers();

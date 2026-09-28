@@ -1,3 +1,4 @@
+
 /**
  * Google Apps Script para el Portal Corporativo Banesco Seguros.
  * 
@@ -31,7 +32,6 @@ function doGet(e) {
  * Responde a peticiones POST (desde la aplicación)
  */
 function doPost(e) {
-  // Configuración de CORS manual para permitir la entrada de datos
   try {
     const contents = e.postData.contents;
     const body = JSON.parse(contents);
