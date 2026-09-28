@@ -2,7 +2,6 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
-import type { User } from '@/lib/types';
 
 /**
  * @fileOverview Contexto de autenticación.
@@ -10,26 +9,32 @@ import type { User } from '@/lib/types';
  */
 
 const api = {
-  async login(email: string, password: string): Promise<{ success: boolean; message: string; user?: User }> {
+  async login(email: string, password: string): Promise<{ success: boolean; message: string }> {
     const scriptUrl = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL || "";
     
+    if (!scriptUrl || scriptUrl.includes("TU_URL")) {
+      return { success: false, message: "La URL del servidor no está configurada en .env.local" };
+    }
+
     try {
-      // Usamos POST con text/plain para evitar el Preflight de CORS que Google bloquea en entornos privados
+      // Usamos POST con text/plain para evitar el Preflight de CORS en entornos institucionales
       const response = await fetch(scriptUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify({ action: 'login', email, password }),
       });
       
+      // Leemos como texto primero para evitar errores si la respuesta no es JSON directo
       const text = await response.text();
       try {
         return JSON.parse(text);
       } catch (e) {
-        console.error("Error parseando respuesta:", text);
-        return { success: false, message: "Respuesta inválida del servidor." };
+        console.error("Respuesta del servidor no es JSON:", text);
+        return { success: false, message: "Error en el formato de respuesta del servidor." };
       }
     } catch (error) {
-      return { success: false, message: "Error de conexión con el servidor." };
+      console.error("Error de fetch:", error);
+      return { success: false, message: "Error de conexión con el servidor. Verifique la URL y su conexión." };
     }
   },
 };
@@ -37,7 +42,7 @@ const api = {
 interface AuthContextType {
   isAuthenticated: boolean;
   isLoading: boolean;
-  currentUser: User | null;
+  userEmail: string | null;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
 }
@@ -47,34 +52,27 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [userEmail, setUserEmail] = useState<string | null>(null);
   const router = useRouter();
 
   useEffect(() => {
-    // Persistencia mediante sessionStorage
-    const savedUser = sessionStorage.getItem('currentUser');
-    if (savedUser) {
-      try {
-        const user = JSON.parse(savedUser);
-        setIsAuthenticated(true);
-        setCurrentUser(user);
-      } catch (e) {
-        sessionStorage.removeItem('currentUser');
-      }
+    // Comprobar si hay una sesión guardada en sessionStorage
+    const sessionEmail = sessionStorage.getItem('userEmail');
+    if (sessionEmail) {
+      setIsAuthenticated(true);
+      setUserEmail(sessionEmail);
     }
     setIsLoading(false);
   }, []);
 
   const login = async (email: string, password: string) => {
     const response = await api.login(email, password);
-    if (response.success && response.user) {
+    if (response.success) {
       setIsAuthenticated(true);
-      setCurrentUser(response.user);
-      sessionStorage.setItem('currentUser', JSON.stringify(response.user));
-      
-      // Cookie para que el middleware de Next.js reconozca la sesión
-      document.cookie = `auth_session=true; path=/; max-age=86400; SameSite=Lax`;
-      
+      setUserEmail(email);
+      sessionStorage.setItem('userEmail', email);
+      // Establecemos una cookie para el middleware
+      document.cookie = "auth_session=true; path=/; max-age=86400; SameSite=Lax";
       router.push('/dashboard');
     } else {
       throw new Error(response.message || "Credenciales incorrectas.");
@@ -84,13 +82,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const logout = () => {
     document.cookie = "auth_session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
     setIsAuthenticated(false);
-    setCurrentUser(null);
-    sessionStorage.removeItem('currentUser');
+    setUserEmail(null);
+    sessionStorage.removeItem('userEmail');
     router.push('/login');
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, isLoading, currentUser, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, isLoading, userEmail, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
