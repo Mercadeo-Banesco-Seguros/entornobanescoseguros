@@ -1,3 +1,4 @@
+
 # Estructura de la Base de Datos (Google Sheets)
 
 Tu hoja de cálculo debe tener las siguientes 3 pestañas con los encabezados exactos.
