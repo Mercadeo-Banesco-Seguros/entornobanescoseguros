@@ -1,4 +1,3 @@
-
 /**
  * Google Apps Script para el Portal Corporativo Banesco Seguros.
  * 

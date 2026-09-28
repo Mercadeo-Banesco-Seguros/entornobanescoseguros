@@ -8,6 +8,7 @@ export type User = {
   email: string;
   rol: UserRole;
   cargo: string;
+  birthDate?: string;
 };
 
 export type NavLink = {
