@@ -93,13 +93,13 @@ function LoginPageContent() {
           </form>
         </div>
       </div>
-      <div className="hidden lg:block relative bg-slate-50">
+      <div className="hidden lg:block relative">
         <Image
           src="https://docs.google.com/drawings/d/e/2PACX-1vQR7o46FhR0B1yJQHHz1pFafgj7M1PTDXj1CzioZ8t4B9nIhzuVNVuUZRXUaJXLJCUC1teJ_icZFlya/pub?w=960&h=720&format=png"
           alt="Banner Corporativo"
           fill
           unoptimized
-          className="h-full w-full object-contain p-12"
+          className="object-cover"
           priority
         />
       </div>
