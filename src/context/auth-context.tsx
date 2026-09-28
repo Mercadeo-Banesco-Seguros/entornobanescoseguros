@@ -10,7 +10,6 @@ import type { User } from '@/lib/types';
  */
 
 // La URL se lee de la variable de entorno NEXT_PUBLIC_APPS_SCRIPT_URL
-// Si no está en el .env, asegúrate de pegarla aquí como respaldo.
 const APPS_SCRIPT_URL = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL || "https://script.google.com/a/macros/banescoseguros.com/s/AKfycbx7YA81S83c17AiVgVtB8ikpC9SRCUJbQVW2W3LPP6-98qXWb5Hbh52stvgYy0wv8dsbw/exec";
 
 const api = {
@@ -20,12 +19,13 @@ const api = {
     }
     
     try {
-      // Usamos una petición POST simple para evitar el Preflight de CORS que Google bloquea 
-      // en scripts restringidos a una organización.
+      // Usamos una petición POST con credentials: 'include' para enviar la sesión de Google
+      // y Content-Type: 'text/plain' para evitar el Preflight de CORS.
       const response = await fetch(APPS_SCRIPT_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify({ action: 'login', email, password }),
+        credentials: 'include', // CRÍTICO: Permite enviar la sesión de Google al script restringido
       });
       
       const text = await response.text();
@@ -37,7 +37,7 @@ const api = {
       }
     } catch (error) {
       console.error("Fetch Error:", error);
-      return { success: false, message: "Error de conexión con la base de datos institucional." };
+      return { success: false, message: "Error de conexión. Asegúrate de haber abierto la URL del script en otra pestaña para activar la sesión." };
     }
   },
 
@@ -46,8 +46,9 @@ const api = {
     try {
       const response = await fetch(APPS_SCRIPT_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify({ action: 'getData' }),
+        credentials: 'include', // CRÍTICO para scripts restringidos a la organización
       });
       const text = await response.text();
       return JSON.parse(text);
@@ -106,12 +107,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const login = async (email: string, password: string) => {
     const response = await api.login(email, password);
     if (response.success && response.user) {
-      // Guardamos la sesión en el cliente
       setIsAuthenticated(true);
       setCurrentUser(response.user);
       sessionStorage.setItem('currentUser', JSON.stringify(response.user));
       
-      // Creamos la cookie para que el middleware permita el acceso a las rutas protegidas
+      // Creamos la cookie para que el middleware permita el acceso
       document.cookie = `auth_session=true; path=/; max-age=86400; SameSite=Lax`;
       
       await fetchUsers();
@@ -122,7 +122,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const logout = () => {
-    // Limpiamos sesión y cookies
     document.cookie = "auth_session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
     setIsAuthenticated(false);
     setCurrentUser(null);
