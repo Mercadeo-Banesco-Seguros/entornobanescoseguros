@@ -1,10 +1,11 @@
+
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, ReactNode, useMemo, useCallback } from 'react';
 import type { User } from '@/lib/types';
 
-// SUSTITUYE ESTA URL POR TU URL DE IMPLEMENTACIÓN REAL
-const APPS_SCRIPT_URL = 'https://script.google.com/a/macros/banescoseguros.com/s/AKfycbxcGJCi49y21AvRYeskIpVXUY7QFUp5m8z9iDt8EP3VnUqnwTim6Ek2DN-qEnJfbbtj7A/exec';
+// ASEGÚRATE DE QUE ESTA URL SEA LA DE TU "NUEVA IMPLEMENTACIÓN" (TERMINA EN /exec)
+const APPS_SCRIPT_URL = 'https://script.google.com/a/macros/banescoseguros.com/s/AKfycbxCX4mEVzFaavUb_xHxUBLGLA1uIrc71k0irG59LIOjHtSSwLfgNAq_fcVDMA-eGhyhlQ/exec';
 
 type AuthContextType = {
   currentUser: User | null;
@@ -30,13 +31,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes('TU_URL_AQUI')) return;
 
     try {
-      // Usamos text/plain para evitar el preflight de CORS que suele fallar en scripts restringidos
+      // Usamos una petición "simple" (sin headers complejos) para evitar el bloqueo CORS del navegador
       const response = await fetch(APPS_SCRIPT_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({ action: 'getData' }),
         mode: 'cors',
-        redirect: 'follow'
+        redirect: 'follow',
+        body: JSON.stringify({ action: 'getData' })
       });
 
       if (!response.ok) return;
@@ -47,11 +47,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         if (data.users) setUsers(data.users);
         if (data.cargos) setCargos(data.cargos);
       } catch (e) {
-        // Probablemente devolvió HTML porque la sesión de Google no está activa en el navegador
-        console.warn('La base de datos requiere sesión activa de Google. Abre la URL del script en otra pestaña.');
+        console.warn('Respuesta no válida de Google Sheets. Verifica la sesión de Google.');
       }
     } catch (e) {
-      console.warn('No se pudo conectar con la base de datos de Google Sheets.');
+      console.warn('Error de conexión con Google Sheets. Si el error persiste, abre la URL del script en otra pestaña.');
     }
   }, []);
 
@@ -78,10 +77,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       const response = await fetch(APPS_SCRIPT_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({ action: 'login', email, password }),
         mode: 'cors',
-        redirect: 'follow'
+        redirect: 'follow',
+        body: JSON.stringify({ action: 'login', email, password })
       });
       
       const text = await response.text();
@@ -89,7 +87,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       try {
         data = JSON.parse(text);
       } catch (e) {
-        throw new Error('Sesión de Google requerida. Por favor, abre la URL del script directamente en tu navegador una vez para autorizar el acceso.');
+        throw new Error('Error al procesar respuesta del servidor. Por favor, asegúrate de haber abierto la URL del script en tu navegador al menos una vez.');
       }
 
       if (data.success && data.user) {
@@ -105,7 +103,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     } catch (err: any) {
       setLoading(false);
       const msg = err.message.includes('Failed to fetch') 
-        ? 'Error de conexión. Asegúrate de estar logueado en tu cuenta corporativa de Google y de haber abierto la URL del script al menos una vez.' 
+        ? 'Error de conexión. Esto suele ocurrir si la sesión de Google no está activa. Abre la URL del script en una pestaña nueva, verifica que diga "ACTIVO" y vuelve a intentarlo.' 
         : err.message;
       setError(msg);
       throw new Error(msg);
