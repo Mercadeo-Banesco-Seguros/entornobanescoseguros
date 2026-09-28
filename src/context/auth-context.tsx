@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
@@ -7,24 +6,23 @@ import type { User } from '@/lib/types';
 
 /**
  * @fileOverview Contexto de autenticación institucional.
- * Gestiona el estado del usuario, el inicio de sesión y la protección de rutas.
+ * Utiliza GET para máxima compatibilidad con Google Apps Script en entornos restringidos.
  */
 
 const APPS_SCRIPT_URL = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL || "";
 
 const api = {
-  async login(email: string, password: string): Promise<{ success: boolean; message: string; user?: any }> {
-    if (!APPS_SCRIPT_URL) {
-      return { success: false, message: "Error: URL de Apps Script no configurada." };
-    }
+  async request(params: Record<string, string>) {
+    if (!APPS_SCRIPT_URL) throw new Error("URL de servidor no configurada.");
     
+    const query = new URLSearchParams(params).toString();
+    const url = `${APPS_SCRIPT_URL}?${query}`;
+
     try {
-      // Enviamos como texto plano para que el navegador lo trate como una "Simple Request".
-      // NO incluimos 'credentials' porque Google Apps Script no soporta Access-Control-Allow-Credentials.
-      const response = await fetch(APPS_SCRIPT_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({ action: 'login', email, password }),
+      // Usamos GET para evitar problemas de CORS con el redireccionamiento de Google
+      const response = await fetch(url, {
+        method: 'GET',
+        mode: 'cors',
       });
       
       const text = await response.text();
@@ -32,27 +30,11 @@ const api = {
         return JSON.parse(text);
       } catch (e) {
         console.error("Respuesta no JSON:", text);
-        return { success: false, message: "El servidor institucional no respondió correctamente. Asegúrate de haber desplegado el script." };
+        throw new Error("Respuesta inválida del servidor.");
       }
     } catch (error) {
       console.error("Fetch Error:", error);
-      return { success: false, message: "Error de conexión. Abre la URL del script en otra pestaña para activar tu sesión y recarga esta página." };
-    }
-  },
-
-  async getData(): Promise<{ users: any[]; cargos: string[] }> {
-    if (!APPS_SCRIPT_URL) return { users: [], cargos: [] };
-    try {
-      const response = await fetch(APPS_SCRIPT_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({ action: 'getData' }),
-      });
-      const text = await response.text();
-      return JSON.parse(text);
-    } catch (error) {
-      console.error("Data Fetch Error:", error);
-      return { users: [], cargos: [] };
+      throw new Error("Error de conexión. Verifica la URL del script.");
     }
   }
 };
@@ -62,7 +44,6 @@ interface AuthContextType {
   isLoading: boolean;
   currentUser: User | null;
   users: User[];
-  cargos: string[];
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
   fetchUsers: () => Promise<void>;
@@ -75,48 +56,48 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [users, setUsers] = useState<User[]>([]);
-  const [cargos, setCargos] = useState<string[]>([]);
   const router = useRouter();
 
   const fetchUsers = useCallback(async () => {
-    const data = await api.getData();
-    if (data.users) setUsers(data.users);
-    if (data.cargos) setCargos(data.cargos);
+    try {
+      const data = await api.request({ action: 'getData' });
+      if (data.users) setUsers(data.users);
+    } catch (e) {
+      console.error("Error al cargar usuarios:", e);
+    }
   }, []);
 
   useEffect(() => {
-    const checkSession = async () => {
-      const savedUser = sessionStorage.getItem('currentUser');
-      if (savedUser) {
-        try {
-          const user = JSON.parse(savedUser);
-          setIsAuthenticated(true);
-          setCurrentUser(user);
-          await fetchUsers();
-        } catch (e) {
-          sessionStorage.removeItem('currentUser');
-        }
+    const savedUser = sessionStorage.getItem('currentUser');
+    if (savedUser) {
+      try {
+        const user = JSON.parse(savedUser);
+        setIsAuthenticated(true);
+        setCurrentUser(user);
+        fetchUsers();
+      } catch (e) {
+        sessionStorage.removeItem('currentUser');
       }
-      setIsLoading(false);
-    };
-    checkSession();
+    }
+    setIsLoading(false);
   }, [fetchUsers]);
 
   const login = async (email: string, password: string) => {
-    const response = await api.login(email, password);
-    if (response.success && response.user) {
-      const userData = response.user;
+    const data = await api.request({ action: 'login', email, password });
+    
+    if (data.success && data.user) {
+      const userData = data.user;
       setIsAuthenticated(true);
       setCurrentUser(userData);
       sessionStorage.setItem('currentUser', JSON.stringify(userData));
       
-      // Cookie de sesión para el middleware
+      // Cookie para el middleware
       document.cookie = `auth_session=true; path=/; max-age=86400; SameSite=Lax`;
       
       await fetchUsers();
       router.push('/');
     } else {
-      throw new Error(response.message || "Credenciales incorrectas.");
+      throw new Error(data.message || "Credenciales incorrectas.");
     }
   };
 
@@ -134,7 +115,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       isLoading, 
       currentUser, 
       users, 
-      cargos, 
       login, 
       logout,
       fetchUsers 
@@ -167,7 +147,7 @@ export const AuthGuard = ({ children }: { children: ReactNode }) => {
       <div className="flex items-center justify-center min-h-screen bg-white">
         <div className="flex flex-col items-center space-y-4">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#003B73]"></div>
-            <p className="text-slate-400 text-xs font-light tracking-tight">Verificando sesión institucional...</p>
+            <p className="text-slate-400 text-xs font-light">Validando sesión...</p>
         </div>
       </div>
     );
