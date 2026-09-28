@@ -1,13 +1,15 @@
 /**
- * Google Apps Script para la gestión de usuarios y accesos del Portal Corporativo.
+ * Google Apps Script para el Portal Corporativo Banesco Seguros.
  * 
- * 1. Crea una hoja de cálculo con las pestañas "USUARIOS" e "HISTORIAL".
- * 2. En "USUARIOS" define las columnas: Nombre (A), Correo (B), Rol (C), Fecha Nacimiento (D), Cédula (E).
- * 3. En "HISTORIAL" define las columnas: Timestamp, Correo, Cédula Intentada, Estatus, Datos Retornados.
- * 4. Despliega este script como "Aplicación Web" con acceso para "Cualquier persona".
+ * ESTRUCTURA DE LA HOJA:
+ * 1. USUARIOS: Nombre (A), Correo (B), Rol (C), Fecha Nacimiento (D), Cargo (E), Cédula (F).
+ * 2. HISTORIAL: Timestamp (A), Correo (B), Acción (C), Estatus (D), Navegador/Info (E).
+ * 3. CARGOS: Nombre del Cargo (A).
+ * 
+ * Despliega como "Aplicación Web" con acceso para "Cualquier persona".
  */
 
-const SPREADSHEET_ID = 'TU_ID_DE_HOJA_DE_CALCULO_AQUI'; // REEMPLAZA CON TU ID DE HOJA DE CÁLCULO
+const SPREADSHEET_ID = 'TU_ID_DE_HOJA_DE_CALCULO_AQUI';
 
 function doPost(e) {
   try {
@@ -33,59 +35,72 @@ function handleLogin(email, password) {
   const data = userSheet.getDataRange().getValues();
   
   let user = null;
-  // Buscamos coincidencia de Correo (columna B / índice 1) y Cédula/Contraseña (columna E / índice 4)
+  // Buscamos coincidencia de Correo (B / índice 1) y Cédula (F / índice 5)
   for (let i = 1; i < data.length; i++) {
     const sheetEmail = data[i][1].toString().toLowerCase().trim();
     const inputEmail = email.toString().toLowerCase().trim();
-    const sheetPass = data[i][4].toString().trim();
+    const sheetPass = data[i][5].toString().trim();
     const inputPass = password.toString().trim();
 
     if (sheetEmail === inputEmail && sheetPass === inputPass) {
       user = {
-        id: data[i][4], // Usamos la cédula como ID único
+        id: data[i][5].toString(), // Cédula como ID
         name: data[i][0],
         email: data[i][1],
-        role: data[i][2],
+        rol: data[i][2], // Administrador o Usuario
         birthDate: data[i][3],
-        avatar: 'Base',
-        xp: 0,
-        level: 1
+        cargo: data[i][4]
       };
       break;
     }
   }
 
-  // Registrar en historial de auditoría
+  // Auditoría
   const timestamp = new Date();
-  const status = user ? 'EXITOSO' : 'FALLIDO';
   if (historySheet) {
-    historySheet.appendRow([timestamp, email, '********', status, user ? 'Acceso Concedido' : 'Credenciales Incorrectas']);
+    historySheet.appendRow([
+      timestamp, 
+      email, 
+      'LOGIN', 
+      user ? 'EXITOSO' : 'FALLIDO', 
+      user ? 'Acceso concedido como ' + user.rol : 'Credenciales incorrectas'
+    ]);
   }
 
   if (user) {
     return createResponse({ success: true, user: user });
   } else {
-    return createResponse({ success: false, message: 'Correo o Cédula incorrectos.' });
+    return createResponse({ success: false, message: 'El correo o la cédula son incorrectos.' });
   }
 }
 
 function handleGetData() {
   const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
-  const sheet = ss.getSheetByName('USUARIOS');
-  const data = sheet.getDataRange().getValues();
+  const userSheet = ss.getSheetByName('USUARIOS');
+  const cargoSheet = ss.getSheetByName('CARGOS');
+  
+  const userData = userSheet.getDataRange().getValues();
   const users = [];
 
-  for (let i = 1; i < data.length; i++) {
+  for (let i = 1; i < userData.length; i++) {
     users.push({
-      id: data[i][4],
-      name: data[i][0],
-      email: data[i][1],
-      role: data[i][2],
-      avatar: 'Base'
+      id: userData[i][5].toString(),
+      name: userData[i][0],
+      email: userData[i][1],
+      rol: userData[i][2],
+      cargo: userData[i][4]
     });
   }
 
-  return createResponse({ users: users });
+  const cargos = [];
+  if (cargoSheet) {
+    const cargoData = cargoSheet.getDataRange().getValues();
+    for (let i = 1; i < cargoData.length; i++) {
+      if (cargoData[i][0]) cargos.push(cargoData[i][0]);
+    }
+  }
+
+  return createResponse({ users: users, cargos: cargos });
 }
 
 function createResponse(data) {

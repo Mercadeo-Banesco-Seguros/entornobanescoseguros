@@ -1,25 +1,19 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, ReactNode, useMemo, useCallback } from 'react';
-import type { User, Task, Avatar, Level, Prize, PrizeCategory } from '@/lib/types';
-import { tasks as staticTasks, levels as staticLevels, avatars as staticAvatars, prizes as staticPrizes, prizeCategories as staticPrizeCategories } from '@/lib/data';
+import type { User, UserRole } from '@/lib/types';
 
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyFlj39v2_OzLc0-mEg2MuSXjXwkzWSjHluWEexjXK7OL-rLHZjXbnLFmesV0NX9C_8ig/exec';
 
 type AuthContextType = {
   currentUser: User | null;
   users: User[];
-  tasks: Task[];
-  levels: Level[];
-  avatars: Avatar[];
-  prizes: Prize[];
-  prizeCategories: PrizeCategory[];
+  cargos: string[];
   loading: boolean;
   error: string | null;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
   fetchUsers: () => Promise<void>;
-  vicepresidencias: string[];
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -27,15 +21,9 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [users, setUsers] = useState<User[]>([]);
+  const [cargos, setCargos] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [vicepresidencias, setVicepresidencias] = useState<string[]>(['Todas']);
-
-  const tasks = staticTasks;
-  const levels = staticLevels;
-  const avatars = staticAvatars;
-  const prizes = staticPrizes;
-  const prizeCategories = staticPrizeCategories;
 
   const fetchUsers = useCallback(async () => {
     try {
@@ -47,11 +35,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       
       if (data.users) {
         setUsers(data.users);
-        const allVps = Array.from(new Set(data.users.map((u: any) => u.vicepresidencia).filter(Boolean)));
-        setVicepresidencias(['Todas', ...allVps as string[]]);
+      }
+      if (data.cargos) {
+        setCargos(data.cargos);
       }
     } catch (e) {
-      console.error('Error fetching users from Sheets:', e);
+      console.error('Error fetching data from Sheets:', e);
     }
   }, []);
 
@@ -84,14 +73,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const data = await response.json();
 
       if (data.success && data.user) {
-        const user: User = {
-          ...data.user,
-          level: data.user.level || 1,
-          xp: data.user.xp || 0
-        };
+        const user: User = data.user;
         setCurrentUser(user);
         localStorage.setItem('currentUser', JSON.stringify(user));
-        // Establecer cookie para el middleware
         document.cookie = "auth_session=true; path=/";
         setLoading(false);
       } else {
@@ -118,18 +102,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const value = useMemo(() => ({
     currentUser,
     users,
-    tasks,
-    levels,
-    avatars,
-    prizes,
-    prizeCategories,
+    cargos,
     loading,
     error,
     login,
     logout,
     fetchUsers,
-    vicepresidencias,
-  }), [currentUser, users, loading, error, fetchUsers, vicepresidencias]);
+  }), [currentUser, users, cargos, loading, error, fetchUsers]);
 
   return (
     <AuthContext.Provider value={value}>

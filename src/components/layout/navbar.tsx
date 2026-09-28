@@ -297,7 +297,7 @@ export default function Navbar() {
                     <div className="px-1 pb-1.5 mb-1.5 border-b border-slate-50">
                       <h3 className="text-[10px] font-light text-slate-900 leading-tight">{currentUser?.name || 'Colaborador'}</h3>
                       <p className="text-[8px] font-light text-slate-400 mt-0.5 uppercase tracking-wider">
-                        {currentUser?.cargo === 'ADMINISTRADOR' ? 'Administrador' : 'Gestión Institucional'}
+                        {currentUser?.rol === 'Administrador' ? 'Administrador' : currentUser?.cargo || 'Colaborador'}
                       </p>
                     </div>
                     
