@@ -5,11 +5,11 @@ import { useRouter } from 'next/navigation';
 import type { User } from '@/lib/types';
 
 /**
- * @fileOverview Contexto de autenticación.
- * Gestiona el estado del usuario, el inicio de sesión y la protección de rutas.
+ * @fileOverview Contexto de autenticación institucional.
+ * Gestiona la comunicación con Google Apps Script y la protección de rutas.
  */
 
-// La URL se lee de la variable de entorno NEXT_PUBLIC_APPS_SCRIPT_URL
+// La URL se lee de la variable de entorno configurada en el despliegue
 const APPS_SCRIPT_URL = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL || "https://script.google.com/a/macros/banescoseguros.com/s/AKfycbx7YA81S83c17AiVgVtB8ikpC9SRCUJbQVW2W3LPP6-98qXWb5Hbh52stvgYy0wv8dsbw/exec";
 
 const api = {
@@ -19,13 +19,13 @@ const api = {
     }
     
     try {
-      // Usamos una petición POST con credentials: 'include' para enviar la sesión de Google
-      // y Content-Type: 'text/plain' para evitar el Preflight de CORS.
+      // CRÍTICO: Eliminamos la propiedad 'headers' por completo.
+      // Al enviar el body sin especificar un Content-Type, el navegador lo trata como 'text/plain'.
+      // Esto convierte la petición en una "Simple Request", evitando el Preflight de CORS que Google bloquea.
       const response = await fetch(APPS_SCRIPT_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify({ action: 'login', email, password }),
-        credentials: 'include', // CRÍTICO: Permite enviar la sesión de Google al script restringido
+        credentials: 'include', // Indispensable para enviar las cookies de sesión de la organización
       });
       
       const text = await response.text();
@@ -33,11 +33,11 @@ const api = {
         return JSON.parse(text);
       } catch (e) {
         console.error("Respuesta no válida del script:", text);
-        return { success: false, message: "Error en la respuesta del servidor. Verifica que tu sesión de Google esté activa en este navegador." };
+        return { success: false, message: "Respuesta inesperada del servidor institucional." };
       }
     } catch (error) {
       console.error("Fetch Error:", error);
-      return { success: false, message: "Error de conexión. Asegúrate de haber abierto la URL del script en otra pestaña para activar la sesión." };
+      return { success: false, message: "Error de conexión. Abre la URL del script en otra pestaña para activar la sesión de tu organización y recarga esta página." };
     }
   },
 
@@ -46,9 +46,8 @@ const api = {
     try {
       const response = await fetch(APPS_SCRIPT_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify({ action: 'getData' }),
-        credentials: 'include', // CRÍTICO para scripts restringidos a la organización
+        credentials: 'include',
       });
       const text = await response.text();
       return JSON.parse(text);
@@ -111,7 +110,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setCurrentUser(response.user);
       sessionStorage.setItem('currentUser', JSON.stringify(response.user));
       
-      // Creamos la cookie para que el middleware permita el acceso
+      // Cookie para persistencia en el middleware
       document.cookie = `auth_session=true; path=/; max-age=86400; SameSite=Lax`;
       
       await fetchUsers();
