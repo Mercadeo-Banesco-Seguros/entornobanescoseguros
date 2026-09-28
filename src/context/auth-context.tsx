@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
@@ -10,7 +11,7 @@ import type { User } from '@/lib/types';
  */
 
 // La URL se lee de la variable de entorno configurada en el despliegue
-const APPS_SCRIPT_URL = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL || "https://script.google.com/a/macros/banescoseguros.com/s/AKfycbx7YA81S83c17AiVgVtB8ikpC9SRCUJbQVW2W3LPP6-98qXWb5Hbh52stvgYy0wv8dsbw/exec";
+const APPS_SCRIPT_URL = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL || "TU_URL_AQUI";
 
 const api = {
   async login(email: string, password: string): Promise<{ success: boolean; message: string; user?: User }> {
