@@ -1,114 +1,106 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
-import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { useAuth } from '@/context/auth-context';
-import { useRouter } from 'next/navigation';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { useState } from 'react';
-import { useToast } from '@/hooks/use-toast';
-import Image from 'next/image';
-
-const formSchema = z.object({
-  username: z.string().min(1, { message: 'Por favor, introduce tu usuario.' }),
-  cedula: z.string().min(1, { message: 'La cédula no puede estar vacía.' }),
-});
+import React, { useState } from "react";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useToast } from "@/hooks/use-toast";
+import { Loader2 } from "lucide-react";
+import { useAuth } from "@/context/auth-context";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState(""); 
+  const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
   const { login } = useAuth();
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
-  const { toast } = useToast();
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      username: '',
-      cedula: '',
-    },
-  });
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    setLoading(true);
-    try {
-      await login(values.username, values.cedula);
-      router.push('/dashboard');
-    } catch (error: any) {
+    if (!email.toLowerCase().endsWith('@banescoseguros.com')) {
       toast({
+        title: "Correo no válido",
+        description: "Por favor, utilice un correo con el dominio @banescoseguros.com",
         variant: "destructive",
-        title: "Error de autenticación",
-        description: error.message || "Credenciales incorrectas. Por favor, inténtalo de nuevo.",
+      });
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      await login(email, password);
+      toast({ title: "Acceso concedido", description: "Bienvenido al portal." });
+      router.push('/');
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: error instanceof Error ? error.message : "No se pudo iniciar sesión.",
+        variant: "destructive",
       });
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
-    <div className="w-full lg:grid lg:min-h-screen lg:grid-cols-2 xl:min-h-screen">
+    <div className="w-full lg:grid lg:min-h-screen lg:grid-cols-2">
       <div className="flex items-center justify-center py-12">
-        <Card className="mx-auto w-full max-w-sm border-0 shadow-none">
-          <CardHeader>
-            <CardTitle className="text-2xl">Iniciar Sesión</CardTitle>
-            <CardDescription>
-              Introduce tus credenciales para acceder al portal corporativo.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                <FormField
-                  control={form.control}
-                  name="username"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Usuario Institucional</FormLabel>
-                      <FormControl>
-                        <Input placeholder="tu.usuario" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="cedula"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Cédula</FormLabel>
-                      <FormControl>
-                        <Input type="password" placeholder="12345678" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <Button type="submit" className="w-full" disabled={loading}>
-                  {loading ? 'Iniciando Sesión...' : 'Entrar al Portal'}
-                </Button>
-              </form>
-            </Form>
-          </CardContent>
-        </Card>
+        <div className="mx-auto grid w-[280px] gap-6">
+          <div className="grid gap-2 text-center">
+            <h1 className="text-2xl font-light tracking-tighter">
+              Iniciar Sesión
+            </h1>
+            <p className="text-[10px] text-muted-foreground font-light tracking-tight">
+              Introduce tu correo corporativo y cédula.
+            </p>
+          </div>
+          <form onSubmit={handleSubmit} className="grid gap-4">
+            <div className="grid gap-1.5">
+              <Label htmlFor="email" className="text-[10px] font-light uppercase tracking-tight text-slate-500">Correo</Label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="usuario@banescoseguros.com"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                disabled={isLoading}
+                className="h-8 text-xs font-light focus-visible:ring-1 border-slate-200"
+              />
+            </div>
+            <div className="grid gap-1.5">
+              <Label htmlFor="password" className="text-[10px] font-light uppercase tracking-tight text-slate-500">Cédula</Label>
+              <Input
+                id="password"
+                type="password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                disabled={isLoading}
+                placeholder="Número de identidad"
+                className="h-8 text-xs font-light focus-visible:ring-1 border-slate-200"
+              />
+            </div>
+            <Button type="submit" className="w-full h-8 text-xs font-light mt-2 bg-[#003B73] hover:bg-[#002D54]" disabled={isLoading}>
+              {isLoading && <Loader2 className="mr-2 h-3 w-3 animate-spin" />}
+              Entrar
+            </Button>
+          </form>
+        </div>
       </div>
-       <div className="hidden lg:block relative p-12">
+      <div className="hidden lg:block relative bg-slate-50">
         <Image
           src="https://www.banescoseguros.com/wp-content/uploads/2025/11/portadaVF.png"
-          alt="Portal Corporativo"
-          layout="fill"
-          className="object-contain"
-          data-ai-hint="corporate building"
+          alt="Banner Corporativo"
+          fill
+          className="h-full w-full object-contain p-12"
+          priority
+          data-ai-hint="corporate banner"
         />
       </div>
     </div>
