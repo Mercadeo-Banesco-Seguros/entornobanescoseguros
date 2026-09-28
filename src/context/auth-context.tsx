@@ -1,9 +1,9 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, ReactNode, useMemo, useCallback } from 'react';
-import type { User, UserRole } from '@/lib/types';
+import type { User } from '@/lib/types';
 
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyFlj39v2_OzLc0-mEg2MuSXjXwkzWSjHluWEexjXK7OL-rLHZjXbnLFmesV0NX9C_8ig/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/a/macros/banescoseguros.com/s/AKfycbxS7oblHffYm7gIR0ESlz_9Uxv7tKtv9xqkSI1mwXfZ3zkiIaIX5vBfuO0oxJTVvmHBkA/exec';
 
 type AuthContextType = {
   currentUser: User | null;
@@ -29,8 +29,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       const response = await fetch(APPS_SCRIPT_URL, {
         method: 'POST',
-        body: JSON.stringify({ action: 'getData' })
+        // El uso de text/plain evita solicitudes preflight OPTIONS que Apps Script no soporta bien
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8',
+        },
+        body: JSON.stringify({ action: 'getData' }),
+        mode: 'cors',
+        redirect: 'follow'
       });
+
+      if (!response.ok) {
+        throw new Error(`Error del servidor: ${response.status}`);
+      }
+
       const data = await response.json();
       
       if (data.users) {
@@ -40,12 +51,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setCargos(data.cargos);
       }
     } catch (e) {
-      console.error('Error fetching data from Sheets:', e);
+      console.warn('No se pudieron obtener los datos de colaboradores. Verifica la configuración de Apps Script:', e);
     }
   }, []);
 
   useEffect(() => {
-    const checkSession = () => {
+    const checkSession = async () => {
       const userJson = localStorage.getItem('currentUser');
       if (userJson) {
         try {
@@ -54,6 +65,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           localStorage.removeItem('currentUser');
         }
       }
+      // Intentar cargar datos globales sin bloquear la carga inicial de la UI
       fetchUsers();
       setLoading(false);
     };
@@ -67,9 +79,18 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       const response = await fetch(APPS_SCRIPT_URL, {
         method: 'POST',
-        body: JSON.stringify({ action: 'login', email, password })
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8',
+        },
+        body: JSON.stringify({ action: 'login', email, password }),
+        mode: 'cors',
+        redirect: 'follow'
       });
       
+      if (!response.ok) {
+        throw new Error(`Error de red (${response.status})`);
+      }
+
       const data = await response.json();
 
       if (data.success && data.user) {
@@ -80,13 +101,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setLoading(false);
       } else {
         setLoading(false);
-        const msg = data.message || 'Credenciales incorrectas.';
+        const msg = data.message || 'El correo o la cédula son incorrectos.';
         setError(msg);
         throw new Error(msg);
       }
     } catch (err: any) {
       setLoading(false);
-      const msg = err.message || 'Error de conexión con el servidor.';
+      const msg = err.message === 'Failed to fetch' 
+        ? 'Error de conexión: No se pudo contactar con el servidor. Verifica que el script esté desplegado como "Cualquier persona".' 
+        : (err.message || 'Error de conexión con el servidor.');
       setError(msg);
       throw new Error(msg);
     }
