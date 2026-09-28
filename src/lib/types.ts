@@ -7,7 +7,6 @@ export type User = {
   name: string;
   email: string;
   rol: UserRole;
-  birthDate?: string;
   cargo: string;
 };
 

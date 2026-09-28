@@ -3,7 +3,8 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode, useMemo, useCallback } from 'react';
 import type { User } from '@/lib/types';
 
-const APPS_SCRIPT_URL = 'https://script.google.com/a/macros/banescoseguros.com/s/AKfycbxS7oblHffYm7gIR0ESlz_9Uxv7tKtv9xqkSI1mwXfZ3zkiIaIX5vBfuO0oxJTVvmHBkA/exec';
+// REEMPLAZA ESTA URL CON LA QUE TE DA GOOGLE AL IMPLEMENTAR COMO APP WEB
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyFlj39v2_OzLc0-mEg2MuSXjXwkzWSjHluWEexjXK7OL-rLHZjXbnLFmesV0NX9C_8ig/exec';
 
 type AuthContextType = {
   currentUser: User | null;
@@ -29,7 +30,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       const response = await fetch(APPS_SCRIPT_URL, {
         method: 'POST',
-        // El uso de text/plain evita solicitudes preflight OPTIONS que Apps Script no soporta bien
         headers: {
           'Content-Type': 'text/plain;charset=utf-8',
         },
@@ -38,20 +38,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         redirect: 'follow'
       });
 
-      if (!response.ok) {
-        throw new Error(`Error del servidor: ${response.status}`);
-      }
+      if (!response.ok) return;
 
       const data = await response.json();
-      
-      if (data.users) {
-        setUsers(data.users);
-      }
-      if (data.cargos) {
-        setCargos(data.cargos);
-      }
+      if (data.users) setUsers(data.users);
+      if (data.cargos) setCargos(data.cargos);
     } catch (e) {
-      console.warn('No se pudieron obtener los datos de colaboradores. Verifica la configuración de Apps Script:', e);
+      console.warn('Error al cargar datos globales:', e);
     }
   }, []);
 
@@ -65,8 +58,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           localStorage.removeItem('currentUser');
         }
       }
-      // Intentar cargar datos globales sin bloquear la carga inicial de la UI
-      fetchUsers();
+      await fetchUsers();
       setLoading(false);
     };
     checkSession();
@@ -87,11 +79,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         redirect: 'follow'
       });
       
-      if (!response.ok) {
-        throw new Error(`Error de red (${response.status})`);
+      const text = await response.text();
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch (e) {
+        throw new Error('La respuesta del servidor no es válida. Verifica la configuración del script.');
       }
-
-      const data = await response.json();
 
       if (data.success && data.user) {
         const user: User = data.user;
@@ -101,15 +95,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setLoading(false);
       } else {
         setLoading(false);
-        const msg = data.message || 'El correo o la cédula son incorrectos.';
-        setError(msg);
-        throw new Error(msg);
+        throw new Error(data.message || 'Credenciales incorrectas.');
       }
     } catch (err: any) {
       setLoading(false);
-      const msg = err.message === 'Failed to fetch' 
+      const msg = err.message.includes('Failed to fetch') 
         ? 'Error de conexión: No se pudo contactar con el servidor. Verifica que el script esté desplegado como "Cualquier persona".' 
-        : (err.message || 'Error de conexión con el servidor.');
+        : err.message;
       setError(msg);
       throw new Error(msg);
     }
@@ -119,7 +111,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setCurrentUser(null);
     localStorage.removeItem('currentUser');
     document.cookie = "auth_session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
-    setError(null);
   };
 
   const value = useMemo(() => ({
@@ -131,7 +122,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     login,
     logout,
     fetchUsers,
-  }), [currentUser, users, cargos, loading, error, fetchUsers]);
+  }), [currentUser, users, cargos, loading, error, login, logout, fetchUsers]);
 
   return (
     <AuthContext.Provider value={value}>
@@ -143,7 +134,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error('useAuth debe usarse dentro de un AuthProvider');
   }
   return context;
 };

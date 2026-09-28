@@ -2,11 +2,16 @@
  * Google Apps Script para el Portal Corporativo Banesco Seguros.
  * 
  * ESTRUCTURA DE LA HOJA:
- * 1. USUARIOS: Nombre (A), Correo (B), Rol (C), Fecha Nacimiento (D), Cargo (E), Cédula (F).
- * 2. HISTORIAL: Timestamp (A), Correo (B), Acción (C), Estatus (D), Navegador/Info (E).
+ * 1. USUARIOS: Nombre (A), Correo (B), Rol (C), Cargo (D), Cédula (E).
+ * 2. HISTORIAL: Timestamp (A), Correo (B), Acción (C), Estatus (D), Detalles (E).
  * 3. CARGOS: Nombre del Cargo (A).
  * 
- * Despliega como "Aplicación Web" con acceso para "Cualquier persona".
+ * INSTRUCCIONES DE DESPLIEGUE:
+ * 1. Reemplaza SPREADSHEET_ID por el ID de tu hoja.
+ * 2. Haz clic en "Implementar" > "Nueva implementación".
+ * 3. Selecciona "Aplicación web".
+ * 4. Ejecutar como: "Yo" (Tu correo).
+ * 5. Quién tiene acceso: "Cualquier persona" (IMPORTANTE).
  */
 
 const SPREADSHEET_ID = 'TU_ID_DE_HOJA_DE_CALCULO_AQUI';
@@ -35,27 +40,26 @@ function handleLogin(email, password) {
   const data = userSheet.getDataRange().getValues();
   
   let user = null;
-  // Buscamos coincidencia de Correo (B / índice 1) y Cédula (F / índice 5)
+  // Buscamos coincidencia de Correo (B / índice 1) y Cédula (E / índice 4)
   for (let i = 1; i < data.length; i++) {
     const sheetEmail = data[i][1].toString().toLowerCase().trim();
     const inputEmail = email.toString().toLowerCase().trim();
-    const sheetPass = data[i][5].toString().trim();
+    const sheetPass = data[i][4].toString().trim();
     const inputPass = password.toString().trim();
 
     if (sheetEmail === inputEmail && sheetPass === inputPass) {
       user = {
-        id: data[i][5].toString(), // Cédula como ID
+        id: data[i][4].toString(), // Cédula como ID
         name: data[i][0],
         email: data[i][1],
         rol: data[i][2], // Administrador o Usuario
-        birthDate: data[i][3],
-        cargo: data[i][4]
+        cargo: data[i][3]
       };
       break;
     }
   }
 
-  // Auditoría
+  // Auditoría en hoja HISTORIAL
   const timestamp = new Date();
   if (historySheet) {
     historySheet.appendRow([
@@ -84,11 +88,11 @@ function handleGetData() {
 
   for (let i = 1; i < userData.length; i++) {
     users.push({
-      id: userData[i][5].toString(),
+      id: userData[i][4].toString(),
       name: userData[i][0],
       email: userData[i][1],
       rol: userData[i][2],
-      cargo: userData[i][4]
+      cargo: userData[i][3]
     });
   }
 
