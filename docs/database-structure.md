@@ -8,7 +8,7 @@ Tu hoja de cálculo debe tener las siguientes 3 pestañas con los encabezados ex
 | :--- | :--- | :--- | :--- |
 | A | **Nombre** | Nombre completo | `Juan Pérez` |
 | B | **Correo** | Correo institucional | `jperez@banescoseguros.com` |
-| C | **Rol** | Permisos (Case sensitive) | `Administrador` o `Usuario` |
+| C | **Rol** | Administrador o Usuario | `Administrador` |
 | D | **Cargo** | Puesto laboral | `Asesor Integral` |
 | E | **Cédula** | Contraseña de acceso | `12345678` |
 
@@ -34,9 +34,9 @@ Tu hoja de cálculo debe tener las siguientes 3 pestañas con los encabezados ex
 
 ---
 
-### Configuración Crítica para evitar errores de conexión:
+### Configuración Crítica para Organizaciones:
 1. En el editor de Apps Script, ve a **Implementar > Nueva implementación**.
 2. Tipo: **Aplicación web**.
-3. Ejecutar como: **Yo** (tu usuario de Banesco Seguros).
-4. Quién tiene acceso: **Cualquier persona** (Esto permite que la web app reciba los datos del login).
-5. Copia la **URL de la aplicación web** y pégala en `src/context/auth-context.tsx`.
+3. Ejecutar como: **Yo**.
+4. Quién tiene acceso: **Cualquier persona de [Tu Organización]**.
+5. **IMPORTANTE**: Para que el portal pueda conectar, el usuario debe haber iniciado sesión en su cuenta de Google del trabajo en el mismo navegador antes de entrar a la aplicación.

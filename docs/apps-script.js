@@ -1,17 +1,14 @@
 /**
  * Google Apps Script para el Portal Corporativo Banesco Seguros.
  * 
- * ESTRUCTURA DE LA HOJA:
- * 1. USUARIOS: Nombre (A), Correo (B), Rol (C), Cargo (D), Cédula (E).
- * 2. HISTORIAL: Timestamp (A), Correo (B), Acción (C), Estatus (D), Detalles (E).
- * 3. CARGOS: Nombre del Cargo (A).
+ * ESTRUCTURA DE LA HOJA "USUARIOS":
+ * A: Nombre | B: Correo | C: Rol | D: Cargo | E: Cédula
  * 
- * INSTRUCCIONES DE DESPLIEGUE:
- * 1. Reemplaza SPREADSHEET_ID por el ID de tu hoja.
- * 2. Haz clic en "Implementar" > "Nueva implementación".
- * 3. Selecciona "Aplicación web".
- * 4. Ejecutar como: "Yo" (Tu correo).
- * 5. Quién tiene acceso: "Cualquier persona" (IMPORTANTE).
+ * ESTRUCTURA DE LA HOJA "HISTORIAL":
+ * A: Timestamp | B: Correo | C: Acción | D: Estatus | E: Detalles
+ * 
+ * ESTRUCTURA DE LA HOJA "CARGOS":
+ * A: Nombre del Cargo
  */
 
 const SPREADSHEET_ID = 'TU_ID_DE_HOJA_DE_CALCULO_AQUI';

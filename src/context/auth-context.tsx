@@ -3,8 +3,8 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode, useMemo, useCallback } from 'react';
 import type { User } from '@/lib/types';
 
-// REEMPLAZA ESTA URL CON LA QUE TE DA GOOGLE AL IMPLEMENTAR COMO APP WEB
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyFlj39v2_OzLc0-mEg2MuSXjXwkzWSjHluWEexjXK7OL-rLHZjXbnLFmesV0NX9C_8ig/exec';
+// URL de la aplicación web desplegada en Google Apps Script
+const APPS_SCRIPT_URL = 'https://script.google.com/a/macros/banescoseguros.com/s/AKfycbw1q3DEqcmAcKeABcKg7MeFDRTwq91WtqL_VQO2_Ajzo0m2U2RZdtexscZ_E_vTUQvbDg/exec';
 
 type AuthContextType = {
   currentUser: User | null;
@@ -40,9 +40,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
       if (!response.ok) return;
 
-      const data = await response.json();
-      if (data.users) setUsers(data.users);
-      if (data.cargos) setCargos(data.cargos);
+      const text = await response.text();
+      try {
+        const data = JSON.parse(text);
+        if (data.users) setUsers(data.users);
+        if (data.cargos) setCargos(data.cargos);
+      } catch (e) {
+        console.warn('La respuesta de Google no es JSON válido (puede ser una redirección de login).');
+      }
     } catch (e) {
       console.warn('Error al cargar datos globales:', e);
     }
@@ -84,7 +89,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       try {
         data = JSON.parse(text);
       } catch (e) {
-        throw new Error('La respuesta del servidor no es válida. Verifica la configuración del script.');
+        throw new Error('Sesión de Google requerida. Por favor, asegúrate de estar logueado en tu cuenta corporativa de Google en este navegador.');
       }
 
       if (data.success && data.user) {
@@ -100,7 +105,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     } catch (err: any) {
       setLoading(false);
       const msg = err.message.includes('Failed to fetch') 
-        ? 'Error de conexión: No se pudo contactar con el servidor. Verifica que el script esté desplegado como "Cualquier persona".' 
+        ? 'Error de conexión: Verifica que tengas abierta tu sesión de Google corporativa.' 
         : err.message;
       setError(msg);
       throw new Error(msg);
