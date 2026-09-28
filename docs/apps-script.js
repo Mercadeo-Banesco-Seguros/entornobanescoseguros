@@ -2,7 +2,7 @@
  * Google Apps Script para el Portal Corporativo Banesco Seguros.
  * 
  * ESTRUCTURA DE LA HOJA "USUARIOS" (Columnas A-E):
- * A: Nombre | B: Correo | C: Rol | D: Cargo | E: Cédula
+ * A: Nombre | B: Correo | C: Rol | D: Cargo | E: Cédula (Contraseña)
  * 
  * ESTRUCTURA DE LA HOJA "HISTORIAL":
  * A: Timestamp | B: Correo | C: Acción | D: Estatus | E: Detalles
@@ -13,6 +13,17 @@
 
 const SPREADSHEET_ID = 'TU_ID_DE_HOJA_DE_CALCULO_AQUI';
 
+/**
+ * Función para responder a peticiones GET (cuando abres la URL en el navegador)
+ */
+function doGet(e) {
+  return ContentService.createTextOutput("El script de Banesco Seguros está ACTIVO. Si ves este mensaje, la conexión es posible.")
+    .setMimeType(ContentService.MimeType.TEXT);
+}
+
+/**
+ * Función para responder a peticiones POST (desde la aplicación)
+ */
 function doPost(e) {
   try {
     const body = JSON.parse(e.postData.contents);
@@ -34,14 +45,17 @@ function handleLogin(email, password) {
   const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
   const userSheet = ss.getSheetByName('USUARIOS');
   const historySheet = ss.getSheetByName('HISTORIAL');
-  const data = userSheet.getDataRange().getValues();
   
+  if (!userSheet) return createResponse({ success: false, message: 'Error: No se encontró la hoja USUARIOS' });
+  
+  const data = userSheet.getDataRange().getValues();
   let user = null;
+
   // Buscamos coincidencia de Correo (B / índice 1) y Cédula (E / índice 4)
   for (let i = 1; i < data.length; i++) {
-    const sheetEmail = data[i][1].toString().toLowerCase().trim();
+    const sheetEmail = data[i][1] ? data[i][1].toString().toLowerCase().trim() : "";
     const inputEmail = email.toString().toLowerCase().trim();
-    const sheetPass = data[i][4].toString().trim(); // Cédula en columna E
+    const sheetPass = data[i][4] ? data[i][4].toString().trim() : ""; // Cédula en columna E
     const inputPass = password.toString().trim();
 
     if (sheetEmail === inputEmail && sheetPass === inputPass) {
@@ -57,10 +71,9 @@ function handleLogin(email, password) {
   }
 
   // Auditoría en hoja HISTORIAL
-  const timestamp = new Date();
   if (historySheet) {
     historySheet.appendRow([
-      timestamp, 
+      new Date(), 
       email, 
       'LOGIN', 
       user ? 'EXITOSO' : 'FALLIDO', 
@@ -80,6 +93,8 @@ function handleGetData() {
   const userSheet = ss.getSheetByName('USUARIOS');
   const cargoSheet = ss.getSheetByName('CARGOS');
   
+  if (!userSheet) return createResponse({ error: true, message: 'No se encontró la hoja USUARIOS' });
+
   const userData = userSheet.getDataRange().getValues();
   const users = [];
 
@@ -107,5 +122,6 @@ function handleGetData() {
 }
 
 function createResponse(data) {
-  return ContentService.createTextOutput(JSON.stringify(data)).setMimeType(ContentService.MimeType.JSON);
+  return ContentService.createTextOutput(JSON.stringify(data))
+    .setMimeType(ContentService.MimeType.JSON);
 }

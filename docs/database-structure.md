@@ -39,4 +39,4 @@ Tu hoja de cálculo debe tener las siguientes 3 pestañas con los encabezados ex
 2. Tipo: **Aplicación web**.
 3. Ejecutar como: **Yo**.
 4. Quién tiene acceso: **Cualquier persona de [Tu Organización]**.
-5. **PASO CRÍTICO**: Si el error de conexión persiste después de loguearte en Google, abre la URL del script directamente en tu navegador una vez para "despertar" la sesión.
+5. **PASO CRÍTICO**: Una vez implementado, abre la URL del script en tu navegador. Si ves el mensaje "El script está ACTIVO", la sesión de Google ha quedado vinculada y la app ya podrá comunicarse con la hoja.

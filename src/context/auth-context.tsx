@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode, useMemo, useCallback } from 'react';
 import type { User } from '@/lib/types';
 
-// RECUERDA: Debes pegar aquí la URL de tu implementación (la que termina en /exec)
+// SUSTITUYE ESTA URL POR TU URL DE IMPLEMENTACIÓN REAL
 const APPS_SCRIPT_URL = 'https://script.google.com/a/macros/banescoseguros.com/s/AKfycbxcGJCi49y21AvRYeskIpVXUY7QFUp5m8z9iDt8EP3VnUqnwTim6Ek2DN-qEnJfbbtj7A/exec';
 
 type AuthContextType = {
@@ -47,11 +47,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         if (data.users) setUsers(data.users);
         if (data.cargos) setCargos(data.cargos);
       } catch (e) {
-        // Si no es JSON, Google probablemente devolvió una página de login/error
-        console.warn('La respuesta no es un JSON válido. Verifica la sesión de Google.');
+        // Probablemente devolvió HTML porque la sesión de Google no está activa en el navegador
+        console.warn('La base de datos requiere sesión activa de Google. Abre la URL del script en otra pestaña.');
       }
     } catch (e) {
-      console.warn('Error al conectar con la base de datos:', e);
+      console.warn('No se pudo conectar con la base de datos de Google Sheets.');
     }
   }, []);
 
@@ -89,7 +89,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       try {
         data = JSON.parse(text);
       } catch (e) {
-        throw new Error('Sesión bloqueada por seguridad. Por favor, abre la URL del script directamente en otra pestaña una vez para autorizar el acceso, o asegúrate de permitir cookies de terceros.');
+        throw new Error('Sesión de Google requerida. Por favor, abre la URL del script directamente en tu navegador una vez para autorizar el acceso.');
       }
 
       if (data.success && data.user) {
@@ -105,7 +105,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     } catch (err: any) {
       setLoading(false);
       const msg = err.message.includes('Failed to fetch') 
-        ? 'Error de conexión: El navegador bloqueó la petición. Asegúrate de estar logueado en Google y que el script esté correctamente implementado.' 
+        ? 'Error de conexión. Asegúrate de estar logueado en tu cuenta corporativa de Google y de haber abierto la URL del script al menos una vez.' 
         : err.message;
       setError(msg);
       throw new Error(msg);
