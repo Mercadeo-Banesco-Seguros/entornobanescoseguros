@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from 'next/link';
@@ -95,7 +94,7 @@ export default function Navbar() {
     };
   }, []);
 
-  if (!mounted) return null;
+  if (!mounted || !currentUser) return null;
 
   const fullTimeFormatted = currentTime.toLocaleTimeString('en-US', { 
     hour: 'numeric', 

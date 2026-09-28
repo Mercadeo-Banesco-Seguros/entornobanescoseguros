@@ -4,7 +4,6 @@ import React, { createContext, useContext, useState, useEffect, ReactNode, useMe
 import type { User, Task, Avatar, Level, Prize, PrizeCategory } from '@/lib/types';
 import { tasks as staticTasks, levels as staticLevels, avatars as staticAvatars, prizes as staticPrizes, prizeCategories as staticPrizeCategories } from '@/lib/data';
 
-// REEMPLAZA ESTA URL CON TU URL DE DESPLIEGUE DE GOOGLE APPS SCRIPT
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyFlj39v2_OzLc0-mEg2MuSXjXwkzWSjHluWEexjXK7OL-rLHZjXbnLFmesV0NX9C_8ig/exec';
 
 type AuthContextType = {
@@ -42,21 +41,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       const response = await fetch(APPS_SCRIPT_URL, {
         method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({ action: 'getData' }),
-        mode: 'no-cors' // Nota: Las Apps Script con modo web app suelen requerir redirección.
-      });
-
-      // Debido a las restricciones de CORS de Apps Script, a menudo es mejor usar un proxy o 
-      // manejarlo con el modo 'no-cors' si no se necesita el cuerpo, o una configuración específica.
-      // Para un prototipo funcional que retorna JSON, la Apps Script debe permitir el acceso.
-      
-      // Intento de fetch real (asumiendo que el script permite CORS):
-      const res = await fetch(APPS_SCRIPT_URL, {
-        method: 'POST',
         body: JSON.stringify({ action: 'getData' })
       });
-      const data = await res.json();
+      const data = await response.json();
       
       if (data.users) {
         setUsers(data.users);
@@ -65,7 +52,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }
     } catch (e) {
       console.error('Error fetching users from Sheets:', e);
-      // Fallback a vacio o mock si falla
     }
   }, []);
 
@@ -100,11 +86,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       if (data.success && data.user) {
         const user: User = {
           ...data.user,
-          level: 1, // Por defecto
+          level: data.user.level || 1,
           xp: data.user.xp || 0
         };
         setCurrentUser(user);
         localStorage.setItem('currentUser', JSON.stringify(user));
+        // Establecer cookie para el middleware
+        document.cookie = "auth_session=true; path=/";
         setLoading(false);
       } else {
         setLoading(false);
@@ -123,6 +111,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const logout = () => {
     setCurrentUser(null);
     localStorage.removeItem('currentUser');
+    document.cookie = "auth_session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
     setError(null);
   };
 

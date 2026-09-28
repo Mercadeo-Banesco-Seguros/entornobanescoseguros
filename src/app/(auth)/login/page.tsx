@@ -10,7 +10,7 @@ import { Loader2 } from "lucide-react";
 import { useAuth } from "@/context/auth-context";
 import { useRouter } from "next/navigation";
 
-export default function LoginPage() {
+function LoginPageContent() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState(""); 
   const [isLoading, setIsLoading] = useState(false);
@@ -48,7 +48,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="w-full lg:grid lg:min-h-screen lg:grid-cols-2">
+    <div className="w-full lg:grid lg:min-h-screen lg:grid-cols-2 bg-white">
       <div className="flex items-center justify-center py-12">
         <div className="mx-auto grid w-[280px] gap-6">
           <div className="grid gap-2 text-center">
@@ -61,7 +61,7 @@ export default function LoginPage() {
           </div>
           <form onSubmit={handleSubmit} className="grid gap-4">
             <div className="grid gap-1.5">
-              <Label htmlFor="email" className="text-[10px] font-light uppercase tracking-tight text-slate-500">Correo</Label>
+              <Label htmlFor="email" className="text-[10px] font-light uppercase tracking-tight">Correo</Label>
               <Input
                 id="email"
                 type="email"
@@ -70,11 +70,11 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={isLoading}
-                className="h-8 text-xs font-light focus-visible:ring-1 border-slate-200"
+                className="h-8 text-xs font-light focus-visible:ring-1"
               />
             </div>
             <div className="grid gap-1.5">
-              <Label htmlFor="password" className="text-[10px] font-light uppercase tracking-tight text-slate-500">Cédula</Label>
+              <Label htmlFor="password" className="text-[10px] font-light uppercase tracking-tight">Cédula</Label>
               <Input
                 id="password"
                 type="password"
@@ -83,7 +83,7 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 disabled={isLoading}
                 placeholder="Número de identidad"
-                className="h-8 text-xs font-light focus-visible:ring-1 border-slate-200"
+                className="h-8 text-xs font-light focus-visible:ring-1"
               />
             </div>
             <Button type="submit" className="w-full h-8 text-xs font-light mt-2 bg-[#003B73] hover:bg-[#002D54]" disabled={isLoading}>
@@ -95,14 +95,17 @@ export default function LoginPage() {
       </div>
       <div className="hidden lg:block relative bg-slate-50">
         <Image
-          src="https://www.banescoseguros.com/wp-content/uploads/2025/11/portadaVF.png"
+          src="https://docs.google.com/drawings/d/e/2PACX-1vQR7o46FhR0B1yJQHHz1pFafgj7M1PTDXj1CzioZ8t4B9nIhzuVNVuUZRXUaJXLJCUC1teJ_icZFlya/pub?w=960&h=720&format=png"
           alt="Banner Corporativo"
           fill
           className="h-full w-full object-contain p-12"
           priority
-          data-ai-hint="corporate banner"
         />
       </div>
     </div>
   );
+}
+
+export default function LoginPage() {
+    return <LoginPageContent />;
 }
