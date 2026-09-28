@@ -2,15 +2,15 @@
 
 Tu hoja de cálculo debe tener las siguientes 3 pestañas con los encabezados exactos.
 
-## Hoja 1: `USUARIOS`
+## Hoja 1: `USUARIOS` (Solo 5 columnas)
 
 | Columna | Nombre | Descripción | Ejemplo |
 | :--- | :--- | :--- | :--- |
-| A | **Nombre** | Nombre completo | `Juan Pérez` |
-| B | **Correo** | Correo institucional | `jperez@banescoseguros.com` |
+| A | **Nombre** | Nombre completo del colaborador | `Juan Pérez` |
+| B | **Correo** | Correo institucional (@banescoseguros.com) | `jperez@banescoseguros.com` |
 | C | **Rol** | Administrador o Usuario | `Administrador` |
 | D | **Cargo** | Puesto laboral | `Asesor Integral` |
-| E | **Cédula** | Contraseña de acceso | `12345678` |
+| E | **Cédula** | Se usa como contraseña de acceso | `12345678` |
 
 ---
 
@@ -34,9 +34,9 @@ Tu hoja de cálculo debe tener las siguientes 3 pestañas con los encabezados ex
 
 ---
 
-### Configuración Crítica para Organizaciones:
+### Configuración de Implementación (IMPORTANTE):
 1. En el editor de Apps Script, ve a **Implementar > Nueva implementación**.
 2. Tipo: **Aplicación web**.
 3. Ejecutar como: **Yo**.
 4. Quién tiene acceso: **Cualquier persona de [Tu Organización]**.
-5. **IMPORTANTE**: Para que el portal pueda conectar, el usuario debe haber iniciado sesión en su cuenta de Google del trabajo en el mismo navegador antes de entrar a la aplicación.
+5. **PASO CRÍTICO**: Si el error de conexión persiste después de loguearte en Google, abre la URL del script directamente en tu navegador una vez para "despertar" la sesión.

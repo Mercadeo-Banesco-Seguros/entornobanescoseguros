@@ -3,8 +3,8 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode, useMemo, useCallback } from 'react';
 import type { User } from '@/lib/types';
 
-// URL de la aplicación web desplegada en Google Apps Script
-const APPS_SCRIPT_URL = 'https://script.google.com/a/macros/banescoseguros.com/s/AKfycbw1q3DEqcmAcKeABcKg7MeFDRTwq91WtqL_VQO2_Ajzo0m2U2RZdtexscZ_E_vTUQvbDg/exec';
+// RECUERDA: Debes pegar aquí la URL de tu implementación (la que termina en /exec)
+const APPS_SCRIPT_URL = 'https://script.google.com/a/macros/banescoseguros.com/s/AKfycbxcGJCi49y21AvRYeskIpVXUY7QFUp5m8z9iDt8EP3VnUqnwTim6Ek2DN-qEnJfbbtj7A/exec';
 
 type AuthContextType = {
   currentUser: User | null;
@@ -27,12 +27,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [error, setError] = useState<string | null>(null);
 
   const fetchUsers = useCallback(async () => {
+    if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes('TU_URL_AQUI')) return;
+
     try {
+      // Usamos text/plain para evitar el preflight de CORS que suele fallar en scripts restringidos
       const response = await fetch(APPS_SCRIPT_URL, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'text/plain;charset=utf-8',
-        },
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify({ action: 'getData' }),
         mode: 'cors',
         redirect: 'follow'
@@ -46,10 +47,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         if (data.users) setUsers(data.users);
         if (data.cargos) setCargos(data.cargos);
       } catch (e) {
-        console.warn('La respuesta de Google no es JSON válido (puede ser una redirección de login).');
+        // Si no es JSON, Google probablemente devolvió una página de login/error
+        console.warn('La respuesta no es un JSON válido. Verifica la sesión de Google.');
       }
     } catch (e) {
-      console.warn('Error al cargar datos globales:', e);
+      console.warn('Error al conectar con la base de datos:', e);
     }
   }, []);
 
@@ -76,9 +78,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       const response = await fetch(APPS_SCRIPT_URL, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'text/plain;charset=utf-8',
-        },
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify({ action: 'login', email, password }),
         mode: 'cors',
         redirect: 'follow'
@@ -89,7 +89,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       try {
         data = JSON.parse(text);
       } catch (e) {
-        throw new Error('Sesión de Google requerida. Por favor, asegúrate de estar logueado en tu cuenta corporativa de Google en este navegador.');
+        throw new Error('Sesión bloqueada por seguridad. Por favor, abre la URL del script directamente en otra pestaña una vez para autorizar el acceso, o asegúrate de permitir cookies de terceros.');
       }
 
       if (data.success && data.user) {
@@ -100,12 +100,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setLoading(false);
       } else {
         setLoading(false);
-        throw new Error(data.message || 'Credenciales incorrectas.');
+        throw new Error(data.message || 'El correo o la cédula son incorrectos.');
       }
     } catch (err: any) {
       setLoading(false);
       const msg = err.message.includes('Failed to fetch') 
-        ? 'Error de conexión: Verifica que tengas abierta tu sesión de Google corporativa.' 
+        ? 'Error de conexión: El navegador bloqueó la petición. Asegúrate de estar logueado en Google y que el script esté correctamente implementado.' 
         : err.message;
       setError(msg);
       throw new Error(msg);
@@ -127,7 +127,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     login,
     logout,
     fetchUsers,
-  }), [currentUser, users, cargos, loading, error, login, logout, fetchUsers]);
+  }), [currentUser, users, cargos, loading, error, fetchUsers]);
 
   return (
     <AuthContext.Provider value={value}>

@@ -1,7 +1,7 @@
 /**
  * Google Apps Script para el Portal Corporativo Banesco Seguros.
  * 
- * ESTRUCTURA DE LA HOJA "USUARIOS":
+ * ESTRUCTURA DE LA HOJA "USUARIOS" (Columnas A-E):
  * A: Nombre | B: Correo | C: Rol | D: Cargo | E: Cédula
  * 
  * ESTRUCTURA DE LA HOJA "HISTORIAL":
@@ -41,16 +41,16 @@ function handleLogin(email, password) {
   for (let i = 1; i < data.length; i++) {
     const sheetEmail = data[i][1].toString().toLowerCase().trim();
     const inputEmail = email.toString().toLowerCase().trim();
-    const sheetPass = data[i][4].toString().trim();
+    const sheetPass = data[i][4].toString().trim(); // Cédula en columna E
     const inputPass = password.toString().trim();
 
     if (sheetEmail === inputEmail && sheetPass === inputPass) {
       user = {
         id: data[i][4].toString(), // Cédula como ID
-        name: data[i][0],
-        email: data[i][1],
+        name: data[i][0], // Nombre
+        email: data[i][1], // Correo
         rol: data[i][2], // Administrador o Usuario
-        cargo: data[i][3]
+        cargo: data[i][3] // Cargo
       };
       break;
     }
@@ -84,13 +84,15 @@ function handleGetData() {
   const users = [];
 
   for (let i = 1; i < userData.length; i++) {
-    users.push({
-      id: userData[i][4].toString(),
-      name: userData[i][0],
-      email: userData[i][1],
-      rol: userData[i][2],
-      cargo: userData[i][3]
-    });
+    if (userData[i][1]) { // Si tiene correo
+      users.push({
+        id: userData[i][4].toString(),
+        name: userData[i][0],
+        email: userData[i][1],
+        rol: userData[i][2],
+        cargo: userData[i][3]
+      });
+    }
   }
 
   const cargos = [];
