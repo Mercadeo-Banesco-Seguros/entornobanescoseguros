@@ -44,7 +44,7 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
-  const { currentUser, logout } = useAuth();
+  const { isAuthenticated, currentUser, logout } = useAuth();
   const [mounted, setMounted] = useState(false);
   const [isTimeExpanded, setIsTimeExpanded] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -61,7 +61,6 @@ export default function Navbar() {
 
   const handleLogout = () => {
     logout();
-    router.push('/login');
   };
 
   useEffect(() => {
@@ -86,7 +85,7 @@ export default function Navbar() {
     };
 
     fetchWeather();
-    const weatherTimer = setInterval(fetchWeather, 600000); // Cada 10 min
+    const weatherTimer = setInterval(fetchWeather, 600000); 
 
     return () => {
       clearInterval(timer);
@@ -94,8 +93,8 @@ export default function Navbar() {
     };
   }, []);
 
-  // Ocultar Navbar si no está montado, si no hay usuario, o si estamos en el login
-  if (!mounted || !currentUser || pathname === '/login') return null;
+  // Solo mostrar Navbar si está autenticado y no es la página de login
+  if (!mounted || !isAuthenticated || pathname === '/login') return null;
 
   const fullTimeFormatted = currentTime.toLocaleTimeString('en-US', { 
     hour: 'numeric', 
