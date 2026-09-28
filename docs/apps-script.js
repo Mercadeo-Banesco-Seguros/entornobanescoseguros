@@ -1,76 +1,103 @@
-/**
- * Google Apps Script para el Portal Corporativo.
- * Maneja peticiones POST enviadas como texto plano (text/plain) para evitar Preflight de CORS.
- */
+// apps-script.gs
 
-const SPREADSHEET_ID = ''; // Opcional si el script está vinculado a la hoja
+// --- CONFIGURATION ---
+const USERS_SHEET_NAME = "Users";
+const ACCESS_LOGS_SHEET_NAME = "Access Logs";
+const CALENDAR_EVENTS_SHEET_NAME = "Calendar Events";
+const MENU_SHEET_NAME = "Menu";
 
-function getSS() {
-  if (SPREADSHEET_ID) return SpreadsheetApp.openById(SPREADSHEET_ID);
-  return SpreadsheetApp.getActiveSpreadsheet();
-}
-
-function doGet(e) {
-  return createResponse({ success: true, message: "El script está ACTIVO." });
-}
-
+// --- MAIN ROUTER ---
 function doPost(e) {
-  try {
-    // Al enviar como text/plain, el cuerpo viene en e.postData.contents
-    let requestData;
-    try {
-      requestData = JSON.parse(e.postData.contents);
-    } catch (parseError) {
-      return createResponse({ success: false, message: 'Formato de datos inválido.' });
-    }
+  let responseData;
+  let action;
 
-    const action = requestData.action;
-    
-    if (action === 'login') {
-      return handleLogin(requestData.email, requestData.password);
+  try {
+    // Manejamos el envío como text/plain desde el portal
+    const payload = JSON.parse(e.postData.contents);
+    action = payload.action;
+
+    switch (action) {
+      case 'login':
+        responseData = handleLogin(payload);
+        break;
+      case 'getCalendarEvents':
+        responseData = { success: true, data: getCalendarEventsFromSheet() };
+        break;
+      case 'getMenuItems':
+        responseData = { success: true, data: getMenuItemsFromSheet() };
+        break;
+      default:
+        responseData = { success: false, message: `Unknown action: ${action}` };
     }
-    
-    return createResponse({ success: false, message: 'Acción no reconocida.' });
   } catch (error) {
-    return createResponse({ success: false, message: 'Error en el servidor: ' + error.toString() });
+    responseData = { success: false, message: `Server error: ${error.toString()}` };
   }
+
+  // Devolvemos como TEXT para evitar problemas de CORS en redirecciones de Google
+  return ContentService
+    .createTextOutput(JSON.stringify(responseData))
+    .setMimeType(ContentService.MimeType.TEXT);
 }
 
-function handleLogin(email, password) {
+// Para pruebas rápidas en navegador
+function doGet(e) {
+  return ContentService.createTextOutput("El script está ACTIVO y listo para recibir peticiones POST.")
+    .setMimeType(ContentService.MimeType.TEXT);
+}
+
+// --- ACTION HANDLERS ---
+function handleLogin(payload) {
+  if (!payload.email || !payload.password) {
+    return { success: false, message: "Correo y contraseña (cédula) son requeridos." };
+  }
+  return loginUser(payload.email, payload.password);
+}
+
+// --- CORE FUNCTIONS ---
+function loginUser(email, password) {
   try {
-    const ss = getSS();
-    const userSheet = ss.getSheetByName('USUARIOS');
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const sheet = ss.getSheetByName(USERS_SHEET_NAME);
+    if (!sheet) return { success: false, message: "Hoja 'Users' no encontrada." };
     
-    if (!userSheet) return createResponse({ success: false, message: 'Hoja USUARIOS no encontrada.' });
-    
-    const data = userSheet.getDataRange().getValues();
-    let found = false;
+    const data = sheet.getDataRange().getValues();
+    const emailLower = email.toString().toLowerCase().trim();
+    const passStr = password.toString().trim();
 
-    // Buscamos coincidencia de correo y cédula (columna E)
     for (let i = 1; i < data.length; i++) {
-      const sheetEmail = data[i][1] ? data[i][1].toString().toLowerCase().trim() : "";
-      const inputEmail = email ? email.toString().toLowerCase().trim() : "";
-      const sheetPass = data[i][4] ? data[i][4].toString().trim() : ""; 
-      const inputPass = password ? password.toString().trim() : "";
+      const sheetEmail = data[i][0] ? data[i][0].toString().toLowerCase().trim() : "";
+      const sheetPass = data[i][1] ? data[i][1].toString().trim() : "";
 
-      if (sheetEmail === inputEmail && sheetPass === inputPass) {
-        found = true;
-        break;
+      if (sheetEmail === emailLower && sheetPass === passStr) {
+        logAccess(email, "login", "success");
+        return { success: true, message: "Login successful." };
       }
     }
-
-    if (found) {
-      return createResponse({ success: true, message: 'Acceso autorizado.' });
-    } else {
-      return createResponse({ success: false, message: 'Cédula o correo incorrectos.' });
-    }
+    
+    logAccess(email, "login", "failure");
+    return { success: false, message: "Cédula o correo incorrectos." };
   } catch (e) {
-    return createResponse({ success: false, message: 'Error de base de datos: ' + e.toString() });
+    return { success: false, message: "Error de base de datos: " + e.toString() };
   }
 }
 
-function createResponse(data) {
-  // Devolvemos como TEXT para evitar problemas de redirección de Google
-  return ContentService.createTextOutput(JSON.stringify(data))
-    .setMimeType(ContentService.MimeType.TEXT);
+function logAccess(email, type, status) {
+  try {
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(ACCESS_LOGS_SHEET_NAME);
+    if (sheet) sheet.appendRow([new Date(), email, type, status]);
+  } catch (e) {}
+}
+
+function getCalendarEventsFromSheet() {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(CALENDAR_EVENTS_SHEET_NAME);
+  if (!sheet) return [];
+  // Lógica de obtención simplificada...
+  return [];
+}
+
+function getMenuItemsFromSheet() {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(MENU_SHEET_NAME);
+  if (!sheet) return [];
+  // Lógica de obtención simplificada...
+  return [];
 }

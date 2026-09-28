@@ -12,29 +12,27 @@ const api = {
   async login(email: string, password: string): Promise<{ success: boolean; message: string }> {
     const scriptUrl = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL || "";
     
-    if (!scriptUrl || scriptUrl.includes("TU_URL")) {
-      return { success: false, message: "La URL del servidor no está configurada en .env.local" };
-    }
-
     try {
-      // Usamos POST con text/plain para evitar el Preflight de CORS en entornos institucionales
+      // Usamos POST con text/plain y credentials: 'include' para entornos institucionales
       const response = await fetch(scriptUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify({ action: 'login', email, password }),
+        // 'include' permite que Google reconozca tu sesión de empleado activa
+        credentials: 'include',
       });
       
-      // Leemos como texto primero para evitar errores si la respuesta no es JSON directo
+      // Leemos como texto primero para ser más robustos ante redirecciones de Google
       const text = await response.text();
       try {
         return JSON.parse(text);
       } catch (e) {
-        console.error("Respuesta del servidor no es JSON:", text);
-        return { success: false, message: "Error en el formato de respuesta del servidor." };
+        console.error("Respuesta no es JSON:", text);
+        return { success: false, message: "Respuesta del servidor inválida." };
       }
     } catch (error) {
-      console.error("Error de fetch:", error);
-      return { success: false, message: "Error de conexión con el servidor. Verifique la URL y su conexión." };
+      console.error("Fetch error:", error);
+      return { success: false, message: "Error de conexión con el servidor." };
     }
   },
 };
@@ -56,7 +54,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
 
   useEffect(() => {
-    // Comprobar si hay una sesión guardada en sessionStorage
+    // Comprobar persistencia
     const sessionEmail = sessionStorage.getItem('userEmail');
     if (sessionEmail) {
       setIsAuthenticated(true);
@@ -71,8 +69,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setIsAuthenticated(true);
       setUserEmail(email);
       sessionStorage.setItem('userEmail', email);
-      // Establecemos una cookie para el middleware
+      
+      // CRÍTICO: Establecer la cookie para que el middleware permita el acceso
       document.cookie = "auth_session=true; path=/; max-age=86400; SameSite=Lax";
+      
       router.push('/dashboard');
     } else {
       throw new Error(response.message || "Credenciales incorrectas.");
@@ -80,6 +80,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const logout = () => {
+    // Limpiar cookie y estado
     document.cookie = "auth_session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
     setIsAuthenticated(false);
     setUserEmail(null);
@@ -114,13 +115,13 @@ export const AuthGuard = ({ children }: { children: ReactNode }) => {
 
   if (isLoading || !isAuthenticated) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-background">
+      <div className="flex items-center justify-center min-h-screen bg-white">
         <div className="flex flex-col items-center space-y-2">
-            <svg className="animate-spin h-8 w-8 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <svg className="animate-spin h-8 w-8 text-[#003B73]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>
-            <p className="text-muted-foreground text-sm font-light">Verificando sesión...</p>
+            <p className="text-slate-400 text-[10px] font-light uppercase tracking-tight">Verificando Credenciales...</p>
         </div>
       </div>
     );

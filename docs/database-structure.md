@@ -1,43 +1,33 @@
-
 # Estructura de la Base de Datos (Google Sheets)
 
-Tu hoja de cálculo debe tener las siguientes 3 pestañas con los encabezados exactos.
+Tu hoja de cálculo debe tener las siguientes pestañas con los nombres exactos:
 
-## Hoja 1: `USUARIOS` (Solo 5 columnas)
+## Hoja 1: `Users`
+| Columna | Nombre | Descripción |
+| :--- | :--- | :--- |
+| A | **Email** | Correo @banescoseguros.com |
+| B | **Password** | Cédula de Identidad |
 
-| Columna | Nombre | Descripción | Ejemplo |
-| :--- | :--- | :--- | :--- |
-| A | **Nombre** | Nombre completo del colaborador | `Juan Pérez` |
-| B | **Correo** | Correo institucional (@banescoseguros.com) | `jperez@banescoseguros.com` |
-| C | **Rol** | Administrador o Usuario | `Administrador` |
-| D | **Cargo** | Puesto laboral | `Asesor Integral` |
-| E | **Cédula** | Se usa como contraseña de acceso | `12345678` |
-
----
-
-## Hoja 2: `HISTORIAL`
-
+## Hoja 2: `Access Logs`
 | Columna | Nombre |
 | :--- | :--- |
 | A | **Timestamp** |
-| B | **Correo** |
-| C | **Acción** |
-| D | **Estatus** |
-| E | **Detalles** |
+| B | **Email** |
+| C | **Action** |
+| D | **Status** |
+
+## Hoja 3: `Calendar Events`
+(Pendiente configurar columnas según necesidad de la app)
+
+## Hoja 4: `Menu`
+(Pendiente configurar columnas según necesidad de la app)
 
 ---
 
-## Hoja 3: `CARGOS`
-
-| Columna | Nombre |
-| :--- | :--- |
-| A | **Nombre del Cargo** |
-
----
-
-### Configuración de Implementación (IMPORTANTE):
-1. En el editor de Apps Script, ve a **Implementar > Nueva implementación**.
-2. Tipo: **Aplicación web**.
-3. Ejecutar como: **Yo**.
-4. Quién tiene acceso: **Cualquier persona de [Tu Organización]**.
-5. **PASO CRÍTICO**: Una vez implementado, abre la URL del script en tu navegador. Si ves el mensaje "El script está ACTIVO", la sesión de Google ha quedado vinculada y la app ya podrá comunicarse con la hoja.
+### Configuración del Script:
+1. Pega el código de `apps-script.js`.
+2. **Implementar > Nueva implementación**.
+3. Tipo: **Aplicación Web**.
+4. Ejecutar como: **Yo**.
+5. Acceso: **Cualquier persona de [Tu Organización]**.
+6. Copia la URL y ponla en el archivo `.env.local`.
