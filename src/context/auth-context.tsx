@@ -1,52 +1,45 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
 import type { User } from '@/lib/types';
 
 /**
- * @fileOverview Contexto de autenticación institucional.
- * Utiliza GET para máxima compatibilidad con Google Apps Script en entornos restringidos.
+ * @fileOverview Contexto de autenticación.
+ * Gestiona el estado del usuario, el inicio de sesión y la protección de rutas.
  */
 
-const APPS_SCRIPT_URL = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL || "";
-
 const api = {
-  async request(params: Record<string, string>) {
-    if (!APPS_SCRIPT_URL) throw new Error("URL de servidor no configurada.");
+  async login(email: string, password: string): Promise<{ success: boolean; message: string; user?: User }> {
+    const scriptUrl = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL || "";
     
-    const query = new URLSearchParams(params).toString();
-    const url = `${APPS_SCRIPT_URL}?${query}`;
-
     try {
-      // Usamos GET para evitar problemas de CORS con el redireccionamiento de Google
-      const response = await fetch(url, {
-        method: 'GET',
-        mode: 'cors',
+      // Usamos POST con text/plain para evitar el Preflight de CORS que Google bloquea en entornos privados
+      const response = await fetch(scriptUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ action: 'login', email, password }),
       });
       
       const text = await response.text();
       try {
         return JSON.parse(text);
       } catch (e) {
-        console.error("Respuesta no JSON:", text);
-        throw new Error("Respuesta inválida del servidor.");
+        console.error("Error parseando respuesta:", text);
+        return { success: false, message: "Respuesta inválida del servidor." };
       }
     } catch (error) {
-      console.error("Fetch Error:", error);
-      throw new Error("Error de conexión. Verifica la URL del script.");
+      return { success: false, message: "Error de conexión con el servidor." };
     }
-  }
+  },
 };
 
 interface AuthContextType {
   isAuthenticated: boolean;
   isLoading: boolean;
   currentUser: User | null;
-  users: User[];
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
-  fetchUsers: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -55,49 +48,36 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState<User | null>(null);
-  const [users, setUsers] = useState<User[]>([]);
   const router = useRouter();
 
-  const fetchUsers = useCallback(async () => {
-    try {
-      const data = await api.request({ action: 'getData' });
-      if (data.users) setUsers(data.users);
-    } catch (e) {
-      console.error("Error al cargar usuarios:", e);
-    }
-  }, []);
-
   useEffect(() => {
+    // Persistencia mediante sessionStorage
     const savedUser = sessionStorage.getItem('currentUser');
     if (savedUser) {
       try {
         const user = JSON.parse(savedUser);
         setIsAuthenticated(true);
         setCurrentUser(user);
-        fetchUsers();
       } catch (e) {
         sessionStorage.removeItem('currentUser');
       }
     }
     setIsLoading(false);
-  }, [fetchUsers]);
+  }, []);
 
   const login = async (email: string, password: string) => {
-    const data = await api.request({ action: 'login', email, password });
-    
-    if (data.success && data.user) {
-      const userData = data.user;
+    const response = await api.login(email, password);
+    if (response.success && response.user) {
       setIsAuthenticated(true);
-      setCurrentUser(userData);
-      sessionStorage.setItem('currentUser', JSON.stringify(userData));
+      setCurrentUser(response.user);
+      sessionStorage.setItem('currentUser', JSON.stringify(response.user));
       
-      // Cookie para el middleware
+      // Cookie para que el middleware de Next.js reconozca la sesión
       document.cookie = `auth_session=true; path=/; max-age=86400; SameSite=Lax`;
       
-      await fetchUsers();
-      router.push('/');
+      router.push('/dashboard');
     } else {
-      throw new Error(data.message || "Credenciales incorrectas.");
+      throw new Error(response.message || "Credenciales incorrectas.");
     }
   };
 
@@ -110,15 +90,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ 
-      isAuthenticated, 
-      isLoading, 
-      currentUser, 
-      users, 
-      login, 
-      logout,
-      fetchUsers 
-    }}>
+    <AuthContext.Provider value={{ isAuthenticated, isLoading, currentUser, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
@@ -144,10 +116,13 @@ export const AuthGuard = ({ children }: { children: ReactNode }) => {
 
   if (isLoading || !isAuthenticated) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-white">
-        <div className="flex flex-col items-center space-y-4">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#003B73]"></div>
-            <p className="text-slate-400 text-xs font-light">Validando sesión...</p>
+      <div className="flex items-center justify-center min-h-screen bg-background">
+        <div className="flex flex-col items-center space-y-2">
+            <svg className="animate-spin h-8 w-8 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <p className="text-muted-foreground text-sm font-light">Verificando sesión...</p>
         </div>
       </div>
     );

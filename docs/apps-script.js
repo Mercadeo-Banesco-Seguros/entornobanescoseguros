@@ -1,38 +1,33 @@
 /**
  * Google Apps Script para el Portal Corporativo Banesco Seguros.
- * Versión optimizada para comunicación GET/POST desde entornos restringidos.
+ * Maneja peticiones POST enviadas como texto plano para evitar Preflight de CORS.
  */
 
-const SPREADSHEET_ID = ''; // Opcional: Solo si el script no está unido a la hoja
+const SPREADSHEET_ID = ''; // Opcional si el script está vinculado a la hoja
 
 function getSS() {
-  if (SPREADSHEET_ID) {
-    return SpreadsheetApp.openById(SPREADSHEET_ID);
-  }
+  if (SPREADSHEET_ID) return SpreadsheetApp.openById(SPREADSHEET_ID);
   return SpreadsheetApp.getActiveSpreadsheet();
 }
 
-/**
- * Maneja tanto peticiones GET como POST
- */
 function doGet(e) {
-  return processRequest(e);
+  return createResponse({ success: true, message: "El script está ACTIVO." });
 }
 
 function doPost(e) {
-  return processRequest(e);
-}
-
-function processRequest(e) {
-  const action = e.parameter.action;
-  
-  if (action === 'login') {
-    return handleLogin(e.parameter.email, e.parameter.password);
-  } else if (action === 'getData') {
-    return handleGetData();
+  try {
+    // Al enviar como text/plain, el cuerpo viene en e.postData.contents
+    const requestData = JSON.parse(e.postData.contents);
+    const action = requestData.action;
+    
+    if (action === 'login') {
+      return handleLogin(requestData.email, requestData.password);
+    }
+    
+    return createResponse({ success: false, message: 'Acción no reconocida.' });
+  } catch (error) {
+    return createResponse({ success: false, message: 'Error en el servidor: ' + error.toString() });
   }
-  
-  return createResponse({ success: false, message: 'Acción no reconocida: ' + action });
 }
 
 function handleLogin(email, password) {
@@ -41,7 +36,7 @@ function handleLogin(email, password) {
     const userSheet = ss.getSheetByName('USUARIOS');
     const historySheet = ss.getSheetByName('HISTORIAL');
     
-    if (!userSheet) return createResponse({ success: false, message: 'Error: Hoja USUARIOS no encontrada.' });
+    if (!userSheet) return createResponse({ success: false, message: 'Hoja USUARIOS no encontrada.' });
     
     const data = userSheet.getDataRange().getValues();
     let user = null;
@@ -49,7 +44,7 @@ function handleLogin(email, password) {
     for (let i = 1; i < data.length; i++) {
       const sheetEmail = data[i][1] ? data[i][1].toString().toLowerCase().trim() : "";
       const inputEmail = email ? email.toString().toLowerCase().trim() : "";
-      const sheetPass = data[i][4] ? data[i][4].toString().trim() : ""; 
+      const sheetPass = data[i][4] ? data[i][4].toString().trim() : ""; // Cédula en columna E
       const inputPass = password ? password.toString().trim() : "";
 
       if (sheetEmail === inputEmail && sheetPass === inputPass) {
@@ -74,38 +69,12 @@ function handleLogin(email, password) {
       return createResponse({ success: false, message: 'Credenciales inválidas.' });
     }
   } catch (e) {
-    return createResponse({ success: false, message: 'Error: ' + e.toString() });
-  }
-}
-
-function handleGetData() {
-  try {
-    const ss = getSS();
-    const userSheet = ss.getSheetByName('USUARIOS');
-    if (!userSheet) return createResponse({ success: false, message: 'No hay hoja USUARIOS' });
-
-    const data = userSheet.getDataRange().getValues();
-    const users = [];
-
-    for (let i = 1; i < data.length; i++) {
-      if (data[i][1]) {
-        users.push({
-          id: data[i][4].toString(),
-          name: data[i][0],
-          email: data[i][1],
-          rol: data[i][2],
-          cargo: data[i][3]
-        });
-      }
-    }
-
-    return createResponse({ success: true, users: users });
-  } catch (e) {
-    return createResponse({ success: false, message: e.toString() });
+    return createResponse({ success: false, message: 'Error de servidor: ' + e.toString() });
   }
 }
 
 function createResponse(data) {
+  // Devolvemos como TEXT para evitar problemas de CORS en entornos restringidos
   return ContentService.createTextOutput(JSON.stringify(data))
     .setMimeType(ContentService.MimeType.TEXT);
 }
