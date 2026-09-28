@@ -4,8 +4,8 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode, useMemo, useCallback } from 'react';
 import type { User } from '@/lib/types';
 
-// ASEGÚRATE DE QUE ESTA URL SEA LA DE TU "NUEVA IMPLEMENTACIÓN" (TERMINA EN /exec)
-const APPS_SCRIPT_URL = 'https://script.google.com/a/macros/banescoseguros.com/s/AKfycbxCX4mEVzFaavUb_xHxUBLGLA1uIrc71k0irG59LIOjHtSSwLfgNAq_fcVDMA-eGhyhlQ/exec';
+// URL de implementación del Google Apps Script
+const APPS_SCRIPT_URL = 'https://script.google.com/a/macros/banescoseguros.com/s/AKfycbwj5d3nQsxIurkHs3Hnk8JQ4Z_cgx50BIl2MCumpWe-Hw-X0RndwdWTVjmnINuJiJya7A/exec';
 
 type AuthContextType = {
   currentUser: User | null;
@@ -31,12 +31,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes('TU_URL_AQUI')) return;
 
     try {
-      // Usamos una petición "simple" (sin headers complejos) para evitar el bloqueo CORS del navegador
+      // Petición simple: Sin headers para evitar Preflight OPTIONS que Google rechaza
       const response = await fetch(APPS_SCRIPT_URL, {
         method: 'POST',
+        body: JSON.stringify({ action: 'getData' }),
         mode: 'cors',
-        redirect: 'follow',
-        body: JSON.stringify({ action: 'getData' })
       });
 
       if (!response.ok) return;
@@ -47,10 +46,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         if (data.users) setUsers(data.users);
         if (data.cargos) setCargos(data.cargos);
       } catch (e) {
-        console.warn('Respuesta no válida de Google Sheets. Verifica la sesión de Google.');
+        // Silencioso para no interrumpir la experiencia si la respuesta no es JSON
       }
     } catch (e) {
-      console.warn('Error de conexión con Google Sheets. Si el error persiste, abre la URL del script en otra pestaña.');
+      console.warn('Error de conexión inicial. Esto es normal si no hay sesión activa de Google.');
     }
   }, []);
 
@@ -75,22 +74,24 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setError(null);
     
     try {
+      // PETICIÓN ULTRA-SIMPLIFICADA: 
+      // Se envía el JSON como texto plano. Esto es clave para saltar el bloqueo de CORS.
       const response = await fetch(APPS_SCRIPT_URL, {
         method: 'POST',
+        body: JSON.stringify({ action: 'login', email, password }),
         mode: 'cors',
-        redirect: 'follow',
-        body: JSON.stringify({ action: 'login', email, password })
       });
       
       const text = await response.text();
       let data;
+      
       try {
         data = JSON.parse(text);
       } catch (e) {
-        throw new Error('Error al procesar respuesta del servidor. Por favor, asegúrate de haber abierto la URL del script en tu navegador al menos una vez.');
+        throw new Error('La respuesta del servidor no es válida. Por favor, asegúrate de haber abierto la URL del script en una pestaña aparte y que diga "ACTIVO".');
       }
 
-      if (data.success && data.user) {
+      if (data && data.success && data.user) {
         const user: User = data.user;
         setCurrentUser(user);
         localStorage.setItem('currentUser', JSON.stringify(user));
@@ -98,12 +99,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setLoading(false);
       } else {
         setLoading(false);
-        throw new Error(data.message || 'El correo o la cédula son incorrectos.');
+        throw new Error(data?.message || 'Credenciales incorrectas (Correo o Cédula).');
       }
     } catch (err: any) {
       setLoading(false);
       const msg = err.message.includes('Failed to fetch') 
-        ? 'Error de conexión. Esto suele ocurrir si la sesión de Google no está activa. Abre la URL del script en una pestaña nueva, verifica que diga "ACTIVO" y vuelve a intentarlo.' 
+        ? 'Error de conexión con Google. Tu navegador está bloqueando la salida de datos. Abre la URL del script en una pestaña nueva, verifica el mensaje "ACTIVO" y reintenta aquí.' 
         : err.message;
       setError(msg);
       throw new Error(msg);
