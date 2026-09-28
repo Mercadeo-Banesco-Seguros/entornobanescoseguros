@@ -10,29 +10,35 @@ import { useRouter } from 'next/navigation';
 
 const api = {
   async login(email: string, password: string): Promise<{ success: boolean; message: string }> {
-    const scriptUrl = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL || "";
+    // Intentar obtener la URL de las variables de entorno
+    const scriptUrl = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL;
+    
+    if (!scriptUrl || scriptUrl.includes("TU_URL")) {
+      return { success: false, message: "URL de servidor no configurada en .env.local" };
+    }
     
     try {
-      // Usamos POST con text/plain y credentials: 'include' para entornos institucionales
+      // Usamos una petición POST simple (sin headers complejos) para evitar el bloqueo de CORS
+      // Google Apps Script maneja mejor las peticiones cuando se envían como texto plano
       const response = await fetch(scriptUrl, {
         method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        mode: 'cors',
         body: JSON.stringify({ action: 'login', email, password }),
-        // 'include' permite que Google reconozca tu sesión de empleado activa
-        credentials: 'include',
       });
       
-      // Leemos como texto primero para ser más robustos ante redirecciones de Google
+      // IMPORTANTE: Leemos como texto primero. Google Apps Script con MimeType.TEXT
+      // es la única forma fiable de evitar errores de CORS en entornos restringidos.
       const text = await response.text();
+      
       try {
         return JSON.parse(text);
       } catch (e) {
-        console.error("Respuesta no es JSON:", text);
-        return { success: false, message: "Respuesta del servidor inválida." };
+        console.error("Error al parsear respuesta:", text);
+        return { success: false, message: "Respuesta inválida del servidor." };
       }
     } catch (error) {
-      console.error("Fetch error:", error);
-      return { success: false, message: "Error de conexión con el servidor." };
+      console.error("Error de red:", error);
+      return { success: false, message: "Error de conexión con el servidor. Verifique su conexión a la red interna." };
     }
   },
 };
@@ -70,7 +76,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setUserEmail(email);
       sessionStorage.setItem('userEmail', email);
       
-      // CRÍTICO: Establecer la cookie para que el middleware permita el acceso
+      // Establecer cookie para el middleware
       document.cookie = "auth_session=true; path=/; max-age=86400; SameSite=Lax";
       
       router.push('/dashboard');
@@ -80,7 +86,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const logout = () => {
-    // Limpiar cookie y estado
     document.cookie = "auth_session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
     setIsAuthenticated(false);
     setUserEmail(null);
@@ -121,7 +126,7 @@ export const AuthGuard = ({ children }: { children: ReactNode }) => {
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>
-            <p className="text-slate-400 text-[10px] font-light uppercase tracking-tight">Verificando Credenciales...</p>
+            <p className="text-slate-400 text-[10px] font-light uppercase tracking-tight">Verificando sesión...</p>
         </div>
       </div>
     );
