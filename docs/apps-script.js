@@ -1,9 +1,9 @@
 /**
  * Google Apps Script para la gestión de usuarios y accesos del Portal Corporativo.
  * 
- * 1. Crea una hoja de cálculo con las pestañas "USUARIOS" e "historial".
- * 2. En "USUARIOS" define las columnas: Nombre, Correo, Rol, Fecha Nacimiento, Cédula (Contraseña), Vicepresidencia, Cargo, Progreso, Pólizas, Suscrito, Cobrado, Categoría.
- * 3. En "historial" define las columnas: Timestamp, Correo, Cédula Intentada, Estatus, Datos Retornados.
+ * 1. Crea una hoja de cálculo con las pestañas "USUARIOS" e "HISTORIAL".
+ * 2. En "USUARIOS" define las columnas: Nombre (A), Correo (B), Rol (C), Fecha Nacimiento (D), Cédula (E).
+ * 3. En "HISTORIAL" define las columnas: Timestamp, Correo, Cédula Intentada, Estatus, Datos Retornados.
  * 4. Despliega este script como "Aplicación Web" con acceso para "Cualquier persona".
  */
 
@@ -29,11 +29,11 @@ function doPost(e) {
 function handleLogin(email, password) {
   const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
   const userSheet = ss.getSheetByName('USUARIOS');
-  const historySheet = ss.getSheetByName('historial');
+  const historySheet = ss.getSheetByName('HISTORIAL');
   const data = userSheet.getDataRange().getValues();
   
   let user = null;
-  // Buscamos coincidencia de Correo (columna 2) y Cédula/Contraseña (columna 5)
+  // Buscamos coincidencia de Correo (columna B / índice 1) y Cédula/Contraseña (columna E / índice 4)
   for (let i = 1; i < data.length; i++) {
     const sheetEmail = data[i][1].toString().toLowerCase().trim();
     const inputEmail = email.toString().toLowerCase().trim();
@@ -47,14 +47,8 @@ function handleLogin(email, password) {
         email: data[i][1],
         role: data[i][2],
         birthDate: data[i][3],
-        vicepresidencia: data[i][5],
-        cargo: data[i][6],
-        progreso: Number(data[i][7] || 0),
-        prog_pol: Number(data[i][8] || 0),
-        prog_sus: Number(data[i][9] || 0),
-        prog_cob: Number(data[i][10] || 0),
-        avatar: data[i][11] || 'Base', // La categoría (Oro, Plata, Bronce, Base)
-        xp: Number(data[i][7] || 0) * 10, // Ejemplo: XP basado en progreso
+        avatar: 'Base',
+        xp: 0,
         level: 1
       };
       break;
@@ -87,13 +81,7 @@ function handleGetData() {
       name: data[i][0],
       email: data[i][1],
       role: data[i][2],
-      vicepresidencia: data[i][5],
-      cargo: data[i][6],
-      progreso: Number(data[i][7] || 0),
-      prog_pol: Number(data[i][8] || 0),
-      prog_sus: Number(data[i][9] || 0),
-      prog_cob: Number(data[i][10] || 0),
-      avatar: data[i][11] || 'Base'
+      avatar: 'Base'
     });
   }
 

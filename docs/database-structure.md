@@ -11,17 +11,10 @@ Para que el portal funcione correctamente, tu hoja de cálculo debe tener las si
 | C | **Rol** | Rol en el sistema | `Asesor` |
 | D | **Fecha Nacimiento** | Fecha para el calendario | `15/08/1985` |
 | E | **Cédula** | Se usará como contraseña de acceso | `12345678` |
-| F | **Vicepresidencia** | Unidad organizativa | `VP. Comercial Gran Caracas` |
-| G | **Cargo** | Cargo oficial (ADMINISTRADOR para ver estadísticas) | `ASESOR INTEGRAL` |
-| H | **Progreso** | Porcentaje de logro total (0-100) | `65.40` |
-| I | **Pólizas** | Porcentaje de logro en pólizas | `70` |
-| J | **Suscrito** | Porcentaje de logro suscrito | `60` |
-| K | **Cobrado** | Porcentaje de logro cobrado | `66` |
-| L | **Categoría** | Categoría para el avatar | `Oro`, `Plata`, `Bronce` o `Base` |
 
 ---
 
-## Hoja 2: `historial`
+## Hoja 2: `HISTORIAL`
 
 Esta hoja se usa para la auditoría de accesos. Solo crea los encabezados, el script se encarga de llenarla.
 
@@ -37,7 +30,7 @@ Esta hoja se usa para la auditoría de accesos. Solo crea los encabezados, el sc
 
 ### Pasos para configurar:
 1. Crea una nueva Google Sheet.
-2. Nombra las pestañas como `USUARIOS` e `historial`.
+2. Nombra las pestañas como `USUARIOS` e `HISTORIAL` (en mayúsculas).
 3. Copia el código de `docs/apps-script.js` en **Extensiones > Apps Script**.
 4. Sustituye `TU_ID_DE_HOJA_DE_CALCULO_AQUI` por el ID que aparece en la URL de tu hoja.
 5. Haz clic en **Implementar > Nueva implementación**.
