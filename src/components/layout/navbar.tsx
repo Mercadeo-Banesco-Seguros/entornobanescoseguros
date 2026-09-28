@@ -94,7 +94,8 @@ export default function Navbar() {
     };
   }, []);
 
-  if (!mounted || !currentUser) return null;
+  // Ocultar Navbar si no está montado, si no hay usuario, o si estamos en el login
+  if (!mounted || !currentUser || pathname === '/login') return null;
 
   const fullTimeFormatted = currentTime.toLocaleTimeString('en-US', { 
     hour: 'numeric', 
