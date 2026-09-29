@@ -4,44 +4,9 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import { useRouter } from 'next/navigation';
 
 /**
- * @fileOverview Contexto de autenticación.
- * Gestiona el estado del usuario, el inicio de sesión y la protección de rutas.
+ * @fileOverview Contexto de autenticación (Borrador para rediseño).
+ * Se ha eliminado la lógica de conexión antigua para implementar la nueva propuesta.
  */
-
-const api = {
-  async login(email: string, password: string): Promise<{ success: boolean; message: string }> {
-    // Intentar obtener la URL de las variables de entorno
-    const scriptUrl = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL;
-    
-    if (!scriptUrl || scriptUrl.includes("TU_URL")) {
-      return { success: false, message: "URL de servidor no configurada en .env.local" };
-    }
-    
-    try {
-      // Usamos una petición POST simple (sin headers complejos) para evitar el bloqueo de CORS
-      // Google Apps Script maneja mejor las peticiones cuando se envían como texto plano
-      const response = await fetch(scriptUrl, {
-        method: 'POST',
-        mode: 'cors',
-        body: JSON.stringify({ action: 'login', email, password }),
-      });
-      
-      // IMPORTANTE: Leemos como texto primero. Google Apps Script con MimeType.TEXT
-      // es la única forma fiable de evitar errores de CORS en entornos restringidos.
-      const text = await response.text();
-      
-      try {
-        return JSON.parse(text);
-      } catch (e) {
-        console.error("Error al parsear respuesta:", text);
-        return { success: false, message: "Respuesta inválida del servidor." };
-      }
-    } catch (error) {
-      console.error("Error de red:", error);
-      return { success: false, message: "Error de conexión con el servidor. Verifique su conexión a la red interna." };
-    }
-  },
-};
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -60,7 +25,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
 
   useEffect(() => {
-    // Comprobar persistencia
+    // Comprobar persistencia básica
     const sessionEmail = sessionStorage.getItem('userEmail');
     if (sessionEmail) {
       setIsAuthenticated(true);
@@ -70,18 +35,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const login = async (email: string, password: string) => {
-    const response = await api.login(email, password);
-    if (response.success) {
-      setIsAuthenticated(true);
-      setUserEmail(email);
-      sessionStorage.setItem('userEmail', email);
-      
-      // Establecer cookie para el middleware
-      document.cookie = "auth_session=true; path=/; max-age=86400; SameSite=Lax";
-      
-      router.push('/dashboard');
-    } else {
-      throw new Error(response.message || "Credenciales incorrectas.");
+    // Lógica de login eliminada para rediseño desde cero.
+    console.log("Intento de login con:", email, password);
+    
+    // Simulación temporal para evitar errores de compilación
+    if (email && password) {
+       console.warn("Esperando instrucciones para implementar el nuevo flujo de conexión.");
     }
   };
 
