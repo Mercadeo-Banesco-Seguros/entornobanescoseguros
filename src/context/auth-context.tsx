@@ -4,8 +4,8 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import { useRouter } from 'next/navigation';
 
 /**
- * @fileOverview Contexto de autenticación rediseñado desde cero.
- * Gestión de sesión mediante Google Apps Script y persistencia local.
+ * @fileOverview Contexto de autenticación rediseñado.
+ * Gestión de sesión mediante Google Apps Script y redirección automática.
  */
 
 interface User {
@@ -36,22 +36,26 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const SCRIPT_URL = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL;
 
   useEffect(() => {
-    // Verificar sesión al cargar
+    // Verificar sesión al cargar la página
     const savedUser = sessionStorage.getItem('bs_user');
     if (savedUser) {
-      setCurrentUser(JSON.parse(savedUser));
-      setIsAuthenticated(true);
+      try {
+        const user = JSON.parse(savedUser);
+        setCurrentUser(user);
+        setIsAuthenticated(true);
+      } catch (e) {
+        sessionStorage.removeItem('bs_user');
+      }
     }
     setIsLoading(false);
   }, []);
 
   const login = async (username: string, cedula: string) => {
     if (!SCRIPT_URL) {
-      throw new Error("Configuración del servidor no encontrada (.env)");
+      throw new Error("Configuración del servidor no encontrada (.env.local)");
     }
 
     try {
-      // Petición POST simple para evitar problemas de CORS corporativo
       const response = await fetch(SCRIPT_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
@@ -63,22 +67,24 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       if (data.success) {
         const user = data.user;
         
-        // Persistencia
+        // 1. Guardar en Storage para persistencia local
         sessionStorage.setItem('bs_user', JSON.stringify(user));
         
-        // Crear cookie para el middleware de NextJS
+        // 2. Crear cookie para que el middleware de NextJS permita el paso
         document.cookie = `auth_session=active; path=/; max-age=${60 * 60 * 24}; SameSite=Lax`;
         
+        // 3. Actualizar estado global
         setCurrentUser(user);
         setIsAuthenticated(true);
         
-        router.push('/dashboard');
+        // 4. Redirigir a la Home (página principal)
+        router.push('/');
       } else {
-        throw new Error(data.message || "Error al validar identidad.");
+        throw new Error(data.message || "Usuario o cédula incorrectos.");
       }
     } catch (error) {
       console.error("Auth Error:", error);
-      throw error instanceof Error ? error : new Error("No se pudo conectar con el servidor.");
+      throw error instanceof Error ? error : new Error("Error de comunicación con el circuito.");
     }
   };
 
@@ -87,7 +93,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     sessionStorage.removeItem('bs_user');
     setCurrentUser(null);
     setIsAuthenticated(false);
-    router.push('/login');
+    router.replace('/login');
   };
 
   return (
@@ -118,7 +124,7 @@ export const AuthGuard = ({ children }: { children: ReactNode }) => {
       <div className="flex items-center justify-center min-h-screen bg-white">
         <div className="flex flex-col items-center space-y-4">
           <div className="w-10 h-10 border-2 border-[#003B73] border-t-transparent rounded-full animate-spin"></div>
-          <p className="text-[10px] text-slate-400 font-light uppercase tracking-widest">Validando Circuito...</p>
+          <p className="text-[10px] text-slate-400 font-light uppercase tracking-widest">Validando Acceso...</p>
         </div>
       </div>
     );
