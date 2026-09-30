@@ -4,8 +4,8 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import { useRouter } from 'next/navigation';
 
 /**
- * @fileOverview Contexto de autenticación robusto.
- * Maneja la comunicación con Google Apps Script y la redirección forzada.
+ * @fileOverview Contexto de autenticación optimizado para previsualización en iframes.
+ * Prioriza sessionStorage para la persistencia del estado en el editor.
  */
 
 interface User {
@@ -35,6 +35,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const SCRIPT_URL = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL;
 
   useEffect(() => {
+    // Hidratación inmediata desde sessionStorage
     const savedUser = sessionStorage.getItem('bs_user');
     if (savedUser) {
       try {
@@ -50,7 +51,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const login = async (username: string, cedula: string) => {
     if (!SCRIPT_URL) {
-      throw new Error("URL del servidor no configurada en .env.local");
+      throw new Error("URL del servidor no configurada.");
     }
 
     try {
@@ -66,32 +67,28 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       try {
         data = JSON.parse(text);
       } catch (e) {
-        throw new Error("La respuesta del servidor no es válida.");
+        throw new Error("Error en la respuesta del servidor.");
       }
 
       if (data.success && data.user) {
-        const user = data.user;
+        // 1. Guardar en sessionStorage (vital para iframes)
+        sessionStorage.setItem('bs_user', JSON.stringify(data.user));
         
-        // 1. Guardar sesión en el almacenamiento local del navegador
-        sessionStorage.setItem('bs_user', JSON.stringify(user));
+        // 2. Intentar establecer cookie con SameSite=None para máxima compatibilidad
+        document.cookie = `auth_session=active; path=/; max-age=${60 * 60 * 24}; SameSite=None; Secure`;
         
-        // 2. Establecer cookie para el middleware (necesaria para el acceso a rutas)
-        // Usamos SameSite=None y Secure para máxima compatibilidad en iframes de previsualización
-        document.cookie = `auth_session=active; path=/; max-age=${60 * 60 * 24}; SameSite=Lax`;
-        
-        // 3. Actualizar estado local
-        setCurrentUser(user);
+        // 3. Actualizar estado y redirigir
+        setCurrentUser(data.user);
         setIsAuthenticated(true);
         
-        // 4. Redirección forzada mediante recarga de ventana
-        // Esto soluciona el problema de quedarse "pegado" en el login en el editor
-        window.location.replace('/');
+        // Usamos location.href para limpiar el estado del router y forzar la entrada
+        window.location.href = '/';
       } else {
         throw new Error(data.message || "Usuario o cédula incorrectos.");
       }
     } catch (error) {
       console.error("Auth Error:", error);
-      throw error instanceof Error ? error : new Error("Error de comunicación con el circuito.");
+      throw error instanceof Error ? error : new Error("Error de conexión con el circuito.");
     }
   };
 
@@ -100,7 +97,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     sessionStorage.removeItem('bs_user');
     setCurrentUser(null);
     setIsAuthenticated(false);
-    window.location.replace('/login');
+    window.location.href = '/login';
   };
 
   return (
