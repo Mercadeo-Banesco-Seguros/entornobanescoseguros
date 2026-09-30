@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 
 /**
  * @fileOverview Contexto de autenticación robusto.
- * Maneja la comunicación con Google Apps Script y la redirección atómica.
+ * Maneja la comunicación con Google Apps Script y la redirección forzada.
  */
 
 interface User {
@@ -31,7 +31,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState<User | null>(null);
-  const router = useRouter();
 
   const SCRIPT_URL = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL;
 
@@ -67,24 +66,26 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       try {
         data = JSON.parse(text);
       } catch (e) {
-        throw new Error("La respuesta del servidor no es un JSON válido. Revisa el Apps Script.");
+        throw new Error("La respuesta del servidor no es válida.");
       }
 
       if (data.success && data.user) {
         const user = data.user;
         
-        // 1. Guardar sesión
+        // 1. Guardar sesión en el almacenamiento local del navegador
         sessionStorage.setItem('bs_user', JSON.stringify(user));
         
-        // 2. Establecer cookie para el middleware
+        // 2. Establecer cookie para el middleware (necesaria para el acceso a rutas)
+        // Usamos SameSite=None y Secure para máxima compatibilidad en iframes de previsualización
         document.cookie = `auth_session=active; path=/; max-age=${60 * 60 * 24}; SameSite=Lax`;
         
-        // 3. Actualizar estado y redirigir
+        // 3. Actualizar estado local
         setCurrentUser(user);
         setIsAuthenticated(true);
         
-        // Redirigir forzosamente a la Home
-        router.push('/');
+        // 4. Redirección forzada mediante recarga de ventana
+        // Esto soluciona el problema de quedarse "pegado" en el login en el editor
+        window.location.replace('/');
       } else {
         throw new Error(data.message || "Usuario o cédula incorrectos.");
       }
@@ -99,7 +100,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     sessionStorage.removeItem('bs_user');
     setCurrentUser(null);
     setIsAuthenticated(false);
-    router.replace('/login');
+    window.location.replace('/login');
   };
 
   return (
@@ -130,7 +131,7 @@ export const AuthGuard = ({ children }: { children: ReactNode }) => {
       <div className="flex items-center justify-center min-h-screen bg-white">
         <div className="flex flex-col items-center space-y-4">
           <div className="w-10 h-10 border-2 border-[#003B73] border-t-transparent rounded-full animate-spin"></div>
-          <p className="text-[10px] text-slate-400 font-light uppercase tracking-widest">Validando Acceso...</p>
+          <p className="text-[10px] text-slate-400 font-light uppercase tracking-widest">Iniciando Circuito...</p>
         </div>
       </div>
     );
