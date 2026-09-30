@@ -4,8 +4,8 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import { useRouter } from 'next/navigation';
 
 /**
- * @fileOverview Contexto de autenticación optimizado para previsualización en iframes.
- * Prioriza sessionStorage para la persistencia del estado en el editor.
+ * @fileOverview Contexto de autenticación optimizado para el Portal Corporativo.
+ * Garantiza que la redirección post-login sea a la página de Inicio.
  */
 
 interface User {
@@ -100,7 +100,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         
         setCurrentUser(userWithMeta);
         setIsAuthenticated(true);
-        window.location.href = '/nosotros';
+        // Redirección por defecto a Inicio (/)
+        window.location.href = '/';
       } else {
         throw new Error(data.message || "Usuario o cédula incorrectos.");
       }
@@ -112,8 +113,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const fetchUsers = async () => {
     setLoading(true);
-    // En una implementación real, esto consultaría a Google Sheets
-    // Por ahora usamos los datos mockeados si no hay API disponible
     const { mockUsers } = await import('@/lib/data');
     setUsers(mockUsers);
     setLoading(false);
