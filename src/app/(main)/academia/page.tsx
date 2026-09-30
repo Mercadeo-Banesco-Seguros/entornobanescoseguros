@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -323,7 +324,7 @@ export default function AcademiaPage() {
                 const img = PlaceHolderImages.find(i => i.id === securityStates[activeSecurityIndex].imageId);
                 return img ? (
                   <Image 
-                    src={`${img.imageUrl}&format=png`}
+                    src={img.imageUrl}
                     alt={securityStates[activeSecurityIndex].title}
                     fill
                     className="object-contain"
