@@ -2,14 +2,23 @@ import type { LucideIcon } from 'lucide-react';
 
 export type UserRole = 'Administrador' | 'Usuario';
 
-export type User = {
-  id: string;
+export interface User {
   name: string;
-  email: string;
-  rol: UserRole;
+  username: string;
+  rol: string;
   cargo: string;
+  email: string;
   birthDate?: string;
-};
+  // Campos para compatibilidad con el resto de la app
+  id?: string;
+  avatar?: string;
+  progreso?: number;
+  prog_pol?: number;
+  prog_sus?: number;
+  prog_cob?: number;
+  vicepresidencia?: string;
+  level?: number;
+}
 
 export type NavLink = {
   href: string;
@@ -52,3 +61,12 @@ export type Prize = {
   imageUrl: string;
   category: PrizeCategory['name'];
 };
+
+export interface CarEvolution {
+  id: number;
+  name: string;
+  category: string;
+  progressThreshold: number;
+  imageUrl: string;
+  description: string;
+}

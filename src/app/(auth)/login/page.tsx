@@ -9,9 +9,9 @@ import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
 import { useAuth } from "@/context/auth-context";
 
-function LoginPageContent() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState(""); 
+export default function LoginPage() {
+  const [username, setUsername] = useState("");
+  const [cedula, setCedula] = useState(""); 
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
   const { login } = useAuth();
@@ -20,19 +20,9 @@ function LoginPageContent() {
     e.preventDefault();
     setIsLoading(true);
 
-    if (!email.toLowerCase().endsWith('@banescoseguros.com')) {
-      toast({
-        title: "Dominio no válido",
-        description: "Por favor, utiliza tu correo @banescoseguros.com",
-        variant: "destructive",
-      });
-      setIsLoading(false);
-      return;
-    }
-
     try {
-      await login(email, password);
-      toast({ title: "Bienvenido", description: "Acceso autorizado al circuito." });
+      await login(username, cedula);
+      toast({ title: "Acceso Exitoso", description: "Iniciando secuencia de entrada..." });
     } catch (error) {
       toast({
         title: "Error de acceso",
@@ -53,31 +43,31 @@ function LoginPageContent() {
               Portal Corporativo
             </h1>
             <p className="text-[10px] text-muted-foreground font-light tracking-tight uppercase">
-              Introduce tu correo y cédula para entrar
+              Usuario y Cédula para comenzar la carrera
             </p>
           </div>
           <form onSubmit={handleSubmit} className="grid gap-4">
             <div className="grid gap-1.5">
-              <Label htmlFor="email" className="text-[10px] font-light uppercase tracking-tight">Correo Institucional</Label>
+              <Label htmlFor="username" className="text-[10px] font-light uppercase tracking-tight">Usuario Enlace</Label>
               <Input
-                id="email"
-                type="email"
-                placeholder="usuario@banescoseguros.com"
+                id="username"
+                type="text"
+                placeholder="Ej: rduque"
                 required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 disabled={isLoading}
                 className="h-8 text-xs font-light focus-visible:ring-1 border-slate-100"
               />
             </div>
             <div className="grid gap-1.5">
-              <Label htmlFor="password" className="text-[10px] font-light uppercase tracking-tight">Cédula de Identidad</Label>
+              <Label htmlFor="cedula" className="text-[10px] font-light uppercase tracking-tight">Cédula de Identidad</Label>
               <Input
-                id="password"
+                id="cedula"
                 type="password"
                 required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={cedula}
+                onChange={(e) => setCedula(e.target.value)}
                 disabled={isLoading}
                 placeholder="Sin puntos ni guiones"
                 className="h-8 text-xs font-light focus-visible:ring-1 border-slate-100"
@@ -85,25 +75,21 @@ function LoginPageContent() {
             </div>
             <Button type="submit" className="w-full h-8 text-xs font-light mt-2 bg-[#003B73] hover:bg-[#002D54]" disabled={isLoading}>
               {isLoading && <Loader2 className="mr-2 h-3 w-3 animate-spin" />}
-              Entrar al Portal
+              Entrar al Circuito
             </Button>
           </form>
         </div>
       </div>
-      <div className="hidden lg:block relative overflow-hidden">
+      <div className="hidden lg:block relative overflow-hidden bg-[#F8FAFC]">
         <Image
-          src="https://docs.google.com/drawings/d/e/2PACX-1vQR7o46FhR0B1yJQHHz1pFafgj7M1PTDXj1CzioZ8t4B9nIhzuVNVuUZRXUaJXLJCUC1teJ_icZFlya/pub?w=960&h=720&format=png"
+          src="https://www.banescoseguros.com/wp-content/uploads/2025/11/portadaVF.png"
           alt="Banner Corporativo"
           fill
           unoptimized
-          className="object-cover"
+          className="object-contain p-12"
           priority
         />
       </div>
     </div>
   );
-}
-
-export default function LoginPage() {
-    return <LoginPageContent />;
 }
