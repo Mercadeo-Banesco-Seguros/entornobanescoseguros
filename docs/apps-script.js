@@ -3,28 +3,32 @@ const SH_USUARIOS = "USUARIOS";
 const SH_HISTORIAL = "HISTORIAL";
 
 /**
- * Recibe las peticiones de inicio de sesión desde el portal.
+ * Responde a peticiones GET (útil para pruebas o redirecciones).
+ */
+function doGet(e) {
+  return handleResponse({ success: true, message: "Servidor de Autenticación ACTIVO", status: "OK" });
+}
+
+/**
+ * Responde a peticiones POST (donde viajan las credenciales).
  */
 function doPost(e) {
-  let res;
   try {
     const data = JSON.parse(e.postData.contents);
     
     if (data.action === 'login') {
-      res = handleLogin(data.username, data.password);
+      const res = handleLogin(data.username, data.password);
+      return handleResponse(res);
     } else {
-      res = { success: false, message: "Acción no reconocida." };
+      return handleResponse({ success: false, message: "Acción no reconocida." });
     }
   } catch (err) {
-    res = { success: false, message: "Error en el servidor: " + err.toString() };
+    return handleResponse({ success: false, message: "Error en el servidor: " + err.toString() });
   }
-
-  return ContentService.createTextOutput(JSON.stringify(res))
-    .setMimeType(ContentService.MimeType.JSON);
 }
 
 /**
- * Valida credenciales y registra en historial.
+ * Función central para validar credenciales.
  */
 function handleLogin(usuario, cedula) {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
@@ -43,7 +47,7 @@ function handleLogin(usuario, cedula) {
         rol: row[2],
         birthDate: row[3],
         cargo: row[4],
-        email: row[1] // Usamos el usuario como identificador único
+        email: row[1] 
       };
 
       registrarHistorial(usuario, "LOGIN", "ÉXITO", "Acceso concedido al portal.");
@@ -57,7 +61,6 @@ function handleLogin(usuario, cedula) {
 
 /**
  * Registra cada intento en la hoja HISTORIAL.
- * Estructura: Timestamp, Correo, Acción, Estatus, Detalles
  */
 function registrarHistorial(correo, accion, estatus, detalles) {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
@@ -72,9 +75,9 @@ function registrarHistorial(correo, accion, estatus, detalles) {
 }
 
 /**
- * Función simple para verificar que el script está conectado.
+ * Asegura que la respuesta sea siempre JSON válido.
  */
-function doGet() {
-  return ContentService.createTextOutput("Servidor de Autenticación ACTIVO")
-    .setMimeType(ContentService.MimeType.TEXT);
+function handleResponse(content) {
+  return ContentService.createTextOutput(JSON.stringify(content))
+    .setMimeType(ContentService.MimeType.JSON);
 }

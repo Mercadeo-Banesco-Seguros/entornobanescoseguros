@@ -4,8 +4,8 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import { useRouter } from 'next/navigation';
 
 /**
- * @fileOverview Contexto de autenticación rediseñado.
- * Gestión de sesión mediante Google Apps Script y redirección automática.
+ * @fileOverview Contexto de autenticación robusto.
+ * Maneja la comunicación con Google Apps Script y la redirección atómica.
  */
 
 interface User {
@@ -36,7 +36,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const SCRIPT_URL = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL;
 
   useEffect(() => {
-    // Verificar sesión al cargar la página
     const savedUser = sessionStorage.getItem('bs_user');
     if (savedUser) {
       try {
@@ -52,7 +51,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const login = async (username: string, cedula: string) => {
     if (!SCRIPT_URL) {
-      throw new Error("Configuración del servidor no encontrada (.env.local)");
+      throw new Error("URL del servidor no configurada en .env.local");
     }
 
     try {
@@ -62,22 +61,29 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         body: JSON.stringify({ action: 'login', username, password: cedula }),
       });
 
-      const data = await response.json();
+      const text = await response.text();
+      let data;
+      
+      try {
+        data = JSON.parse(text);
+      } catch (e) {
+        throw new Error("La respuesta del servidor no es un JSON válido. Revisa el Apps Script.");
+      }
 
-      if (data.success) {
+      if (data.success && data.user) {
         const user = data.user;
         
-        // 1. Guardar en Storage para persistencia local
+        // 1. Guardar sesión
         sessionStorage.setItem('bs_user', JSON.stringify(user));
         
-        // 2. Crear cookie para que el middleware de NextJS permita el paso
+        // 2. Establecer cookie para el middleware
         document.cookie = `auth_session=active; path=/; max-age=${60 * 60 * 24}; SameSite=Lax`;
         
-        // 3. Actualizar estado global
+        // 3. Actualizar estado y redirigir
         setCurrentUser(user);
         setIsAuthenticated(true);
         
-        // 4. Redirigir a la Home (página principal)
+        // Redirigir forzosamente a la Home
         router.push('/');
       } else {
         throw new Error(data.message || "Usuario o cédula incorrectos.");
