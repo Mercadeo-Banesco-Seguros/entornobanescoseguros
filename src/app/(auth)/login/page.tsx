@@ -22,7 +22,7 @@ export default function LoginPage() {
 
     try {
       await login(username, cedula);
-      toast({ title: "Acceso Exitoso", description: "Iniciando secuencia de entrada..." });
+      toast({ title: "Acceso Exitoso", description: "Iniciando sesión corporativa..." });
     } catch (error) {
       toast({
         title: "Error de acceso",
@@ -43,7 +43,7 @@ export default function LoginPage() {
               Portal Corporativo
             </h1>
             <p className="text-[10px] text-muted-foreground font-light tracking-tight uppercase">
-              Usuario y Cédula para comenzar la carrera
+              Usuario y Cédula para acceder al sistema
             </p>
           </div>
           <form onSubmit={handleSubmit} className="grid gap-4">
@@ -75,7 +75,7 @@ export default function LoginPage() {
             </div>
             <Button type="submit" className="w-full h-8 text-xs font-light mt-2 bg-[#003B73] hover:bg-[#002D54]" disabled={isLoading}>
               {isLoading && <Loader2 className="mr-2 h-3 w-3 animate-spin" />}
-              Entrar al Circuito
+              Entrar al Portal
             </Button>
           </form>
         </div>

@@ -11,7 +11,7 @@ export default function CajeroPage() {
   const [selectedPrize, setSelectedPrize] = useState<Prize | null>(null);
 
   if (loading) {
-    return <div>Cargando premios...</div>;
+    return <div className="py-20 text-center text-slate-400 font-light">Cargando premios...</div>;
   }
 
   const primerLugar = prizes.find(p => p.id === 1);
@@ -26,7 +26,7 @@ export default function CajeroPage() {
             ¡Descubre la lista de Premios!
           </h1>
           <p className="text-muted-foreground mt-2 max-w-2xl">
-            Has demostrado tu valía en la pista, ahora es momento de celebrar. Revisa los increíbles premios que te esperan en la meta. ¡Sigue acelerando!
+            Has demostrado tu compromiso con la organización, ahora es momento de celebrar. Revisa los increíbles premios que te esperan al alcanzar tus objetivos. ¡Sigue adelante!
           </p>
         </div>
 

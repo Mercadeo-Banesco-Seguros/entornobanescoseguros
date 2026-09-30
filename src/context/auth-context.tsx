@@ -15,6 +15,14 @@ interface User {
   cargo: string;
   email: string;
   birthDate?: string;
+  id?: string;
+  avatar?: string;
+  progreso?: number;
+  prog_pol?: number;
+  prog_sus?: number;
+  prog_cob?: number;
+  vicepresidencia?: string;
+  level?: number;
 }
 
 interface AuthContextType {
@@ -23,6 +31,13 @@ interface AuthContextType {
   currentUser: User | null;
   login: (username: string, cedula: string) => Promise<void>;
   logout: () => void;
+  users: User[];
+  fetchUsers: () => Promise<void>;
+  loading: boolean;
+  error: string | null;
+  vicepresidencias: string[];
+  levels: any[];
+  prizes: any[];
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -31,11 +46,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [users, setUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const SCRIPT_URL = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL;
 
   useEffect(() => {
-    // Hidratación inmediata desde sessionStorage
     const savedUser = sessionStorage.getItem('bs_user');
     if (savedUser) {
       try {
@@ -71,25 +88,35 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }
 
       if (data.success && data.user) {
-        // 1. Guardar en sessionStorage (vital para iframes)
-        sessionStorage.setItem('bs_user', JSON.stringify(data.user));
+        const userWithMeta = {
+          ...data.user,
+          avatar: data.user.rol === 'Administrador' ? 'Oro' : (data.user.avatar || 'Base'),
+          progreso: data.user.progreso || 0,
+          id: data.user.username || data.user.email
+        };
         
-        // 2. Intentar establecer cookie con SameSite=None para máxima compatibilidad
+        sessionStorage.setItem('bs_user', JSON.stringify(userWithMeta));
         document.cookie = `auth_session=active; path=/; max-age=${60 * 60 * 24}; SameSite=None; Secure`;
         
-        // 3. Actualizar estado y redirigir
-        setCurrentUser(data.user);
+        setCurrentUser(userWithMeta);
         setIsAuthenticated(true);
-        
-        // Usamos location.href para limpiar el estado del router y forzar la entrada
-        window.location.href = '/';
+        window.location.href = '/nosotros';
       } else {
         throw new Error(data.message || "Usuario o cédula incorrectos.");
       }
     } catch (error) {
       console.error("Auth Error:", error);
-      throw error instanceof Error ? error : new Error("Error de conexión con el circuito.");
+      throw error instanceof Error ? error : new Error("Error de conexión con el servidor corporativo.");
     }
+  };
+
+  const fetchUsers = async () => {
+    setLoading(true);
+    // En una implementación real, esto consultaría a Google Sheets
+    // Por ahora usamos los datos mockeados si no hay API disponible
+    const { mockUsers } = await import('@/lib/data');
+    setUsers(mockUsers);
+    setLoading(false);
   };
 
   const logout = () => {
@@ -100,8 +127,23 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     window.location.href = '/login';
   };
 
+  const contextValue: AuthContextType = {
+    isAuthenticated,
+    isLoading,
+    currentUser,
+    login,
+    logout,
+    users,
+    fetchUsers,
+    loading,
+    error,
+    vicepresidencias: ['Todas', 'VP. Comercial Gran Caracas', 'VP. Comercial Oriente', 'VP. Comercial Zulia - Falcón'],
+    levels: [],
+    prizes: []
+  };
+
   return (
-    <AuthContext.Provider value={{ isAuthenticated, isLoading, currentUser, login, logout }}>
+    <AuthContext.Provider value={contextValue}>
       {children}
     </AuthContext.Provider>
   );
@@ -128,7 +170,7 @@ export const AuthGuard = ({ children }: { children: ReactNode }) => {
       <div className="flex items-center justify-center min-h-screen bg-white">
         <div className="flex flex-col items-center space-y-4">
           <div className="w-10 h-10 border-2 border-[#003B73] border-t-transparent rounded-full animate-spin"></div>
-          <p className="text-[10px] text-slate-400 font-light uppercase tracking-widest">Iniciando Circuito...</p>
+          <p className="text-[10px] text-slate-400 font-light uppercase tracking-widest">Cargando Portal...</p>
         </div>
       </div>
     );

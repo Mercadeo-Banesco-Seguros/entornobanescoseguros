@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useMemo, useState, useEffect } from 'react';
@@ -36,7 +35,7 @@ export default function EstadisticasPage() {
 
   useEffect(() => {
     if (currentUser?.cargo !== 'ADMINISTRADOR') {
-      router.replace('/inicio');
+      router.replace('/nosotros');
     }
   }, [currentUser, router]);
 
@@ -169,79 +168,79 @@ export default function EstadisticasPage() {
   return (
     <div className="space-y-8">
       <header>
-        <h1 className="text-4xl font-bold text-foreground">Estadísticas</h1>
-        <p className="text-muted text-lg mt-1">Análisis de rendimiento en el circuito.</p>
+        <h1 className="text-4xl font-bold text-foreground tracking-tighter">Estadísticas de Gestión</h1>
+        <p className="text-muted text-lg mt-1 font-light">Análisis de rendimiento corporativo institucional.</p>
       </header>
       
       <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
-        <Card>
+        <Card className="border-none shadow-sm bg-white rounded-2xl">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Suscrito</CardTitle>
+            <CardTitle className="text-xs font-medium uppercase tracking-wider text-slate-400">Total Suscrito</CardTitle>
             <Select value={suscritoTime} onValueChange={setSuscritoTime}>
-              <SelectTrigger className="text-xs text-muted-foreground bg-secondary px-2 py-1 rounded-full h-auto border-none w-auto gap-1">
+              <SelectTrigger className="text-[10px] text-muted-foreground bg-slate-50 px-2 py-1 rounded-full h-auto border-none w-auto gap-1">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {timeFilters.map(filter => <SelectItem key={filter} value={filter}>{filter}</SelectItem>)}
+                {timeFilters.map(filter => <SelectItem key={filter} value={filter} className="text-xs">{filter}</SelectItem>)}
               </SelectContent>
             </Select>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold tracking-tight">0</div>
-            <p className="text-xs text-muted-foreground flex items-center gap-1">
+            <p className="text-[10px] text-muted-foreground flex items-center gap-1">
               -
             </p>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="border-none shadow-sm bg-white rounded-2xl">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Cobrado</CardTitle>
+            <CardTitle className="text-xs font-medium uppercase tracking-wider text-slate-400">Total Cobrado</CardTitle>
             <Select value={cobradoTime} onValueChange={setCobradoTime}>
-              <SelectTrigger className="text-xs text-muted-foreground bg-secondary px-2 py-1 rounded-full h-auto border-none w-auto gap-1">
+              <SelectTrigger className="text-[10px] text-muted-foreground bg-slate-50 px-2 py-1 rounded-full h-auto border-none w-auto gap-1">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {timeFilters.map(filter => <SelectItem key={filter} value={filter}>{filter}</SelectItem>)}
+                {timeFilters.map(filter => <SelectItem key={filter} value={filter} className="text-xs">{filter}</SelectItem>)}
               </SelectContent>
             </Select>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold tracking-tight">0</div>
-             <p className="text-xs text-muted-foreground flex items-center gap-1">
+             <p className="text-[10px] text-muted-foreground flex items-center gap-1">
                -
             </p>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="border-none shadow-sm bg-white rounded-2xl">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Pólizas</CardTitle>
+            <CardTitle className="text-xs font-medium uppercase tracking-wider text-slate-400">Total Pólizas</CardTitle>
             <Select value={polizasTime} onValueChange={setPolizasTime}>
-              <SelectTrigger className="text-xs text-muted-foreground bg-secondary px-2 py-1 rounded-full h-auto border-none w-auto gap-1">
+              <SelectTrigger className="text-[10px] text-muted-foreground bg-slate-50 px-2 py-1 rounded-full h-auto border-none w-auto gap-1">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {timeFilters.map(filter => <SelectItem key={filter} value={filter}>{filter}</SelectItem>)}
+                {timeFilters.map(filter => <SelectItem key={filter} value={filter} className="text-xs">{filter}</SelectItem>)}
               </SelectContent>
             </Select>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold tracking-tight">0</div>
-            <p className="text-xs text-muted-foreground flex items-center gap-1">
+            <p className="text-[10px] text-muted-foreground flex items-center gap-1">
                -
             </p>
           </CardContent>
         </Card>
       </div>
 
-       <Card className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="md:col-span-1 p-6">
-            <p className="text-sm font-medium text-muted-foreground">Logro Promedio de los Participantes</p>
-            <p className="text-4xl font-bold text-foreground mt-2 tracking-tight">{totalAvgProgress.toFixed(2)}%</p>
-            <p className="text-xs text-muted-foreground flex items-center gap-1 mt-1">
+       <Card className="grid grid-cols-1 md:grid-cols-2 gap-4 border-none shadow-sm bg-white rounded-2xl overflow-hidden">
+        <div className="md:col-span-1 p-8">
+            <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">Logro Promedio Corporativo</p>
+            <p className="text-5xl font-bold text-slate-900 mt-2 tracking-tighter">{totalAvgProgress.toFixed(2)}%</p>
+            <p className="text-[11px] text-slate-500 flex items-center gap-1 mt-2">
                 {monthlyChange.isPositive ? (
-                  <ArrowUp className="h-4 w-4 text-green-600" />
+                  <ArrowUp className="h-3.5 w-3.5 text-green-600" />
                 ) : (
-                  <ArrowDown className="h-4 w-4 text-destructive" />
+                  <ArrowDown className="h-3.5 w-3.5 text-destructive" />
                 )}
                 {monthlyChange.text}
             </p>
@@ -251,32 +250,22 @@ export default function EstadisticasPage() {
                 <ResponsiveContainer width="100%" height="100%">
                     <AreaChart
                         data={areaChartData}
-                        margin={{
-                            top: 10,
-                            right: 30,
-                            left: 0,
-                            bottom: 0,
-                        }}
+                        margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
                     >
                         <defs>
                             <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.4}/>
+                                <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.15}/>
                                 <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
                             </linearGradient>
                         </defs>
-                        <XAxis 
-                          dataKey="month" 
-                          axisLine={false} 
-                          tickLine={false}
-                          tick={false}
-                        />
+                        <XAxis dataKey="month" hide />
                         <Tooltip
                             contentStyle={{
-                                background: "hsl(var(--background))",
-                                border: "1px solid hsl(var(--border))",
-                                borderRadius: "var(--radius)"
+                                background: "white",
+                                border: "none",
+                                borderRadius: "1rem",
+                                boxShadow: "0 10px 25px -5px rgba(0,0,0,0.1)"
                             }}
-                            cursor={{stroke: "hsl(var(--primary))", strokeWidth: 1, strokeDasharray: "3 3"}}
                         />
                         <Area type="monotone" dataKey="value" stroke="hsl(var(--primary))" strokeWidth={2} fillOpacity={1} fill="url(#colorUv)" />
                     </AreaChart>
@@ -285,19 +274,19 @@ export default function EstadisticasPage() {
         </div>
       </Card>
 
-
-      <Card className="overflow-hidden">
+      <Card className="overflow-hidden border-none shadow-sm rounded-3xl">
         <div className="grid grid-cols-1 md:grid-cols-2">
-          <div className="bg-primary text-primary-foreground p-6">
-            <h3 className="text-2xl font-bold mb-6 tracking-tight">Distribución de Logro Promedio por VP</h3>
-            <div className="space-y-4">
+          <div className="bg-[#003B73] text-white p-8">
+            <h3 className="text-2xl font-bold mb-8 tracking-tight leading-none">Distribución de Logro por VP</h3>
+            <div className="space-y-5">
               {vpAvgProgress.map((vp) => (
                 <div key={vp.name} className="grid grid-cols-5 items-center gap-2 text-sm">
-                  <div className="col-span-2 font-semibold text-xs">{vp.name}</div>
+                  <div className="col-span-2 font-light text-[10px] uppercase tracking-wider text-white/70 truncate">{vp.name}</div>
                   <div className="col-span-3">
-                    <div className="h-8 flex items-center relative">
-                        <div className="bg-white h-full rounded-full flex items-center justify-end pr-2" style={{ width: `${(vp.logro / maxLogro) * 90}%` }}>
-                           <span className="text-primary text-xs font-normal">{vp.logro}%</span>
+                    <div className="h-6 flex items-center relative">
+                        <div className="bg-white/20 h-full w-full rounded-full absolute" />
+                        <div className="bg-white h-full rounded-full flex items-center justify-end pr-2 z-10" style={{ width: `${(vp.logro / maxLogro) * 100}%` }}>
+                           <span className="text-[#003B73] text-[9px] font-bold">{vp.logro}%</span>
                         </div>
                     </div>
                   </div>
@@ -305,13 +294,13 @@ export default function EstadisticasPage() {
               ))}
             </div>
           </div>
-          <div className="bg-secondary/50 p-6">
-             <h3 className="text-2xl font-bold mb-6 text-primary tracking-tight">Indicadores de Rendimiento por Logro</h3>
+          <div className="bg-slate-50 p-8">
+             <h3 className="text-2xl font-bold mb-8 text-[#003B73] tracking-tight leading-none">Indicadores Clave</h3>
              <div className="grid grid-cols-3 gap-4 text-center">
               {radialChartData.map((data, index) => (
-                <div key={index} className="flex flex-col items-center">
-                  <h4 className="font-semibold text-foreground text-sm mb-2">{data.name}</h4>
-                  <div className="w-32 h-32 relative">
+                <div key={index} className="flex flex-col items-center gap-3">
+                  <h4 className="font-medium text-slate-500 text-[10px] uppercase tracking-wider h-8 flex items-center justify-center">{data.name}</h4>
+                  <div className="w-24 h-24 relative">
                     <ResponsiveContainer width="100%" height="100%">
                       <PieChart>
                         <Pie
@@ -319,31 +308,29 @@ export default function EstadisticasPage() {
                           dataKey="value"
                           cx="50%"
                           cy="50%"
-                          innerRadius="60%"
-                          outerRadius="80%"
-                          fill="hsl(var(--border))"
+                          innerRadius="70%"
+                          outerRadius="90%"
+                          fill="rgba(0,0,0,0.05)"
                           stroke="none"
-                        >
-                        </Pie>
+                        />
                         <Pie
                           data={[{ value: data.value }]}
                           dataKey="value"
                           cx="50%"
                           cy="50%"
-                          innerRadius="60%"
-                          outerRadius="80%"
+                          innerRadius="70%"
+                          outerRadius="90%"
                           startAngle={90}
                           endAngle={90 - (data.value / 100) * 360}
                           cornerRadius={999}
-                          fill="hsl(var(--primary))"
+                          fill="#0054A6"
                           stroke="none"
-                          paddingAngle={5}
-                        >
-                        </Pie>
+                          paddingAngle={0}
+                        />
                       </PieChart>
                     </ResponsiveContainer>
                     <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="text-3xl font-bold text-primary tracking-tight">{data.value}</span>
+                        <span className="text-xl font-bold text-[#003B73] tracking-tighter">{data.value}%</span>
                     </div>
                   </div>
                 </div>
@@ -353,23 +340,23 @@ export default function EstadisticasPage() {
         </div>
       </Card>
       
-       <Card className="border-0 shadow-none">
-        <CardContent className="p-6">
+       <Card className="border-none shadow-none bg-transparent">
+        <CardContent className="p-0">
           <div className="flex flex-col md:flex-row gap-8 items-start">
-            <div className="w-full md:w-1/2">
-              <div className="flex justify-between items-center mb-6">
+            <div className="w-full md:w-1/2 bg-white rounded-3xl p-8 shadow-sm">
+              <div className="flex justify-between items-center mb-8">
                 <div className="text-left">
-                  <h2 className="text-lg font-bold tracking-tighter">Top 10 Pilotos</h2>
-                  <p className="text-lg font-semibold tracking-tighter text-primary -mt-1">por Logro Promedio</p>
+                  <h2 className="text-lg font-bold tracking-tighter">Top 10 Colaboradores</h2>
+                  <p className="text-xs font-light text-slate-400 uppercase tracking-wider mt-0.5">por desempeño institucional</p>
                 </div>
-                <div className="w-48">
+                <div className="w-44">
                    <Select onValueChange={setSelectedVp} value={selectedVp}>
-                    <SelectTrigger className="bg-primary text-primary-foreground rounded-full" style={{ fontSize: '0.65rem' }}>
+                    <SelectTrigger className="bg-[#003B73] text-white rounded-full h-8 border-none text-[10px]">
                       <SelectValue placeholder="Filtrar por VP" />
                     </SelectTrigger>
                     <SelectContent>
                       {vicepresidencias.map((vp) => (
-                        <SelectItem key={vp} value={vp}>{vp}</SelectItem>
+                        <SelectItem key={vp} value={vp} className="text-xs">{vp}</SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
@@ -379,27 +366,29 @@ export default function EstadisticasPage() {
                 {top10Users.map((user, index) => (
                   <div key={index} className="grid grid-cols-2 items-center gap-4">
                     <div className="col-span-1">
-                      <p className="font-normal text-xs tracking-tight">{user.name}</p>
+                      <p className="font-normal text-xs tracking-tight text-slate-700 truncate">{user.name}</p>
                     </div>
                     <div className="col-span-1">
-                      <div 
-                        className="bg-primary rounded-full h-8 flex items-center justify-end px-2"
-                        style={{ width: `${Math.max(15, user.logro)}%` }} // Asegura un ancho mínimo
-                      >
-                        <span className="text-primary-foreground font-normal text-xs">{user.logro}%</span>
+                      <div className="h-6 w-full bg-slate-50 rounded-full relative overflow-hidden">
+                        <div 
+                          className="bg-[#0054A6] h-full flex items-center justify-end px-2"
+                          style={{ width: `${Math.max(15, user.logro)}%` }}
+                        >
+                          <span className="text-white font-bold text-[9px]">{user.logro}%</span>
+                        </div>
                       </div>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="w-full md:w-1/2 flex justify-center items-center">
+            <div className="w-full md:w-1/2 flex justify-center items-center p-4">
               <Image
                 src={dynamicImageSrc}
-                alt="Imagen de Vicepresidencia"
+                alt="Identidad Corporativa"
                 width={selectedVp === 'Todas' ? 500 : 400}
                 height={selectedVp === 'Todas' ? 500 : 400}
-                className="object-contain"
+                className="object-contain drop-shadow-2xl"
                 key={dynamicImageSrc}
               />
             </div>
@@ -408,3 +397,4 @@ export default function EstadisticasPage() {
       </Card>
     </div>
   );
+}

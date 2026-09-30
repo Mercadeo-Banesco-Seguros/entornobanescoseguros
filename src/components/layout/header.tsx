@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from 'next/link';
@@ -37,7 +36,7 @@ export default function Header() {
               />
                <Image 
                 src="https://www.banescoseguros.com/wp-content/uploads/2025/11/logo-circuito.png"
-                alt="Circuito Banesco Seguros Logo"
+                alt="Portal Corporativo Banesco Seguros"
                 width={180}
                 height={40}
                 className="hidden sm:inline"
@@ -89,7 +88,7 @@ export default function Header() {
                   {currentUser.cargo === 'ADMINISTRADOR' ? (
                     <p className="text-xs text-white/80">Administrador</p>
                   ) : (
-                    <p className="text-xs text-white/80">{(currentUser.progreso || 0).toFixed(2)}% de Progreso</p>
+                    <p className="text-xs text-white/80">{(currentUser.progreso || 0).toFixed(2)}% de Logro</p>
                   )}
                 </div>
                 <Avatar>
