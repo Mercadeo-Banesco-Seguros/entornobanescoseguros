@@ -54,7 +54,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [error, setError] = React.useState<string | null>(null);
 
   const SCRIPT_URL = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL;
-  // Nueva URL para el script de calendario independiente
   const CALENDAR_SCRIPT_URL = process.env.NEXT_PUBLIC_CALENDAR_SCRIPT_URL;
 
   React.useEffect(() => {
