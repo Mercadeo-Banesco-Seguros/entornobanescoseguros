@@ -55,9 +55,15 @@ export default function CalendarioPage() {
 
   const loadData = React.useCallback(async () => {
     setLoading(true);
-    const data = await fetchCalendarData();
-    setCalendarData(data);
-    setLoading(false);
+    try {
+      const data = await fetchCalendarData();
+      setCalendarData(Array.isArray(data) ? data : []);
+    } catch (e) {
+      console.error("Error loading calendar data:", e);
+      setCalendarData([]);
+    } finally {
+      setLoading(false);
+    }
   }, [fetchCalendarData]);
 
   React.useEffect(() => {
@@ -90,18 +96,19 @@ export default function CalendarioPage() {
 
   const getDayData = (day: number, month: number, year: number) => {
     const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-    return calendarData.find(d => d.date === dateStr) || { events: [], birthdays: [] };
+    const data = (calendarData || []).find(d => d && d.date === dateStr);
+    return data || { events: [], birthdays: [] };
   };
 
   const handleDayClick = (day: number, month: number, year: number) => {
     const data = getDayData(day, month, year);
     const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-    setSelectedDay({ day, month, year, dateStr, events: data.events, birthdays: data.birthdays });
+    setSelectedDay({ day, month, year, dateStr, events: data.events || [], birthdays: data.birthdays || [] });
     
     if (isAdmin) {
       setEditFom({
-        events: [...data.events, '', '', '', '', ''].slice(0, 5),
-        birthdays: [...data.birthdays, '', '', '', '', ''].slice(0, 5)
+        events: [...(data.events || []), '', '', '', '', ''].slice(0, 5),
+        birthdays: [...(data.birthdays || []), '', '', '', '', ''].slice(0, 5)
       });
     }
   };
@@ -111,8 +118,8 @@ export default function CalendarioPage() {
     setSaving(true);
     try {
       const filteredUpdates = {
-        events: editForm.events.filter(e => e.trim() !== ''),
-        birthdays: editForm.birthdays.filter(b => b.trim() !== '')
+        events: editForm.events.filter(e => e && e.trim() !== ''),
+        birthdays: editForm.birthdays.filter(b => b && b.trim() !== '')
       };
       await updateCalendarDay(selectedDay.dateStr, filteredUpdates);
       toast({ title: "Guardado", description: "El calendario se ha actualizado correctamente." });
@@ -180,12 +187,12 @@ export default function CalendarioPage() {
                   </div>
 
                   <div className="space-y-1.5">
-                    {dayData.events.map((ev: string, i: number) => (
+                    {(dayData.events || []).map((ev: string, i: number) => (
                       <div key={i} className="flex items-center gap-1.5 px-2 py-1.5 rounded-full text-[8px] font-light leading-none truncate max-w-full bg-[#8abaff] text-white shadow-sm border border-transparent">
                         <span className="truncate">{ev}</span>
                       </div>
                     ))}
-                    {dayData.birthdays.map((bd: string, i: number) => (
+                    {(dayData.birthdays || []).map((bd: string, i: number) => (
                       <div key={i} className="flex items-center gap-1.5 px-2 py-1.5 rounded-full text-[8px] font-light leading-none truncate max-w-full bg-pink-100 text-pink-500 border-pink-200">
                         <Cake className="w-2.5 h-2.5 shrink-0" />
                         <span className="truncate">{bd}</span>
@@ -256,20 +263,20 @@ export default function CalendarioPage() {
               </div>
             ) : (
               <div className="space-y-3">
-                {selectedDay?.events.length === 0 && selectedDay?.birthdays.length === 0 ? (
+                {(!selectedDay?.events?.length && !selectedDay?.birthdays?.length) ? (
                   <div className="py-10 text-center space-y-2">
                     <CalendarDays className="w-6 h-6 text-slate-200 mx-auto" strokeWidth={1} />
                     <p className="text-slate-400 text-[10px] font-light italic">Sin eventos programados.</p>
                   </div>
                 ) : (
                   <>
-                    {selectedDay?.events.map((ev, i) => (
+                    {(selectedDay?.events || []).map((ev, i) => (
                       <div key={i} className="flex items-center gap-3 p-3 bg-blue-50/40 border border-blue-100/50 rounded-xl">
                         <CalendarDays className="w-3.5 h-3.5 text-blue-500" />
                         <span className="text-[11px] font-medium text-slate-700">{ev}</span>
                       </div>
                     ))}
-                    {selectedDay?.birthdays.map((bd, i) => (
+                    {(selectedDay?.birthdays || []).map((bd, i) => (
                       <div key={i} className="flex items-center gap-3 p-3 bg-pink-50/40 border border-pink-100/50 rounded-xl">
                         <Cake className="w-3.5 h-3.5 text-pink-500" />
                         <span className="text-[11px] font-medium text-slate-700">{bd}</span>

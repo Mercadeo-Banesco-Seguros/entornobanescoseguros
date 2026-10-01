@@ -114,7 +114,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         body: JSON.stringify({ action: 'getCalendar' }),
       });
       const data = await response.json();
-      return data.success ? data.data : [];
+      return (data.success && Array.isArray(data.data)) ? data.data : [];
     } catch (e) {
       console.error("Error fetching calendar:", e);
       return [];
