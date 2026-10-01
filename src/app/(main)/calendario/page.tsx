@@ -117,7 +117,6 @@ export default function CalendarioPage() {
     if (!selectedDay) return;
     setSaving(true);
     try {
-      // Limpiamos espacios vacíos antes de enviar
       const updates = {
         events: editForm.events.map(e => e.trim()),
         birthdays: editForm.birthdays.map(b => b.trim())
@@ -126,7 +125,7 @@ export default function CalendarioPage() {
       await updateCalendarDay(selectedDay.dateStr, updates);
       
       toast({ title: "Guardado", description: "El calendario se ha actualizado correctamente." });
-      await loadData(); // Recargar datos locales
+      await loadData(); 
       setSelectedDay(null);
     } catch (e) {
       toast({ 
@@ -214,7 +213,7 @@ export default function CalendarioPage() {
       </div>
 
       <Dialog open={!!selectedDay} onOpenChange={(open) => !open && setSelectedDay(null)}>
-        <DialogContent className="sm:max-w-[500px] p-8 bg-white rounded-[2rem] border-none shadow-2xl">
+        <DialogContent className="sm:max-w-[500px] p-8 bg-white rounded-[2rem] border-none shadow-2xl font-light tracking-tighter">
           <DialogHeader className="mb-6">
             <DialogTitle className="text-lg font-light tracking-tighter text-slate-800">
               {selectedDay && `${selectedDay.day} de ${months[selectedDay.month % 12]} ${selectedDay.year}`}
@@ -232,7 +231,7 @@ export default function CalendarioPage() {
                   {editForm.events.map((ev, i) => (
                     <Input 
                       key={`ev-${i}`}
-                      placeholder={`Evento ${i+1}`}
+                      placeholder={`Espacio de evento ${i+1}`}
                       value={ev}
                       onChange={(e) => {
                         const newEvents = [...editForm.events];
@@ -248,7 +247,7 @@ export default function CalendarioPage() {
                   {editForm.birthdays.map((bd, i) => (
                     <Input 
                       key={`bd-${i}`}
-                      placeholder={`Nombre del colaborador ${i+1}`}
+                      placeholder={`Nombre del cumpleañero ${i+1}`}
                       value={bd}
                       onChange={(e) => {
                         const newBirthdays = [...editForm.birthdays];
@@ -267,12 +266,12 @@ export default function CalendarioPage() {
                   {saving ? (
                     <>
                       <Loader2 className="w-3 h-3 animate-spin mr-2" />
-                      Sincronizando...
+                      Guardando Cambios...
                     </>
                   ) : (
                     <>
                       <Save className="w-3 h-3 mr-2" />
-                      Guardar Cambios en Base de Datos
+                      Actualizar Base de Datos
                     </>
                   )}
                 </Button>
