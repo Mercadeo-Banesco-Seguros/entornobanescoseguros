@@ -58,34 +58,34 @@ export default function ProfilePage() {
 
         {/* Información Detallada */}
         <div className="lg:col-span-2 space-y-6">
-          <Card className="border border-slate-100 shadow-none bg-white rounded-[2.5rem] p-7">
+          <Card className="border-none shadow-none bg-[#003B73] rounded-[2.5rem] p-7 text-white">
             <CardHeader className="p-0 mb-4">
-              <CardTitle className="text-lg font-light text-slate-900">Datos Corporativos</CardTitle>
+              <CardTitle className="text-lg font-light text-white">Datos Corporativos</CardTitle>
             </CardHeader>
             <CardContent className="p-0 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
               <div className="space-y-1">
-                <span className="text-[8px] text-slate-400 font-light">Nombre completo</span>
-                <p className="text-[10px] text-slate-700 font-light">{currentUser.name}</p>
+                <span className="text-[8px] text-white/50 font-light">Nombre completo</span>
+                <p className="text-[10px] text-white font-light">{currentUser.name}</p>
               </div>
               <div className="space-y-1">
-                <span className="text-[8px] text-slate-400 font-light">Correo electrónico</span>
-                <p className="text-[10px] text-slate-700 font-light">{currentUser.email}</p>
+                <span className="text-[8px] text-white/50 font-light">Correo electrónico</span>
+                <p className="text-[10px] text-white font-light">{currentUser.email}</p>
               </div>
               <div className="space-y-1">
-                <span className="text-[8px] text-slate-400 font-light">Identificación (ID)</span>
-                <p className="text-[10px] text-slate-700 font-light">{currentUser.id}</p>
+                <span className="text-[8px] text-white/50 font-light">Identificación (ID)</span>
+                <p className="text-[10px] text-white font-light">{currentUser.id}</p>
               </div>
               <div className="space-y-1">
-                <span className="text-[8px] text-slate-400 font-light">Rol de sistema</span>
-                <p className="text-[10px] text-slate-700 font-light">{currentUser.rol}</p>
+                <span className="text-[8px] text-white/50 font-light">Rol de sistema</span>
+                <p className="text-[10px] text-white font-light">{currentUser.rol}</p>
               </div>
               <div className="space-y-1">
-                <span className="text-[8px] text-slate-400 font-light">Cargo actual</span>
-                <p className="text-[10px] text-slate-700 font-light">{currentUser.cargo}</p>
+                <span className="text-[8px] text-white/50 font-light">Cargo actual</span>
+                <p className="text-[10px] text-white font-light">{currentUser.cargo}</p>
               </div>
               <div className="space-y-1">
-                <span className="text-[8px] text-slate-400 font-light">Fecha de nacimiento</span>
-                <p className="text-[10px] text-slate-700 font-light">{currentUser.birthDate || 'No especificada'}</p>
+                <span className="text-[8px] text-white/50 font-light">Fecha de nacimiento</span>
+                <p className="text-[10px] text-white font-light">{currentUser.birthDate || 'No especificada'}</p>
               </div>
             </CardContent>
           </Card>
