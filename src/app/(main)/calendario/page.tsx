@@ -229,7 +229,10 @@ export default function CalendarioPage() {
       </div>
 
       <Dialog open={!!selectedDay} onOpenChange={(open) => !open && setSelectedDay(null)}>
-        <DialogContent className="sm:max-w-[500px] p-8 bg-white rounded-[2rem] border-none shadow-2xl font-light tracking-tighter">
+        <DialogContent className={cn(
+          "p-8 bg-white rounded-[2rem] border-none shadow-2xl font-light tracking-tighter",
+          isAdmin ? "sm:max-w-[800px]" : "sm:max-w-[500px]"
+        )}>
           <DialogHeader className="mb-6">
             <DialogTitle className="text-lg font-light tracking-tighter text-slate-800">
               {selectedDay && `${selectedDay.day} de ${months[selectedDay.month % 12]} ${selectedDay.year}`}
@@ -241,71 +244,76 @@ export default function CalendarioPage() {
           
           <div className="space-y-6">
             {isAdmin ? (
-              <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-500">
-                <div className="space-y-3">
-                  <h4 className="text-[10px] font-light tracking-tighter uppercase text-[#0054A6]">Eventos del Día</h4>
-                  {editForm.events.map((ev, i) => (
-                    <div key={`ev-row-${i}`} className="flex gap-2 items-center">
-                      <Input 
-                        placeholder={`Espacio de evento ${i+1}`}
-                        value={ev}
-                        onChange={(e) => {
-                          const newEvents = [...editForm.events];
-                          newEvents[i] = e.target.value;
-                          setEditForm({ ...editForm, events: newEvents });
-                        }}
-                        className="h-8 text-[11px] font-light tracking-tighter focus-visible:ring-1 border-slate-100"
-                      />
-                      {ev && (
-                        <button 
-                          onClick={() => {
+              <div className="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-500">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
+                  {/* Columna de Eventos */}
+                  <div className="space-y-4">
+                    <h4 className="text-[10px] font-bold tracking-tighter uppercase text-[#0054A6] pb-2 border-b border-blue-50">Eventos del Día</h4>
+                    {editForm.events.map((ev, i) => (
+                      <div key={`ev-row-${i}`} className="flex gap-2 items-center">
+                        <Input 
+                          placeholder={`Espacio de evento ${i+1}`}
+                          value={ev}
+                          onChange={(e) => {
                             const newEvents = [...editForm.events];
-                            newEvents[i] = '';
+                            newEvents[i] = e.target.value;
                             setEditForm({ ...editForm, events: newEvents });
                           }}
-                          className="p-1 text-slate-300 hover:text-red-500 transition-colors"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </button>
-                      )}
-                    </div>
-                  ))}
-                </div>
-                <div className="space-y-3">
-                  <h4 className="text-[10px] font-light tracking-tighter uppercase text-pink-500">Cumpleaños</h4>
-                  {editForm.birthdays.map((bd, i) => (
-                    <div key={`bd-row-${i}`} className="flex gap-2 items-center">
-                      <Input 
-                        placeholder={`Nombre del cumpleañero ${i+1}`}
-                        value={bd}
-                        onChange={(e) => {
-                          const newBirthdays = [...editForm.birthdays];
-                          newBirthdays[i] = e.target.value;
-                          setEditForm({ ...editForm, birthdays: newBirthdays });
-                        }}
-                        className="h-8 text-[11px] font-light tracking-tighter focus-visible:ring-1 border-slate-100"
-                      />
-                      {bd && (
-                        <button 
-                          onClick={() => {
+                          className="h-8 text-[11px] font-light tracking-tighter focus-visible:ring-1 border-slate-100"
+                        />
+                        {ev && (
+                          <button 
+                            onClick={() => {
+                              const newEvents = [...editForm.events];
+                              newEvents[i] = '';
+                              setEditForm({ ...editForm, events: newEvents });
+                            }}
+                            className="p-1 text-slate-300 hover:text-red-500 transition-colors"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Columna de Cumpleaños */}
+                  <div className="space-y-4">
+                    <h4 className="text-[10px] font-bold tracking-tighter uppercase text-pink-500 pb-2 border-b border-pink-50">Cumpleaños</h4>
+                    {editForm.birthdays.map((bd, i) => (
+                      <div key={`bd-row-${i}`} className="flex gap-2 items-center">
+                        <Input 
+                          placeholder={`Nombre del cumpleañero ${i+1}`}
+                          value={bd}
+                          onChange={(e) => {
                             const newBirthdays = [...editForm.birthdays];
-                            newBirthdays[i] = '';
+                            newBirthdays[i] = e.target.value;
                             setEditForm({ ...editForm, birthdays: newBirthdays });
                           }}
-                          className="p-1 text-slate-300 hover:text-red-500 transition-colors"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </button>
-                      )}
-                    </div>
-                  ))}
+                          className="h-8 text-[11px] font-light tracking-tighter focus-visible:ring-1 border-slate-100"
+                        />
+                        {bd && (
+                          <button 
+                            onClick={() => {
+                              const newBirthdays = [...editForm.birthdays];
+                              newBirthdays[i] = '';
+                              setEditForm({ ...editForm, birthdays: newBirthdays });
+                            }}
+                            className="p-1 text-slate-300 hover:text-red-500 transition-colors"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        )}
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
-                <div className="flex flex-col gap-3 pt-2">
+                <div className="flex flex-col gap-3 pt-6 border-t border-slate-50">
                   <Button 
                     onClick={handleSave} 
                     disabled={saving} 
-                    className="w-full bg-[#003B73] hover:bg-[#002D54] h-10 text-xs font-light tracking-normal rounded-xl transition-all"
+                    className="w-full bg-[#003B73] hover:bg-[#002D54] h-11 text-xs font-light tracking-normal rounded-xl transition-all"
                   >
                     {saving ? (
                       <>
