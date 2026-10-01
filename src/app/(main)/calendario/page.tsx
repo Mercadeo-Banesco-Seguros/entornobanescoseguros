@@ -15,14 +15,6 @@ import {
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 
-type EventType = 'payment' | 'birthday' | 'holiday' | 'allowance';
-
-interface CalendarEvent {
-  date: string; 
-  title: string;
-  type: EventType;
-}
-
 const dayNames = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 const months = [
   'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
@@ -46,7 +38,7 @@ export default function CalendarioPage() {
   const [loading, setLoading] = React.useState(true);
   const [saving, setSaving] = React.useState(false);
   const [selectedDay, setSelectedDay] = React.useState<SelectedDayData | null>(null);
-  const [editForm, setEditFom] = React.useState<{ events: string[], birthdays: string[] }>({
+  const [editForm, setEditForm] = React.useState<{ events: string[], birthdays: string[] }>({
     events: ['', '', '', '', ''],
     birthdays: ['', '', '', '', '']
   });
@@ -103,10 +95,18 @@ export default function CalendarioPage() {
   const handleDayClick = (day: number, month: number, year: number) => {
     const data = getDayData(day, month, year);
     const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-    setSelectedDay({ day, month, year, dateStr, events: data.events || [], birthdays: data.birthdays || [] });
+    
+    setSelectedDay({ 
+      day, 
+      month, 
+      year, 
+      dateStr, 
+      events: data.events || [], 
+      birthdays: data.birthdays || [] 
+    });
     
     if (isAdmin) {
-      setEditFom({
+      setEditForm({
         events: [...(data.events || []), '', '', '', '', ''].slice(0, 5),
         birthdays: [...(data.birthdays || []), '', '', '', '', ''].slice(0, 5)
       });
@@ -117,16 +117,23 @@ export default function CalendarioPage() {
     if (!selectedDay) return;
     setSaving(true);
     try {
-      const filteredUpdates = {
-        events: editForm.events.filter(e => e && e.trim() !== ''),
-        birthdays: editForm.birthdays.filter(b => b && b.trim() !== '')
+      // Limpiamos espacios vacíos antes de enviar
+      const updates = {
+        events: editForm.events.map(e => e.trim()),
+        birthdays: editForm.birthdays.map(b => b.trim())
       };
-      await updateCalendarDay(selectedDay.dateStr, filteredUpdates);
+      
+      await updateCalendarDay(selectedDay.dateStr, updates);
+      
       toast({ title: "Guardado", description: "El calendario se ha actualizado correctamente." });
-      await loadData();
+      await loadData(); // Recargar datos locales
       setSelectedDay(null);
     } catch (e) {
-      toast({ title: "Error", description: "No se pudo guardar la información.", variant: "destructive" });
+      toast({ 
+        title: "Error de conexión", 
+        description: "No se pudo sincronizar con la base de datos.", 
+        variant: "destructive" 
+      });
     } finally {
       setSaving(false);
     }
@@ -146,7 +153,7 @@ export default function CalendarioPage() {
       <div className="max-w-[1800px] mx-auto space-y-8">
         <header className="flex items-end justify-between pb-8">
           <div className="space-y-0.5">
-            <h1 className="text-3xl font-semibold text-slate-800 tracking-[-0.1em]">
+            <h1 className="text-3xl font-semibold text-slate-800 tracking-tighter">
               {months[viewMonth]} {viewYear}
             </h1>
             <p className="text-slate-400 text-xs font-light tracking-tight">Gestión de tiempos e hitos institucionales.</p>
@@ -207,21 +214,21 @@ export default function CalendarioPage() {
       </div>
 
       <Dialog open={!!selectedDay} onOpenChange={(open) => !open && setSelectedDay(null)}>
-        <DialogContent className="sm:max-w-[500px] p-8">
+        <DialogContent className="sm:max-w-[500px] p-8 bg-white rounded-[2rem] border-none shadow-2xl">
           <DialogHeader className="mb-6">
             <DialogTitle className="text-lg font-light tracking-tighter text-slate-800">
               {selectedDay && `${selectedDay.day} de ${months[selectedDay.month % 12]} ${selectedDay.year}`}
             </DialogTitle>
             <DialogDescription className="text-[10px] font-light tracking-tighter text-slate-400 mt-1">
-              {isAdmin ? 'Edita los eventos y cumpleaños de este día.' : 'Eventos y recordatorios institucionales.'}
+              {isAdmin ? 'Edita los eventos y cumpleaños de este día para toda la organización.' : 'Eventos y recordatorios institucionales programados.'}
             </DialogDescription>
           </DialogHeader>
           
           <div className="space-y-6">
             {isAdmin ? (
-              <div className="space-y-6">
+              <div className="space-y-6 animate-in fade-in slide-in-from-bottom-2 duration-500">
                 <div className="space-y-3">
-                  <h4 className="text-[10px] font-light tracking-tighter uppercase text-blue-600">Eventos (Máx 5)</h4>
+                  <h4 className="text-[10px] font-light tracking-tighter uppercase text-[#0054A6]">Eventos del Día</h4>
                   {editForm.events.map((ev, i) => (
                     <Input 
                       key={`ev-${i}`}
@@ -230,54 +237,63 @@ export default function CalendarioPage() {
                       onChange={(e) => {
                         const newEvents = [...editForm.events];
                         newEvents[i] = e.target.value;
-                        setEditFom({ ...editForm, events: newEvents });
+                        setEditForm({ ...editForm, events: newEvents });
                       }}
-                      className="h-8 text-[11px] font-light tracking-tighter"
+                      className="h-8 text-[11px] font-light tracking-tighter focus-visible:ring-1 border-slate-100"
                     />
                   ))}
                 </div>
                 <div className="space-y-3">
-                  <h4 className="text-[10px] font-light tracking-tighter uppercase text-pink-600">Cumpleaños (Máx 5)</h4>
+                  <h4 className="text-[10px] font-light tracking-tighter uppercase text-pink-500">Cumpleaños</h4>
                   {editForm.birthdays.map((bd, i) => (
                     <Input 
                       key={`bd-${i}`}
-                      placeholder={`Cumpleañero ${i+1}`}
+                      placeholder={`Nombre del colaborador ${i+1}`}
                       value={bd}
                       onChange={(e) => {
                         const newBirthdays = [...editForm.birthdays];
                         newBirthdays[i] = e.target.value;
-                        setEditFom({ ...editForm, birthdays: newBirthdays });
+                        setEditForm({ ...editForm, birthdays: newBirthdays });
                       }}
-                      className="h-8 text-[11px] font-light tracking-tighter"
+                      className="h-8 text-[11px] font-light tracking-tighter focus-visible:ring-1 border-slate-100"
                     />
                   ))}
                 </div>
                 <Button 
                   onClick={handleSave} 
                   disabled={saving} 
-                  className="w-full bg-[#003B73] h-9 text-xs font-light tracking-tighter"
+                  className="w-full bg-[#003B73] hover:bg-[#002D54] h-10 text-xs font-light tracking-normal rounded-xl transition-all"
                 >
-                  {saving ? <Loader2 className="w-3 h-3 animate-spin mr-2" /> : <Save className="w-3 h-3 mr-2" />}
-                  Guardar Cambios
+                  {saving ? (
+                    <>
+                      <Loader2 className="w-3 h-3 animate-spin mr-2" />
+                      Sincronizando...
+                    </>
+                  ) : (
+                    <>
+                      <Save className="w-3 h-3 mr-2" />
+                      Guardar Cambios en Base de Datos
+                    </>
+                  )}
                 </Button>
               </div>
             ) : (
-              <div className="space-y-3">
+              <div className="space-y-3 animate-in fade-in duration-500">
                 {(!selectedDay?.events?.length && !selectedDay?.birthdays?.length) ? (
                   <div className="py-10 text-center space-y-2">
-                    <CalendarDays className="w-6 h-6 text-slate-200 mx-auto" strokeWidth={1} />
-                    <p className="text-slate-400 text-[10px] font-light tracking-tighter italic">Sin eventos programados.</p>
+                    <CalendarDays className="w-6 h-6 text-slate-100 mx-auto" strokeWidth={1} />
+                    <p className="text-slate-400 text-[10px] font-light tracking-tighter italic">Sin actividades programadas.</p>
                   </div>
                 ) : (
                   <>
                     {(selectedDay?.events || []).map((ev, i) => (
-                      <div key={i} className="flex items-center gap-3 p-3 bg-blue-50/40 border border-blue-100/50 rounded-xl">
-                        <CalendarDays className="w-3.5 h-3.5 text-blue-500" />
+                      <div key={i} className="flex items-center gap-3 p-3 bg-blue-50/40 border border-blue-100/30 rounded-xl">
+                        <CalendarDays className="w-3.5 h-3.5 text-[#0054A6]" />
                         <span className="text-[11px] font-light tracking-tighter text-slate-700">{ev}</span>
                       </div>
                     ))}
                     {(selectedDay?.birthdays || []).map((bd, i) => (
-                      <div key={i} className="flex items-center gap-3 p-3 bg-pink-50/40 border border-pink-100/50 rounded-xl">
+                      <div key={i} className="flex items-center gap-3 p-3 bg-pink-50/40 border border-pink-100/30 rounded-xl">
                         <Cake className="w-3.5 h-3.5 text-pink-500" />
                         <span className="text-[11px] font-light tracking-tighter text-slate-700">{bd}</span>
                       </div>

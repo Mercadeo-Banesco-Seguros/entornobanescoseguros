@@ -6,10 +6,16 @@
 
 const SH_CALENDARIO = "CALENDARIO";
 
+/**
+ * Maneja peticiones GET para verificar estado.
+ */
 function doGet(e) {
   return handleResponse({ success: true, message: "Servidor de Calendario ACTIVO" });
 }
 
+/**
+ * Maneja peticiones POST desde la aplicación.
+ */
 function doPost(e) {
   try {
     const data = JSON.parse(e.postData.contents);
@@ -26,6 +32,9 @@ function doPost(e) {
   }
 }
 
+/**
+ * Obtiene todos los eventos y cumpleaños registrados.
+ */
 function getCalendarData() {
   try {
     const ss = SpreadsheetApp.getActiveSpreadsheet();
@@ -48,11 +57,11 @@ function getCalendarData() {
 
       // Columnas 1-5: Eventos (B-F)
       for (let j = 1; j <= 5; j++) {
-        if (row[j]) dayData.events.push(row[j].toString());
+        if (row[j]) dayData.events.push(row[j].toString().trim());
       }
       // Columnas 6-10: Cumpleaños (G-K)
       for (let j = 6; j <= 10; j++) {
-        if (row[j]) dayData.birthdays.push(row[j].toString());
+        if (row[j]) dayData.birthdays.push(row[j].toString().trim());
       }
 
       if (dayData.events.length > 0 || dayData.birthdays.length > 0) {
@@ -62,10 +71,13 @@ function getCalendarData() {
 
     return { success: true, data: data };
   } catch (e) {
-    return { success: false, message: e.toString() };
+    return { success: false, message: "Error leyendo datos: " + e.toString() };
   }
 }
 
+/**
+ * Actualiza o inserta eventos para una fecha específica.
+ */
 function updateCalendarDay(dateStr, updates) {
   try {
     const ss = SpreadsheetApp.getActiveSpreadsheet();
@@ -77,10 +89,10 @@ function updateCalendarDay(dateStr, updates) {
     }
 
     const values = sheet.getDataRange().getValues();
-    const targetDate = new Date(dateStr);
+    const targetDate = new Date(dateStr + "T12:00:00"); // Forzar mediodía para evitar desfases de zona horaria
     let rowIndex = -1;
 
-    // Buscar si la fecha ya existe comparando strings YYYY-MM-DD
+    // Buscar si la fecha ya existe
     for (let i = 1; i < values.length; i++) {
       if (values[i][0] instanceof Date) {
         const rowDateStr = Utilities.formatDate(values[i][0], "GMT-4", "yyyy-MM-dd");
@@ -91,23 +103,28 @@ function updateCalendarDay(dateStr, updates) {
       }
     }
 
-    // Preparar fila [fecha, e1, e2, e3, e4, e5, b1, b2, b3, b4, b5]
+    // Preparar fila completa: [fecha, e1, e2, e3, e4, e5, b1, b2, b3, b4, b5]
     const newRow = [targetDate];
     for (let i = 0; i < 5; i++) newRow.push(updates.events[i] || "");
     for (let i = 0; i < 5; i++) newRow.push(updates.birthdays[i] || "");
 
     if (rowIndex !== -1) {
+      // Actualizar fila existente
       sheet.getRange(rowIndex, 1, 1, 11).setValues([newRow]);
     } else {
+      // Añadir nueva fila
       sheet.appendRow(newRow);
     }
 
     return { success: true, message: "Calendario actualizado correctamente." };
   } catch (e) {
-    return { success: false, message: e.toString() };
+    return { success: false, message: "Error guardando: " + e.toString() };
   }
 }
 
+/**
+ * Formatea la respuesta como JSON.
+ */
 function handleResponse(content) {
   return ContentService.createTextOutput(JSON.stringify(content))
     .setMimeType(ContentService.MimeType.JSON);
