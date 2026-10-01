@@ -407,18 +407,6 @@ export default function AcademiaPage() {
                   </a>
                 ))}
               </div>
-
-              {/* View All Button Footer */}
-              <div className="flex justify-start">
-                <button className="flex items-center gap-4 group transition-all">
-                  <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white shadow-xl group-hover:scale-110 group-hover:bg-blue-500 transition-all">
-                    <ArrowRight className="w-4 h-4" />
-                  </div>
-                  <span className="text-xs font-bold uppercase tracking-widest text-white/80 group-hover:text-white transition-colors">
-                    Ver Todo
-                  </span>
-                </button>
-              </div>
             </div>
           )}
         </div>
