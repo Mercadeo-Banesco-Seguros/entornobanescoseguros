@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from 'react';
@@ -337,8 +336,8 @@ export default function AcademiaPage() {
         </div>
       </section>
 
-      {/* 5. Noticias y Novedades - REDESIGN BASED ON USER IMAGE */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] bg-[#001A3D] py-24 px-8 md:px-16 lg:px-24 text-white overflow-hidden">
+      {/* 5. Noticias y Novedades - COMPACT DESIGN */}
+      <section className="relative w-screen left-1/2 -ml-[50vw] bg-[#001A3D] py-16 px-8 md:px-16 lg:px-24 text-white overflow-hidden">
         {/* Subtle Grid Pattern Overlay */}
         <div className="absolute inset-0 opacity-10 pointer-events-none bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px]" />
         
@@ -348,7 +347,7 @@ export default function AcademiaPage() {
 
         <div className="max-w-7xl mx-auto relative z-10">
           {/* Header de la sección */}
-          <div className="flex flex-col space-y-2 mb-16 max-w-3xl">
+          <div className="flex flex-col space-y-2 mb-10 max-w-3xl">
             <h2 className="text-4xl md:text-5xl font-semibold tracking-tighter text-white/90 leading-tight">
               Noticias y Novedades: <br />
               <span className="text-blue-400/80">al corazón de nuestra gestión</span>
@@ -361,7 +360,7 @@ export default function AcademiaPage() {
               <p className="text-white/40 font-light text-xs">Sincronizando actualidad...</p>
             </div>
           ) : (
-            <div className="space-y-16">
+            <div className="space-y-10">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
                 {displayNews.map((post, idx) => (
                   <a 
