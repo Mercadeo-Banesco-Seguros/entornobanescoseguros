@@ -75,27 +75,27 @@ export default function ProfilePage() {
             <CardContent className="p-0 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
               <div className="space-y-1">
                 <span className="text-[9px] text-slate-400 font-light">Nombre completo</span>
-                <p className="text-sm text-slate-700 font-normal">{currentUser.name}</p>
+                <p className="text-xs text-slate-700 font-normal">{currentUser.name}</p>
               </div>
               <div className="space-y-1">
                 <span className="text-[9px] text-slate-400 font-light">Correo electrónico</span>
-                <p className="text-sm text-slate-700 font-normal">{currentUser.email}</p>
+                <p className="text-xs text-slate-700 font-normal">{currentUser.email}</p>
               </div>
               <div className="space-y-1">
                 <span className="text-[9px] text-slate-400 font-light">Identificación (ID)</span>
-                <p className="text-sm text-slate-700 font-normal">{currentUser.id}</p>
+                <p className="text-xs text-slate-700 font-normal">{currentUser.id}</p>
               </div>
               <div className="space-y-1">
                 <span className="text-[9px] text-slate-400 font-light">Rol de sistema</span>
-                <p className="text-sm text-slate-700 font-normal">{currentUser.rol}</p>
+                <p className="text-xs text-slate-700 font-normal">{currentUser.rol}</p>
               </div>
               <div className="space-y-1">
                 <span className="text-[9px] text-slate-400 font-light">Cargo actual</span>
-                <p className="text-sm text-slate-700 font-normal">{currentUser.cargo}</p>
+                <p className="text-xs text-slate-700 font-normal">{currentUser.cargo}</p>
               </div>
               <div className="space-y-1">
                 <span className="text-[9px] text-slate-400 font-light">Fecha de nacimiento</span>
-                <p className="text-sm text-slate-700 font-normal">{currentUser.birthDate || 'No especificada'}</p>
+                <p className="text-xs text-slate-700 font-normal">{currentUser.birthDate || 'No especificada'}</p>
               </div>
             </CardContent>
           </Card>
