@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { ChevronLeft, ChevronRight, Cake, CalendarDays, Loader2, Save } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Cake, CalendarDays, Loader2, Save, Trash2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/context/auth-context';
 import { useToast } from '@/hooks/use-toast';
@@ -43,7 +43,8 @@ export default function CalendarioPage() {
     birthdays: ['', '', '', '', '']
   });
 
-  const isAdmin = currentUser?.cargo === 'ADMINISTRADOR';
+  // Validación robusta de administrador
+  const isAdmin = currentUser?.cargo?.toUpperCase() === 'ADMINISTRADOR' || currentUser?.rol?.toUpperCase() === 'ADMINISTRADOR';
 
   const loadData = React.useCallback(async () => {
     setLoading(true);
@@ -105,12 +106,11 @@ export default function CalendarioPage() {
       birthdays: data.birthdays || [] 
     });
     
-    if (isAdmin) {
-      setEditForm({
-        events: [...(data.events || []), '', '', '', '', ''].slice(0, 5),
-        birthdays: [...(data.birthdays || []), '', '', '', '', ''].slice(0, 5)
-      });
-    }
+    // Inicializar formulario con 5 espacios, rellenando con los datos existentes
+    setEditForm({
+      events: [...(data.events || []), '', '', '', '', ''].slice(0, 5),
+      birthdays: [...(data.birthdays || []), '', '', '', '', ''].slice(0, 5)
+    });
   };
 
   const handleSave = async () => {
@@ -229,33 +229,59 @@ export default function CalendarioPage() {
                 <div className="space-y-3">
                   <h4 className="text-[10px] font-light tracking-tighter uppercase text-[#0054A6]">Eventos del Día</h4>
                   {editForm.events.map((ev, i) => (
-                    <Input 
-                      key={`ev-${i}`}
-                      placeholder={`Espacio de evento ${i+1}`}
-                      value={ev}
-                      onChange={(e) => {
-                        const newEvents = [...editForm.events];
-                        newEvents[i] = e.target.value;
-                        setEditForm({ ...editForm, events: newEvents });
-                      }}
-                      className="h-8 text-[11px] font-light tracking-tighter focus-visible:ring-1 border-slate-100"
-                    />
+                    <div key={`ev-row-${i}`} className="flex gap-2 items-center">
+                      <Input 
+                        placeholder={`Espacio de evento ${i+1}`}
+                        value={ev}
+                        onChange={(e) => {
+                          const newEvents = [...editForm.events];
+                          newEvents[i] = e.target.value;
+                          setEditForm({ ...editForm, events: newEvents });
+                        }}
+                        className="h-8 text-[11px] font-light tracking-tighter focus-visible:ring-1 border-slate-100"
+                      />
+                      {ev && (
+                        <button 
+                          onClick={() => {
+                            const newEvents = [...editForm.events];
+                            newEvents[i] = '';
+                            setEditForm({ ...editForm, events: newEvents });
+                          }}
+                          className="p-1 text-slate-300 hover:text-red-500 transition-colors"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      )}
+                    </div>
                   ))}
                 </div>
                 <div className="space-y-3">
                   <h4 className="text-[10px] font-light tracking-tighter uppercase text-pink-500">Cumpleaños</h4>
                   {editForm.birthdays.map((bd, i) => (
-                    <Input 
-                      key={`bd-${i}`}
-                      placeholder={`Nombre del cumpleañero ${i+1}`}
-                      value={bd}
-                      onChange={(e) => {
-                        const newBirthdays = [...editForm.birthdays];
-                        newBirthdays[i] = e.target.value;
-                        setEditForm({ ...editForm, birthdays: newBirthdays });
-                      }}
-                      className="h-8 text-[11px] font-light tracking-tighter focus-visible:ring-1 border-slate-100"
-                    />
+                    <div key={`bd-row-${i}`} className="flex gap-2 items-center">
+                      <Input 
+                        placeholder={`Nombre del cumpleañero ${i+1}`}
+                        value={bd}
+                        onChange={(e) => {
+                          const newBirthdays = [...editForm.birthdays];
+                          newBirthdays[i] = e.target.value;
+                          setEditForm({ ...editForm, birthdays: newBirthdays });
+                        }}
+                        className="h-8 text-[11px] font-light tracking-tighter focus-visible:ring-1 border-slate-100"
+                      />
+                      {bd && (
+                        <button 
+                          onClick={() => {
+                            const newBirthdays = [...editForm.birthdays];
+                            newBirthdays[i] = '';
+                            setEditForm({ ...editForm, birthdays: newBirthdays });
+                          }}
+                          className="p-1 text-slate-300 hover:text-red-500 transition-colors"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      )}
+                    </div>
                   ))}
                 </div>
                 <Button 
@@ -266,7 +292,7 @@ export default function CalendarioPage() {
                   {saving ? (
                     <>
                       <Loader2 className="w-3 h-3 animate-spin mr-2" />
-                      Guardando Cambios...
+                      Sincronizando...
                     </>
                   ) : (
                     <>
