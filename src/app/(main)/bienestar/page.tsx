@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -22,11 +23,12 @@ const wellnessStates = [
 ];
 
 const wellnessActivities = [
-  { id: 'wellness-yoga', day: 'Salud Física', style: 'Yoga y Flexibilidad' },
-  { id: 'wellness-nutrition', day: 'Alimentación', style: 'Nutrición Balanceada' },
-  { id: 'wellness-mindfulness', day: 'Salud Mental', style: 'Mindfulness' },
-  { id: 'wellness-fitness', day: 'Energía', style: 'Actividad Física' },
-  { id: 'wellness-ergonomics', day: 'Confort', style: 'Ergonomía Laboral' },
+  { id: 'wellness-yoga', day: 'Lunes y Miércoles, 5:00 PM', style: 'Clases de Yoga', location: 'Ubicación: Terraza' },
+  { id: 'wellness-functional', day: 'Lunes y Miércoles, 5:00 PM', style: 'Ejercicios Funcionales', location: 'Ubicación: Terraza' },
+  { id: 'wellness-cuatro', day: 'Lunes o Jueves, 5:00 PM', style: 'Clases de Cuatro', location: 'Ubicación: Tríadas' },
+  { id: 'wellness-bailoterapia', day: 'Jueves, 5:00 PM', style: 'Bailoterapia', location: 'Ubicación: Terraza' },
+  { id: 'wellness-combat', day: 'Martes, 5:00 PM', style: 'Cross Combat', location: 'Ubicación: Terraza' },
+  { id: 'wellness-teatro', day: 'Martes y Jueves, 5:00 PM', style: 'Clases de Teatro', location: 'Ubicación: Tríadas' },
 ];
 
 const upcomingEvents = [
@@ -86,7 +88,6 @@ export default function BienestarPage() {
   React.useEffect(() => {
     setMounted(true);
     
-    // Evitar error de hidratación ajustando el día después del montaje
     const today = new Date().getDay();
     const initialDayIndex = today === 0 || today === 6 ? 0 : today - 1;
     setActiveMenuDayIndex(initialDayIndex);
@@ -101,7 +102,6 @@ export default function BienestarPage() {
   const currentState = wellnessStates[currentStateIndex];
   const heroImage = PlaceHolderImages.find(img => img.id === currentState.imageId);
   const activeActivity = wellnessActivities[activeActivityIndex];
-  const activeMenuDay = menuDays[activeMenuDayIndex];
 
   const getMenuImageUrl = (type: 'Clásico' | 'Dieta' | 'Ejecutivo', index: number) => {
     const prefixMap = { 'Clásico': 'menu-c-', 'Dieta': 'menu-d-', 'Ejecutivo': 'menu-e-' };
@@ -171,10 +171,10 @@ export default function BienestarPage() {
       <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-16 px-6 overflow-hidden">
         <div className="w-full flex flex-col items-center">
           <div className="text-center space-y-2 mb-12">
-            <span className="text-[#0054A6] text-[11px] font-light tracking-tight uppercase">Actividades</span>
+            <span className="text-[#0054A6] text-[11px] font-light tracking-tight uppercase">Cartelera Institucional</span>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-slate-900 leading-none">Tu bienestar nos importa</h2>
             <p className="text-slate-500 text-[9px] md:text-[11px] font-light leading-relaxed max-w-2xl mx-auto mt-2">
-              Explora las diferentes dimensiones de salud que hemos preparado para ti. Interactúa con las tarjetas.
+              Explora las diferentes dimensiones de salud y cultura que hemos preparado para ti. Interactúa con las tarjetas para ver detalles.
             </p>
           </div>
 
@@ -219,13 +219,13 @@ export default function BienestarPage() {
             <div className="flex flex-col md:flex-row justify-between items-end w-full gap-4 px-12 pt-4">
               <div className="space-y-2 text-left">
                 <div className="space-y-0">
-                  <p className="text-slate-400 text-[9px] font-light tracking-tight uppercase">Bienestar 360°</p>
-                  <h2 className="text-slate-900 text-lg md:text-xl font-light tracking-tighter">Banesco Seguros</h2>
+                  <p className="text-slate-400 text-[9px] font-light tracking-tight uppercase">Bienestar Banesco Seguros</p>
+                  <h2 className="text-slate-900 text-lg md:text-xl font-light tracking-tighter">Cultura y Salud</h2>
                 </div>
                 <button 
                   className="bg-[#0054A6] hover:bg-[#0054A6]/90 text-white rounded-xl px-6 py-1.5 font-light text-[9px] transition-colors"
                 >
-                  Conocer Detalles
+                  Agendar Actividad
                 </button>
               </div>
 
@@ -235,6 +235,9 @@ export default function BienestarPage() {
                   <h3 className="text-[#0054A6] text-xl md:text-2xl font-bold tracking-tighter leading-none mt-1">
                     {activeActivity.style}
                   </h3>
+                  <p className="text-slate-400 text-[10px] font-light mt-1 uppercase italic tracking-tight">
+                    {activeActivity.location}
+                  </p>
                 </div>
               </div>
             </div>
@@ -297,9 +300,9 @@ export default function BienestarPage() {
 
             <div className="flex flex-col items-end gap-6">
               <div className="text-right">
-                <p className="text-white/80 text-[10px] font-light uppercase tracking-widest">{activeMenuDay.day}</p>
+                <p className="text-white/80 text-[10px] font-light uppercase tracking-widest">{(menuDays[activeMenuDayIndex] || menuDays[0]).day}</p>
                 <h3 className="text-white text-2xl md:text-3xl font-light tracking-tighter leading-none mt-1">
-                  {activeMenuDay.style}
+                  {(menuDays[activeMenuDayIndex] || menuDays[0]).style}
                 </h3>
               </div>
               <div className="flex gap-3">
@@ -323,7 +326,7 @@ export default function BienestarPage() {
         </div>
       </section>
 
-      {/* 4. Sección: Feriados y eventos - Ahora al final */}
+      {/* 4. Sección: Feriados y eventos */}
       <section className="relative w-screen left-1/2 -ml-[50vw] bg-slate-50 py-16 px-12 md:px-24 lg:px-32 overflow-hidden border-t border-slate-100">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">

@@ -111,33 +111,39 @@
     },
     {
       "id": "wellness-yoga",
-      "description": "Yoga y Flexibilidad",
-      "imageUrl": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=600&h=800",
-      "imageHint": "yoga pose"
+      "description": "Clases de Yoga",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vQoDaVflsrsw0iLg6139IXxSJZTI_T34xdCfGMZrApzA2cjvB7-Z5Ah5sBXjxo9IN31jkZs_TjoDk9l/pub?w=960&h=720",
+      "imageHint": "yoga class"
     },
     {
-      "id": "wellness-nutrition",
-      "description": "Nutrición Balanceada",
-      "imageUrl": "https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=600&h=800",
-      "imageHint": "healthy food"
+      "id": "wellness-functional",
+      "description": "Ejercicios Funcionales",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vTM_DJfiubXKiUfUpDsdVxScLUZw14hH5pUaB68R5ZF5fpMQR9_KB-1kDrbHsq4glhPGtJAOffqYRYp/pub?w=960&h=720",
+      "imageHint": "functional exercises"
     },
     {
-      "id": "wellness-mindfulness",
-      "description": "Mindfulness",
-      "imageUrl": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=600&h=800",
-      "imageHint": "meditation peace"
+      "id": "wellness-cuatro",
+      "description": "Clases de Cuatro",
+      "imageUrl": "https://picsum.photos/seed/cuatro/600/800",
+      "imageHint": "music class"
     },
     {
-      "id": "wellness-fitness",
-      "description": "Actividad Física",
-      "imageUrl": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=600&h=800",
-      "imageHint": "gym workout"
+      "id": "wellness-bailoterapia",
+      "description": "Bailoterapia",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vQoELxjQ3HQhZi7UA7f1N9bwSNQJb2qd6zW8kLYxuAfBk-gjEdzbT8MzAivftV_HK2btZbqnali5YGw/pub?w=960&h=720",
+      "imageHint": "dance therapy"
     },
     {
-      "id": "wellness-ergonomics",
-      "description": "Ergonomía Laboral",
-      "imageUrl": "https://images.unsplash.com/photo-1527689368864-3a821dbccc34?auto=format&fit=crop&w=600&h=800",
-      "imageHint": "office ergonomics"
+      "id": "wellness-combat",
+      "description": "Cross Combat",
+      "imageUrl": "https://picsum.photos/seed/combat/600/800",
+      "imageHint": "combat training"
+    },
+    {
+      "id": "wellness-teatro",
+      "description": "Clases de Teatro",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vT8ovMXCobDgFPuEHVreis63jbHWm0eXjuMLoG07TmiQrLPnn-nLPHvVwGw7Uh9JjoOu2THPORceeGQ/pub?w=960&h=720",
+      "imageHint": "theater class"
     },
     {
       "id": "academia-hero-1",
@@ -148,7 +154,7 @@
     {
       "id": "academia-hero-2",
       "description": "Ética Academia",
-      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vR_WaX2Xbhmzu4fy6sfKHFzoVdKrRgmWpsVQlWGIg_eHR456gB4pqlnSSJmYXEgl3XUIPI57RebCmAO/pub?w=960&h=720",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vR_WaX2Xbhmzu4fy6sfKHFzoVdKrRgmWpsVQlWGIg_eHR456gB4pqlnSSJmYXEgl3XUIPI57RebCmAO/pub?format=png&w=960&h=720",
       "imageHint": "professional ethics"
     },
     {
