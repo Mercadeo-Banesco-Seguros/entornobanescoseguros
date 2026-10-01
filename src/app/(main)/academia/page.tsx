@@ -383,8 +383,8 @@ export default function AcademiaPage() {
                           </h3>
                         </div>
                         
-                        {/* Plus Button Icon */}
-                        <div className="absolute bottom-8 right-8">
+                        {/* Plus Button Icon - Moved to Top Right of content area */}
+                        <div className="absolute top-8 right-8 lg:top-10 lg:right-10">
                           <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white shadow-lg transition-transform duration-300 group-hover:rotate-90">
                             <Plus className="w-4 h-4" />
                           </div>
