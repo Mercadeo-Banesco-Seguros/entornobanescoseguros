@@ -81,9 +81,11 @@ export default function ProfilePage() {
               </div>
               <div className="space-y-1">
                 <span className="text-[8px] text-white/50 font-light">Cargo actual</span>
-                <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-2">
                   <p className="text-[10px] text-white font-light">{currentUser.cargo}</p>
-                  <Check className="w-3 h-3 text-white/70" />
+                  <div className="w-3.5 h-3.5 rounded-full bg-white/20 flex items-center justify-center shrink-0 border border-white/10">
+                    <Check className="w-2 h-2 text-white" strokeWidth={3} />
+                  </div>
                 </div>
               </div>
               <div className="space-y-1">
