@@ -56,7 +56,6 @@ function getCalendarData() {
 
       let dateStr;
       try {
-        // Convertimos a objeto Date y luego a string YYYY-MM-DD para el frontend
         dateStr = Utilities.formatDate(new Date(dateVal), tz, "yyyy-MM-dd");
       } catch (e) {
         continue; 
@@ -68,11 +67,9 @@ function getCalendarData() {
         birthdays: []
       };
 
-      // Columnas 1-5: Eventos (B-F)
       for (let j = 1; j <= 5; j++) {
         if (row[j]) dayData.events.push(row[j].toString().trim());
       }
-      // Columnas 6-10: Cumpleaños (G-K)
       for (let j = 6; j <= 10; j++) {
         if (row[j]) dayData.birthdays.push(row[j].toString().trim());
       }
@@ -89,7 +86,7 @@ function getCalendarData() {
 }
 
 /**
- * Actualiza o inserta eventos para una fecha específica.
+ * Actualiza, inserta o elimina eventos para una fecha específica.
  */
 function updateCalendarDay(dateStr, updates) {
   try {
@@ -106,7 +103,6 @@ function updateCalendarDay(dateStr, updates) {
     const values = range.getValues();
     let rowIndex = -1;
 
-    // Buscar si la fecha ya existe comparando el formato yyyy-MM-dd para evitar fallos por formato de celda
     for (let i = 1; i < values.length; i++) {
       const rowDate = values[i][0];
       if (rowDate) {
@@ -122,37 +118,42 @@ function updateCalendarDay(dateStr, updates) {
       }
     }
 
-    // Preparar fila completa: [fecha, e1, e2, e3, e4, e5, b1, b2, b3, b4, b5]
-    // Usamos T12:00:00 para garantizar que la fecha se mantenga en el día correcto
-    const targetDate = new Date(dateStr + "T12:00:00"); 
-    const newRow = [targetDate];
-    
     const events = updates.events || [];
     const birthdays = updates.birthdays || [];
+    
+    // Determinar si el registro está vacío
+    const isEmpty = events.every(e => !e || e.toString().trim() === "") && 
+                    birthdays.every(b => !b || b.toString().trim() === "");
+
+    if (isEmpty) {
+      if (rowIndex !== -1) {
+        sheet.deleteRow(rowIndex);
+        SpreadsheetApp.flush();
+        return { success: true, message: "Registro eliminado (vacío)." };
+      }
+      return { success: true, message: "No había registro previo para eliminar." };
+    }
+
+    const targetDate = new Date(dateStr + "T12:00:00"); 
+    const newRow = [targetDate];
     
     for (let i = 0; i < 5; i++) newRow.push(events[i] || "");
     for (let i = 0; i < 5; i++) newRow.push(birthdays[i] || "");
 
     if (rowIndex !== -1) {
-      // Actualizar fila existente
       sheet.getRange(rowIndex, 1, 1, 11).setValues([newRow]);
     } else {
-      // Añadir nueva fila
       sheet.appendRow(newRow);
     }
     
-    // Forzar guardado de cambios en Google Sheets
     SpreadsheetApp.flush();
 
-    return { success: true, message: "Cambios registrados en la fila: " + (rowIndex === -1 ? "final (nueva)" : rowIndex) };
+    return { success: true, message: "Datos actualizados correctamente." };
   } catch (e) {
     return { success: false, message: "Error escribiendo en la hoja: " + e.toString() };
   }
 }
 
-/**
- * Formatea la respuesta como JSON.
- */
 function handleResponse(content) {
   return ContentService.createTextOutput(JSON.stringify(content))
     .setMimeType(ContentService.MimeType.JSON);

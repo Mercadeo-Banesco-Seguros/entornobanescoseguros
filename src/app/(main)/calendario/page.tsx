@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { ChevronLeft, ChevronRight, Cake, CalendarDays, Loader2, Save, Trash2 } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Cake, CalendarDays, Loader2, Save, Trash2, XCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/context/auth-context';
 import { useToast } from '@/hooks/use-toast';
@@ -43,7 +43,6 @@ export default function CalendarioPage() {
     birthdays: ['', '', '', '', '']
   });
 
-  // Validación robusta de administrador
   const isAdmin = currentUser?.cargo?.toUpperCase() === 'ADMINISTRADOR' || currentUser?.rol?.toUpperCase() === 'ADMINISTRADOR';
 
   const loadData = React.useCallback(async () => {
@@ -106,7 +105,6 @@ export default function CalendarioPage() {
       birthdays: data.birthdays || [] 
     });
     
-    // Inicializar formulario con 5 espacios, rellenando con los datos existentes
     setEditForm({
       events: [...(data.events || []), '', '', '', '', ''].slice(0, 5),
       birthdays: [...(data.birthdays || []), '', '', '', '', ''].slice(0, 5)
@@ -117,12 +115,13 @@ export default function CalendarioPage() {
     if (!selectedDay) return;
     setSaving(true);
     try {
-      const updates = {
-        events: editForm.events.map(e => e.trim()),
-        birthdays: editForm.birthdays.map(b => b.trim())
-      };
-      
-      await updateCalendarDay(selectedDay.dateStr, updates);
+      const cleanEvents = editForm.events.filter(e => e.trim() !== "");
+      const cleanBirthdays = editForm.birthdays.filter(b => b.trim() !== "");
+
+      await updateCalendarDay(selectedDay.dateStr, {
+        events: cleanEvents,
+        birthdays: cleanBirthdays
+      });
       
       toast({ title: "Guardado", description: "El calendario se ha actualizado correctamente." });
       await loadData(); 
@@ -133,6 +132,23 @@ export default function CalendarioPage() {
         description: "No se pudo sincronizar con la base de datos.", 
         variant: "destructive" 
       });
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleDeleteAll = async () => {
+    if (!selectedDay) return;
+    if (!confirm("¿Estás seguro de que deseas eliminar todas las actividades de este día?")) return;
+    
+    setSaving(true);
+    try {
+      await updateCalendarDay(selectedDay.dateStr, { events: [], birthdays: [] });
+      toast({ title: "Eliminado", description: "Se han borrado todas las actividades del día." });
+      await loadData();
+      setSelectedDay(null);
+    } catch (e) {
+       toast({ title: "Error", description: "No se pudo eliminar de la base de datos.", variant: "destructive" });
     } finally {
       setSaving(false);
     }
@@ -219,7 +235,7 @@ export default function CalendarioPage() {
               {selectedDay && `${selectedDay.day} de ${months[selectedDay.month % 12]} ${selectedDay.year}`}
             </DialogTitle>
             <DialogDescription className="text-[10px] font-light tracking-tighter text-slate-400 mt-1">
-              {isAdmin ? 'Edita los eventos y cumpleaños de este día para toda la organización.' : 'Eventos y recordatorios institucionales programados.'}
+              {isAdmin ? 'Gestiona los eventos y cumpleaños del sistema.' : 'Eventos y recordatorios institucionales programados.'}
             </DialogDescription>
           </DialogHeader>
           
@@ -284,23 +300,35 @@ export default function CalendarioPage() {
                     </div>
                   ))}
                 </div>
-                <Button 
-                  onClick={handleSave} 
-                  disabled={saving} 
-                  className="w-full bg-[#003B73] hover:bg-[#002D54] h-10 text-xs font-light tracking-normal rounded-xl transition-all"
-                >
-                  {saving ? (
-                    <>
-                      <Loader2 className="w-3 h-3 animate-spin mr-2" />
-                      Sincronizando...
-                    </>
-                  ) : (
-                    <>
-                      <Save className="w-3 h-3 mr-2" />
-                      Actualizar Base de Datos
-                    </>
-                  )}
-                </Button>
+
+                <div className="flex flex-col gap-3 pt-2">
+                  <Button 
+                    onClick={handleSave} 
+                    disabled={saving} 
+                    className="w-full bg-[#003B73] hover:bg-[#002D54] h-10 text-xs font-light tracking-normal rounded-xl transition-all"
+                  >
+                    {saving ? (
+                      <>
+                        <Loader2 className="w-3 h-3 animate-spin mr-2" />
+                        Sincronizando...
+                      </>
+                    ) : (
+                      <>
+                        <Save className="w-3 h-3 mr-2" />
+                        Guardar Cambios
+                      </>
+                    )}
+                  </Button>
+                  
+                  <button 
+                    onClick={handleDeleteAll}
+                    disabled={saving}
+                    className="w-full flex items-center justify-center gap-2 py-2 text-[10px] font-light text-red-400 hover:text-red-600 transition-colors"
+                  >
+                    <XCircle className="w-3 h-3" />
+                    Eliminar Actividades del Día
+                  </button>
+                </div>
               </div>
             ) : (
               <div className="space-y-3 animate-in fade-in duration-500">
