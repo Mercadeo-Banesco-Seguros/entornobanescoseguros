@@ -55,7 +55,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const SCRIPT_URL = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL;
   // Nueva URL para el script de calendario independiente
-  const CALENDAR_SCRIPT_URL = process.env.NEXT_PUBLIC_CALENDAR_SCRIPT_URL || SCRIPT_URL;
+  const CALENDAR_SCRIPT_URL = process.env.NEXT_PUBLIC_CALENDAR_SCRIPT_URL;
 
   React.useEffect(() => {
     const savedUser = sessionStorage.getItem('bs_user');
@@ -104,7 +104,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, [SCRIPT_URL]);
 
   const fetchCalendarData = React.useCallback(async () => {
-    if (!CALENDAR_SCRIPT_URL) return [];
+    if (!CALENDAR_SCRIPT_URL) {
+      console.warn("NEXT_PUBLIC_CALENDAR_SCRIPT_URL no configurada.");
+      return [];
+    }
     try {
       const response = await fetch(CALENDAR_SCRIPT_URL, {
         method: 'POST',
@@ -166,8 +169,18 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     loading,
     error,
     vicepresidencias: ['Todas', 'VP. Comercial Gran Caracas', 'VP. Comercial Oriente', 'VP. Comercial Zulia - Falcón'],
-    levels: [],
-    prizes: []
+    levels: [
+      { id: 1, name: 'Etapa 1', worldName: 'Gran Caracas', worldImageId: 'world-level-1' },
+      { id: 2, name: 'Etapa 2', worldName: 'Ctro. Occid. Los Andes', worldImageId: 'world-level-2' },
+      { id: 3, name: 'Etapa 3', worldName: 'Centro Llanos - Carabobo', worldImageId: 'world-level-3' },
+      { id: 4, name: 'Etapa 4', worldName: 'Oriente', worldImageId: 'world-level-4' },
+      { id: 5, name: 'Etapa 5', worldName: 'Zulia - Falcón', worldImageId: 'world-level-5' },
+    ],
+    prizes: [
+      { id: 1, name: 'Primer Lugar', imageUrl: 'https://www.banescoseguros.com/wp-content/uploads/2025/11/Tarjeta-Datos-Bancarios-Organico-Rosa-y-Amarillo-4-Photoroom.png' },
+      { id: 2, name: 'Segundo Lugar', imageUrl: 'https://www.banescoseguros.com/wp-content/uploads/2025/11/Tarjeta-Datos-Bancarios-Organico-Rosa-y-Amarillo-5-Photoroom.png' },
+      { id: 3, name: 'Tercer Lugar', imageUrl: 'https://www.banescoseguros.com/wp-content/uploads/2025/11/Tarjeta-Datos-Bancarios-Organico-Rosa-y-Amarillo-6-Photoroom.png' },
+    ]
   }), [isAuthenticated, isLoading, currentUser, login, logout, users, fetchUsers, fetchCalendarData, updateCalendarDay, loading, error]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
