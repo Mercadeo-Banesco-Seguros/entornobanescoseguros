@@ -34,22 +34,22 @@ export default function ProfilePage() {
 
   return (
     <div className="space-y-8 animate-in fade-in duration-1000">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
         {/* Card de Identidad */}
-        <Card className="lg:col-span-1 border border-slate-100 shadow-none bg-white rounded-[2.5rem] overflow-hidden p-8 flex flex-col items-center text-center">
-          <div className="w-40 h-40 rounded-full bg-slate-50 flex items-center justify-center border border-slate-100 mb-6">
+        <Card className="lg:col-span-1 border border-slate-100 shadow-none bg-white rounded-[2.5rem] overflow-hidden p-12 flex flex-col items-center justify-center text-center">
+          <div className="w-40 h-40 rounded-full bg-slate-50 flex items-center justify-center border border-slate-100 mb-8">
             <UserCircle className="w-20 h-24 text-slate-200 stroke-[0.5]" />
           </div>
-          <div className="space-y-4">
-            <div>
+          <div className="space-y-6">
+            <div className="space-y-1">
               <h2 className="text-2xl font-bold text-slate-900 tracking-tight leading-tight">{currentUser.name}</h2>
-              <p className="text-slate-400 text-xs font-light mt-1">{currentUser.email}</p>
+              <p className="text-slate-400 text-xs font-light">{currentUser.email}</p>
             </div>
             <div className="flex flex-col gap-2 pt-2">
-              <Badge className="bg-[#003B73] hover:bg-[#003B73] text-white px-4 py-1 rounded-full text-[10px] font-light justify-center">
+              <Badge className="bg-[#003B73] hover:bg-[#003B73] text-white px-6 py-1.5 rounded-full text-[10px] font-light justify-center">
                 {currentUser.rol}
               </Badge>
-              <span className="text-[11px] text-slate-500 font-medium tracking-tight bg-slate-50 py-1.5 px-4 rounded-full border border-slate-100">
+              <span className="text-[11px] text-slate-500 font-medium tracking-tight bg-slate-50 py-2 px-6 rounded-full border border-slate-100">
                 {currentUser.cargo}
               </span>
             </div>
