@@ -1,6 +1,6 @@
 'use client';
 
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAuth } from '@/context/auth-context';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Badge } from '@/components/ui/badge';
@@ -42,14 +42,14 @@ export default function ProfilePage() {
           </div>
           <div className="space-y-6">
             <div className="space-y-1">
-              <h2 className="text-2xl font-bold text-slate-900 tracking-tight leading-tight">{currentUser.name}</h2>
-              <p className="text-slate-400 text-xs font-light">{currentUser.email}</p>
+              <h2 className="text-xl font-light text-slate-900 tracking-tight leading-tight">{currentUser.name}</h2>
+              <p className="text-slate-400 text-[10px] font-light">{currentUser.email}</p>
             </div>
             <div className="flex flex-col gap-2 pt-2">
-              <Badge className="bg-[#003B73] hover:bg-[#003B73] text-white px-6 py-1.5 rounded-full text-[10px] font-light justify-center">
+              <Badge className="bg-[#003B73] hover:bg-[#003B73] text-white px-6 py-1.5 rounded-full text-[8px] font-light justify-center">
                 {currentUser.rol}
               </Badge>
-              <span className="text-[11px] text-slate-500 font-medium tracking-tight bg-slate-50 py-2 px-6 rounded-full border border-slate-100">
+              <span className="text-[9px] text-slate-500 font-light tracking-tight bg-slate-50 py-2 px-6 rounded-full border border-slate-100">
                 {currentUser.cargo}
               </span>
             </div>
@@ -60,33 +60,32 @@ export default function ProfilePage() {
         <div className="lg:col-span-2 space-y-6">
           <Card className="border border-slate-100 shadow-none bg-white rounded-[2.5rem] p-7">
             <CardHeader className="p-0 mb-4">
-              <CardTitle className="text-xl font-bold text-slate-900">Datos Corporativos</CardTitle>
-              <CardDescription className="text-[11px] font-light text-slate-400 mt-1">Detalles de vinculación institucional.</CardDescription>
+              <CardTitle className="text-lg font-light text-slate-900">Datos Corporativos</CardTitle>
             </CardHeader>
             <CardContent className="p-0 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
               <div className="space-y-1">
-                <span className="text-[9px] text-slate-400 font-light">Nombre completo</span>
-                <p className="text-xs text-slate-700 font-normal">{currentUser.name}</p>
+                <span className="text-[8px] text-slate-400 font-light">Nombre completo</span>
+                <p className="text-[10px] text-slate-700 font-light">{currentUser.name}</p>
               </div>
               <div className="space-y-1">
-                <span className="text-[9px] text-slate-400 font-light">Correo electrónico</span>
-                <p className="text-xs text-slate-700 font-normal">{currentUser.email}</p>
+                <span className="text-[8px] text-slate-400 font-light">Correo electrónico</span>
+                <p className="text-[10px] text-slate-700 font-light">{currentUser.email}</p>
               </div>
               <div className="space-y-1">
-                <span className="text-[9px] text-slate-400 font-light">Identificación (ID)</span>
-                <p className="text-xs text-slate-700 font-normal">{currentUser.id}</p>
+                <span className="text-[8px] text-slate-400 font-light">Identificación (ID)</span>
+                <p className="text-[10px] text-slate-700 font-light">{currentUser.id}</p>
               </div>
               <div className="space-y-1">
-                <span className="text-[9px] text-slate-400 font-light">Rol de sistema</span>
-                <p className="text-xs text-slate-700 font-normal">{currentUser.rol}</p>
+                <span className="text-[8px] text-slate-400 font-light">Rol de sistema</span>
+                <p className="text-[10px] text-slate-700 font-light">{currentUser.rol}</p>
               </div>
               <div className="space-y-1">
-                <span className="text-[9px] text-slate-400 font-light">Cargo actual</span>
-                <p className="text-xs text-slate-700 font-normal">{currentUser.cargo}</p>
+                <span className="text-[8px] text-slate-400 font-light">Cargo actual</span>
+                <p className="text-[10px] text-slate-700 font-light">{currentUser.cargo}</p>
               </div>
               <div className="space-y-1">
-                <span className="text-[9px] text-slate-400 font-light">Fecha de nacimiento</span>
-                <p className="text-xs text-slate-700 font-normal">{currentUser.birthDate || 'No especificada'}</p>
+                <span className="text-[8px] text-slate-400 font-light">Fecha de nacimiento</span>
+                <p className="text-[10px] text-slate-700 font-light">{currentUser.birthDate || 'No especificada'}</p>
               </div>
             </CardContent>
           </Card>
@@ -94,12 +93,12 @@ export default function ProfilePage() {
           {/* Banner Informativo */}
           <div className="bg-[#003B73] rounded-[2.5rem] p-8 text-white flex flex-col md:flex-row items-center justify-between gap-8">
             <div className="space-y-2">
-              <h3 className="text-2xl font-bold tracking-tight">Portal Corporativo</h3>
-              <p className="text-white/60 text-[11px] font-light leading-relaxed max-w-sm">
+              <h3 className="text-xl font-light tracking-tight">Portal Corporativo</h3>
+              <p className="text-white/60 text-[9px] font-light leading-relaxed max-w-sm">
                 Tu perfil institucional te permite acceder a todas las herramientas de gestión y formación de Banesco Seguros.
               </p>
             </div>
-            <button className="bg-white text-[#003B73] px-10 py-3 rounded-xl text-[11px] font-medium hover:bg-slate-50 transition-colors whitespace-nowrap">
+            <button className="bg-white text-[#003B73] px-10 py-3 rounded-xl text-[9px] font-light hover:bg-slate-50 transition-colors whitespace-nowrap">
               Contactar Soporte
             </button>
           </div>
