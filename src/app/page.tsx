@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from "react";
-import { Cloud, X, Share2, FileText, HeartPulse, ShieldCheck, AlertTriangle, Home, User, Settings } from "lucide-react";
+import { Cloud, X, Share2, FileText, HeartPulse, ShieldCheck, Home, User, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -190,7 +190,6 @@ export default function LandingPage() {
   React.useEffect(() => {
     setMounted(true);
     
-    // Configuración inicial de fechas para evitar hidratación incorrecta
     const today = new Date().getDay();
     const initialDay = today === 0 || today === 6 ? 0 : today - 1;
     setActiveDayIndex(initialDay);
@@ -198,11 +197,7 @@ export default function LandingPage() {
 
     const updateTheme = () => {
       const hour = new Date().getHours();
-      if (hour >= 18 || hour < 6) {
-        setTimeTheme('night');
-      } else {
-        setTimeTheme('day');
-      }
+      setTimeTheme(hour >= 18 || hour < 6 ? 'night' : 'day');
     };
 
     updateTheme();

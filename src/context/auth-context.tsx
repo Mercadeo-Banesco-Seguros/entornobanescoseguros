@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import * as React from 'react';
 import { useRouter } from 'next/navigation';
 
 /**
@@ -40,19 +40,19 @@ interface AuthContextType {
   prizes: any[];
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const AuthContext = React.createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
-  const [users, setUsers] = useState<User[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(true);
+  const [currentUser, setCurrentUser] = React.useState<User | null>(null);
+  const [users, setUsers] = React.useState<User[]>([]);
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState<string | null>(null);
 
   const SCRIPT_URL = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL;
 
-  useEffect(() => {
+  React.useEffect(() => {
     const savedUser = sessionStorage.getItem('bs_user');
     if (savedUser) {
       try {
@@ -66,7 +66,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setIsLoading(false);
   }, []);
 
-  const login = async (username: string, cedula: string) => {
+  const login = React.useCallback(async (username: string, cedula: string) => {
     if (!SCRIPT_URL) {
       throw new Error("URL del servidor no configurada.");
     }
@@ -100,7 +100,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         
         setCurrentUser(userWithMeta);
         setIsAuthenticated(true);
-        // Redirección por defecto a Inicio (/)
         window.location.href = '/';
       } else {
         throw new Error(data.message || "Usuario o cédula incorrectos.");
@@ -109,24 +108,29 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       console.error("Auth Error:", error);
       throw error instanceof Error ? error : new Error("Error de conexión con el servidor corporativo.");
     }
-  };
+  }, [SCRIPT_URL]);
 
-  const fetchUsers = async () => {
+  const fetchUsers = React.useCallback(async () => {
     setLoading(true);
-    const { mockUsers } = await import('@/lib/data');
-    setUsers(mockUsers);
-    setLoading(false);
-  };
+    try {
+      const { mockUsers } = await import('@/lib/data');
+      setUsers(mockUsers);
+    } catch (e) {
+      setError("No se pudieron cargar los datos de los colaboradores.");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
-  const logout = () => {
+  const logout = React.useCallback(() => {
     document.cookie = "auth_session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
     sessionStorage.removeItem('bs_user');
     setCurrentUser(null);
     setIsAuthenticated(false);
     window.location.href = '/login';
-  };
+  }, []);
 
-  const contextValue: AuthContextType = {
+  const value = React.useMemo(() => ({
     isAuthenticated,
     isLoading,
     currentUser,
@@ -139,26 +143,26 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     vicepresidencias: ['Todas', 'VP. Comercial Gran Caracas', 'VP. Comercial Oriente', 'VP. Comercial Zulia - Falcón'],
     levels: [],
     prizes: []
-  };
+  }), [isAuthenticated, isLoading, currentUser, login, logout, users, fetchUsers, loading, error]);
 
   return (
-    <AuthContext.Provider value={contextValue}>
+    <AuthContext.Provider value={value}>
       {children}
     </AuthContext.Provider>
   );
 };
 
 export const useAuth = () => {
-  const context = useContext(AuthContext);
+  const context = React.useContext(AuthContext);
   if (context === undefined) throw new Error('useAuth debe usarse dentro de un AuthProvider');
   return context;
 };
 
-export const AuthGuard = ({ children }: { children: ReactNode }) => {
+export const AuthGuard = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated, isLoading } = useAuth();
   const router = useRouter();
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!isLoading && !isAuthenticated) {
       router.replace('/login');
     }
