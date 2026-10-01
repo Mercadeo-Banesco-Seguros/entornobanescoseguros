@@ -298,7 +298,7 @@ export default function AcademiaPage() {
                   {securityStates[activeSecurityIndex].tag}
                 </span>
               </div>
-              <h2 className="text-4xl md:text-5xl font-bold tracking-tighter text-slate-900 leading-tight max-w-md">
+              <h2 className="text-4xl md:text-5xl font-bold tracking-tighter text-slate-900 leading-tight max-md">
                 {securityStates[activeSecurityIndex].title}
               </h2>
               <p className="text-slate-500 text-[10px] md:text-[11px] font-light leading-relaxed max-sm tracking-tight">
@@ -349,7 +349,7 @@ export default function AcademiaPage() {
           {/* Header de la sección */}
           <div className="flex flex-col space-y-2 mb-10 max-w-3xl">
             <h2 className="text-4xl md:text-5xl font-semibold tracking-tighter text-white/90 leading-tight">
-              Noticias y Novedades: <br />
+              Noticias y Novedades <br />
               <span className="text-blue-400/80">te mantenemos al día</span>
             </h2>
           </div>
@@ -377,7 +377,7 @@ export default function AcademiaPage() {
                           <span className="text-[10px] font-bold text-blue-500/80 uppercase tracking-widest block">
                             {post.categoryLabel || 'Corporativo'}
                           </span>
-                          <h3 className="text-xl lg:text-2xl font-bold text-slate-800 leading-[1.2] tracking-tight group-hover:text-blue-600 transition-colors">
+                          <h3 className="text-base lg:text-lg font-medium text-slate-800 leading-[1.2] tracking-tight group-hover:text-blue-600 transition-colors">
                             {post.title}
                           </h3>
                         </div>
