@@ -3,11 +3,6 @@
 import * as React from 'react';
 import { useRouter } from 'next/navigation';
 
-/**
- * @fileOverview Contexto de autenticación optimizado para el Portal Corporativo.
- * Garantiza que la redirección post-login sea a la página de Inicio.
- */
-
 interface User {
   name: string;
   username: string;
@@ -25,6 +20,12 @@ interface User {
   level?: number;
 }
 
+interface CalendarDayData {
+  date: string;
+  events: string[];
+  birthdays: string[];
+}
+
 interface AuthContextType {
   isAuthenticated: boolean;
   isLoading: boolean;
@@ -33,6 +34,8 @@ interface AuthContextType {
   logout: () => void;
   users: User[];
   fetchUsers: () => Promise<void>;
+  fetchCalendarData: () => Promise<CalendarDayData[]>;
+  updateCalendarDay: (date: string, updates: { events: string[], birthdays: string[] }) => Promise<void>;
   loading: boolean;
   error: string | null;
   vicepresidencias: string[];
@@ -67,9 +70,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   const login = React.useCallback(async (username: string, cedula: string) => {
-    if (!SCRIPT_URL) {
-      throw new Error("URL del servidor no configurada.");
-    }
+    if (!SCRIPT_URL) throw new Error("URL del servidor no configurada.");
 
     try {
       const response = await fetch(SCRIPT_URL, {
@@ -79,13 +80,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       });
 
       const text = await response.text();
-      let data;
-      
-      try {
-        data = JSON.parse(text);
-      } catch (e) {
-        throw new Error("Error en la respuesta del servidor.");
-      }
+      let data = JSON.parse(text);
 
       if (data.success && data.user) {
         const userWithMeta = {
@@ -94,10 +89,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           progreso: data.user.progreso || 0,
           id: data.user.username || data.user.email
         };
-        
         sessionStorage.setItem('bs_user', JSON.stringify(userWithMeta));
-        document.cookie = `auth_session=active; path=/; max-age=${60 * 60 * 24}; SameSite=None; Secure`;
-        
         setCurrentUser(userWithMeta);
         setIsAuthenticated(true);
         window.location.href = '/';
@@ -105,8 +97,38 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         throw new Error(data.message || "Usuario o cédula incorrectos.");
       }
     } catch (error) {
-      console.error("Auth Error:", error);
-      throw error instanceof Error ? error : new Error("Error de conexión con el servidor corporativo.");
+      throw error instanceof Error ? error : new Error("Error de conexión con el servidor.");
+    }
+  }, [SCRIPT_URL]);
+
+  const fetchCalendarData = React.useCallback(async () => {
+    if (!SCRIPT_URL) return [];
+    try {
+      const response = await fetch(SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ action: 'getCalendar' }),
+      });
+      const data = await response.json();
+      return data.success ? data.data : [];
+    } catch (e) {
+      console.error("Error fetching calendar:", e);
+      return [];
+    }
+  }, [SCRIPT_URL]);
+
+  const updateCalendarDay = React.useCallback(async (date: string, updates: { events: string[], birthdays: string[] }) => {
+    if (!SCRIPT_URL) return;
+    try {
+      const response = await fetch(SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ action: 'updateCalendar', date, updates }),
+      });
+      const data = await response.json();
+      if (!data.success) throw new Error(data.message);
+    } catch (e) {
+      throw e;
     }
   }, [SCRIPT_URL]);
 
@@ -116,14 +138,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       const { mockUsers } = await import('@/lib/data');
       setUsers(mockUsers);
     } catch (e) {
-      setError("No se pudieron cargar los datos de los colaboradores.");
+      setError("Error al cargar colaboradores.");
     } finally {
       setLoading(false);
     }
   }, []);
 
   const logout = React.useCallback(() => {
-    document.cookie = "auth_session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
     sessionStorage.removeItem('bs_user');
     setCurrentUser(null);
     setIsAuthenticated(false);
@@ -138,18 +159,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     logout,
     users,
     fetchUsers,
+    fetchCalendarData,
+    updateCalendarDay,
     loading,
     error,
     vicepresidencias: ['Todas', 'VP. Comercial Gran Caracas', 'VP. Comercial Oriente', 'VP. Comercial Zulia - Falcón'],
     levels: [],
     prizes: []
-  }), [isAuthenticated, isLoading, currentUser, login, logout, users, fetchUsers, loading, error]);
+  }), [isAuthenticated, isLoading, currentUser, login, logout, users, fetchUsers, fetchCalendarData, updateCalendarDay, loading, error]);
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 export const useAuth = () => {
@@ -163,9 +182,7 @@ export const AuthGuard = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
 
   React.useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
-      router.replace('/login');
-    }
+    if (!isLoading && !isAuthenticated) router.replace('/login');
   }, [isAuthenticated, isLoading, router]);
 
   if (isLoading || !isAuthenticated) {
@@ -178,6 +195,5 @@ export const AuthGuard = ({ children }: { children: React.ReactNode }) => {
       </div>
     );
   }
-
   return <>{children}</>;
 };
