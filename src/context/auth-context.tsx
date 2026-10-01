@@ -81,7 +81,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       });
 
       const text = await response.text();
-      let data = JSON.parse(text);
+      let data;
+      
+      try {
+        data = JSON.parse(text);
+      } catch (e) {
+        console.error("Respuesta no válida del servidor de acceso:", text);
+        throw new Error("El servidor devolvió una respuesta no válida. Verifica el despliegue del script.");
+      }
 
       if (data.success && data.user) {
         const userWithMeta = {
@@ -113,7 +120,17 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify({ action: 'getCalendar' }),
       });
-      const data = await response.json();
+      
+      const text = await response.text();
+      let data;
+      
+      try {
+        data = JSON.parse(text);
+      } catch (e) {
+        console.error("Respuesta no válida del servidor de calendario (GET):", text);
+        return [];
+      }
+      
       return (data.success && Array.isArray(data.data)) ? data.data : [];
     } catch (e) {
       console.error("Error fetching calendar:", e);
@@ -139,8 +156,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       try {
         data = JSON.parse(text);
       } catch (parseError) {
-        console.error("Respuesta no válida del servidor de calendario:", text);
-        throw new Error("El servidor devolvió una respuesta no válida. Revisa la configuración de Apps Script.");
+        console.error("Respuesta no válida del servidor de calendario (UPDATE):", text);
+        throw new Error("El servidor devolvió una respuesta no válida (HTML). Revisa los permisos del script.");
       }
 
       if (!data.success) {
