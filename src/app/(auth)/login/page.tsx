@@ -48,7 +48,7 @@ export default function LoginPage() {
           </div>
           <form onSubmit={handleSubmit} className="grid gap-4">
             <div className="grid gap-1.5">
-              <Label htmlFor="username" className="text-[10px] font-light uppercase tracking-tight">Usuario Enlace</Label>
+              <Label htmlFor="username" className="text-[10px] font-light uppercase tracking-tight">Correo Banesco Seguros</Label>
               <Input
                 id="username"
                 type="text"
@@ -69,7 +69,7 @@ export default function LoginPage() {
                 value={cedula}
                 onChange={(e) => setCedula(e.target.value)}
                 disabled={isLoading}
-                placeholder="Sin puntos ni guiones"
+                placeholder="V12345789"
                 className="h-8 text-xs font-light focus-visible:ring-1 border-slate-100"
               />
             </div>
