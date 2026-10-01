@@ -231,7 +231,7 @@ export default function AcademiaPage() {
       </section>
 
       {/* 2. Aprendizaje Interactivo Section */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] h-[600px] overflow-hidden flex items-center justify-center">
+      <section id="aprendizaje-interactivo" className="relative w-screen left-1/2 -ml-[50vw] h-[600px] overflow-hidden flex items-center justify-center">
         {/* Soft Blurred Background Blobs */}
         <div className="absolute inset-0 bg-white">
           <div className="absolute top-[-10%] left-[-5%] w-[60%] h-[70%] rounded-full bg-cyan-100/60 blur-[120px] animate-pulse" />

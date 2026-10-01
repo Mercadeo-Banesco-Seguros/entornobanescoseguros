@@ -13,6 +13,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { AuthGuard } from '@/context/auth-context';
+import Link from 'next/link';
 
 type TimePeriod = 'day' | 'night';
 
@@ -568,9 +569,11 @@ export default function LandingPage() {
                 <p className="text-[10px] font-light leading-relaxed text-slate-500">
                   Nuestros cursos traen claridad, no complejidad - uniendo cada concepto en un sistema adaptativo que aprende, actúa y evoluciona en tu carrera profesional.
                 </p>
-                <Button className="bg-[#0054A6] hover:bg-[#0054A6]/90 text-white rounded-xl px-10 h-11 text-[10px] font-light tracking-normal">
-                  Explorar Más
-                </Button>
+                <Link href="/academia#aprendizaje-interactivo">
+                  <Button className="bg-[#0054A6] hover:bg-[#0054A6]/90 text-white rounded-xl px-10 h-11 text-[10px] font-light tracking-normal">
+                    Explorar Más
+                  </Button>
+                </Link>
               </div>
             </div>
 
@@ -578,68 +581,69 @@ export default function LandingPage() {
               {courses.map((course) => {
                 const isFeatured = activeCourseId === course.id;
                 return (
-                  <div 
-                    key={course.id}
-                    onMouseEnter={() => setActiveCourseId(course.id)}
-                    className={cn(
-                      "relative transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] cursor-pointer group rounded-[2rem] overflow-hidden border border-white/40",
-                      isFeatured 
-                        ? "lg:h-[230px] bg-[#0054A6] shadow-2xl scale-[1.02] z-20" 
-                        : "lg:h-[210px] bg-white shadow-xl opacity-90 hover:opacity-100"
-                    )}
-                  >
-                    <div className="absolute inset-0 z-0">
-                      <Image 
-                        src="https://docs.google.com/drawings/d/e/2PACX-1vSD7pB-bTLWe5lwhcuWvZ_bEoJTiPMAIhPBRLNZSEE73sMh5-z7G33Q8KlsSBNMuh1mCuCIggL7VBZl/pub?w=960&h=720&format=png" 
-                        alt={course.title} 
-                        fill 
-                        unoptimized
-                        className={cn(
-                          "object-cover transition-all duration-1000 group-hover:scale-105",
-                          isFeatured ? "opacity-30 grayscale-0" : "opacity-20 grayscale"
-                        )}
-                      />
-                      <div className={cn(
-                          "absolute inset-0 transition-opacity duration-700",
-                          isFeatured 
-                            ? "bg-gradient-to-b from-[#0054A6]/40 via-[#0054A6]/70 to-[#0054A6] opacity-100" 
-                            : "bg-slate-900/5 opacity-40"
-                      )} />
-                    </div>
+                  <Link href="/academia#aprendizaje-interactivo" key={course.id}>
+                    <div 
+                      onMouseEnter={() => setActiveCourseId(course.id)}
+                      className={cn(
+                        "relative transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] cursor-pointer group rounded-[2rem] overflow-hidden border border-white/40",
+                        isFeatured 
+                          ? "lg:h-[230px] bg-[#0054A6] shadow-2xl scale-[1.02] z-20" 
+                          : "lg:h-[210px] bg-white shadow-xl opacity-90 hover:opacity-100"
+                      )}
+                    >
+                      <div className="absolute inset-0 z-0">
+                        <Image 
+                          src="https://docs.google.com/drawings/d/e/2PACX-1vSD7pB-bTLWe5lwhcuWvZ_bEoJTiPMAIhPBRLNZSEE73sMh5-z7G33Q8KlsSBNMuh1mCuCIggL7VBZl/pub?w=960&h=720&format=png" 
+                          alt={course.title} 
+                          fill 
+                          unoptimized
+                          className={cn(
+                            "object-cover transition-all duration-1000 group-hover:scale-105",
+                            isFeatured ? "opacity-30 grayscale-0" : "opacity-20 grayscale"
+                          )}
+                        />
+                        <div className={cn(
+                            "absolute inset-0 transition-opacity duration-700",
+                            isFeatured 
+                              ? "bg-gradient-to-b from-[#0054A6]/40 via-[#0054A6]/70 to-[#0054A6] opacity-100" 
+                              : "bg-slate-900/5 opacity-40"
+                        )} />
+                      </div>
 
-                    <div className="relative z-10 p-10 h-full flex flex-col justify-between">
-                      <div className="space-y-8">
-                        <div className="space-y-4">
-                          <div className="space-y-2">
-                            <h4 className={cn(
-                              "text-xs font-light tracking-normal transition-colors",
-                              isFeatured ? "text-blue-100" : "text-slate-500"
-                            )}>
-                              {course.subtitle}
-                            </h4>
-                            <h3 className={cn(
-                              "text-xl font-bold tracking-tight transition-colors whitespace-nowrap",
-                              isFeatured ? "text-white" : "text-slate-600 group-hover:text-slate-900"
-                            )}>
-                              {course.title}
-                            </h3>
+                      <div className="relative z-10 p-10 h-full flex flex-col justify-between">
+                        <div className="space-y-8">
+                          <div className="space-y-4">
+                            <div className="space-y-2">
+                              <h4 className={cn(
+                                "text-xs font-light tracking-normal transition-colors",
+                                isFeatured ? "text-blue-100" : "text-slate-500"
+                              )}>
+                                {course.subtitle}
+                              </h4>
+                              <h3 className={cn(
+                                "text-xl font-bold tracking-tight transition-colors whitespace-nowrap",
+                                isFeatured ? "text-white" : "text-slate-600 group-hover:text-slate-900"
+                              )}>
+                                {course.title}
+                              </h3>
+                            </div>
                           </div>
                         </div>
-                      </div>
 
-                      <div className={cn(
-                        "transition-all duration-500",
-                        isFeatured ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-                      )}>
-                        <p className={cn(
-                          "text-[10px] font-light leading-relaxed",
-                          isFeatured ? "text-blue-50" : "text-slate-500"
+                        <div className={cn(
+                          "transition-all duration-500",
+                          isFeatured ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
                         )}>
-                          {course.description}
-                        </p>
+                          <p className={cn(
+                            "text-[10px] font-light leading-relaxed",
+                            isFeatured ? "text-blue-50" : "text-slate-500"
+                          )}>
+                            {course.description}
+                          </p>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 );
               })}
             </div>
