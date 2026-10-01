@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAuth } from '@/context/auth-context';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Badge } from '@/components/ui/badge';
-import { UserCircle } from 'lucide-react';
+import { UserCircle, Check } from 'lucide-react';
 
 export default function ProfilePage() {
   const { currentUser, loading } = useAuth();
@@ -60,7 +60,7 @@ export default function ProfilePage() {
         <div className="lg:col-span-2 space-y-6">
           <Card className="border-none shadow-none bg-[#003B73] rounded-[2.5rem] p-7 text-white">
             <CardHeader className="p-0 mb-4">
-              <CardTitle className="text-lg font-light text-white">Datos Corporativos</CardTitle>
+              <CardTitle className="text-xl font-light text-white tracking-tight">Datos Corporativos</CardTitle>
             </CardHeader>
             <CardContent className="p-0 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
               <div className="space-y-1">
@@ -81,7 +81,10 @@ export default function ProfilePage() {
               </div>
               <div className="space-y-1">
                 <span className="text-[8px] text-white/50 font-light">Cargo actual</span>
-                <p className="text-[10px] text-white font-light">{currentUser.cargo}</p>
+                <div className="flex items-center gap-1.5">
+                  <p className="text-[10px] text-white font-light">{currentUser.cargo}</p>
+                  <Check className="w-3 h-3 text-white/70" />
+                </div>
               </div>
               <div className="space-y-1">
                 <span className="text-[8px] text-white/50 font-light">Fecha de nacimiento</span>
