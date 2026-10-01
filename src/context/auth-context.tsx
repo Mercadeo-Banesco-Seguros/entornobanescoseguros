@@ -86,7 +86,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       try {
         data = JSON.parse(text);
       } catch (e) {
-        console.error("Respuesta no válida del servidor de acceso:", text);
+        console.warn("Respuesta no válida del servidor de acceso (no es JSON):", text.substring(0, 100) + "...");
         throw new Error("El servidor devolvió una respuesta no válida. Verifica el despliegue del script.");
       }
 
@@ -127,13 +127,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       try {
         data = JSON.parse(text);
       } catch (e) {
-        console.error("Respuesta no válida del servidor de calendario (GET):", text);
+        // Usamos console.warn en lugar de console.error para evitar el overlay de error de Next.js
+        console.warn("Respuesta no válida del servidor de calendario (no es JSON):", text.substring(0, 100) + "...");
         return [];
       }
       
       return (data.success && Array.isArray(data.data)) ? data.data : [];
     } catch (e) {
-      console.error("Error fetching calendar:", e);
+      console.warn("Error al conectar con el servidor de calendario:", e);
       return [];
     }
   }, [CALENDAR_SCRIPT_URL]);
@@ -156,15 +157,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       try {
         data = JSON.parse(text);
       } catch (parseError) {
-        console.error("Respuesta no válida del servidor de calendario (UPDATE):", text);
-        throw new Error("El servidor devolvió una respuesta no válida (HTML). Revisa los permisos del script.");
+        console.warn("Respuesta no válida al actualizar (no es JSON):", text.substring(0, 100) + "...");
+        throw new Error("El servidor devolvió una respuesta no válida. Revisa los permisos del script.");
       }
 
       if (!data.success) {
         throw new Error(data.message || "Error al actualizar la base de datos de calendario.");
       }
     } catch (error) {
-      console.error("Error en updateCalendarDay:", error);
+      console.warn("Error en updateCalendarDay:", error);
       throw error;
     }
   }, [CALENDAR_SCRIPT_URL]);
