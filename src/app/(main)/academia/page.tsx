@@ -26,13 +26,13 @@ const academiaHeroStates = [
 
 const CATEGORIES_CONFIG = [
   { 
-    label: 'Finanzas', 
-    topic: 'BUSINESS', 
+    label: 'Finanzas y Seguros', 
+    query: 'bancos seguros inversiones finanzas venezuela', 
     imageUrl: 'https://docs.google.com/drawings/d/e/2PACX-1vTxjoPqb80l0nbk1nJ9NcDh8j7VYcNKE4AjBso3D5j_LxC-TfeH-HnlCdtXwFtJREAu2oiX7KIiEU6J/pub?w=960&h=720' 
   },
   { 
-    label: 'Tecnología', 
-    topic: 'TECHNOLOGY', 
+    label: 'Tecnología Financiera', 
+    query: 'fintech tecnologia bancaria ciberseguridad financiera', 
     imageUrl: 'https://docs.google.com/drawings/d/e/2PACX-1vR_IXWOoXk7W3pneAtVDb9AacyP6g7RdVymUbMXCql7nXrhqLUZcOdVj1HyDSpHat2i8_NmmcX9BCjD/pub?w=960&h=720' 
   }
 ];
@@ -113,9 +113,10 @@ export default function AcademiaPage() {
   const [interactiveTitle, setInteractiveTitle] = React.useState("Aprendizaje Interactivo");
 
   const fetchCategorizedNews = React.useCallback(async () => {
-    const fetchTopic = async (config: typeof CATEGORIES_CONFIG[0]) => {
+    const fetchByQuery = async (config: typeof CATEGORIES_CONFIG[0]) => {
       try {
-        const feedUrl = encodeURIComponent(`https://news.google.com/rss/headlines/section/topic/${config.topic}?hl=es-419&gl=US&ceid=US:es-419`);
+        const query = encodeURIComponent(config.query);
+        const feedUrl = encodeURIComponent(`https://news.google.com/rss/search?q=${query}&hl=es-419&gl=US&ceid=US:es-419`);
         const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${feedUrl}`;
         const response = await fetch(apiUrl);
         const data = await response.json();
@@ -127,12 +128,12 @@ export default function AcademiaPage() {
           }));
         }
       } catch (e) {
-        console.error(`Error fetching ${config.label}:`, e);
+        console.error(`Error fetching news for ${config.label}:`, e);
       }
       return [];
     };
 
-    const results = await Promise.all(CATEGORIES_CONFIG.map(config => fetchTopic(config)));
+    const results = await Promise.all(CATEGORIES_CONFIG.map(config => fetchByQuery(config)));
     const flatResults = results.flat() as NewsItem[];
     return flatResults.sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime());
   }, []);
@@ -336,7 +337,7 @@ export default function AcademiaPage() {
         </div>
       </section>
 
-      {/* 5. Noticias y Novedades - COMPACT DESIGN */}
+      {/* 5. Noticias y Novedades */}
       <section className="relative w-screen left-1/2 -ml-[50vw] bg-[#001A3D] py-16 px-8 md:px-16 lg:px-24 text-white overflow-hidden">
         {/* Subtle Grid Pattern Overlay */}
         <div className="absolute inset-0 opacity-10 pointer-events-none bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px]" />
@@ -372,12 +373,12 @@ export default function AcademiaPage() {
                   >
                     <div className="bg-white rounded-[2rem] overflow-hidden flex flex-col h-full shadow-2xl transition-all duration-500 hover:scale-[1.02] hover:-translate-y-2">
                       {/* Text Content Area */}
-                      <div className="p-8 lg:p-10 flex flex-col gap-6 flex-grow relative">
-                        <div className="space-y-4">
-                          <span className="text-[10px] font-bold text-blue-500/80 uppercase tracking-widest block">
+                      <div className="p-8 lg:p-10 flex flex-col gap-5 flex-grow relative">
+                        <div className="space-y-3">
+                          <span className="text-[9px] font-light text-blue-500/80 block">
                             {post.categoryLabel || 'Corporativo'}
                           </span>
-                          <h3 className="text-base lg:text-lg font-medium text-slate-800 leading-[1.2] tracking-tight group-hover:text-blue-600 transition-colors">
+                          <h3 className="text-[13px] font-light text-slate-800 leading-snug group-hover:text-blue-600 transition-colors">
                             {post.title}
                           </h3>
                         </div>
@@ -391,7 +392,7 @@ export default function AcademiaPage() {
                       </div>
 
                       {/* Image Area at Bottom */}
-                      <div className="relative h-48 lg:h-56 w-full overflow-hidden">
+                      <div className="relative h-44 lg:h-48 w-full overflow-hidden">
                         <Image 
                           src={post.categoryImage || `https://picsum.photos/seed/${post.guid}/800/600`}
                           alt={post.title}
