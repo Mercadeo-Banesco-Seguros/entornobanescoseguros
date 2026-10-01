@@ -58,12 +58,12 @@ export default function ProfilePage() {
 
         {/* Información Detallada */}
         <div className="lg:col-span-2 space-y-6">
-          <Card className="border-none shadow-[0_4px_20px_rgba(0,0,0,0.03)] bg-white rounded-[2.5rem] p-8">
-            <CardHeader className="p-0 mb-6">
+          <Card className="border-none shadow-[0_4px_20px_rgba(0,0,0,0.03)] bg-white rounded-[2.5rem] p-7">
+            <CardHeader className="p-0 mb-4">
               <CardTitle className="text-xl font-bold text-slate-900">Datos Corporativos</CardTitle>
               <CardDescription className="text-[11px] font-light text-slate-400 mt-1">Detalles de vinculación institucional.</CardDescription>
             </CardHeader>
-            <CardContent className="p-0 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+            <CardContent className="p-0 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
               <div className="space-y-1">
                 <span className="text-[9px] text-slate-400 font-light">Nombre completo</span>
                 <p className="text-xs text-slate-700 font-normal">{currentUser.name}</p>
