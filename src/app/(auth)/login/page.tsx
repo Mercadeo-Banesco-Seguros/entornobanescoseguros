@@ -82,7 +82,7 @@ export default function LoginPage() {
       </div>
       <div className="hidden lg:block relative overflow-hidden bg-[#F8FAFC]">
         <Image
-          src="https://www.banescoseguros.com/wp-content/uploads/2025/11/portadaVF.png"
+          src="https://docs.google.com/drawings/d/e/2PACX-1vQR7o46FhR0B1yJQHHz1pFafgj7M1PTDXj1CzioZ8t4B9nIhzuVNVuUZRXUaJXLJCUC1teJ_icZFlya/pub?w=960&h=720"
           alt="Banner Corporativo"
           fill
           unoptimized
