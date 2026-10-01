@@ -153,7 +153,7 @@ export default function BienestarPage() {
             >
               {heroImage && (
                 <Image 
-                  src={heroImage.imageUrl}
+                  src={heroImage.imageUrl} 
                   alt={currentState.title}
                   fill
                   priority
@@ -192,10 +192,10 @@ export default function BienestarPage() {
                       "relative transition-all duration-500 cursor-pointer group flex flex-col items-center",
                       isActive 
                         ? "scale-105 z-20 translate-y-[-5px]" 
-                        : "scale-90 opacity-40 hover:opacity-100 hover:scale-105 hover:z-20"
+                        : "scale-90 hover:scale-105 hover:z-20"
                     )}
                   >
-                    <div className="relative w-28 h-48 md:w-40 md:h-64 lg:w-48 lg:h-80 rounded-3xl overflow-hidden border border-slate-100 bg-slate-50 shadow-none">
+                    <div className="relative w-28 h-48 md:w-40 md:h-64 lg:w-48 lg:h-80 rounded-3xl overflow-hidden bg-transparent shadow-none border-none">
                       {activityImage && (
                         <Image 
                           src={activityImage.imageUrl} 
@@ -206,10 +206,6 @@ export default function BienestarPage() {
                           data-ai-hint={activityImage.imageHint}
                         />
                       )}
-                      <div className={cn(
-                        "absolute inset-0 transition-opacity duration-500",
-                        isActive ? "bg-black/10" : "bg-white/40"
-                      )} />
                     </div>
                   </div>
                 );
