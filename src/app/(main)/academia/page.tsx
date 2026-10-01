@@ -5,7 +5,7 @@ import * as React from 'react';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Plus, ArrowRight } from 'lucide-react';
 
 const academiaHeroStates = [
   {
@@ -178,13 +178,7 @@ export default function AcademiaPage() {
 
   if (!mounted) return null;
 
-  const featuredPost = categorizedNews[0];
-  const latestPosts = categorizedNews.slice(1);
-
-  const formatDate = (dateStr: string) => {
-    const d = new Date(dateStr);
-    return d.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' });
-  };
+  const displayNews = categorizedNews.slice(0, 3);
 
   return (
     <div className="flex flex-col w-full min-h-screen">
@@ -343,90 +337,87 @@ export default function AcademiaPage() {
         </div>
       </section>
 
-      {/* 5. Noticias y Novedades - BLUE BACKGROUND */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] bg-[#003B73] py-32 px-8 md:px-16 lg:px-24 text-white">
-        <div className="max-w-7xl mx-auto">
-          {/* Header de la sección de noticias */}
-          <div className="flex flex-col space-y-4 mb-16">
-            <span className="text-white/60 text-[11px] font-light tracking-tight uppercase">Actualidad Institucional</span>
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-white">Noticias y Novedades</h2>
+      {/* 5. Noticias y Novedades - REDESIGN BASED ON USER IMAGE */}
+      <section className="relative w-screen left-1/2 -ml-[50vw] bg-[#001A3D] py-24 px-8 md:px-16 lg:px-24 text-white overflow-hidden">
+        {/* Subtle Grid Pattern Overlay */}
+        <div className="absolute inset-0 opacity-10 pointer-events-none bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px]" />
+        
+        {/* Background Atmospheric Glows */}
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-blue-600/10 blur-[120px] -translate-y-1/2 translate-x-1/2" />
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full bg-indigo-500/5 blur-[100px] translate-y-1/4 -translate-x-1/4" />
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          {/* Header de la sección */}
+          <div className="flex flex-col space-y-2 mb-16 max-w-3xl">
+            <h2 className="text-4xl md:text-5xl font-semibold tracking-tighter text-white/90 leading-tight">
+              Noticias y Novedades: <br />
+              <span className="text-blue-400/80">al corazón de nuestra gestión</span>
+            </h2>
           </div>
 
           {loadingNews ? (
             <div className="w-full flex flex-col items-center justify-center py-20 gap-4">
               <Loader2 className="w-8 h-8 text-white/40 animate-spin" />
-              <p className="text-white/40 font-light text-xs">Cargando noticias y novedades...</p>
+              <p className="text-white/40 font-light text-xs">Sincronizando actualidad...</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 h-[500px]">
-              {/* Left: Featured Post - Immersive card */}
-              {featuredPost && (
-                <a 
-                  href={featuredPost.link} 
-                  target="_blank" 
-                  rel="noopener" 
-                  className="lg:col-span-2 group cursor-pointer block h-full"
-                >
-                  <div className="relative h-full rounded-[2.5rem] overflow-hidden bg-white/5 border border-white/10 backdrop-blur-sm shadow-sm flex flex-col justify-end p-10">
-                    <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-30">
-                      <div className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full blur-[120px] bg-blue-400/20" />
-                      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full blur-[120px] bg-sky-300/10" />
-                    </div>
-                    
-                    <div className="relative z-10 space-y-6">
-                      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/30">
-                        <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-                        <span className="text-[9px] text-white font-light tracking-tight">Post Destacado • {featuredPost.categoryLabel}</span>
+            <div className="space-y-16">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+                {displayNews.map((post, idx) => (
+                  <a 
+                    key={idx} 
+                    href={post.link} 
+                    target="_blank" 
+                    rel="noopener" 
+                    className="group block"
+                  >
+                    <div className="bg-white rounded-[2rem] overflow-hidden flex flex-col h-full shadow-2xl transition-all duration-500 hover:scale-[1.02] hover:-translate-y-2">
+                      {/* Text Content Area */}
+                      <div className="p-8 lg:p-10 flex flex-col gap-6 flex-grow relative">
+                        <div className="space-y-4">
+                          <span className="text-[10px] font-bold text-blue-500/80 uppercase tracking-widest block">
+                            {post.categoryLabel || 'Corporativo'}
+                          </span>
+                          <h3 className="text-xl lg:text-2xl font-bold text-slate-800 leading-[1.2] tracking-tight group-hover:text-blue-600 transition-colors">
+                            {post.title}
+                          </h3>
+                        </div>
+                        
+                        {/* Plus Button Icon */}
+                        <div className="absolute bottom-8 right-8">
+                          <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white shadow-lg transition-transform duration-300 group-hover:rotate-90">
+                            <Plus className="w-4 h-4" />
+                          </div>
+                        </div>
                       </div>
-                      <h3 className="text-white text-2xl md:text-3xl lg:text-4xl font-bold tracking-tighter leading-tight max-w-2xl line-clamp-3">
-                        {featuredPost.title}
-                      </h3>
-                      <div className="flex items-center gap-2">
-                        <p className="text-white/60 text-[10px] font-light">
-                          {formatDate(featuredPost.pubDate)} • Actualidad • 5 min read
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              )}
 
-              {/* Right: Latest posts scrollable list */}
-              <div className="flex flex-col h-full overflow-hidden">
-                <div className="flex justify-between items-center mb-6 shrink-0">
-                  <h3 className="text-lg font-bold tracking-tight text-white">Últimas</h3>
-                </div>
-                
-                <div className="flex-grow overflow-y-auto no-scrollbar space-y-6 pr-2">
-                  {latestPosts.map((post, idx) => (
-                    <a 
-                      key={idx} 
-                      href={post.link} 
-                      target="_blank" 
-                      rel="noopener" 
-                      className="flex gap-4 group cursor-pointer"
-                    >
-                      <div className="relative w-20 h-20 rounded-2xl overflow-hidden bg-white/5 shrink-0 border border-white/10">
+                      {/* Image Area at Bottom */}
+                      <div className="relative h-48 lg:h-56 w-full overflow-hidden">
                         <Image 
-                          src={post.categoryImage || `https://picsum.photos/seed/${idx}/200/200`} 
-                          alt={post.categoryLabel || 'Noticia'}
+                          src={post.categoryImage || `https://picsum.photos/seed/${post.guid}/800/600`}
+                          alt={post.title}
                           fill
-                          className="object-cover transition-transform duration-500 group-hover:scale-110"
+                          className="object-cover transition-transform duration-700 group-hover:scale-110"
                           unoptimized
                         />
+                        {/* Soft overlay on image */}
+                        <div className="absolute inset-0 bg-blue-900/10 mix-blend-multiply" />
                       </div>
-                      <div className="flex flex-col justify-center space-y-1.5 py-1">
-                        <span className="text-[8px] font-medium text-sky-400 uppercase tracking-widest">{post.categoryLabel}</span>
-                        <h4 className="text-[11px] font-medium text-white leading-snug group-hover:text-sky-300 transition-colors line-clamp-2 tracking-tight">
-                          {post.title}
-                        </h4>
-                        <p className="text-[9px] text-white/40 font-light flex items-center gap-1.5">
-                          {formatDate(post.pubDate)} <span className="text-white/10">•</span> 10 min read
-                        </p>
-                      </div>
-                    </a>
-                  ))}
-                </div>
+                    </div>
+                  </a>
+                ))}
+              </div>
+
+              {/* View All Button Footer */}
+              <div className="flex justify-start">
+                <button className="flex items-center gap-4 group transition-all">
+                  <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white shadow-xl group-hover:scale-110 group-hover:bg-blue-500 transition-all">
+                    <ArrowRight className="w-4 h-4" />
+                  </div>
+                  <span className="text-xs font-bold uppercase tracking-widest text-white/80 group-hover:text-white transition-colors">
+                    Ver Todo
+                  </span>
+                </button>
               </div>
             </div>
           )}
