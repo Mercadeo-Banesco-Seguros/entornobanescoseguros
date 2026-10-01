@@ -209,10 +209,10 @@ export default function CalendarioPage() {
       <Dialog open={!!selectedDay} onOpenChange={(open) => !open && setSelectedDay(null)}>
         <DialogContent className="sm:max-w-[500px] p-8">
           <DialogHeader className="mb-6">
-            <DialogTitle className="text-lg font-bold tracking-tight text-slate-800">
+            <DialogTitle className="text-lg font-light tracking-tighter text-slate-800">
               {selectedDay && `${selectedDay.day} de ${months[selectedDay.month % 12]} ${selectedDay.year}`}
             </DialogTitle>
-            <DialogDescription className="text-[10px] font-light text-slate-400 mt-1">
+            <DialogDescription className="text-[10px] font-light tracking-tighter text-slate-400 mt-1">
               {isAdmin ? 'Edita los eventos y cumpleaños de este día.' : 'Eventos y recordatorios institucionales.'}
             </DialogDescription>
           </DialogHeader>
@@ -221,7 +221,7 @@ export default function CalendarioPage() {
             {isAdmin ? (
               <div className="space-y-6">
                 <div className="space-y-3">
-                  <h4 className="text-[10px] font-bold uppercase text-blue-600 tracking-widest">Eventos (Máx 5)</h4>
+                  <h4 className="text-[10px] font-light tracking-tighter uppercase text-blue-600">Eventos (Máx 5)</h4>
                   {editForm.events.map((ev, i) => (
                     <Input 
                       key={`ev-${i}`}
@@ -232,12 +232,12 @@ export default function CalendarioPage() {
                         newEvents[i] = e.target.value;
                         setEditFom({ ...editForm, events: newEvents });
                       }}
-                      className="h-8 text-[11px] font-light"
+                      className="h-8 text-[11px] font-light tracking-tighter"
                     />
                   ))}
                 </div>
                 <div className="space-y-3">
-                  <h4 className="text-[10px] font-bold uppercase text-pink-600 tracking-widest">Cumpleaños (Máx 5)</h4>
+                  <h4 className="text-[10px] font-light tracking-tighter uppercase text-pink-600">Cumpleaños (Máx 5)</h4>
                   {editForm.birthdays.map((bd, i) => (
                     <Input 
                       key={`bd-${i}`}
@@ -248,14 +248,14 @@ export default function CalendarioPage() {
                         newBirthdays[i] = e.target.value;
                         setEditFom({ ...editForm, birthdays: newBirthdays });
                       }}
-                      className="h-8 text-[11px] font-light"
+                      className="h-8 text-[11px] font-light tracking-tighter"
                     />
                   ))}
                 </div>
                 <Button 
                   onClick={handleSave} 
                   disabled={saving} 
-                  className="w-full bg-[#003B73] h-9 text-xs font-light"
+                  className="w-full bg-[#003B73] h-9 text-xs font-light tracking-tighter"
                 >
                   {saving ? <Loader2 className="w-3 h-3 animate-spin mr-2" /> : <Save className="w-3 h-3 mr-2" />}
                   Guardar Cambios
@@ -266,20 +266,20 @@ export default function CalendarioPage() {
                 {(!selectedDay?.events?.length && !selectedDay?.birthdays?.length) ? (
                   <div className="py-10 text-center space-y-2">
                     <CalendarDays className="w-6 h-6 text-slate-200 mx-auto" strokeWidth={1} />
-                    <p className="text-slate-400 text-[10px] font-light italic">Sin eventos programados.</p>
+                    <p className="text-slate-400 text-[10px] font-light tracking-tighter italic">Sin eventos programados.</p>
                   </div>
                 ) : (
                   <>
                     {(selectedDay?.events || []).map((ev, i) => (
                       <div key={i} className="flex items-center gap-3 p-3 bg-blue-50/40 border border-blue-100/50 rounded-xl">
                         <CalendarDays className="w-3.5 h-3.5 text-blue-500" />
-                        <span className="text-[11px] font-medium text-slate-700">{ev}</span>
+                        <span className="text-[11px] font-light tracking-tighter text-slate-700">{ev}</span>
                       </div>
                     ))}
                     {(selectedDay?.birthdays || []).map((bd, i) => (
                       <div key={i} className="flex items-center gap-3 p-3 bg-pink-50/40 border border-pink-100/50 rounded-xl">
                         <Cake className="w-3.5 h-3.5 text-pink-500" />
-                        <span className="text-[11px] font-medium text-slate-700">{bd}</span>
+                        <span className="text-[11px] font-light tracking-tighter text-slate-700">{bd}</span>
                       </div>
                     ))}
                   </>
