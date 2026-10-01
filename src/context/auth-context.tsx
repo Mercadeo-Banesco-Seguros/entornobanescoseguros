@@ -54,6 +54,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [error, setError] = React.useState<string | null>(null);
 
   const SCRIPT_URL = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL;
+  // Nueva URL para el script de calendario independiente
+  const CALENDAR_SCRIPT_URL = process.env.NEXT_PUBLIC_CALENDAR_SCRIPT_URL || SCRIPT_URL;
 
   React.useEffect(() => {
     const savedUser = sessionStorage.getItem('bs_user');
@@ -70,7 +72,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   const login = React.useCallback(async (username: string, cedula: string) => {
-    if (!SCRIPT_URL) throw new Error("URL del servidor no configurada.");
+    if (!SCRIPT_URL) throw new Error("URL del servidor de autenticación no configurada.");
 
     try {
       const response = await fetch(SCRIPT_URL, {
@@ -97,14 +99,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         throw new Error(data.message || "Usuario o cédula incorrectos.");
       }
     } catch (error) {
-      throw error instanceof Error ? error : new Error("Error de conexión con el servidor.");
+      throw error instanceof Error ? error : new Error("Error de conexión con el servidor de acceso.");
     }
   }, [SCRIPT_URL]);
 
   const fetchCalendarData = React.useCallback(async () => {
-    if (!SCRIPT_URL) return [];
+    if (!CALENDAR_SCRIPT_URL) return [];
     try {
-      const response = await fetch(SCRIPT_URL, {
+      const response = await fetch(CALENDAR_SCRIPT_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify({ action: 'getCalendar' }),
@@ -115,12 +117,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       console.error("Error fetching calendar:", e);
       return [];
     }
-  }, [SCRIPT_URL]);
+  }, [CALENDAR_SCRIPT_URL]);
 
   const updateCalendarDay = React.useCallback(async (date: string, updates: { events: string[], birthdays: string[] }) => {
-    if (!SCRIPT_URL) return;
+    if (!CALENDAR_SCRIPT_URL) throw new Error("URL del servidor de calendario no configurada.");
     try {
-      const response = await fetch(SCRIPT_URL, {
+      const response = await fetch(CALENDAR_SCRIPT_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify({ action: 'updateCalendar', date, updates }),
@@ -130,7 +132,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     } catch (e) {
       throw e;
     }
-  }, [SCRIPT_URL]);
+  }, [CALENDAR_SCRIPT_URL]);
 
   const fetchUsers = React.useCallback(async () => {
     setLoading(true);
