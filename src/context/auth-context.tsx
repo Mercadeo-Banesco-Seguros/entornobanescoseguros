@@ -129,10 +129,26 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify({ action: 'updateCalendar', date, updates }),
       });
-      const data = await response.json();
-      if (!data.success) throw new Error(data.message);
-    } catch (e) {
-      throw e;
+
+      if (!response.ok) {
+        throw new Error(`Error de conexión HTTP: ${response.status}`);
+      }
+
+      const text = await response.text();
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch (parseError) {
+        console.error("Respuesta no válida del servidor de calendario:", text);
+        throw new Error("El servidor devolvió una respuesta no válida. Revisa la configuración de Apps Script.");
+      }
+
+      if (!data.success) {
+        throw new Error(data.message || "Error al actualizar la base de datos de calendario.");
+      }
+    } catch (error) {
+      console.error("Error en updateCalendarDay:", error);
+      throw error;
     }
   }, [CALENDAR_SCRIPT_URL]);
 
