@@ -301,7 +301,7 @@ export default function AcademiaPage() {
               <h2 className="text-4xl md:text-5xl font-bold tracking-tighter text-slate-900 leading-tight max-w-md">
                 {securityStates[activeSecurityIndex].title}
               </h2>
-              <p className="text-slate-500 text-[10px] md:text-[11px] font-light leading-relaxed max-w-sm tracking-tight">
+              <p className="text-slate-500 text-[10px] md:text-[11px] font-light leading-relaxed max-sm tracking-tight">
                 Garantizar la integridad de nuestra infraestructura y el cumplimiento de los estándares normativos es fundamental para nuestra excelencia operativa.
               </p>
               <button className="px-10 py-2.5 rounded-full bg-[#0054A6] text-white text-[11px] font-light tracking-wide hover:bg-[#0054A6]/90 transition-all duration-300 shadow-sm">
@@ -350,7 +350,7 @@ export default function AcademiaPage() {
           <div className="flex flex-col space-y-2 mb-10 max-w-3xl">
             <h2 className="text-4xl md:text-5xl font-semibold tracking-tighter text-white/90 leading-tight">
               Noticias y Novedades: <br />
-              <span className="text-blue-400/80">al corazón de nuestra gestión</span>
+              <span className="text-blue-400/80">te mantenemos al día</span>
             </h2>
           </div>
 
