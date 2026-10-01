@@ -13,13 +13,13 @@ export default function ProfilePage() {
     return (
       <div className="space-y-8 animate-in fade-in duration-700">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <Card className="md:col-span-1 flex flex-col items-center justify-center p-8 border-none shadow-none bg-white rounded-[2.5rem]">
+          <Card className="md:col-span-1 flex flex-col items-center justify-center p-8 border border-slate-100 shadow-none bg-white rounded-[2.5rem]">
             <Skeleton className="w-48 h-48 rounded-full mb-6" />
             <Skeleton className="h-6 w-32 mb-2" />
             <Skeleton className="h-4 w-48" />
           </Card>
           <div className="md:col-span-2 space-y-6">
-            <Card className="border-none shadow-none bg-white rounded-[2.5rem] p-8">
+            <Card className="border border-slate-100 shadow-none bg-white rounded-[2.5rem] p-8">
               <Skeleton className="h-24 w-full" />
             </Card>
           </div>
@@ -36,7 +36,7 @@ export default function ProfilePage() {
     <div className="space-y-8 animate-in fade-in duration-1000">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
         {/* Card de Identidad */}
-        <Card className="lg:col-span-1 border-none shadow-[0_4px_20px_rgba(0,0,0,0.03)] bg-white rounded-[2.5rem] overflow-hidden p-8 flex flex-col items-center text-center">
+        <Card className="lg:col-span-1 border border-slate-100 shadow-none bg-white rounded-[2.5rem] overflow-hidden p-8 flex flex-col items-center text-center">
           <div className="w-40 h-40 rounded-full bg-slate-50 flex items-center justify-center border border-slate-100 mb-6">
             <UserCircle className="w-20 h-24 text-slate-200 stroke-[0.5]" />
           </div>
@@ -58,7 +58,7 @@ export default function ProfilePage() {
 
         {/* Información Detallada */}
         <div className="lg:col-span-2 space-y-6">
-          <Card className="border-none shadow-[0_4px_20px_rgba(0,0,0,0.03)] bg-white rounded-[2.5rem] p-7">
+          <Card className="border border-slate-100 shadow-none bg-white rounded-[2.5rem] p-7">
             <CardHeader className="p-0 mb-4">
               <CardTitle className="text-xl font-bold text-slate-900">Datos Corporativos</CardTitle>
               <CardDescription className="text-[11px] font-light text-slate-400 mt-1">Detalles de vinculación institucional.</CardDescription>
