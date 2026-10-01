@@ -86,7 +86,7 @@ export default function LoginPage() {
           alt="Banner Corporativo"
           fill
           unoptimized
-          className="object-contain p-12"
+          className="object-cover"
           priority
         />
       </div>
