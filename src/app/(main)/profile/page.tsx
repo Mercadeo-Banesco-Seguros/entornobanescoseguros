@@ -32,6 +32,11 @@ export default function ProfilePage() {
     return <div className="py-20 text-center text-slate-400 font-light">Usuario no encontrado.</div>;
   }
 
+  // Extraer el ID (lo que viene antes del @)
+  const displayId = currentUser.id?.includes('@') 
+    ? currentUser.id.split('@')[0] 
+    : currentUser.username || currentUser.id;
+
   return (
     <div className="space-y-8 animate-in fade-in duration-1000">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
@@ -73,7 +78,7 @@ export default function ProfilePage() {
               </div>
               <div className="space-y-1">
                 <span className="text-[8px] text-white/50 font-light">Identificación (ID)</span>
-                <p className="text-[10px] text-white font-light">{currentUser.id}</p>
+                <p className="text-[10px] text-white font-light">{displayId}</p>
               </div>
               <div className="space-y-1">
                 <span className="text-[8px] text-white/50 font-light">Rol de sistema</span>
