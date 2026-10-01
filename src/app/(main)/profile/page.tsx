@@ -12,10 +12,6 @@ export default function ProfilePage() {
   if (loading) {
     return (
       <div className="space-y-8 animate-in fade-in duration-700">
-        <header>
-          <h1 className="text-4xl font-bold text-slate-900 tracking-tighter">Mi Perfil Institucional</h1>
-          <p className="text-slate-500 text-sm font-light mt-1">Cargando información corporativa...</p>
-        </header>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <Card className="md:col-span-1 flex flex-col items-center justify-center p-8 border-none shadow-none bg-white rounded-[2.5rem]">
             <Skeleton className="w-48 h-48 rounded-full mb-6" />
@@ -38,11 +34,6 @@ export default function ProfilePage() {
 
   return (
     <div className="space-y-8 animate-in fade-in duration-1000">
-      <header className="space-y-2">
-        <h1 className="text-4xl md:text-5xl font-bold text-slate-900 tracking-tighter">Mi Perfil Institucional</h1>
-        <p className="text-slate-400 text-sm font-light tracking-tight">Información oficial del colaborador en Banesco Seguros.</p>
-      </header>
-
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
         {/* Card de Identidad */}
         <Card className="lg:col-span-1 border-none shadow-[0_4px_20px_rgba(0,0,0,0.03)] bg-white rounded-[2.5rem] overflow-hidden p-8 flex flex-col items-center text-center">
