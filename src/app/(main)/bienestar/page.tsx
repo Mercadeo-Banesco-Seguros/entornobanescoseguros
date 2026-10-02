@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -177,7 +178,7 @@ export default function BienestarPage() {
           </div>
 
           <div className="w-full flex flex-col gap-4 max-w-[1800px] mx-auto">
-            <div className="flex justify-center items-end gap-1 md:gap-4 lg:gap-6 flex-grow pb-8">
+            <div className="flex justify-center items-end gap-3 md:gap-6 lg:gap-8 flex-grow pb-8">
               {wellnessActivities.map((item, index) => {
                 const activityImage = PlaceHolderImages.find(img => img.id === item.id);
                 const isActive = activeActivityIndex === index;
@@ -190,10 +191,10 @@ export default function BienestarPage() {
                       "relative transition-all duration-500 cursor-pointer group flex flex-col items-center",
                       isActive 
                         ? "scale-110 z-20 translate-y-[-10px]" 
-                        : "scale-90 hover:scale-105"
+                        : "scale-100"
                     )}
                   >
-                    <div className="relative w-24 h-40 md:w-36 md:h-60 lg:w-44 lg:h-[300px] rounded-3xl overflow-hidden bg-transparent border-none">
+                    <div className="relative w-32 h-44 md:w-44 md:h-64 lg:w-52 lg:h-[320px] rounded-3xl overflow-hidden bg-transparent border-none">
                       {activityImage && (
                         <Image 
                           src={activityImage.imageUrl} 
