@@ -101,6 +101,7 @@ export default function BienestarPage() {
   const currentState = wellnessStates[currentStateIndex];
   const heroImage = PlaceHolderImages.find(img => img.id === currentState.imageId);
   const activeActivity = wellnessActivities[activeActivityIndex];
+  const gymBenefitImage = PlaceHolderImages.find(img => img.id === 'gym-benefit');
 
   const getMenuImageUrl = (type: 'Clásico' | 'Dieta' | 'Ejecutivo', index: number) => {
     const prefixMap = { 'Clásico': 'menu-c-', 'Dieta': 'menu-d-', 'Ejecutivo': 'menu-e-' };
@@ -194,7 +195,7 @@ export default function BienestarPage() {
                         : "scale-100"
                     )}
                   >
-                    <div className="relative w-32 h-44 md:w-44 md:h-64 lg:w-52 lg:h-[320px] rounded-3xl overflow-hidden bg-transparent border-none">
+                    <div className="relative w-32 h-44 md:w-44 md:h-64 lg:w-56 lg:h-[320px] rounded-3xl overflow-hidden bg-transparent border-none">
                       {activityImage && (
                         <Image 
                           src={activityImage.imageUrl} 
@@ -234,6 +235,52 @@ export default function BienestarPage() {
                     {activeActivity.location}
                   </p>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 2.5. Beneficio de Gimnasio Section */}
+      <section className="relative w-screen left-1/2 -ml-[50vw] bg-slate-50 py-24 px-6 overflow-hidden border-y border-slate-100">
+        <div className="container mx-auto px-8 md:px-16 lg:px-24 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div className="space-y-8 animate-in fade-in slide-in-from-left-4 duration-1000 order-2 lg:order-1">
+              <div className="space-y-4">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0054A6]/10 border border-[#0054A6]/20">
+                  <span className="text-[#0054A6] text-[10px] font-light tracking-tight uppercase">Beneficios Exclusivos</span>
+                </div>
+                <h2 className="text-4xl md:text-5xl font-bold tracking-tighter text-slate-900 leading-[1] max-w-md">
+                  Aclera tu ritmo con el <span className="text-[#0054A6]">Beneficio de Gimnasio</span>
+                </h2>
+                <p className="text-slate-500 text-[11px] md:text-[13px] font-light leading-relaxed max-w-lg tracking-tight">
+                  Tu bienestar físico es el motor de tu productividad. En Banesco Seguros contamos con alianzas estratégicas en las cadenas de gimnasios más importantes a nivel nacional, ofreciendo planes y tarifas preferenciales diseñadas especialmente para ti.
+                </p>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                <button className="px-10 py-3 rounded-xl bg-[#0054A6] text-white text-[10px] font-light hover:bg-[#0054A6]/90 transition-all shadow-sm">
+                  Ver Gimnasios Aliados
+                </button>
+                <button className="px-10 py-3 rounded-xl bg-white border border-slate-200 text-slate-600 text-[10px] font-light hover:bg-slate-50 transition-all">
+                  Consultar Tarifas
+                </button>
+              </div>
+            </div>
+            
+            <div className="relative aspect-video lg:aspect-square w-full max-w-[550px] mx-auto animate-in fade-in zoom-in-95 duration-1000 delay-300 order-1 lg:order-2">
+              <div className="absolute inset-0 bg-gradient-to-tr from-[#0054A6]/20 to-transparent rounded-[3.5rem] -rotate-3 scale-105" />
+              <div className="relative w-full h-full rounded-[3.5rem] overflow-hidden shadow-2xl border border-white">
+                {gymBenefitImage && (
+                  <Image 
+                    src={gymBenefitImage.imageUrl} 
+                    alt="Beneficio de Gimnasio"
+                    fill
+                    className="object-cover"
+                    unoptimized
+                    data-ai-hint={gymBenefitImage.imageHint}
+                  />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
               </div>
             </div>
           </div>

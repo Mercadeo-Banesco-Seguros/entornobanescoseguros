@@ -140,6 +140,12 @@
       "imageHint": "martial arts"
     },
     {
+      "id": "gym-benefit",
+      "description": "Beneficio de Gimnasio",
+      "imageUrl": "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1200&h=1200",
+      "imageHint": "gym workout"
+    },
+    {
       "id": "academia-hero-1",
       "description": "Sangre Azul Academia",
       "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vR7WNrPe8Aznmo4abuO5LF8mgqIaUnFqQyeLUZH3nnfsm3Gz6n2QEyGy0Pxi3njWPy5qsV9fDf998OH/pub?format=png&w=960&h=720",
