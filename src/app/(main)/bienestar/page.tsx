@@ -27,7 +27,6 @@ const wellnessActivities = [
   { id: 'wellness-cuatro', day: 'Lunes o Jueves, 5:00 PM', style: 'Clases de Cuatro', location: 'Ubicación: Tríadas' },
   { id: 'wellness-bailoterapia', day: 'Jueves, 5:00 PM', style: 'Bailoterapia', location: 'Ubicación: Terraza' },
   { id: 'wellness-combat', day: 'Martes, 5:00 PM', style: 'Cross Combat', location: 'Ubicación: Terraza' },
-  { id: 'wellness-teatro', day: 'Martes y Jueves, 5:00 PM', style: 'Clases de Teatro', location: 'Ubicación: Tríadas' },
 ];
 
 const upcomingEvents = [
@@ -190,11 +189,11 @@ export default function BienestarPage() {
                     className={cn(
                       "relative transition-all duration-500 cursor-pointer group flex flex-col items-center",
                       isActive 
-                        ? "scale-105 z-20 translate-y-[-5px]" 
-                        : "scale-90 hover:scale-105 hover:z-20"
+                        ? "scale-110 z-20 translate-y-[-10px]" 
+                        : "scale-90 hover:scale-105"
                     )}
                   >
-                    <div className="relative w-24 h-40 md:w-32 md:h-52 lg:w-40 lg:h-64 rounded-3xl overflow-hidden bg-transparent shadow-none border-none">
+                    <div className="relative w-32 h-52 md:w-44 md:h-72 lg:w-56 lg:h-80 rounded-3xl overflow-hidden bg-transparent border-none">
                       {activityImage && (
                         <Image 
                           src={activityImage.imageUrl} 
@@ -328,7 +327,7 @@ export default function BienestarPage() {
             <div className="space-y-2">
               <span className="text-[#0054A6] text-[11px] font-light tracking-tight uppercase">Calendario</span>
               <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-slate-900 leading-none">Feriados y eventos</h2>
-              <p className="text-slate-500 text-[11px] font-light leading-relaxed max-w-xl mt-2">
+              <p className="text-slate-500 text-[11px] font-light leading-relaxed max-xl mt-2">
                 Mantente al día con las fechas más importantes de nuestra organización. Planifica tu tiempo y celebra con nosotros.
               </p>
             </div>
