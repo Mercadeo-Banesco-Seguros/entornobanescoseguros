@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -193,7 +194,7 @@ export default function BienestarPage() {
                         : "scale-90 hover:scale-105"
                     )}
                   >
-                    <div className="relative w-32 h-52 md:w-44 md:h-72 lg:w-56 lg:h-80 rounded-3xl overflow-hidden bg-transparent border-none">
+                    <div className="relative w-36 h-56 md:w-52 md:h-80 lg:w-64 lg:h-[420px] rounded-3xl overflow-hidden bg-transparent border-none">
                       {activityImage && (
                         <Image 
                           src={activityImage.imageUrl} 

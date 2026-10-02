@@ -1,3 +1,4 @@
+
 {
   "placeholderImages": [
     {
@@ -129,8 +130,8 @@
     {
       "id": "wellness-bailoterapia",
       "description": "Bailoterapia",
-      "imageUrl": "https://images.unsplash.com/photo-1524594152303-9fd13543fe6e?auto=format&fit=crop&w=600&h=800",
-      "imageHint": "dance group"
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vS55m2mg1qW-32K1M_qeVaZzFDPbKCvRFsvnCoRqTAO9aCvt82YpU3iZSbW5nkduai7Nl4UG76ptBIp/pub?w=960&h=720",
+      "imageHint": "dance class"
     },
     {
       "id": "wellness-combat",
