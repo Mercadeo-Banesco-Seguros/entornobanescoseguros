@@ -409,7 +409,7 @@ export default function NosotrosPage() {
               </p>
             </div>
             <button className="bg-white text-[#003B73] px-6 py-2.5 rounded-xl text-[11px] font-light hover:bg-slate-100 transition-colors">
-              Ver todo el equipo
+              Próximamente
             </button>
           </div>
 
