@@ -124,25 +124,25 @@
     {
       "id": "wellness-cuatro",
       "description": "Clases de Cuatro",
-      "imageUrl": "https://picsum.photos/seed/cuatro/960/720",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vQoELxjQ3HQhZi7UA7f1N9bwSNQJb2qd6zW8kLYxuAfBk-gjEdzbT8MzAivftV_HK2btZbqnali5YGw/pub?w=960&h=720",
       "imageHint": "music class"
     },
     {
       "id": "wellness-bailoterapia",
       "description": "Bailoterapia",
-      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vQoELxjQ3HQhZi7UA7f1N9bwSNQJb2qd6zW8kLYxuAfBk-gjEdzbT8MzAivftV_HK2btZbqnali5YGw/pub?w=960&h=720",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vS55m2mg1qW-32K1M_qeVaZzFDPbKCvRFsvnCoRqTAO9aCvt82YpU3iZSbW5nkduai7Nl4UG76ptBIp/pub?w=960&h=720",
       "imageHint": "dance class"
     },
     {
       "id": "wellness-combat",
       "description": "Cross Combat",
-      "imageUrl": "https://picsum.photos/seed/combat/960/720",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vT8ovMXCobDgFPuEHVreis63jbHWm0eXjuMLoG07TmiQrLPnn-nLPHvVwGw7Uh9JjoOu2THPORceeGQ/pub?w=960&h=720",
       "imageHint": "martial arts"
     },
     {
       "id": "wellness-teatro",
       "description": "Clases de Teatro",
-      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vT8ovMXCobDgFPuEHVreis63jbHWm0eXjuMLoG07TmiQrLPnn-nLPHvVwGw7Uh9JjoOu2THPORceeGQ/pub?w=960&h=720",
+      "imageUrl": "https://picsum.photos/seed/teatro/960/720",
       "imageHint": "theater class"
     },
     {
