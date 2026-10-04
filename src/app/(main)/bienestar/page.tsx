@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -27,6 +28,7 @@ const wellnessActivities = [
   { id: 'wellness-cuatro', day: 'Lunes o Jueves, 5:00 PM', style: 'Clases de Cuatro', location: 'Ubicación: Tríadas' },
   { id: 'wellness-bailoterapia', day: 'Jueves, 5:00 PM', style: 'Bailoterapia', location: 'Ubicación: Terraza' },
   { id: 'wellness-combat', day: 'Martes, 5:00 PM', style: 'Cross Combat', location: 'Ubicación: Terraza' },
+  { id: 'wellness-teatro', day: 'Martes y Jueves, 5:00 PM', style: 'Clases de Teatro', location: 'Ubicación: Tríadas' },
 ];
 
 const upcomingEvents = [
@@ -250,7 +252,7 @@ export default function BienestarPage() {
                   <span className="text-[#0054A6] text-[10px] font-light tracking-tight uppercase">Beneficios Exclusivos</span>
                 </div>
                 <h2 className="text-4xl md:text-5xl font-bold tracking-tighter text-slate-900 leading-[1] max-w-md">
-                  Aclera tu ritmo con el <span className="text-[#0054A6]">Beneficio de Gimnasio</span>
+                  Acelera tu ritmo con el <span className="text-[#0054A6]">Beneficio de Gimnasio</span>
                 </h2>
                 <p className="text-slate-500 text-[11px] md:text-[13px] font-light leading-relaxed max-w-lg tracking-tight">
                   Tu bienestar físico es el motor de tu productividad. En Banesco Seguros contamos con alianzas estratégicas en las cadenas de gimnasios más importantes a nivel nacional, ofreciendo planes y tarifas preferenciales diseñadas especialmente para ti.
