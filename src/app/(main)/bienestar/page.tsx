@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from 'react';
@@ -28,7 +27,6 @@ const wellnessActivities = [
   { id: 'wellness-cuatro', day: 'Lunes o Jueves, 5:00 PM', style: 'Clases de Cuatro', location: 'Ubicación: Tríadas' },
   { id: 'wellness-bailoterapia', day: 'Jueves, 5:00 PM', style: 'Bailoterapia', location: 'Ubicación: Terraza' },
   { id: 'wellness-combat', day: 'Martes, 5:00 PM', style: 'Cross Combat', location: 'Ubicación: Terraza' },
-  { id: 'wellness-teatro', day: 'Martes y Jueves, 5:00 PM', style: 'Clases de Teatro', location: 'Ubicación: Tríadas' },
 ];
 
 const upcomingEvents = [
@@ -101,7 +99,7 @@ export default function BienestarPage() {
 
   const currentState = wellnessStates[currentStateIndex];
   const heroImage = PlaceHolderImages.find(img => img.id === currentState.imageId);
-  const activeActivity = wellnessActivities[activeActivityIndex];
+  const activeActivity = wellnessActivities[activeActivityIndex] || wellnessActivities[0];
   const gymBenefitImage = PlaceHolderImages.find(img => img.id === 'gym-benefit');
 
   const getMenuImageUrl = (type: 'Clásico' | 'Dieta' | 'Ejecutivo', index: number) => {
