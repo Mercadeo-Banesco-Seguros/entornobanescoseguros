@@ -194,7 +194,7 @@ export default function BienestarPage() {
                         : "scale-100"
                     )}
                   >
-                    <div className="relative w-32 h-44 md:w-44 md:h-64 lg:w-56 lg:h-[320px] rounded-3xl overflow-hidden bg-transparent border-none">
+                    <div className="relative w-28 h-40 md:w-36 md:h-52 lg:w-44 lg:h-64 rounded-3xl overflow-hidden bg-transparent border-none">
                       {activityImage && (
                         <Image 
                           src={activityImage.imageUrl} 
