@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from 'react';
@@ -231,7 +230,7 @@ export default function BienestarPage() {
                   <h3 className="text-[#0054A6] text-xl md:text-2xl font-bold tracking-tighter leading-none mt-1">
                     {activeActivity.style}
                   </h3>
-                  <p className="text-slate-400 text-[10px] font-light mt-1 uppercase italic tracking-tight">
+                  <p className="text-slate-400 text-[10px] font-light mt-1 tracking-tight">
                     {activeActivity.location}
                   </p>
                 </div>
