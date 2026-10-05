@@ -249,11 +249,11 @@ export default function BienestarPage() {
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0054A6]/10 border border-[#0054A6]/20">
                   <span className="text-[#0054A6] text-[10px] font-light tracking-tight uppercase">Beneficios Exclusivos</span>
                 </div>
-                <h2 className="text-4xl md:text-5xl font-bold tracking-tighter text-slate-900 leading-[1] max-w-md">
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-slate-900 leading-[1] max-w-md">
                   <span className="text-[#0054A6]">Aprovecha tu Beneficio de Gimnasio</span>
                 </h2>
                 <p className="text-slate-500 text-[11px] md:text-[13px] font-light leading-relaxed max-w-lg tracking-tight">
-                  Tu bienestar físico es el motor de tu productividad. En Banesco Seguros contamos con alianzas estratégicas en las cadenas de gimnasios más importantes a nivel nacional, ofreciendo planes y tarifas preferenciales diseñadas especialmente para ti.
+                  En Banesco Seguros apoyamos tu salud. Los empleados pueden inscribirse en el gimnasio de su preferencia y la empresa pagará la mensualidad por hasta 50 USD de manera retroactiva.
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
