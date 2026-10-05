@@ -19,9 +19,12 @@ import {
   Sparkles,
   FileCheck,
   XCircle,
-  ChevronRight
+  ChevronRight,
+  Utensils,
+  Cake,
+  CalendarDays
 } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useAuth } from '@/context/auth-context';
 import {
   DropdownMenu,
@@ -41,19 +44,39 @@ import {
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
+interface NotificationItem {
+  id: string | number;
+  title: string;
+  description: string;
+  time: string;
+  icon: any;
+  color: string;
+  bgColor: string;
+}
+
+const MENU_DATA = [
+  { day: 1, name: 'Bowl Energético' },
+  { day: 2, name: 'Pollo al Curry' },
+  { day: 3, name: 'Pasta Mediterránea' },
+  { day: 4, name: 'Salmón Grillado' },
+  { day: 5, name: 'Bowl de Proteína' },
+];
+
 export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
-  const { isAuthenticated, currentUser, logout } = useAuth();
+  const { isAuthenticated, currentUser, logout, fetchCalendarData } = useAuth();
   const [mounted, setMounted] = useState(false);
   const [isTimeExpanded, setIsTimeExpanded] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [temperature, setTemperature] = useState<number | null>(null);
   const [showAIModal, setShowAIModal] = useState(false);
   const [inputValue, setInputValue] = useState('');
-  
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  
+  const [notifications, setNotifications] = useState<NotificationItem[]>([]);
+  const [reminders, setReminders] = useState<NotificationItem[]>([]);
 
   const triggerAIModal = () => {
     setShowAIModal(true);
@@ -62,6 +85,99 @@ export default function Navbar() {
   const handleLogout = () => {
     logout();
   };
+
+  const loadDynamicContent = useCallback(async () => {
+    // 1. Cargar Notificaciones (Portal + Menu)
+    const today = new Date();
+    const dayOfWeek = today.getDay();
+    const menuToday = MENU_DATA.find(m => m.day === dayOfWeek);
+
+    const dynamicNotifications: NotificationItem[] = [
+      { 
+        id: 'portal-1', 
+        title: 'Explora la Academia', 
+        description: 'Nuevos cursos de gestión de riesgos disponibles.', 
+        time: 'Portal', 
+        icon: Sparkles, 
+        color: 'text-blue-400', 
+        bgColor: 'bg-blue-50' 
+      },
+      { 
+        id: 'portal-2', 
+        title: 'Gestión Documental', 
+        description: 'La Biblioteca ha sido actualizada con nuevos protocolos.', 
+        time: 'Portal', 
+        icon: FileCheck, 
+        color: 'text-green-400', 
+        bgColor: 'bg-green-50' 
+      }
+    ];
+
+    if (menuToday) {
+      dynamicNotifications.unshift({
+        id: 'menu-today',
+        title: 'Menú del Día',
+        description: `Hoy en el comedor: ${menuToday.name}`,
+        time: 'Ahora',
+        icon: Utensils,
+        color: 'text-orange-400',
+        bgColor: 'bg-orange-50'
+      });
+    }
+
+    setNotifications(dynamicNotifications);
+
+    // 2. Cargar Recordatorios (Calendario)
+    try {
+      const calendarData = await fetchCalendarData();
+      if (Array.isArray(calendarData)) {
+        const upcoming: NotificationItem[] = [];
+        
+        // Ordenar y filtrar eventos próximos (hoy y próximos 7 días)
+        const sortedData = calendarData
+          .filter(day => {
+            const eventDate = new Date(day.date + 'T00:00:00');
+            const diffTime = eventDate.getTime() - today.getTime();
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            return diffDays >= -1 && diffDays <= 7;
+          })
+          .sort((a, b) => a.date.localeCompare(b.date));
+
+        sortedData.forEach((day, idx) => {
+          const isToday = new Date(day.date + 'T00:00:00').toDateString() === today.toDateString();
+          const timeLabel = isToday ? 'Hoy' : day.date.split('-').reverse().slice(0, 2).join('/');
+
+          day.events?.forEach((ev: string, i: number) => {
+            upcoming.push({
+              id: `ev-${idx}-${i}`,
+              title: ev,
+              description: 'Evento Institucional',
+              time: timeLabel,
+              icon: CalendarDays,
+              color: 'text-[#0054A6]',
+              bgColor: 'bg-blue-50'
+            });
+          });
+
+          day.birthdays?.forEach((bd: string, i: number) => {
+            upcoming.push({
+              id: `bd-${idx}-${i}`,
+              title: `Cumpleaños: ${bd}`,
+              description: 'Festejo del equipo',
+              time: timeLabel,
+              icon: Cake,
+              color: 'text-pink-400',
+              bgColor: 'bg-pink-50'
+            });
+          });
+        });
+
+        setReminders(upcoming.slice(0, 5)); // Mostrar máximo 5
+      }
+    } catch (e) {
+      console.warn("No se pudieron cargar recordatorios dinámicos");
+    }
+  }, [fetchCalendarData]);
 
   useEffect(() => {
     setMounted(true);
@@ -87,13 +203,15 @@ export default function Navbar() {
     fetchWeather();
     const weatherTimer = setInterval(fetchWeather, 600000); 
 
+    // Cargar contenido dinámico
+    loadDynamicContent();
+
     return () => {
       clearInterval(timer);
       clearInterval(weatherTimer);
     };
-  }, []);
+  }, [loadDynamicContent]);
 
-  // Solo mostrar Navbar si está autenticado y no es la página de login
   if (!mounted || !isAuthenticated || pathname === '/login') return null;
 
   const fullTimeFormatted = currentTime.toLocaleTimeString('en-US', { 
@@ -104,18 +222,6 @@ export default function Navbar() {
   
   const day = currentTime.getDate();
   const month = currentTime.toLocaleString('es-ES', { month: 'short' });
-
-  const notificationsData = [
-    { id: 1, title: 'Cifras actualizadas', description: 'Los tableros de producción ya reflejan el cierre de ayer.', time: 'Hace 5m', icon: Database, color: 'text-slate-400', bgColor: 'bg-slate-50' },
-    { id: 2, title: 'Nueva funcionalidad', description: 'Módulo de análisis de gestión optimizado ya disponible.', time: 'Hoy', icon: Sparkles, color: 'text-blue-400', bgColor: 'bg-blue-50' },
-    { id: 3, title: 'Póliza renovada', description: 'Gestión de cartera actualizada recientemente.', time: 'Hace 1h', icon: FileCheck, color: 'text-green-400', bgColor: 'bg-green-50' },
-  ];
-
-  const remindersData = [
-    { id: 1, title: 'Vencimiento Próximo', description: 'Revisión de metas programada para las próximas 48h.', time: 'Hace 45m', icon: Clock, color: 'text-orange-400', bgColor: 'bg-orange-50' },
-    { id: 2, title: 'Gestión Pendiente', description: 'Actualización requerida en el módulo de finanzas.', time: 'Hace 2h', icon: XCircle, color: 'text-red-400', bgColor: 'bg-red-50' },
-    { id: 3, title: 'Aviso Importante', description: 'Comunicado oficial de la dirección general.', time: 'Hace 4h', icon: AlertTriangle, color: 'text-red-500', bgColor: 'bg-red-50' },
-  ];
 
   const aiPlaceholder = PlaceHolderImages.find(img => img.id === 'segurito-ai-status');
 
@@ -222,65 +328,75 @@ export default function Navbar() {
                   <PopoverTrigger asChild>
                     <button className="p-1.5 text-white/60 hover:text-white transition-colors relative">
                       <Bell className="w-3 h-3" strokeWidth={1.5} />
-                      <span className="absolute top-1.5 right-1.5 w-1 h-1 bg-blue-500 rounded-full" />
+                      {(notifications.length > 0 || reminders.length > 0) && (
+                        <span className="absolute top-1.5 right-1.5 w-1 h-1 bg-blue-500 rounded-full" />
+                      )}
                     </button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0 bg-transparent border-none shadow-none flex gap-4 mt-4 mr-4 outline-none">
-                    <div className="w-[280px] p-5 bg-white border-none shadow-[0_20px_50px_rgba(0,0,0,0.1)] rounded-xl overflow-hidden space-y-4">
+                  <PopoverContent className="w-auto p-0 bg-transparent border-none shadow-none flex flex-col md:flex-row gap-4 mt-4 mr-4 outline-none">
+                    <div className="w-[300px] p-5 bg-white border-none shadow-[0_20px_50px_rgba(0,0,0,0.1)] rounded-xl overflow-hidden space-y-4">
                       <div className="flex justify-between items-start">
                         <div>
                           <h4 className="text-slate-700 text-[11px] font-light tracking-tight">Notificaciones</h4>
-                          <p className="text-[9px] text-slate-400 font-light mt-0.5">Actividad y actualizaciones</p>
+                          <p className="text-[9px] text-slate-400 font-light mt-0.5">Operatividad del Portal</p>
                         </div>
-                        <button className="text-[9px] text-slate-400 font-light hover:text-slate-600 flex items-center gap-0.5 transition-colors">
-                          Ver todas <ChevronRight className="w-2.5 h-2.5" />
-                        </button>
                       </div>
 
-                      <div className="space-y-4 pt-1">
-                        {notificationsData.map((item) => (
-                          <div key={item.id} className="group cursor-pointer flex items-center gap-3">
-                            <div className={cn("w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-transform group-hover:scale-105", item.bgColor)}>
-                              <item.icon className={cn("w-3.5 h-3.5", item.color)} strokeWidth={1} />
-                            </div>
-                            <div className="flex-grow">
-                              <div className="flex items-center gap-1.5">
-                                <span className="text-[9px] text-slate-700 font-light">{item.title}</span>
-                                <span className="text-[7px] text-slate-300 font-light">• {item.time}</span>
+                      <div className="space-y-4 pt-1 max-h-[300px] overflow-y-auto no-scrollbar">
+                        {notifications.length === 0 ? (
+                          <p className="text-[9px] text-slate-300 font-light italic py-4 text-center">Sin avisos por ahora.</p>
+                        ) : (
+                          notifications.map((item) => (
+                            <div key={item.id} className="group cursor-pointer flex items-center gap-3">
+                              <div className={cn("w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-transform group-hover:scale-105", item.bgColor)}>
+                                <item.icon className={cn("w-3.5 h-3.5", item.color)} strokeWidth={1} />
                               </div>
-                              <p className="text-[8px] text-slate-400 font-light leading-tight mt-0.5">{item.description}</p>
+                              <div className="flex-grow">
+                                <div className="flex items-center gap-1.5">
+                                  <span className="text-[9px] text-slate-700 font-light">{item.title}</span>
+                                  <span className="text-[7px] text-slate-300 font-light">• {item.time}</span>
+                                </div>
+                                <p className="text-[8px] text-slate-400 font-light leading-tight mt-0.5">{item.description}</p>
+                              </div>
                             </div>
-                          </div>
-                        ))}
+                          ))
+                        )}
                       </div>
                     </div>
 
-                    <div className="w-[280px] p-5 bg-white border-none shadow-[0_20px_50px_rgba(0,0,0,0.1)] rounded-xl overflow-hidden space-y-4">
+                    <div className="w-[300px] p-5 bg-white border-none shadow-[0_20px_50px_rgba(0,0,0,0.1)] rounded-xl overflow-hidden space-y-4">
                       <div className="flex justify-between items-start">
                         <div>
                           <h4 className="text-slate-700 text-[11px] font-light tracking-tight">Recordatorios</h4>
-                          <p className="text-[9px] text-slate-400 font-light mt-0.5">Gestión institucional</p>
+                          <p className="text-[9px] text-slate-400 font-light mt-0.5">Calendario Institucional</p>
                         </div>
-                        <div className="w-6 h-6 rounded-full bg-red-50 flex items-center justify-center">
-                          <AlertTriangle className="w-3 h-3 text-red-400 stroke-[1]" />
-                        </div>
+                        <Link href="/calendario" className="w-6 h-6 rounded-full bg-[#0054A6]/5 flex items-center justify-center hover:bg-[#0054A6]/10 transition-colors">
+                          <ChevronRight className="w-3 h-3 text-[#0054A6]" />
+                        </Link>
                       </div>
 
-                      <div className="space-y-4 pt-1">
-                        {remindersData.map((item) => (
-                          <div key={item.id} className="group cursor-pointer flex items-center gap-3">
-                            <div className={cn("w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-transform group-hover:scale-105", item.bgColor)}>
-                              <item.icon className={cn("w-3.5 h-3.5", item.color)} strokeWidth={1} />
-                            </div>
-                            <div className="flex-grow">
-                              <div className="flex items-center gap-1.5">
-                                <span className="text-[9px] text-slate-700 font-light">{item.title}</span>
-                                <span className="text-[7px] text-slate-300 font-light">• {item.time}</span>
-                              </div>
-                              <p className="text-[8px] text-slate-400 font-light leading-tight mt-0.5">{item.description}</p>
-                            </div>
+                      <div className="space-y-4 pt-1 max-h-[300px] overflow-y-auto no-scrollbar">
+                        {reminders.length === 0 ? (
+                          <div className="py-8 text-center space-y-2">
+                             <Clock className="w-6 h-6 text-slate-100 mx-auto" strokeWidth={1} />
+                             <p className="text-[9px] text-slate-300 font-light italic">Sin eventos próximos.</p>
                           </div>
-                        ))}
+                        ) : (
+                          reminders.map((item) => (
+                            <div key={item.id} className="group cursor-pointer flex items-center gap-3">
+                              <div className={cn("w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-transform group-hover:scale-105", item.bgColor)}>
+                                <item.icon className={cn("w-3.5 h-3.5", item.color)} strokeWidth={1} />
+                              </div>
+                              <div className="flex-grow">
+                                <div className="flex items-center gap-1.5">
+                                  <span className="text-[9px] text-slate-700 font-light">{item.title}</span>
+                                  <span className="text-[7px] text-slate-300 font-light">• {item.time}</span>
+                                </div>
+                                <p className="text-[8px] text-slate-400 font-light leading-tight mt-0.5">{item.description}</p>
+                              </div>
+                            </div>
+                          ))
+                        )}
                       </div>
                     </div>
                   </PopoverContent>
