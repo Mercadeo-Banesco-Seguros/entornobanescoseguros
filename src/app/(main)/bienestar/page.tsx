@@ -194,7 +194,7 @@ export default function BienestarPage() {
                         : "scale-100"
                     )}
                   >
-                    <div className="relative w-24 h-32 md:w-32 md:h-44 lg:w-40 lg:h-56 rounded-[2rem] overflow-hidden bg-transparent border-none">
+                    <div className="relative w-16 h-24 md:w-20 md:h-32 lg:w-24 lg:h-36 rounded-2xl overflow-hidden bg-transparent border-none">
                       {activityImage && (
                         <Image 
                           src={activityImage.imageUrl} 
@@ -226,7 +226,7 @@ export default function BienestarPage() {
 
               <div className="flex flex-col items-end gap-1">
                 <div className="text-right">
-                  <p className="text-slate-400 text-[9px] font-light uppercase tracking-widest">{activeActivity.day}</p>
+                  <p className="text-slate-400 text-[9px] font-light tracking-widest">{activeActivity.day}</p>
                   <h3 className="text-[#0054A6] text-xl md:text-2xl font-bold tracking-tighter leading-none mt-1">
                     {activeActivity.style}
                   </h3>
@@ -250,7 +250,7 @@ export default function BienestarPage() {
                   <span className="text-[#0054A6] text-[10px] font-light tracking-tight uppercase">Beneficios Exclusivos</span>
                 </div>
                 <h2 className="text-4xl md:text-5xl font-bold tracking-tighter text-slate-900 leading-[1] max-w-md">
-                  Acelera tu ritmo con el <span className="text-[#0054A6]">Aprovecha tu Beneficio de Gimnasio</span>
+                  <span className="text-[#0054A6]">Aprovecha tu Beneficio de Gimnasio</span>
                 </h2>
                 <p className="text-slate-500 text-[11px] md:text-[13px] font-light leading-relaxed max-w-lg tracking-tight">
                   Tu bienestar físico es el motor de tu productividad. En Banesco Seguros contamos con alianzas estratégicas en las cadenas de gimnasios más importantes a nivel nacional, ofreciendo planes y tarifas preferenciales diseñadas especialmente para ti.
