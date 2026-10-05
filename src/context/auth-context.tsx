@@ -127,7 +127,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       try {
         data = JSON.parse(text);
       } catch (e) {
-        // Usamos console.warn en lugar de console.error para evitar el overlay de error de Next.js
         console.warn("Respuesta no válida del servidor de calendario (no es JSON):", text.substring(0, 100) + "...");
         return [];
       }

@@ -51,7 +51,7 @@ export default function CalendarioPage() {
       const data = await fetchCalendarData();
       setCalendarData(Array.isArray(data) ? data : []);
     } catch (e) {
-      console.error("Error loading calendar data:", e);
+      console.warn("Error loading calendar data in page:", e);
       setCalendarData([]);
     } finally {
       setLoading(false);
@@ -75,15 +75,27 @@ export default function CalendarioPage() {
   const offset = firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1;
 
   const calendarDays = [];
+  // Días del mes anterior
   for (let i = offset - 1; i >= 0; i--) {
-    calendarDays.push({ day: daysInPrevMonth - i, month: viewMonth - 1, year: viewYear, isCurrentMonth: false });
+    const d = daysInPrevMonth - i;
+    const m = viewMonth - 1;
+    let y = viewYear;
+    let finalM = m;
+    if (m < 0) { finalM = 11; y--; }
+    calendarDays.push({ day: d, month: finalM, year: y, isCurrentMonth: false });
   }
+  // Días del mes actual
   for (let i = 1; i <= daysInMonth; i++) {
     calendarDays.push({ day: i, month: viewMonth, year: viewYear, isCurrentMonth: true });
   }
+  // Días del mes siguiente
   const remainingCells = 42 - calendarDays.length;
   for (let i = 1; i <= remainingCells; i++) {
-    calendarDays.push({ day: i, month: viewMonth + 1, year: viewYear, isCurrentMonth: false });
+    const m = viewMonth + 1;
+    let y = viewYear;
+    let finalM = m;
+    if (m > 11) { finalM = 0; y++; }
+    calendarDays.push({ day: i, month: finalM, year: y, isCurrentMonth: false });
   }
 
   const getDayData = (day: number, month: number, year: number) => {
