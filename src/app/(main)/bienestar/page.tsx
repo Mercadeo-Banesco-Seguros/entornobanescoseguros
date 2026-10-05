@@ -194,7 +194,7 @@ export default function BienestarPage() {
                         : "scale-100"
                     )}
                   >
-                    <div className="relative w-24 h-36 md:w-28 md:h-44 lg:w-36 lg:h-56 rounded-2xl overflow-hidden bg-transparent border-none">
+                    <div className="relative w-32 h-52 md:w-40 md:h-60 lg:w-52 lg:h-80 rounded-2xl overflow-hidden bg-transparent border-none">
                       {activityImage && (
                         <Image 
                           src={activityImage.imageUrl} 
@@ -241,7 +241,7 @@ export default function BienestarPage() {
       </section>
 
       {/* 2.5. Beneficio de Gimnasio Section */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] bg-slate-50 py-24 px-6 overflow-hidden border-y border-slate-100">
+      <section className="relative w-screen left-1/2 -ml-[50vw] bg-slate-50 py-12 px-6 overflow-hidden border-y border-slate-100">
         <div className="container mx-auto px-8 md:px-16 lg:px-24 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-8 animate-in fade-in slide-in-from-left-4 duration-1000 order-2 lg:order-1">
