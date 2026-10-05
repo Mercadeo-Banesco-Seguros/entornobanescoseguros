@@ -85,7 +85,7 @@ const teamMembers = [
     imageId: 'team-ramon'
   },
   {
-    name: 'Martha Gomez',
+    name: 'Rosalba Rodríguez',
     role: 'Gerente Comercial',
     imageId: 'team-martha'
   },
