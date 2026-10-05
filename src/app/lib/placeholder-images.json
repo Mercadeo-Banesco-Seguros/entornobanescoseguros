@@ -154,7 +154,7 @@
     {
       "id": "academia-hero-2",
       "description": "Ética Academia",
-      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vR_WaX2Xbhmzu4fy6sfKHFzoVdKrRgmWpsVQlWGIg_eHR456gB4pqlnSSJmYXEgl3XUIPI57RebCmAO/pub?w=960&h=720",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1v_WaX2Xbhmzu4fy6sfKHFzoVdKrRgmWpsVQlWGIg_eHR456gB4pqlnSSJmYXEgl3XUIPI57RebCmAO/pub?w=960&h=720",
       "imageHint": "professional ethics"
     },
     {
@@ -198,6 +198,24 @@
       "description": "Desarrolla con Seguridad",
       "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vQzh85kJcZgzcobKkQ_WVTQlUp_u8EMd-_04wq1hPp97qSnDFPccBJyFEYNaKzKd9cXuMAsbeN9orx8/pub?w=960&h=720&format=png",
       "imageHint": "secure coding"
+    },
+    {
+      "id": "team-ramon",
+      "description": "Ramon Gonzalez - Gerente General",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vRu2-p92X8ApVfAoEPCEtmm7wuhJSYUmNrQK97OSuQ5G9hU2OMKA7oSsADyXLKms6psQvorvJS3o1w9/pub?w=960&h=720",
+      "imageHint": "executive portrait"
+    },
+    {
+      "id": "team-rosalba",
+      "description": "Rosalba Rodríguez - Gerente Comercial",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vRwksATwG7fd5OO8rL5Y989fKZYcp44ama40D8x7lDYli3TTPS-rF-xHmkur9ysPqSDYbgo4fAn4zKE/pub?w=960&h=720",
+      "imageHint": "businesswoman portrait"
+    },
+    {
+      "id": "team-mallaury",
+      "description": "Mallaury Martinez - Líder de Finanzas",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vSUwfwXA0zADIF7f4eptmzs7d62X5i1NFeCc3XTUcU2X92UCg9ea4h4umFHW_jhwI9IAeUcZvIL3AA8/pub?w=960&h=720",
+      "imageHint": "finance leader portrait"
     }
   ]
 }

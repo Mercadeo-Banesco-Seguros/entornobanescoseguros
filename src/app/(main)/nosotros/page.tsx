@@ -1,3 +1,4 @@
+
 'use client';
 
 import * as React from 'react';
@@ -87,11 +88,11 @@ const teamMembers = [
   {
     name: 'Rosalba Rodríguez',
     role: 'Gerente Comercial',
-    imageId: 'team-martha'
+    imageId: 'team-rosalba'
   },
   {
     name: 'Mallaury Martinez',
-    role: 'Lider de Finanzas',
+    role: 'Líder de Finanzas',
     imageId: 'team-mallaury'
   }
 ];
@@ -176,8 +177,6 @@ function ComplianceGrid({ value, label, description, isPercentage = true }: { va
     let startTimestamp: number | null = null;
     const duration = 2500;
     
-    // Si es Ranking (isPercentage = false), asumimos 100 aseguradoras.
-    // Estar en el puesto 13 significa que superamos a 87 (100 - 13).
     const targetFilled = isPercentage ? value : (100 - value);
 
     const step = (timestamp: number) => {
@@ -251,7 +250,6 @@ export default function NosotrosPage() {
 
   return (
     <div className="flex flex-col w-full min-h-screen">
-      {/* 1. Hero Section - Nuestra Visión 2026 */}
       <section className="relative w-screen left-1/2 -ml-[50vw] -mt-32 pt-32 min-h-[500px] md:min-h-[600px] overflow-hidden flex items-center bg-gradient-to-br from-[#0054A6] via-[#003B73] to-[#002D54]">
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute -top-32 -left-32 w-[500px] h-[500px] rounded-full blur-[120px] bg-blue-400/20" />
@@ -269,7 +267,6 @@ export default function NosotrosPage() {
         </div>
       </section>
 
-      {/* 2. Nuestra Trayectoria en Cifras - Full Width Row */}
       <section className="relative w-screen left-1/2 -ml-[50vw] bg-white pt-24 pb-12 px-8 md:px-16 lg:px-24 border-b border-slate-50 overflow-hidden">
         <div className="w-full">
           <div className="space-y-4 mb-20 px-4">
@@ -329,7 +326,6 @@ export default function NosotrosPage() {
         </div>
       </section>
 
-      {/* 3. Historia - Un Viaje a Través del Tiempo */}
       <section 
         className="relative w-screen left-1/2 -ml-[50vw] py-10 transition-colors duration-700 ease-out text-white overflow-hidden"
         style={{
@@ -395,10 +391,8 @@ export default function NosotrosPage() {
         </div>
       </section>
 
-      {/* 4. Sección: Nuestro fantástico equipo */}
       <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-24 px-8 md:px-16 lg:px-24">
         <div className="w-full flex flex-col md:flex-row gap-6">
-          {/* Card Principal */}
           <div className="md:w-1/4 bg-[#003B73] rounded-[2.5rem] p-10 flex flex-col justify-between items-start min-h-[400px]">
             <div className="space-y-4">
               <h2 className="text-white text-3xl md:text-4xl font-bold tracking-tighter leading-tight">
@@ -413,7 +407,6 @@ export default function NosotrosPage() {
             </button>
           </div>
 
-          {/* Cards de Miembros */}
           <div className="md:w-3/4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {teamMembers.map((member, idx) => {
               const placeholder = PlaceHolderImages.find(img => img.id === member.imageId);
@@ -427,6 +420,7 @@ export default function NosotrosPage() {
                         fill
                         className="object-cover"
                         data-ai-hint={placeholder.imageHint}
+                        unoptimized
                       />
                     )}
                   </div>
@@ -460,7 +454,6 @@ export default function NosotrosPage() {
         </div>
       </section>
 
-      {/* 5. Sección de Cumplimiento (Grids Visuales) - Full Width Azul */}
       <section className="relative w-screen left-1/2 -ml-[50vw] bg-[#0054A6] py-20 px-8 md:px-16 lg:px-24 shadow-2xl">
         <div className="w-full">
           <div className="space-y-4 mb-12 px-4">
@@ -492,7 +485,6 @@ export default function NosotrosPage() {
         </div>
       </section>
 
-      {/* 6. Sección: Nuestro Ecosistema Digital (Tienda de Apps) */}
       <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-32 px-8 md:px-16 lg:px-24 overflow-hidden">
         <div className="w-full max-w-7xl mx-auto">
           <div className="text-center space-y-4 mb-20">
@@ -526,7 +518,6 @@ export default function NosotrosPage() {
 
       <div className="container mx-auto px-6 py-24">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          {/* Espacio para contenido adicional */}
         </div>
       </div>
     </div>
