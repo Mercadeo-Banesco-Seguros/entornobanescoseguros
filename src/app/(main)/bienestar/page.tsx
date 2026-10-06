@@ -190,11 +190,11 @@ export default function BienestarPage() {
                     className={cn(
                       "relative transition-all duration-500 cursor-pointer group flex flex-col items-center",
                       isActive 
-                        ? "scale-110 z-20 translate-y-[-8px]" 
+                        ? "scale-110 z-20" 
                         : "scale-100 opacity-80 hover:opacity-100"
                     )}
                   >
-                    <div className="relative w-32 h-52 md:w-44 md:h-72 lg:w-56 lg:h-96 rounded-2xl overflow-hidden bg-transparent border-none shadow-md">
+                    <div className="relative w-32 h-52 md:w-44 md:h-72 lg:w-56 lg:h-96 rounded-2xl overflow-hidden bg-transparent border-none shadow-none">
                       {activityImage && (
                         <Image 
                           src={activityImage.imageUrl} 
