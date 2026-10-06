@@ -287,6 +287,19 @@ export default function Navbar() {
           ) : (
             <>
               <div className="flex items-center">
+                {/* Isotipo corporativo fuera de las pestañas */}
+                {isotypeImage && (
+                  <div className="relative w-6 h-6 mx-2 shrink-0 animate-in fade-in zoom-in-95 duration-500">
+                    <Image 
+                      src={isotypeImage.imageUrl}
+                      alt="Banesco Seguros"
+                      fill
+                      className="object-contain"
+                      unoptimized
+                    />
+                  </div>
+                )}
+                
                 {navLinks.map((link) => {
                   const Icon = link.icon;
                   const isActive = pathname === link.href;
@@ -302,17 +315,6 @@ export default function Navbar() {
                           : 'text-white/60 hover:text-white font-light'
                       )}
                     >
-                      {link.label === 'Inicio' && isotypeImage && (
-                        <div className="relative w-3 h-3 mr-0.5 shrink-0">
-                          <Image 
-                            src={isotypeImage.imageUrl}
-                            alt="Isotipo"
-                            fill
-                            className="object-contain"
-                            unoptimized
-                          />
-                        </div>
-                      )}
                       <Icon 
                         className={cn("w-3 h-3", isActive ? "text-white" : "text-white/60 group-hover:text-white")} 
                         strokeWidth={isActive ? 2 : 1.5}
