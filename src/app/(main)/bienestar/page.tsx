@@ -166,19 +166,19 @@ export default function BienestarPage() {
         </div>
       </section>
 
-      {/* 2. Sección: Tu bienestar nos importa */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-16 px-6 overflow-hidden">
+      {/* 2. Sección: Tu bienestar nos importa - REDUCED SIZE */}
+      <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-12 px-6 overflow-hidden">
         <div className="w-full flex flex-col items-center">
-          <div className="text-center space-y-2 mb-12">
+          <div className="text-center space-y-2 mb-8">
             <span className="text-[#0054A6] text-[11px] font-light tracking-tight uppercase">Cartelera Institucional</span>
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-slate-900 leading-none">Tu bienestar nos importa</h2>
-            <p className="text-slate-500 text-[9px] md:text-[11px] font-light leading-relaxed max-w-2xl mx-auto mt-2">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tighter text-slate-900 leading-none">Tu bienestar nos importa</h2>
+            <p className="text-slate-500 text-[9px] md:text-[10px] font-light leading-relaxed max-w-2xl mx-auto mt-2">
               Explora las diferentes dimensiones de salud y cultura que hemos preparado para ti. Interactúa con las tarjetas para ver detalles.
             </p>
           </div>
 
-          <div className="w-full flex flex-col gap-4 max-w-[1800px] mx-auto">
-            <div className="flex justify-center items-end gap-3 md:gap-6 lg:gap-8 flex-grow pb-8">
+          <div className="w-full flex flex-col gap-4 max-w-[1400px] mx-auto">
+            <div className="flex justify-center items-end gap-3 md:gap-4 lg:gap-6 flex-grow pb-6">
               {wellnessActivities.map((item, index) => {
                 const activityImage = PlaceHolderImages.find(img => img.id === item.id);
                 const isActive = activeActivityIndex === index;
@@ -190,11 +190,11 @@ export default function BienestarPage() {
                     className={cn(
                       "relative transition-all duration-500 cursor-pointer group flex flex-col items-center",
                       isActive 
-                        ? "scale-110 z-20 translate-y-[-10px]" 
-                        : "scale-100"
+                        ? "scale-110 z-20 translate-y-[-8px]" 
+                        : "scale-100 opacity-80 hover:opacity-100"
                     )}
                   >
-                    <div className="relative w-44 h-72 md:w-60 md:h-96 lg:w-80 lg:h-[480px] rounded-2xl overflow-hidden bg-transparent border-none">
+                    <div className="relative w-32 h-52 md:w-44 md:h-72 lg:w-56 lg:h-96 rounded-2xl overflow-hidden bg-transparent border-none shadow-md">
                       {activityImage && (
                         <Image 
                           src={activityImage.imageUrl} 
@@ -211,11 +211,11 @@ export default function BienestarPage() {
               })}
             </div>
 
-            <div className="flex flex-col md:flex-row justify-between items-end w-full gap-4 px-12 pt-4">
+            <div className="flex flex-col md:flex-row justify-between items-end w-full gap-4 px-12 pt-2">
               <div className="space-y-2 text-left">
                 <div className="space-y-0">
                   <p className="text-slate-400 text-[9px] font-light tracking-tight uppercase">Bienestar Banesco Seguros</p>
-                  <h2 className="text-slate-900 text-lg md:text-xl font-light tracking-tighter">Cultura y Salud</h2>
+                  <h2 className="text-slate-900 text-base md:text-lg font-light tracking-tighter">Cultura y Salud</h2>
                 </div>
                 <button 
                   className="bg-[#0054A6] hover:bg-[#0054A6]/90 text-white rounded-xl px-6 py-1.5 font-light text-[9px] transition-colors"
@@ -227,10 +227,10 @@ export default function BienestarPage() {
               <div className="flex flex-col items-end gap-1">
                 <div className="text-right">
                   <p className="text-slate-400 text-[9px] font-light tracking-widest">{activeActivity.day}</p>
-                  <h3 className="text-[#0054A6] text-xl md:text-2xl font-bold tracking-tighter leading-none mt-1">
+                  <h3 className="text-[#0054A6] text-lg md:text-xl font-bold tracking-tighter leading-none mt-1">
                     {activeActivity.style}
                   </h3>
-                  <p className="text-slate-400 text-[10px] font-light mt-1 tracking-tight">
+                  <p className="text-slate-400 text-[9px] font-light mt-1 tracking-tight">
                     {activeActivity.location}
                   </p>
                 </div>
@@ -249,8 +249,8 @@ export default function BienestarPage() {
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0054A6]/10 border border-[#0054A6]/20">
                   <span className="text-[#0054A6] text-[10px] font-light tracking-tight uppercase">Beneficios Exclusivos</span>
                 </div>
-                <h2 className="text-xl md:text-2xl font-bold tracking-tighter text-slate-900 leading-[1] max-w-md">
-                  <span className="text-[#0054A6]">Nueva Contribución <br /> para Actividades Físicas</span>
+                <h2 className="text-xl md:text-2xl font-bold tracking-tighter text-slate-900 leading-[1.1] max-w-md">
+                  Nueva Contribución <br /> para Actividades Físicas
                 </h2>
                 <p className="text-slate-500 text-[11px] md:text-[13px] font-light leading-relaxed max-w-lg tracking-tight">
                   En Banesco Seguros apoyamos tu salud. Los empleados pueden inscribirse en el gimnasio de su preferencia y la empresa pagará la mensualidad por hasta 50 USD de manera retroactiva.
