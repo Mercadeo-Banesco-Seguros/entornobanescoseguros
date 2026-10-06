@@ -123,7 +123,7 @@ export default function BienestarPage() {
         <div className="container mx-auto px-6 relative z-10 h-full flex items-center">
           <div 
             key={`text-${currentStateIndex}`}
-            className="w-full md:w-1/2 space-y-6 animate-in fade-in slide-in-from-left-4 duration-1000 text-left"
+            className="w-full md:w-1/2 pl-12 md:pl-24 space-y-6 animate-in fade-in slide-in-from-left-4 duration-1000 text-left"
           >
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
               <span className="text-[10px] text-white font-light tracking-tight">
@@ -194,7 +194,7 @@ export default function BienestarPage() {
                         : "scale-100"
                     )}
                   >
-                    <div className="relative w-24 h-40 md:w-32 md:h-52 lg:w-44 lg:h-64 rounded-2xl overflow-hidden bg-transparent border-none">
+                    <div className="relative w-32 h-56 md:w-44 md:h-72 lg:w-64 lg:h-96 rounded-2xl overflow-hidden bg-transparent border-none">
                       {activityImage && (
                         <Image 
                           src={activityImage.imageUrl} 
