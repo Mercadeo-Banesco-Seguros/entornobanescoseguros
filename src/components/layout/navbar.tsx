@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from 'next/link';
@@ -88,7 +87,6 @@ export default function Navbar() {
   };
 
   const loadDynamicContent = useCallback(async () => {
-    // 1. Cargar Notificaciones (Portal + Menu)
     const today = new Date();
     const dayOfWeek = today.getDay();
     const menuToday = MENU_DATA.find(m => m.day === dayOfWeek);
@@ -128,13 +126,11 @@ export default function Navbar() {
 
     setNotifications(dynamicNotifications);
 
-    // 2. Cargar Recordatorios (Calendario)
     try {
       const calendarData = await fetchCalendarData();
       if (Array.isArray(calendarData)) {
         const upcoming: NotificationItem[] = [];
         
-        // Ordenar y filtrar eventos próximos (hoy y próximos 7 días)
         const sortedData = calendarData
           .filter(day => {
             const eventDate = new Date(day.date + 'T00:00:00');
@@ -173,7 +169,7 @@ export default function Navbar() {
           });
         });
 
-        setReminders(upcoming.slice(0, 5)); // Mostrar máximo 5
+        setReminders(upcoming.slice(0, 5));
       }
     } catch (e) {
       console.warn("No se pudieron cargar recordatorios dinámicos");
@@ -183,12 +179,10 @@ export default function Navbar() {
   useEffect(() => {
     setMounted(true);
     
-    // Reloj
     const timer = setInterval(() => {
       setCurrentTime(new Date());
     }, 60000);
 
-    // Clima (Caracas)
     const fetchWeather = async () => {
       try {
         const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=10.488&longitude=-66.879&current_weather=true');
@@ -204,7 +198,6 @@ export default function Navbar() {
     fetchWeather();
     const weatherTimer = setInterval(fetchWeather, 600000); 
 
-    // Cargar contenido dinámico
     loadDynamicContent();
 
     return () => {
@@ -287,7 +280,6 @@ export default function Navbar() {
           ) : (
             <>
               <div className="flex items-center">
-                {/* Isotipo corporativo fuera de las pestañas */}
                 {isotypeImage && (
                   <div className="relative w-7 h-7 mx-2 shrink-0 animate-in fade-in zoom-in-95 duration-500">
                     <Image 
@@ -331,7 +323,7 @@ export default function Navbar() {
 
               <div className="h-3 w-[1px] bg-white/10 mx-1 hidden sm:block" />
 
-              <div className="flex items-center pr-0.5">
+              <div className="flex items-center gap-1 px-1">
                 <button 
                   onClick={() => setIsSearchActive(true)} 
                   className="p-1.5 text-white/60 hover:text-white transition-colors"
