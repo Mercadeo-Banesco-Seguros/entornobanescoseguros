@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link';
@@ -224,6 +225,7 @@ export default function Navbar() {
   const month = currentTime.toLocaleString('es-ES', { month: 'short' });
 
   const aiPlaceholder = PlaceHolderImages.find(img => img.id === 'segurito-ai-status');
+  const isotypeImage = PlaceHolderImages.find(img => img.id === 'corporate-isotype');
 
   return (
     <div className="fixed top-6 left-0 right-0 z-50 flex flex-col items-center gap-3 px-4 pointer-events-none">
@@ -300,6 +302,17 @@ export default function Navbar() {
                           : 'text-white/60 hover:text-white font-light'
                       )}
                     >
+                      {link.label === 'Inicio' && isotypeImage && (
+                        <div className="relative w-3 h-3 mr-0.5 shrink-0">
+                          <Image 
+                            src={isotypeImage.imageUrl}
+                            alt="Isotipo"
+                            fill
+                            className="object-contain"
+                            unoptimized
+                          />
+                        </div>
+                      )}
                       <Icon 
                         className={cn("w-3 h-3", isActive ? "text-white" : "text-white/60 group-hover:text-white")} 
                         strokeWidth={isActive ? 2 : 1.5}

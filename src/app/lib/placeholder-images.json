@@ -2,6 +2,12 @@
 {
   "placeholderImages": [
     {
+      "id": "corporate-isotype",
+      "description": "Isotipo Banesco Seguros",
+      "imageUrl": "https://docs.google.com/drawings/d/e/2PACX-1vSrfenOYNegP2zSZwwnZwh51ve2OLUsw0NnoKX7IYmVQhNgIvDnWkJkSVAgevmiHXZQKm-qUEi0r3gi/pub?w=960&h=720",
+      "imageHint": "company logo"
+    },
+    {
       "id": "world-level-1",
       "description": "Pista de Gran Caracas",
       "imageUrl": "https://www.banescoseguros.com/wp-content/uploads/2025/10/Gemini_Generated_Image_2j7a6k2j7a6k2j7a-Photoroom.png",
