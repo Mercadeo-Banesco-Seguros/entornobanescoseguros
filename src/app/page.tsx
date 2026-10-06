@@ -521,7 +521,7 @@ export default function LandingPage() {
               <div className="text-center space-y-10 animate-in fade-in duration-500">
                 <h2 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-tight max-w-4xl mx-auto">Visita nuestro <br /> Portal de Requerimientos</h2>
                 <div className="flex justify-center gap-4">
-                  <button className="px-10 py-3 rounded-xl bg-white text-[#0054A6] text-[10px] font-light hover:bg-white/90 transition-colors">Acceder</button>
+                  <button className="px-10 py-3 rounded-xl bg-white text-[#0054A6] text-[10px] font-light hover:bg-white/90 transition-colors">Próximamente</button>
                   <button onClick={() => setShowShortcuts(true)} className="px-10 py-3 rounded-xl bg-transparent border border-white/40 text-white text-[10px] font-light hover:bg-white/10 transition-colors">Atajos</button>
                 </div>
               </div>
@@ -806,7 +806,7 @@ export default function LandingPage() {
             <div className="text-center space-y-10 animate-in fade-in duration-500">
               <h2 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-tight max-w-4xl mx-auto drop-shadow-md">Visita nuestro <br /> Espacio Ejecutivo</h2>
               <div className="flex justify-center">
-                <button className="px-10 py-3 rounded-xl bg-white text-[#0054A6] text-[10px] font-light hover:bg-white/90 transition-colors">Acceder</button>
+                <button className="px-10 py-3 rounded-xl bg-white text-[#0054A6] text-[10px] font-light hover:bg-white/90 transition-colors">Próximamente</button>
               </div>
             </div>
           </div>
