@@ -194,7 +194,7 @@ export default function BienestarPage() {
                         : "scale-100"
                     )}
                   >
-                    <div className="relative w-32 h-52 md:w-40 md:h-60 lg:w-52 lg:h-80 rounded-2xl overflow-hidden bg-transparent border-none">
+                    <div className="relative w-24 h-40 md:w-32 md:h-48 lg:w-44 lg:h-64 rounded-2xl overflow-hidden bg-transparent border-none">
                       {activityImage && (
                         <Image 
                           src={activityImage.imageUrl} 
@@ -249,7 +249,7 @@ export default function BienestarPage() {
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0054A6]/10 border border-[#0054A6]/20">
                   <span className="text-[#0054A6] text-[10px] font-light tracking-tight uppercase">Beneficios Exclusivos</span>
                 </div>
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-slate-900 leading-[1] max-w-md">
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tighter text-slate-900 leading-[1] max-w-md">
                   <span className="text-[#0054A6]">Aprovecha tu Beneficio de Gimnasio</span>
                 </h2>
                 <p className="text-slate-500 text-[11px] md:text-[13px] font-light leading-relaxed max-w-lg tracking-tight">
