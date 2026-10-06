@@ -46,7 +46,7 @@ export default function BibliotecaPage() {
   if (!mounted) return null;
 
   const activeFeature = libraryFeatures[activeFeatureIndex];
-  const libraryHeroUrl = "https://docs.google.com/drawings/d/e/2PACX-1vSReFA5gsC_kmGOO1U5zueFTWvRBbBEJcAJKVDzoTjwwbES0U-ivdnmPHscTt_JtB8yiHUub4F1iQI/pub?w=960&h=720";
+  const libraryHeroUrl = "https://docs.google.com/drawings/d/e/2PACX-1vS8ReFA5gsC_kmGOO1U5zueFTWvRBbBEJcAJKVDzoTjwwbES0U-ivdnmPHscTt_JtB8yiHUub4F1iQI/pub?w=960&h=720";
 
   return (
     <div className="flex flex-col w-full min-h-screen bg-white">
