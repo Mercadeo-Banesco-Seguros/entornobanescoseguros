@@ -46,7 +46,7 @@ export default function BibliotecaPage() {
   if (!mounted) return null;
 
   const activeFeature = libraryFeatures[activeFeatureIndex];
-  const libraryHeroUrl = "https://docs.google.com/drawings/d/e/2PACX-1vS8ReFA5gsC_kmGOO1U5zueFTWvRBbBEJcAJKVDzoTjwwbES0U-ivdnmPHscTt_JtB8yiHUub4F1iQI/pub?w=960&h=720";
+  const libraryHeroUrl = "https://docs.google.com/drawings/d/e/2PACX-1vSReFA5gsC_kmGOO1U5zueFTWvRBbBEJcAJKVDzoTjwwbES0U-ivdnmPHscTt_JtB8yiHUub4F1iQI/pub?w=960&h=720";
 
   return (
     <div className="flex flex-col w-full min-h-screen bg-white">
@@ -77,9 +77,14 @@ export default function BibliotecaPage() {
                 <p className="text-slate-500 text-[10px] font-light leading-relaxed tracking-tight max-w-sm">
                   La central de inteligencia operativa de Banesco Seguros. Un espacio colaborativo diseñado para la consulta, formación y estandarización de nuestros procesos críticos.
                 </p>
-                <button className="px-10 py-2.5 rounded-full bg-[#0054A6] text-white text-[11px] font-light tracking-wide hover:bg-[#0054A6]/90 transition-all duration-300 shadow-sm shrink-0">
+                <a 
+                  href="https://www.appsheet.com/start/ce842c69-2210-4519-b586-a0ec8733dcdb" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="px-10 py-2.5 rounded-full bg-[#0054A6] text-white text-[11px] font-light tracking-wide hover:bg-[#0054A6]/90 transition-all duration-300 shadow-sm shrink-0 flex items-center justify-center"
+                >
                   Explorar
-                </button>
+                </a>
               </div>
             </div>
 
