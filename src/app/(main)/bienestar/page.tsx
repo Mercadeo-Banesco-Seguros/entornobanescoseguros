@@ -25,7 +25,6 @@ const wellnessActivities = [
   { id: 'wellness-yoga', day: 'Lunes y Miércoles, 5:00 PM', style: 'Clases de Yoga', location: 'Ubicación: Terraza' },
   { id: 'wellness-functional', day: 'Lunes y Miércoles, 5:00 PM', style: 'Ejercicios Funcionales', location: 'Ubicación: Terraza' },
   { id: 'wellness-cuatro', day: 'Lunes o Jueves, 5:00 PM', style: 'Clases de Cuatro', location: 'Ubicación: Tríadas' },
-  { id: 'wellness-bailoterapia', day: 'Jueves, 5:00 PM', style: 'Bailoterapia', location: 'Ubicación: Terraza' },
   { id: 'wellness-combat', day: 'Martes, 5:00 PM', style: 'Cross Combat', location: 'Ubicación: Terraza' },
 ];
 
@@ -166,7 +165,7 @@ export default function BienestarPage() {
         </div>
       </section>
 
-      {/* 2. Sección: Tu bienestar nos importa - REDUCED SIZE */}
+      {/* 2. Sección: Tu bienestar nos importa */}
       <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-12 px-6 overflow-hidden">
         <div className="w-full flex flex-col items-center">
           <div className="text-center space-y-2 mb-8">
