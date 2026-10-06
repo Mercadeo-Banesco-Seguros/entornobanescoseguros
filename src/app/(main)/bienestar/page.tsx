@@ -194,7 +194,7 @@ export default function BienestarPage() {
                         : "scale-100"
                     )}
                   >
-                    <div className="relative w-20 h-32 md:w-28 md:h-40 lg:w-36 lg:h-52 rounded-2xl overflow-hidden bg-transparent border-none">
+                    <div className="relative w-16 h-28 md:w-24 md:h-36 lg:w-32 lg:h-48 rounded-2xl overflow-hidden bg-transparent border-none">
                       {activityImage && (
                         <Image 
                           src={activityImage.imageUrl} 
@@ -249,8 +249,8 @@ export default function BienestarPage() {
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#0054A6]/10 border border-[#0054A6]/20">
                   <span className="text-[#0054A6] text-[10px] font-light tracking-tight uppercase">Beneficios Exclusivos</span>
                 </div>
-                <h2 className="text-2xl md:text-3xl font-bold tracking-tighter text-slate-900 leading-[1] max-w-md">
-                  <span className="text-[#0054A6]">Aprovecha tu Beneficio de Gimnasio</span>
+                <h2 className="text-xl md:text-2xl font-bold tracking-tighter text-slate-900 leading-[1] max-w-md">
+                  <span className="text-[#0054A6]">Nueva Contribución para Actividades Físicas</span>
                 </h2>
                 <p className="text-slate-500 text-[11px] md:text-[13px] font-light leading-relaxed max-w-lg tracking-tight">
                   En Banesco Seguros apoyamos tu salud. Los empleados pueden inscribirse en el gimnasio de su preferencia y la empresa pagará la mensualidad por hasta 50 USD de manera retroactiva.
