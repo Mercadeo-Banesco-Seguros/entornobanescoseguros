@@ -225,7 +225,7 @@ export default function BienestarPage() {
 
               <div className="flex flex-col items-end gap-1">
                 <div className="text-right">
-                  <p className="text-slate-400 text-[9px] font-light tracking-widest">{activeActivity.day}</p>
+                  <p className="text-slate-400 text-[9px] font-light tracking-tight">{activeActivity.day}</p>
                   <h3 className="text-[#0054A6] text-lg md:text-xl font-bold tracking-tighter leading-none mt-1">
                     {activeActivity.style}
                   </h3>
