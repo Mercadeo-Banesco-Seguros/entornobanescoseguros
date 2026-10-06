@@ -466,17 +466,17 @@ export default function NosotrosPage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 px-4 w-full">
             <ComplianceGrid 
-              value={57} 
+              value={65} 
               label="Suscrito" 
               description="Representa el porcentaje de pólizas nuevas suscritas en el periodo actual." 
             />
             <ComplianceGrid 
-              value={47} 
+              value={58} 
               label="Cobrado" 
               description="Indica el nivel de recaudación efectiva sobre las pólizas suscritas." 
             />
             <ComplianceGrid 
-              value={13} 
+              value={12} 
               label="Ranking" 
               description="El ranking se calcula en función de las primas cobradas en el mercado."
               isPercentage={false}
