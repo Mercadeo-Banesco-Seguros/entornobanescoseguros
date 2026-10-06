@@ -289,7 +289,7 @@ export default function Navbar() {
               <div className="flex items-center">
                 {/* Isotipo corporativo fuera de las pestañas */}
                 {isotypeImage && (
-                  <div className="relative w-6 h-6 mx-2 shrink-0 animate-in fade-in zoom-in-95 duration-500">
+                  <div className="relative w-7 h-7 mx-2 shrink-0 animate-in fade-in zoom-in-95 duration-500">
                     <Image 
                       src={isotypeImage.imageUrl}
                       alt="Banesco Seguros"
