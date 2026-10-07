@@ -251,7 +251,7 @@ export default function BienestarPage() {
           </div>
 
           <div className="w-full flex flex-col gap-4 max-w-[1400px] mx-auto">
-            <div className="flex justify-center items-end gap-1 md:gap-2 lg:gap-3 flex-grow pb-6">
+            <div className="flex justify-center items-end gap-2 md:gap-3 lg:gap-4 flex-grow pb-6">
               {wellnessActivities.map((item, index) => {
                 const activityImage = PlaceHolderImages.find(img => img.id === item.id);
                 const isActive = activeActivityIndex === index;
@@ -267,7 +267,7 @@ export default function BienestarPage() {
                         : "scale-100 opacity-80 hover:opacity-100"
                     )}
                   >
-                    <div className="relative w-72 h-80 md:w-96 md:h-[450px] lg:w-[420px] lg:h-[580px] rounded-2xl overflow-hidden bg-transparent border-none">
+                    <div className="relative w-40 h-64 md:w-56 md:h-80 lg:w-64 lg:h-96 rounded-2xl overflow-hidden bg-transparent border-none">
                       {activityImage && (
                         <Image 
                           src={activityImage.imageUrl} 
@@ -452,7 +452,7 @@ export default function BienestarPage() {
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
             <div className="space-y-2">
               <span className="text-[#0054A6] text-[11px] font-light tracking-tight uppercase">Calendario</span>
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-slate-900 leading-none">Próximos en el circuito</h2>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-slate-900 leading-none">Próximos eventos</h2>
               <p className="text-slate-500 text-[11px] font-light leading-relaxed max-xl mt-2">
                 Información real y actualizada semanalmente directamente desde nuestra gestión institucional.
               </p>
