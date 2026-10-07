@@ -366,7 +366,7 @@ export default function BienestarPage() {
                           : "scale-75 opacity-40 hover:opacity-100 hover:scale-100 hover:z-20"
                       )}
                     >
-                      <div className="relative w-24 h-56 md:w-36 md:h-80 lg:w-44 lg:h-[420px] rounded-2xl overflow-hidden border-2 border-white/20 shadow-2xl">
+                      <div className="relative w-40 h-32 md:w-64 md:h-52 lg:w-80 lg:h-64 rounded-2xl overflow-hidden border-2 border-white/20 shadow-2xl">
                         <Image 
                           src={plateInfo.imageUrl} 
                           alt={item.day} 
