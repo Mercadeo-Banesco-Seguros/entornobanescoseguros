@@ -242,7 +242,7 @@ export default function BienestarPage() {
                         : "scale-100 opacity-80 hover:opacity-100"
                     )}
                   >
-                    <div className="relative w-52 h-64 md:w-72 md:h-[400px] lg:w-[320px] lg:h-[480px] rounded-2xl overflow-hidden bg-transparent border-none">
+                    <div className="relative w-72 h-80 md:w-96 md:h-[450px] lg:w-[420px] lg:h-[580px] rounded-2xl overflow-hidden bg-transparent border-none">
                       {activityImage && (
                         <Image 
                           src={activityImage.imageUrl} 
@@ -335,7 +335,7 @@ export default function BienestarPage() {
       </section>
 
       {/* 3. Sabor Seguro (Menú) */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] py-16 overflow-hidden min-h-[700px] flex flex-col transition-colors duration-700 bg-[#0054A6]">
+      <section className="relative w-screen left-1/2 -ml-[50vw] py-12 overflow-hidden min-h-[480px] flex flex-col transition-colors duration-700 bg-[#0054A6]">
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] rounded-full blur-[120px] transition-colors duration-700 bg-blue-500/20" />
           <div className="absolute bottom-1/4 -left-20 w-96 h-96 rounded-full blur-[100px] transition-colors duration-700 bg-sky-400/15" />
@@ -350,7 +350,7 @@ export default function BienestarPage() {
             </div>
           ) : (
             <>
-              <div className="flex justify-center items-end gap-1 md:gap-4 lg:gap-6 flex-grow pb-10">
+              <div className="flex justify-center items-end gap-1 md:gap-2 flex-grow pb-6">
                 {menuDays.map((item, index) => {
                   const plateInfo = getMenuInfo(activeMenuType, item.day, index);
                   const isActive = activeMenuDayIndex === index;
@@ -363,10 +363,10 @@ export default function BienestarPage() {
                         "relative transition-all duration-500 cursor-pointer group flex flex-col items-center",
                         isActive 
                           ? "scale-100 z-20 translate-y-[-10px]" 
-                          : "scale-75 opacity-40 hover:opacity-100 hover:scale-100 hover:z-20"
+                          : "scale-90 opacity-40 hover:opacity-100 hover:scale-100 hover:z-20"
                       )}
                     >
-                      <div className="relative w-32 h-24 md:w-48 md:h-36 lg:w-56 lg:h-40 rounded-2xl overflow-hidden bg-transparent">
+                      <div className="relative w-32 h-20 md:w-48 md:h-30 lg:w-56 lg:h-36 rounded-2xl overflow-hidden bg-transparent">
                         <Image 
                           src={plateInfo.imageUrl} 
                           alt={item.day} 

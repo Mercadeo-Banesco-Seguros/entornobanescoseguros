@@ -696,7 +696,7 @@ export default function LandingPage() {
         </section>
 
         {/* 5. Sabor Seguro */}
-        <section className="relative w-full py-16 overflow-hidden min-h-[700px] flex flex-col transition-colors duration-700 bg-[#0054A6]">
+        <section className="relative w-full py-12 overflow-hidden min-h-[480px] flex flex-col transition-colors duration-700 bg-[#0054A6]">
           <div className="absolute inset-0 pointer-events-none overflow-hidden">
             <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] rounded-full blur-[120px] transition-colors duration-700 bg-blue-500/20" />
             <div className="absolute bottom-1/4 -right-20 w-96 h-96 rounded-full blur-[100px] transition-colors duration-700 bg-sky-400/15" />
@@ -711,7 +711,7 @@ export default function LandingPage() {
               </div>
             ) : (
               <>
-                <div className="flex justify-center items-end gap-1 md:gap-4 lg:gap-6 flex-grow pb-10">
+                <div className="flex justify-center items-end gap-1 md:gap-2 flex-grow pb-6">
                   {menuDays.map((item, index) => {
                     const plateInfo = getMenuInfo(activeMenuType, item.day, index);
                     const isActive = activeMenuDayIndex === index;
@@ -724,10 +724,10 @@ export default function LandingPage() {
                           "relative transition-all duration-500 cursor-pointer group flex flex-col items-center",
                           isActive 
                             ? "scale-100 z-20 translate-y-[-10px]" 
-                            : "scale-75 opacity-40 hover:opacity-100 hover:scale-100 hover:z-20"
+                            : "scale-90 opacity-40 hover:opacity-100 hover:scale-100 hover:z-20"
                         )}
                       >
-                        <div className="relative w-32 h-24 md:w-48 md:h-36 lg:w-56 lg:h-40 rounded-2xl overflow-hidden bg-transparent">
+                        <div className="relative w-32 h-20 md:w-48 md:h-30 lg:w-56 lg:h-36 rounded-2xl overflow-hidden bg-transparent">
                           <Image 
                             src={plateInfo.imageUrl} 
                             alt={item.day} 
