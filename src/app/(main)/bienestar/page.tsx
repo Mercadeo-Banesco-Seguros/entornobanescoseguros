@@ -116,7 +116,6 @@ export default function BienestarPage() {
   const currentState = wellnessStates[currentStateIndex];
   const heroImage = PlaceHolderImages.find(img => img.id === currentState.imageId);
   const activeActivity = wellnessActivities[activeActivityIndex] || wellnessActivities[0];
-  const gymBenefitImage = PlaceHolderImages.find(img => img.id === 'gym-benefit');
 
   const getMenuInfo = (type: string, dayName: string, index: number) => {
     const normalize = (str: string) => 
@@ -316,20 +315,16 @@ export default function BienestarPage() {
               </div>
             </div>
             
-            <div className="relative aspect-video lg:aspect-square w-full max-w-[550px] mx-auto animate-in fade-in zoom-in-95 duration-1000 delay-300 order-1 lg:order-2">
-              <div className="absolute inset-0 bg-gradient-to-tr from-[#0054A6]/20 to-transparent rounded-[3.5rem] -rotate-3 scale-105" />
-              <div className="relative w-full h-full rounded-[3.5rem] overflow-hidden shadow-2xl border border-white">
-                {gymBenefitImage && (
-                  <Image 
-                    src={gymBenefitImage.imageUrl} 
-                    alt="Beneficio de Gimnasio"
-                    fill
-                    className="object-cover"
-                    unoptimized
-                    data-ai-hint={gymBenefitImage.imageHint}
-                  />
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+            <div className="relative aspect-video lg:aspect-square w-full max-w-[450px] mx-auto animate-in fade-in zoom-in-95 duration-1000 delay-300 order-1 lg:order-2">
+              <div className="absolute inset-0 bg-gradient-to-tr from-[#0054A6]/10 to-transparent rounded-[3.5rem] -rotate-3 scale-105" />
+              <div className="relative w-full h-full rounded-[3.5rem] overflow-hidden shadow-2xl border border-white bg-white">
+                <Image 
+                  src="https://docs.google.com/drawings/d/e/2PACX-1vRMx8ZLf0ZAgDOxny3aH8yHAvzzlWUI5jdvdnAWjt5kpR527RGQk2TutPXNOCeGYwO5kqFlmNMQdy7g/pub?w=960&h=720"
+                  alt="Beneficio de Gimnasio"
+                  fill
+                  className="object-contain p-4"
+                  unoptimized
+                />
               </div>
             </div>
           </div>

@@ -1,8 +1,6 @@
 'use client';
 
 import * as React from 'react';
-import { Clock } from 'lucide-react';
-import Image from 'next/image';
 
 export default function RequerimientosPage() {
   const [mounted, setMounted] = React.useState(false);
@@ -21,23 +19,10 @@ export default function RequerimientosPage() {
         <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full blur-[100px] bg-slate-100/50" />
       </div>
 
-      <div className="max-w-2xl space-y-8 flex flex-col items-center">
-        {/* Imagen de Ilustración */}
-        <div className="relative w-full max-w-[280px] aspect-square animate-in fade-in zoom-in-95 duration-1000">
-          <Image 
-            src="https://docs.google.com/drawings/d/e/2PACX-1vRMx8ZLf0ZAgDOxny3aH8yHAvzzlWUI5jdvdnAWjt5kpR527RGQk2TutPXNOCeGYwO5kqFlmNMQdy7g/pub?w=960&h=720"
-            alt="Sección en Construcción"
-            fill
-            className="object-contain"
-            unoptimized
-            priority
-          />
-        </div>
-
+      <div className="max-w-2xl space-y-6 flex flex-col items-center">
         {/* Text Content */}
         <div className="space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 mx-auto">
-            <Clock className="w-3 h-3 text-[#0054A6]" />
             <span className="text-[10px] text-[#0054A6] font-light uppercase tracking-widest">Próximamente</span>
           </div>
           
