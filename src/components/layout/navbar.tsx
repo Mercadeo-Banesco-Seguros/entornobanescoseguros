@@ -54,18 +54,10 @@ interface NotificationItem {
   bgColor: string;
 }
 
-const MENU_DATA = [
-  { day: 1, name: 'Bowl Energético' },
-  { day: 2, name: 'Pollo al Curry' },
-  { day: 3, name: 'Pasta Mediterránea' },
-  { day: 4, name: 'Salmón Grillado' },
-  { day: 5, name: 'Bowl de Proteína' },
-];
-
 export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
-  const { isAuthenticated, currentUser, logout, fetchCalendarData } = useAuth();
+  const { isAuthenticated, currentUser, logout, fetchCalendarData, fetchMenuData } = useAuth();
   const [mounted, setMounted] = useState(false);
   const [isTimeExpanded, setIsTimeExpanded] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -89,7 +81,8 @@ export default function Navbar() {
   const loadDynamicContent = useCallback(async () => {
     const today = new Date();
     const dayOfWeek = today.getDay();
-    const menuToday = MENU_DATA.find(m => m.day === dayOfWeek);
+    const dayNames = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+    const currentDayName = dayNames[dayOfWeek];
 
     const dynamicNotifications: NotificationItem[] = [
       { 
@@ -112,16 +105,30 @@ export default function Navbar() {
       }
     ];
 
-    if (menuToday) {
-      dynamicNotifications.unshift({
-        id: 'menu-today',
-        title: 'Menú del Día',
-        description: `Hoy en el comedor: ${menuToday.name}`,
-        time: 'Ahora',
-        icon: Utensils,
-        color: 'text-orange-400',
-        bgColor: 'bg-orange-50'
-      });
+    try {
+      const menuData = await fetchMenuData();
+      const normalize = (str: string) => 
+        str ? str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim() : "";
+      
+      // Buscamos el plato de hoy, priorizando el tipo "Clásico" para la notificación
+      const todayPlate = menuData.find(p => 
+        normalize(p.day) === normalize(currentDayName) && 
+        normalize(p.type) === normalize('Clásico')
+      );
+      
+      if (todayPlate) {
+        dynamicNotifications.unshift({
+          id: 'menu-today',
+          title: 'Menú del Día',
+          description: `Hoy en el comedor: ${todayPlate.name || todayPlate.description}`,
+          time: 'Ahora',
+          icon: Utensils,
+          color: 'text-orange-400',
+          bgColor: 'bg-orange-50'
+        });
+      }
+    } catch (e) {
+      console.warn("No se pudo cargar el menú real para la notificación");
     }
 
     setNotifications(dynamicNotifications);
@@ -174,7 +181,7 @@ export default function Navbar() {
     } catch (e) {
       console.warn("No se pudieron cargar recordatorios dinámicos");
     }
-  }, [fetchCalendarData]);
+  }, [fetchCalendarData, fetchMenuData]);
 
   useEffect(() => {
     setMounted(true);
