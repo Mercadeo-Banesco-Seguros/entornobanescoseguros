@@ -316,13 +316,12 @@ export default function BienestarPage() {
             </div>
             
             <div className="relative aspect-video lg:aspect-square w-full max-w-[450px] mx-auto animate-in fade-in zoom-in-95 duration-1000 delay-300 order-1 lg:order-2">
-              <div className="absolute inset-0 bg-gradient-to-tr from-[#0054A6]/10 to-transparent rounded-[3.5rem] -rotate-3 scale-105" />
-              <div className="relative w-full h-full rounded-[3.5rem] overflow-hidden shadow-2xl border border-white bg-white">
+              <div className="relative w-full h-full overflow-hidden">
                 <Image 
                   src="https://docs.google.com/drawings/d/e/2PACX-1vRMx8ZLf0ZAgDOxny3aH8yHAvzzlWUI5jdvdnAWjt5kpR527RGQk2TutPXNOCeGYwO5kqFlmNMQdy7g/pub?w=960&h=720"
                   alt="Beneficio de Gimnasio"
                   fill
-                  className="object-contain p-4"
+                  className="object-contain mix-blend-multiply"
                   unoptimized
                 />
               </div>
