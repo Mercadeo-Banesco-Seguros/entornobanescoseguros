@@ -226,7 +226,7 @@ export default function BienestarPage() {
           </div>
 
           <div className="w-full flex flex-col gap-4 max-w-[1400px] mx-auto">
-            <div className="flex justify-center items-end gap-3 md:gap-4 lg:gap-6 flex-grow pb-6">
+            <div className="flex justify-center items-end gap-1 md:gap-2 lg:gap-3 flex-grow pb-6">
               {wellnessActivities.map((item, index) => {
                 const activityImage = PlaceHolderImages.find(img => img.id === item.id);
                 const isActive = activeActivityIndex === index;
@@ -242,7 +242,7 @@ export default function BienestarPage() {
                         : "scale-100 opacity-80 hover:opacity-100"
                     )}
                   >
-                    <div className="relative w-72 h-80 md:w-80 md:h-[350px] lg:w-[416px] lg:h-[450px] rounded-2xl overflow-hidden bg-transparent">
+                    <div className="relative w-40 h-52 md:w-56 md:h-[300px] lg:w-72 lg:h-[400px] rounded-2xl overflow-hidden bg-transparent border-none">
                       {activityImage && (
                         <Image 
                           src={activityImage.imageUrl} 
@@ -350,7 +350,7 @@ export default function BienestarPage() {
             </div>
           ) : (
             <>
-              <div className="flex justify-center items-end gap-1 md:gap-4 lg:gap-6 flex-grow pb-10">
+              <div className="flex justify-center items-end gap-1 md:gap-2 lg:gap-3 flex-grow pb-10">
                 {menuDays.map((item, index) => {
                   const plateInfo = getMenuInfo(activeMenuType, item.day, index);
                   const isActive = activeMenuDayIndex === index;
@@ -366,7 +366,7 @@ export default function BienestarPage() {
                           : "scale-75 opacity-40 hover:opacity-100 hover:scale-100 hover:z-20"
                       )}
                     >
-                      <div className="relative w-40 h-32 md:w-64 md:h-52 lg:w-80 lg:h-64 rounded-2xl overflow-hidden border-2 border-white/20 shadow-2xl">
+                      <div className="relative w-32 h-24 md:w-48 md:h-36 lg:w-56 lg:h-40 rounded-2xl overflow-hidden border-2 border-white/20 shadow-2xl">
                         <Image 
                           src={plateInfo.imageUrl} 
                           alt={item.day} 
