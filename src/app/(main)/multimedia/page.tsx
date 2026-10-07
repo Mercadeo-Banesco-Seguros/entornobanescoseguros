@@ -38,14 +38,6 @@ const sidebarCategories = [
   { id: 'visuales', label: 'Visuales', icon: ImageIcon },
 ];
 
-const topFilters = [
-  { id: 'todos', label: 'Todos' },
-  { id: 'automovil', label: 'Automóvil' },
-  { id: 'personas', label: 'Personas' },
-  { id: 'patrimoniales', label: 'Patrimoniales' },
-  { id: 'salud', label: 'Salud' },
-];
-
 const multimediaCards = [
   { 
     id: 'corp', 
@@ -100,7 +92,6 @@ const multimediaCards = [
 export default function MultimediaPage() {
   const [mounted, setMounted] = React.useState(false);
   const [activeCategory, setActiveCategory] = React.useState('todos');
-  const [activeFilter, setActiveFilter] = React.useState('todos');
 
   React.useEffect(() => {
     setMounted(true);
@@ -140,24 +131,8 @@ export default function MultimediaPage() {
         {/* 2. Área Principal de Contenido */}
         <main className="flex-grow space-y-10">
           
-          {/* Header con Filtros y Acciones */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              {topFilters.map((filter) => (
-                <button
-                  key={filter.id}
-                  onClick={() => setActiveFilter(filter.id)}
-                  className={cn(
-                    "px-4 py-2.5 rounded-2xl text-[9px] font-light transition-all duration-300 border border-transparent tracking-tight",
-                    activeFilter === filter.id 
-                      ? "bg-[#003B73] text-white" 
-                      : "text-slate-400 hover:text-slate-600 hover:bg-slate-100/50"
-                  )}
-                >
-                  {filter.label}
-                </button>
-              ))}
-            </div>
+          {/* Header con Acciones */}
+          <div className="flex items-center justify-end">
             <div className="flex items-center gap-5 text-slate-400">
               <button className="hover:text-slate-600 transition-colors"><Search className="w-4 h-4" strokeWidth={1} /></button>
               <button className="hover:text-slate-600 transition-colors"><Mail className="w-4 h-4" strokeWidth={1} /></button>
