@@ -699,8 +699,8 @@ export default function LandingPage() {
         <section className="relative w-full py-16 overflow-hidden min-h-[700px] flex flex-col transition-colors duration-700 bg-[#0054A6]">
           <div className="absolute inset-0 pointer-events-none overflow-hidden">
             <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] rounded-full blur-[120px] transition-colors duration-700 bg-blue-500/20" />
-            <div className="absolute bottom-1/4 -left-20 w-96 h-96 rounded-full blur-[100px] transition-colors duration-700 bg-sky-400/15" />
-            <div className="absolute top-0 right-1/3 w-[400px] h-[400px] rounded-full blur-[150px] transition-colors duration-700 bg-blue-700/10" />
+            <div className="absolute bottom-1/4 -right-20 w-96 h-96 rounded-full blur-[100px] transition-colors duration-700 bg-sky-400/15" />
+            <div className="absolute bottom-0 left-1/3 w-[400px] h-[400px] rounded-full blur-[150px] transition-colors duration-700 bg-blue-700/10" />
           </div>
 
           <div className="container mx-auto px-12 md:px-24 relative z-10 flex flex-col flex-grow">
@@ -711,7 +711,7 @@ export default function LandingPage() {
               </div>
             ) : (
               <>
-                <div className="flex justify-center items-end gap-1 md:gap-2 lg:gap-3 flex-grow pb-10">
+                <div className="flex justify-center items-end gap-1 md:gap-4 lg:gap-6 flex-grow pb-10">
                   {menuDays.map((item, index) => {
                     const plateInfo = getMenuInfo(activeMenuType, item.day, index);
                     const isActive = activeMenuDayIndex === index;
@@ -727,7 +727,7 @@ export default function LandingPage() {
                             : "scale-75 opacity-40 hover:opacity-100 hover:scale-100 hover:z-20"
                         )}
                       >
-                        <div className="relative w-32 h-24 md:w-48 md:h-36 lg:w-56 lg:h-40 rounded-2xl overflow-hidden border-2 border-white/20 shadow-2xl">
+                        <div className="relative w-32 h-24 md:w-48 md:h-36 lg:w-56 lg:h-40 rounded-2xl overflow-hidden bg-transparent">
                           <Image 
                             src={plateInfo.imageUrl} 
                             alt={item.day} 

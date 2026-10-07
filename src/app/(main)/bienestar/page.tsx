@@ -242,7 +242,7 @@ export default function BienestarPage() {
                         : "scale-100 opacity-80 hover:opacity-100"
                     )}
                   >
-                    <div className="relative w-40 h-52 md:w-56 md:h-[300px] lg:w-72 lg:h-[400px] rounded-2xl overflow-hidden bg-transparent border-none">
+                    <div className="relative w-52 h-64 md:w-72 md:h-[400px] lg:w-[320px] lg:h-[480px] rounded-2xl overflow-hidden bg-transparent border-none">
                       {activityImage && (
                         <Image 
                           src={activityImage.imageUrl} 
@@ -350,7 +350,7 @@ export default function BienestarPage() {
             </div>
           ) : (
             <>
-              <div className="flex justify-center items-end gap-1 md:gap-2 lg:gap-3 flex-grow pb-10">
+              <div className="flex justify-center items-end gap-1 md:gap-4 lg:gap-6 flex-grow pb-10">
                 {menuDays.map((item, index) => {
                   const plateInfo = getMenuInfo(activeMenuType, item.day, index);
                   const isActive = activeMenuDayIndex === index;
@@ -366,7 +366,7 @@ export default function BienestarPage() {
                           : "scale-75 opacity-40 hover:opacity-100 hover:scale-100 hover:z-20"
                       )}
                     >
-                      <div className="relative w-32 h-24 md:w-48 md:h-36 lg:w-56 lg:h-40 rounded-2xl overflow-hidden border-2 border-white/20 shadow-2xl">
+                      <div className="relative w-32 h-24 md:w-48 md:h-36 lg:w-56 lg:h-40 rounded-2xl overflow-hidden bg-transparent">
                         <Image 
                           src={plateInfo.imageUrl} 
                           alt={item.day} 
