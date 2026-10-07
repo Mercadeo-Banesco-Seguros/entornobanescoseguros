@@ -87,8 +87,8 @@ export default function Navbar() {
     const dynamicNotifications: NotificationItem[] = [
       { 
         id: 'portal-1', 
-        title: 'Explora la Academia', 
-        description: 'Nuevos cursos de gestión de riesgos disponibles.', 
+        title: 'Nueva Identidad', 
+        description: 'El cambio de marca ya está aquí.', 
         time: 'Portal', 
         icon: Sparkles, 
         color: 'text-blue-400', 
@@ -110,7 +110,6 @@ export default function Navbar() {
       const normalize = (str: string) => 
         str ? str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim() : "";
       
-      // Buscamos el plato de hoy, priorizando el tipo "Clásico" para la notificación
       const todayPlate = menuData.find(p => 
         normalize(p.day) === normalize(currentDayName) && 
         normalize(p.type) === normalize('Clásico')
