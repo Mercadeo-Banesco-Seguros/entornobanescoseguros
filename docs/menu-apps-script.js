@@ -2,8 +2,13 @@
  * SCRIPT PARA GESTIÓN DE MENÚ (SABOR SEGURO)
  * Hoja: "MENU"
  * Estructura: [Día (A), Tipo de Menú (B), Nombre Menu (C), Descripción Menú (D), URL Imagen Menú (E)]
- * Formato Día: Lunes, Martes, Miércoles, Jueves, Viernes, Sábado, Domingo
- * Tipos sugeridos: Clásico, Dieta, Ejecutivo
+ * 
+ * Orden de Columnas Sugerido:
+ * A: Día (Lunes, Martes, Miércoles, Jueves, Viernes)
+ * B: Tipo de Menú (Clásico, Dieta, Ejecutivo)
+ * C: Nombre Menu (Título del plato, ej: "Pollo al Curry")
+ * D: Descripción Menú (Detalles adicionales)
+ * E: URL Imagen Menú (Link directo a la imagen)
  */
 
 const SH_MENU = "MENU";

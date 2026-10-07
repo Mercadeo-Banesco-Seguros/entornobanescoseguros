@@ -119,11 +119,9 @@ export default function BienestarPage() {
   const gymBenefitImage = PlaceHolderImages.find(img => img.id === 'gym-benefit');
 
   const getMenuInfo = (type: string, dayName: string, index: number) => {
-    // Función para normalizar texto (quitar acentos y espacios extra) para comparaciones seguras
     const normalize = (str: string) => 
-      str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+      str ? str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim() : "";
 
-    // Intentar buscar en el menú dinámico usando normalización
     const plate = dynamicMenu.find(p => 
       normalize(p.day) === normalize(dayName) && 
       normalize(p.type) === normalize(type)
@@ -137,7 +135,6 @@ export default function BienestarPage() {
       };
     }
 
-    // Fallback a placeholders locales si no hay datos en el Sheet
     const fallbackPlates = {
         'Lunes': 'Bowl Energético',
         'Martes': 'Pollo al Curry',
@@ -229,7 +226,7 @@ export default function BienestarPage() {
           </div>
 
           <div className="w-full flex flex-col gap-4 max-w-[1400px] mx-auto">
-            <div className="flex justify-center items-end gap-3 md:gap-4 lg:gap-6 flex-grow pb-4">
+            <div className="flex justify-center items-end gap-3 md:gap-4 lg:gap-6 flex-grow pb-6">
               {wellnessActivities.map((item, index) => {
                 const activityImage = PlaceHolderImages.find(img => img.id === item.id);
                 const isActive = activeActivityIndex === index;
@@ -245,7 +242,7 @@ export default function BienestarPage() {
                         : "scale-100 opacity-80 hover:opacity-100"
                     )}
                   >
-                    <div className="relative w-56 h-72 md:w-72 md:h-80 lg:w-[320px] lg:h-[400px] rounded-2xl overflow-hidden bg-transparent">
+                    <div className="relative w-72 h-80 md:w-80 md:h-[350px] lg:w-[416px] lg:h-[450px] rounded-2xl overflow-hidden bg-transparent">
                       {activityImage && (
                         <Image 
                           src={activityImage.imageUrl} 
@@ -277,7 +274,7 @@ export default function BienestarPage() {
 
               <div className="flex flex-col items-end gap-1">
                 <div className="text-right">
-                  <p className="text-slate-400 text-[9px] font-light tracking-normal">{activeActivity.day}</p>
+                  <p className="text-slate-400 text-[9px] font-light tracking-tight">{activeActivity.day}</p>
                   <h3 className="text-[#0054A6] text-lg md:text-xl font-bold tracking-tighter leading-none mt-1">
                     {activeActivity.style}
                   </h3>
