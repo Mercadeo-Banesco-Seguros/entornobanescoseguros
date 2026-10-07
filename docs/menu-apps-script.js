@@ -2,6 +2,7 @@
  * SCRIPT PARA GESTIÓN DE MENÚ (SABOR SEGURO)
  * Hoja: "MENU"
  * Estructura: [Día (A), Tipo de Menú (B), Nombre Menu (C), Descripción Menú (D), URL Imagen Menú (E)]
+ * Formato Día: Lunes, Martes, Miércoles, Jueves, Viernes, Sábado, Domingo
  * Tipos sugeridos: Clásico, Dieta, Ejecutivo
  */
 
@@ -51,7 +52,7 @@ function getMenuData() {
       if (row[0]) { // Si hay día definido
         data.push({
           day: row[0].toString().trim(),
-          type: row[1].toString().trim(),
+          type: row[1] ? row[1].toString().trim() : "Clásico",
           name: row[2] ? row[2].toString().trim() : "",
           description: row[3] ? row[3].toString().trim() : "",
           imageUrl: row[4] ? row[4].toString().trim() : ""

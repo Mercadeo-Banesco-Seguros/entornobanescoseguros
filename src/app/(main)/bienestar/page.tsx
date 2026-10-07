@@ -119,17 +119,21 @@ export default function BienestarPage() {
   const gymBenefitImage = PlaceHolderImages.find(img => img.id === 'gym-benefit');
 
   const getMenuInfo = (type: string, dayName: string, index: number) => {
-    // Intentar buscar en el menú dinámico
+    // Función para normalizar texto (quitar acentos y espacios extra) para comparaciones seguras
+    const normalize = (str: string) => 
+      str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+
+    // Intentar buscar en el menú dinámico usando normalización
     const plate = dynamicMenu.find(p => 
-      p.day.toLowerCase() === dayName.toLowerCase() && 
-      p.type.toLowerCase() === type.toLowerCase()
+      normalize(p.day) === normalize(dayName) && 
+      normalize(p.type) === normalize(type)
     );
 
     if (plate) {
       return {
         style: plate.name || plate.description || 'Plato Especial',
         description: plate.description,
-        imageUrl: plate.imageUrl
+        imageUrl: plate.imageUrl || `https://picsum.photos/seed/${normalize(dayName)}-${normalize(type)}/600/800`
       };
     }
 
@@ -160,7 +164,7 @@ export default function BienestarPage() {
 
   return (
     <div className="flex flex-col w-full min-h-screen">
-      {/* 1. Dynamic Hero Section */}
+      {/* 1. Hero Section */}
       <section className="relative w-screen left-1/2 -ml-[50vw] -mt-32 pt-32 h-[528px] overflow-hidden flex flex-col items-center justify-start transition-colors duration-700 bg-gradient-to-br from-[#0061C1] via-[#0072CE] to-[#38BDF8] shadow-2xl">
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute top-0 right-0 w-[1000px] h-[1000px] rounded-full blur-[150px] bg-sky-400/20 translate-x-1/2 -translate-y-1/2" />
@@ -214,9 +218,9 @@ export default function BienestarPage() {
       </section>
 
       {/* 2. Sección: Tu bienestar nos importa */}
-      <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-12 px-6 overflow-hidden">
+      <section className="relative w-screen left-1/2 -ml-[50vw] bg-white py-10 px-6 overflow-hidden">
         <div className="w-full flex flex-col items-center">
-          <div className="text-center space-y-2 mb-8">
+          <div className="text-center space-y-2 mb-6">
             <span className="text-[#0054A6] text-[11px] font-light tracking-tight uppercase">Cartelera Institucional</span>
             <h2 className="text-2xl md:text-3xl font-bold tracking-tighter text-slate-900 leading-none">Tu bienestar nos importa</h2>
             <p className="text-slate-500 text-[9px] md:text-[10px] font-light leading-relaxed max-w-2xl mx-auto mt-2">
@@ -225,7 +229,7 @@ export default function BienestarPage() {
           </div>
 
           <div className="w-full flex flex-col gap-4 max-w-[1400px] mx-auto">
-            <div className="flex justify-center items-end gap-3 md:gap-4 lg:gap-6 flex-grow pb-6">
+            <div className="flex justify-center items-end gap-3 md:gap-4 lg:gap-6 flex-grow pb-4">
               {wellnessActivities.map((item, index) => {
                 const activityImage = PlaceHolderImages.find(img => img.id === item.id);
                 const isActive = activeActivityIndex === index;
@@ -237,11 +241,11 @@ export default function BienestarPage() {
                     className={cn(
                       "relative transition-all duration-500 cursor-pointer group flex flex-col items-center",
                       isActive 
-                        ? "scale-110 z-20" 
+                        ? "scale-105 z-20" 
                         : "scale-100 opacity-80 hover:opacity-100"
                     )}
                   >
-                    <div className="relative w-64 h-80 md:w-80 md:h-[400px] lg:w-[420px] lg:h-[500px] rounded-2xl overflow-hidden bg-transparent">
+                    <div className="relative w-56 h-72 md:w-72 md:h-80 lg:w-[320px] lg:h-[400px] rounded-2xl overflow-hidden bg-transparent">
                       {activityImage && (
                         <Image 
                           src={activityImage.imageUrl} 
@@ -273,7 +277,7 @@ export default function BienestarPage() {
 
               <div className="flex flex-col items-end gap-1">
                 <div className="text-right">
-                  <p className="text-slate-400 text-[9px] font-light tracking-tight">{activeActivity.day}</p>
+                  <p className="text-slate-400 text-[9px] font-light tracking-normal">{activeActivity.day}</p>
                   <h3 className="text-[#0054A6] text-lg md:text-xl font-bold tracking-tighter leading-none mt-1">
                     {activeActivity.style}
                   </h3>
@@ -287,7 +291,7 @@ export default function BienestarPage() {
         </div>
       </section>
 
-      {/* 2.5. Beneficio de Gimnasio Section */}
+      {/* 2.5. Beneficio de Gimnasio */}
       <section className="relative w-screen left-1/2 -ml-[50vw] bg-slate-50 py-12 px-6 overflow-hidden border-y border-slate-100">
         <div className="container mx-auto px-8 md:px-16 lg:px-24 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -333,7 +337,7 @@ export default function BienestarPage() {
         </div>
       </section>
 
-      {/* 3. Sabor Seguro (Menú) Section */}
+      {/* 3. Sabor Seguro (Menú) */}
       <section className="relative w-screen left-1/2 -ml-[50vw] py-16 overflow-hidden min-h-[700px] flex flex-col transition-colors duration-700 bg-[#0054A6]">
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] rounded-full blur-[120px] transition-colors duration-700 bg-blue-500/20" />
