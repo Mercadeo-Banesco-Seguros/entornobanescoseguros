@@ -4,9 +4,10 @@ import * as React from 'react';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
-import { CalendarDays, Gift, CreditCard, ChevronRight, Utensils } from 'lucide-react';
+import { CalendarDays, Gift, CreditCard, ChevronRight, Utensils, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import { useAuth } from '@/context/auth-context';
 
 const wellnessStates = [
   {
@@ -68,22 +69,38 @@ const upcomingEvents = [
 ];
 
 const menuDays = [
-  { id: 'lunes', day: 'Lunes', style: 'Bowl Energético' },
-  { id: 'martes', day: 'Martes', style: 'Pollo al Curry' },
-  { id: 'miercoles', day: 'Miércoles', style: 'Pasta Mediterránea' },
-  { id: 'jueves', day: 'Jueves', style: 'Salmón Grillado' },
-  { id: 'viernes', day: 'Viernes', style: 'Bowl de Proteína' },
+  { id: 'lunes', day: 'Lunes', index: 0 },
+  { id: 'martes', day: 'Martes', index: 1 },
+  { id: 'miercoles', day: 'Miércoles', index: 2 },
+  { id: 'jueves', day: 'Jueves', index: 3 },
+  { id: 'viernes', day: 'Viernes', index: 4 },
 ];
 
 export default function BienestarPage() {
+  const { fetchMenuData } = useAuth();
   const [mounted, setMounted] = React.useState(false);
   const [currentStateIndex, setCurrentStateIndex] = React.useState(0);
   const [activeActivityIndex, setActiveActivityIndex] = React.useState(0);
   const [activeMenuDayIndex, setActiveMenuDayIndex] = React.useState(0);
   const [activeMenuType, setActiveMenuType] = React.useState<'Clásico' | 'Dieta' | 'Ejecutivo'>('Clásico');
+  const [dynamicMenu, setDynamicMenu] = React.useState<any[]>([]);
+  const [loadingMenu, setLoadingMenu] = React.useState(true);
+
+  const loadMenu = React.useCallback(async () => {
+    setLoadingMenu(true);
+    try {
+      const data = await fetchMenuData();
+      setDynamicMenu(data || []);
+    } catch (e) {
+      console.warn("No se pudo cargar el menú dinámico");
+    } finally {
+      setLoadingMenu(false);
+    }
+  }, [fetchMenuData]);
 
   React.useEffect(() => {
     setMounted(true);
+    loadMenu();
     
     const today = new Date().getDay();
     const initialDayIndex = today === 0 || today === 6 ? 0 : today - 1;
@@ -94,21 +111,50 @@ export default function BienestarPage() {
     }, 10000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [loadMenu]);
 
   const currentState = wellnessStates[currentStateIndex];
   const heroImage = PlaceHolderImages.find(img => img.id === currentState.imageId);
   const activeActivity = wellnessActivities[activeActivityIndex] || wellnessActivities[0];
   const gymBenefitImage = PlaceHolderImages.find(img => img.id === 'gym-benefit');
 
-  const getMenuImageUrl = (type: 'Clásico' | 'Dieta' | 'Ejecutivo', index: number) => {
+  const getMenuInfo = (type: string, dayName: string, index: number) => {
+    // Intentar buscar en el menú dinámico
+    const plate = dynamicMenu.find(p => 
+      p.day.toLowerCase() === dayName.toLowerCase() && 
+      p.type.toLowerCase() === type.toLowerCase()
+    );
+
+    if (plate) {
+      return {
+        style: plate.description,
+        imageUrl: plate.imageUrl
+      };
+    }
+
+    // Fallback a placeholders locales si no hay datos en el Sheet
+    const fallbackPlates = {
+        'Lunes': 'Bowl Energético',
+        'Martes': 'Pollo al Curry',
+        'Miércoles': 'Pasta Mediterránea',
+        'Jueves': 'Salmón Grillado',
+        'Viernes': 'Bowl de Proteína'
+    };
+    
     const prefixMap = { 'Clásico': 'menu-c-', 'Dieta': 'menu-d-', 'Ejecutivo': 'menu-e-' };
-    const prefix = prefixMap[type];
+    const prefix = prefixMap[type as keyof typeof prefixMap] || 'menu-c-';
     const id = `${prefix}${index + 1}`;
-    return PlaceHolderImages.find(img => img.id === id)?.imageUrl || `https://picsum.photos/seed/${id}/600/800`;
+    
+    return {
+      style: fallbackPlates[dayName as keyof typeof fallbackPlates] || 'Plato Especial',
+      imageUrl: PlaceHolderImages.find(img => img.id === id)?.imageUrl || `https://picsum.photos/seed/${id}/600/800`
+    };
   };
 
   if (!mounted) return null;
+
+  const activeMenuDay = menuDays[activeMenuDayIndex] || menuDays[0];
+  const currentMenuInfo = getMenuInfo(activeMenuType, activeMenuDay.day, activeMenuDayIndex);
 
   return (
     <div className="flex flex-col w-full min-h-screen">
@@ -193,7 +239,7 @@ export default function BienestarPage() {
                         : "scale-100 opacity-80 hover:opacity-100"
                     )}
                   >
-                    <div className="relative w-40 h-64 md:w-56 md:h-80 lg:w-72 lg:h-[420px] rounded-2xl overflow-hidden bg-transparent border-none shadow-none">
+                    <div className="relative w-52 h-72 md:w-72 md:h-96 lg:w-96 lg:h-[480px] rounded-2xl overflow-hidden bg-transparent border-none shadow-none">
                       {activityImage && (
                         <Image 
                           src={activityImage.imageUrl} 
@@ -294,75 +340,84 @@ export default function BienestarPage() {
         </div>
 
         <div className="container mx-auto px-12 md:px-24 relative z-10 flex flex-col flex-grow">
-          <div className="flex justify-center items-end gap-1 md:gap-4 lg:gap-6 flex-grow pb-10">
-            {menuDays.map((item, index) => {
-              const currentImageUrl = getMenuImageUrl(activeMenuType, index);
-              const isActive = activeMenuDayIndex === index;
+          {loadingMenu ? (
+            <div className="flex flex-col items-center justify-center flex-grow gap-4 text-white/40">
+              <Loader2 className="w-8 h-8 animate-spin" />
+              <p className="text-[10px] font-light uppercase tracking-widest">Sincronizando Menú...</p>
+            </div>
+          ) : (
+            <>
+              <div className="flex justify-center items-end gap-1 md:gap-4 lg:gap-6 flex-grow pb-10">
+                {menuDays.map((item, index) => {
+                  const plateInfo = getMenuInfo(activeMenuType, item.day, index);
+                  const isActive = activeMenuDayIndex === index;
 
-              return (
-                <div 
-                  key={item.day}
-                  onMouseEnter={() => setActiveMenuDayIndex(index)}
-                  className={cn(
-                    "relative transition-all duration-500 cursor-pointer group flex flex-col items-center",
-                    isActive 
-                      ? "scale-100 z-20 translate-y-[-10px]" 
-                      : "scale-75 opacity-40 hover:opacity-100 hover:scale-100 hover:z-20"
-                  )}
-                >
-                  <div className="relative w-24 h-56 md:w-36 md:h-80 lg:w-44 lg:h-[420px] rounded-2xl overflow-hidden border-2 border-white/20 shadow-2xl">
-                    <Image 
-                      src={currentImageUrl} 
-                      alt={item.day} 
-                      fill 
-                      unoptimized
-                      className="object-cover"
-                    />
+                  return (
+                    <div 
+                      key={item.day}
+                      onMouseEnter={() => setActiveMenuDayIndex(index)}
+                      className={cn(
+                        "relative transition-all duration-500 cursor-pointer group flex flex-col items-center",
+                        isActive 
+                          ? "scale-100 z-20 translate-y-[-10px]" 
+                          : "scale-75 opacity-40 hover:opacity-100 hover:scale-100 hover:z-20"
+                      )}
+                    >
+                      <div className="relative w-24 h-56 md:w-36 md:h-80 lg:w-44 lg:h-[420px] rounded-2xl overflow-hidden border-2 border-white/20 shadow-2xl">
+                        <Image 
+                          src={plateInfo.imageUrl} 
+                          alt={item.day} 
+                          fill 
+                          unoptimized
+                          className="object-cover"
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="flex flex-col md:flex-row justify-between items-end w-full gap-8 px-4 pb-4">
+                <div className="space-y-4 text-left">
+                  <div className="space-y-0">
+                    <p className="text-white/70 text-[10px] font-light tracking-tight">Menú {activeMenuType}</p>
+                    <h2 className="text-white text-2xl md:text-3xl font-light tracking-tighter">Banesco Seguros</h2>
+                  </div>
+                  <Button 
+                    variant="secondary" 
+                    className="bg-white hover:bg-white/90 rounded-xl px-6 font-light text-[10px] h-8 transition-colors duration-700 text-[#0054A6] border-none"
+                  >
+                    Ver Menú Completo
+                  </Button>
+                </div>
+
+                <div className="flex flex-col items-end gap-6">
+                  <div className="text-right">
+                    <p className="text-white/80 text-[10px] font-light uppercase tracking-widest">{activeMenuDay.day}</p>
+                    <h3 className="text-white text-2xl md:text-3xl font-light tracking-tighter leading-none mt-1">
+                      {currentMenuInfo.style}
+                    </h3>
+                  </div>
+                  <div className="flex gap-3">
+                    {['Clásico', 'Dieta', 'Ejecutivo'].map((type) => (
+                      <button
+                        key={type}
+                        onClick={() => setActiveMenuType(type as 'Clásico' | 'Dieta' | 'Ejecutivo')}
+                        className={cn(
+                          "px-6 py-2 rounded-xl text-[10px] font-light transition-all duration-300 h-8",
+                          activeMenuType === type 
+                            ? "bg-white text-[#0054A6]" 
+                            : "bg-white/10 text-white/60 hover:text-white"
+                        )}
+                      >
+                        {type}
+                      </button>
+                    ))}
                   </div>
                 </div>
-              );
-            })}
-          </div>
-
-          <div className="flex flex-col md:flex-row justify-between items-end w-full gap-8 px-4 pb-4">
-            <div className="space-y-4 text-left">
-              <div className="space-y-0">
-                <p className="text-white/70 text-[10px] font-light tracking-tight">Menú {activeMenuType}</p>
-                <h2 className="text-white text-2xl md:text-3xl font-light tracking-tighter">Banesco Seguros</h2>
               </div>
-              <Button 
-                variant="secondary" 
-                className="bg-white hover:bg-white/90 rounded-xl px-6 font-light text-[10px] h-8 transition-colors duration-700 text-[#0054A6] border-none"
-              >
-                Ver Menú Completo
-              </Button>
-            </div>
-
-            <div className="flex flex-col items-end gap-6">
-              <div className="text-right">
-                <p className="text-white/80 text-[10px] font-light uppercase tracking-widest">{(menuDays[activeMenuDayIndex] || menuDays[0]).day}</p>
-                <h3 className="text-white text-2xl md:text-3xl font-light tracking-tighter leading-none mt-1">
-                  {(menuDays[activeMenuDayIndex] || menuDays[0]).style}
-                </h3>
-              </div>
-              <div className="flex gap-3">
-                {['Clásico', 'Dieta', 'Ejecutivo'].map((type) => (
-                  <button
-                    key={type}
-                    onClick={() => setActiveMenuType(type as 'Clásico' | 'Dieta' | 'Ejecutivo')}
-                    className={cn(
-                      "px-6 py-2 rounded-xl text-[10px] font-light transition-all duration-300 h-8",
-                      activeMenuType === type 
-                        ? "bg-white text-[#0054A6]" 
-                        : "bg-white/10 text-white/60 hover:text-white"
-                    )}
-                  >
-                    {type}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
+            </>
+          )}
         </div>
       </section>
 

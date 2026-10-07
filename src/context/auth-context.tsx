@@ -26,6 +26,13 @@ interface CalendarDayData {
   birthdays: string[];
 }
 
+interface MenuPlate {
+  day: string;
+  type: string;
+  description: string;
+  imageUrl: string;
+}
+
 interface AuthContextType {
   isAuthenticated: boolean;
   isLoading: boolean;
@@ -36,6 +43,7 @@ interface AuthContextType {
   fetchUsers: () => Promise<void>;
   fetchCalendarData: () => Promise<CalendarDayData[]>;
   updateCalendarDay: (date: string, updates: { events: string[], birthdays: string[] }) => Promise<void>;
+  fetchMenuData: () => Promise<MenuPlate[]>;
   loading: boolean;
   error: string | null;
   vicepresidencias: string[];
@@ -55,6 +63,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const SCRIPT_URL = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL;
   const CALENDAR_SCRIPT_URL = process.env.NEXT_PUBLIC_CALENDAR_SCRIPT_URL;
+  const MENU_SCRIPT_URL = process.env.NEXT_PUBLIC_MENU_SCRIPT_URL;
 
   React.useEffect(() => {
     const savedUser = sessionStorage.getItem('bs_user');
@@ -169,6 +178,31 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, [CALENDAR_SCRIPT_URL]);
 
+  const fetchMenuData = React.useCallback(async () => {
+    if (!MENU_SCRIPT_URL) {
+      console.warn("NEXT_PUBLIC_MENU_SCRIPT_URL no configurada.");
+      return [];
+    }
+    try {
+      const response = await fetch(MENU_SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ action: 'getMenu' }),
+      });
+      const text = await response.text();
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch (e) {
+        return [];
+      }
+      return (data.success && Array.isArray(data.data)) ? data.data : [];
+    } catch (e) {
+      console.warn("Error al conectar con el servidor de menú:", e);
+      return [];
+    }
+  }, [MENU_SCRIPT_URL]);
+
   const fetchUsers = React.useCallback(async () => {
     setLoading(true);
     try {
@@ -198,6 +232,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     fetchUsers,
     fetchCalendarData,
     updateCalendarDay,
+    fetchMenuData,
     loading,
     error,
     vicepresidencias: ['Todas', 'VP. Comercial Gran Caracas', 'VP. Comercial Oriente', 'VP. Comercial Zulia - Falcón'],
@@ -213,7 +248,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       { id: 2, name: 'Segundo Lugar', imageUrl: 'https://www.banescoseguros.com/wp-content/uploads/2025/11/Tarjeta-Datos-Bancarios-Organico-Rosa-y-Amarillo-5-Photoroom.png' },
       { id: 3, name: 'Tercer Lugar', imageUrl: 'https://www.banescoseguros.com/wp-content/uploads/2025/11/Tarjeta-Datos-Bancarios-Organico-Rosa-y-Amarillo-6-Photoroom.png' },
     ]
-  }), [isAuthenticated, isLoading, currentUser, login, logout, users, fetchUsers, fetchCalendarData, updateCalendarDay, loading, error]);
+  }), [isAuthenticated, isLoading, currentUser, login, logout, users, fetchUsers, fetchCalendarData, updateCalendarDay, fetchMenuData, loading, error]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
