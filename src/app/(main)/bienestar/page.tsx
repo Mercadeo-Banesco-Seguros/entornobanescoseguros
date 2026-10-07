@@ -305,12 +305,14 @@ export default function BienestarPage() {
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <button className="px-10 py-3 rounded-xl bg-[#0054A6] text-white text-[10px] font-light hover:bg-[#0054A6]/90 transition-all shadow-sm">
-                  Ver Gimnasios Aliados
-                </button>
-                <button className="px-10 py-3 rounded-xl bg-white border border-slate-200 text-slate-600 text-[10px] font-light hover:bg-slate-50 transition-all">
-                  Consultar Tarifas
-                </button>
+                <a 
+                  href="https://script.google.com/a/macros/banescoseguros.com/s/AKfycbzT9GdO7PasmNZ51BKqrsjh41mP3TFyPGPpSAvlraRgtf4bRtlrvigeqA1yBkzjEbrg/exec"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-10 py-3 rounded-xl bg-[#0054A6] text-white text-[10px] font-light hover:bg-[#0054A6]/90 transition-all shadow-sm inline-flex items-center justify-center"
+                >
+                  Explorar Beneficio
+                </a>
               </div>
             </div>
             
