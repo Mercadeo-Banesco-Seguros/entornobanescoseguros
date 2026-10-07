@@ -1,7 +1,7 @@
 /**
  * SCRIPT PARA GESTIÓN DE MENÚ (SABOR SEGURO)
  * Hoja: "MENU"
- * Estructura: [Día (A), Tipo de Menú (B), Descripción Menú (C), URL Imagen Menú (D)]
+ * Estructura: [Día (A), Tipo de Menú (B), Nombre Menu (C), Descripción Menú (D), URL Imagen Menú (E)]
  * Tipos sugeridos: Clásico, Dieta, Ejecutivo
  */
 
@@ -52,8 +52,9 @@ function getMenuData() {
         data.push({
           day: row[0].toString().trim(),
           type: row[1].toString().trim(),
-          description: row[2].toString().trim(),
-          imageUrl: row[3].toString().trim()
+          name: row[2] ? row[2].toString().trim() : "",
+          description: row[3] ? row[3].toString().trim() : "",
+          imageUrl: row[4] ? row[4].toString().trim() : ""
         });
       }
     }

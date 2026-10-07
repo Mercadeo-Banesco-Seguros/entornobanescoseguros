@@ -127,7 +127,8 @@ export default function BienestarPage() {
 
     if (plate) {
       return {
-        style: plate.description,
+        style: plate.name || plate.description || 'Plato Especial',
+        description: plate.description,
         imageUrl: plate.imageUrl
       };
     }
@@ -147,6 +148,7 @@ export default function BienestarPage() {
     
     return {
       style: fallbackPlates[dayName as keyof typeof fallbackPlates] || 'Plato Especial',
+      description: '',
       imageUrl: PlaceHolderImages.find(img => img.id === id)?.imageUrl || `https://picsum.photos/seed/${id}/600/800`
     };
   };
@@ -239,7 +241,7 @@ export default function BienestarPage() {
                         : "scale-100 opacity-80 hover:opacity-100"
                     )}
                   >
-                    <div className="relative w-52 h-72 md:w-72 md:h-96 lg:w-96 lg:h-[480px] rounded-2xl overflow-hidden bg-transparent border-none shadow-none">
+                    <div className="relative w-64 h-80 md:w-80 md:h-[400px] lg:w-[420px] lg:h-[500px] rounded-2xl overflow-hidden bg-transparent">
                       {activityImage && (
                         <Image 
                           src={activityImage.imageUrl} 

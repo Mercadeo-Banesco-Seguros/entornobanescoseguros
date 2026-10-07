@@ -29,6 +29,7 @@ interface CalendarDayData {
 interface MenuPlate {
   day: string;
   type: string;
+  name: string;
   description: string;
   imageUrl: string;
 }
