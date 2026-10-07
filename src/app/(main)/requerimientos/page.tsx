@@ -2,8 +2,7 @@
 
 import * as React from 'react';
 import Image from 'next/image';
-import { Mail, Clock, Hammer, ArrowLeft } from 'lucide-react';
-import Link from 'next/link';
+import { Mail, Clock, Hammer } from 'lucide-react';
 
 export default function RequerimientosPage() {
   const [mounted, setMounted] = React.useState(false);
@@ -50,16 +49,6 @@ export default function RequerimientosPage() {
           <p className="text-[#0054A6] text-xs font-medium tracking-tight">
             Estará disponible muy pronto.
           </p>
-        </div>
-
-        {/* Action Button */}
-        <div className="pt-8">
-          <Link href="/">
-            <button className="group inline-flex items-center gap-2 px-10 py-3 rounded-xl bg-[#003B73] text-white text-[11px] font-light hover:bg-[#002D54] transition-all shadow-lg hover:shadow-[#003B73]/20 active:scale-95">
-              <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" />
-              Volver al Inicio
-            </button>
-          </Link>
         </div>
       </div>
     </div>
