@@ -4,7 +4,7 @@ import * as React from 'react';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { cn } from '@/lib/utils';
-import { CalendarDays, Gift, CreditCard, ChevronRight, Utensils, Loader2 } from 'lucide-react';
+import { CalendarDays, Gift, CreditCard, ChevronRight, Utensils, Loader2, Cake } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/context/auth-context';
@@ -29,45 +29,6 @@ const wellnessActivities = [
   { id: 'wellness-combat', day: 'Martes, 5:00 PM', style: 'Cross Combat', location: 'Ubicación: Terraza' },
 ];
 
-const upcomingEvents = [
-  { 
-    id: 1, 
-    date: '15', 
-    month: 'AGO', 
-    title: 'Asunción de la Virgen', 
-    type: 'Feriado Nacional', 
-    icon: CalendarDays, 
-    color: 'text-purple-500', 
-    bgColor: 'bg-purple-50',
-    hoverBg: 'hover:bg-purple-500',
-    iconColor: 'text-purple-500'
-  },
-  { 
-    id: 2, 
-    date: '26', 
-    month: 'AGO', 
-    title: '2da Quincena y Ticket', 
-    type: 'Pago Programado', 
-    icon: CreditCard, 
-    color: 'text-blue-500', 
-    bgColor: 'bg-blue-50',
-    hoverBg: 'hover:bg-blue-500',
-    iconColor: 'text-blue-500'
-  },
-  { 
-    id: 3, 
-    date: '28', 
-    month: 'AGO', 
-    title: 'Aniversario Institucional', 
-    type: 'Evento Especial', 
-    icon: Gift, 
-    color: 'text-pink-500', 
-    bgColor: 'bg-pink-50',
-    hoverBg: 'hover:bg-pink-500',
-    iconColor: 'text-pink-500'
-  },
-];
-
 const menuDays = [
   { id: 'lunes', day: 'Lunes', index: 0 },
   { id: 'martes', day: 'Martes', index: 1 },
@@ -77,7 +38,7 @@ const menuDays = [
 ];
 
 export default function BienestarPage() {
-  const { fetchMenuData } = useAuth();
+  const { fetchMenuData, fetchCalendarData } = useAuth();
   const [mounted, setMounted] = React.useState(false);
   const [currentStateIndex, setCurrentStateIndex] = React.useState(0);
   const [activeActivityIndex, setActiveActivityIndex] = React.useState(0);
@@ -85,22 +46,87 @@ export default function BienestarPage() {
   const [activeMenuType, setActiveMenuType] = React.useState<'Clásico' | 'Dieta' | 'Ejecutivo'>('Clásico');
   const [dynamicMenu, setDynamicMenu] = React.useState<any[]>([]);
   const [loadingMenu, setLoadingMenu] = React.useState(true);
+  const [dynamicEvents, setDynamicEvents] = React.useState<any[]>([]);
+  const [loadingEvents, setLoadingEvents] = React.useState(true);
 
-  const loadMenu = React.useCallback(async () => {
+  const loadDynamicData = React.useCallback(async () => {
     setLoadingMenu(true);
+    setLoadingEvents(true);
+    
+    // Cargar Menú
     try {
-      const data = await fetchMenuData();
-      setDynamicMenu(data || []);
+      const menuData = await fetchMenuData();
+      setDynamicMenu(menuData || []);
     } catch (e) {
       console.warn("No se pudo cargar el menú dinámico");
     } finally {
       setLoadingMenu(false);
     }
-  }, [fetchMenuData]);
+
+    // Cargar Eventos Reales del Calendario
+    try {
+      const calData = await fetchCalendarData();
+      if (Array.isArray(calData)) {
+        const today = new Date();
+        const upcoming: any[] = [];
+        
+        // Filtrar datos para los próximos 7-10 días (actualización semanal)
+        const sortedData = calData
+          .filter(day => {
+            const eventDate = new Date(day.date + 'T00:00:00');
+            const diffTime = eventDate.getTime() - today.getTime();
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            // Mostrar desde ayer hasta 10 días en el futuro
+            return diffDays >= -1 && diffDays <= 10;
+          })
+          .sort((a, b) => a.date.localeCompare(b.date));
+
+        sortedData.forEach((day) => {
+          const d = new Date(day.date + 'T00:00:00');
+          const dayNum = d.getDate().toString();
+          const monthStr = d.toLocaleString('es-ES', { month: 'short' }).toUpperCase().replace('.', '');
+
+          day.events?.forEach((ev: string, i: number) => {
+            upcoming.push({
+              id: `ev-${day.date}-${i}`,
+              date: dayNum,
+              month: monthStr,
+              title: ev,
+              type: 'Evento Institucional',
+              icon: CalendarDays,
+              color: 'text-blue-500',
+              bgColor: 'bg-blue-50',
+              hoverBg: 'hover:bg-blue-500',
+            });
+          });
+
+          day.birthdays?.forEach((bd: string, i: number) => {
+            upcoming.push({
+              id: `bd-${day.date}-${i}`,
+              date: dayNum,
+              month: monthStr,
+              title: `Cumpleaños: ${bd}`,
+              type: 'Festejo Interno',
+              icon: Cake,
+              color: 'text-pink-500',
+              bgColor: 'bg-pink-50',
+              hoverBg: 'hover:bg-pink-500',
+            });
+          });
+        });
+
+        setDynamicEvents(upcoming.slice(0, 3));
+      }
+    } catch (e) {
+      console.warn("No se pudieron cargar eventos dinámicos");
+    } finally {
+      setLoadingEvents(false);
+    }
+  }, [fetchMenuData, fetchCalendarData]);
 
   React.useEffect(() => {
     setMounted(true);
-    loadMenu();
+    loadDynamicData();
     
     const today = new Date().getDay();
     const initialDayIndex = today === 0 || today === 6 ? 0 : today - 1;
@@ -111,7 +137,7 @@ export default function BienestarPage() {
     }, 10000);
 
     return () => clearInterval(timer);
-  }, [loadMenu]);
+  }, [loadDynamicData]);
 
   const currentState = wellnessStates[currentStateIndex];
   const heroImage = PlaceHolderImages.find(img => img.id === currentState.imageId);
@@ -420,15 +446,15 @@ export default function BienestarPage() {
         </div>
       </section>
 
-      {/* 4. Sección: Feriados y eventos */}
+      {/* 4. Sección: Feriados y eventos (Real-Time) */}
       <section className="relative w-screen left-1/2 -ml-[50vw] bg-slate-50 py-16 px-12 md:px-24 lg:px-32 overflow-hidden border-t border-slate-100">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
             <div className="space-y-2">
               <span className="text-[#0054A6] text-[11px] font-light tracking-tight uppercase">Calendario</span>
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-slate-900 leading-none">Feriados y eventos</h2>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-slate-900 leading-none">Próximos en el circuito</h2>
               <p className="text-slate-500 text-[11px] font-light leading-relaxed max-xl mt-2">
-                Mantente al día con las fechas más importantes de nuestra organización. Planifica tu tiempo y celebra con nosotros.
+                Información real y actualizada semanalmente directamente desde nuestra gestión institucional.
               </p>
             </div>
             <Link href="/calendario">
@@ -438,35 +464,47 @@ export default function BienestarPage() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {upcomingEvents.map((event) => (
-              <div 
-                key={event.id} 
-                className={cn(
-                  "bg-white rounded-3xl p-6 border border-slate-100 flex items-center gap-5 group transition-all duration-300 cursor-pointer shadow-none",
-                  event.hoverBg
-                )}
-              >
-                <div className={cn(
-                  "w-16 h-20 rounded-2xl flex flex-col items-center justify-center shrink-0 border border-slate-50 transition-colors duration-300", 
-                  event.bgColor,
-                  "group-hover:bg-white/20 group-hover:border-white/30"
-                )}>
-                  <span className={cn("text-xl font-bold leading-none tracking-tighter transition-colors duration-300", event.color, "group-hover:text-white")}>{event.date}</span>
-                  <span className={cn("text-[9px] font-medium mt-1 uppercase transition-colors duration-300", event.color, "group-hover:text-white")}>{event.month}</span>
-                </div>
-                <div className="flex-grow space-y-1">
-                  <div className="flex items-center gap-1.5">
-                    <event.icon className={cn("w-3.5 h-3.5 transition-colors duration-300", event.color, "group-hover:text-white")} strokeWidth={1.5} />
-                    <span className="text-slate-400 text-[9px] font-normal transition-colors duration-300 group-hover:text-white/80">{event.type}</span>
+          {loadingEvents ? (
+            <div className="w-full flex items-center justify-center py-20 gap-4">
+              <Loader2 className="w-6 h-6 text-slate-200 animate-spin" />
+              <p className="text-[10px] text-slate-300 font-light uppercase tracking-widest">Sincronizando Cartelera...</p>
+            </div>
+          ) : dynamicEvents.length === 0 ? (
+            <div className="w-full py-12 text-center bg-white rounded-3xl border border-slate-100">
+               <CalendarDays className="w-8 h-8 text-slate-100 mx-auto mb-3" />
+               <p className="text-[11px] text-slate-400 font-light italic">Sin eventos programados para esta semana.</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {dynamicEvents.map((event) => (
+                <div 
+                  key={event.id} 
+                  className={cn(
+                    "bg-white rounded-3xl p-6 border border-slate-100 flex items-center gap-5 group transition-all duration-300 cursor-pointer shadow-none",
+                    event.hoverBg
+                  )}
+                >
+                  <div className={cn(
+                    "w-16 h-20 rounded-2xl flex flex-col items-center justify-center shrink-0 border border-slate-50 transition-colors duration-300", 
+                    event.bgColor,
+                    "group-hover:bg-white/20 group-hover:border-white/30"
+                  )}>
+                    <span className={cn("text-xl font-bold leading-none tracking-tighter transition-colors duration-300", event.color, "group-hover:text-white")}>{event.date}</span>
+                    <span className={cn("text-[9px] font-medium mt-1 uppercase transition-colors duration-300", event.color, "group-hover:text-white")}>{event.month}</span>
                   </div>
-                  <h4 className="text-slate-800 text-sm font-semibold tracking-tight leading-tight transition-colors duration-300 group-hover:text-white">
-                    {event.title}
-                  </h4>
+                  <div className="flex-grow space-y-1">
+                    <div className="flex items-center gap-1.5">
+                      <event.icon className={cn("w-3.5 h-3.5 transition-colors duration-300", event.color, "group-hover:text-white")} strokeWidth={1.5} />
+                      <span className="text-slate-400 text-[9px] font-normal transition-colors duration-300 group-hover:text-white/80">{event.type}</span>
+                    </div>
+                    <h4 className="text-slate-800 text-sm font-semibold tracking-tight leading-tight transition-colors duration-300 group-hover:text-white">
+                      {event.title}
+                    </h4>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
     </div>
