@@ -66,6 +66,15 @@ const nextConfig: NextConfig = {
       }
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/inicio',
+        destination: '/',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
