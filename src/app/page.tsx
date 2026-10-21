@@ -1030,7 +1030,14 @@ export default function LandingPage() {
                 ¿Ya conoces tu <br /> lugar en el ranking?
               </h2>
               <div className="flex gap-4">
-                <button className="px-10 py-3 rounded-xl bg-white text-[#0054A6] text-[10px] font-light hover:bg-white/90 transition-colors">Explorar Gestión</button>
+                <a 
+                  href="https://sites.google.com/banescoseguros.com/conectados/inicio" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="px-10 py-3 rounded-xl bg-white text-[#0054A6] text-[10px] font-light hover:bg-white/90 transition-colors inline-block"
+                >
+                  Explorar Gestión
+                </a>
               </div>
             </div>
             <div className="hidden md:flex w-1/2 h-full items-end justify-end">
