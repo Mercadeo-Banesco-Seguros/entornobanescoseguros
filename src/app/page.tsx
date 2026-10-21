@@ -1,8 +1,11 @@
-
 'use client';
 
 import * as React from "react";
-import { Cloud, X, Share2, FileText, HeartPulse, ShieldCheck, Home, User, Settings, Loader2 } from "lucide-react";
+import { 
+  Cloud, X, Share2, FileText, HeartPulse, ShieldCheck, 
+  Home, User, Settings, Loader2, Phone, MessageSquare, 
+  Globe, Instagram, Headphones, AlertTriangle, ArrowLeft 
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
@@ -13,6 +16,10 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import {
+  Dialog,
+  DialogContent,
+} from "@/components/ui/dialog";
 import { AuthGuard, useAuth } from '@/context/auth-context';
 import Link from 'next/link';
 
@@ -175,6 +182,8 @@ const faqData: Record<string, { question: string; answer: string }[]> = {
   ]
 };
 
+const EXTERNAL_HR_URL = "https://script.google.com/a/macros/banescoseguros.com/s/AKfycbyLxxr9NCgE30NDposZWTFcRf4Ny0xqRD1WFH3tPwnT0EV4LFgmBbLtNJnzbd5SNnfb/exec";
+
 export default function LandingPage() {
   const { fetchMenuData } = useAuth();
   const [mounted, setMounted] = React.useState(false);
@@ -191,6 +200,7 @@ export default function LandingPage() {
   const [activeFaqCategory, setActiveFaqCategory] = React.useState('general');
   const [dynamicMenu, setDynamicMenu] = React.useState<any[]>([]);
   const [loadingMenu, setLoadingMenu] = React.useState(true);
+  const [isHcmCardFlipped, setIsHcmCardFlipped] = React.useState(false);
 
   const loadMenu = React.useCallback(async () => {
     setLoadingMenu(true);
@@ -294,7 +304,7 @@ export default function LandingPage() {
       };
     }
 
-    const fallbackPlates = {
+    const fallbackPlates: Record<string, string> = {
         'Lunes': 'Bowl Energético',
         'Martes': 'Pollo al Curry',
         'Miércoles': 'Pasta Mediterránea',
@@ -302,12 +312,12 @@ export default function LandingPage() {
         'Viernes': 'Bowl de Proteína'
     };
     
-    const prefixMap = { 'Clásico': 'menu-c-', 'Dieta': 'menu-d-', 'Ejecutivo': 'menu-e-' };
-    const prefix = prefixMap[type as keyof typeof prefixMap] || 'menu-c-';
+    const prefixMap: Record<string, string> = { 'Clásico': 'menu-c-', 'Dieta': 'menu-d-', 'Ejecutivo': 'menu-e-' };
+    const prefix = prefixMap[type] || 'menu-c-';
     const id = `${prefix}${index + 1}`;
     
     return {
-      style: fallbackPlates[dayName as keyof typeof fallbackPlates] || 'Plato Especial',
+      style: fallbackPlates[dayName] || 'Plato Especial',
       imageUrl: PlaceHolderImages.find(img => img.id === id)?.imageUrl || `https://picsum.photos/seed/${id}/600/800`
     };
   };
@@ -347,7 +357,7 @@ export default function LandingPage() {
             <div className="max-w-6xl text-center w-full relative h-[300px] flex items-center justify-center">
               <h1 
                 className={cn(
-                  "absolute text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[0.95] transition-all duration-[1000ms] ease-[cubic-bezier(0.34,1.56,0.64,1)]",
+                  "absolute text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[0.95] transition-all duration-1000 ease-in-out",
                   current.textColor,
                   showFinalText 
                     ? "opacity-0 scale-50 blur-xl pointer-events-none" 
@@ -359,7 +369,7 @@ export default function LandingPage() {
 
               <h1 
                 className={cn(
-                  "absolute text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[0.95] transition-all duration-[1200ms] ease-[cubic-bezier(0.34,1.56,0.64,1)] whitespace-nowrap",
+                  "absolute text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-none transition-all duration-1000 ease-in-out whitespace-nowrap",
                   current.textColor,
                   showFinalText 
                     ? "opacity-100 scale-100 blur-none" 
@@ -404,7 +414,7 @@ export default function LandingPage() {
                     className="group flex items-center cursor-pointer"
                   >
                     <span className={cn(
-                      "tracking-tighter transition-all duration-300",
+                      "tracking-tight transition-all duration-300",
                       activeItem.id === item.id 
                         ? "text-black text-3xl md:text-5xl lg:text-[3.2rem] font-normal translate-x-0" 
                         : "text-gray-300 group-hover:text-gray-400 text-lg md:text-xl lg:text-2xl font-light"
@@ -420,7 +430,7 @@ export default function LandingPage() {
               <div className="relative aspect-[2/1] w-full rounded-3xl overflow-hidden bg-gradient-to-br from-blue-900 via-blue-800 to-sky-600 p-8 flex flex-col justify-between">
                 <div />
                 <div className="relative z-10">
-                  <span className="text-7xl font-extralight text-white/90 tracking-tighter transition-colors tabular-nums">
+                  <span className="text-7xl font-extralight text-white/90 tracking-tight transition-colors tabular-nums">
                     {activeItem.id}
                   </span>
                 </div>
@@ -466,6 +476,7 @@ export default function LandingPage() {
                         fill 
                         unoptimized
                         className="object-contain"
+                        data-ai-hint="corporate fashion"
                       />
                     </div>
                   </div>
@@ -477,7 +488,7 @@ export default function LandingPage() {
               <div className="space-y-4 text-left">
                 <div className="space-y-0">
                   <p className="text-white/70 text-[10px] font-light tracking-tight">Estilo Corporativo</p>
-                  <h2 className="text-white text-2xl md:text-3xl font-light tracking-tighter">Banesco Seguros</h2>
+                  <h2 className="text-white text-2xl md:text-3xl font-light tracking-tight">Banesco Seguros</h2>
                 </div>
                 <Button 
                   variant="secondary" 
@@ -490,7 +501,7 @@ export default function LandingPage() {
               <div className="flex flex-col items-end gap-6">
                 <div className="text-right">
                   <p className="text-white/80 text-[10px] font-light uppercase tracking-widest">{activeDay.day}</p>
-                  <h3 className="text-white text-2xl md:text-3xl font-light tracking-tighter leading-none mt-1">
+                  <h3 className="text-white text-2xl md:text-3xl font-light tracking-tight leading-none mt-1">
                     {activeDay.style}
                   </h3>
                 </div>
@@ -518,10 +529,15 @@ export default function LandingPage() {
         {/* 3. Vacaciones y Consultar Días Section */}
         <section className="bg-white py-24 px-6 md:px-12 lg:px-24">
           <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="group relative aspect-[4/3] md:aspect-[16/10] rounded-[2.5rem] overflow-hidden cursor-pointer shadow-xl transition-transform duration-500 hover:scale-[1.01]">
+            <a 
+              href={EXTERNAL_HR_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative aspect-[4/3] md:aspect-[16/10] rounded-[2.5rem] overflow-hidden cursor-pointer shadow-xl transition-transform duration-500 hover:scale-[1.01]"
+            >
               {vacationsImage && (
                 <Image 
-                  src={`${vacationsImage.imageUrl}`} 
+                  src={vacationsImage.imageUrl} 
                   alt="Planifica tus Próximas Vacaciones" 
                   fill 
                   unoptimized
@@ -531,15 +547,20 @@ export default function LandingPage() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
               <div className="absolute inset-0 p-10 flex flex-col justify-end items-start gap-4">
                 <span className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[10px] text-white font-light tracking-tight">Capital Humano</span>
-                <h3 className="text-white text-3xl md:text-4xl font-bold tracking-tighter leading-tight max-sm">Planifica tus Próximas Vacaciones</h3>
-                <button className="mt-2 px-8 py-2.5 rounded-xl bg-white/20 backdrop-blur-lg border border-white/20 text-white text-[11px] font-light hover:bg-white/30 transition-colors">Gestionar</button>
+                <h3 className="text-white text-3xl md:text-4xl font-bold tracking-tight leading-tight max-sm">Planifica tus Próximas Vacaciones</h3>
+                <div className="mt-2 px-8 py-2.5 rounded-xl bg-white/20 backdrop-blur-lg border border-white/20 text-white text-[11px] font-light hover:bg-white/30 transition-colors">Gestionar</div>
               </div>
-            </div>
+            </a>
 
-            <div className="group relative aspect-[4/3] md:aspect-[16/10] rounded-[2.5rem] overflow-hidden cursor-pointer shadow-xl transition-transform duration-500 hover:scale-[1.01]">
+            <a 
+              href={EXTERNAL_HR_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative aspect-[4/3] md:aspect-[16/10] rounded-[2.5rem] overflow-hidden cursor-pointer shadow-xl transition-transform duration-500 hover:scale-[1.01]"
+            >
               {consultImage && (
                 <Image 
-                  src={`${consultImage.imageUrl}`} 
+                  src={consultImage.imageUrl} 
                   alt="Consultar Días Disponibles" 
                   fill 
                   unoptimized
@@ -549,10 +570,10 @@ export default function LandingPage() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
               <div className="absolute inset-0 p-10 flex flex-col justify-end items-start gap-4">
                 <span className="px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-[10px] text-white font-light tracking-tight">Capital Humano</span>
-                <h3 className="text-white text-3xl md:text-4xl font-bold tracking-tighter leading-tight max-sm">Consultar Días Disponibles</h3>
-                <button className="mt-2 px-8 py-2.5 rounded-xl bg-white/20 backdrop-blur-lg border border-white/20 text-white text-[11px] font-light hover:bg-white/30 transition-colors">Consultar</button>
+                <h3 className="text-white text-3xl md:text-4xl font-bold tracking-tight leading-tight max-sm">Consultar Días Disponibles</h3>
+                <div className="mt-2 px-8 py-2.5 rounded-xl bg-white/20 backdrop-blur-lg border border-white/20 text-white text-[11px] font-light hover:bg-white/30 transition-colors">Consultar</div>
               </div>
-            </div>
+            </a>
           </div>
         </section>
 
@@ -565,7 +586,7 @@ export default function LandingPage() {
           <div className="container mx-auto px-6 relative z-10 h-full flex items-center justify-center">
             {!showShortcuts ? (
               <div className="text-center space-y-10 animate-in fade-in duration-500">
-                <h2 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-tight max-w-4xl mx-auto">Visita nuestro <br /> Portal de Requerimientos</h2>
+                <h2 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight max-w-4xl mx-auto">Visita nuestro <br /> Portal de Requerimientos</h2>
                 <div className="flex justify-center gap-4">
                   <button className="px-10 py-3 rounded-xl bg-white text-[#0054A6] text-[10px] font-light hover:bg-white/90 transition-colors">Próximamente</button>
                   <button onClick={() => setShowShortcuts(true)} className="px-10 py-3 rounded-xl bg-transparent border border-white/40 text-white text-[10px] font-light hover:bg-white/10 transition-colors">Atajos</button>
@@ -612,9 +633,6 @@ export default function LandingPage() {
                 </h2>
               </div>
               <div className="max-w-md space-y-6">
-                <p className="text-[10px] font-light leading-relaxed text-slate-500">
-                  Nuestros cursos traen claridad, no complejidad - uniendo cada concepto en un sistema adaptativo que aprende, actúa y evoluciona en tu carrera profesional.
-                </p>
                 <Link href="/academia#aprendizaje-interactivo">
                   <Button className="bg-[#0054A6] hover:bg-[#0054A6]/90 text-white rounded-xl px-10 h-11 text-[10px] font-light tracking-normal">
                     Explorar Más
@@ -661,7 +679,7 @@ export default function LandingPage() {
                           <div className="space-y-4">
                             <div className="space-y-2">
                               <h4 className={cn(
-                                "text-xs font-light tracking-normal transition-colors",
+                                "text-xs font-light tracking-tight transition-colors",
                                 isFeatured ? "text-blue-100" : "text-slate-500"
                               )}>
                                 {course.subtitle}
@@ -735,6 +753,7 @@ export default function LandingPage() {
                             fill 
                             unoptimized
                             className="object-cover"
+                            data-ai-hint="canteen food"
                           />
                         </div>
                       </div>
@@ -746,7 +765,7 @@ export default function LandingPage() {
                   <div className="space-y-4 text-left">
                     <div className="space-y-0">
                       <p className="text-white/70 text-[10px] font-light tracking-tight">Menú {activeMenuType}</p>
-                      <h2 className="text-white text-2xl md:text-3xl font-light tracking-tighter">Banesco Seguros</h2>
+                      <h2 className="text-white text-2xl md:text-3xl font-light tracking-tight">Banesco Seguros</h2>
                     </div>
                     <Button 
                       variant="secondary" 
@@ -759,7 +778,7 @@ export default function LandingPage() {
                   <div className="flex flex-col items-end gap-6">
                     <div className="text-right">
                       <p className="text-white/80 text-[10px] font-light uppercase tracking-widest">{activeMenuDay.day}</p>
-                      <h3 className="text-white text-2xl md:text-3xl font-light tracking-tighter leading-none mt-1">
+                      <h3 className="text-white text-2xl md:text-3xl font-light tracking-tight leading-none mt-1">
                         {currentMenuInfo.style}
                       </h3>
                     </div>
@@ -805,27 +824,104 @@ export default function LandingPage() {
               <div className="absolute inset-0 p-8 flex flex-col justify-end items-start gap-3">
                 <h3 className="text-white text-2xl font-bold tracking-tight leading-tight">Protocolos y Procedimientos</h3>
                 <p className="text-white/70 text-[10px] font-light max-w-[200px]">Guías detalladas para la gestión de siniestros y solicitudes.</p>
-                <button className="mt-2 px-6 py-2 rounded-xl bg-[#0054A6] text-white text-[10px] font-light hover:bg-[#0054A6]/90 transition-colors">Consultar</button>
+                <a 
+                  href="https://www.banescoseguros.com/personas-contacto-contigo/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="mt-2 px-6 py-2 rounded-xl bg-[#0054A6] text-white text-[10px] font-light hover:bg-[#0054A6]/90 transition-colors inline-block"
+                >
+                  Consultar
+                </a>
               </div>
             </div>
 
-            <div className="relative aspect-[3/4] rounded-3xl overflow-hidden bg-[#003B73] flex flex-col items-center justify-center p-8 text-center shadow-xl">
-               <div className="absolute inset-0 pointer-events-none opacity-10">
-                  <div className="absolute top-0 right-0 w-48 h-48 rounded-full bg-blue-400 blur-3xl -translate-y-1/2 translate-x-1/2" />
-                  <div className="absolute bottom-0 left-0 w-48 h-48 rounded-full bg-blue-300 blur-3xl translate-y-1/2 -translate-x-1/2" />
-               </div>
-               <div className="relative z-10 flex flex-col items-center gap-6">
-                  <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center border border-white/20">
-                    <ShieldCheck className="w-8 h-8 text-white" />
-                  </div>
-                  <div className="space-y-2">
-                    <p className="text-white/60 text-[10px] font-light tracking-tight">Estamos aquí para ayudarte</p>
-                    <h3 className="text-white text-4xl md:text-5xl font-bold tracking-tighter leading-none">Nuestra Póliza <br /> HCM</h3>
-                  </div>
-                  <div className="flex gap-4 w-full justify-center">
-                    <button className="px-8 py-2.5 rounded-xl bg-white text-[#003B73] text-[10px] font-light hover:bg-white/90 transition-colors w-24 flex items-center justify-center">Acceder</button>
-                    <button className="px-8 py-2.5 rounded-xl bg-transparent border border-white/30 text-white text-[10px] font-light hover:bg-white/10 transition-colors w-24 flex items-center justify-center">Contacto</button>
-                  </div>
+            <div className="relative aspect-[3/4] group [perspective:1000px]">
+               <div className={cn(
+                 "relative w-full h-full transition-all duration-700 [transform-style:preserve-3d]",
+                 isHcmCardFlipped ? "[transform:rotateY(180deg)]" : ""
+               )}>
+                 {/* Cara Frontal: Acceso Principal */}
+                 <div className="absolute inset-0 [backface-visibility:hidden] rounded-3xl overflow-hidden bg-[#003B73] flex flex-col items-center justify-center p-8 text-center shadow-xl">
+                    <div className="absolute inset-0 pointer-events-none opacity-10">
+                       <div className="absolute top-0 right-0 w-48 h-48 rounded-full bg-blue-400 blur-3xl -translate-y-1/2 translate-x-1/2" />
+                       <div className="absolute bottom-0 left-0 w-48 h-48 rounded-full bg-blue-300 blur-3xl translate-y-1/2 -translate-x-1/2" />
+                    </div>
+                    <div className="relative z-10 flex flex-col items-center gap-6">
+                       <div className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center border border-white/20">
+                         <ShieldCheck className="w-8 h-8 text-white" />
+                       </div>
+                       <div className="space-y-2">
+                         <p className="text-white/60 text-[10px] font-light tracking-tight">Estamos aquí para ayudarte</p>
+                         <h3 className="text-white text-4xl md:text-5xl font-bold tracking-tight leading-none">Nuestra Póliza <br /> HCM</h3>
+                       </div>
+                       <div className="flex gap-4 w-full justify-center">
+                         <Link href="/hcm">
+                           <button className="px-8 py-2.5 rounded-xl bg-white text-[#003B73] text-[10px] font-light hover:bg-white/90 transition-colors w-24 flex items-center justify-center">Acceder</button>
+                         </Link>
+                         <button 
+                           onClick={() => setIsHcmCardFlipped(true)}
+                           className="px-8 py-2.5 rounded-xl bg-transparent border border-white/30 text-white text-[10px] font-light hover:bg-white/10 transition-colors w-24 flex items-center justify-center"
+                         >
+                           Contacto
+                         </button>
+                       </div>
+                    </div>
+                 </div>
+
+                 {/* Cara Posterior: Datos de Contacto */}
+                 <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-3xl overflow-hidden bg-[#002D54] flex flex-col p-8 text-white text-left shadow-xl border border-white/10">
+                    <div className="flex items-center justify-between mb-6">
+                       <div className="flex items-center gap-2">
+                         <AlertTriangle className="w-3.5 h-3.5 text-red-400" />
+                         <h4 className="text-[11px] font-medium uppercase tracking-widest text-blue-300">Emergencias</h4>
+                       </div>
+                       <button onClick={() => setIsHcmCardFlipped(false)} className="p-1.5 rounded-full hover:bg-white/10 transition-colors">
+                         <ArrowLeft className="w-4 h-4" />
+                       </button>
+                    </div>
+                    
+                    <div className="space-y-5 overflow-y-auto no-scrollbar pr-1 flex-grow">
+                       <div className="space-y-2">
+                         <div className="flex items-center gap-2 text-blue-200">
+                           <HeartPulse className="w-3.5 h-3.5" />
+                           <p className="text-[10px] font-medium uppercase tracking-tight">Atención Médica</p>
+                         </div>
+                         <ul className="text-[9px] font-light text-white/70 space-y-1 pl-5">
+                           <li>0800-836.36.33</li>
+                           <li>0212-822.12.50</li>
+                           <li>0212-313.55.67</li>
+                         </ul>
+                       </div>
+
+                       <div className="space-y-2">
+                         <div className="flex items-center gap-2 text-blue-200">
+                           <Headphones className="w-3.5 h-3.5" />
+                           <p className="text-[10px] font-medium uppercase tracking-tight">Contacto (24H)</p>
+                         </div>
+                         <p className="text-[9px] font-light text-white/70 pl-5">0500-7258300</p>
+                       </div>
+
+                       <div className="space-y-2">
+                         <div className="flex items-center gap-2 text-blue-200">
+                           <MessageSquare className="w-3.5 h-3.5" />
+                           <p className="text-[10px] font-medium uppercase tracking-tight">WhatsApp</p>
+                         </div>
+                         <p className="text-[9px] font-light text-white/70 pl-5">0424-2668446</p>
+                       </div>
+
+                       <div className="space-y-2">
+                         <div className="flex items-center gap-2 text-blue-200">
+                           <Globe className="w-3.5 h-3.5" />
+                           <p className="text-[10px] font-medium uppercase tracking-tight">Gestión Digital</p>
+                         </div>
+                         <p className="text-[9px] font-light text-white/70 pl-5">Banesco SegurOnline</p>
+                       </div>
+                    </div>
+
+                    <div className="mt-6 pt-4 border-t border-white/10">
+                      <p className="text-[8px] text-white/40 leading-tight">Comunícate para reportar siniestros o atención médica inmediata.</p>
+                    </div>
+                 </div>
                </div>
             </div>
 
@@ -845,7 +941,14 @@ export default function LandingPage() {
               <div className="absolute inset-0 p-8 flex flex-col justify-end items-start gap-3">
                 <h3 className="text-white text-2xl font-bold tracking-tight leading-tight">Aliados Vitales</h3>
                 <p className="text-white/70 text-[10px] font-light max-w-[200px]">Encuentra proveedores de servicios médicos en nuestra red nacional.</p>
-                <button className="mt-2 px-6 py-2 rounded-xl bg-[#0054A6] text-white text-[10px] font-light hover:bg-[#0054A6]/90 transition-colors">Consultar</button>
+                <a 
+                  href="https://www.banescoseguros.com/personas-aliados-vitales-para-tu-salud/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="mt-2 px-6 py-2 rounded-xl bg-[#0054A6] text-white text-[10px] font-light hover:bg-[#0054A6]/90 transition-colors inline-block"
+                >
+                  Consultar
+                </a>
               </div>
             </div>
           </div>
@@ -859,9 +962,11 @@ export default function LandingPage() {
           </div>
           <div className="container mx-auto px-6 relative z-10 h-full flex items-center justify-center">
             <div className="text-center space-y-10 animate-in fade-in duration-500">
-              <h2 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-tight max-w-4xl mx-auto drop-shadow-md">Visita nuestro <br /> Espacio Ejecutivo</h2>
+              <h2 className="text-white text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight max-w-4xl mx-auto drop-shadow-md">Visita nuestro <br /> Espacio Ejecutivo</h2>
               <div className="flex justify-center">
-                <button className="px-10 py-3 rounded-xl bg-white text-[#0054A6] text-[10px] font-light hover:bg-white/90 transition-colors">Próximamente</button>
+                <Link href="/espacio-ejecutivo">
+                  <button className="px-10 py-3 rounded-xl bg-white text-[#0054A6] text-[10px] font-light hover:bg-white/90 transition-colors">acceder</button>
+                </Link>
               </div>
             </div>
           </div>
@@ -896,6 +1001,7 @@ export default function LandingPage() {
                       fill 
                       unoptimized 
                       className="object-cover transition-transform duration-500 group-hover:scale-110" 
+                      data-ai-hint="music playlist"
                     />
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
@@ -920,7 +1026,7 @@ export default function LandingPage() {
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
                 <span className="text-[10px] text-white font-light tracking-tight">Expedición por Nuestro ADN</span>
               </div>
-              <h2 className="text-white text-2xl md:text-3xl lg:text-4xl font-bold tracking-tighter leading-tight max-w-md drop-shadow-md">
+              <h2 className="text-white text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight leading-tight max-md drop-shadow-md">
                 ¿Ya conoces tu <br /> lugar en el ranking?
               </h2>
               <div className="flex gap-4">
@@ -936,6 +1042,7 @@ export default function LandingPage() {
                     fill
                     unoptimized
                     className="object-contain object-bottom"
+                    data-ai-hint="explorer character"
                   />
                 )}
               </div>
