@@ -1,4 +1,3 @@
-
 'use client';
 
 import * as React from 'react';
@@ -87,7 +86,7 @@ const teamMembers = [
   },
   {
     name: 'Rosalba Rodríguez',
-    role: 'Gerente Comercial',
+    role: 'Gerente de Suscripción y Operaciones',
     imageId: 'team-rosalba'
   },
   {
@@ -98,12 +97,12 @@ const teamMembers = [
 ];
 
 const corporateApps = [
-  { name: 'Inteligencia Comercial', icon: Network, bgColor: 'bg-[#0054A6]', iconColor: 'text-white' },
-  { name: 'Site Actuarial', icon: PieChart, bgColor: 'bg-slate-800', iconColor: 'text-white' },
-  { name: 'Sistemática Comercial', icon: TrendingUp, bgColor: 'bg-[#003B73]', iconColor: 'text-white' },
-  { name: 'Portal de Peticiones', icon: MessageSquare, bgColor: 'bg-black', iconColor: 'text-white' },
-  { name: 'Site Operaciones', icon: LayoutGrid, bgColor: 'bg-sky-400', iconColor: 'text-white' },
-  { name: 'Site de Proyectos', icon: FolderKanban, bgColor: 'bg-[#002D54]', iconColor: 'text-white' },
+  { name: 'Inteligencia Comercial', icon: Network, bgColor: 'bg-[#0054A6]', iconColor: 'text-white', href: 'https://sites.google.com/banescoseguros.com/desarollocomercial-bsv/inteligencia-comercial' },
+  { name: 'Site Actuarial', icon: PieChart, bgColor: 'bg-slate-800', iconColor: 'text-white', href: 'https://sites.google.com/banescoseguros.com/site-actuarial?usp=sharing' },
+  { name: 'Sistemática Comercial', icon: TrendingUp, bgColor: 'bg-[#003B73]', iconColor: 'text-white', href: 'https://sites.google.com/banescoseguros.com/sistematica-comercial-ve' },
+  { name: 'Portal de Peticiones', icon: MessageSquare, bgColor: 'bg-black', iconColor: 'text-white', href: '/requerimientos' },
+  { name: 'Site Operaciones', icon: LayoutGrid, bgColor: 'bg-sky-400', iconColor: 'text-white', href: '#' },
+  { name: 'Site de Proyectos', icon: FolderKanban, bgColor: 'bg-[#002D54]', iconColor: 'text-white', href: 'https://docs.google.com/forms/d/e/1FAIpQLSezxTbTDmrxKJxhqLcrSp90Ynh1kmIjksiiF7d0KmpEBlnznQ/viewform' },
 ];
 
 function Counter({ end, suffix = "", duration = 4000 }: { end: number; suffix?: string; duration?: number }) {
@@ -415,7 +414,7 @@ export default function NosotrosPage() {
                   <div className="relative aspect-square w-full rounded-[2rem] overflow-hidden bg-slate-200">
                     {placeholder && (
                       <Image 
-                        src={placeholder.imageUrl}
+                        src={placeholder.imageUrl} 
                         alt={member.name}
                         fill
                         className="object-cover"
@@ -497,7 +496,7 @@ export default function NosotrosPage() {
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-8 gap-y-16 max-w-6xl mx-auto">
             {corporateApps.map((app, i) => (
-              <div key={i} className="flex flex-col items-center gap-6 group cursor-pointer">
+              <a key={i} href={app.href} target={app.href.startsWith('http') ? "_blank" : undefined} rel="noopener noreferrer" className="flex flex-col items-center gap-6 group cursor-pointer">
                 <div className={cn(
                   "w-24 h-24 md:w-32 md:h-32 rounded-[2.2rem] flex items-center justify-center transition-all duration-500 border border-slate-100/50 group-hover:scale-105 group-hover:-translate-y-2",
                   app.bgColor
@@ -510,7 +509,7 @@ export default function NosotrosPage() {
                   </span>
                   <div className="w-1 h-1 bg-blue-500 rounded-full mx-auto opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
-              </div>
+              </a>
             ))}
           </div>
         </div>
